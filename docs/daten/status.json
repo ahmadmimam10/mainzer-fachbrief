@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-20T10:39:51.894Z",
+ "stand": "2026-11-20T11:48:20.171Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -7,7 +7,9 @@
    "kurz": "Ratsinfo Mainz",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 6
+   "treffer": 6,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 6 Treffer"
   },
   {
    "id": "stadt-mainz",
@@ -15,7 +17,9 @@
    "kurz": "Stadt Mainz",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "az",
@@ -23,7 +27,9 @@
    "kurz": "Allgemeine Zeitung",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 80
+   "treffer": 80,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 80 Treffer"
   },
   {
    "id": "merkurist",
@@ -31,7 +37,9 @@
    "kurz": "Merkurist",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 7
+   "treffer": 7,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 7 Treffer"
   },
   {
    "id": "sensor",
@@ -39,7 +47,9 @@
    "kurz": "Sensor",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "wohnbau-mainz",
@@ -47,7 +57,9 @@
    "kurz": "Wohnbau Mainz",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 9
+   "treffer": 9,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 9 Treffer"
   },
   {
    "id": "mainz-mastodon",
@@ -55,7 +67,9 @@
    "kurz": "Stadt Mainz (Mastodon)",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 20
+   "treffer": 20,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 20 Treffer"
   },
   {
    "id": "swr",
@@ -63,7 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 49
+   "treffer": 48,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 43 Treffer"
   },
   {
    "id": "landtag",
@@ -71,7 +87,9 @@
    "kurz": "Landtag RLP",
    "ebene": "land",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "bm-rlp",
@@ -79,7 +97,9 @@
    "kurz": "Bildungsministerium RLP",
    "ebene": "land",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "masffj",
@@ -87,7 +107,9 @@
    "kurz": "Familienministerium RLP",
    "ebene": "land",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "mkbwk",
@@ -95,7 +117,9 @@
    "kurz": "Kommunalministerium RLP",
    "ebene": "land",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "lsjv",
@@ -103,7 +127,9 @@
    "kurz": "LSJV RLP",
    "ebene": "land",
    "ok": true,
-   "treffer": 5
+   "treffer": 5,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 5 Treffer"
   },
   {
    "id": "kita-rlp",
@@ -111,7 +137,9 @@
    "kurz": "Kita-Server RLP",
    "ebene": "land",
    "ok": true,
-   "treffer": 20
+   "treffer": 20,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 20 Treffer"
   },
   {
    "id": "statistik-rlp",
@@ -119,7 +147,9 @@
    "kurz": "Statistik RLP",
    "ebene": "land",
    "ok": true,
-   "treffer": 100
+   "treffer": 100,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 100 Treffer"
   },
   {
    "id": "staedtetag-rlp",
@@ -127,7 +157,9 @@
    "kurz": "Städtetag RLP",
    "ebene": "land",
    "ok": true,
-   "treffer": 9
+   "treffer": 9,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 9 Treffer"
   },
   {
    "id": "netzwerk-familie-rlp",
@@ -135,7 +167,9 @@
    "kurz": "Netzwerk Familien stärken",
    "ebene": "land",
    "ok": true,
-   "treffer": 8
+   "treffer": 8,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 8 Treffer"
   },
   {
    "id": "bmbfsfj",
@@ -143,7 +177,9 @@
    "kurz": "Bundesfamilienministerium",
    "ebene": "bund",
    "ok": true,
-   "treffer": 40
+   "treffer": 40,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 40 Treffer"
   },
   {
    "id": "bundestag",
@@ -151,7 +187,9 @@
    "kurz": "Bundestag",
    "ebene": "bund",
    "ok": true,
-   "treffer": 30
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "bundesrat",
@@ -159,7 +197,9 @@
    "kurz": "Bundesrat",
    "ebene": "bund",
    "ok": false,
-   "treffer": 0
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
@@ -167,7 +207,9 @@
    "kurz": "Spiegel",
    "ebene": "bund",
    "ok": true,
-   "treffer": 40
+   "treffer": 40,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 40 Treffer"
   },
   {
    "id": "destatis",
@@ -175,7 +217,9 @@
    "kurz": "Destatis",
    "ebene": "bund",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "ubskm",
@@ -183,7 +227,9 @@
    "kurz": "Missbrauchsbeauftragte",
    "ebene": "bund",
    "ok": true,
-   "treffer": 20
+   "treffer": 20,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 20 Treffer"
   },
   {
    "id": "bmwsb",
@@ -191,7 +237,9 @@
    "kurz": "Bundesbauministerium",
    "ebene": "bund",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "staedtebaufoerderung",
@@ -199,7 +247,9 @@
    "kurz": "Städtebauförderung",
    "ebene": "bund",
    "ok": true,
-   "treffer": 40
+   "treffer": 40,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 40 Treffer"
   },
   {
    "id": "ism",
@@ -207,7 +257,9 @@
    "kurz": "ISM Mainz",
    "ebene": "fach",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "ikj",
@@ -215,7 +267,9 @@
    "kurz": "IKJ Mainz",
    "ebene": "fach",
    "ok": true,
-   "treffer": 5
+   "treffer": 5,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 5 Treffer"
   },
   {
    "id": "jugendhilfeportal",
@@ -223,7 +277,9 @@
    "kurz": "Jugendhilfeportal",
    "ebene": "fach",
    "ok": true,
-   "treffer": 30
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "dji",
@@ -231,7 +287,9 @@
    "kurz": "DJI",
    "ebene": "fach",
    "ok": true,
-   "treffer": 30
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "difu",
@@ -239,7 +297,9 @@
    "kurz": "Difu",
    "ebene": "fach",
    "ok": true,
-   "treffer": 124
+   "treffer": 124,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 124 Treffer"
   },
   {
    "id": "nzfh",
@@ -247,7 +307,9 @@
    "kurz": "NZFH",
    "ebene": "fach",
    "ok": true,
-   "treffer": 28
+   "treffer": 28,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 28 Treffer"
   },
   {
    "id": "dijuf",
@@ -255,7 +317,9 @@
    "kurz": "DIJuF",
    "ebene": "fach",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "agj",
@@ -263,7 +327,9 @@
    "kurz": "AGJ",
    "ebene": "fach",
    "ok": true,
-   "treffer": 25
+   "treffer": 25,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 25 Treffer"
   },
   {
    "id": "akjstat",
@@ -271,7 +337,9 @@
    "kurz": "AKJStat",
    "ebene": "fach",
    "ok": true,
-   "treffer": 4
+   "treffer": 4,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 4 Treffer"
   },
   {
    "id": "igfh",
@@ -279,7 +347,9 @@
    "kurz": "IGfH",
    "ebene": "fach",
    "ok": true,
-   "treffer": 4
+   "treffer": 4,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 4 Treffer"
   },
   {
    "id": "dv",
@@ -287,7 +357,9 @@
    "kurz": "Deutscher Verein",
    "ebene": "fach",
    "ok": true,
-   "treffer": 52
+   "treffer": 52,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 52 Treffer"
   },
   {
    "id": "dbjr",
@@ -295,7 +367,9 @@
    "kurz": "DBJR",
    "ebene": "fach",
    "ok": true,
-   "treffer": 30
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "jugendgerecht",
@@ -303,7 +377,9 @@
    "kurz": "jugendgerecht.de",
    "ebene": "fach",
    "ok": true,
-   "treffer": 40
+   "treffer": 40,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 40 Treffer"
   },
   {
    "id": "kommune360",
@@ -311,7 +387,9 @@
    "kurz": "Kommune360",
    "ebene": "fach",
    "ok": true,
-   "treffer": 8
+   "treffer": 8,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 8 Treffer"
   },
   {
    "id": "kosmo",
@@ -319,7 +397,9 @@
    "kurz": "Kosmo",
    "ebene": "fach",
    "ok": true,
-   "treffer": 8
+   "treffer": 8,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 8 Treffer"
   },
   {
    "id": "bildungsserver",
@@ -327,7 +407,9 @@
    "kurz": "Bildungsserver",
    "ebene": "fach",
    "ok": true,
-   "treffer": 12
+   "treffer": 12,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 12 Treffer"
   },
   {
    "id": "sozial-de",
@@ -335,7 +417,9 @@
    "kurz": "sozial.de",
    "ebene": "fach",
    "ok": true,
-   "treffer": 20
+   "treffer": 20,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 20 Treffer"
   },
   {
    "id": "startchancen",
@@ -343,7 +427,9 @@
    "kurz": "Startchancen",
    "ebene": "fach",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "jadigital",
@@ -351,7 +437,9 @@
    "kurz": "JAdigital",
    "ebene": "fach",
    "ok": true,
-   "treffer": 1
+   "treffer": 1,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 1 Treffer"
   },
   {
    "id": "staedtetag",
@@ -359,7 +447,9 @@
    "kurz": "Deutscher Städtetag",
    "ebene": "fach",
    "ok": true,
-   "treffer": 30
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "dstgb",
@@ -367,7 +457,9 @@
    "kurz": "DStGB",
    "ebene": "fach",
    "ok": true,
-   "treffer": 13
+   "treffer": 13,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 13 Treffer"
   },
   {
    "id": "bagljae",
@@ -375,7 +467,9 @@
    "kurz": "BAG Landesjugendämter",
    "ebene": "fach",
    "ok": true,
-   "treffer": 37
+   "treffer": 37,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 37 Treffer"
   },
   {
    "id": "dksb",
@@ -383,7 +477,9 @@
    "kurz": "Kinderschutzbund",
    "ebene": "fach",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "dkhw",
@@ -391,7 +487,9 @@
    "kurz": "Kinderhilfswerk",
    "ebene": "fach",
    "ok": true,
-   "treffer": 5
+   "treffer": 5,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 5 Treffer"
   },
   {
    "id": "liga-kind",
@@ -399,7 +497,9 @@
    "kurz": "Liga für das Kind",
    "ebene": "fach",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "kinderschutz-zentren",
@@ -407,7 +507,9 @@
    "kurz": "Kinderschutz-Zentren",
    "ebene": "fach",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "isa",
@@ -415,7 +517,9 @@
    "kurz": "ISA Münster",
    "ebene": "fach",
    "ok": true,
-   "treffer": 40
+   "treffer": 40,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 40 Treffer"
   },
   {
    "id": "paritaet",
@@ -423,7 +527,9 @@
    "kurz": "Paritätischer",
    "ebene": "fach",
    "ok": true,
-   "treffer": 30
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "bertelsmann",
@@ -431,7 +537,9 @@
    "kurz": "Bertelsmann Stiftung",
    "ebene": "fach",
    "ok": true,
-   "treffer": 20
+   "treffer": 20,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 18 Treffer"
   },
   {
    "id": "baj",
@@ -439,7 +547,9 @@
    "kurz": "BAJ",
    "ebene": "fach",
    "ok": true,
-   "treffer": 18
+   "treffer": 18,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 18 Treffer"
   },
   {
    "id": "bag-ssg",
@@ -447,7 +557,9 @@
    "kurz": "BAG Soziale Stadtentwicklung",
    "ebene": "fach",
    "ok": true,
-   "treffer": 10
+   "treffer": 10,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 9 Treffer"
   }
  ]
 }
