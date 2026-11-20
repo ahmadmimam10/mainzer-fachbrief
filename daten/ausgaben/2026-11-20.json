@@ -52,6 +52,17 @@
      "originaltitel": "Gemeindenahe Psychiatrie: In Mainz fehlen Angebote"
     },
     {
+     "id": "3b3218afae",
+     "stufe": "kurz",
+     "thema": "Statistik",
+     "titel": "KomDat: Erste Ergebnisse zu Angebotsstrukturen der stationären Kinder- und Jugendhilfe",
+     "rubrik": "fach",
+     "quelle": "dji",
+     "url": "https://www.dji.de/veroeffentlichungen/aktuelles/news/article/stationaere-kinder-und-jugendhilfe-in-der-kinder-und-jugendhilfestatistik-erste-ergebnisse-zu-angebotsstrukturen-liegen-vor.html",
+     "datum": "2026-11-20",
+     "originaltitel": "Stationäre Kinder- und Jugendhilfe in der Kinder- und Jugendhilfestatistik: Erste Ergebnisse zu Angebotsstrukturen liegen vor"
+    },
+    {
      "id": "31f66fc2ac",
      "stufe": "kurz",
      "thema": "Landeshaushalt",
@@ -127,17 +138,6 @@
      "url": "https://www.swr.de/swraktuell/rheinland-pfalz/mainz/kreuznacher-diakonie-studie-sexualisierte-gewalt-102.html",
      "datum": "2026-11-20",
      "originaltitel": "Kreuznacher Diakonie: Studie deckt 242 Fälle sexualisierter Gewalt in Heimen auf"
-    },
-    {
-     "id": "d77b55fe0f",
-     "stufe": "kurz",
-     "thema": "Fachpublikation",
-     "titel": "Praxishandbuch „Kinder von Inhaftierten“ mit wissenschaftlichem Beitrag des IKJ erschienen",
-     "rubrik": "fach",
-     "quelle": "ikj",
-     "url": "https://www.ikj-online.de/neu-erschienen-praxishandbuch-kinder-von-inhaftierten-mit-wissenschaftlichem-beitrag-des-ikj/",
-     "datum": "2026-11-19",
-     "originaltitel": "Neu erschienen: Praxishandbuch „Kinder von Inhaftierten“ – mit wissenschaftlichem Beitrag des IKJ"
     }
    ],
    "zahl": {
@@ -327,6 +327,17 @@
      "url": "https://www.mainz.de/pressemeldungen/Mainz/2026/november/mainzbaum-dein-lebensraum-projekt-geht-in-den-endspurt-jetzt-mitmachen-und-stadtbaeume-als-lebensraum-erforschen",
      "datum": "2026-11-18",
      "originaltitel": "„MainzBaum - Dein Lebensraum“"
+    },
+    {
+     "id": "dbfe93ae9a",
+     "stufe": "kurz",
+     "thema": "Verkehr",
+     "titel": "Große Bleiche: Stadt stellt Ergebnisse der Verkehrserhebungen vor",
+     "rubrik": "mainz",
+     "quelle": "stadt-mainz",
+     "url": "https://www.mainz.de/pressemeldungen/Mainz/2026/november/verkehrsentwicklung-in-der-grossen-bleiche-stadt-mainz-stellt-ergebnisse-der-verkehrserhebungen-vor",
+     "datum": "2026-11-20",
+     "originaltitel": "Großen Bleiche: Stadt Mainz stellt Ergebnisse der Verkehrserhebungen vor"
     },
     {
      "id": "64252aa00e",
@@ -525,8 +536,27 @@
   "206d30e67a",
   "b011dd3a28",
   "8364ce29ee",
-  "d77b55fe0f"
+  "d77b55fe0f",
+  "c4dd75267c",
+  "86b2bb1a1a",
+  "8b63daea9e",
+  "ee90117987",
+  "259daab745",
+  "be8dd27b41",
+  "8ba8e0d330",
+  "b36bee1646",
+  "4fc760855f",
+  "dbfe93ae9a",
+  "5efa59e9e1",
+  "9e5e3505e3",
+  "4297e273b3",
+  "0cde62a02b",
+  "4460db47f1",
+  "3b3218afae",
+  "a6a290456a",
+  "b66a1edc60",
+  "b21a263b30"
  ],
  "erstellt": "2026-11-20T09:17:48.884Z",
- "aktualisiert": "2026-11-20T09:46:20.068Z"
+ "aktualisiert": "2026-11-20T11:49:42.884Z"
 }
