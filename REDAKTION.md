@@ -102,6 +102,12 @@ genannten Schlagworten in Mainz.
 - Eine Meldung darf in mehreren Ressorts stehen, wenn sie für beide wirklich wichtig ist (z. B. Kinderschutz
   in Jugendhilfeplanung und Frühe Hilfen) – sparsam einsetzen.
 - Keine Stellenanzeigen, Werbung/Advertorials, Wetter, Sport, Promi-, Kultur- oder Freizeitmeldungen ohne Bezug.
+- **Beiträge aus sozialen Netzwerken** (Bluesky, Mastodon) nur aufnehmen, wenn sie eine eigenständige,
+  fachlich wichtige Information enthalten. Verweist ein Post nur auf eine Pressemitteilung oder Studie, die schon
+  als eigener Kandidat vorliegt, den Originalbeitrag nehmen. Titel dann sachlich formulieren (kein Post-Jargon,
+  keine Hashtags, keine Emojis).
+- **Statistik-Meldungen** (Statistisches Bundes-/Landesamt) nur bei Bezug zu Kindern, Jugendlichen, Familien,
+  Kita, Kinderschutz, Bildung, Armut oder Wohnen/Stadtentwicklung.
 - Veranstaltungen/Fachtage nur, wenn sie für das Ressort wirklich relevant sind (Stufe meist `kurz`).
 - Nichts erfinden. Jede Aussage muss sich aus Titel und Kurzbeschreibung des Kandidaten ergeben.
 
