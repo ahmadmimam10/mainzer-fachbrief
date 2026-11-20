@@ -135,6 +135,9 @@ Verkehr, Stadtentwicklung.
 Überregional erwünscht: nur Soziale Stadt, Sozialer Zusammenhalt, Städtebauförderung, Quartier(s)management.
 Priorität: politische Beschlüsse zum Städtebauförderprogramm Sozialer Zusammenhalt und Meldungen zu den
 genannten Schlagworten in Mainz.
+Nicht aufnehmen: reine Gastronomie-, Laden- und Geschäftsmeldungen (Eröffnungen, Pächter- oder Wirtswechsel,
+Speisekarten, Angebote) – auch nicht aus den vier Stadtteilen. Ausnahme: Die Meldung berührt erkennbar die
+Quartiersentwicklung, etwa Leerstand, Nahversorgung, Treffpunkte im Stadtteil oder geförderte Projekte.
 
 ---
 
