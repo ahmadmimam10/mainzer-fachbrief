@@ -1,8 +1,9 @@
 // Die Bonifaziustürme im Stadtbild des Intros (daher der Name „Boniblatt“): zwei Bürotürme am Hauptbahnhof, von der
 // Rheinseite aus rechts neben dem Dom. Gezeichnet in Logo-Einheiten des Stadtbands (Breite 1280, Höhe 60, Horizont unten).
-// Dazu kleine Szenen – zufällig je Aufruf, gezielt mit ?boni=raucher,putzer,flieger (oder ?boni=aus):
-//   raucher  zwei Kollegen auf dem Balkon im 20. OG von Turm A (vier Etagen unter der obersten): Sie ziehen
-//            abwechselnd an der Zigarette, die Glut leuchtet auf, sie legen den Kopf zurück und blasen den Rauch aus
+// Am 20. OG von Turm A (vier Etagen unter der obersten) hängt immer der Balkon. Darauf steht je Aufruf
+//   raucher  zwei Kollegen: Sie ziehen abwechselnd an der Zigarette, die Glut leuchtet auf, sie blasen den Rauch aus
+//   kaffee   drei Kolleginnen in der Kaffeepause: Sie nippen reihum, erzählen mit der freien Hand, nicken und lachen
+// (gezielt mit ?boni=raucher bzw. ?boni=kaffee, ?boni=aus = leerer Balkon). Weitere Szenen kommen als Fundstück des Tages:
 //   putzer   Fensterputzer-Gondel, die langsam an Turm B herabfährt
 //   flieger  ein Papierflieger segelt aus dem 20. OG
 // Immer dabei: Bürolichter, die nach und nach an- und ausgehen, rote Flugwarnleuchten; im Advent ein Lichterbaum aus Fenstern.
@@ -105,53 +106,76 @@ const FLACHBAU = `<path fill="#cfc8bd" d="${rechteck(703.5, 53.4, 36, 6.6)}"/><p
 // ---- Raucherbalkon im 20. OG von Turm A (vier Etagen unter der obersten), an der linken Gebäudekante ----
 const ETAGE = 20, BODEN = SOCKEL - (ETAGE - 1) * A.fh, BL = 702;                   // Fußboden und linke Kante des Balkons
 const TUER = zelle(A, ETAGE, 0);
-const TAKT = 8;                                                                    // Sekunden je Zug
-function mensch({ x, s, mantel, arm, hose, haar, haut = "#e8bf9b", schal, locken, bart, v, d }) {
-  const y = BODEN, S = [x + s * .14, y - 1.76], E = [x + s * .38, y - 1.42];        // Schulter, Ellbogen
-  // Ruhehaltung: Unterarm schräg nach vorn unten, die Hand liegt am Handlauf, die Zigarette zeigt nach oben.
-  // Beim Zug dreht der Unterarm um 138° nach oben (Hand vor dem Mund), die Zigarette dreht sich in die Waagerechte.
-  const hand = [E[0] + s * .386, E[1] + .46], spitze = [hand[0] + s * .17, hand[1] - .2], mund = [x + s * .3, y - 2.07];
-  const kx = x + s * .04, ky = y - 2.2, st = `--s:${s};--v:${v}s`;
-  return { spitze, mund,
-    figur: `<g class="bt-m" style="transform-origin:${f(x)}px ${f(y)}px;--d:${d}s">`
-    + `<path fill="none" stroke="${arm}" stroke-width=".2" stroke-linecap="round" opacity=".8" d="M${f(x - s * .2)} ${f(y - 1.74)}L${f(x - s * .3)} ${f(y - 1.12)}"/>`
-    + `<path fill="${hose}" d="${rechteck(x - .27, y - 1.05, .23, 1.05)}${rechteck(x + .04, y - 1.05, .23, 1.05)}"/>`
-    + `<path fill="#2c2825" d="${rechteck(x - .29 + s * .05, y - .11, .3, .11)}${rechteck(x + .02 + s * .05, y - .11, .3, .11)}"/>`
-    + `<path fill="${mantel}" d="M${f(x - .35)} ${f(y - .9)}L${f(x - .3)} ${f(y - 1.7)}Q${f(x - .3)} ${f(y - 1.93)} ${f(x - .08)} ${f(y - 1.93)}H${f(x + .08)}Q${f(x + .3)} ${f(y - 1.93)} ${f(x + .3)} ${f(y - 1.7)}L${f(x + .35)} ${f(y - .9)}Z"/>`
-    + `<path fill="${arm}" opacity=".55" d="${rechteck(x + s * .19 - .03, y - 1.75, .06, .82)}"/>`
+const TAKT = 8, PAUSE = 10;                                                         // Sekunden je Zug an der Zigarette / je Schluck Kaffee
+// Eine kleine Figur am Geländer (k = Größe). ding: "zig" = Zigarette, "becher" = Kaffeebecher.
+// Ruhehaltung: Unterarm schräg nach vorn unten, die Hand liegt am Handlauf. Beim Zug bzw. Schluck dreht der Unterarm
+// nach oben (Hand vor dem Mund); Zigarette bzw. Becher drehen gegenläufig, damit sie richtig zum Gesicht stehen.
+function mensch({ x, s, k = 1, mantel, arm, hose, haar, haut = "#e8bf9b", schal, frisur = "kurz", bart, rock, ding = "zig", band = "#c8102e", v, d }) {
+  const y = BODEN, X = a => x + s * a * k, N = a => x + a * k, Y = b => y - b * k, b = n => f(n * k);
+  const S = [X(.14), Y(1.76)], E = [X(.38), Y(1.42)];                                // Schulter, Ellbogen
+  const hand = [E[0] + s * .386 * k, E[1] + .46 * k], spitze = [hand[0] + s * .17 * k, hand[1] - .2 * k], mund = [X(.3), Y(2.07)];
+  const kx = X(.04), ky = Y(2.2), st = `--s:${s};--v:${v}s`, kaffee = ding === "becher";
+  const bx = hand[0] + s * .03 * k, bo = hand[1] - .33 * k;                          // Becher: Mitte und Oberkante
+  const haare = {
+    kurz: `<circle cx="${f(kx - s * .05 * k)}" cy="${f(ky - .05 * k)}" r="${b(.28)}" fill="${haar}"/>`,
+    // leichte Locken: ein Kranz kleiner Kringel über Stirn, Scheitel und Hinterkopf
+    locken: `<circle cx="${f(kx - s * .04 * k)}" cy="${f(ky - .03 * k)}" r="${b(.25)}" fill="${haar}"/><path fill="${haar}" d="${[-58, -30, -2, 26, 54, 82, 108].map((a, i) => { const w = a * Math.PI / 180, r = (i % 2 ? .125 : .11) * k, cx = kx - s * Math.sin(w) * .225 * k, cy = ky - .02 * k - Math.cos(w) * .235 * k; return `M${f(cx - r)} ${f(cy)}a${f(r)} ${f(r)} 0 1 0 ${f(2 * r)} 0a${f(r)} ${f(r)} 0 1 0 ${f(-2 * r)} 0Z`; }).join("")}"/>`,
+    // lange Haare, die über den Rücken fallen
+    lang: `<circle cx="${f(kx - s * .05 * k)}" cy="${f(ky - .05 * k)}" r="${b(.285)}" fill="${haar}"/><path fill="${haar}" d="M${f(kx - s * .02 * k)} ${f(ky - .1 * k)}L${f(kx - s * .31 * k)} ${f(ky - .1 * k)}Q${f(kx - s * .4 * k)} ${f(ky + .3 * k)} ${f(kx - s * .33 * k)} ${f(ky + .62 * k)}Q${f(kx - s * .16 * k)} ${f(ky + .66 * k)} ${f(kx - s * .1 * k)} ${f(ky + .5 * k)}Z"/>`,
+    // Pferdeschwanz mit Haargummi
+    zopf: `<circle cx="${f(kx - s * .05 * k)}" cy="${f(ky - .05 * k)}" r="${b(.275)}" fill="${haar}"/><path class="bt-zopf" style="transform-origin:${f(kx - s * .28 * k)}px ${f(ky - .14 * k)}px" fill="none" stroke="${haar}" stroke-width="${b(.15)}" stroke-linecap="round" d="M${f(kx - s * .28 * k)} ${f(ky - .14 * k)}Q${f(kx - s * .56 * k)} ${f(ky - .08 * k)} ${f(kx - s * .46 * k)} ${f(ky + .44 * k)}"/><circle cx="${f(kx - s * .33 * k)}" cy="${f(ky - .13 * k)}" r="${b(.06)}" fill="${band}"/>`,
+    // Dutt
+    dutt: `<circle cx="${f(kx - s * .05 * k)}" cy="${f(ky - .04 * k)}" r="${b(.27)}" fill="${haar}"/><circle cx="${f(kx - s * .2 * k)}" cy="${f(ky - .36 * k)}" r="${b(.15)}" fill="${haar}"/>`,
+  }[frisur];
+  const beinB = rock ? .15 : .23, saum = rock ? .62 : .9, weit = rock ? .44 : .35;
+  return {
+    figur: `<g class="bt-m${kaffee ? " bt-m2" : ""}" style="transform-origin:${f(x)}px ${f(y)}px;--d:${d}s;--v:${v}s">`
+    // hinterer Arm (bei den Kaffeetrinkerinnen gestikuliert er)
+    + `<path${kaffee ? ` class="bt-geste" style="transform-origin:${f(X(-.2))}px ${f(Y(1.74))}px;${st};--g:${-62 * s}deg"` : ""} fill="none" stroke="${arm}" stroke-width="${b(.2)}" stroke-linecap="round" opacity=".85" d="M${f(X(-.2))} ${f(Y(1.74))}L${f(X(-.3))} ${f(Y(1.12))}"/>`
+    + `<path fill="${hose}" d="${rechteck(N(-.27) + (rock ? .05 * k : 0), Y(1.05), beinB * k, 1.05 * k)}${rechteck(N(.04) + (rock ? .03 * k : 0), Y(1.05), beinB * k, 1.05 * k)}"/>`
+    + `<path fill="#2c2825" d="${rechteck(N(-.29) + s * .05 * k, Y(.11), .3 * k, .11 * k)}${rechteck(N(.02) + s * .05 * k, Y(.11), .3 * k, .11 * k)}"/>`
+    + `<path fill="${mantel}" d="M${f(N(-weit))} ${f(Y(saum))}L${f(N(-.3))} ${f(Y(1.7))}Q${f(N(-.3))} ${f(Y(1.93))} ${f(N(-.08))} ${f(Y(1.93))}H${f(N(.08))}Q${f(N(.3))} ${f(Y(1.93))} ${f(N(.3))} ${f(Y(1.7))}L${f(N(weit))} ${f(Y(saum))}Z"/>`
+    + `<path fill="${arm}" opacity=".55" d="${rechteck(X(.19) - .03 * k, Y(1.75), .06 * k, .82 * k)}"/>`
     // Dienstausweis am Band
-    + `<path fill="none" stroke="#f4efe6" stroke-width=".035" d="M${f(x - s * .1)} ${f(y - 1.9)}L${f(x + s * .02)} ${f(y - 1.5)}L${f(x + s * .12)} ${f(y - 1.9)}"/><path fill="#fbf8f2" d="${rechteck(x + s * .02 - .06, y - 1.5, .12, .16)}"/>`
-    + `<path fill="${schal}" d="M${f(x - .19)} ${f(y - 1.99)}h.38v.15h-.38Z"/>`
-    + `<g class="bt-kopf" style="transform-origin:${f(x)}px ${f(y - 1.95)}px;${st};--k:${-11 * s}deg">`
-    // Haare: glatter Kurzhaarschnitt oder leichte Locken (ein Kranz kleiner Kringel über Stirn, Scheitel und Hinterkopf)
-    + (locken ? `<circle cx="${f(kx - s * .04)}" cy="${f(ky - .03)}" r=".25" fill="${haar}"/><path fill="${haar}" d="${[-58, -30, -2, 26, 54, 82, 108].map((a, i) => { const w = a * Math.PI / 180, r = i % 2 ? .125 : .11, cx = kx - s * Math.sin(w) * .225, cy = ky - .02 - Math.cos(w) * .235; return `M${f(cx - r)} ${f(cy)}a${r} ${r} 0 1 0 ${f(2 * r)} 0a${r} ${r} 0 1 0 ${f(-2 * r)} 0Z`; }).join("")}"/>`
-      : `<circle cx="${f(kx - s * .05)}" cy="${f(ky - .05)}" r=".28" fill="${haar}"/>`)
-    + `<circle cx="${f(kx + s * .045)}" cy="${f(ky + .04)}" r=".235" fill="${haut}"/>`
-    + (bart ? `<path fill="none" stroke="${haar}" stroke-width=".1" stroke-linecap="round" opacity=".9" d="M${f(kx + s * .045 - s * .19)} ${f(ky + .1)}A.2 .2 0 0 ${s > 0 ? 0 : 1} ${f(kx + s * .045 + s * .16)} ${f(ky + .17)}"/>` : "")
-    + `<circle cx="${f(kx + s * .15)}" cy="${f(ky + .01)}" r=".028" fill="#2e2622"/></g>`
-    + `<path fill="none" stroke="${arm}" stroke-width=".21" stroke-linecap="round" d="M${f(S[0])} ${f(S[1])}L${f(E[0])} ${f(E[1])}"/>`
-    + `<g class="bt-arm" style="transform-origin:${f(E[0])}px ${f(E[1])}px;${st};--w:${-138 * s}deg">`
-    + `<g class="bt-zig" style="transform-origin:${f(hand[0])}px ${f(hand[1])}px;${st};--w:${178 * s}deg"><path fill="none" stroke="#fbf7ef" stroke-width=".075" d="M${f(hand[0])} ${f(hand[1])}L${f(spitze[0])} ${f(spitze[1])}"/>`
-    + `<circle class="bt-glut" style="--v:${v}s" cx="${f(spitze[0])}" cy="${f(spitze[1])}" r=".07"/></g>`
-    + `<path fill="none" stroke="${arm}" stroke-width=".2" stroke-linecap="round" d="M${f(E[0])} ${f(E[1])}L${f(hand[0] - s * .05)} ${f(hand[1] - .06)}"/>`
-    + `<circle cx="${f(hand[0])}" cy="${f(hand[1])}" r=".105" fill="${haut}"/></g></g>`,
-    // Rauch: feiner Faden von der Zigarette (solange die Hand unten ist) und drei Wölkchen beim Ausatmen
-    rauch: `<path class="bt-faden" style="--v:${v}s" d="M${f(spitze[0])} ${f(spitze[1] - .07)}c.2-.28-.18-.56 0-.86s.18-.5-.02-.84"/>`
-    + [0, 1, 2].map(i => `<circle class="bt-hauch" style="--s:${s};--v:${f(v + i * .28)}s" cx="${f(mund[0])}" cy="${f(mund[1])}" r="${f(.15 + i * .03)}"/>`).join("") };
+    + `<path fill="none" stroke="#f4efe6" stroke-width="${b(.035)}" d="M${f(X(-.1))} ${f(Y(1.9))}L${f(X(.02))} ${f(Y(1.5))}L${f(X(.12))} ${f(Y(1.9))}"/><path fill="#fbf8f2" d="${rechteck(X(.02) - .06 * k, Y(1.5), .12 * k, .16 * k)}"/>`
+    + `<path fill="${schal}" d="${rechteck(N(-.19), Y(1.99), .38 * k, .15 * k)}"/>`
+    + `<g class="${kaffee ? "bt-kopf2" : "bt-kopf"}" style="transform-origin:${f(x)}px ${f(Y(1.95))}px;${st};--k:${(kaffee ? -8 : -11) * s}deg">` + haare
+    + `<circle cx="${f(kx + s * .045 * k)}" cy="${f(ky + .04 * k)}" r="${b(.235)}" fill="${haut}"/>`
+    + (bart ? `<path fill="none" stroke="${haar}" stroke-width="${b(.1)}" stroke-linecap="round" opacity=".9" d="M${f(kx + s * .045 * k - s * .19 * k)} ${f(ky + .1 * k)}A${b(.2)} ${b(.2)} 0 0 ${s > 0 ? 0 : 1} ${f(kx + s * .045 * k + s * .16 * k)} ${f(ky + .17 * k)}"/>` : "")
+    + `<circle cx="${f(kx + s * .15 * k)}" cy="${f(ky + .01 * k)}" r="${b(.028)}" fill="#2e2622"/></g>`
+    + `<path fill="none" stroke="${arm}" stroke-width="${b(.21)}" stroke-linecap="round" d="M${f(S[0])} ${f(S[1])}L${f(E[0])} ${f(E[1])}"/>`
+    + `<g class="${kaffee ? "bt-arm2" : "bt-arm"}" style="transform-origin:${f(E[0])}px ${f(E[1])}px;${st};--w:${(kaffee ? -105 : -138) * s}deg">`
+    + (kaffee
+      // Becher mit Deckel und farbiger Manschette
+      ? `<g class="bt-bech" style="transform-origin:${f(hand[0])}px ${f(hand[1])}px;${st};--w:${55 * s}deg"><path fill="#fbf8f2" d="M${f(bx - .115 * k)} ${f(bo)}h${b(.23)}l${b(-.03)} ${b(.37)}h${b(-.17)}Z"/><path fill="${band}" d="${rechteck(bx - .105 * k, bo + .13 * k, .21 * k, .12 * k)}"/><path fill="#5f564c" d="${rechteck(bx - .13 * k, bo - .04 * k, .26 * k, .06 * k)}"/></g>`
+      : `<g class="bt-zig" style="transform-origin:${f(hand[0])}px ${f(hand[1])}px;${st};--w:${178 * s}deg"><path fill="none" stroke="#fbf7ef" stroke-width="${b(.075)}" d="M${f(hand[0])} ${f(hand[1])}L${f(spitze[0])} ${f(spitze[1])}"/>`
+        + `<circle class="bt-glut" style="--v:${v}s" cx="${f(spitze[0])}" cy="${f(spitze[1])}" r="${b(.07)}"/></g>`)
+    + `<path fill="none" stroke="${arm}" stroke-width="${b(.2)}" stroke-linecap="round" d="M${f(E[0])} ${f(E[1])}L${f(hand[0] - s * .05 * k)} ${f(hand[1] - .06 * k)}"/>`
+    + `<circle cx="${f(hand[0])}" cy="${f(hand[1])}" r="${b(.105)}" fill="${haut}"/></g></g>`,
+    // Rauch: feiner Faden von der Zigarette (solange die Hand unten ist) und drei Wölkchen beim Ausatmen.
+    // Kaffee: Dampf über dem Becher, solange er am Geländer steht.
+    rauch: kaffee ? `<path class="bt-dampf" style="--v:${v}s" d="M${f(bx)} ${f(bo - .1 * k)}c.16-.2-.14-.4 0-.62s.14-.36-.02-.6"/>`
+      : `<path class="bt-faden" style="--v:${v}s" d="M${f(spitze[0])} ${f(spitze[1] - .07)}c.2-.28-.18-.56 0-.86s.18-.5-.02-.84"/>`
+      + [0, 1, 2].map(i => `<circle class="bt-hauch" style="--s:${s};--v:${f(v + i * .28)}s" cx="${f(mund[0])}" cy="${f(mund[1])}" r="${f(.15 + i * .03)}"/>`).join("") };
 }
-// Zwei Kollegen: links der Herausgeber (dunkle, leicht lockige Haare, kurzer Bart, dunkles Hemd), rechts ein Kollege
-const M1 = mensch({ x: 703.4, s: 1, mantel: "#343a48", arm: "#444b5c", hose: "#4b5261", haar: "#2a211c", haut: "#d9a982", schal: "#4a5163", locken: true, bart: true, v: 0, d: 5.3 });
+// Zwei Kollegen beim Rauchen: links der Herausgeber (dunkle, leicht lockige Haare, kurzer Bart, dunkles Hemd), rechts ein Kollege
+const M1 = mensch({ x: 703.4, s: 1, mantel: "#343a48", arm: "#444b5c", hose: "#4b5261", haar: "#2a211c", haut: "#d9a982", schal: "#4a5163", frisur: "locken", bart: true, v: 0, d: 5.3 });
 const M2 = mensch({ x: 706.15, s: -1, mantel: "#b4513d", arm: "#c7624c", hose: "#4a4038", haar: "#7a5638", schal: "#efe9dd", v: -4, d: 6.4 });
-const RAUCHER = `<g class="bt-raucher">`
+// Drei Kolleginnen in der Kaffeepause: Sie nippen reihum am Becher, erzählen mit der freien Hand, nicken und lachen
+const F1 = mensch({ x: 702.95, s: 1, k: .95, ding: "becher", mantel: "#d9a441", arm: "#e6b657", hose: "#3f3a44", haar: "#3b2a22", schal: "#f3ece0", frisur: "lang", rock: true, band: "#c8102e", v: 0, d: 5.6 });
+const F2 = mensch({ x: 704.84, s: -1, k: .97, ding: "becher", mantel: "#2f7f86", arm: "#41979e", hose: "#3f4654", haar: "#d2a95c", schal: "#e9e2d4", frisur: "zopf", band: "#f19a4a", v: -3.6, d: 6.2 });
+const F3 = mensch({ x: 706.2, s: -1, k: .93, ding: "becher", mantel: "#a8456b", arm: "#bd5c82", hose: "#4a4038", haar: "#8a4a2e", haut: "#e3b48f", schal: "#f6dfe6", frisur: "dutt", rock: true, band: "#2f7f86", v: -6.9, d: 5.1 });
+// Der Balkon selbst ist immer da; darauf stehen je Aufruf die Raucher oder die Kaffeerunde.
+const BALKON = `<g class="bt-balkon">`
   + `<path class="bt-tuer" d="${rechteck(TUER.x, TUER.y + .13, A.cw, A.gh - .13)}"/>`
   + `<path fill="#aaa296" d="M707 ${f(BODEN + .3)}V${f(BODEN + 1.55)}L${f(BL + 1.6)} ${f(BODEN + .3)}Z"/><path fill="#c9c2b6" d="${rechteck(BL, BODEN, 707 - BL, .3)}"/><path fill="#e9e4dc" d="${rechteck(BL, BODEN, 707 - BL, .09)}"/>`
   // Standaschenbecher links
   + `<path fill="none" stroke="#6f675d" stroke-width=".09" d="M${f(BL + .42)} ${f(BODEN)}v-.78"/><path fill="#7d756a" d="${rechteck(BL + .25, BODEN - .92, .34, .16)}"/>`
-  + M1.figur + M2.figur
+  + `<g class="bt-raucher">${M1.figur}${M2.figur}</g><g class="bt-kaffee">${F1.figur}${F2.figur}${F3.figur}</g>`
   // Glasbrüstung mit Handlauf und Pfosten (vor den Beinen)
   + `<path fill="#c3d2d8" opacity=".42" d="${rechteck(BL + .05, BODEN - .98, 707 - BL - .05, .98)}"/><path fill="#fff" opacity=".35" d="M${f(BL + .7)} ${f(BODEN - .98)}h.5l-.55 .98h-.5ZM${f(BL + 3.6)} ${f(BODEN - .98)}h.28l-.55 .98h-.28Z"/>`
   + `<path fill="none" stroke="#6f675d" stroke-width=".11" stroke-linecap="round" d="M${f(BL)} ${f(BODEN - 1.03)}H707"/><path fill="none" stroke="#7d756a" stroke-width=".08" d="M${f(BL + .05)} ${f(BODEN - 1.03)}V${f(BODEN)}M${f(BL + 1.7)} ${f(BODEN - 1.03)}V${f(BODEN)}M${f(BL + 3.35)} ${f(BODEN - 1.03)}V${f(BODEN)}"/>`
-  + M1.rauch + M2.rauch + `</g>`;
+  + `<g class="bt-raucher">${M1.rauch}${M2.rauch}</g><g class="bt-kaffee">${F1.rauch}${F2.rauch}${F3.rauch}</g></g>`;
 
 // ---- Fensterputzer an Turm B: Seile (wachsen mit) und Gondel mit Person, die wischt ----
 const GY = BT.oben + 2.6, S1 = bx + 1.2, S2 = bx + 8.2, FAHRT = 24;
@@ -175,10 +199,10 @@ export const BONI_SVG = `<g class="bt" aria-hidden="true"><defs>`
   + `<linearGradient id="bt-fg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>`
   + FLACHBAU + fassade(A, "bt-ka") + fassade(BT, "bt-kb")
   + `<g class="bt-a">${lichter(A)}</g><g class="bt-b">${lichter(BT)}</g>${BAUM}`
-  + DACH + RAUCHER + PUTZER + FLIEGER + `</g>`;
+  + DACH + BALKON + PUTZER + FLIEGER + `</g>`;
 
 export const BONI_CSS = `
-.bt-licht{fill:#f7da97}.bt-baum,.bt-raucher,.bt-putzer,.bt-flieger,.bt-schnee{display:none}
+.bt-licht{fill:#f7da97}.bt-baum,.bt-raucher,.bt-kaffee,.bt-putzer,.bt-flieger,.bt-schnee{display:none}
 .intro:not([data-wetter="sonne"]) .bt-mehr{fill:#f3d892}.intro[data-wetter="sonne"] .bt-mehr{display:none}
 .bt-an{animation:bt-an .5s ease var(--v) both}.bt-aus{animation:bt-an .5s ease var(--v) reverse both}
 .bt-flack{animation:bt-flack var(--d) steps(1,end) var(--v) infinite}
@@ -189,9 +213,9 @@ export const BONI_CSS = `
 .intro[data-wetter="schnee"] .bt-schnee{display:inline;fill:#fbfcfe}
 .intro[data-fest~="tannenbaum"] .bt-baum{display:inline;animation:bt-an .8s ease 2.4s both}
 .intro[data-fest~="tannenbaum"] .bt-b .bt-licht{display:none}
-.intro[data-boni~="raucher"] .bt-raucher{display:inline;animation:bt-an .7s ease 3.2s both}
+.intro[data-boni~="raucher"] .bt-raucher,.intro[data-boni~="kaffee"] .bt-kaffee{display:inline}
 .bt-tuer{fill:#ffe2a0}
-.bt-m,.bt-kopf,.bt-arm,.bt-zig,.bt-wisch{transform-box:view-box}
+.bt-m,.bt-kopf,.bt-kopf2,.bt-arm,.bt-arm2,.bt-zig,.bt-bech,.bt-geste,.bt-zopf,.bt-wisch{transform-box:view-box}
 .bt-m{animation:bt-wiegen var(--d) ease-in-out infinite alternate}
 @keyframes bt-wiegen{from{rotate:-1.4deg}to{rotate:1.7deg}}
 .bt-arm,.bt-zig{animation:bt-zug ${TAKT}s cubic-bezier(.45,0,.3,1) var(--v) infinite}
@@ -206,6 +230,19 @@ export const BONI_CSS = `
 .bt-hauch{fill:#fdfcfa;opacity:0;transform-box:fill-box;transform-origin:50% 50%;animation:bt-hauch ${TAKT}s ease-out var(--v) infinite}
 @keyframes bt-hauch{0%,47%{opacity:0;translate:0 0;scale:.3}50%{opacity:.85;translate:calc(var(--s) * .15px) -.15px;scale:.6}
   63%{opacity:.55;translate:calc(var(--s) * .55px) -1.3px;scale:1.8}78%{opacity:.25;translate:calc(var(--s) * .4px + .7px) -2.6px;scale:2.7}90%,100%{opacity:0;translate:calc(var(--s) * .3px + 1.6px) -3.7px;scale:3.3}}
+/* Kaffeerunde: Schluck (Arm hoch, Becher kippt, Kopf leicht zurück), danach erzählen, nicken, lachen */
+.bt-m2{animation:bt-wiegen var(--d) ease-in-out infinite alternate,bt-lachen ${PAUSE}s ease-in-out var(--v) infinite}
+@keyframes bt-lachen{0%,70%{translate:0 0}72%{translate:0 -.07px}74%{translate:0 0}76%{translate:0 -.06px}78%{translate:0 0}80%{translate:0 -.04px}82%,100%{translate:0 0}}
+.bt-arm2,.bt-bech{animation:bt-schluck ${PAUSE}s cubic-bezier(.45,0,.3,1) var(--v) infinite}
+@keyframes bt-schluck{0%,5%{rotate:0deg}15%,19%{rotate:calc(var(--w) * .93)}22%,27%{rotate:var(--w)}39%,100%{rotate:0deg}}
+.bt-kopf2{animation:bt-kopf2 ${PAUSE}s ease-in-out var(--v) infinite}
+@keyframes bt-kopf2{0%,17%{rotate:0deg}22%,27%{rotate:var(--k)}35%,50%{rotate:0deg}54%{rotate:calc(var(--k) * -.7)}58%{rotate:0deg}62%{rotate:calc(var(--k) * -.6)}66%,70%{rotate:0deg}75%,80%{rotate:calc(var(--k) * .8)}86%,100%{rotate:0deg}}
+.bt-geste{animation:bt-geste ${PAUSE}s ease-in-out var(--v) infinite}
+@keyframes bt-geste{0%,42%{rotate:0deg}48%{rotate:var(--g)}52%{rotate:calc(var(--g) * .6)}56%{rotate:var(--g)}60%{rotate:calc(var(--g) * .7)}64%{rotate:calc(var(--g) * .95)}72%,100%{rotate:0deg}}
+.bt-zopf{animation:bt-zopf 3.1s ease-in-out infinite alternate}
+@keyframes bt-zopf{from{rotate:-7deg}to{rotate:8deg}}
+.bt-dampf{fill:none;stroke:url(#bt-fg);stroke-width:.09;stroke-linecap:round;stroke-dasharray:.3 .2;animation:bt-faden 2.3s linear infinite,bt-dampfweg ${PAUSE}s linear var(--v) infinite}
+@keyframes bt-dampfweg{0%,4%{opacity:.9}7%,40%{opacity:0}47%,100%{opacity:.9}}
 .intro[data-boni~="putzer"] .bt-putzer{display:inline;animation:bt-an .6s ease 3s both}
 .bt-gondel{animation:bt-gondel 80s ease-in-out 3s infinite alternate both}
 .bt-seil{transform-box:fill-box;transform-origin:50% 0;animation:bt-seil 80s ease-in-out 3s infinite alternate both}
@@ -218,8 +255,13 @@ export const BONI_CSS = `
   42%{translate:21px 7.8px;rotate:9deg}54%{translate:27px 12.5px;rotate:14deg;opacity:1}60%,100%{translate:30px 15px;rotate:16deg;opacity:0}}
 `;
 
-// Läuft im Browser: wählt die Szene für diesen Aufruf
+// Läuft im Browser: Auf dem Balkon stehen je Aufruf die Raucher oder die Kaffeerunde (?boni=raucher / ?boni=kaffee,
+// ?boni=aus = niemand). Weitere Szenen an den Türmen (putzer, flieger) kommen über die Fundstücke des Tages dazu.
 export function boniSzene(intro, q) {
-  const z = Math.random();
-  intro.dataset.boni = q.has("boni") ? q.get("boni").split(",").join(" ") : z < .45 ? "raucher" : z < .65 ? "putzer" : z < .8 ? "flieger" : "";
+  const teile = q.has("boni") ? q.get("boni").split(",") : [];
+  if (!teile.some(t => t === "raucher" || t === "kaffee" || t === "aus")) teile.push(Math.random() < .5 ? "raucher" : "kaffee");
+  intro.dataset.boni = teile.join(" ");
 }
+
+// Maße der Türme für die Fundstücke (werkzeuge/funde/tuerme.mjs)
+export { A, BT, zelle, SOCKEL, KRONE, BODEN, BL, ETAGE, MAST, rechteck };

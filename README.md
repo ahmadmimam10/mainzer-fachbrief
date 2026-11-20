@@ -40,8 +40,9 @@ die letzte Ausgabe.
 - `werkzeuge/sammeln.mjs` – Quellenabruf · `werkzeuge/redaktion.mjs` – Kandidatenliste, Prüfung, Seitendaten
 - `daten/` – Pool, bekannte Links, Ausgaben, Gremien-Notizen · `docs/` – die Webseite (`index.html`, `daten/*.json`, Schriften)
 - `werkzeuge/intro-einbauen.mjs` – baut das Intro („Morgen über Mainz“) in `docs/index.html`; dazu
-  `intro-feste.mjs` (besondere Tage, Ferien- und Festtermine), `intro-boni.mjs` (Bonifaziustürme und ihre kleinen
-  Szenen), `wetter.mjs` (Wetterlage je Tag), `termine-pruefen.mjs` (Jahresplan und fehlende Termine)
+  `intro-feste.mjs` (besondere Tage, Ferien- und Festtermine), `intro-boni.mjs` (Bonifaziustürme mit Balkon),
+  `intro-funde.mjs` mit `funde/*.mjs` (die Fundstücke des Tages → `docs/intro-funde.js`), `wetter.mjs` (Wetterlage
+  je Tag), `termine-pruefen.mjs` (Jahresplan und fehlende Termine)
 - `routinen/` – Aufträge und Einstellungen der beiden Cloud-Routinen · `NEUE-STADT.md` – Übernahme für eine andere Stadt
 - `docs/bilder/` – Logo (`logo-hell.svg`, `logo-dunkel.svg`), Favicon und die Icons (`icons/hell`, `icons/dunkel`)
 - `daten/quellen-zustand.json` – Zustand je Quelle (`ok` / `auffaellig` / `gestoert`, Verlauf), `daten/diagnose/` –
@@ -93,10 +94,25 @@ Benötigt Node.js 20 oder neuer, keine weiteren Pakete.
 ## Das Intro
 
 Bei jedem Aufruf der Ausgabe (nur im hellen Modus, nicht nach der Seite „Über das Boniblatt“) erscheint eine kurze
-Szene über Mainz. Sie wechselt mit Jahreszeit und Wetter (13 Varianten), zeigt an besonderen Tagen kleine Motive und
-in den Bonifaziustürmen Bürolichter und gelegentlich eine kleine Szene (Raucherbalkon im 20. OG,
-Fensterputzer, Papierflieger). Zum Ausprobieren: `?intro`, `?wetter=winter-schnee`, `?fest=advent`,
-`?boni=raucher`, `?zeit=6` (Standbild nach 6 Sekunden).
+Szene über Mainz. Sie wechselt mit Jahreszeit und Wetter (13 Varianten) und zeigt an besonderen Tagen kleine Motive.
+In den Bonifaziustürmen gehen Bürolichter an und aus; am Balkon im 20. OG stehen je Aufruf zwei Kollegen beim Rauchen
+oder drei Kolleginnen mit Kaffee. Zum Ausprobieren: `?intro`, `?wetter=winter-schnee`, `?fest=advent`,
+`?boni=raucher` / `?boni=kaffee`, `?tag=2027-06-18` (ein anderer Tag), `?zeit=6` (Standbild nach 6 Sekunden).
+
+### Fundstücke des Tages
+
+Damit es jeden Tag etwas zu entdecken gibt, erscheinen in der Szene täglich zwei bis vier kleine Fundstücke – für alle
+dieselben, jeden Tag andere: Leute und Tiere am Ufer, Boote auf dem Rhein, etwas am Himmel, auf den Dächern, an den
+Türmen oder auf dem Zeitungsblatt selbst (rund 160 Stück, `node werkzeuge/intro-funde.mjs --liste`). Die Auswahl richtet
+sich nach Jahreszeit, Wetter und Wochentag; jedes Stück hat seinen Platz, damit sich nichts überdeckt, und an Festtagen
+bleibt der Platz den Festmotiven. Gewöhnliche Stücke kommen etwa alle sechs Wochen an die Reihe, besondere alle zwölf,
+seltene zweimal im Jahr; einige nur an einem bestimmten Tag (1. April, Freitag der 13., Walpurgisnacht, Halloween).
+
+- Zeichnungen: `werkzeuge/funde/*.mjs` (je Ort eine Datei, gemeinsame Bausteine und Plätze in `hilfen.mjs`).
+- Nach Änderungen: `node werkzeuge/intro-funde.mjs`, dann `node werkzeuge/intro-einbauen.mjs`.
+- Ansehen: `?fund=angler,gummiente` zeigt bestimmte Stücke (`angler@ufer-r2` = an diesem Platz), `?fund=aus` keine.
+  `node werkzeuge/intro-funde.mjs --plan=2027-03` zeigt, was an welchem Tag erscheint; `--nur=ufer-szenen --blatt=1`
+  schreibt ein Prüfblatt mit allen Stücken einer Datei (`docs/_blatt-ufer-szenen.html`).
 
 ### Besondere Tage – wann erscheinen die Motive?
 
