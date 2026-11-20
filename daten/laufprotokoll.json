@@ -27,5 +27,15 @@
   "auffaellig": [
    "17 neue Kandidaten (0 verworfen), 2 Sitzungstermine, 0 Quellen mit Fehlern. Zustand: 56 ok, 0 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-20T21:30:46.653Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "3 neue Kandidaten (0 verworfen), 2 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört.",
+  "auffaellig": [
+   "✗ sozial-de                0 gefunden,   0 neu  ⚠ www.sozial.de: HTTP 503",
+   "3 neue Kandidaten (0 verworfen), 2 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört."
+  ]
  }
 ]
