@@ -65,8 +65,7 @@ Die Werkzeuge legen fehlende Dateien beim ersten Lauf selbst wieder an. Danach `
 - `freiTage` in `festeFuer()`: gesetzliche Feiertage des Bundeslands (z. B. Reformationstag, Buß- und Bettag,
   Mariä Himmelfahrt) und örtliche Regelungen (Mainz: Rosenmontag dienstfrei).
 - `FERIEN`: Schulferien des Bundeslands; `TERMINE`: örtliche Feste mit wechselndem Datum.
-- Örtliche Anlässe in `liste` ersetzen (Mainz: Fastnacht, Johannisnacht, Weinmarkt, Elfter Elfter) und die
-  passenden Sprechblasen in `werkzeuge/intro-boni.mjs`.
+- Örtliche Anlässe in `liste` ersetzen (Mainz: Fastnacht, Johannisnacht, Weinmarkt, Elfter Elfter).
 - Prüfen mit `node werkzeuge/termine-pruefen.mjs` (zeigt den Jahresplan).
 
 **e) Routinen anlegen** – Texte und Einstellungen stehen in `routinen/morgenausgabe.md` und
@@ -79,7 +78,7 @@ python -m http.server 8765 --directory docs      # http://localhost:8765/?intro
 node werkzeuge/redaktion.mjs vorbereiten         # erster Probelauf der Redaktion
 ```
 
-Erst wenn Seite, Intro (`?wetter=winter-schnee`, `?fest=advent`, `?boni=blase`) und ein Probelauf stimmen:
+Erst wenn Seite, Intro (`?wetter=winter-schnee`, `?fest=advent`, `?boni=raucher`) und ein Probelauf stimmen:
 committen und pushen. Der Workflow „Seite“ veröffentlicht `docs/` auf GitHub Pages.
 
 ## Was Kosten verursacht

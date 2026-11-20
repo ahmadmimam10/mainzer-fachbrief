@@ -1,42 +1,68 @@
 // Die Bonifaziustürme im Stadtbild des Intros (daher der Name „Boniblatt“): zwei Bürotürme am Hauptbahnhof, von der
 // Rheinseite aus rechts neben dem Dom. Gezeichnet in Logo-Einheiten des Stadtbands (Breite 1280, Höhe 60, Horizont unten).
-// Dazu kleine Szenen im 14. OG – zufällig je Aufruf, gezielt mit ?boni=raucher,blase,putzer,flieger (oder ?boni=aus):
-//   raucher  zwei Kolleg:innen auf dem Balkon im 14. OG, mit Glut und Rauchkringeln
-//   blase    Sprechblasen aus einem Fenster im 14. OG (passend zu Wochentag, Wetter und besonderem Tag)
+// Dazu kleine Szenen – zufällig je Aufruf, gezielt mit ?boni=raucher,putzer,flieger (oder ?boni=aus):
+//   raucher  zwei Kolleg:innen auf dem Balkon im 20. OG von Turm A (vier Etagen unter der obersten): Sie ziehen
+//            abwechselnd an der Zigarette, die Glut leuchtet auf, sie legen den Kopf zurück und blasen den Rauch aus
 //   putzer   Fensterputzer-Gondel, die langsam an Turm B herabfährt
-//   flieger  ein Papierflieger segelt aus dem 14. OG
+//   flieger  ein Papierflieger segelt aus dem 20. OG
 // Immer dabei: Bürolichter, die nach und nach an- und ausgehen, rote Flugwarnleuchten; im Advent ein Lichterbaum aus Fenstern.
 
 const f = n => +n.toFixed(2);
 const zufall = seed => () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
 const rechteck = (x, y, w, h) => `M${f(x)} ${f(y)}h${f(w)}v${f(h)}h${f(-w)}Z`;
 const SOCKEL = 57.5;                               // Oberkante Erdgeschoss; darunter verdecken die Häuser der Stadt die Türme
+const KRONE = 1.5;                                 // geschlossenes Band unter der Dachkante
 
-// Ein Turm: Vorderseite (im Licht), schmale Seitenfläche (im Schatten), Attika, Technikgeschoss, Fensterbänder je Geschoss
-function turm({ x, w, s, oben, geschosse, spalten, r }) {
-  const y0 = oben + 1.1, fh = (SOCKEL - y0) / geschosse, m = .42, g = .2, cw = (w - 2 * m - (spalten - 1) * g) / spalten, gh = fh * .58;
-  const t = { koerper: rechteck(x, oben, w, 60 - oben), seite: rechteck(x + w, oben, s, 60 - oben), attika: rechteck(x, oben, w, .55),
-    glas: "", glasSeite: "", zellen: [], fh, cw, gh };
+// Ein Turm: Vorderseite (im Licht) mit Fensterbändern zwischen Brüstungen, schmale Seitenfläche (im Schatten), Dachkrone.
+// kern = geschlossener Treppenhausstreifen in der Mitte der Vorderseite.
+function turm({ x, w, s, oben, geschosse, spalten, kern = 0, r }) {
+  const fh = (SOCKEL - oben - KRONE) / geschosse, m = .45, g = .16, luecken = spalten - 1 - (kern ? 1 : 0);
+  const cw = (w - 2 * m - kern - luecken * g) / spalten, gh = fh * .56;
+  const t = { x, w, s, oben, fh, cw, gh, glas: "", schatten: "", bank: "", glasSeite: "", schattenSeite: "", jalousie: "", schlitz: "", zellen: [] };
+  const sx = [];
+  for (let c = 0, cx = x + m; c < spalten; c++) { sx.push(cx); cx += cw + (kern && c === spalten / 2 - 1 ? kern : g); }
   for (let n = 1; n <= geschosse; n++) {
-    const y = SOCKEL - n * fh + fh * .2;                                  // Fensterband im Geschoss n (1 = 1. OG)
+    const y = SOCKEL - n * fh + fh * .24;                                  // Fensterband im Geschoss n (1 = 1. OG)
     for (let c = 0; c < spalten; c++) {
-      const cx = x + m + c * (cw + g);
-      t.glas += rechteck(cx, y, cw, gh); t.zellen.push({ n, c, x: cx, y, z: r() });
+      const z = r(); t.zellen.push({ n, c, x: sx[c], y, z });
+      t.glas += rechteck(sx[c], y, cw, gh); t.schatten += rechteck(sx[c], y, cw, .13);
+      if (z > .34 && z < .47) t.jalousie += rechteck(sx[c], y + .13, cw, gh * (.3 + (z - .34) * 3));
     }
-    t.glasSeite += rechteck(x + w + .32, y, s - .62, gh);
+    t.bank += rechteck(x + m, y + gh, w - 2 * m, .1);
+    if (kern) t.schlitz += rechteck(x + w / 2 - .13, y + gh * .15, .26, gh * .7);
+    const b = (s - .75) / 2;
+    t.glasSeite += rechteck(x + w + .3, y, b, gh) + rechteck(x + w + .45 + b, y, b, gh);
+    t.schattenSeite += rechteck(x + w + .3, y, s - .6, .13);
   }
   return t;
 }
 
 const r = zufall(41);
-const A = turm({ x: 708.5, w: 8.8, s: 2.3, oben: 14, geschosse: 24, spalten: 6, r });
-const BT = turm({ x: 722.2, w: 7.8, s: 2.1, oben: 19, geschosse: 21, spalten: 5, r });
+const A = turm({ x: 707, w: 11, s: 2.8, oben: 8.6, geschosse: 24, spalten: 6, kern: .9, r });
+const BT = turm({ x: 724.2, w: 9.4, s: 2.5, oben: 14.4, geschosse: 21, spalten: 5, r });
+const zelle = (t, n, c) => t.zellen.find(z => z.n === n && z.c === c);
+
+// Fassade eines Turms: Flächen, Glas mit Himmelsverlauf und Spiegelung, Brüstungslinien, Jalousien, Kanten, Dachkrone
+function fassade(t, id) {
+  const { x, w, s, oben } = t, re = x + w, lamellen = (() => { let d = ""; for (let lx = x + .6; lx < re - .3; lx += .62) d += `M${f(lx)} ${f(oben + .45)}v${f(KRONE - .65)}`; return d; })();
+  return `<defs><clipPath id="${id}"><path d="${t.glas}"/></clipPath></defs>`
+    + `<path fill="url(#bt-vorn)" d="${rechteck(x, oben, w, 60 - oben)}"/><path fill="url(#bt-seite)" d="${rechteck(re, oben, s, 60 - oben)}"/>`
+    + (t.schlitz ? `<path fill="#cbc4b8" d="${rechteck(x + w / 2 - .45, oben + KRONE, .9, SOCKEL - oben - KRONE)}"/><path fill="#9aa7ae" d="${t.schlitz}"/>` : "")
+    + `<path fill="url(#bt-glas)" d="${t.glas}"/><path fill="url(#bt-glas2)" d="${t.glasSeite}"/>`
+    + `<g clip-path="url(#${id})"><path fill="#fff" opacity=".2" d="M${x} ${f(oben + 15)}L${re} ${f(oben + 4)}V${f(oben + 11)}L${x} ${f(oben + 22)}ZM${x} ${f(oben + 27)}L${re} ${f(oben + 16)}V${f(oben + 18.5)}L${x} ${f(oben + 29.5)}Z"/></g>`
+    + `<path fill="#d8dcdb" d="${t.jalousie}"/><path fill="#75858f" opacity=".75" d="${t.schatten}"/><path fill="#6b7880" opacity=".7" d="${t.schattenSeite}"/><path fill="#ebe6de" d="${t.bank}"/>`
+    + `<path fill="#f1ede6" opacity=".7" d="${rechteck(x, oben, .22, 60 - oben)}"/><path fill="#a39b8f" d="${rechteck(re - .07, oben, .14, 60 - oben)}"/>`
+    // Dachkrone: Band mit feinen Lamellen, darüber eine helle, leicht überstehende Abdeckung
+    + `<path fill="#dcd6cc" d="${rechteck(x, oben, w, KRONE)}"/><path fill="#b9b1a5" d="${rechteck(re, oben, s, KRONE)}"/>`
+    + `<path fill="none" stroke="#c5bdb1" stroke-width=".08" d="${lamellen}"/><path fill="#a9a195" opacity=".8" d="${rechteck(x, oben + KRONE - .12, w + s, .12)}"/>`
+    + `<path fill="#ece8e0" d="${rechteck(x - .2, oben - .08, w + .2, .36)}"/><path fill="#cfc8bd" d="${rechteck(re, oben - .08, s + .2, .36)}"/>`;
+}
 
 // Bürolichter: einige brennen schon, andere gehen nacheinander an, wenige wieder aus, ein paar flackern im Takt
 function lichter(t, schonAn = .06) {
   let fest = "", mehr = "", einzeln = "";
   for (const z of t.zellen) {
-    const d = rechteck(z.x, z.y, t.cw, t.gh);
+    const d = rechteck(z.x, z.y + .13, t.cw, t.gh - .13);
     if (z.z < schonAn) fest += d;
     else if (z.z < .15) einzeln += `<path class="bt-an" style="--v:${f(2.2 + r() * 13)}s" d="${d}"/>`;
     else if (z.z < .18) einzeln += `<path class="bt-aus" style="--v:${f(5 + r() * 12)}s" d="${d}"/>`;
@@ -50,141 +76,145 @@ function lichter(t, schonAn = .06) {
 const BAUM = (() => {
   const reihen = { 20: [2], 19: [2], 18: [1, 2, 3], 17: [1, 2, 3], 16: [0, 1, 2, 3, 4], 15: [0, 1, 2, 3, 4], 14: [2], 13: [2] };
   let d = "", stern = "";
-  for (const z of BT.zellen) if (reihen[z.n]?.includes(z.c)) (z.n === 20 ? (stern += rechteck(z.x, z.y, BT.cw, BT.gh)) : (d += rechteck(z.x, z.y, BT.cw, BT.gh)));
+  for (const z of BT.zellen) if (reihen[z.n]?.includes(z.c)) { const k = rechteck(z.x, z.y + .13, BT.cw, BT.gh - .13); if (z.n === 20) stern += k; else d += k; }
   return `<g class="bt-baum"><path fill="#ffd77a" d="${stern}"/><path fill="#9fd08a" d="${d}"/></g>`;
 })();
 
-// 14. OG: Fenster für die Sprechblase (Turm B, rechts) und der Balkon an der linken Kante von Turm A
-const BONI = BT.zellen.find(z => z.n === 14 && z.c === 4), A14 = A.zellen.find(z => z.n === 14 && z.c === 5);
-const BODEN14 = SOCKEL - 13 * A.fh;                                        // Fußboden 14. OG
-const BALKON = `<g class="bt-balkon"><path fill="#b9b1a5" d="${rechteck(705.4, BODEN14 - .1, 3.1, .42)}"/><path fill="none" stroke="#857c71" stroke-width=".13" d="M705.5 ${f(BODEN14 - 1.05)}H708.5M705.55 ${f(BODEN14 - 1.05)}V${f(BODEN14 - .1)}M706.55 ${f(BODEN14 - 1.05)}V${f(BODEN14 - .1)}M707.55 ${f(BODEN14 - 1.05)}V${f(BODEN14 - .1)}"/></g>`;
-const mensch = (x, mantel, haar, kl, extra = "") => `<g class="${kl}"><path fill="${mantel}" d="M${f(x - .36)} ${f(BODEN14 - .1)}L${f(x - .3)} ${f(BODEN14 - 1.35)}Q${f(x)} ${f(BODEN14 - 1.62)} ${f(x + .3)} ${f(BODEN14 - 1.35)}L${f(x + .36)} ${f(BODEN14 - .1)}Z"/>`
-  + `<circle cx="${f(x)}" cy="${f(BODEN14 - 1.86)}" r=".3" fill="#e4b994"/><path fill="${haar}" d="M${f(x - .31)} ${f(BODEN14 - 1.86)}a.31 .31 0 0 1 .62 0q-.3-.14-.62 0Z"/>${extra}</g>`;
-const glutX = 706.62, glutY = f(BODEN14 - 1.72);
+// ---- Dachaufbauten: Geländer, Technikgeschoss mit Lüftungslamellen, Aufzugsüberfahrt, Antennenmast, Flugwarnleuchten ----
+const gelaender = (x1, x2, y) => { let d = `M${f(x1)} ${f(y - .72)}H${f(x2)}M${f(x1)} ${f(y - .36)}H${f(x2)}`; for (let x = x1; x <= x2 + .01; x += (x2 - x1) / Math.round((x2 - x1) / 1.5)) d += `M${f(x)} ${f(y - .72)}V${f(y - .08)}`; return d; };
+const kasten = (x, y, w, h, s, lam = 0) => `<path fill="#cdc6ba" d="${rechteck(x, y, w, h)}"/><path fill="#b1a99d" d="${rechteck(x + w, y, s, h)}"/><path fill="#e3ded5" d="${rechteck(x - .08, y - .06, w + .08, .24)}"/><path fill="#c2baae" d="${rechteck(x + w, y - .06, s + .08, .24)}"/>`
+  + (lam ? `<path fill="none" stroke="#a79f93" stroke-width=".09" d="${Array.from({ length: lam }, (_, i) => `M${f(x + .5)} ${f(y + .55 + i * .34)}h${f(w * .42)}M${f(x + w * .58)} ${f(y + .55 + i * .34)}h${f(w * .42 - .5)}`).join("")}"/>` : "");
+const ax = A.x, ao = A.oben - .08, bx = BT.x, bo = BT.oben - .08, MAST = ax + 4.6;
+const DACH = `<path fill="none" stroke="#91897d" stroke-width=".07" d="${gelaender(ax + .3, ax + A.w + A.s - .3, ao)}${gelaender(bx + .3, bx + BT.w + BT.s - .3, bo)}"/>`
+  + kasten(ax + 2.3, ao - 2.5, 5.4, 2.5, 1.3, 4) + kasten(ax + 9.2, ao - 1.5, 1.6, 1.5, .7)
+  // Antennenmast mit Querträgern, Richtfunkschüssel und Abspannung
+  + `<path fill="none" stroke="#a69e92" stroke-width=".05" d="M${MAST} ${f(ao - 6.1)}L${f(ax + 2.5)} ${f(ao - 2.5)}M${MAST} ${f(ao - 6.1)}L${f(ax + 7.5)} ${f(ao - 2.5)}"/>`
+  + `<path fill="none" stroke="#877f74" stroke-width=".2" stroke-linecap="round" d="M${MAST} ${f(ao - 2.5)}V${f(ao - 7.1)}"/>`
+  + `<path fill="none" stroke="#877f74" stroke-width=".11" stroke-linecap="round" d="M${f(MAST - .95)} ${f(ao - 4.5)}h1.9M${f(MAST - .6)} ${f(ao - 5.5)}h1.2M${f(MAST - .95)} ${f(ao - 4.5)}v-.5M${f(MAST + .95)} ${f(ao - 4.5)}v-.5M${f(MAST - .6)} ${f(ao - 5.5)}v-.38M${f(MAST + .6)} ${f(ao - 5.5)}v-.38"/>`
+  + `<ellipse cx="${f(MAST - .5)}" cy="${f(ao - 3.5)}" rx=".3" ry=".44" fill="#e6e1d8" stroke="#8f877b" stroke-width=".07"/><path stroke="#8f877b" stroke-width=".07" d="M${f(MAST - .2)} ${f(ao - 3.5)}h.2"/>`
+  + kasten(bx + 1.9, bo - 1.9, 4.6, 1.9, 1.1, 3) + kasten(bx + 7.3, bo - 1.05, 1.5, 1.05, .6)
+  + `<path fill="none" stroke="#877f74" stroke-width=".13" stroke-linecap="round" d="M${f(bx + 3.1)} ${f(bo - 1.9)}v-2.3M${f(bx + 2.65)} ${f(bo - 3.4)}h.9"/>`
+  + `<g class="bt-warn"><circle class="bt-hof" cx="${MAST}" cy="${f(ao - 7.3)}" r="1.05"/><circle cx="${MAST}" cy="${f(ao - 7.3)}" r=".36"/>`
+  + `<circle class="bt-hof" cx="${f(bx + 3.1)}" cy="${f(bo - 4.35)}" r=".85"/><circle cx="${f(bx + 3.1)}" cy="${f(bo - 4.35)}" r=".3"/>`
+  + `<circle cx="${f(ax + .35)}" cy="${f(ao - .86)}" r=".2"/><circle cx="${f(ax + A.w + A.s - .35)}" cy="${f(ao - .86)}" r=".2"/><circle cx="${f(bx + BT.w + BT.s - .35)}" cy="${f(bo - .86)}" r=".2"/></g>`
+  + `<path class="bt-schnee" d="${[[ax - .2, ao, A.w + A.s + .4], [ax + 2.2, ao - 2.56, 6.8], [bx - .2, bo, BT.w + BT.s + .4], [bx + 1.8, bo - 1.96, 5.9]].map(([x, y, w]) => `M${f(x)} ${f(y + .12)}q${f(w / 2)} ${f(-.62)} ${f(w)} 0v.2h${f(-w)}Z`).join("")}"/>`;
+
+// Flachbau zwischen den Türmen (schaut nur zwischen den Häusern der Stadt hervor)
+const FLACHBAU = `<path fill="#cfc8bd" d="${rechteck(703.5, 53.4, 36, 6.6)}"/><path fill="#e6e1d8" d="${rechteck(703.3, 53.25, 36.4, .3)}"/><path fill="#97a5ad" d="${rechteck(704.2, 54.5, 34.6, .9)}${rechteck(704.2, 56.4, 34.6, .9)}"/>`;
+
+// ---- Raucherbalkon im 20. OG von Turm A (vier Etagen unter der obersten), an der linken Gebäudekante ----
+const ETAGE = 20, BODEN = SOCKEL - (ETAGE - 1) * A.fh, BL = 702;                   // Fußboden und linke Kante des Balkons
+const TUER = zelle(A, ETAGE, 0);
+const TAKT = 8;                                                                    // Sekunden je Zug
+function mensch({ x, s, mantel, arm, hose, haar, schal, dutt, v, d }) {
+  const y = BODEN, S = [x + s * .14, y - 1.76], E = [x + s * .38, y - 1.42];        // Schulter, Ellbogen
+  // Ruhehaltung: Unterarm schräg nach vorn unten, die Hand liegt am Handlauf, die Zigarette zeigt nach oben.
+  // Beim Zug dreht der Unterarm um 138° nach oben (Hand vor dem Mund), die Zigarette dreht sich in die Waagerechte.
+  const hand = [E[0] + s * .386, E[1] + .46], spitze = [hand[0] + s * .17, hand[1] - .2], mund = [x + s * .3, y - 2.07];
+  const kx = x + s * .04, ky = y - 2.2, st = `--s:${s};--v:${v}s`;
+  return { spitze, mund,
+    figur: `<g class="bt-m" style="transform-origin:${f(x)}px ${f(y)}px;--d:${d}s">`
+    + `<path fill="none" stroke="${arm}" stroke-width=".2" stroke-linecap="round" opacity=".8" d="M${f(x - s * .2)} ${f(y - 1.74)}L${f(x - s * .3)} ${f(y - 1.12)}"/>`
+    + `<path fill="${hose}" d="${rechteck(x - .27, y - 1.05, .23, 1.05)}${rechteck(x + .04, y - 1.05, .23, 1.05)}"/>`
+    + `<path fill="#2c2825" d="${rechteck(x - .29 + s * .05, y - .11, .3, .11)}${rechteck(x + .02 + s * .05, y - .11, .3, .11)}"/>`
+    + `<path fill="${mantel}" d="M${f(x - .35)} ${f(y - .9)}L${f(x - .3)} ${f(y - 1.7)}Q${f(x - .3)} ${f(y - 1.93)} ${f(x - .08)} ${f(y - 1.93)}H${f(x + .08)}Q${f(x + .3)} ${f(y - 1.93)} ${f(x + .3)} ${f(y - 1.7)}L${f(x + .35)} ${f(y - .9)}Z"/>`
+    + `<path fill="${arm}" opacity=".55" d="${rechteck(x + s * .19 - .03, y - 1.75, .06, .82)}"/>`
+    // Dienstausweis am Band
+    + `<path fill="none" stroke="#f4efe6" stroke-width=".035" d="M${f(x - s * .1)} ${f(y - 1.9)}L${f(x + s * .02)} ${f(y - 1.5)}L${f(x + s * .12)} ${f(y - 1.9)}"/><path fill="#fbf8f2" d="${rechteck(x + s * .02 - .06, y - 1.5, .12, .16)}"/>`
+    + `<path fill="${schal}" d="M${f(x - .19)} ${f(y - 1.99)}h.38v.15h-.38Z${dutt ? `M${f(x - s * .19)} ${f(y - 1.86)}h${f(s * .13)}v.42h${f(-s * .13)}Z` : ""}"/>`
+    + `<g class="bt-kopf" style="transform-origin:${f(x)}px ${f(y - 1.95)}px;${st};--k:${-11 * s}deg">`
+    + `<circle cx="${f(kx - s * .05)}" cy="${f(ky - .05)}" r=".285" fill="${haar}"/>${dutt ? `<circle cx="${f(kx - s * .3)}" cy="${f(ky - .2)}" r=".13" fill="${haar}"/>` : ""}`
+    + `<circle cx="${f(kx + s * .045)}" cy="${f(ky + .04)}" r=".235" fill="#e8bf9b"/><circle cx="${f(kx + s * .15)}" cy="${f(ky + .01)}" r=".028" fill="#3a302a"/></g>`
+    + `<path fill="none" stroke="${arm}" stroke-width=".21" stroke-linecap="round" d="M${f(S[0])} ${f(S[1])}L${f(E[0])} ${f(E[1])}"/>`
+    + `<g class="bt-arm" style="transform-origin:${f(E[0])}px ${f(E[1])}px;${st};--w:${-138 * s}deg">`
+    + `<g class="bt-zig" style="transform-origin:${f(hand[0])}px ${f(hand[1])}px;${st};--w:${178 * s}deg"><path fill="none" stroke="#fbf7ef" stroke-width=".075" d="M${f(hand[0])} ${f(hand[1])}L${f(spitze[0])} ${f(spitze[1])}"/>`
+    + `<circle class="bt-glut" style="--v:${v}s" cx="${f(spitze[0])}" cy="${f(spitze[1])}" r=".07"/></g>`
+    + `<path fill="none" stroke="${arm}" stroke-width=".2" stroke-linecap="round" d="M${f(E[0])} ${f(E[1])}L${f(hand[0] - s * .05)} ${f(hand[1] - .06)}"/>`
+    + `<circle cx="${f(hand[0])}" cy="${f(hand[1])}" r=".105" fill="#e8bf9b"/></g></g>`,
+    // Rauch: feiner Faden von der Zigarette (solange die Hand unten ist) und drei Wölkchen beim Ausatmen
+    rauch: `<path class="bt-faden" style="--v:${v}s" d="M${f(spitze[0])} ${f(spitze[1] - .07)}c.2-.28-.18-.56 0-.86s.18-.5-.02-.84"/>`
+    + [0, 1, 2].map(i => `<circle class="bt-hauch" style="--s:${s};--v:${f(v + i * .28)}s" cx="${f(mund[0])}" cy="${f(mund[1])}" r="${f(.15 + i * .03)}"/>`).join("") };
+}
+const M1 = mensch({ x: 703.4, s: 1, mantel: "#4d6a8c", arm: "#5b7a9e", hose: "#3a3f4a", haar: "#3b3029", schal: "#e7dfd2", v: 0, d: 5.3 });
+const M2 = mensch({ x: 706.15, s: -1, mantel: "#b4513d", arm: "#c7624c", hose: "#4a4038", haar: "#d2a55f", schal: "#e9c35a", dutt: true, v: -4, d: 6.4 });
 const RAUCHER = `<g class="bt-raucher">`
-  + mensch(706.2, "#4f6b8a", "#3b3029", "bt-m1", `<path fill="none" stroke="#4f6b8a" stroke-width=".2" stroke-linecap="round" d="M706.4 ${f(BODEN14 - 1.25)}L${glutX - .1} ${f(BODEN14 - 1.62)}"/><path stroke="#f3eee6" stroke-width=".09" d="M${glutX - .12} ${glutY}h.2"/><circle class="bt-glut" cx="${f(glutX + .1)}" cy="${glutY}" r=".09" fill="#ff7a32"/>`)
-  + mensch(707.55, "#b5533e", "#c9a46a", "bt-m2")
-  + [0, 1, 2].map(i => `<circle class="bt-rauch" style="--v:${i * 1.15}s" cx="${f(glutX + .15)}" cy="${f(glutY - .2)}" r=".32"/>`).join("")
-  + `</g>`;
+  + `<path class="bt-tuer" d="${rechteck(TUER.x, TUER.y + .13, A.cw, A.gh - .13)}"/>`
+  + `<path fill="#aaa296" d="M707 ${f(BODEN + .3)}V${f(BODEN + 1.55)}L${f(BL + 1.6)} ${f(BODEN + .3)}Z"/><path fill="#c9c2b6" d="${rechteck(BL, BODEN, 707 - BL, .3)}"/><path fill="#e9e4dc" d="${rechteck(BL, BODEN, 707 - BL, .09)}"/>`
+  // Standaschenbecher links
+  + `<path fill="none" stroke="#6f675d" stroke-width=".09" d="M${f(BL + .42)} ${f(BODEN)}v-.78"/><path fill="#7d756a" d="${rechteck(BL + .25, BODEN - .92, .34, .16)}"/>`
+  + M1.figur + M2.figur
+  // Glasbrüstung mit Handlauf und Pfosten (vor den Beinen)
+  + `<path fill="#c3d2d8" opacity=".42" d="${rechteck(BL + .05, BODEN - .98, 707 - BL - .05, .98)}"/><path fill="#fff" opacity=".35" d="M${f(BL + .7)} ${f(BODEN - .98)}h.5l-.55 .98h-.5ZM${f(BL + 3.6)} ${f(BODEN - .98)}h.28l-.55 .98h-.28Z"/>`
+  + `<path fill="none" stroke="#6f675d" stroke-width=".11" stroke-linecap="round" d="M${f(BL)} ${f(BODEN - 1.03)}H707"/><path fill="none" stroke="#7d756a" stroke-width=".08" d="M${f(BL + .05)} ${f(BODEN - 1.03)}V${f(BODEN)}M${f(BL + 1.7)} ${f(BODEN - 1.03)}V${f(BODEN)}M${f(BL + 3.35)} ${f(BODEN - 1.03)}V${f(BODEN)}"/>`
+  + M1.rauch + M2.rauch + `</g>`;
 
-// Fensterputzer an Turm B: Seile (wachsen mit) und Gondel mit Person, die wischt
-const GY = 21.1;
-const PUTZER = `<g class="bt-putzer"><path class="bt-seil" fill="none" stroke="#7d756b" stroke-width=".1" d="M723.4 19.2V${GY}M729.2 19.2V${GY}"/>`
-  + `<g class="bt-gondel"><circle cx="726.2" cy="${f(GY - .62)}" r=".27" fill="#e4b994"/><path fill="#e8c14a" d="M725.92 ${f(GY - .74)}a.28 .28 0 0 1 .56 0Z"/><path fill="#3f6fa3" d="${rechteck(725.95, GY - .35, .5, .5)}"/>`
-  + `<path class="bt-wisch" fill="none" stroke="#3f6fa3" stroke-width=".15" stroke-linecap="round" d="M726.4 ${f(GY - .25)}l.55-.5"/>`
-  + `<path fill="#e3a33c" d="${rechteck(722.9, GY + .12, 6.8, .62)}"/><path fill="none" stroke="#9a6e2a" stroke-width=".1" d="M722.95 ${f(GY - .3)}H729.65M722.95 ${f(GY - .3)}V${f(GY + .12)}M729.65 ${f(GY - .3)}V${f(GY + .12)}"/></g></g>`;
+// ---- Fensterputzer an Turm B: Seile (wachsen mit) und Gondel mit Person, die wischt ----
+const GY = BT.oben + 2.6, S1 = bx + 1.2, S2 = bx + 8.2, FAHRT = 24;
+const PUTZER = `<g class="bt-putzer"><path class="bt-seil" fill="none" stroke="#7d756b" stroke-width=".09" d="M${S1} ${f(BT.oben)}V${GY}M${S2} ${f(BT.oben)}V${GY}"/>`
+  + `<g class="bt-gondel"><path fill="#3f6fa3" d="M${f(bx + 4.4)} ${f(GY + .12)}v-.75q.3-.22 .6 0v.75Z"/><circle cx="${f(bx + 4.7)}" cy="${f(GY - .86)}" r=".25" fill="#e8bf9b"/><path fill="#f0c53f" d="M${f(bx + 4.42)} ${f(GY - .9)}a.28 .28 0 0 1 .56 0h.1v.07h-.76v-.07Z"/>`
+  + `<g class="bt-wisch" style="transform-origin:${f(bx + 4.95)}px ${f(GY - .5)}px"><path fill="none" stroke="#3f6fa3" stroke-width=".16" stroke-linecap="round" d="M${f(bx + 4.95)} ${f(GY - .5)}l.6-.5"/><path fill="none" stroke="#5d564d" stroke-width=".09" stroke-linecap="round" d="M${f(bx + 5.45)} ${f(GY - 1.15)}l.25 .3"/></g>`
+  + `<path fill="#8fb6d9" d="${rechteck(bx + 3.5, GY - .3, .36, .42)}"/>`
+  + `<path fill="#e3a33c" d="${rechteck(S1 - .5, GY + .12, S2 - S1 + 1, .6)}"/><path fill="#f3c467" d="${rechteck(S1 - .5, GY + .12, S2 - S1 + 1, .13)}"/>`
+  + `<path fill="none" stroke="#9a6e2a" stroke-width=".09" d="M${f(S1 - .45)} ${f(GY - .42)}H${f(S2 + .45)}M${f(S1 - .45)} ${f(GY - .42)}V${f(GY + .12)}M${f(S2 + .45)} ${f(GY - .42)}V${f(GY + .12)}M${f((S1 + S2) / 2)} ${f(GY - .42)}V${f(GY + .12)}"/></g></g>`;
 
-// Papierflieger aus dem 14. OG
-const FLIEGER = `<g transform="translate(${f(A14.x + 1)} ${f(A14.y + .4)}) scale(1.7)"><g class="bt-flieger"><path fill="#fffdf8" stroke="#8c847a" stroke-width=".05" d="M-.5 -.1L.75 0L-.5 .28L-.28 .02Z"/><path fill="#d9d2c6" d="M-.5 .28L-.28 .02L-.1 .19Z"/></g></g>`;
+// ---- Papierflieger aus dem 20. OG ----
+const FENSTER = zelle(A, ETAGE, 5);
+const FLIEGER = `<g transform="translate(${f(FENSTER.x + 1)} ${f(FENSTER.y + .4)}) scale(1.8)"><g class="bt-flieger"><path fill="#fffdf8" stroke="#8c847a" stroke-width=".05" stroke-linejoin="round" d="M-.5 -.12L.78 0L-.5 .3L-.26 .03Z"/><path fill="#d9d2c6" d="M-.5 .3L-.26 .03L-.08 .2Z"/></g></g>`;
 
-// Dachaufbauten: Technikgeschoss, Antenne, Flugwarnleuchten; Schnee auf den Dächern nur bei Schnee
-const DACH = `<path fill="#c6beb2" d="${rechteck(710.6, 11.9, 5.2, 2.1)}"/><path fill="#aea699" d="${rechteck(715.8, 11.9, 1.1, 2.1)}"/><path fill="#b1a99d" d="${rechteck(710.6, 11.9, 5.2, .35)}"/>`
-  + `<path fill="none" stroke="#8b8378" stroke-width=".18" d="M713.2 11.9V6.6M712.4 9.4h1.6"/>`
-  + `<path fill="#c6beb2" d="${rechteck(723.6, 17.4, 4.4, 1.6)}"/><path fill="#aea699" d="${rechteck(728, 17.4, .9, 1.6)}"/>`
-  + `<g class="bt-warn"><circle cx="713.2" cy="6.45" r=".42"/><circle cx="723.75" cy="17.2" r=".32"/><circle cx="728.7" cy="17.2" r=".32"/></g>`
-  + `<path class="bt-schnee" d="M710.4 12q2.7-.5 5.6 0v.3h-5.6ZM708.4 14.05q4.4-.45 11.1 0v.3h-11.1ZM723.4 17.45q2.6-.4 5.6 0v.25h-5.6ZM722.1 19.05q4.9-.42 10 0v.3h-10Z"/>`;
-
-// In das Stadtband, vor den Häusern der Stadt gezeichnet (die Häuser stehen davor und verdecken den Fuß)
-export const BONI_SVG = `<g class="bt" aria-hidden="true">`
-  + `<path fill="#d4cdc2" d="${A.koerper}"/><path fill="#bcb4a8" d="${A.seite}"/><path fill="#ded8ce" d="${A.attika}"/>`
-  + `<path fill="#d1cabf" d="${BT.koerper}"/><path fill="#b8b0a4" d="${BT.seite}"/><path fill="#dbd5cb" d="${BT.attika}"/>`
-  + `<path fill="#9eabb2" d="${A.glas}${BT.glas}"/><path fill="#8a969c" d="${A.glasSeite}${BT.glasSeite}"/>`
-  + `<path fill="#e9e4dc" opacity=".55" d="${rechteck(708.5, 14, .3, 46)}${rechteck(722.2, 19, .3, 41)}"/>`
+// In das Stadtband, hinter die Häuser der Stadt gezeichnet (die Häuser stehen davor und verdecken den Fuß)
+export const BONI_SVG = `<g class="bt" aria-hidden="true"><defs>`
+  + `<linearGradient id="bt-vorn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dad4ca"/><stop offset="1" stop-color="#cdc6bb"/></linearGradient>`
+  + `<linearGradient id="bt-seite" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfb7ab"/><stop offset="1" stop-color="#b5ada1"/></linearGradient>`
+  + `<linearGradient id="bt-glas" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#aebdc5"/><stop offset=".6" stop-color="#96a5ae"/><stop offset="1" stop-color="#8f9da5"/></linearGradient>`
+  + `<linearGradient id="bt-glas2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8d9ba3"/><stop offset="1" stop-color="#78858d"/></linearGradient>`
+  + `<linearGradient id="bt-fg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>`
+  + FLACHBAU + fassade(A, "bt-ka") + fassade(BT, "bt-kb")
   + `<g class="bt-a">${lichter(A)}</g><g class="bt-b">${lichter(BT)}</g>${BAUM}`
-  + `<path class="bt-boni" d="${rechteck(BONI.x, BONI.y, BT.cw, BT.gh)}"/>`
-  + DACH + BALKON + RAUCHER + PUTZER + FLIEGER + `</g>`;
-
-// Sprechblase (HTML im Stadtband, damit die Schrift auch auf dem Handy lesbar bleibt); sie zeigt auf das Fenster im 14. OG
-// Normal steht sie rechts neben Turm B im freien Himmel; ist dort zu wenig Platz (Handy), sitzt sie über dem Turm.
-const pz = x => f(x / 1280 * 100) + "%", unten = f((60 - BONI.y - BT.gh / 2) / 60 * 100);
-export const BONI_HTML = `<div class="bt-blase" style="--l1:${pz(722.2 + 7.8 + 2.1)};--l2:${pz(BONI.x + BT.cw / 2)};bottom:${unten}%" aria-hidden="true"><span></span></div>`;
+  + DACH + RAUCHER + PUTZER + FLIEGER + `</g>`;
 
 export const BONI_CSS = `
-.bt-licht{fill:#f7da97}.bt-baum,.bt-raucher,.bt-putzer,.bt-flieger,.bt-boni,.bt-schnee{display:none}
+.bt-licht{fill:#f7da97}.bt-baum,.bt-raucher,.bt-putzer,.bt-flieger,.bt-schnee{display:none}
 .intro:not([data-wetter="sonne"]) .bt-mehr{fill:#f3d892}.intro[data-wetter="sonne"] .bt-mehr{display:none}
 .bt-an{animation:bt-an .5s ease var(--v) both}.bt-aus{animation:bt-an .5s ease var(--v) reverse both}
 .bt-flack{animation:bt-flack var(--d) steps(1,end) var(--v) infinite}
 @keyframes bt-an{from{opacity:0}to{opacity:1}}
 @keyframes bt-flack{0%,44%{opacity:0}45%,88%{opacity:1}89%,100%{opacity:0}}
-.bt-warn{fill:#e8463c;animation:bt-warn 2.6s ease-in-out infinite}
+.bt-warn{fill:#e8463c;animation:bt-warn 2.6s ease-in-out infinite}.bt-hof{opacity:.22}
 @keyframes bt-warn{0%,100%{opacity:.25}10%,24%{opacity:1}34%{opacity:.25}}
 .intro[data-wetter="schnee"] .bt-schnee{display:inline;fill:#fbfcfe}
 .intro[data-fest~="tannenbaum"] .bt-baum{display:inline;animation:bt-an .8s ease 2.4s both}
 .intro[data-fest~="tannenbaum"] .bt-b .bt-licht{display:none}
-.intro[data-boni~="blase"] .bt-boni{display:inline;fill:#ffe3a3;animation:bt-an .4s ease 4s both}
-.intro[data-boni~="raucher"] .bt-raucher{display:inline;animation:bt-an .6s ease 3.4s both}
-.bt-m2{transform-box:fill-box;transform-origin:50% 100%;animation:bt-plausch 3.8s ease-in-out infinite alternate}
-@keyframes bt-plausch{from{rotate:-3deg}to{rotate:4deg}}
-.bt-glut{animation:bt-glut 3.45s ease-in-out infinite}
-@keyframes bt-glut{0%,100%{opacity:.55}12%{opacity:1;fill:#ffb347}30%{opacity:.6}}
-.bt-rauch{fill:#fbfaf7;transform-box:fill-box;transform-origin:50% 50%;animation:bt-rauch 3.45s ease-out var(--v) infinite}
-@keyframes bt-rauch{0%{opacity:0;translate:0 0;scale:.35}15%{opacity:.9}100%{opacity:0;translate:2px -4.6px;scale:2.3}}
+.intro[data-boni~="raucher"] .bt-raucher{display:inline;animation:bt-an .7s ease 3.2s both}
+.bt-tuer{fill:#ffe2a0}
+.bt-m,.bt-kopf,.bt-arm,.bt-zig,.bt-wisch{transform-box:view-box}
+.bt-m{animation:bt-wiegen var(--d) ease-in-out infinite alternate}
+@keyframes bt-wiegen{from{rotate:-1.4deg}to{rotate:1.7deg}}
+.bt-arm,.bt-zig{animation:bt-zug ${TAKT}s cubic-bezier(.45,0,.3,1) var(--v) infinite}
+@keyframes bt-zug{0%,8%{rotate:0deg}19%,31%{rotate:var(--w)}43%,66%{rotate:0deg}69%{rotate:calc(var(--w) * -.05)}71%{rotate:0deg}73%{rotate:calc(var(--w) * -.04)}76%,100%{rotate:0deg}}
+.bt-kopf{animation:bt-kopf ${TAKT}s ease-in-out var(--v) infinite}
+@keyframes bt-kopf{0%,40%{rotate:0deg}48%,60%{rotate:var(--k)}70%,82%{rotate:0deg}86%{rotate:calc(var(--k) * -.5)}90%{rotate:0deg}94%{rotate:calc(var(--k) * -.4)}98%,100%{rotate:0deg}}
+.bt-glut{fill:#ee5f28;transform-box:fill-box;transform-origin:50% 50%;animation:bt-glut ${TAKT}s ease-in-out var(--v) infinite}
+@keyframes bt-glut{0%,19%{scale:1;fill:#ee5f28}23%,29%{scale:1.6;fill:#ffb53d}37%,100%{scale:1;fill:#ee5f28}}
+.bt-faden{fill:none;stroke:url(#bt-fg);stroke-width:.08;stroke-linecap:round;stroke-dasharray:.46 .26;animation:bt-faden 1.9s linear infinite,bt-fadenweg ${TAKT}s linear var(--v) infinite}
+@keyframes bt-faden{to{stroke-dashoffset:-1.44}}
+@keyframes bt-fadenweg{0%,6%{opacity:1}9%,43%{opacity:0}50%,100%{opacity:1}}
+.bt-hauch{fill:#fdfcfa;opacity:0;transform-box:fill-box;transform-origin:50% 50%;animation:bt-hauch ${TAKT}s ease-out var(--v) infinite}
+@keyframes bt-hauch{0%,47%{opacity:0;translate:0 0;scale:.3}50%{opacity:.85;translate:calc(var(--s) * .15px) -.15px;scale:.6}
+  63%{opacity:.55;translate:calc(var(--s) * .55px) -1.3px;scale:1.8}78%{opacity:.25;translate:calc(var(--s) * .4px + .7px) -2.6px;scale:2.7}90%,100%{opacity:0;translate:calc(var(--s) * .3px + 1.6px) -3.7px;scale:3.3}}
 .intro[data-boni~="putzer"] .bt-putzer{display:inline;animation:bt-an .6s ease 3s both}
 .bt-gondel{animation:bt-gondel 80s ease-in-out 3s infinite alternate both}
 .bt-seil{transform-box:fill-box;transform-origin:50% 0;animation:bt-seil 80s ease-in-out 3s infinite alternate both}
-@keyframes bt-gondel{from{translate:0 0}to{translate:0 22px}}
-@keyframes bt-seil{from{scale:1 1}to{scale:1 ${f((22 + 21.1 - 19.2) / (21.1 - 19.2))}}}
-.bt-wisch{transform-box:fill-box;transform-origin:0 100%;animation:bt-wisch .9s ease-in-out infinite alternate}
-@keyframes bt-wisch{from{rotate:-35deg}to{rotate:25deg}}
+@keyframes bt-gondel{from{translate:0 0}to{translate:0 ${FAHRT}px}}
+@keyframes bt-seil{from{scale:1 1}to{scale:1 ${f((FAHRT + GY - BT.oben) / (GY - BT.oben))}}}
+.bt-wisch{animation:bt-wisch .9s ease-in-out infinite alternate}
+@keyframes bt-wisch{from{rotate:-30deg}to{rotate:28deg}}
 .intro[data-boni~="flieger"] .bt-flieger{display:inline;animation:bt-flieger 16s linear 4.4s infinite both}
 @keyframes bt-flieger{0%{opacity:0;translate:0 0;rotate:-8deg}2%{opacity:1}14%{translate:7px 1.2px;rotate:6deg}28%{translate:14px 3.8px;rotate:-7deg}
   42%{translate:21px 7.8px;rotate:9deg}54%{translate:27px 12.5px;rotate:14deg;opacity:1}60%,100%{translate:30px 15px;rotate:16deg;opacity:0}}
-.bt-blase{position:absolute;z-index:2;left:var(--l1);translate:7px 6px;transform-origin:0 calc(100% - 6px);
-  padding:.32em .62em .36em;border-radius:.85em;background:#fffdf8;color:#2b2723;font:600 11.5px/1.25 var(--sans);white-space:nowrap;
-  box-shadow:0 1px 2px rgba(60,45,30,.18),0 3px 10px rgba(60,45,30,.12);opacity:0;scale:.5;transition:opacity .25s ease,scale .35s cubic-bezier(.3,1.5,.5,1);pointer-events:none}
-.bt-blase::after{content:"";position:absolute;left:-6px;bottom:6px;width:8px;height:7px;background:#fffdf8;clip-path:polygon(100% 0,100% 100%,0 100%)}
-.bt-blase.eng{left:var(--l2);translate:calc(-11px + var(--verschub,0px)) -12px;transform-origin:calc(11px - var(--verschub,0px)) 100%}
-.bt-blase.eng::after{left:calc(11px - var(--verschub,0px) - 4px);bottom:-5px;height:8px;clip-path:polygon(0 0,100% 0,0 100%)}
-.bt-blase.zeigen{opacity:calc(1 - var(--p,0) * 8);scale:1}
-@media (max-width:600px){.bt-blase{font-size:10px}}
 `;
 
-// Läuft im Browser: wählt die Szenen und spielt die Sprechblasen ab
-export function boniSzene(intro, q, zeit, wetter, elemente, still) {
-  let szenen;
-  if (q.has("boni")) szenen = q.get("boni").split(",");
-  else {
-    const z = Math.random();
-    szenen = [z < .3 ? "raucher" : z < .5 ? "putzer" : z < .65 ? "flieger" : ""];
-    if (Math.random() < .65) szenen.push("blase");
-  }
-  intro.dataset.boni = szenen.join(" ").trim();
-  const blase = intro.querySelector(".bt-blase");
-  if (!blase || !szenen.includes("blase")) return;
-  const hat = n => elemente.includes(n), tag = new Date().getDay(), eigene = [];
-  if (tag === 1) eigene.push("Montag. Erst mal Kaffee.");
-  if (tag === 3) eigene.push("Bergfest!");
-  if (tag === 5) eigene.push("Fast Wochenende!");
-  if (wetter === "regen") eigene.push("Schirm vergessen …");
-  if (wetter === "schnee") eigene.push("Schnee! Wer baut mit?");
-  if (wetter === "bewoelkt") eigene.push("Grau in grau heute.");
-  if (wetter === "sonne" && zeit === "sommer") eigene.push("Eis nach Feierabend?");
-  if (hat("tannenbaum")) eigene.push("Wer hat Plätzchen?");
-  if (hat("nikolaus")) eigene.push("Stiefel geputzt?");
-  if (hat("wimpel-fastnacht")) eigene.push("Helau!");
-  if (hat("ostern")) eigene.push("Frohe Ostern!");
-  if (hat("kuerbisse")) eigene.push("Süßes oder Saures!");
-  if (hat("laternen")) eigene.push("Heute ist Sankt Martin.");
-  if (hat("riesenrad")) eigene.push("Johannisnacht!");
-  if (hat("wimpel-wein")) eigene.push("Schoppen am Weinmarkt?");
-  if (hat("papierflieger")) eigene.push("Ab in die Ferien!");
-  if (hat("feuerwerk")) eigene.push("Frohes Neues!");
-  if (hat("schultuete")) eigene.push("Viel Glück, Erstis!");
-  if (hat("fahne")) eigene.push("Langes Wochenende!");
-  const allgemein = ["Erst mal Kaffee.", "Mahlzeit!", "Wer hat die Akte?", "Drucker streikt.", "Noch ein Termin …", "Läuft!",
-    "Kurz Pause?", "Wo ist der Locher?", "Kuchen in der Küche!", "Schöner Domblick heute.", "Protokoll? Mach ich.",
-    "Gleich Teamrunde!", "Fristen, Fristen …", "Wer hat Kaffee gekocht?", "Ausschuss um 17 Uhr!"];
-  const mischen = a => a.map(x => [Math.random(), x]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
-  const liste = mischen(eigene).slice(0, 2).concat(mischen(allgemein)).slice(0, 3);
-  const text = blase.firstElementChild;
-  const zeigen = i => {
-    if (!intro.isConnected || i >= liste.length) return;
-    text.textContent = liste[i]; blase.style.removeProperty("--verschub"); blase.classList.remove("eng");
-    const rand = innerWidth - 10, rechts = () => blase.getBoundingClientRect().left + blase.offsetWidth;
-    if (rechts() > rand) { blase.classList.add("eng"); if (rechts() > rand) blase.style.setProperty("--verschub", Math.round(rand - rechts()) + "px"); }
-    blase.classList.add("zeigen");
-    if (still) return;
-    setTimeout(() => { blase.classList.remove("zeigen"); setTimeout(() => zeigen(i + 1), 5600); }, 3600);
-  };
-  if (still) addEventListener("load", () => zeigen(0)); else setTimeout(() => zeigen(0), 4400);
+// Läuft im Browser: wählt die Szene für diesen Aufruf
+export function boniSzene(intro, q) {
+  const z = Math.random();
+  intro.dataset.boni = q.has("boni") ? q.get("boni").split(",").join(" ") : z < .45 ? "raucher" : z < .65 ? "putzer" : z < .8 ? "flieger" : "";
 }

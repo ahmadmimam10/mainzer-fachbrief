@@ -94,9 +94,9 @@ Benötigt Node.js 20 oder neuer, keine weiteren Pakete.
 
 Bei jedem Aufruf der Ausgabe (nur im hellen Modus, nicht nach der Seite „Über das Boniblatt“) erscheint eine kurze
 Szene über Mainz. Sie wechselt mit Jahreszeit und Wetter (13 Varianten), zeigt an besonderen Tagen kleine Motive und
-in den Bonifaziustürmen Bürolichter und gelegentlich eine kleine Szene im 14. OG (Raucherbalkon, Sprechblasen,
+in den Bonifaziustürmen Bürolichter und gelegentlich eine kleine Szene (Raucherbalkon im 20. OG,
 Fensterputzer, Papierflieger). Zum Ausprobieren: `?intro`, `?wetter=winter-schnee`, `?fest=advent`,
-`?boni=raucher,blase`, `?zeit=6` (Standbild nach 6 Sekunden).
+`?boni=raucher`, `?zeit=6` (Standbild nach 6 Sekunden).
 
 ### Besondere Tage – wann erscheinen die Motive?
 
