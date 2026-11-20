@@ -20,6 +20,11 @@ Keine amtliche Veröffentlichung der Stadt Mainz.
 
 Nichts davon läuft auf einem privaten Rechner.
 
+**Voraussetzung für Schritt 2:** Die Claude-GitHub-App braucht Zugriff auf dieses Repository
+(https://github.com/apps/claude/installations/select_target → Konto wählen → Repository `mainzer-fachbrief`
+freigeben). Ohne diese Freigabe kann die Routine die Ausgabe nicht hochladen; die Seite zeigt dann weiter
+die letzte Ausgabe.
+
 ## Ordner
 
 - `quellen.json` – alle Quellen (RSS, Übersichtsseiten, Ratsinformationssystem, Landtag-Schnittstelle …)
