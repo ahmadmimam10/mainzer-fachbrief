@@ -33,6 +33,8 @@ const SEITE_TAGE = 14;         // so viele Ausgaben lädt die Startseite
 const ARCHIV_TAGE = 400;       // so weit reicht die Archivsuche
 const NOTIZ_TAGE = 21;         // Gremien-Notizen vergangener Sitzungen so lange auf der Seite
 const NOTIZ_MAX = 160;         // Zeichen je Ressort-Notiz
+const HOER_MIN = 1500;         // Hörfassung („Ausgabe anhören“): Zeichen, etwa 450–700 Wörter bzw. 3–5 Minuten
+const HOER_MAX = 6000;
 
 async function poolLesen() {
   const dir = path.join(ROOT, "daten/pool");
@@ -89,6 +91,15 @@ async function vorbereiten() {
 function pruefen(ausgabe, bekannte) {
   const fehler = [];
   if (ausgabe.datum !== DATUM) fehler.push(`„datum“ muss ${DATUM} sein.`);
+  // Hörfassung (optional): Sprechtext über alle drei Ressorts für „Ausgabe anhören“ – reiner Text ohne Links
+  if (ausgabe.hoerfassung !== undefined && ausgabe.hoerfassung !== null) {
+    if (typeof ausgabe.hoerfassung !== "string") fehler.push("„hoerfassung“ muss ein Text sein.");
+    else {
+      const laenge = ausgabe.hoerfassung.trim().length;
+      if (laenge < HOER_MIN || laenge > HOER_MAX) fehler.push(`„hoerfassung“ muss ${HOER_MIN}–${HOER_MAX} Zeichen lang sein (sind ${laenge}).`);
+      if (/https?:\/\/|www\./i.test(ausgabe.hoerfassung)) fehler.push("„hoerfassung“ darf keine Links enthalten.");
+    }
+  }
   const r = ausgabe.ressorts || {};
   for (const id of Object.keys(r)) if (!RESSORTS[id]) fehler.push(`Unbekanntes Ressort „${id}“.`);
   for (const [id, def] of Object.entries(RESSORTS)) {
@@ -182,6 +193,8 @@ async function abschliessen() {
     if (w) def.wusstest = { ...(w.wert ? { wert: String(w.wert).trim() } : {}), text: w.text.trim(), id: w.id };
     else delete def.wusstest;
   }
+  if (typeof ausgabe.hoerfassung === "string") ausgabe.hoerfassung = ausgabe.hoerfassung.replace(/\r\n?/g, "\n").trim();
+  else delete ausgabe.hoerfassung;
   ausgabe.gesichtet = [...new Set([...(ausgabe.gesichtet || []), ...vorbereitet.kandidaten.map(k => k.id)])];
   ausgabe.erstellt = ausgabe.erstellt || new Date().toISOString();
   ausgabe.aktualisiert = new Date().toISOString();
@@ -231,6 +244,7 @@ async function bauen() {
   };
   const schlank = a => ({
     datum: a.datum, erstellt: a.aktualisiert || a.erstellt, ...(a.nachtraeglich ? { nachtraeglich: true } : {}),
+    ...(typeof a.hoerfassung === "string" && a.hoerfassung.trim() ? { hoerfassung: a.hoerfassung.trim() } : {}),
     ressorts: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, r.meldungen.map(({ originaltitel, ...m }) => m)])),
     wusstest: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, wusstest(r)]).filter(([, w]) => w)),
   });
