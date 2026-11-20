@@ -135,7 +135,7 @@ const WASSER = (() => {
 const WASSERDINGE = (() => {
   const r = zufall(19); let ringe = "", eis = "", laub = "";
   const frei = (x, breit) => x + breit < 572 || x > 708;
-  for (let i = 0; i < 26; i++) { const x = 300 + r() * 680, y = 4 + r() * 30; if (frei(x - 4, 8)) ringe += `<ellipse class="w-ring" cx="${f(x)}" cy="${f(y)}" rx="${f(2.2 + y * .06)}" ry="${f(.55 + y * .015)}" style="animation-delay:${f(-r() * 2.4)}s"/>`; }
+  for (let i = 0; i < 16; i++) { const x = 300 + r() * 680, y = 4 + r() * 30; if (frei(x - 4, 8)) ringe += `<ellipse class="w-ring" cx="${f(x)}" cy="${f(y)}" rx="${f(2.2 + y * .06)}" ry="${f(.55 + y * .015)}" style="animation-delay:${f(-r() * 3.6)}s"/>`; }
   for (let i = 0; i < 30; i++) { const x = 300 + r() * 680, y = 3 + r() * r() * 34, b = 3 + r() * 7; if (frei(x, b)) eis += `M${f(x)} ${f(y)}h${f(b)}a.55 .55 0 0 1 0 1.1h${f(-b)}a.55 .55 0 0 1 0-1.1Z`; }
   for (let i = 0; i < 34; i++) { const x = 300 + r() * 680, y = 3 + r() * r() * 30; if (frei(x, 2)) laub += `<ellipse cx="${f(x)}" cy="${f(y)}" rx="${f(.7 + r() * .5)}" ry=".32" fill="${["#d98a3d", "#c9642f", "#e0b04a", "#b5532e"][i % 4]}" transform="rotate(${Math.round(r() * 30 - 15)} ${f(x)} ${f(y)})"/>`; }
   return `<g class="w-ringe">${ringe}</g><path class="w-eis" d="${eis}"/><g class="w-laub">${laub}</g>`;
@@ -170,9 +170,9 @@ const kachel = (w, h, innen) => `url("data:image/svg+xml,${`<svg xmlns='http://w
 const regen = (w, h, n, seed, lang, dicke) => {
   const r = zufall(seed); let t = "";
   for (let i = 0; i < n; i++) {
-    const l = lang * (.55 + r() * .7), x = 8 + r() * (w - 12), y = 2 + r() * (h - lang * 1.3 - 4), dx = -l * w / h, o = .22 + r() * .3;
+    const l = lang * (.55 + r() * .7), x = 8 + r() * (w - 12), y = 2 + r() * (h - lang * 1.3 - 4), dx = -l * w / h, o = .16 + r() * .22;
     t += `<path d='M${f(x)} ${f(y)}l${f(dx)} ${f(l)}' stroke='#6d8498' stroke-width='${dicke}' stroke-linecap='round' opacity='${o.toFixed(2)}'/>`
-      + `<path d='M${f(x + dx * .55)} ${f(y + l * .55)}l${f(dx * .45)} ${f(l * .45)}' stroke='#5a7389' stroke-width='${f(dicke * 1.15)}' stroke-linecap='round' opacity='${(o + .2).toFixed(2)}'/>`;
+      + `<path d='M${f(x + dx * .55)} ${f(y + l * .55)}l${f(dx * .45)} ${f(l * .45)}' stroke='#5a7389' stroke-width='${f(dicke * 1.15)}' stroke-linecap='round' opacity='${(o + .14).toFixed(2)}'/>`;
   }
   return kachel(w, h, t);
 };
@@ -194,7 +194,7 @@ const LAUB = ["#d98a3d", "#c9642f", "#e0b04a", "#b5532e", "#cf7a2c"];
 // Blatt mit Stiel und Spitze, Blütenblatt als Tropfen
 const BLATT = "M0 0C1.4 -3.4 5.4 -4.4 9 -2.8C8.4 .8 5.6 3.6 1.8 3.4L-1.6 5L.2 2.4C-.4 1.6 -.4 .8 0 0Z", BLUETE = "M0 0q1.6 -2.6 4.6 0q-3 2.6 -4.6 0Z";
 const KACHELN = {
-  regen1: regen(150, 600, 14, 2, 24, 1.1), regen2: regen(110, 440, 11, 9, 16, .8), regen3: regen(90, 360, 12, 14, 10, .6),
+  regen1: regen(170, 680, 9, 2, 22, 1), regen2: regen(130, 520, 8, 9, 15, .75), regen3: regen(100, 400, 8, 14, 10, .55),
   schnee1: schnee(240, 480, 12, 4, 2.7), schnee2: schnee(170, 340, 14, 6, 1.7), schnee3: schnee(120, 240, 22, 8, .95, .3),
   laub1: blaetter(280, 560, 7, 12, LAUB, BLATT), laub2: blaetter(210, 420, 5, 17, LAUB, BLATT, .8),
   bluete: blaetter(260, 520, 8, 23, ["#f6bfd0", "#fbdde6", "#f2a8bf"], BLUETE, 1.32),
@@ -236,9 +236,9 @@ const VARIANTEN = `.i-nieder{position:absolute;inset:0;z-index:1;overflow:hidden
 .intro[data-wetter="regen"]{--wos:#b9c3ce;--h1:#e2e1e2;--h2:#dbdfe3;--h3:#cfd6dd;--h4:#bfc9d4;--schein:.14;--wo:#e3e7eb;--wod:1;--wa1:#c4d0d9;--wa2:#dbe1e5;--wl:#9db0bd;--wu:#9fb0bb}
 .intro[data-wetter="regen"] :is(.i-ufer,.i-huegel2){filter:saturate(.8) brightness(.97)}
 .intro:is([data-wetter="regen"],[data-wetter="schnee"]) .i-dunst,.intro[data-wetter="regen"] .w-ringe{display:block}
-.intro[data-wetter="regen"] .n5{display:block;background-image:${KACHELN.regen3};--kx:90px;--ky:360px;--kr:-1;--kd:1.05s;opacity:.55}
-.intro[data-wetter="regen"] .n1{display:block;background-image:${KACHELN.regen1};--kx:150px;--ky:600px;--kr:-1;--kd:.58s}
-.intro[data-wetter="regen"] .n2{display:block;background-image:${KACHELN.regen2};--kx:110px;--ky:440px;--kr:-1;--kd:.8s;opacity:.7}
+.intro[data-wetter="regen"] .n5{display:block;background-image:${KACHELN.regen3};--kx:100px;--ky:400px;--kr:-1;--kd:1.9s;opacity:.5}
+.intro[data-wetter="regen"] .n1{display:block;background-image:${KACHELN.regen1};--kx:170px;--ky:680px;--kr:-1;--kd:1.05s}
+.intro[data-wetter="regen"] .n2{display:block;background-image:${KACHELN.regen2};--kx:130px;--ky:520px;--kr:-1;--kd:1.4s;opacity:.7}
 .intro[data-wetter="schnee"]{--wos:#c3cdd9;--h1:#e3e6ea;--h2:#d6dde5;--h3:#c5cfdb;--h4:#b3c0d0;--schein:.2;--wo:#eef1f5;--wod:1;--wa1:#c3d0db;--wa2:#dde4e9;--wl:#a2b4c2;--wu:#9fb1bf;--du:rgba(236,240,244,.6);
   --d1:#f1f3f4;--d2:#fbfbfb;--hu1:#f1f3f4;--hu2:#eaedef;--tu1:#dfe3e4;--tu2:#e3e6e7;--bu:#eceef0;--buh:#fafbfb;--wi:#f6f7f8;--ka:#fdfdfd;--wieg:18px}
 .intro[data-wetter="schnee"] :is(.b-reif,.b-schnee,.i-flocken),.intro[data-wetter="schnee"] .i-boden .w-eis{display:block}
@@ -263,7 +263,8 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-himmel::after{background:linear-gradient(to top,#ecd8d0 0,#dcdbe3 24vh,#c6cedb 78vh)}
 .i-boden{top:calc(60.55% - 1px);background:linear-gradient(var(--wa1,#d9e6ed) 0,var(--wa2,#e7eef0) 8vh,#f6f4ef 24vh);translate:0 calc(var(--e,0) * 72vh)}
 .i-boden::after{background:linear-gradient(#c2cddb 0,#d2dae3 12vh,#e2e6ea 44vh)}
-.i-boden svg{position:absolute;left:50%;top:0;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);height:auto;overflow:visible;z-index:1;animation:i-wasser 11s ease-in-out infinite alternate}
+.i-boden svg{position:absolute;left:50%;top:0;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);height:auto;overflow:visible;z-index:1}
+.i-boden svg>path:not(.w-ufer):not(.w-ufer2):not(.w-eis){animation:i-wasser 9s ease-in-out infinite alternate}
 .i-boden svg>path{fill:none;stroke:var(--wl,#b3cad8);stroke-width:.42;stroke-linecap:round}
 .i-boden .w-hell{stroke:#fff;stroke-width:.5;opacity:.85}
 .i-boden .w-ufer{fill:var(--wu,#aebfc9);stroke:none;opacity:.5}
@@ -309,7 +310,7 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-dunst{display:none;position:absolute;left:50%;bottom:39.45%;width:300vw;margin-left:-150vw;height:13vh;background:linear-gradient(to top,var(--du,rgba(215,222,228,.7)),transparent);
   -webkit-mask:linear-gradient(90deg,#000 calc(50% - var(--L) * .56),transparent calc(50% - var(--L) * .47),transparent calc(50% + var(--L) * .47),#000 calc(50% + var(--L) * .56));mask:linear-gradient(90deg,#000 calc(50% - var(--L) * .56),transparent calc(50% - var(--L) * .47),transparent calc(50% + var(--L) * .47),#000 calc(50% + var(--L) * .56))}
 .i-flocken{display:none;position:absolute;left:50%;bottom:39.45%;width:140vw;margin-left:-70vw;height:calc(78vh + 240px);background-image:${KACHELN.schnee3};background-size:120px 240px;animation:i-flocken 13s linear infinite;will-change:transform}
-.w-ringe,.w-laub,.i-boden .w-eis{display:none}.w-ring{fill:none;stroke:#fff;stroke-width:.3;transform-box:fill-box;transform-origin:50% 50%;animation:i-ring 2.4s ease-out infinite}
+.w-ringe,.w-laub,.i-boden .w-eis{display:none}.w-ring{fill:none;stroke:#fff;stroke-width:.3;transform-box:fill-box;transform-origin:50% 50%;animation:i-ring 3.6s ease-out infinite}
 .i-boden .w-eis{fill:#fdfdfd;stroke:#b9c7d2;stroke-width:.14}
 .i-vogel{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * var(--fy));scale:calc(1 + var(--e,0) * 6);opacity:calc(var(--o,1) - var(--p,0) * 1.7)}
 .i-vogel svg{display:block;width:100%;height:auto;overflow:visible;animation:i-flug 1.7s cubic-bezier(.3,.6,.3,1) calc(1.2s + var(--v)) both,i-schweben 7s ease-in-out calc(2.9s + var(--v) * 6) infinite alternate}
@@ -344,7 +345,7 @@ ${FEST_CSS}
 @keyframes i-wolke{from{transform:translateX(calc(var(--fx) * .25));opacity:0}}
 @keyframes i-zieh{to{transform:translateX(16%)}}
 @keyframes i-schiff{from{transform:translateX(5px)}to{transform:translateX(-9px)}}
-@keyframes i-wasser{from{transform:translateX(-1.2%)}to{transform:translateX(1.2%)}}
+@keyframes i-wasser{from{transform:translateX(-6px)}to{transform:translateX(6px)}}
 @keyframes i-schein{from{transform:scale(.25);opacity:0}}
 @keyframes i-drehen{to{transform:rotate(360deg)}}
 @keyframes i-sonne{from{transform:translateY(64px)}}
