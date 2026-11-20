@@ -5,8 +5,14 @@
 //   docs/audio/<datum>-<ressort>-*.mp3  und  docs/daten/audio.json  nur im veröffentlichten Seitenpaket
 // Ohne AZURE_SPEECH_KEY / AZURE_SPEECH_REGION passiert nichts – die Seite liest dann mit der Browser-Stimme vor.
 //
-//   node werkzeuge/vertonen.mjs            vertonen (braucht die beiden Umgebungsvariablen)
-//   node werkzeuge/vertonen.mjs --trocken  nur anzeigen, was vertont würde (ohne Azure)
+//   node werkzeuge/vertonen.mjs                vertonen (braucht die beiden Umgebungsvariablen)
+//   node werkzeuge/vertonen.mjs --trocken      nur anzeigen, was vertont würde (ohne Azure)
+//   node werkzeuge/vertonen.mjs --stimmproben  kurze Hörprobe je deutscher Stimme nach stimmproben/ (Workflow „Stimmproben“)
+//
+// Einstellbar über Repository-Variablen (GitHub → Settings → Secrets and variables → Actions → Variables):
+//   AZURE_SPEECH_STIMME  z. B. de-DE-KatjaNeural (mehrere mit Komma = Ersatzstimmen)
+//   AZURE_SPEECH_STIL    z. B. cheerful (nur bei Stimmen, die diesen Sprechstil kennen)
+//   AZURE_SPEECH_TEMPO   z. B. +6%     AZURE_SPEECH_HOEHE  z. B. +2%
 //
 // Das Skript bricht nie mit Fehler ab: Scheitert die Vertonung, wird die Seite trotzdem veröffentlicht.
 import { createHash } from "node:crypto";
@@ -15,59 +21,106 @@ import { copyFile, mkdir, readdir, readFile, stat, unlink, writeFile } from "nod
 import { join } from "node:path";
 
 const TROCKEN = process.argv.includes("--trocken");
+const PROBEN = process.argv.includes("--stimmproben");
 const KEY = (process.env.AZURE_SPEECH_KEY || "").trim();
 const REGION = (process.env.AZURE_SPEECH_REGION || "").trim().toLowerCase().replace(/\s+/g, "");
+const sicher = (wert, muster, vorgabe) => (muster.test((wert || "").trim()) ? wert.trim() : vorgabe);
 const STIMMEN = (process.env.AZURE_SPEECH_STIMME || "de-DE-SeraphinaMultilingualNeural,de-DE-KatjaNeural")
-  .split(",").map(s => s.trim()).filter(Boolean);
+  .split(",").map(s => s.trim()).filter(s => /^[a-z]{2}-[A-Z]{2}-[A-Za-z]+Neural$/.test(s));
+const STIL = sicher(process.env.AZURE_SPEECH_STIL, /^[a-z-]{3,30}$/, "");
+const TEMPO = sicher(process.env.AZURE_SPEECH_TEMPO, /^[+-]\d{1,2}%$/, "+3%");
+const HOEHE = sicher(process.env.AZURE_SPEECH_HOEHE, /^[+-]\d{1,2}%$/, "+0%");
 const FORMAT = "audio-24khz-48kbitrate-mono-mp3";
 const BYTES_PRO_SEKUNDE = 6000;            // 48 kbit/s
 const ANZAHL_AUSGABEN = 5;                 // so viele neueste Ausgaben bekommen Ton
 const MIN_ZEICHEN = 200, MAX_ZEICHEN = 3200;
 const CACHE = ".audio-cache";
 const RESSORTS = ["jugendhilfeplanung", "fruehe-hilfen", "quartiersmanagement"];
+const PROBETEXT = "Guten Morgen und willkommen beim Mainzer Fachbrief! Heute ist Freitag, der 20. November. "
+  + "Kaffee bereit? Dann legen wir los.\n\nWir starten mit einer großen Zahl: 31,7 Millionen Euro fließen aus dem "
+  + "Startchancen-Programm an Mainzer Schulen.";
 
 const melden = (name, wert) => { if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `${name}=${wert}\n`); };
 const warte = ms => new Promise(r => setTimeout(r, ms));
 const xml = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 
-function ssml(text, stimme) {
+function ssml(text, stimme, { stil = STIL, tempo = TEMPO, hoehe = HOEHE } = {}) {
   const absaetze = text.replace(/\r\n?/g, "\n").split(/\n{2,}/).map(a => a.replace(/\s*\n\s*/g, " ").trim()).filter(Boolean);
-  return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="de-DE"><voice name="${stimme}">`
-    + `<prosody rate="+3%">${absaetze.map(xml).join('<break time="700ms"/>')}</prosody></voice></speak>`;
+  let inhalt = `<prosody rate="${tempo}" pitch="${hoehe}">${absaetze.map(xml).join('<break time="700ms"/>')}</prosody>`;
+  if (stil) inhalt = `<mstts:express-as style="${stil}">${inhalt}</mstts:express-as>`;
+  return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" `
+    + `xml:lang="de-DE"><voice name="${stimme}">${inhalt}</voice></speak>`;
+}
+
+// Eine Anfrage an Azure; wirft bei Fehlern (mit .status), wiederholt bei Netz- und Lastfehlern.
+async function anfrage(text, stimme, optionen) {
+  let letzter = "", status = 0;
+  for (let versuch = 1; versuch <= 3; versuch++) {
+    let antwort;
+    try {
+      antwort = await fetch(`https://${REGION}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+        method: "POST",
+        headers: { "Ocp-Apim-Subscription-Key": KEY, "Content-Type": "application/ssml+xml",
+          "X-Microsoft-OutputFormat": FORMAT, "User-Agent": "MainzerFachbrief" },
+        body: ssml(text, stimme, optionen),
+        signal: AbortSignal.timeout(90000),
+      });
+    } catch (fehler) { letzter = fehler.message; await warte(3000 * versuch); continue; }
+    status = antwort.status;
+    if (antwort.ok) {
+      const daten = Buffer.from(await antwort.arrayBuffer());
+      if (daten.length > 2000) return daten;
+      letzter = "leere Antwort";
+    } else letzter = `HTTP ${antwort.status}`;
+    if ([400, 401, 403].includes(antwort.status)) break;
+    await warte(antwort.status === 429 ? 20000 * versuch : 3000 * versuch);
+  }
+  const e = new Error(status === 401 || status === 403
+    ? `Azure lehnt den Zugang ab (${letzter}) – Schlüssel, Region und Tarif prüfen.` : `Vertonung fehlgeschlagen (${letzter}).`);
+  e.status = status; e.abbruch = status === 401 || status === 403;
+  throw e;
 }
 
 async function synthese(text) {
-  let letzter = "";
+  let letzter;
   for (const stimme of STIMMEN) {
-    for (let versuch = 1; versuch <= 3; versuch++) {
-      let antwort;
+    try { return { daten: await anfrage(text, stimme), stimme }; }
+    catch (fehler) { if (fehler.abbruch) throw fehler; letzter = fehler; }   // 400 = Stimme/Stil nicht verfügbar → Ersatzstimme
+  }
+  throw letzter || new Error("Keine Stimme konfiguriert.");
+}
+
+async function stimmproben() {
+  const antwort = await fetch(`https://${REGION}.tts.speech.microsoft.com/cognitiveservices/voices/list`,
+    { headers: { "Ocp-Apim-Subscription-Key": KEY }, signal: AbortSignal.timeout(30000) });
+  if (!antwort.ok) throw new Error(`Stimmenliste nicht abrufbar (HTTP ${antwort.status}).`);
+  const stimmen = (await antwort.json()).filter(v => v.Locale === "de-DE" && !v.ShortName.includes(":"));
+  await mkdir("stimmproben", { recursive: true });
+  const zeilen = [];
+  for (const v of stimmen) {
+    const stile = v.StyleList || [];
+    const froh = ["cheerful", "excited", "friendly"].filter(s => stile.includes(s));
+    zeilen.push(`${v.ShortName} | ${v.Gender} | ${v.VoiceType || ""} | Stile: ${stile.join(", ") || "–"}`);
+    for (const stil of ["", ...froh]) {
+      const name = `${v.ShortName.replace(/^de-DE-|Neural$/g, "")}${stil ? "-" + stil : ""}.mp3`;
       try {
-        antwort = await fetch(`https://${REGION}.tts.speech.microsoft.com/cognitiveservices/v1`, {
-          method: "POST",
-          headers: { "Ocp-Apim-Subscription-Key": KEY, "Content-Type": "application/ssml+xml",
-            "X-Microsoft-OutputFormat": FORMAT, "User-Agent": "MainzerFachbrief" },
-          body: ssml(text, stimme),
-          signal: AbortSignal.timeout(90000),
-        });
-      } catch (fehler) { letzter = fehler.message; await warte(3000 * versuch); continue; }
-      if (antwort.ok) {
-        const daten = Buffer.from(await antwort.arrayBuffer());
-        if (daten.length > 2000) return { daten, stimme };
-        letzter = "leere Antwort";
-      } else letzter = `HTTP ${antwort.status}`;
-      if (antwort.status === 401 || antwort.status === 403) {
-        const e = new Error(`Azure lehnt den Zugang ab (${letzter}) – Schlüssel, Region und Tarif prüfen.`); e.abbruch = true; throw e;
+        await writeFile(join("stimmproben", name), await anfrage(PROBETEXT, v.ShortName, { stil, tempo: "+6%", hoehe: "+0%" }));
+        console.log(`✓ ${name}`);
+      } catch (fehler) {
+        console.log(`✗ ${name}: ${fehler.message}`);
+        if (fehler.abbruch) throw fehler;
       }
-      if (antwort.status === 400) break;                 // Stimme nicht verfügbar → nächste Stimme
-      await warte(antwort.status === 429 ? 20000 * versuch : 3000 * versuch);
+      await warte(3500);                                   // Gratis-Tarif: höchstens 20 Anfragen pro Minute
     }
   }
-  throw new Error(`Vertonung fehlgeschlagen (${letzter}).`);
+  await writeFile(join("stimmproben", "stimmen.txt"), zeilen.join("\n") + "\n");
+  console.log(zeilen.join("\n"));
 }
 
 async function hauptteil() {
   if (!TROCKEN && (!KEY || !REGION)) { console.log("Vertonung übersprungen: AZURE_SPEECH_KEY / AZURE_SPEECH_REGION nicht gesetzt."); return 0; }
   if (!TROCKEN && !/^[a-z0-9]+$/.test(REGION)) { console.log("Vertonung übersprungen: AZURE_SPEECH_REGION hat kein gültiges Format (z. B. westeurope)."); return 0; }
+  if (PROBEN) { await stimmproben(); return 0; }
 
   const namen = (await readdir("daten/ausgaben")).filter(f => /^\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort().reverse();
   const ausgaben = [];
@@ -80,7 +133,7 @@ async function hauptteil() {
   }
   if (TROCKEN) {
     for (const { datum, texte } of ausgaben) for (const [r, t] of texte) console.log(`${datum} ${r}: ${t.length} Zeichen, ca. ${Math.round(t.length / 15)} s`);
-    console.log(`${ausgaben.reduce((n, a) => n + a.texte.length, 0)} Hörfassungen gefunden.`);
+    console.log(`${ausgaben.reduce((n, a) => n + a.texte.length, 0)} Hörfassungen gefunden; Stimme ${STIMMEN[0]}, Stil ${STIL || "–"}, Tempo ${TEMPO}, Höhe ${HOEHE}.`);
     return 0;
   }
 
@@ -92,7 +145,7 @@ async function hauptteil() {
 
   for (const { datum, texte } of ausgaben) {
     for (const [ressort, text] of texte) {
-      const hash = createHash("sha1").update(`${STIMMEN[0]}|${FORMAT}|${text}`).digest("hex").slice(0, 12);
+      const hash = createHash("sha1").update(`${STIMMEN[0]}|${STIL}|${TEMPO}|${HOEHE}|${FORMAT}|${text}`).digest("hex").slice(0, 12);
       const cacheDatei = join(CACHE, `${hash}.mp3`);
       behalten.add(`${hash}.mp3`);
       if (!existsSync(cacheDatei)) {
@@ -102,7 +155,7 @@ async function hauptteil() {
           await writeFile(cacheDatei, daten);
           neu++; zeichen += text.length;
           console.log(`✓ ${datum} ${ressort}: ca. ${Math.round(daten.length / BYTES_PRO_SEKUNDE)} s, ${text.length} Zeichen (${stimme})`);
-          await warte(1500);                               // Gratis-Tarif: höchstens 20 Anfragen pro Minute
+          await warte(3500);                               // Gratis-Tarif: höchstens 20 Anfragen pro Minute
         } catch (fehler) {
           console.log(`✗ ${datum} ${ressort}: ${fehler.message}`);
           if (fehler.abbruch) abbruch = true;
