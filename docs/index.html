@@ -186,6 +186,10 @@ main{min-height:55vh}
   .fuss-raster{grid-template-columns:1fr 1fr}
   .fuss-raster section:first-child{grid-column:1/-1}
 }
+@media (max-width:880px){
+  .ressorts a[data-r="fruehe-hilfen"] .langname{display:none}
+  .ressorts a[data-r="fruehe-hilfen"] .kurzname{display:inline}
+}
 @media (max-width:640px){
   .kopf-marke{gap:4px}
   .suche{flex:1 1 100%;order:3;margin-top:12px}
