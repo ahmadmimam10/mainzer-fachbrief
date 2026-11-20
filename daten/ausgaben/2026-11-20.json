@@ -127,6 +127,20 @@
      "url": "https://www.swr.de/swraktuell/rheinland-pfalz/mainz/kreuznacher-diakonie-studie-sexualisierte-gewalt-102.html",
      "datum": "2026-11-20",
      "originaltitel": "Kreuznacher Diakonie: Studie deckt 242 Fälle sexualisierter Gewalt in Heimen auf"
+    },
+    {
+     "id": "206d30e67a",
+     "stufe": "kurz",
+     "thema": "Kita-Infrastruktur",
+     "titel": "Gonsenheimer Ortsbeirat: Klimaanlagen und Verschattung für überhitzte Kitas",
+     "rubrik": "mainz"
+    },
+    {
+     "id": "d77b55fe0f",
+     "stufe": "kurz",
+     "thema": "Fachpublikation",
+     "titel": "Praxishandbuch „Kinder von Inhaftierten“ mit wissenschaftlichem Beitrag des IKJ erschienen",
+     "rubrik": "fach"
     }
    ]
   },
@@ -328,6 +342,13 @@
      "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/neuer-wirt-im-mainzer-kurfuerst-setzt-auf-bewaehrte-kueche-5799424",
      "datum": "2026-11-20",
      "originaltitel": "Neuer Wirt im Mainzer „Kurfürst“ setzt auf bewährte Küche"
+    },
+    {
+     "id": "206d30e67a",
+     "stufe": "kurz",
+     "thema": "Ortsbeirat",
+     "titel": "Ortsvorsteher fordert Klimaanlagen für Gonsenheimer Kitas",
+     "rubrik": "mainz"
     }
    ]
   }
