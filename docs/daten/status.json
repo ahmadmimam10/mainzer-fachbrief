@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-20T18:38:46.227Z",
+ "stand": "2026-11-20T21:30:16.988Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -416,10 +416,10 @@
    "name": "sozial.de",
    "kurz": "sozial.de",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 20,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 20 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.sozial.de: HTTP 503"
   },
   {
    "id": "startchancen",
