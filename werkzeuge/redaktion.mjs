@@ -176,12 +176,12 @@ async function bauen() {
   const quellen = await readJson("quellen.json");
   const ausgaben = (await ausgabenLesen()).sort((a, b) => b.datum.localeCompare(a.datum));
   const schlank = a => ({
-    datum: a.datum, erstellt: a.aktualisiert || a.erstellt,
+    datum: a.datum, erstellt: a.aktualisiert || a.erstellt, ...(a.nachtraeglich ? { nachtraeglich: true } : {}),
     ressorts: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, r.meldungen.map(({ originaltitel, ...m }) => m)])),
   });
   await writeJson("docs/daten/ausgaben.json", {
     stand: new Date().toISOString(),
-    erste: ausgaben.length ? ausgaben[ausgaben.length - 1].datum : DATUM,
+    erste: (ausgaben.filter(a => !a.nachtraeglich).pop() || ausgaben[ausgaben.length - 1] || { datum: DATUM }).datum,
     ressorts: Object.fromEntries(Object.entries(RESSORTS).map(([id, r]) => [id, r.name])),
     quellen: Object.fromEntries(quellen.map(q => [q.id, { name: q.name, kurz: q.kurz, ebene: q.ebene, aktiv: q.aktiv !== false }])),
     ausgaben: ausgaben.slice(0, SEITE_TAGE).map(schlank),
@@ -190,10 +190,14 @@ async function bauen() {
   const archiv = [];
   for (const a of ausgaben.filter(x => x.datum >= grenze)) {
     for (const [ressort, r] of Object.entries(a.ressorts)) {
-      for (const m of r.meldungen) archiv.push([a.datum, ressort, m.stufe[0], m.thema, m.titel, m.kurz || "", m.quelle, m.url]);
+      for (const m of r.meldungen) archiv.push([a.datum, ressort, m.stufe[0], m.thema, m.titel, m.kurz || "", m.quelle, m.url, m.rubrik || "", m.datum || ""]);
     }
   }
-  await writeJson("docs/daten/archiv.json", { felder: ["ausgabe", "ressort", "stufe", "thema", "titel", "kurz", "quelle", "url"], eintraege: archiv }, false);
+  await writeJson("docs/daten/archiv.json", {
+    felder: ["ausgabe", "ressort", "stufe", "thema", "titel", "kurz", "quelle", "url", "rubrik", "datum"],
+    ausgaben: ausgaben.filter(x => x.datum >= grenze).map(a => ({ datum: a.datum, erstellt: a.aktualisiert || a.erstellt, ...(a.nachtraeglich ? { nachtraeglich: true } : {}) })),
+    eintraege: archiv,
+  }, false);
 }
 
 const befehle = { vorbereiten, abschliessen, veroeffentlichen, bauen };

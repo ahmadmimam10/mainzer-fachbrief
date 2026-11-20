@@ -1,0 +1,149 @@
+{
+ "datum": "2026-11-14",
+ "erstellt": "2026-11-14T05:00:00.000Z",
+ "nachtraeglich": true,
+ "hinweis": "Nachträglich aus dem Make/Notion-Archiv zusammengestellt (Start des Fachbriefs: 20.11.2026).",
+ "ressorts": {
+  "jugendhilfeplanung": {
+   "meldungen": [
+    {
+     "id": "adfd998bba",
+     "stufe": "aufmacher",
+     "thema": "SGB-VIII-Reform",
+     "titel": "Bundesregierung verteidigt Reform der Kinder- und Jugendhilfe",
+     "kurz": "Die Regierung verteidigt die geplante Reform und den darin vorgesehenen Aufbau einer „infrastrukturellen Bildungsassistenz“.",
+     "rubrik": "bund",
+     "quelle": "bundestag",
+     "url": "https://www.bundestag.de/presse/hib/kurzmeldungen-1233236",
+     "datum": "2026-11-13",
+     "originaltitel": "Regierung verteidigt Reform der Kinder- und Jugendhilfe"
+    },
+    {
+     "id": "25c4d7711d",
+     "stufe": "wichtig",
+     "thema": "Startchancen",
+     "titel": "Bundestag: Startchancen- und Qualitätsentwicklungsgesetz",
+     "kurz": "Der Bundestag hat das Startchancen- und Qualitätsentwicklungsgesetz in seiner 108. Sitzung am 12.11.2026 behandelt.",
+     "rubrik": "bund",
+     "quelle": "bundestag",
+     "url": "https://www.bundestag.de/mediathek?videoid=7667588",
+     "datum": "2026-11-13",
+     "originaltitel": "TOP 5 Startchancen- und Qualitätsentwicklungsgesetz"
+    },
+    {
+     "id": "36a7604e08",
+     "stufe": "wichtig",
+     "thema": "Unterhaltsvorschuss",
+     "titel": "Bundestag: Unterhaltsvorschuss",
+     "kurz": "Der Bundestag hat das Thema Unterhaltsvorschuss in seiner 108. Sitzung am 12.11.2026 behandelt.",
+     "rubrik": "bund",
+     "quelle": "bundestag",
+     "url": "https://www.bundestag.de/mediathek?videoid=7667867",
+     "datum": "2026-11-13",
+     "originaltitel": "TOP 12 Unterhaltsvorschuss"
+    },
+    {
+     "id": "bb19ae04ad",
+     "stufe": "wichtig",
+     "thema": "Kita-Zugang",
+     "titel": "Kita: Türkisch klingender Nachname erschwert offenbar die Suche nach einem Platz",
+     "kurz": "Eine Studie mit E-Mails fiktiver Eltern an Tausende Kitas zeigt, dass die Chancen auf eine Zusage je nach Nachname sehr ungleich verteilt sind.",
+     "rubrik": "bund",
+     "quelle": "spiegel",
+     "url": "https://www.spiegel.de/panorama/gesellschaft/tuerkisch-klingender-nachname-erschwert-offenbar-die-suche-nach-kitaplatz-a-578c2dd5-0e46-4183-a37c-426eb3969547",
+     "datum": "2026-11-12",
+     "originaltitel": "Kita: Türkisch klingender Nachname erschwert offenbar die Suche"
+    },
+    {
+     "id": "f79463c347",
+     "stufe": "kurz",
+     "thema": "Bundeshaushalt",
+     "titel": "DKHW: Nachbesserungen beim Bundeshaushalt dringend notwendig",
+     "rubrik": "fach",
+     "quelle": "jugendhilfeportal",
+     "url": "https://jugendhilfeportal.de/artikel/deutsches-kinderhilfswerk-zur-bereinigungssitzung-des-haushaltsausschusses-des-bundestages-nachbesserungen-beim-bundeshaushalt-dringend-notwendig",
+     "datum": "2026-11-14",
+     "originaltitel": "DKHW: „NACHBESSERUNGEN BEIM BUNDESHAUSHALT DRINGEND NOTWENDIG“"
+    }
+   ]
+  },
+  "fruehe-hilfen": {
+   "meldungen": [
+    {
+     "id": "1b4486c4c6",
+     "stufe": "aufmacher",
+     "thema": "Mutter und Kind",
+     "titel": "Bundestag: Stiftung „Mutter und Kind – Schutz des ungeborenen Lebens“",
+     "kurz": "Der Bundestag hat das Thema Stiftung „Mutter und Kind – Schutz des ungeborenen Lebens“ in seiner 108. Sitzung am 12.11.2026 behandelt.",
+     "rubrik": "bund",
+     "quelle": "bundestag",
+     "url": "https://www.bundestag.de/mediathek?videoid=7667967",
+     "datum": "2026-11-13",
+     "originaltitel": "TOP 21 Stiftung \"Mutter und Kind - Schutz des ungeborenen Lebens\""
+    },
+    {
+     "id": "be060922a7",
+     "stufe": "kurz",
+     "thema": "Elterngeld",
+     "titel": "Elterngeld: Mehr Anreiz für Väter, Sorgearbeit zu übernehmen",
+     "rubrik": "fach",
+     "quelle": "jugendhilfeportal",
+     "url": "https://jugendhilfeportal.de/artikel/elterngeld-endlich-mehr-anreiz-fuer-vaeter-sorgearbeit-zu-uebernehmen",
+     "datum": "2026-11-14",
+     "originaltitel": "ELTERNGELD ENDLICH MEHR ANREIZ FÜR VÄTER, SORGEARBEIT ZU ÜBERNEHMEN"
+    }
+   ]
+  },
+  "quartiersmanagement": {
+   "meldungen": [
+    {
+     "id": "4a19e32615",
+     "stufe": "aufmacher",
+     "thema": "Bahnhof Mombach",
+     "titel": "Verschobene DB-Sanierung: Bleiben die Barrieren am Bahnhof Mainz-Mombach?",
+     "kurz": "Am Bahnhof Mombach fehlen Aufzüge und die Bahnsteige sind niedrig; die Korridorerneuerung der Bahn, die Abhilfe bringen sollte, wurde um Jahre verschoben.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/verschobene-db-sanierung-bleiben-die-barrieren-in-mombach-6590048",
+     "datum": "2026-11-13",
+     "originaltitel": "Verschobene DB-Sanierung: Bleiben die Barrieren in Mombach?"
+    },
+    {
+     "id": "f67a7507ed",
+     "stufe": "wichtig",
+     "thema": "Bürgerbeteiligung",
+     "titel": "Über 350 Menschen brachten Ideen für die Grünanlage „An der Brausch“ ein",
+     "kurz": "387 Menschen beteiligten sich an der Online-Umfrage zur Neugestaltung der 4.000 Quadratmeter großen Grünanlage in Mainz-Hechtsheim.",
+     "rubrik": "mainz",
+     "quelle": "stadt-mainz",
+     "url": "https://www.mainz.de/pressemeldungen/Mainz/2026/november/pm-mehr-als-350-menschen-haben-ihre-ideen-fuer-die-gruenanlage-an-der-brausch-eingebracht-jetzt-geht-die-buergerbeteiligung-weiter",
+     "datum": "2026-11-13",
+     "originaltitel": "Über 350 Menschen brachten Ideen für die Grünanlage „An der Brausch“ ein"
+    },
+    {
+     "id": "2afa1ebe48",
+     "stufe": "kurz",
+     "thema": "Entsiegelung",
+     "titel": "Mainz landet beim Wettbewerb zur Entsiegelung im Mittelfeld – Kaiserstraße soll grüner werden",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/mainz-landet-beim-wettbewerb-zur-entsiegelung-im-mittelfeld-6780874",
+     "datum": "2026-11-13",
+     "originaltitel": "Mainz landet beim Wettbewerb zur Entsiegelung im Mittelfeld"
+    },
+    {
+     "id": "a559cae14c",
+     "stufe": "kurz",
+     "thema": "Straßensperrung",
+     "titel": "Mainzer Emmerich-Josef-Straße wegen Rohrbruchs erneut gesperrt",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/mainzer-emmerich-josef-strasse-erneut-gesperrt-6827405",
+     "datum": "2026-11-13",
+     "originaltitel": "Mainzer Emmerich-Josef-Straße erneut gesperrt"
+    }
+   ]
+  }
+ },
+ "gesichtet": []
+}

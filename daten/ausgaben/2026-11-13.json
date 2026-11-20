@@ -1,0 +1,182 @@
+{
+ "datum": "2026-11-13",
+ "erstellt": "2026-11-13T05:00:00.000Z",
+ "nachtraeglich": true,
+ "hinweis": "Nachträglich aus dem Make/Notion-Archiv zusammengestellt (Start des Fachbriefs: 20.11.2026).",
+ "ressorts": {
+  "jugendhilfeplanung": {
+   "meldungen": [
+    {
+     "id": "fd7e7ee9e7",
+     "stufe": "aufmacher",
+     "thema": "Kita-Reform Mainz",
+     "titel": "Mainz plant Kita-Reform: Campus-Modell vernetzt Kitas mit Familienzentren",
+     "kurz": "Die Stadt will Kitas mit Familienzentren vernetzen, damit Eltern bei Sorgen mehr Hilfe erhalten; die eigene Kita bleibt die zentrale Anlaufstelle.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/mainz-plant-kita-reform-campus-modell-vorgestellt-6410975",
+     "datum": "2026-11-12",
+     "originaltitel": "Mainz plant Kita-Reform: Campus-Modell vorgestellt"
+    },
+    {
+     "id": "2075a4691b",
+     "stufe": "wichtig",
+     "thema": "Kita-Gesetz",
+     "titel": "Neues Kita-Gesetz: Bessere Chancen für Kinder brauchen auch Geld",
+     "kurz": "Mit dem neuen Kitagesetz will Bildungsministerin Prien benachteiligten Kindern helfen, doch in den nächsten Jahren stehen dafür immer weniger Mittel bereit.",
+     "rubrik": "bund",
+     "quelle": "spiegel",
+     "url": "https://www.spiegel.de/politik/deutschland/neues-kita-gesetz-wer-bessere-chancen-fuer-kinder-fordert-muss-dafuer-auch-geld-klarmachen-a-cd84cca9-c738-48bf-82a2-448e08075968",
+     "datum": "2026-11-12",
+     "originaltitel": "Neues Kita-Gesetz: Wer bessere Chancen für Kinder fordert, muss dafür auch Geld klarmachen"
+    },
+    {
+     "id": "cd478ed028",
+     "stufe": "wichtig",
+     "thema": "Kita-Fusion",
+     "titel": "Mainz beschließt Interimsfusion der Kitas Rodeneck-Platz und Am Finther Wald",
+     "kurz": "Die gemeinsame Einrichtung soll bessere Rahmenbedingungen für Kinder, Familien und Beschäftigte schaffen und im ersten Quartal 2027 starten.",
+     "rubrik": "mainz",
+     "quelle": "stadt-mainz",
+     "url": "https://www.mainz.de/pressemeldungen/Mainz/2026/november/pm-zwei-kitas-wachsen-zusammen-stadt-mainz-beschliesst-interimsfusion-der-kitas-rodeneck-platz-und-am-finther-wald",
+     "datum": "2026-11-12",
+     "originaltitel": "Mainz beschließt Interimsfusion der Kitas Rodeneck-Platz und Am Finther Wald"
+    },
+    {
+     "id": "86f5c857af",
+     "stufe": "kurz",
+     "thema": "Sozialstaatskommission",
+     "titel": "Veranstaltungsreihe zur Sozialstaatskommission: Erstanlaufstellen und vernetzte hybride Beratung in den Kommunen",
+     "rubrik": "fach",
+     "quelle": "dv",
+     "url": "https://www.deutscher-verein.de/events/detail/erstanlaufstellen-und-vernetzte-hybride-beratung-in-den-kommunen/",
+     "datum": "2026-11-12",
+     "originaltitel": "Veranstatlung: Veranstaltungsreihe zur Umsetzung der Empfehlungen der Sozialstaatskommission. 2. Veranstaltung: Erstanlaufstellen und vernetzte hybride Beratung in den Kommunen"
+    }
+   ]
+  },
+  "fruehe-hilfen": {
+   "meldungen": [
+    {
+     "id": "fd7e7ee9e7",
+     "stufe": "aufmacher",
+     "thema": "Familienzentren",
+     "titel": "Mainzer Campus-Modell: Kitas und Familienzentren sollen Eltern mehr Hilfe bieten",
+     "kurz": "Die Stadt will Kitas mit Familienzentren vernetzen, damit Eltern bei Sorgen mehr Hilfe erhalten; die eigene Kita bleibt zentrale Anlaufstelle.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/mainz-plant-kita-reform-campus-modell-vorgestellt-6410975",
+     "datum": "2026-11-12",
+     "originaltitel": "Mainz plant Kita-Reform: Campus-Modell vorgestellt"
+    },
+    {
+     "id": "d88be41b09",
+     "stufe": "kurz",
+     "thema": "Kinderschutz",
+     "titel": "Kinderschutzpreis 2026 des Kinderschutzbundes RLP geht an das Chawwerusch Theater",
+     "rubrik": "land",
+     "quelle": "landtag",
+     "url": "https://landtag-rlp.de/de/aktuelles/aktuelles-aus-dem-landtag/raum-fuer-entfaltung---preis-an-chawwerusch-theater-25505",
+     "datum": "2026-11-13",
+     "originaltitel": "Raum für Entfaltung / Preis an Chawwerusch Theater"
+    }
+   ]
+  },
+  "quartiersmanagement": {
+   "meldungen": [
+    {
+     "id": "3523132c93",
+     "stufe": "aufmacher",
+     "thema": "Bürgerbeteiligung",
+     "titel": "Mainz sammelt Ideen für Karmeliterplatz und Brückenplatz",
+     "kurz": "Für den Rahmenplan zur Umgestaltung mit mehr Grün und Schatten können Bürger vor Ort oder online Ideen einbringen.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/mainz-sammelt-ideen-fuer-karmeliter-und-brueckenplatz-6715906",
+     "datum": "2026-11-12",
+     "originaltitel": "Mainz sammelt Ideen für Karmeliter- und Brückenplatz"
+    },
+    {
+     "id": "082ec56b38",
+     "stufe": "wichtig",
+     "thema": "Straßenbahnausbau",
+     "titel": "Straßenbahn: Vorzugsvariante frühestens Mitte 2028",
+     "kurz": "Beim Informationsforum der Mainzer Mobilität in Weisenau nannten die Planer, dass die Vorzugsvariante frühestens Mitte 2028 feststeht.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/strassenbahn-vorzugsvariante-fruehestens-mitte-2028-6799624",
+     "datum": "2026-11-12",
+     "originaltitel": "Straßenbahn: Vorzugsvariante frühestens Mitte 2028"
+    },
+    {
+     "id": "6e307e3838",
+     "stufe": "wichtig",
+     "thema": "Standortsuche Unimedizin",
+     "titel": "Standortsuche Unimedizin: Acht Flächen für weitere Vorprüfung vorgesehen",
+     "kurz": "Die Stadt legt 59 Kriterien für die Untersuchung möglicher Standorte vor; acht Flächen sollen weiter vorgeprüft werden.",
+     "rubrik": "mainz",
+     "quelle": "stadt-mainz",
+     "url": "https://www.mainz.de/pressemeldungen/Mainz/2026/november/pm-sachstand-unimedizin",
+     "datum": "2026-11-12",
+     "originaltitel": "Standortsuche Unimedizin: Mainz legt Grundlage für systematische Vorprüfung vor"
+    },
+    {
+     "id": "dd1606f21b",
+     "stufe": "kurz",
+     "thema": "Straßenbahnausbau",
+     "titel": "Straßenbahn: Oppositionsparteien kritisieren Ausbaupläne Richtung Heiligkreuz-Viertel",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/strassenbahn-oppositionsparteien-kritisieren-ausbauplaene-6783161",
+     "datum": "2026-11-12",
+     "originaltitel": "Straßenbahn: Oppositionsparteien kritisieren Ausbaupläne"
+    },
+    {
+     "id": "e54dd7c550",
+     "stufe": "kurz",
+     "thema": "Sportangebote",
+     "titel": "Mainz stellt SportBoxen am Goetheplatz und im Volkspark auf",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/mainz-stellt-sportboxen-am-goetheplatz-und-im-volkspark-auf-6770319",
+     "datum": "2026-11-12",
+     "originaltitel": "Mainz stellt SportBoxen am Goetheplatz und im Volkspark auf"
+    },
+    {
+     "id": "ea5d8d44c2",
+     "stufe": "kurz",
+     "thema": "Entsiegelung",
+     "titel": "Mainz belegt beim Wettbewerb „abpflastern“ den 12. Platz",
+     "rubrik": "mainz",
+     "quelle": "stadt-mainz",
+     "url": "https://www.mainz.de/pressemeldungen/Mainz/2026/november/landeshauptstadt-mainz-belegt-bei-erster-teilnahme-am-wettbewerb-ab-pflastern-den-12.platz-und-2027-geht-es-weiter",
+     "datum": "2026-11-12",
+     "originaltitel": "Stadt Mainz belegt beim „abpflastern“ den 12. Platz - so geht es weiter"
+    },
+    {
+     "id": "5edff5cb57",
+     "stufe": "kurz",
+     "thema": "Schulwege",
+     "titel": "1.800 Mainzer Kinder sammeln „Grüne Meilen“ und formulieren Wünsche für sichere Schulwege",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/1800-mainzer-kinder-sammeln-gruene-meilen-fuer-klimaschutz-6506847",
+     "datum": "2026-11-12",
+     "originaltitel": "1.800 Mainzer Kinder sammeln „Grüne Meilen“ für Klimaschutz"
+    },
+    {
+     "id": "696bb434f6",
+     "stufe": "kurz",
+     "thema": "Ankunftsquartiere",
+     "titel": "Ankunftsquartiere stärken: Kommunen gestalten Ankommen und Teilhabe",
+     "rubrik": "fach",
+     "quelle": "difu",
+     "url": "https://difu.de/publikationen/2026/ankunftsquartiere-staerken",
+     "datum": "2026-11-10",
+     "originaltitel": "Ankunftsquartiere stärken"
+    }
+   ]
+  }
+ },
+ "gesichtet": []
+}

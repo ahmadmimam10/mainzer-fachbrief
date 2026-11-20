@@ -1,0 +1,181 @@
+{
+ "datum": "2026-11-17",
+ "erstellt": "2026-11-17T05:00:00.000Z",
+ "nachtraeglich": true,
+ "hinweis": "Nachträglich aus dem Make/Notion-Archiv zusammengestellt (Start des Fachbriefs: 20.11.2026).",
+ "ressorts": {
+  "jugendhilfeplanung": {
+   "meldungen": [
+    {
+     "id": "0fb3143cd2",
+     "stufe": "aufmacher",
+     "thema": "Demografischer Wandel",
+     "titel": "Weniger Kinder, weniger Jugendliche: Was bedeutet das für die Kinder- und Jugendhilfe?",
+     "kurz": "Eine neue Veröffentlichung des Forschungsverbunds DJI/TU Dortmund beleuchtet mögliche Auswirkungen des demografischen Wandels auf die Kinder- und Jugendhilfe bis 2040.",
+     "rubrik": "fach",
+     "quelle": "dji",
+     "url": "https://www.dji.de/veroeffentlichungen/aktuelles/news/article/1844-weniger-kinder-weniger-jugendliche-was-bedeutet-das-fuer-die-kinder-und-jugendhilfe.html",
+     "datum": "2026-11-12",
+     "originaltitel": "Weniger Kinder, weniger Jugendliche – was bedeutet das für die Kinder- und Jugendhilfe?"
+    },
+    {
+     "id": "759e932f0d",
+     "stufe": "wichtig",
+     "thema": "Kita-Gesetz",
+     "titel": "Kita-Gesetz: Mehr Qualität braucht eine sichere Finanzierung",
+     "kurz": "Das Jugendhilfeportal greift zum Kita-Gesetz die Forderung auf, dass mehr Qualität eine sichere Finanzierung braucht.",
+     "rubrik": "fach",
+     "quelle": "jugendhilfeportal",
+     "url": "https://jugendhilfeportal.de/artikel/mehr-qualitaet-braucht-eine-sichere-finanzierung",
+     "datum": "2026-11-17",
+     "originaltitel": "Kita-Gesetz „MEHR QUALITÄT BRAUCHT EINE SICHERE FINANZIERUNG“"
+    },
+    {
+     "id": "631ba5d9f9",
+     "stufe": "wichtig",
+     "thema": "Jugendpolitik",
+     "titel": "Bundesjugendring beschließt zehn neue jugendpolitische Positionen",
+     "kurz": "Die 99. Vollversammlung des DBJR setzt Impulse für eine starke Kinder- und Jugendhilfe, demokratische Teilhabe und den Schutz der Rechte junger Menschen.",
+     "rubrik": "fach",
+     "quelle": "jugendgerecht",
+     "url": "https://www.jugendgerecht.de/eigenstaendige-jugendpolitik/aktuelles/jugendpolitische-positionen-des-dbjr/",
+     "datum": "2026-11-16",
+     "originaltitel": "JUGENDPOLITISCHE POSITIONEN DES DBJR"
+    },
+    {
+     "id": "c29be0a486",
+     "stufe": "kurz",
+     "thema": "Kita-Betreuung",
+     "titel": "Kita-Betreuung im Bundesrat",
+     "rubrik": "bund",
+     "quelle": "bundesrat",
+     "url": "https://www.bundesrat.de/DE/plenum/bundesrat-kompakt/26/1070/60.html",
+     "datum": "2026-11-13",
+     "originaltitel": "20.11.2026 | Kita-Betreuung"
+    },
+    {
+     "id": "e2492fde75",
+     "stufe": "kurz",
+     "thema": "Jugendschutz im Internet",
+     "titel": "Jugendschutz im Internet im Bundesrat",
+     "rubrik": "bund",
+     "quelle": "bundesrat",
+     "url": "https://www.bundesrat.de/DE/plenum/bundesrat-kompakt/26/1070/45.html",
+     "datum": "2026-11-13",
+     "originaltitel": "20.11.2026 | Jugendschutz im Internet"
+    },
+    {
+     "id": "7044bc680d",
+     "stufe": "kurz",
+     "thema": "Mittagsverpflegung",
+     "titel": "Bundesregierung antwortet zur Mittagsverpflegung im Bildungs- und Teilhabepaket",
+     "rubrik": "bund",
+     "quelle": "bundestag",
+     "url": "https://www.bundestag.de/presse/hib/kurzmeldungen-1233394",
+     "datum": "2026-11-16",
+     "originaltitel": "Mittagsverpflegung im Bildungs- und Teilhabepaket"
+    },
+    {
+     "id": "3097ff3452",
+     "stufe": "kurz",
+     "thema": "Kinderschutz und Armut",
+     "titel": "Kinderschutz im Kontext von Armut und sozialer Ungleichheit",
+     "rubrik": "fach",
+     "quelle": "dji",
+     "url": "https://www.dji.de/veroeffentlichungen/aktuelles/news/article/kinderschutz-im-kontext-von-armut-und-sozialer-ungleichheit.html",
+     "datum": "2026-11-12",
+     "originaltitel": "Kinderschutz im Kontext von Armut und sozialer Ungleichheit"
+    },
+    {
+     "id": "1c80ad4824",
+     "stufe": "kurz",
+     "thema": "JIM-Studie 2026",
+     "titel": "JIM-Studie 2026: Social Media zunehmend passiv genutzt, KI wird zum persönlichen Ratgeber",
+     "rubrik": "fach",
+     "quelle": "jugendhilfeportal",
+     "url": "https://jugendhilfeportal.de/artikel/social-media-zunehmend-passiv-genutzt-ki-wird-zum-persoenlichen-ratgeber",
+     "datum": "2026-11-17",
+     "originaltitel": "JIM-Studie 2026 veröffentlicht SOCIAL MEDIA ZUNEHMEND PASSIV GENUTZT – KI WIRD ZUM PERSÖNLICHEN RATGEBER"
+    },
+    {
+     "id": "f00f20e954",
+     "stufe": "kurz",
+     "thema": "KI-Chatbots",
+     "titel": "JFF-Studie: Wenn junge Menschen bei KI-Chatbots Hilfe suchen",
+     "rubrik": "fach",
+     "quelle": "jugendhilfeportal",
+     "url": "https://jugendhilfeportal.de/artikel/wenn-junge-menschen-bei-ki-chatbots-hilfe-suchen",
+     "datum": "2026-11-17",
+     "originaltitel": "Studie des JFF WENN JUNGE MENSCHEN BEI KI-CHATBOTS HILFE SUCHEN"
+    }
+   ]
+  },
+  "fruehe-hilfen": {
+   "meldungen": [
+    {
+     "id": "3097ff3452",
+     "stufe": "aufmacher",
+     "thema": "Kinderschutz und Armut",
+     "titel": "Kinderschutz im Kontext von Armut und sozialer Ungleichheit",
+     "kurz": "Ein DJI-Fachgespräch thematisierte, wie armutssensible Kinderschutzpraxis umgesetzt werden kann und welche fachlichen und strukturellen Voraussetzungen dafür nötig sind.",
+     "rubrik": "fach",
+     "quelle": "dji",
+     "url": "https://www.dji.de/veroeffentlichungen/aktuelles/news/article/kinderschutz-im-kontext-von-armut-und-sozialer-ungleichheit.html",
+     "datum": "2026-11-12",
+     "originaltitel": "Kinderschutz im Kontext von Armut und sozialer Ungleichheit"
+    }
+   ]
+  },
+  "quartiersmanagement": {
+   "meldungen": [
+    {
+     "id": "cd86494060",
+     "stufe": "aufmacher",
+     "thema": "Neustadt: Kreyßigstraße",
+     "titel": "Nach Explosion in der Kreyßigstraße verzögern sich die Bauarbeiten",
+     "kurz": "Ein Jahr nach der Explosion in der Neustadt klagt eine Bewohnerin über nicht tragbare Zustände, die Wohnbau erklärt die Verzögerung.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/nach-explosion-in-kreyssigstrasse-bauarbeiten-verzoegern-sich-6783476",
+     "datum": "2026-11-16",
+     "originaltitel": "Nach Explosion in Kreyßigstraße: Bauarbeiten verzögern sich"
+    },
+    {
+     "id": "3c21496bed",
+     "stufe": "wichtig",
+     "thema": "Straßenbahn / MVG",
+     "titel": "MVG-Betriebshof: Gutachten fertig, aber kein Neubau geplant",
+     "kurz": "Die MVG gab rund 134.000 Euro für die Flächensuche aus, gebaut wird trotz längerer Straßenbahnen ab 2028 nicht.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/mvg-betriebshof-gutachten-fertig-aber-kein-neubau-geplant-6811481",
+     "datum": "2026-11-16",
+     "originaltitel": "MVG-Betriebshof: Gutachten fertig, aber kein Neubau geplant"
+    },
+    {
+     "id": "a37465ee98",
+     "stufe": "kurz",
+     "thema": "Ortsbeirat Laubenheim",
+     "titel": "Ortsbeirat Laubenheim will keine politische Werbung auf dem Marktplatz",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/mainz-laubenheim/laubenheim-keine-parteiwerbung-auf-historischem-marktplatz-6724173",
+     "datum": "2026-11-15",
+     "originaltitel": "Ortsbeirat will keine politische Werbung auf Marktplatz"
+    },
+    {
+     "id": "5f04fe36a7",
+     "stufe": "kurz",
+     "thema": "Straßenreinigung",
+     "titel": "Straßenreinigungsgebühren in Mainz sollen ab 2027 steigen",
+     "rubrik": "mainz",
+     "quelle": "stadt-mainz",
+     "url": "https://www.mainz.de/pressemeldungen/Mainz/2026/november/strassenreinigungsgebuehren-sollen-ab-2027-steigen-neue-gebuehrenkalkulation-beruecksichtigt-gestiegene-kosten",
+     "datum": "2026-11-16",
+     "originaltitel": "Straßenreinigungsgebühren sollen ab 2027 steigen - neue Gebührenkalkulation"
+    }
+   ]
+  }
+ },
+ "gesichtet": []
+}

@@ -4,6 +4,5 @@ Alle Schriften stammen aus dem Google-Fonts-Katalog, stehen unter der SIL Open F
 (https://openfontlicense.org) und werden lokal ausgeliefert – beim Seitenaufruf entsteht keine
 Verbindung zu Google-Servern.
 
-- **UnifrakturMaguntia** – Zeitungskopf
-- **Newsreader** – Überschriften und Lesetext
-- **Schibsted Grotesk** – Angaben und Bedienelemente
+- **Source Serif 4** – Schriftzug, Schlagzeilen und Lesetext
+- **Schibsted Grotesk** – Rubriken, Angaben und Bedienelemente
