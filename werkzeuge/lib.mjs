@@ -1,4 +1,4 @@
-// Gemeinsame Hilfsfunktionen für Abruf und Redaktion des Mainzer Fachbriefs.
+// Gemeinsame Hilfsfunktionen für Abruf und Redaktion des Mainzer Boniblatts.
 import { createHash } from "node:crypto";
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const TZ = "Europe/Berlin";
-export const UA = "Mozilla/5.0 (compatible; MainzerFachbrief/1.0; +https://github.com/ahmadmimam10/mainzer-fachbrief)";
+export const UA = "Mozilla/5.0 (compatible; MainzerBoniblatt/1.0; +https://github.com/ahmadmimam10/mainzer-fachbrief)";
 
 const ENT = {
   amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", ensp: " ", emsp: " ", thinsp: " ",

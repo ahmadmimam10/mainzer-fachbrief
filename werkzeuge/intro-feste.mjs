@@ -1,70 +1,93 @@
 // Besondere Tage und kleine Überraschungen im Intro (wird von intro-einbauen.mjs eingebunden).
 // – festeFuer() läuft im Browser (wird als Text in die Seite geschrieben) und bestimmt aus Datum, Jahreszeit und Wetter,
-//   welche Elemente heute erscheinen. Grundregel: Ein Anlass gilt am Tag selbst und – wenn der Tag frei ist (Wochenende,
-//   Feiertag) – schon ab dem letzten Werktag davor, weil der Fachbrief nur werktags erscheint.
+//   welche Elemente heute erscheinen.
+// – Wann ein Motiv erscheint, richtet sich nach dem Arbeitsalltag einer Sachbearbeiterin / eines Sachbearbeiters in der
+//   Verwaltung (TVöD, Stadt Mainz): frei sind Wochenende, Feiertage in Rheinland-Pfalz, Heiligabend, Silvester und
+//   Rosenmontag; ein einzelner Arbeitstag zwischen zwei freien Tagen gilt als Brückentag (die meisten nehmen ihn frei).
+//   Je Anlass gibt es drei Arten (Übersicht in README.md, Abschnitt „Besondere Tage“):
+//     vorher  – Freie Tage, auf die man sich freut: an den letzten Arbeitstagen davor (Brückentage übersprungen).
+//     am Tag  – Gewöhnliche Termine: am Tag selbst; fällt er aufs Wochenende, am Freitag davor.
+//     danach  – Was in den Urlaub fällt (Neujahr): an den ersten Arbeitstagen danach.
 // – Die Elemente sind kleine SVG-Zeichnungen an vier Stellen der Szene: Himmel, Stadt, Ufer, Wasser (plus Wimpelkette).
 //   Jedes Element ist unsichtbar, bis sein Name in data-fest am Intro steht.
+//
+// JÄHRLICHE PFLEGE (macht die Qualitätssicherung, siehe QUALITAET.md): FERIEN und TERMINE für das Folgejahr ergänzen;
+// `node werkzeuge/termine-pruefen.mjs` meldet, was fehlt. Alles andere (Ostern, Fastnacht, Advent …) wird berechnet.
 
 // Schulferien Rheinland-Pfalz (erster und letzter Ferientag; Quelle: KMK-Übersichten, Stand November 2026).
-// Für spätere Jahre hier ergänzen – ohne Eintrag entfallen nur Ferienstart und Schulanfang.
+// Ohne Eintrag entfallen nur Ferienstart und Schulanfang.
 export const FERIEN = [
   ["2026-12-23", "2027-01-08", "w"], ["2027-03-22", "2027-04-02", "o"], ["2027-06-28", "2027-08-06", "s"], ["2027-10-04", "2027-10-15", "h"],
   ["2027-12-23", "2028-01-07", "w"], ["2028-04-10", "2028-04-21", "o"], ["2028-07-03", "2028-08-11", "s"], ["2028-10-09", "2028-10-20", "h"],
 ];
 
+// Mainzer Feste mit wechselnden Terminen (erster und letzter Festtag laut mainz.de). Fehlt ein Jahr, gilt die Faustregel
+// in festeFuer(): Johannisnacht = Freitag vor dem 24. Juni bis Montag, Weinmarkt = die zwei Wochenenden um den letzten
+// Augustsonntag (Do–So). Form: { "2027": { johannisnacht: ["2027-06-18", "2027-06-21"], weinmarkt: [["…", "…"], ["…", "…"]] } }
+export const TERMINE = {};
+
 // d: Datum (Ortszeit Mainz, ohne Uhrzeit), zeit: fruehling|sommer|herbst|winter, wetter: sonne|bewoelkt|regen|schnee,
-// wuerfel: Zahl 0…1 für die gelegentlichen Überraschungen, ferien: Tabelle oben. Ergebnis: { anlaesse, elemente }.
-export function festeFuer(d, zeit, wetter, wuerfel, ferien) {
+// wuerfel: Zahl 0…1 für die gelegentlichen Überraschungen, ferien/termine: Tabellen oben. Ergebnis: { anlaesse, elemente }.
+export function festeFuer(d, zeit, wetter, wuerfel, ferien, termine) {
   const J = d.getFullYear();
   const T = (m, t, j) => new Date(j === undefined ? J : j, m - 1, t);
   const plus = (x, n) => new Date(x.getFullYear(), x.getMonth(), x.getDate() + n);
+  const datum = t => { const p = t.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); };
   const ostern = j => {
     const a = j % 19, b = Math.floor(j / 100), c = j % 100, h = (19 * a + b - Math.floor(b / 4) - Math.floor((b - Math.floor((b + 8) / 25) + 1) / 3) + 15) % 30;
     const l = (32 + 2 * (b % 4) + 2 * Math.floor(c / 4) - h - c % 4) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
     return new Date(j, Math.floor((h + l - 7 * m + 114) / 31) - 1, (h + l - 7 * m + 114) % 31 + 1);
   };
   const O = ostern(J);
-  // gesetzliche Feiertage in Rheinland-Pfalz (für „letzter Werktag davor“), auch über den Jahreswechsel
-  const feiertage = [T(1, 1), plus(O, -2), plus(O, 1), T(5, 1), plus(O, 39), plus(O, 50), plus(O, 60), T(10, 3), T(11, 1), T(12, 25), T(12, 26), T(1, 1, J + 1), T(12, 25, J - 1), T(12, 26, J - 1)];
-  const frei = x => x.getDay() === 0 || x.getDay() === 6 || feiertage.some(f => f.getTime() === x.getTime());
-  const werktagBis = x => { let w = x; while (frei(w)) w = plus(w, -1); return w; };
+  // frei: Wochenende, Feiertage in Rheinland-Pfalz, Heiligabend, Silvester (TVöD) und Rosenmontag (Stadt Mainz) – auch über den Jahreswechsel
+  const freiTage = [];
+  [J - 1, J, J + 1].forEach(j => { const o = ostern(j); freiTage.push(T(1, 1, j), plus(o, -48), plus(o, -2), plus(o, 1), T(5, 1, j), plus(o, 39), plus(o, 50), plus(o, 60), T(10, 3, j), T(11, 1, j), T(12, 24, j), T(12, 25, j), T(12, 26, j), T(12, 31, j)); });
+  const frei = x => x.getDay() === 0 || x.getDay() === 6 || freiTage.some(f => f.getTime() === x.getTime());
+  const ruhig = x => frei(x) || (frei(plus(x, -1)) && frei(plus(x, 1)));        // frei oder Brückentag
+  const zurueck = (x, n) => { let w = x; for (let k = 0; k < n; ) { w = plus(w, -1); if (!ruhig(w)) k++; } return w; };   // n-ter Arbeitstag vor x
+  const vorwaerts = (x, n) => { let w = x; for (let k = 0; k < n; ) { w = plus(w, 1); if (!ruhig(w)) k++; } return w; };  // n-ter Arbeitstag nach x
   const zwischen = (von, bis) => d >= von && d <= bis;
-  const tag = (x, bis) => zwischen(werktagBis(x), bis || x);
-  const datum = t => { const p = t.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); };
+  const vorher = (x, n, bis) => zwischen(zurueck(x, n || 1), bis || x);        // letzte n Arbeitstage davor bis zum Tag
+  const amTag = x => ruhig(x) ? zwischen(zurueck(x, 1), x) : d.getTime() === x.getTime();
+  const danach = (x, n) => zwischen(x, vorwaerts(x, n || 1));
 
-  const j24 = T(6, 24), johannis = plus(j24, -((j24.getDay() + 2) % 7 || 7));          // Freitag vor dem Johannistag
-  const sonntagAug = plus(T(8, 31), -T(8, 31).getDay());                                 // letzter Sonntag im August
+  const eigene = (termine || {})[J] || {};
+  const j24 = T(6, 24), johFr = plus(j24, -((j24.getDay() + 2) % 7 || 7));         // Freitag vor dem Johannistag
+  const johannis = eigene.johannisnacht ? eigene.johannisnacht.map(datum) : [johFr, plus(johFr, 3)];
+  const sonntagAug = plus(T(8, 31), -T(8, 31).getDay());                           // letzter Sonntag im August
+  const weinmarkt = eigene.weinmarkt ? eigene.weinmarkt.map(w => w.map(datum)) : [[plus(sonntagAug, -3), sonntagAug], [plus(sonntagAug, 4), plus(sonntagAug, 7)]];
   const advent4 = plus(T(12, 24), -T(12, 24).getDay()), advent1 = plus(advent4, -21);
   const muttertag = T(5, 8 + (7 - T(5, 1).getDay()) % 7);
-  const ferienstart = (ferien || []).some(f => zwischen(werktagBis(plus(datum(f[0]), -1)), plus(datum(f[0]), 2)));
-  const sommerstart = (ferien || []).some(f => f[2] === "s" && zwischen(werktagBis(plus(datum(f[0]), -1)), plus(datum(f[0]), 2)));
-  const schulanfang = (ferien || []).some(f => { if (f[2] !== "s") return false; let s = plus(datum(f[1]), 1); while (frei(s)) s = plus(s, 1); return zwischen(s, plus(s, 1)); });
+  const fer = ferien || [];
+  const ferienstart = fer.some(f => zwischen(zurueck(datum(f[0]), 2), plus(datum(f[0]), -1)));
+  const sommerstart = fer.some(f => f[2] === "s" && zwischen(zurueck(datum(f[0]), 2), plus(datum(f[0]), -1)));
+  const schulanfang = fer.some(f => f[2] === "s" && zwischen(plus(datum(f[1]), 1), vorwaerts(datum(f[1]), 2)));
 
   const liste = [
-    ["neujahr", tag(T(1, 1)) || tag(T(12, 31), T(1, 1, J + 1)), ["feuerwerk"]],
-    ["dreikoenig", tag(T(1, 6)), ["stern"]],
-    ["valentinstag", tag(T(2, 14)), ["herzen"]],
-    ["fastnacht", zwischen(plus(O, -52), plus(O, -47)), ["konfetti", "wimpel-fastnacht", "luftballons"]],
-    ["ostern", zwischen(werktagBis(plus(O, -2)), plus(O, 1)), ["ostern"]],
-    ["maifeiertag", tag(T(5, 1)), ["maibaum"]],
-    ["muttertag", tag(muttertag), ["herzen"]],
-    ["himmelfahrt", tag(plus(O, 39)), ["heissluftballon"]],
-    ["pfingsten", zwischen(werktagBis(plus(O, 49)), plus(O, 50)), ["tauben"]],
-    ["fronleichnam", tag(plus(O, 60)), ["wimpel-gelbweiss"]],
-    ["kindertag", tag(T(6, 1)), ["luftballons"]],
-    ["johannisnacht", zwischen(johannis, plus(johannis, 3)), ["riesenrad", "lichterkette"].concat(d.getTime() === plus(johannis, 3).getTime() ? ["feuerwerk"] : [])],
-    ["ferienstart", ferienstart, ["papierflieger"].concat(sommerstart ? ["segelboot"] : [])],
-    ["schulanfang", schulanfang, ["schultuete", "luftballons"]],
-    ["weinmarkt", zwischen(plus(sonntagAug, -3), sonntagAug) || zwischen(plus(sonntagAug, 4), plus(sonntagAug, 7)), ["lichterkette", "wimpel-wein"]],
-    ["weltkindertag", tag(T(9, 20)), ["drachen", "luftballons", "wimpel-bunt"]],
-    ["einheit", tag(T(10, 3)), ["fahne"]],
-    ["halloween", tag(T(10, 31)), ["kuerbisse", "fledermaeuse"]],
-    ["martinstag", tag(T(11, 11)), ["laternen"]],
-    ["elfterelfter", d.getTime() === T(11, 11).getTime(), ["konfetti", "wimpel-fastnacht"]],
-    ["kinderrechte", tag(T(11, 20)), ["luftballons", "wimpel-bunt"]],
-    ["advent", zwischen(werktagBis(advent1), T(12, 23)), ["tannenbaum", "lichterkette"]],
-    ["nikolaus", tag(T(12, 6)), ["nikolaus"]],
-    ["weihnachten", zwischen(werktagBis(T(12, 24)), T(12, 26)), ["tannenbaum", "lichterkette", "schlitten", "stern"]],
+    ["neujahr", danach(T(1, 1), 2) || d.getTime() === T(12, 31).getTime(), ["feuerwerk"]],          // danach: erste zwei Arbeitstage
+    ["dreikoenig", amTag(T(1, 6)), ["stern"]],
+    ["valentinstag", amTag(T(2, 14)), ["herzen"]],
+    ["fastnacht", zwischen(plus(O, -52), plus(O, -47)), ["konfetti", "wimpel-fastnacht", "luftballons"]],   // Weiberfastnacht bis Fastnachtsdienstag
+    ["ostern", vorher(plus(O, -2), 2, plus(O, 1)), ["ostern"]],                                       // Mi und Do vor Karfreitag
+    ["maifeiertag", vorher(T(5, 1)), ["maibaum"]],
+    ["muttertag", vorher(muttertag), ["herzen"]],
+    ["himmelfahrt", vorher(plus(O, 39)), ["heissluftballon"]],
+    ["pfingsten", vorher(plus(O, 49), 1, plus(O, 50)), ["tauben"]],
+    ["fronleichnam", vorher(plus(O, 60)), ["wimpel-gelbweiss"]],
+    ["kindertag", amTag(T(6, 1)), ["luftballons"]],
+    ["johannisnacht", zwischen(zurueck(johannis[0], 1), johannis[1]), ["riesenrad", "lichterkette"].concat(d.getTime() === johannis[1].getTime() ? ["feuerwerk"] : [])],
+    ["ferienstart", ferienstart, ["papierflieger"].concat(sommerstart ? ["segelboot"] : [])],      // letzte zwei Arbeitstage vor den Ferien
+    ["schulanfang", schulanfang, ["schultuete", "luftballons"]],                                     // erste zwei Schultage nach den Sommerferien
+    ["weinmarkt", weinmarkt.some(w => zwischen(w[0], w[1])), ["lichterkette", "wimpel-wein"]],
+    ["weltkindertag", amTag(T(9, 20)), ["drachen", "luftballons", "wimpel-bunt"]],
+    ["einheit", vorher(T(10, 3)), ["fahne"]],
+    ["halloween", amTag(T(10, 31)), ["kuerbisse", "fledermaeuse"]],
+    ["martinstag", amTag(T(11, 11)), ["laternen"]],
+    ["elfterelfter", amTag(T(11, 11)), ["konfetti", "wimpel-fastnacht"]],
+    ["kinderrechte", amTag(T(11, 20)), ["luftballons", "wimpel-bunt"]],
+    ["advent", zwischen(zurueck(advent1, 1), T(12, 23)), ["tannenbaum", "lichterkette"]],
+    ["nikolaus", amTag(T(12, 6)), ["nikolaus"]],
+    ["weihnachten", zwischen(zurueck(T(12, 24), 2), T(12, 30)), ["tannenbaum", "lichterkette", "schlitten", "stern"]],   // letzte zwei Arbeitstage bis „zwischen den Jahren“
   ];
   const anlaesse = liste.filter(a => a[1]).map(a => a[0]);
   let elemente = [];
@@ -192,7 +215,7 @@ const maibaum = `<g class="f f-maibaum" transform="translate(556 ${FUSS})"><elli
 
 // Riesenrad mit Lichtern am Kranz und Kassenhäuschen
 const riesenrad = (() => {
-  const cx = 716, cy = 41.5, r = 13.5; let sp = "", go = "", li = "";
+  const cx = 754, cy = 41.5, r = 13.5; let sp = "", go = "", li = "";
   for (let i = 0; i < 12; i++) {
     const w = i * Math.PI / 6, x = cx + Math.cos(w) * r, y = cy + Math.sin(w) * r, w2 = w + Math.PI / 12;
     sp += `M${cx} ${cy}L${f(x)} ${f(y)}`;
@@ -318,7 +341,7 @@ ${NAMEN.map(n => `.intro[data-fest~="${n}"] .f-${n}`).join(",")}{display:block}
 .f-bommel{transform-box:fill-box;transform-origin:0 100%;animation:f-wind 2.6s ease-in-out infinite alternate}
 .f-baender{transform-box:fill-box;transform-origin:50% 0;animation:f-wind 2.8s ease-in-out infinite alternate}
 .f-krone{transform-box:fill-box;transform-origin:50% 100%;animation:f-wind 5s ease-in-out infinite alternate}
-.f-rad{transform-box:view-box;transform-origin:716px 41.5px;animation:i-drehen 48s linear infinite}
+.f-rad{transform-box:view-box;transform-origin:754px 41.5px;animation:i-drehen 48s linear infinite}
 .f-glimm{animation:f-blink2 2.2s ease-in-out infinite alternate}
 .f-wehen{transform-box:fill-box;transform-origin:0 50%;animation:f-wehen 1.7s ease-in-out infinite alternate}
 .f-kind{animation:f-wippen .62s ease-in-out infinite alternate}

@@ -5,7 +5,8 @@
 // sich darüber, Logo dockt in der Kopfzeile an). Wiederholbar: ersetzt die markierten Blöcke INTRO-START … INTRO-ENDE.
 //   node werkzeuge/intro-einbauen.mjs
 import { readFileSync, writeFileSync } from "node:fs";
-import { FERIEN, festeFuer, FEST_CSS, FEST_HIMMEL, FEST_VORN, FEST_STADT, FEST_UFER, FEST_WASSER, FEST_BUEHNE } from "./intro-feste.mjs";
+import { FERIEN, TERMINE, festeFuer, FEST_CSS, FEST_HIMMEL, FEST_VORN, FEST_STADT, FEST_UFER, FEST_WASSER, FEST_BUEHNE } from "./intro-feste.mjs";
+import { BONI_SVG, BONI_HTML, BONI_CSS, boniSzene } from "./intro-boni.mjs";
 
 const DOCS = "docs", ZIEL = "docs";
 const teil = n => {
@@ -336,7 +337,7 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 @keyframes i-ein{from{opacity:0}}
 @keyframes i-zoom{from{scale:var(--z)}}
 @keyframes i-steig{from{translate:0 104%}}
-${VARIANTEN}
+${VARIANTEN}${BONI_CSS}
 @keyframes i-flocken{from{transform:translateY(-240px)}}
 @keyframes i-ring{from{transform:scale(.15);opacity:.9}to{transform:scale(1);opacity:0}}
 ${FEST_CSS}
@@ -364,13 +365,13 @@ ${FEST_CSS}
 /* INTRO-ENDE */
 `;
 
-const svgBand = (kl, innen) => `<div class="i-band ${kl}"><svg viewBox="0 0 ${B} ${H}">${innen}</svg></div>`;
+const svgBand = (kl, innen, nach = "") => `<div class="i-band ${kl}"><svg viewBox="0 0 ${B} ${H}">${innen}</svg>${nach}</div>`;
 // Stadtlage mit leichtem Dunst nach unten (Verlauf), Dächern, Fenstern und einzelnen Lichtern
-const stadtBand = (kl, b, id, oben, unten, extra = "") => svgBand(kl, `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset=".3" stop-color="${oben}"/><stop offset="1" stop-color="${unten}"/></linearGradient></defs>`
-  + `<path fill="url(#${id})" d="${b.umriss}"/><path class="i-dach" d="${b.dach}"/>${b.patina ? `<path class="i-patina" d="${b.patina}"/>` : ""}<path class="i-fenster" d="${b.fenster}"/><path class="i-lichter" d="${b.licht}"/>${extra}`);
+const stadtBand = (kl, b, id, oben, unten, extra = "", vorher = "", nach = "") => svgBand(kl, `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset=".3" stop-color="${oben}"/><stop offset="1" stop-color="${unten}"/></linearGradient></defs>`
+  + vorher + `<path fill="url(#${id})" d="${b.umriss}"/><path class="i-dach" d="${b.dach}"/>${b.patina ? `<path class="i-patina" d="${b.patina}"/>` : ""}<path class="i-fenster" d="${b.fenster}"/><path class="i-lichter" d="${b.licht}"/>${extra}`, nach);
 
 const html = `<!-- INTRO-START -->
-<section class="intro" id="intro" hidden aria-label="Mainzer Fachbrief">
+<section class="intro" id="intro" hidden aria-label="Mainzer Boniblatt">
  <div class="intro-buehne">
   <div class="i-mitte">
     <div class="i-logo" aria-hidden="true">
@@ -385,7 +386,7 @@ const html = `<!-- INTRO-START -->
       ${svgBand("i-huegel", `<path d="${HUEGEL_FERN.d}"/>`)}
       ${svgBand("i-huegel2", `<path d="${HUEGEL_NAH.d}"/><path class="i-tupfen" d="${HUEGEL_NAH.t[0]}"/><path class="i-tupfen t2" d="${HUEGEL_NAH.t[1]}"/>`)}
       ${stadtBand("i-fern", FERN, "i-dunst1", "#cdc6bb", "#ddd7ce")}
-      ${stadtBand("i-stadt", STADT, "i-dunst2", "#b4ab9e", "#c8c0b5", FEST_STADT)}
+      ${stadtBand("i-stadt", STADT, "i-dunst2", "#b4ab9e", "#c8c0b5", FEST_STADT, BONI_SVG, BONI_HTML)}
       ${svgBand("i-ufer", `<path class="b-lampe" d="${UFER.lampe}"/><path class="b-stamm" d="${UFER.stamm}"/><defs><path id="i-ast" d="${UFER.kahl}"/></defs><use class="b-kahl" href="#i-ast"/><use class="b-reif" href="#i-ast" transform="translate(-.1 -.24)"/><path class="b-a" d="${UFER.a}"/><path class="b-b" d="${UFER.b}"/><path class="b-c" d="${UFER.c}"/><path class="b-hell" d="${UFER.hell}"/><path class="b-chell" d="${UFER.chell}"/>`
         + `<path class="b-busch" d="${UFER.busch}"/><path class="b-buschhell" d="${UFER.buschhell}"/><path class="b-wiese" d="M0 ${H - 2.05}H${B}v.5H0Z"/><path class="b-blume bl1" d="${UFER.blume1}"/><path class="b-blume bl2" d="${UFER.blume2}"/><path d="M0 ${H}V${H - 1.6}H${B}V${H}Z"/><path class="b-kante" d="M0 ${H - 1.6}H${B}v.45H0Z"/><path class="b-schnee" d="${SCHNEEBANK}"/>${FEST_UFER}`)}
       <div class="i-dunst"></div>
@@ -399,7 +400,7 @@ const html = `<!-- INTRO-START -->
       <div class="i-l i-zr"><svg viewBox="0 0 128 128">${RECHTS}</svg></div>
       ${VOEGEL.map(v => `<div class="i-vogel" style="left:${v.l}%;top:${v.t}%;--g:${v.g};--x0:${v.x0};--y0:${v.y0};--fx:${v.fx};--fy:${v.fy};--v:${v.v}s;--o:${(.5 + v.g * 3.4).toFixed(2)}"><svg viewBox="0 0 32 13"><path d="M16 6.2C14.6 4.2 12.4 2.6 9.8 2.4C6.6 2.2 3.6 3.4 1 5.6C4 4.6 6.8 4.3 9.4 4.9C11.8 5.5 13.6 7 14.8 9.2L16 11.6L17.2 9.2C18.4 7 20.2 5.5 22.6 4.9C25.2 4.3 28 4.6 31 5.6C28.4 3.4 25.4 2.2 22.2 2.4C19.6 2.6 17.4 4.2 16 6.2ZM14.5 6.9a1.5 1.6 0 1 0 3 0a1.5 1.6 0 1 0-3 0Z"/></svg></div>`).join("\n      ")}
     </div>
-    <div class="i-titelplatz"><h1 class="i-titel"><span class="i-w">${buchstaben("Mainzer", 0)}</span> <br><span class="i-w">${buchstaben("Fachbrief", 7)}</span><b>.</b></h1></div>
+    <div class="i-titelplatz"><h1 class="i-titel"><span class="i-w">${buchstaben("Mainzer", 0)}</span> <br><span class="i-w">${buchstaben("Boniblatt", 7)}</span><b>.</b></h1></div>
     <p class="i-unter"><span>Deine tagesaktuelle Fachzeitung aus Mainz</span></p>
   </div>
   ${FEST_BUEHNE}
@@ -431,13 +432,15 @@ const html = `<!-- INTRO-START -->
   // Besondere Tage und gelegentliche Überraschungen (Regeln in werkzeuge/intro-feste.mjs). ?fest=advent oder ?fest=riesenrad zeigt
   // einen Anlass bzw. ein Element gezielt, ?fest=aus keines.
   const festeFuer = ${festeFuer.toString()};
-  const hd = heute.split("-"), fest = festeFuer(new Date(+hd[0], +hd[1] - 1, +hd[2]), zeit, wetter, Math.random(), ${JSON.stringify(FERIEN)});
+  const hd = heute.split("-"), fest = festeFuer(new Date(+hd[0], +hd[1] - 1, +hd[2]), zeit, wetter, Math.random(), ${JSON.stringify(FERIEN)}, ${JSON.stringify(TERMINE)});
   let elemente = fest.elemente;
   if (q.has("fest")) {
     elemente = wetter === "schnee" ? ["schneemann"] : [];
     q.get("fest").split(",").forEach(n => { const a = fest.alle.find(x => x[0] === n); (a ? a[1] : n === "aus" ? [] : [n]).forEach(e => elemente.push(e)); });
   }
   intro.dataset.fest = elemente.join(" ");
+  // Bonifaziustürme: kleine Szenen im 14. OG (Regeln in werkzeuge/intro-boni.mjs); ?boni=raucher,blase,putzer,flieger oder ?boni=aus
+  (${boniSzene.toString()})(intro, q, zeit, wetter, elemente, q.has("zeit") || q.has("p"));
   intro.hidden = false;
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo");
@@ -465,7 +468,7 @@ const html = `<!-- INTRO-START -->
     s.setProperty("--to", (1 - grenze((p - .02) / .2)).toFixed(3));
     s.setProperty("--unten", (a.bottom - (strecke() - scrollY)).toFixed(1) + "px");
     intro.classList.toggle("gelandet", gelandet);
-    bild.style.clipPath = gelandet ? "" : "inset(0 0 0 13.9%)";
+    bild.style.clipPath = gelandet ? "" : "inset(0 0 0 14.2%)";
     bild.style.opacity = gelandet ? "" : grenze((t - .3) / .45).toFixed(3);
     buehne.style.visibility = p >= 1 ? "hidden" : "";
     if (p >= 1) { fertig = true; clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }

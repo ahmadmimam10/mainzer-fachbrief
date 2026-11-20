@@ -1,4 +1,4 @@
-# Redaktionsanleitung – Mainzer Fachbrief
+# Redaktionsanleitung – Mainzer Boniblatt
 
 Diese Datei ist die verbindliche Arbeitsanweisung für die werktägliche Morgenausgabe. Sie ersetzt die drei
 DeepSeek-Prompts aus den früheren Make-Szenarien (Jugendhilfeplanung, Frühe Hilfen, Quartiersmanagement)
@@ -9,7 +9,7 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
 
 ## Erscheinungsweise
 
-- Der Fachbrief erscheint **werktags (Montag bis Freitag)**. Samstags und sonntags gibt es keine Ausgabe.
+- Das Boniblatt erscheint **werktags (Montag bis Freitag)**. Samstags und sonntags gibt es keine Ausgabe.
 - Die **Montagsausgabe** umfasst alle offenen Kandidaten seit der Freitagsausgabe (Freitag, Samstag, Sonntag).
   Die Höchstgrenzen bleiben gleich (12 je Ressort, ein Aufmacher, höchstens 3 wichtig) – die Auswahl wird also
   strenger, nicht länger.
@@ -224,7 +224,7 @@ Das frühere Feld `hoerfassung` auf oberster Ebene (ein Text für alle Ressorts)
 
 - **Länge:** höchstens 3 Minuten Sprechzeit, also etwa **250–400 Wörter**. `pruefen` verlangt 900–2800 Zeichen je Text.
 - **Jeder Text steht für sich** – wer nur ein Ressort hört, versteht alles ohne die anderen:
-  1. ein einziger kurzer Einstiegssatz mit Datum und Ressort („Guten Morgen, hier ist der Mainzer Fachbrief für die
+  1. ein einziger kurzer Einstiegssatz mit Datum und Ressort („Guten Morgen, hier ist das Mainzer Boniblatt für die
      Jugendhilfeplanung am Freitag, 20. November.“) – danach sofort zur ersten Meldung,
   2. der Aufmacher,
   3. die wichtigen Meldungen,
@@ -312,7 +312,7 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
       { "id": "045f39dc49", "stufe": "wichtig", "thema": "Startchancen", "icon": "schule", "titel": "…", "kurz": "…" },
       { "id": "883477e153", "stufe": "kurz", "thema": "Frühe Hilfen", "icon": "fruehe-hilfen", "titel": "…" }
     ],
-      "hoerfassung": "Guten Morgen und willkommen beim Mainzer Fachbrief für Montag, den 23. November 2026 – heute in der Jugendhilfeplanung, mit allem, was seit Freitag passiert ist. …\n\n…" },
+      "hoerfassung": "Guten Morgen und willkommen beim Mainzer Boniblatt für Montag, den 23. November 2026 – heute in der Jugendhilfeplanung, mit allem, was seit Freitag passiert ist. …\n\n…" },
     "fruehe-hilfen": { "meldungen": [] },
     "quartiersmanagement": { "meldungen": [] }
   }

@@ -36,7 +36,7 @@ const ANZAHL_AUSGABEN = 5;                 // so viele neueste Ausgaben bekommen
 const MIN_ZEICHEN = 200, MAX_ZEICHEN = 3200;
 const CACHE = ".audio-cache";
 const RESSORTS = ["jugendhilfeplanung", "fruehe-hilfen", "quartiersmanagement"];
-const PROBETEXT = "Guten Morgen und willkommen beim Mainzer Fachbrief! Heute ist Freitag, der 20. November. "
+const PROBETEXT = "Guten Morgen und willkommen beim Mainzer Boniblatt! Heute ist Freitag, der 20. November. "
   + "Kaffee bereit? Dann legen wir los.\n\nWir starten mit einer großen Zahl: 31,7 Millionen Euro fließen aus dem "
   + "Startchancen-Programm an Mainzer Schulen.";
 
@@ -61,7 +61,7 @@ async function anfrage(text, stimme, optionen) {
       antwort = await fetch(`https://${REGION}.tts.speech.microsoft.com/cognitiveservices/v1`, {
         method: "POST",
         headers: { "Ocp-Apim-Subscription-Key": KEY, "Content-Type": "application/ssml+xml",
-          "X-Microsoft-OutputFormat": FORMAT, "User-Agent": "MainzerFachbrief" },
+          "X-Microsoft-OutputFormat": FORMAT, "User-Agent": "MainzerBoniblatt" },
         body: ssml(text, stimme, optionen),
         signal: AbortSignal.timeout(90000),
       });

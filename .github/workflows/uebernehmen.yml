@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
       - name: Branch nach main übernehmen
         run: |
-          git config user.name "Fachbrief-Redaktion"
+          git config user.name "Boniblatt-Redaktion"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch -q origin "$GITHUB_REF_NAME"
           git merge --no-edit "origin/$GITHUB_REF_NAME"
