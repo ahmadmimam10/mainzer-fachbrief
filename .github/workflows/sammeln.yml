@@ -35,6 +35,7 @@ jobs:
           code=${PIPESTATUS[0]}
           node werkzeuge/protokoll.mjs "$code" abruf.log
           node werkzeuge/sammeln.mjs --zustand
+          node werkzeuge/wetter.mjs          # Wetterlage für Mainz (wählt die Intro-Variante), scheitert nie
           rm -f abruf.log
           exit 0
       - name: Ergebnis speichern
@@ -58,6 +59,7 @@ jobs:
             git fetch -q origin main
             git reset -q --hard origin/main
             node werkzeuge/sammeln.mjs > abruf.log 2>&1; node werkzeuge/protokoll.mjs "$?" abruf.log; rm -f abruf.log
+            node werkzeuge/wetter.mjs
             git add daten docs/daten
             git diff --cached --quiet && { echo "geaendert=nein" >> "$GITHUB_OUTPUT"; exit 0; }
             git commit -q -m "Abruf $(date -u +'%Y-%m-%d %H:%M') UTC"
