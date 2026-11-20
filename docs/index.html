@@ -304,7 +304,7 @@ main{min-height:55vh}
     return RESSORTS[0].id;
   }
   const holen = u => fetch(u, { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
-  const quelleName = id => daten?.quellen?.[id]?.kurz || id;
+  const quelleName = id => daten?.quellen?.[id]?.kurz || status?.quellen?.find(q => q.id === id)?.kurz || id;
   const ressortName = id => RESSORTS.find(r => r.id === id)?.name || id;
 
   // ---------- Ausgaben ----------
@@ -507,13 +507,15 @@ main{min-height:55vh}
   }
 
   function quellenZeigen() {
-    const ok = new Map((status?.quellen || []).map(q => [q.id, q.ok]));
-    const aktiv = Object.entries(daten.quellen).filter(([, q]) => q.aktiv);
-    const erreichbar = aktiv.filter(([id]) => ok.get(id) !== false).length;
-    $("#quellen-stand").textContent = `${aktiv.length} Quellen fest eingebunden${status ? `, beim letzten Abruf (${uhr(status.stand)} Uhr) waren ${erreichbar} erreichbar.` : "."}`;
+    // Quellenliste bevorzugt aus dem Abrufstatus (enthält neue Quellen sofort), sonst aus den Ausgabedaten
+    const liste = status?.quellen?.length
+      ? status.quellen.map(q => ({ id: q.id, name: q.name || q.id, ebene: q.ebene || daten.quellen[q.id]?.ebene || "fach", ok: q.ok }))
+      : Object.entries(daten.quellen).filter(([, q]) => q.aktiv).map(([id, q]) => ({ id, name: q.name, ebene: q.ebene, ok: undefined }));
+    const erreichbar = liste.filter(q => q.ok !== false).length;
+    $("#quellen-stand").textContent = `${liste.length} Quellen fest eingebunden${status ? `, beim letzten Abruf (${uhr(status.stand)} Uhr) waren ${erreichbar} erreichbar.` : "."}`;
     $("#quellen-liste").innerHTML = Object.entries(EBENEN).map(([eb, name]) => {
-      const qs = aktiv.filter(([, q]) => q.ebene === eb).sort((x, y) => x[1].name.localeCompare(y[1].name, "de"));
-      return qs.length ? `<div class="quellgruppe"><h3>${esc(name)}</h3><ul>${qs.map(([id, q]) => `<li${ok.get(id) === false ? ' class="aus"' : ""}>${esc(q.name)}${ok.get(id) === false ? " – zuletzt nicht erreichbar" : ""}</li>`).join("")}</ul></div>` : "";
+      const qs = liste.filter(q => q.ebene === eb).sort((x, y) => x.name.localeCompare(y.name, "de"));
+      return qs.length ? `<div class="quellgruppe"><h3>${esc(name)}</h3><ul>${qs.map(q => `<li${q.ok === false ? ' class="aus"' : ""}>${esc(q.name)}${q.ok === false ? " – zuletzt nicht erreichbar" : ""}</li>`).join("")}</ul></div>` : "";
     }).join("");
   }
 

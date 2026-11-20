@@ -318,7 +318,8 @@ async function main() {
   }
   // Status: bei Teilabrufen (--nur) die übrigen Quellen und den Zeitstempel aus dem bisherigen Stand übernehmen
   const bisher = ONLY.length ? await readJson("docs/daten/status.json", { stand: jetzt.toISOString(), quellen: [] }) : null;
-  const neuStatus = Object.entries(status).map(([id, s]) => ({ id, name: quellenNamen[id], ok: s.ok, treffer: s.treffer }));
+  const info = Object.fromEntries(alleQuellen.map(q => [q.id, q]));
+  const neuStatus = Object.entries(status).map(([id, s]) => ({ id, name: quellenNamen[id], kurz: info[id].kurz, ebene: info[id].ebene, ok: s.ok, treffer: s.treffer }));
   await writeJson("docs/daten/status.json", {
     stand: bisher ? bisher.stand : jetzt.toISOString(),
     quellen: [...(bisher ? bisher.quellen.filter(q => !status[q.id] && quellenNamen[q.id]) : []), ...neuStatus],
