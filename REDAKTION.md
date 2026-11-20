@@ -13,8 +13,8 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
 - Die **Montagsausgabe** umfasst alle offenen Kandidaten seit der Freitagsausgabe (Freitag, Samstag, Sonntag).
   Die Höchstgrenzen bleiben gleich (12 je Ressort, ein Aufmacher, höchstens 3 wichtig) – die Auswahl wird also
   strenger, nicht länger.
-- Die Hörfassung erwähnt montags kurz, dass die Ausgabe auch die Meldungen vom Wochenende enthält; freitags
-  verabschiedet sie sich ins Wochenende („bis Montag“).
+- Die Hörfassungen erwähnen montags kurz, dass die Ausgabe auch die Meldungen vom Wochenende enthält; freitags
+  verabschieden sie sich ins Wochenende („bis Montag“).
 
 ---
 
@@ -27,7 +27,8 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
 3. `arbeit/kandidaten.md` **vollständig** lesen.
 4. Die Ausgabe als `daten/ausgaben/JJJJ-MM-TT.json` (heutiges Datum, Europe/Berlin) schreiben, Format unten.
    Nur `id`s aus der Kandidatenliste verwenden. Links, Quellen und Daten ergänzt das Skript selbst.
-   Zum Schluss die **Hörfassung** (`hoerfassung`) aus den ausgewählten Meldungen schreiben (Abschnitt „Hörfassung“ unten).
+   Zum Schluss je Ressort die **Hörfassung** (`ressorts.<id>.hoerfassung`) aus dessen ausgewählten Meldungen schreiben
+   (Abschnitt „Hörfassung“ unten).
    Danach die **Gremien-Notizen** ergänzen und die Vorschau der nächsten Sitzung pflegen (Abschnitt „Gremien-Notizen“ unten).
 5. `node werkzeuge/redaktion.mjs veroeffentlichen` – als **einzelnen** Befehl ausführen, nichts davor oder
    dahinter verketten. Das Skript prüft die Ausgabe, baut die Seitendaten und committet und pusht **nur, wenn die
@@ -40,8 +41,8 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
 - Gibt es keine offenen Kandidaten, **keine** Ausgabe anlegen – das deutet auf einen gestörten Abruf hin. Nur berichten.
 - Existiert die Datei für heute schon (zweiter Lauf am selben Tag), sie **ergänzen**: bestehende Meldungen
   behalten, neue wichtige Kandidaten einordnen, Grenzen (12 je Ressort, ein Aufmacher, höchstens 3 wichtig) einhalten.
-  Ein neuer Kandidat darf den Aufmacher nur ablösen, wenn er klar wichtiger ist. Die Hörfassung dann anpassen,
-  wenn sich Aufmacher oder wichtige Meldungen geändert haben.
+  Ein neuer Kandidat darf den Aufmacher nur ablösen, wenn er klar wichtiger ist. Die Hörfassung eines Ressorts dann
+  anpassen, wenn sich dort Aufmacher oder wichtige Meldungen geändert haben.
 
 ---
 
@@ -223,25 +224,31 @@ weglassen – dann entfällt der Kasten.
   Nur Fakten aus Titel und Kurzbeschreibung der Meldung. Nichts erzwingen, keine reißerischen Zahlen (z. B. Opferzahlen).
 - Das frühere Feld `zahl` wird noch gelesen und beim Abschließen in `wusstest` umbenannt – neu nur `wusstest` schreiben.
 
-## Hörfassung („Ausgabe anhören“)
+## Hörfassung („Anhören“) – je Ressort
 
-Teil jeder Ausgabe: das Feld `hoerfassung` auf oberster Ebene (neben `datum` und `ressorts`). Die Seite liest den Text
-mit der Sprachausgabe des Browsers vor (Knopf „Ausgabe anhören“ über dem Aufmacher). Optional, aber werktags
-immer schreiben; fehlt das Feld, entfällt der Knopf.
+Teil jeder Ausgabe: **je Ressort** ein Sprechtext im Feld `hoerfassung` neben `meldungen` und `wusstest`
+(`ressorts.<id>.hoerfassung`). Beim Veröffentlichen spricht eine Azure-Stimme jeden Text als MP3 ein; die Seite spielt
+sie über den Knopf „Anhören“ oben auf dem Bogen. Fehlt die MP3, liest die Sprachausgabe des Browsers den Text vor.
+Optional, aber werktags für jedes Ressort mit Meldungen schreiben; Ressorts ohne Meldungen bekommen keine Hörfassung.
+Das frühere Feld `hoerfassung` auf oberster Ebene (ein Text für alle Ressorts) gilt nur noch für alte Ausgaben.
 
-- **Länge:** 3–5 Minuten Sprechzeit, also etwa **450–700 Wörter**. `pruefen` verlangt 1500–6000 Zeichen.
+- **Länge:** höchstens 3 Minuten Sprechzeit, also etwa **250–400 Wörter**. `pruefen` verlangt 900–2800 Zeichen je Text.
+- **Jeder Text steht für sich** – wer nur ein Ressort hört, versteht alles ohne die anderen:
+  1. kurze Begrüßung mit Wochentag, Datum und Ressort („Guten Morgen und willkommen beim Mainzer Fachbrief für
+     Freitag, den 20. November 2026 – heute in der Jugendhilfeplanung.“),
+  2. der Aufmacher,
+  3. die wichtigen Meldungen,
+  4. ein bis drei Punkte aus „Kurz notiert“,
+  5. ein kurzer Ausklang.
+  Montags kurz erwähnen, dass die Ausgabe auch das Wochenende umfasst; freitags ins Wochenende verabschieden
+  („bis Montag“).
 - **Stil:** ein lockerer, professioneller Morgen-Überblick mit leicht spielerischer Note – wie eine freundliche
-  Radiomoderation für Fachleute. Kurze Begrüßung mit Wochentag und Datum („Guten Morgen und willkommen beim Mainzer
-  Fachbrief für Freitag, den 20. November 2026“), dann **alle drei Ressorts** in der Reihenfolge der Seite:
-  Jugendhilfeplanung, Frühe Hilfen und Kinderschutz, Quartiersmanagement. Je Ressort zuerst der Aufmacher,
-  dann die wichtigen Meldungen, dann zwei bis vier Punkte aus „Kurz notiert“. Mit kurzen Übergängen („Wechsel zu …“,
-  „Und damit ins Quartiersmanagement“) und einem kurzen Ausklang. Montags kurz erwähnen, dass die Ausgabe auch das
-  Wochenende umfasst; freitags ins Wochenende verabschieden („bis Montag“).
+  Radiomoderation für Fachleute.
 - **Ton:** Ein Augenzwinkern ist willkommen (etwa „Kaffee bereit? Dann legen wir los.“), aber nie auf Kosten der
   Sache. Bei ernsten Themen – Gewalt, Missbrauch, Todesfälle, Armut – sachlich und ohne Scherz überleiten.
-- **Nur Fakten aus den ausgewählten Meldungen** (Titel, Kurztext, „Wusstest du schon?“). Nichts erfinden, nichts
-  ergänzen, keine eigenen Wertungen, keine Gremien-Notizen, keine Kandidaten, die nicht in der Ausgabe stehen.
-  Zahlen genau wie in der Meldung.
+- **Nur Fakten aus den ausgewählten Meldungen dieses Ressorts** (Titel, Kurztext, „Wusstest du schon?“). Nichts
+  erfinden, nichts ergänzen, keine eigenen Wertungen, keine Gremien-Notizen, keine Kandidaten, die nicht in der
+  Ausgabe stehen. Zahlen genau wie in der Meldung.
 - **Für das Ohr schreiben:** kurze Sätze (höchstens etwa 25 Wörter), keine Klammern, keine Aufzählungszeichen,
   kein Markdown, keine Emojis. Absätze durch eine Leerzeile trennen (`\n\n` im JSON), etwa einer je Abschnitt.
 - **Keine Links**, keine Adressen, keine IDs, keine Quellenangaben in Klammern (`pruefen` lehnt Links ab).
@@ -312,11 +319,11 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
       { "id": "045f39dc49", "stufe": "wichtig", "thema": "Startchancen", "icon": "schule", "titel": "…", "kurz": "…" },
       { "id": "883477e153", "stufe": "kurz", "thema": "Frühe Hilfen", "icon": "fruehe-hilfen", "titel": "…" }
     ],
-      "wusstest": { "wert": "15,93 Mrd. €", "text": "umfasst der Etat des Bundesfamilienministeriums 2027", "id": "4b8006a55f" } },
+      "wusstest": { "wert": "15,93 Mrd. €", "text": "umfasst der Etat des Bundesfamilienministeriums 2027", "id": "4b8006a55f" },
+      "hoerfassung": "Guten Morgen und willkommen beim Mainzer Fachbrief für Montag, den 23. November 2026 – heute in der Jugendhilfeplanung, mit allem, was seit Freitag passiert ist. …\n\n…" },
     "fruehe-hilfen": { "meldungen": [] },
     "quartiersmanagement": { "meldungen": [] }
-  },
-  "hoerfassung": "Guten Morgen und willkommen beim Mainzer Fachbrief für Montag, den 23. November 2026. Heute mit allem, was seit Freitag passiert ist. …\n\nWir starten in der Jugendhilfeplanung …\n\n…"
+  }
 }
 ```
 

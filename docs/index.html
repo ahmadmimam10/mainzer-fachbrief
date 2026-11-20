@@ -39,7 +39,7 @@ try {
 
 :root{
   color-scheme:light;
-  --tisch:#f6f4ef;--band:#efebe4;--bogen:#fffefb;--reiter:#fbfaf6;--fuss:#1b1a18;
+  --tisch:#f6f4ef;--band:#efebe4;--bogen:#fffefb;--reiter:#fbfaf6;--fuss:#1b1a18;--fein:#d9d3c8;
   --papier:#f3f1ec;--papier2:#ece7de;--tinte:#141414;--text:#292724;--grau:#5d584f;--haar:#d3cdc2;--linie:#141414;
   --rot:#c8102e;--besucht:#6a655c;
   --r-jhp:#c8102e;--r-fh:#0b6b72;--r-qm:#2b4a9b;
@@ -51,7 +51,7 @@ try {
 }
 :root[data-thema="dunkel"]{
   color-scheme:dark;
-  --tisch:#0e0d0c;--band:#1a1917;--bogen:#1d1c1a;--reiter:#1d1c1a;--fuss:#161513;
+  --tisch:#0e0d0c;--band:#1a1917;--bogen:#1d1c1a;--reiter:#1d1c1a;--fuss:#161513;--fein:#34312d;
   --papier:#161514;--papier2:#292724;--tinte:#ece8e1;--text:#d8d3ca;--grau:#a39d92;--haar:#36332f;--linie:#ece8e1;
   --rot:#ff6b78;--besucht:#9a948a;--r-jhp:#ff6b78;--r-fh:#5cc3cc;--r-qm:#9cadff;
 }
@@ -95,38 +95,43 @@ button,input{font:inherit;color:inherit}
 .testphase b{font-weight:700;letter-spacing:.01em;color:var(--tinte)}
 .testphase .band-kurz{display:none}
 
-/* Kopf: Logo links, rechts Suche, darunter klein das Datum der Ausgabe mit Pfeilen und Archiv; ganz rechts Hell/Dunkel */
-.kopf-zeile{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,330px) auto;grid-template-areas:"marke werkzeug thema";align-items:center;column-gap:clamp(16px,2.4vw,26px);row-gap:6px;padding-top:26px;padding-bottom:12px}
-.marke{grid-area:marke;margin:0;line-height:0}
+/* Ruhiger Zeitungskopf: links „Suchen“, in der Mitte das Logo, rechts Hell/Dunkel; darunter die Datumszeile zwischen
+   zwei feinen Linien (‹ Archiv-Symbol + Datum ›). Das Datum öffnet „Alle Ausgaben“, die Lupe klappt das Suchfeld auf. */
+.kopf-zeile{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:16px;padding-top:30px;padding-bottom:22px}
+.marke{justify-self:center;margin:0;line-height:0}
 .marke a{display:inline-block;max-width:100%}
-/* Logo 46 px hoch (Handy 31 px); wird es zu eng, schrumpft es im Seitenverhältnis */
-.marke img{display:block;width:min(100%,337px);height:auto}
+.marke img{display:block;width:auto;height:60px}
 .marke .logo-dunkel,:root[data-thema="dunkel"] .marke .logo-hell{display:none}
 :root[data-thema="dunkel"] .marke .logo-dunkel{display:block}
-.werkzeug{grid-area:werkzeug;display:grid;gap:6px}
-.suche{position:relative;display:block}
+.lupe{justify-self:start;display:inline-flex;align-items:center;gap:8px;height:40px;margin-left:-8px;padding:0 12px 0 8px;border:0;border-radius:8px;background:none;color:var(--grau);font:600 14px/1 var(--sans);cursor:pointer;transition:background-color .15s,color .15s}
+.lupe .ic{width:20px;height:20px;color:var(--tinte)}
+.lupe:hover,.lupe[aria-expanded="true"]{background:var(--band);color:var(--tinte)}
+.suchzeile{display:none;padding-bottom:16px}
+#kopf.suche-offen .suchzeile{display:block}
+.suche{position:relative;display:block;max-width:560px;margin:0 auto}
 .suche .ic{position:absolute;left:11px;top:50%;translate:0 -50%;width:19px;height:19px}
-.suche input{width:100%;min-height:40px;padding:8px 10px 8px 38px;border:1px solid #ddd7cc;border-radius:3px;background:var(--bogen);font-size:16px;outline:none;-webkit-appearance:none;appearance:none;transition:border-color .15s,box-shadow .15s}
+.suche input{width:100%;min-height:42px;padding:8px 10px 8px 38px;border:1px solid #ddd7cc;border-radius:3px;background:var(--bogen);font-size:16px;outline:none;-webkit-appearance:none;appearance:none;transition:border-color .15s,box-shadow .15s}
 :root[data-thema="dunkel"] .suche input{border-color:var(--haar)}
 .suche input::placeholder{color:var(--grau)}
 .suche input:focus{border-color:var(--akzent);box-shadow:0 0 0 3px color-mix(in srgb,var(--akzent) 18%,transparent)}
-.lupe{grid-area:lupe;display:none;place-items:center;width:42px;height:42px;padding:0;border:0;border-radius:10px;background:none;cursor:pointer}
-.lupe .ic{width:22px;height:22px}
-.lupe[aria-expanded="true"]{background:var(--band)}
-.ausgabe-nav{display:flex;align-items:center;min-height:34px}
-.ausgabe-nav time{flex:1;text-align:center;font:600 13.5px/1.2 var(--sans);white-space:nowrap}
-.pfeil,.archiv-knopf{flex:none;display:grid;place-items:center;width:34px;height:34px;padding:0;border:0;background:none;color:var(--tinte);cursor:pointer}
-.pfeil{font:400 26px/1 var(--serif);padding-bottom:3px;transition:color .15s}
-.pfeil:hover{color:var(--akzent)}
-.pfeil[hidden]{display:grid;visibility:hidden}
-.archiv-knopf{width:42px;margin-left:2px;padding-left:8px;border-left:1px solid var(--haar)}
-.archiv-knopf .ic{width:23px;height:23px;transition:transform .15s}
-.archiv-knopf:hover .ic{transform:translateY(-1px)}
-.archiv-knopf:hover .ic,.archiv-knopf[aria-pressed="true"] .ic{filter:drop-shadow(0 2px 0 var(--akzent))}
-.ausgabe-zusatz{display:none;margin:0;text-align:center;font:500 12.5px/1.3 var(--sans);color:var(--akzent)}
+.dateline{display:flex;justify-content:center;align-items:center;gap:18px;padding:5px 0;border-top:1px solid var(--fein);border-bottom:1px solid var(--fein)}
+.pfeil{flex:none;display:grid;place-items:center;width:34px;height:34px;padding:0 0 3px;border:0;border-radius:6px;background:none;color:var(--tinte);font:400 22px/1 var(--serif);cursor:pointer;transition:color .15s,background-color .15s}
+.pfeil:hover{color:var(--akzent);background:var(--band)}
+.pfeil[hidden]{display:grid;visibility:hidden}   /* unsichtbar, aber platzhaltend – das Datum bleibt mittig */
+.archiv-knopf{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 10px;border:0;border-radius:6px;background:none;color:var(--text);font:600 13.5px/1 var(--sans);letter-spacing:.02em;white-space:nowrap;cursor:pointer;transition:background-color .15s,color .15s}
+.archiv-knopf .ic{width:17px;height:17px;color:var(--grau)}
+.archiv-knopf:hover{background:var(--band);color:var(--tinte)}
+.archiv-knopf[aria-pressed="true"]{background:color-mix(in srgb,var(--akzent) 10%,transparent);color:var(--akzent)}
+.archiv-knopf[aria-pressed="true"] .ic{color:var(--akzent)}
+.ausgabe-zusatz{display:none;margin:6px 0 0;text-align:center;font:500 12.5px/1.3 var(--sans);color:var(--akzent)}
 
-/* Umschalter hell/dunkel: kleine Schiene, der Knopf trägt das Zeichen der gewählten Darstellung */
-.thema-schalter{grid-area:thema;align-self:start;display:grid;place-items:center;width:58px;height:42px;margin:0;padding:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+/* Umschalter hell/dunkel: Desktop eine kleine Schiene (der Knopf trägt das Zeichen der gewählten Darstellung),
+   Handy nur ein Symbol – Mond im hellen, Sonne im dunklen Modus */
+.thema-schalter{justify-self:end;display:grid;place-items:center;width:58px;height:42px;margin:0 -2px 0 0;padding:0;border:0;border-radius:8px;background:none;color:var(--tinte);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.thema-kurz{display:none}
+.thema-kurz svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.thema-kurz .k-sonne,.thema-schalter[aria-checked="true"] .k-mond{display:none}
+.thema-schalter[aria-checked="true"] .k-sonne{display:block}
 .schiene{position:relative;display:block;width:54px;height:30px;border-radius:15px;background:var(--bogen);box-shadow:inset 0 0 0 1px var(--haar);transition:background-color .2s,box-shadow .2s}
 .schiene::before{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(20,20,20,.3);transition:transform .22s cubic-bezier(.3,.7,.4,1),background-color .2s}
 .schiene svg{position:absolute;top:7px;width:16px;height:16px;transition:color .2s}
@@ -142,7 +147,7 @@ button,input{font:inherit;color:inherit}
 /* Registermappe: Reiter je Ressort direkt über dem Bogen. Aktiv: Bogenfarbe mit Oberkante in Ressortfarbe, geht nahtlos
    in den Bogen über. Inaktiv: leicht in der eigenen Farbe getönt, etwas niedriger, innen unten ein feiner Schatten. */
 .mappe{max-width:1200px;margin:0 auto;padding:0 var(--rand)}
-.reiterleiste{display:flex;align-items:flex-end;gap:6px;padding:20px 0 0 18px}
+.reiterleiste{display:flex;justify-content:center;align-items:flex-end;gap:6px;padding:26px 0 0}
 .reiter{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 22px 0 18px;border-radius:9px 9px 0 0;background:color-mix(in srgb,var(--farbe) 8%,var(--reiter));color:color-mix(in srgb,var(--farbe) 90%,#000);font:700 15px/1.15 var(--sans);text-decoration:none;white-space:nowrap;box-shadow:inset 0 -7px 9px -8px rgba(0,0,0,.16);transition:height .2s ease,background-color .2s ease}
 .reiter:hover{background:color-mix(in srgb,var(--farbe) 15%,var(--reiter))}
 .reiter .ic{width:19px;height:19px}
@@ -154,7 +159,7 @@ button,input{font:inherit;color:inherit}
 :root[data-thema="dunkel"] .reiter small{color:#141312}
 :root[data-thema="dunkel"] .reiter[aria-current="page"]{background:var(--bogen);box-shadow:inset 0 3px 0 var(--farbe)}
 /* Der Bogen: die ganze Ausgabe (Meldungen, Seitenspalte, Archiv, Suche) auf einem hellen Papierbogen */
-.bogen{background:var(--bogen);border-radius:0 6px 6px 6px;padding:0 var(--innen) 18px;box-shadow:0 10px 30px -14px rgba(70,50,30,.22),0 0 0 1px rgba(60,45,30,.06)}
+.bogen{background:var(--bogen);border-radius:6px;padding:0 var(--innen) 18px;box-shadow:0 10px 30px -14px rgba(70,50,30,.22),0 0 0 1px rgba(60,45,30,.06)}
 :root[data-thema="dunkel"] .bogen{box-shadow:0 14px 34px -14px rgba(0,0,0,.8)}
 .ausgabe-meta{margin:0 0 0 auto;font-size:12.5px;line-height:1.35;color:var(--grau);text-align:right}
 
@@ -174,10 +179,14 @@ button,input{font:inherit;color:inherit}
 .hoer-stopp{display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:0 15px 0 11px;border:1px solid var(--haar);border-radius:999px;background:none;color:var(--tinte);font:600 14px/1 var(--sans);cursor:pointer;transition:border-color .15s,color .15s}
 .hoer-stopp:hover{border-color:var(--akzent);color:var(--akzent)}
 .hoer-stopp svg{width:14px;height:14px;fill:currentColor}
-.hoer-info{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin:0;font-size:13.5px;line-height:1.35;color:var(--grau)}
-.hoer-spur{display:none;width:96px;height:4px;border-radius:2px;background:var(--haar);overflow:hidden}
+.hoer-info{margin:0;font-size:13.5px;line-height:1.35;color:var(--grau);font-variant-numeric:tabular-nums}
+/* Fortschritt: schmale Leiste, aber 28 px hohe Tippfläche; Antippen springt an die Stelle */
+.hoer-spur{display:none;position:relative;flex:0 1 200px;min-width:120px;height:28px;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}
+.hoer-spur::before{content:"";position:absolute;left:0;right:0;top:12px;height:4px;border-radius:2px;background:var(--haar)}
+.hoer-spur span{position:absolute;left:0;top:12px;width:0;height:4px;border-radius:2px;background:var(--akzent);transition:width .25s linear}
+.hoer-spur span::after{content:"";position:absolute;right:-6px;top:-4px;width:12px;height:12px;border-radius:50%;background:var(--akzent)}
+.hoer-spur:focus-visible{outline:2px solid var(--akzent);outline-offset:2px;border-radius:4px}
 .hoeren[data-zustand="laeuft"] .hoer-spur,.hoeren[data-zustand="pause"] .hoer-spur{display:block}
-.hoer-spur span{display:block;width:0;height:100%;background:var(--akzent);transition:width .5s ease}
 
 /* Meldungen */
 main{min-height:55vh}
@@ -347,15 +356,19 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
   .hoeren[data-text="nein"]{display:none}
 }
 @media (max-width:760px){
-  /* Kompakter Kopf wie in der Vorlage: Logo, Lupe und Umschalter in einer Zeile, darunter das Datum; das Suchfeld
-     klappt erst nach Tippen auf die Lupe auf */
-  .kopf-zeile{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"marke lupe thema" "werkzeug werkzeug werkzeug";column-gap:4px;row-gap:8px;padding-top:18px;padding-bottom:0}
-  .marke img{width:min(100%,227px)}
-  .thema-schalter{align-self:center;width:50px}
-  .schiene{transform:scale(.9)}
-  .lupe{display:grid;width:36px;height:40px}
-  .kopf-zeile:not(.suche-offen) .suche{display:none}
-  .werkzeug{gap:4px}
+  /* Handy: Lupe links, Logo mittig (32 px), rechts nur Mond bzw. Sonne */
+  .kopf-zeile{column-gap:6px;padding-top:18px;padding-bottom:14px}
+  .marke img{height:auto;width:min(100%,234px)}
+  .lupe{width:38px;height:40px;margin-left:-8px;padding:0;justify-content:center}
+  .lupe .ic{width:22px;height:22px}
+  .lupe-text{display:none}
+  .thema-schalter{width:38px;height:40px;margin-right:-8px}
+  .thema-schalter:hover{background:var(--band)}
+  .schiene{display:none}
+  .thema-kurz{display:grid;place-items:center}
+  .suchzeile{padding-bottom:12px}
+  .dateline{gap:12px;padding:4px 0}
+  .archiv-knopf{font-size:13px;padding:0 8px}
 }
 /* Schmal: drei gleich breite Reiter, zweizeilig mit vollem Namen, ohne Icon – von 360 px an ohne Scrollen */
 @media (max-width:860px){
@@ -386,6 +399,7 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
   .hoeren{gap:8px 10px;min-height:0;padding:12px 0}
   .hoeren[data-zustand="aus"] .hoer-info{display:none}
   .hoer-knopf{font-size:14.5px;padding-right:16px}
+  .hoer-spur{flex:1 1 100%;order:5}   /* beim Abspielen eigene, volle Zeile zum Antippen */
   .testphase{font-size:12.5px}
   .testphase .band-lang{display:none}
   .testphase .band-kurz{display:inline}
@@ -393,7 +407,7 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
 }
 @media print{
   body,.bogen{background:#fff;box-shadow:none}
-  .testphase,.suche,.pfeil,.archiv-knopf,.thema-schalter,.hoeren,.teilen,.fuss details,.reiter:not([aria-current]){display:none}
+  .testphase,.lupe,.suchzeile,.pfeil,.archiv-knopf .ic,.thema-schalter,.hoeren,.teilen,.fuss details,.reiter:not([aria-current]){display:none}
 }
 @media (prefers-reduced-motion:no-preference){
   #inhalt.neu{animation:auftritt .3s ease-out}
@@ -408,8 +422,9 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
 </head>
 <body data-ressort="jugendhilfeplanung">
 <div class="testphase" role="note"><div class="blatt"><b>Testphase</b><span class="band-lang">Der Fachbrief wird gerade erprobt – Auswahl und Darstellung können sich noch ändern.</span><span class="band-kurz">Der Fachbrief wird gerade erprobt.</span></div></div>
-<header>
+<header id="kopf">
   <div class="blatt kopf-zeile">
+    <button type="button" class="lupe" id="lupe" aria-expanded="false" aria-controls="suche" title="Alle Ausgaben durchsuchen"><span class="ic maske i-suche" aria-hidden="true"></span><span class="lupe-text">Suchen</span><span class="sr"> in allen Ausgaben</span></button>
     <h1 class="marke"><a href="./" title="Zur neuesten Ausgabe">
       <img class="logo-hell" src="bilder/logo-hell.svg" alt="Mainzer Fachbrief" width="938" height="128">
       <img class="logo-dunkel" src="bilder/logo-dunkel.svg" alt="Mainzer Fachbrief" width="938" height="128">
@@ -419,21 +434,25 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
         <svg class="sonne" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.3"/><path d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg>
         <svg class="mond" viewBox="0 0 24 24"><path d="M20.4 14.6A8.6 8.6 0 0 1 9.4 3.6a8.6 8.6 0 1 0 11 11Z"/></svg>
       </span>
+      <span class="thema-kurz" aria-hidden="true">
+        <svg class="k-mond" viewBox="0 0 24 24"><path d="M19.6 14.9A8 8 0 0 1 9.1 4.4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        <svg class="k-sonne" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+      </span>
     </button>
-    <button type="button" class="lupe" id="lupe" aria-expanded="false" aria-controls="suche" title="Suchen"><span class="ic i-suche" aria-hidden="true"></span><span class="sr">Alle Ausgaben durchsuchen</span></button>
-    <div class="werkzeug">
-      <label class="suche"><span class="sr">Alle Ausgaben durchsuchen</span>
-        <span class="ic i-suche" aria-hidden="true"></span>
-        <input id="suche" type="search" placeholder="Alle Ausgaben durchsuchen" autocomplete="off" enterkeyhint="search">
-      </label>
-      <div class="ausgabe-nav" role="group" aria-label="Ausgabe wählen">
-        <button type="button" class="pfeil" id="neuer" aria-label="Neuere Ausgabe" title="Neuere Ausgabe" hidden>‹</button>
-        <time id="ausgabe-datum" aria-live="polite"></time>
-        <button type="button" class="pfeil" id="aelter" aria-label="Ältere Ausgabe" title="Ältere Ausgabe" hidden>›</button>
-        <button type="button" class="archiv-knopf" id="alle" aria-pressed="false" title="Alle Ausgaben"><span class="ic i-archiv" aria-hidden="true"></span><span class="sr">Alle Ausgaben</span></button>
-      </div>
-      <p class="ausgabe-zusatz" id="ausgabe-zusatz"></p>
+  </div>
+  <div class="blatt suchzeile">
+    <label class="suche"><span class="sr">Alle Ausgaben durchsuchen</span>
+      <span class="ic i-suche" aria-hidden="true"></span>
+      <input id="suche" type="search" placeholder="Suchen in allen Ausgaben …" autocomplete="off" enterkeyhint="search">
+    </label>
+  </div>
+  <div class="blatt">
+    <div class="dateline" role="group" aria-label="Ausgabe wählen">
+      <button type="button" class="pfeil" id="neuer" aria-label="Neuere Ausgabe" title="Neuere Ausgabe" hidden>‹</button>
+      <button type="button" class="archiv-knopf" id="alle" aria-pressed="false" title="Alle Ausgaben"><span class="ic maske i-archiv" aria-hidden="true"></span><span class="sr">Alle Ausgaben – angezeigt: </span><time id="ausgabe-datum" aria-live="polite"></time></button>
+      <button type="button" class="pfeil" id="aelter" aria-label="Ältere Ausgabe" title="Ältere Ausgabe" hidden>›</button>
     </div>
+    <p class="ausgabe-zusatz" id="ausgabe-zusatz"></p>
   </div>
 </header>
 
@@ -447,10 +466,11 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
     <div class="hoeren" id="hoeren" data-zustand="aus" data-text="nein">
       <button type="button" class="hoer-knopf" id="hoer-knopf">
         <span class="hoer-symbol" aria-hidden="true"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 4.8v14.4L19.5 12Z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6.5 4.5h4v15h-4zM13.5 4.5h4v15h-4z"/></svg></span>
-        <span id="hoer-titel">Ausgabe anhören</span><span class="hoer-dauer" id="hoer-dauer"></span>
+        <span id="hoer-titel">Anhören</span><span class="hoer-dauer" id="hoer-dauer"></span>
       </button>
       <button type="button" class="hoer-stopp" id="hoer-stopp" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="1.5"/></svg>Stopp</button>
-      <p class="hoer-info"><span id="hoer-info"></span><span class="hoer-spur" aria-hidden="true"><span id="hoer-balken"></span></span></p>
+      <p class="hoer-info" id="hoer-info"></p>
+      <span class="hoer-spur" id="hoer-spur" role="slider" tabindex="0" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="hoer-balken"></span></span>
       <p class="ausgabe-meta" id="ausgabe-meta"></p>
     </div>
     <main id="inhalt" aria-live="polite"></main>
@@ -488,7 +508,7 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
       <h2>Hinweise</h2>
       <p>Keine amtliche Veröffentlichung der Stadt Mainz. Die Auswahl erfolgt automatisch und kann Fehler enthalten – maßgeblich ist immer die Originalquelle.</p>
       <p>Keine Cookies, kein Tracking, Schriften lokal eingebunden. Ressort und Darstellung merkt sich nur Ihr Browser.</p>
-      <p>„Ausgabe anhören“ nutzt die Sprachausgabe Ihres Browsers. Je nach Gerät kommt die Stimme vom Betriebssystem oder als Online-Stimme vom Browseranbieter; übertragen wird dabei nur der Vorlesetext.</p>
+      <p>„Anhören“ spielt je Ressort eine Aufnahme, gesprochen von einer Azure-Stimme (Microsoft), direkt von dieser Seite. Fehlt sie, liest die Sprachausgabe Ihres Browsers vor – je nach Gerät mit einer Stimme des Betriebssystems oder einer Online-Stimme des Browseranbieters; übertragen wird dabei nur der Vorlesetext.</p>
     </section>
   </div>
   <div class="signatur">
@@ -564,7 +584,7 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
     return RESSORTS.find(r => r.id === rid)?.icon || "jugendhilfeplanung";
   }
 
-  let daten = null, termine = null, status = null, archiv = null, archivLaden = null, gremien = null, notizen = null;
+  let daten = null, termine = null, status = null, archiv = null, archivLaden = null, gremien = null, notizen = null, audioDaten = null;
   let ressort = startRessort();
   let tag = null, angezeigt = null, kopfAusgabe = null, ansicht = "ausgabe", suchwort = "";
 
@@ -686,12 +706,16 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
     return inhalt ? `<aside class="seitenspalte">${inhalt}</aside>` : "";
   }
 
-  // ---------- Ausgabe anhören: Sprachausgabe des Browsers (Web Speech API), Satz für Satz ----------
-  // Satzweise, weil Chrome lange Texte nach etwa 15 Sekunden abbricht. „Pause“ bricht den laufenden Satz ab und
-  // setzt beim Fortsetzen am Satzanfang wieder ein – das funktioniert auch auf Android, wo pause()/resume() fehlen.
+  // ---------- Anhören: je Ressort eine Aufnahme (MP3, Azure-Stimme), sonst die Sprachausgabe des Browsers ----------
+  // Die Aufnahmen stehen in daten/audio.json (entsteht erst beim Veröffentlichen, kann fehlen):
+  // { ausgaben: { <datum>: { <ressort>: { datei: "audio/….mp3", sekunden } } } }. Ohne Aufnahme liest die Browserstimme
+  // die Hörfassung des Ressorts (hoerfassungen.<ressort>) bzw. bei alten Ausgaben den früheren Text für alle Ressorts.
+  // Browserstimme satzweise, weil Chrome lange Texte nach etwa 15 Sekunden abbricht. „Pause“ bricht den laufenden Satz ab
+  // und setzt beim Fortsetzen am Satzanfang wieder ein – das funktioniert auch auf Android, wo pause()/resume() fehlen.
   const sprache = "speechSynthesis" in window && typeof SpeechSynthesisUtterance === "function" ? window.speechSynthesis : null;
   const WORTE_JE_MINUTE = 140;
-  const hoer = { datum: null, saetze: [], worte: [], i: 0, zustand: "aus", lauf: 0, fehler: 0, stimme: null, utterance: null, meldung: "" };
+  const hoer = { art: null, quelle: null, schluessel: null, datum: null, ressort: null, audio: null,
+    saetze: [], worte: [], i: 0, zustand: "aus", lauf: 0, fehler: 0, stimme: null, utterance: null, meldung: "" };
   const worte = s => String(s || "").split(/\s+/).filter(Boolean).length;
   // Bevorzugt natürlich klingende deutsche Stimmen: Microsoft Katja/Conrad (Natural), andere Natural-Stimmen, Google Deutsch
   function stimmeWaehlen() {
@@ -750,13 +774,26 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
     if (s) teile.push(s);
     return teile;
   }
-  function hoerVorbereiten(a) {
+  // Quelle für die angezeigte Ausgabe und das gewählte Ressort
+  function hoerQuelle() {
+    const a = kopfAusgabe;
+    if (!a) return null;
+    const mp3 = audioDaten?.ausgaben?.[a.datum]?.[ressort];
+    const text = a.hoerfassungen?.[ressort] || a.hoerfassung || "";
+    if (mp3?.datei && /^[\w./-]+\.mp3$/i.test(mp3.datei) && !mp3.datei.includes("..") && !(text && nichtErreichbar.has(mp3.datei)))
+      return { art: "mp3", datei: mp3.datei, sekunden: Number(mp3.sekunden) || 0, text };
+    return text ? { art: "stimme", text } : null;
+  }
+  const nichtErreichbar = new Set();   // Aufnahmen, die nicht geladen werden konnten – dann gleich die Browserstimme
+  const schluessel = () => kopfAusgabe ? kopfAusgabe.datum + "|" + ressort : "";
+  const zeit = s => { s = Math.max(0, Math.floor(Number(s) || 0)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+  function stimmeVorbereiten(text) {
     const saetze = [];
-    for (const absatz of String(a.hoerfassung).split(/\n\s*\n/)) {
+    for (const absatz of String(text).split(/\n\s*\n/)) {
       const t = sprechbar(absatz);
       if (t) saetze.push(...satzweise(t).flatMap(s => zerteilen(s)));
     }
-    Object.assign(hoer, { datum: a.datum, saetze, worte: saetze.map(worte), i: 0 });
+    Object.assign(hoer, { saetze, worte: saetze.map(worte), i: 0 });
   }
   function hoerSprechen() {
     const lauf = hoer.lauf;
@@ -786,12 +823,66 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
     hoer.utterance = u;               // Verweis halten, sonst feuert Chrome „end“ manchmal nicht
     sprache.speak(u);
   }
-  function hoerKlick() {
-    if (!sprache || !kopfAusgabe?.hoerfassung) return;
-    if (hoer.zustand === "laeuft") { hoerPause(); return; }
-    if (hoer.zustand === "aus" || hoer.datum !== kopfAusgabe.datum) hoerVorbereiten(kopfAusgabe);
+  // MP3 über ein Audio-Element
+  function audioElement() {
+    if (hoer.audio) return hoer.audio;
+    const el = new Audio();
+    el.preload = "none";
+    const meins = () => hoer.art === "mp3" && hoer.zustand !== "aus";
+    el.addEventListener("timeupdate", () => { if (meins()) { hoerFortschritt(); positionMelden(); } });
+    el.addEventListener("loadedmetadata", () => { if (meins()) { hoerLeiste(); positionMelden(); } });
+    el.addEventListener("play", () => { if (meins() && hoer.zustand !== "laeuft") { hoer.zustand = "laeuft"; hoerLeiste(); } });
+    el.addEventListener("pause", () => { if (meins() && hoer.zustand === "laeuft" && !el.ended) { hoer.zustand = "pause"; hoerLeiste(); } });
+    el.addEventListener("ended", () => { if (meins()) hoerStopp(); });
+    el.addEventListener("error", () => {
+      if (!meins()) return;
+      const text = hoer.quelle?.text;
+      nichtErreichbar.add(hoer.quelle?.datei);
+      hoerStopp(true);
+      if (text && sprache) { stimmeStart(text); hoer.meldung = "Aufnahme nicht erreichbar"; hoerLeiste(); }
+      else { hoer.meldung = "Die Aufnahme ist gerade nicht erreichbar."; hoerLeiste(); }
+    });
+    return (hoer.audio = el);
+  }
+  // Media Session: Titel und Datum auf dem Sperrbildschirm, Steuerung über Kopfhörer und Systemtasten
+  function sitzungMelden() {
+    if (!("mediaSession" in navigator) || typeof MediaMetadata !== "function") return;
+    const el = hoer.audio, ms = navigator.mediaSession;
+    try {
+      ms.metadata = new MediaMetadata({ title: `Mainzer Fachbrief – ${ressortName(hoer.ressort)}`,
+        artist: fmt(hoer.datum, { weekday: "long", day: "numeric", month: "long", year: "numeric" }), album: "Mainzer Fachbrief" });
+    } catch {}
+    const setze = (aktion, f) => { try { ms.setActionHandler(aktion, f); } catch {} };
+    setze("play", () => { if (hoer.art === "mp3") hoerWeiter(); });
+    setze("pause", () => { if (hoer.art === "mp3") hoerPause(); });
+    setze("stop", () => hoerStopp());
+    setze("seekbackward", d => { el.currentTime = Math.max(0, el.currentTime - (d?.seekOffset || 10)); });
+    setze("seekforward", d => { el.currentTime = Math.min(isFinite(el.duration) ? el.duration : el.currentTime + 10, el.currentTime + (d?.seekOffset || 10)); });
+    setze("seekto", d => { if (d && isFinite(d.seekTime)) el.currentTime = d.seekTime; });
+  }
+  function positionMelden() {
+    const el = hoer.audio;
+    if (!("mediaSession" in navigator) || !el || !isFinite(el.duration) || !navigator.mediaSession.setPositionState) return;
+    try { navigator.mediaSession.setPositionState({ duration: el.duration, playbackRate: el.playbackRate || 1, position: Math.min(el.currentTime, el.duration) }); } catch {}
+  }
+  function mp3Start(q) {
+    const el = audioElement();
+    Object.assign(hoer, { art: "mp3", quelle: q, schluessel: schluessel(), datum: kopfAusgabe.datum, ressort, zustand: "laeuft" });
+    hoer.lauf++;
+    if (el.getAttribute("src") !== q.datei) el.src = q.datei;
+    try { el.currentTime = 0; } catch {}
+    sitzungMelden();
+    el.play().catch(e => { if (e?.name === "NotAllowedError" && hoer.art === "mp3") { hoer.zustand = "pause"; hoerLeiste(); } });
+    hoerLeiste();
+  }
+  function stimmeStart(text) {
+    if (!sprache) return;
+    stimmeVorbereiten(text);
+    Object.assign(hoer, { art: "stimme", quelle: { art: "stimme", text }, schluessel: schluessel(), datum: kopfAusgabe.datum, ressort, zustand: "laeuft", fehler: 0 });
     hoer.stimme = stimmeWaehlen() || hoer.stimme;
-    Object.assign(hoer, { zustand: "laeuft", fehler: 0, meldung: "" });
+    stimmeLos();
+  }
+  function stimmeLos() {   // (wieder) ab dem aktuellen Satz sprechen
     hoer.lauf++;
     const belegt = sprache.speaking || sprache.pending;
     if (belegt) sprache.cancel();
@@ -799,42 +890,105 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
     if (belegt) setTimeout(hoerSprechen, 60); else hoerSprechen();
     hoerLeiste();
   }
+  function hoerKlick() {
+    if (hoer.zustand === "laeuft") { hoerPause(); return; }
+    if (hoer.zustand === "pause" && hoer.schluessel === schluessel()) { hoerWeiter(); return; }
+    const q = hoerQuelle();
+    if (!q) return;
+    hoerStopp(true);
+    hoer.meldung = "";
+    if (q.art === "mp3") mp3Start(q); else stimmeStart(q.text);
+  }
+  function hoerWeiter() {
+    if (hoer.zustand === "aus") return;
+    hoer.zustand = "laeuft";
+    if (hoer.art === "mp3") { hoer.lauf++; hoer.audio.play().catch(() => {}); hoerLeiste(); }
+    else stimmeLos();
+  }
   function hoerPause() {
+    if (hoer.zustand !== "laeuft") return;
     hoer.zustand = "pause";
     hoer.lauf++;
-    sprache.cancel();
+    if (hoer.art === "mp3") hoer.audio.pause(); else sprache.cancel();
     hoerLeiste();
   }
-  function hoerStopp() {
-    const lief = hoer.zustand !== "aus";
-    Object.assign(hoer, { zustand: "aus", i: 0, utterance: null });
+  function hoerStopp(still) {
+    const lief = hoer.zustand !== "aus", art = hoer.art;
+    Object.assign(hoer, { zustand: "aus", art: null, quelle: null, schluessel: null, i: 0, utterance: null });
     hoer.lauf++;
-    if (lief && sprache) sprache.cancel();
-    hoerLeiste();
+    if (lief && art === "stimme" && sprache) sprache.cancel();
+    if (lief && art === "mp3" && hoer.audio) { hoer.audio.pause(); try { hoer.audio.currentTime = 0; } catch {} }
+    if (lief && "mediaSession" in navigator) { try { navigator.mediaSession.playbackState = "none"; } catch {} }
+    if (still !== true) hoerLeiste();
   }
-  // Hörleiste passend zur angezeigten Ausgabe; läuft noch eine andere Ausgabe, wird sie beendet
+  // Fortschritt 0…1; Antippen der Leiste springt (Aufnahme: an die Stelle, Browserstimme: zum Satz)
+  function anteil() {
+    if (hoer.art === "mp3") { const el = hoer.audio; return el && isFinite(el.duration) && el.duration > 0 ? el.currentTime / el.duration : 0; }
+    if (hoer.art === "stimme") return hoer.i / Math.max(1, hoer.saetze.length);
+    return 0;
+  }
+  function springen(p) {
+    if (hoer.zustand === "aus") return;
+    p = Math.min(1, Math.max(0, p));
+    if (hoer.art === "mp3") {
+      const el = hoer.audio, d = isFinite(el.duration) ? el.duration : hoer.quelle?.sekunden || 0;
+      if (d) el.currentTime = Math.min(p * d, d - .25);
+      hoerFortschritt();
+    } else {
+      hoer.i = Math.min(hoer.saetze.length - 1, Math.floor(p * hoer.saetze.length));
+      if (hoer.zustand === "laeuft") stimmeLos(); else hoerLeiste();
+    }
+  }
+  function hoerFortschritt() {
+    const p = Math.round(anteil() * 1000) / 10;
+    $("#hoer-balken").style.width = p + "%";
+    $("#hoer-spur").setAttribute("aria-valuenow", String(Math.round(p)));
+    if (hoer.art === "mp3") {
+      const el = hoer.audio, d = isFinite(el.duration) ? el.duration : hoer.quelle?.sekunden;
+      const t = `${zeit(el.currentTime)} / ${zeit(d)}`;
+      $("#hoer-info").textContent = hoer.zustand === "pause" ? "Angehalten · " + t : t;
+      $("#hoer-spur").setAttribute("aria-valuetext", t);
+    }
+  }
+  // Hörleiste passend zu angezeigter Ausgabe und Ressort; wechselt eins von beiden, endet die Wiedergabe
   function hoerLeiste() {
-    const leiste = $("#hoeren"), a = kopfAusgabe, text = a?.hoerfassung || "";
-    if (hoer.zustand !== "aus" && hoer.datum !== a?.datum) { hoerStopp(); return; }
-    const z = !sprache ? "ohne" : hoer.zustand;
-    leiste.dataset.text = text ? "ja" : "nein";   // ohne Hörfassung bleibt auf breiten Bildschirmen nur die Ausgabe-Zeile
+    if (hoer.zustand !== "aus" && hoer.schluessel !== schluessel()) { hoerStopp(); return; }
+    const leiste = $("#hoeren");
+    const q = hoer.zustand !== "aus" ? hoer.quelle : hoerQuelle();
+    const z = !q ? "aus" : q.art === "stimme" && !sprache ? "ohne" : hoer.zustand;
+    leiste.dataset.text = q ? "ja" : "nein";   // ohne Hörfassung bleibt auf breiten Bildschirmen nur die Ausgabe-Zeile
     leiste.dataset.zustand = z;
-    const minuten = Math.max(1, Math.round(worte(text) / WORTE_JE_MINUTE));
-    const rest = Math.max(1, Math.round(hoer.worte.slice(hoer.i).reduce((s, n) => s + n, 0) / WORTE_JE_MINUTE));
-    $("#hoer-titel").textContent = z === "laeuft" ? "Pause" : z === "pause" ? "Weiter" : "Ausgabe anhören";
+    leiste.dataset.art = q?.art || "";
+    const sekunden = q?.art === "mp3" ? (hoer.zustand !== "aus" && isFinite(hoer.audio?.duration) ? hoer.audio.duration : q.sekunden)
+      : worte(q?.text) / WORTE_JE_MINUTE * 60;
+    const minuten = Math.max(1, Math.round(sekunden / 60));
+    const r = ressortDef(ressort);
+    $("#hoer-titel").textContent = z === "laeuft" ? "Pause" : z === "pause" ? "Weiter" : "Anhören";
     $("#hoer-dauer").textContent = z === "aus" || z === "ohne" ? ` · ca. ${minuten} Min.` : "";
-    $("#hoer-knopf").setAttribute("aria-label", z === "laeuft" ? "Vorlesen anhalten" : z === "pause" ? "Vorlesen fortsetzen" : `Ausgabe anhören, ca. ${minuten} Minuten`);
-    $("#hoer-knopf").disabled = !sprache;
+    $("#hoer-knopf").setAttribute("aria-label", z === "laeuft" ? "Anhalten" : z === "pause" ? "Weiter anhören" : `${r.fuer} anhören, ca. ${minuten} ${minuten === 1 ? "Minute" : "Minuten"}`);
+    $("#hoer-knopf").disabled = z === "ohne";
     $("#hoer-stopp").hidden = z !== "laeuft" && z !== "pause";
-    $("#hoer-info").textContent = z === "ohne" ? "Ihr Browser kann die Ausgabe leider nicht vorlesen."
-      : z === "laeuft" ? `Läuft · noch ca. ${rest} Min.`
-      : z === "pause" ? `Angehalten · noch ca. ${rest} Min.`
-      : hoer.meldung || "Der Morgenüberblick aus allen drei Ressorts";
-    $("#hoer-balken").style.width = z === "laeuft" || z === "pause" ? `${Math.round(hoer.i / Math.max(1, hoer.saetze.length) * 100)}%` : "0";
+    const rest = Math.max(1, Math.round(hoer.worte.slice(hoer.i).reduce((s, n) => s + n, 0) / WORTE_JE_MINUTE));
+    $("#hoer-info").textContent = z === "ohne" ? "Ihr Browser kann den Text leider nicht vorlesen."
+      : z === "aus" ? `Der Morgenüberblick ${r.bezug}${q?.art === "stimme" ? " · Browserstimme" : ""}`
+      : q.art === "stimme" ? `${z === "pause" ? "Angehalten" : hoer.meldung || "Browserstimme"} · noch ca. ${rest} Min.` : "";
+    if ("mediaSession" in navigator && q?.art === "mp3") {
+      try { navigator.mediaSession.playbackState = z === "laeuft" ? "playing" : z === "pause" ? "paused" : "none"; } catch {}
+    }
+    hoerFortschritt();
   }
   $("#hoer-knopf").addEventListener("click", hoerKlick);
-  $("#hoer-stopp").addEventListener("click", hoerStopp);
-  window.addEventListener("pagehide", () => { if (sprache && hoer.zustand !== "aus") sprache.cancel(); });
+  $("#hoer-stopp").addEventListener("click", () => hoerStopp());
+  $("#hoer-spur").addEventListener("pointerdown", e => {
+    const b = e.currentTarget.getBoundingClientRect();
+    springen((e.clientX - b.left) / b.width);
+  });
+  $("#hoer-spur").addEventListener("keydown", e => {
+    const schritt = hoer.art === "mp3" ? 10 / Math.max(10, isFinite(hoer.audio?.duration) ? hoer.audio.duration : hoer.quelle?.sekunden || 100)
+      : 1 / Math.max(1, hoer.saetze.length);
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); springen(anteil() + (e.key === "ArrowRight" ? schritt : -schritt)); }
+  });
+  window.addEventListener("pagehide", () => { if (sprache && hoer.art === "stimme" && hoer.zustand !== "aus") sprache.cancel(); });
 
   // ---------- Ansichten ----------
   // Datum mit Pfeilen: ‹ = neuere Ausgabe (fehlt bei der neuesten), › = ältere Ausgabe
@@ -924,7 +1078,7 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
       const auf = (a.ressorts[ressort] || [])[0];
       const marke = [a.nachtraeglich ? "Rückblick" : "Nr. " + nummer(a), fmt(d, { weekday: "long" })];
       if (mitWochenende(a)) marke.push("mit Meldungen vom Wochenende");
-      if (a.hoerfassung) marke.push("zum Anhören");
+      if (a.hoerfassung || a.hoerfassungen || audioDaten?.ausgaben?.[d]) marke.push("zum Anhören");
       const zahlen = RESSORTS.map(x => {
         const n = (a.ressorts[x.id] || []).length;
         return `<span data-r="${x.id}"${x.id === ressort ? ' class="gewaehlt"' : ""}><i aria-hidden="true"></i>${esc(x.kurz)} <b>${n}</b></span>`;
@@ -1038,10 +1192,10 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
     if (RESSORTS.some(r => r.id === h) && h !== ressort) { setzeRessort(h); zeigen(); }
   });
   window.addEventListener("popstate", () => { if (daten) { ausAdresse(); zeigen(); } });
-  // Schmale Bildschirme: die Lupe klappt das Suchfeld auf und zu (beim Zuklappen wird eine laufende Suche beendet)
+  // „Suchen“ bzw. die Lupe klappt das Suchfeld auf und zu (beim Zuklappen wird eine laufende Suche beendet)
   $("#lupe").addEventListener("click", () => {
-    const offen = !$(".kopf-zeile").classList.contains("suche-offen");
-    $(".kopf-zeile").classList.toggle("suche-offen", offen);
+    const offen = !$("#kopf").classList.contains("suche-offen");
+    $("#kopf").classList.toggle("suche-offen", offen);
     $("#lupe").setAttribute("aria-expanded", offen ? "true" : "false");
     if (offen) $("#suche").focus();
     else if ($("#suche").value) { $("#suche").value = ""; suchwort = ""; zeigen(); }
@@ -1050,17 +1204,18 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
   $("#suche").addEventListener("input", e => { clearTimeout(warte); warte = setTimeout(() => { suchwort = e.target.value; zeigen(); }, 220); });
   $("#suche").addEventListener("keydown", e => { if (e.key === "Escape") { e.target.value = ""; suchwort = ""; zeigen(); } });
   document.addEventListener("keydown", e => {
-    if (e.target.closest?.("input, textarea") || e.altKey || e.ctrlKey || e.metaKey) return;
-    if (e.key === "/") { e.preventDefault(); $(".kopf-zeile").classList.add("suche-offen"); $("#lupe").setAttribute("aria-expanded", "true"); $("#suche").focus(); }
+    if (e.target.closest?.("input, textarea, [role=slider]") || e.altKey || e.ctrlKey || e.metaKey) return;
+    if (e.key === "/") { e.preventDefault(); $("#kopf").classList.add("suche-offen"); $("#lupe").setAttribute("aria-expanded", "true"); $("#suche").focus(); }
     if (e.key === "ArrowLeft" && daten) blaettern(-1);    // ‹ neuere Ausgabe
     if (e.key === "ArrowRight" && daten) blaettern(1);    // › ältere Ausgabe
   });
 
   setzeRessort(ressort);
+  // daten/audio.json entsteht erst beim Veröffentlichen der Aufnahmen – fehlt sie (404), gilt die Browserstimme
   Promise.all([holen("daten/ausgaben.json"), holen("daten/termine.json").catch(() => null), holen("daten/status.json").catch(() => null),
-    holen("daten/gremien.json").catch(() => null), holen("daten/gremien-notizen.json").catch(() => null)])
-    .then(([a, t, s, g, n]) => {
-      daten = a; termine = t; status = s; gremien = g; notizen = n?.notizen || null;
+    holen("daten/gremien.json").catch(() => null), holen("daten/gremien-notizen.json").catch(() => null), holen("daten/audio.json").catch(() => null)])
+    .then(([a, t, s, g, n, au]) => {
+      daten = a; termine = t; status = s; gremien = g; notizen = n?.notizen || null; audioDaten = au?.ausgaben ? au : null;
       if (!daten.ausgaben?.length) { zeichnen('<div class="leer"><h2>Noch keine Ausgabe erschienen.</h2><p>Die erste Ausgabe erscheint am nächsten Werktag gegen 6 Uhr.</p></div>'); return; }
       ausAdresse();
       history.replaceState(null, "", adresse());

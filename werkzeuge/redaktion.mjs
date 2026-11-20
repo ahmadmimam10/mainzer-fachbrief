@@ -33,8 +33,11 @@ const SEITE_TAGE = 14;         // so viele Ausgaben lädt die Startseite
 const ARCHIV_TAGE = 400;       // so weit reicht die Archivsuche
 const NOTIZ_TAGE = 21;         // Gremien-Notizen vergangener Sitzungen so lange auf der Seite
 const NOTIZ_MAX = 160;         // Zeichen je Ressort-Notiz
-const HOER_MIN = 1500;         // Hörfassung („Ausgabe anhören“): Zeichen, etwa 450–700 Wörter bzw. 3–5 Minuten
-const HOER_MAX = 6000;
+const HOER_MIN = 900;          // Hörfassung je Ressort (ressorts.<id>.hoerfassung): höchstens 3 Minuten, etwa 250–400 Wörter
+const HOER_MAX = 2800;
+const HOER_ALT_MIN = 1500;     // früheres Feld „hoerfassung“ oben (ein Text für alle Ressorts) – nur noch für alte Ausgaben
+const HOER_ALT_MAX = 6000;
+const LINK = /https?:\/\/|www\./i;
 
 async function poolLesen() {
   const dir = path.join(ROOT, "daten/pool");
@@ -91,15 +94,16 @@ async function vorbereiten() {
 function pruefen(ausgabe, bekannte) {
   const fehler = [];
   if (ausgabe.datum !== DATUM) fehler.push(`„datum“ muss ${DATUM} sein.`);
-  // Hörfassung (optional): Sprechtext über alle drei Ressorts für „Ausgabe anhören“ – reiner Text ohne Links
-  if (ausgabe.hoerfassung !== undefined && ausgabe.hoerfassung !== null) {
-    if (typeof ausgabe.hoerfassung !== "string") fehler.push("„hoerfassung“ muss ein Text sein.");
-    else {
-      const laenge = ausgabe.hoerfassung.trim().length;
-      if (laenge < HOER_MIN || laenge > HOER_MAX) fehler.push(`„hoerfassung“ muss ${HOER_MIN}–${HOER_MAX} Zeichen lang sein (sind ${laenge}).`);
-      if (/https?:\/\/|www\./i.test(ausgabe.hoerfassung)) fehler.push("„hoerfassung“ darf keine Links enthalten.");
-    }
-  }
+  // Hörfassung (optional): reiner Sprechtext ohne Links. Neu je Ressort (ressorts.<id>.hoerfassung, siehe unten);
+  // das frühere Feld oben (ein Text für alle Ressorts) bleibt für alte Ausgaben erlaubt.
+  const hoerPruefen = (text, wo, min, max) => {
+    if (text === undefined || text === null) return;
+    if (typeof text !== "string") { fehler.push(`„${wo}“ muss ein Text sein.`); return; }
+    const laenge = text.trim().length;
+    if (laenge < min || laenge > max) fehler.push(`„${wo}“ muss ${min}–${max} Zeichen lang sein (sind ${laenge}).`);
+    if (LINK.test(text)) fehler.push(`„${wo}“ darf keine Links enthalten.`);
+  };
+  hoerPruefen(ausgabe.hoerfassung, "hoerfassung", HOER_ALT_MIN, HOER_ALT_MAX);
   const r = ausgabe.ressorts || {};
   for (const id of Object.keys(r)) if (!RESSORTS[id]) fehler.push(`Unbekanntes Ressort „${id}“.`);
   for (const [id, def] of Object.entries(RESSORTS)) {
@@ -118,6 +122,7 @@ function pruefen(ausgabe, bekannte) {
       }
       if (!bekannte.has(w.id)) fehler.push(`${id}.${feld}.id „${w.id}“ ist kein Kandidat.`);
     }
+    hoerPruefen(r[id].hoerfassung, `${id}.hoerfassung`, HOER_MIN, HOER_MAX);
     if (liste.length > def.max) fehler.push(`${id}: höchstens ${def.max} Meldungen (sind ${liste.length}).`);
     const aufmacher = liste.filter(m => m.stufe === "aufmacher").length;
     if (liste.length && aufmacher !== 1) fehler.push(`${id}: genau ein Aufmacher nötig (sind ${aufmacher}).`);
@@ -192,8 +197,10 @@ async function abschliessen() {
     delete def.zahl;
     if (w) def.wusstest = { ...(w.wert ? { wert: String(w.wert).trim() } : {}), text: w.text.trim(), id: w.id };
     else delete def.wusstest;
+    if (typeof def.hoerfassung === "string" && def.hoerfassung.trim()) def.hoerfassung = def.hoerfassung.replace(/\r\n?/g, "\n").trim();
+    else delete def.hoerfassung;
   }
-  if (typeof ausgabe.hoerfassung === "string") ausgabe.hoerfassung = ausgabe.hoerfassung.replace(/\r\n?/g, "\n").trim();
+  if (typeof ausgabe.hoerfassung === "string" && ausgabe.hoerfassung.trim()) ausgabe.hoerfassung = ausgabe.hoerfassung.replace(/\r\n?/g, "\n").trim();
   else delete ausgabe.hoerfassung;
   ausgabe.gesichtet = [...new Set([...(ausgabe.gesichtet || []), ...vorbereitet.kandidaten.map(k => k.id)])];
   ausgabe.erstellt = ausgabe.erstellt || new Date().toISOString();
@@ -242,12 +249,19 @@ async function bauen() {
     const w = r.wusstest ?? r.zahl;
     return w?.text ? { ...(w.wert ? { wert: w.wert } : {}), text: w.text, id: w.id } : null;
   };
-  const schlank = a => ({
-    datum: a.datum, erstellt: a.aktualisiert || a.erstellt, ...(a.nachtraeglich ? { nachtraeglich: true } : {}),
-    ...(typeof a.hoerfassung === "string" && a.hoerfassung.trim() ? { hoerfassung: a.hoerfassung.trim() } : {}),
-    ressorts: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, r.meldungen.map(({ originaltitel, ...m }) => m)])),
-    wusstest: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, wusstest(r)]).filter(([, w]) => w)),
-  });
+  // Hörfassungen je Ressort stehen auf der Seite (wie „wusstest“) in einem eigenen Objekt neben den Meldungslisten,
+  // weil ressorts.<id> dort die Liste der Meldungen ist: hoerfassungen.<id> = ressorts.<id>.hoerfassung der Ausgabe.
+  const text = t => typeof t === "string" && t.trim() ? t.trim() : "";
+  const schlank = a => {
+    const hoerfassungen = Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, text(r.hoerfassung)]).filter(([, t]) => t));
+    return {
+      datum: a.datum, erstellt: a.aktualisiert || a.erstellt, ...(a.nachtraeglich ? { nachtraeglich: true } : {}),
+      ...(text(a.hoerfassung) ? { hoerfassung: text(a.hoerfassung) } : {}),   // früheres Feld (alte Ausgaben)
+      ressorts: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, r.meldungen.map(({ originaltitel, ...m }) => m)])),
+      wusstest: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, wusstest(r)]).filter(([, w]) => w)),
+      ...(Object.keys(hoerfassungen).length ? { hoerfassungen } : {}),
+    };
+  };
   // Gremien-Notizen (von der Redaktion geschrieben) für die Webseite: vergangene Sitzungen der letzten 21 Tage mit
   // mindestens einem Ressort-Bezug, dazu alle kommenden Sitzungen (Vorschau, auch ohne Bezug).
   const notizen = await readJson("daten/gremien-notizen.json", { notizen: {} });
