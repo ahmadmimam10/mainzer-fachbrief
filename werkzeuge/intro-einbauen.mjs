@@ -69,8 +69,8 @@ function stadt({ seed, hMin, hMax, wMin, wMax, marken }) {
 const huegel = (y, tupfen) => {
   let d = `M0 ${H}V${f(y(0))}`;
   for (let x = 20; x <= B; x += 20) d += `Q${x - 10} ${f(y(x - 10) - .6)} ${x} ${f(y(x))}`;
-  let t = "";
-  if (tupfen) { const r = zufall(3); for (let x = 8; x < B; x += 5 + r() * 16) { const g = .7 + r() * .9; t += kreis(x, y(x) - g * .3, g, g * .8); } }
+  const t = ["", ""];
+  if (tupfen) { const r = zufall(3); let i = 0; for (let x = 8; x < B; x += 5 + r() * 16) { const g = .7 + r() * .9; t[i++ % 2] += kreis(x, y(x) - g * .3, g, g * .8); } }
   return { d: d + `V${H}Z`, t };
 };
 const HUEGEL_FERN = huegel(x => H - (15 + 6 * Math.sin(x / 120 + 1.4) + 4 * Math.sin(x / 53) + 2 * Math.sin(x / 23 + 2)));
@@ -91,22 +91,31 @@ const STADT = stadt({ seed: 21, hMin: 6, hMax: 12, wMin: 7, wMax: 14, marken: [
   { x: 880, teile: [["k", 14, 10, 9]] }, { x: 1010, teile: [["g", 5, 17, 13]] }, { x: 1150, teile: [["T", 6, 14, 9]] },
 ] });
 
-// Uferpromenade: Laubbäume (Krone aus drei Kugeln mit hellem Fleck), Pappeln, Büsche, Laternen, Kaimauer mit heller Kante
+// Uferpromenade: Laubbäume (Krone aus drei Kugeln mit hellem Fleck), Pappeln, Büsche, Laternen, Wiese und Kaimauer.
+// Für die Jahreszeiten liegen die Kronen in drei Farbgruppen (a, b, c – c blüht im Frühling als Kirschbaum), dazu
+// kahle Äste für den Winter und Blumen für den Frühling. Die Zufallsfolge bleibt wie bisher, damit die Bäume stehen bleiben.
 const UFER = (() => {
-  const r = zufall(5), fuss = H - 1.6, k = { a: "", b: "", hell: "", stamm: "", lampe: "" };
+  const r = zufall(5), rb = zufall(8), fuss = H - 1.6;
+  const k = { a: "", b: "", c: "", hell: "", chell: "", busch: "", buschhell: "", stamm: "", kahl: "", lampe: "", blume1: "", blume2: "" };
+  const ast = (x, y, dx, dy) => `M${f(x)} ${f(y)}l${f(dx)} ${f(dy)}`;
   for (let x = 5; x < B; x += 6.5 + r() * 8.5) {
-    const art = r(), g = 2.1 + r() * 1.7, ton = r() < .42 ? "b" : "a";
+    const art = r(), g = 2.1 + r() * 1.7, z = r(), ton = z < .42 ? "b" : z > .76 ? "c" : "a";
     if (art < .17) {                                                     // Pappel
-      const ry = g * 1.95, cy = fuss - 1 - ry;
-      k.stamm += `M${f(x - .3)} ${fuss}V${f(cy)}h.6V${fuss}Z`; k[ton] += kreis(x, cy, g * .6, ry); k.hell += kreis(x - g * .16, cy - ry * .18, g * .28, ry * .62);
+      const ry = g * 1.95, cy = fuss - 1 - ry, t2 = ton === "c" ? "a" : ton;
+      k.stamm += `M${f(x - .3)} ${fuss}V${f(cy)}h.6V${fuss}Z`; k[t2] += kreis(x, cy, g * .6, ry); k.hell += kreis(x - g * .16, cy - ry * .18, g * .28, ry * .62);
+      k.kahl += `M${f(x)} ${f(cy)}V${f(cy - ry * .82)}`;
+      for (let i = 1; i <= 5; i++) k.kahl += ast(x, fuss - 1 - i * ry * .33, (i % 2 ? -1 : 1) * g * .34, -ry * .3);
     } else if (art < .3) {                                               // Busch
-      k[ton] += kreis(x, fuss - g * .5, g * .95, g * .62) + kreis(x + g * .85, fuss - g * .36, g * .62, g * .45); k.hell += kreis(x - g * .25, fuss - g * .72, g * .4, g * .26);
+      k.busch += kreis(x, fuss - g * .5, g * .95, g * .62) + kreis(x + g * .85, fuss - g * .36, g * .62, g * .45); k.buschhell += kreis(x - g * .25, fuss - g * .72, g * .4, g * .26);
     } else {                                                             // Laubbaum
       const cy = fuss - 2.3 - g;
       k.stamm += `M${f(x - .34)} ${fuss}V${f(cy)}h.68V${fuss}ZM${f(x)} ${f(cy + g + 1.1)}l${f(g * .5)} ${f(-g * .5)}`;
       k[ton] += kreis(x, cy, g) + kreis(x - g * .64, cy + g * .34, g * .62) + kreis(x + g * .68, cy + g * .3, g * .58);
-      k.hell += kreis(x - g * .3, cy - g * .32, g * .46);
+      k[ton === "c" ? "chell" : "hell"] += kreis(x - g * .3, cy - g * .32, g * .46);
+      k.kahl += ast(x, cy + g * .95, -g * .8, -g * .95) + ast(x, cy + g * .95, g * .85, -g * .9) + ast(x, cy + g * .35, -g * .52, -g * .85) + ast(x, cy + g * .35, g * .48, -g * .95)
+        + ast(x, cy, 0, -g * .9) + ast(x - g * .44, cy + g * .47, -g * .38, -g * .1) + ast(x + g * .46, cy + g * .42, g * .36, -g * .2);
     }
+    for (let i = 0; i < 3; i++) if (rb() < .55) k[rb() < .5 ? "blume1" : "blume2"] += kreis(x - 3 + rb() * 6, fuss - .75, .46);
   }
   for (let x = 14; x < B; x += 27) k.lampe += `M${x} ${fuss}v-4.4h1.3v.5h-.8V${fuss}Z`;
   return k;
@@ -125,11 +134,41 @@ const WASSER = (() => {
 const SCHIFF = `<g class="i-schiff"><path class="s-spiegel" d="M725.5 5.3h14M728 6.2h8"/><path class="s-rumpf" d="M723.6 2.7h18.2l-1.9 2h-14.4Z"/><path class="s-aufbau" d="M727 2.7v-1.5h10.4l.9 1.5ZM729.6 1.2v-.9h4.6v.9Z"/><path class="s-linie" d="M724.6 3.5h16.4"/><path class="s-fenster" d="M728.2 1.7h1v.6h-1ZM730.4 1.7h1v.6h-1ZM732.6 1.7h1v.6h-1ZM734.8 1.7h1v.6h-1Z"/></g>`;
 
 const WOLKE = `<svg viewBox="0 0 56 16"><path d="${kreis(12, 10, 5)}${kreis(22, 7.2, 7)}${kreis(34, 8.2, 6)}${kreis(44, 10.6, 4.4)}M9.5 10h37a2.5 2.5 0 0 1 0 5h-37a2.5 2.5 0 0 1 0-5Z"/></svg>`;
-// Wolken: Lage in % der Logofläche, Breite als Vielfaches der Logobreite, Weg beim Scrollen
+const WOLKE2 = `<svg viewBox="0 0 62 16"><path d="${kreis(10, 11, 4)}${kreis(19, 8.6, 6)}${kreis(31, 7.4, 7)}${kreis(43, 8.8, 5.8)}${kreis(52, 11.2, 3.8)}M7 10.6h46a2.2 2.2 0 0 1 0 4.4h-46a2.2 2.2 0 0 1 0-4.4Z"/></svg>`;
+// Wolken: Lage in % der Logofläche, Breite als Vielfaches der Logobreite, Weg beim Scrollen; „mehr“ = nur bei bedecktem Himmel
 const WOLKEN = [
   { l: -62, t: -50, g: .5, fx: "-34vw", v: 0 }, { l: 104, t: -36, g: .38, fx: "30vw", v: .25 },
   { l: 196, t: -14, g: .46, fx: "42vw", v: .1 }, { l: -176, t: -8, g: .56, fx: "-46vw", v: .3 }, { l: 20, t: -74, g: .3, fx: "-12vw", v: .4 },
+  { l: -28, t: -62, g: .52, fx: "-26vw", v: .15, mehr: 1 }, { l: 62, t: -88, g: .6, fx: "20vw", v: .05, mehr: 1 }, { l: 128, t: -62, g: .5, fx: "36vw", v: .35, mehr: 1 },
+  { l: -118, t: -34, g: .62, fx: "-40vw", v: .2, mehr: 1 }, { l: 252, t: -46, g: .62, fx: "48vw", v: .1, mehr: 1 }, { l: -252, t: -52, g: .58, fx: "-52vw", v: .3, mehr: 1 },
+  { l: -74, t: -96, g: .46, fx: "-18vw", v: .45, mehr: 1 },
 ];
+
+// Niederschlag: kleine SVG-Kacheln, die als Hintergrund gekachelt und nur per transform verschoben werden (läuft auf der
+// Grafikkarte). Die Bewegung ist genau ein Kachelschritt, deshalb läuft sie nahtlos.
+const kachel = (w, h, innen) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>${innen}</svg>`)}")`;
+const regen = (w, h, n, seed, lang, dicke) => {
+  const r = zufall(seed); let t = "";
+  for (let i = 0; i < n; i++) { const l = lang * (.6 + r() * .6), x = 8 + r() * (w - 12), y = 2 + r() * (h - lang * 1.25 - 4); t += `<path d='M${f(x)} ${f(y)}l${f(-l * w / h)} ${f(l)}' stroke='#6d8498' stroke-width='${dicke}' stroke-linecap='round' opacity='${(.3 + r() * .4).toFixed(2)}'/>`; }
+  return kachel(w, h, t);
+};
+const schnee = (w, h, n, seed, gr) => {
+  const r = zufall(seed); let t = "";
+  for (let i = 0; i < n; i++) { const g = gr * (.5 + r()); t += `<circle cx='${f(6 + r() * (w - 12))}' cy='${f(6 + r() * (h - 12))}' r='${f(g)}' fill='#fff' stroke='#9db0c2' stroke-width='.55' opacity='${(.8 + r() * .2).toFixed(2)}'/>`; }
+  return kachel(w, h, t);
+};
+const blaetter = (w, h, n, seed, farben, form) => {
+  const r = zufall(seed); let t = "";
+  for (let i = 0; i < n; i++) t += `<path d='${form}' transform='translate(${f(12 + r() * (w - 24))} ${f(12 + r() * (h - 24))}) rotate(${Math.round(r() * 360)}) scale(${(.7 + r() * .7).toFixed(2)})' fill='${farben[Math.floor(r() * farben.length)]}' opacity='${(.75 + r() * .25).toFixed(2)}'/>`;
+  return kachel(w, h, t);
+};
+const LAUB = ["#d98a3d", "#c9642f", "#e0b04a", "#b5532e"], BLATT = "M0 0q3.2 -4.4 8 0q-4.8 4.4 -8 0Z", BLUETE = "M0 0q1.6 -2.6 4.6 0q-3 2.6 -4.6 0Z";
+const KACHELN = {
+  regen1: regen(150, 600, 15, 2, 22, 1.2), regen2: regen(110, 440, 10, 9, 15, .9),
+  schnee1: schnee(220, 440, 17, 4, 2.3), schnee2: schnee(170, 340, 15, 6, 1.5),
+  laub1: blaetter(280, 560, 6, 12, LAUB, BLATT), laub2: blaetter(210, 420, 4, 17, LAUB, BLATT),
+  bluete: blaetter(260, 520, 7, 23, ["#f6bfd0", "#fbdde6", "#f2a8bf"], BLUETE),
+};
 
 // Vögel: Endlage im Himmel (in % der Logofläche), Startversatz (Richtung Dom) und Größe
 const VOEGEL = [
@@ -141,6 +180,36 @@ const VOEGEL = [
 ];
 
 const buchstaben = (wort, ab) => [...wort].map((b, i) => `<i style="--i:${ab + i}">${b}</i>`).join("");
+
+// Jahreszeit (aus dem Datum) × Wetterlage (aus daten/wetter.js): 4 × 3 Varianten, im Winter zusätzlich Schnee = 13.
+// Die Jahreszeit färbt Bäume, Wiese und Hügel, die Wetterlage Himmel, Licht, Wolken und Wasser.
+const VARIANTEN = `.i-nieder{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none;opacity:calc(1 - var(--p,0) * 2.6)}
+.i-wieg{position:absolute;inset:0;animation:i-ein 1.4s ease 1s both,i-wiegen 4.6s ease-in-out infinite alternate}
+.i-nieder .n{display:none;position:absolute;inset:calc(var(--ky) * -1) calc(var(--kx) * -1 - 12px) 0 calc(var(--kx) * -1 - 12px);background-size:var(--kx) var(--ky);animation:i-fall var(--kd) linear infinite;will-change:transform}
+/* Jahreszeiten */
+.intro[data-zeit="fruehling"]{--ba:#9bc48a;--bb:#86b77b;--bc:#f0aec2;--bh:#b8d8a8;--bch:#fbd7e1;--bu:#8fbd80;--buh:#b4d6a3;--wi:#a6cc92;--hu1:#dfeadb;--hu2:#cfe3bf;--tu1:#f3c3cf;--tu2:#b6d4a3;--wieg:12px}
+.intro[data-zeit="fruehling"] .b-blume{display:block}.i-ufer .bl1{fill:#fff4c2}.i-ufer .bl2{fill:#f3a3ba}
+.intro[data-zeit="fruehling"]:not([data-wetter="regen"]) .n3{display:block;background-image:${KACHELN.bluete};--kx:260px;--ky:520px;--kr:-1;--kd:14s}
+.intro[data-zeit="sommer"]{--ba:#82ad70;--bb:#6fa066;--bc:#7ba96c;--bh:#a2c58f;--bch:#a2c58f;--bu:#7aa66c;--buh:#a2c58f;--wi:#9fc289;--hu1:#dbe6d6;--hu2:#c8dcb6;--tu1:#b2cba1;--tu2:#bdd3ab}
+.intro[data-zeit="sommer"][data-wetter="sonne"]{--h3:#eef3f1;--h4:#dbeaf4;--wa1:#d2e4ef;--wl:#a9c6d9}
+.intro[data-zeit="herbst"]{--ba:#dca45c;--bb:#c8773e;--bc:#b5533a;--bh:#efc986;--bch:#d88f6c;--bu:#b98a4e;--buh:#d6ad6c;--wi:#c6b98c;--hu1:#e6e3d6;--hu2:#dcd5b5;--tu1:#d2a55f;--tu2:#c58a55;--wieg:12px}
+.intro[data-zeit="herbst"] .n3{display:block;background-image:${KACHELN.laub1};--kx:280px;--ky:560px;--kr:-1;--kd:10s}
+.intro[data-zeit="herbst"]:not([data-wetter="regen"]) .n4{display:block;background-image:${KACHELN.laub2};--kx:210px;--ky:420px;--kr:-1;--kd:15s;opacity:.8}
+.intro[data-zeit="winter"]{--bu:#a59a8e;--buh:#b9afa3;--wi:#d0cfc6;--hu1:#e6e8e6;--hu2:#dadcd5;--tu1:#cbcec6;--tu2:#cfd2ca}
+.intro[data-zeit="winter"][data-wetter="sonne"]{--h1:#f9e4da;--h4:#e2eaf1}
+.intro[data-zeit="winter"] :is(.b-a,.b-b,.b-c,.b-hell,.b-chell){display:none}.intro[data-zeit="winter"] .b-kahl{display:block}
+/* Wetterlagen */
+.intro:not([data-wetter="sonne"]) .i-strahlen{display:none}.intro:not([data-wetter="sonne"]) .i-mehr{display:block}
+.intro[data-wetter="bewoelkt"]{--h1:#f2e6df;--h2:#edebe8;--h3:#e6e9eb;--h4:#dce2e8;--schein:.42;--wo:#f6f7f8;--wod:.95;--wa1:#d2dde4;--wa2:#e3e8ea;--wl:#a8bcc9}
+.intro[data-wetter="regen"]{--h1:#e4e2e2;--h2:#dfe2e5;--h3:#d5dbe0;--h4:#c7d0d9;--schein:.14;--wo:#dde2e7;--wod:1;--wa1:#c4d0d9;--wa2:#dbe1e5;--wl:#9db0bd;--wu:#9fb0bb}
+.intro[data-wetter="regen"] :is(.i-ufer,.i-huegel2){filter:saturate(.8) brightness(.97)}
+.intro[data-wetter="regen"] .n1{display:block;background-image:${KACHELN.regen1};--kx:150px;--ky:600px;--kr:-1;--kd:.62s}
+.intro[data-wetter="regen"] .n2{display:block;background-image:${KACHELN.regen2};--kx:110px;--ky:440px;--kr:-1;--kd:.8s;opacity:.7}
+.intro[data-wetter="schnee"]{--h1:#e8e9ec;--h2:#e0e4e9;--h3:#d6dce4;--h4:#c8d1dc;--schein:.18;--wo:#f1f3f6;--wod:1;--wa1:#cfd9e0;--wa2:#e2e7ea;--wl:#a9b9c4;
+  --d1:#f1f3f4;--d2:#fafafa;--hu1:#eff1f2;--hu2:#e9eced;--tu1:#dfe3e4;--tu2:#e3e6e7;--bu:#eceef0;--buh:#fafbfb;--wi:#f6f7f8;--ka:#fdfdfd;--wieg:16px}
+.intro[data-wetter="schnee"] .n1{display:block;background-image:${KACHELN.schnee1};--kx:220px;--ky:440px;--kd:9s}
+.intro[data-wetter="schnee"] .n2{display:block;background-image:${KACHELN.schnee2};--kx:170px;--ky:340px;--kd:14s;opacity:.85}
+.intro:is([data-wetter="regen"],[data-wetter="schnee"]) .i-vogel{display:none}`;
 
 const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Aufruf der Ausgabe) */
 .intro{position:relative;z-index:0;height:200vh;height:200svh;margin-bottom:-100vh;margin-bottom:-100svh;color:#141414;--weich:cubic-bezier(.16,.84,.24,1);--fahrt:cubic-bezier(.45,.05,.2,1)}
@@ -154,23 +223,23 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .intro.gelandet .i-l{visibility:hidden}
 .i-kante{position:absolute;left:-200vw;right:-200vw;bottom:var(--unten,-200vh);height:110px;background:linear-gradient(rgba(246,244,239,0),#f6f4ef)}
 .i-himmel,.i-boden{position:absolute;left:50%;width:300vw;height:160vh;margin-left:-150vw}
-.i-himmel{bottom:39.45%;background:linear-gradient(to top,#fbe6d8 0,#f9ede3 16vh,#f1f2ef 40vh,#e9f0f3 78vh);opacity:calc(1 - var(--e,0))}
+.i-himmel{bottom:39.45%;background:linear-gradient(to top,var(--h1,#fbe6d8) 0,var(--h2,#f9ede3) 16vh,var(--h3,#f1f2ef) 40vh,var(--h4,#e9f0f3) 78vh);opacity:calc(1 - var(--e,0))}
 .i-himmel::after,.i-boden::after{content:"";position:absolute;inset:0;opacity:0;animation:i-aus 1.9s ease-in-out .3s both}
 .i-himmel::after{background:linear-gradient(to top,#ecd8d0 0,#dcdbe3 24vh,#c6cedb 78vh)}
-.i-boden{top:60.55%;background:linear-gradient(#d9e6ed 0,#e7eef0 8vh,#f6f4ef 24vh);translate:0 calc(var(--e,0) * 72vh)}
+.i-boden{top:60.55%;background:linear-gradient(var(--wa1,#d9e6ed) 0,var(--wa2,#e7eef0) 8vh,#f6f4ef 24vh);translate:0 calc(var(--e,0) * 72vh)}
 .i-boden::after{background:linear-gradient(#c2cddb 0,#d2dae3 12vh,#e2e6ea 44vh)}
 .i-boden svg{position:absolute;left:50%;top:0;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);height:auto;overflow:visible;z-index:1;animation:i-wasser 11s ease-in-out infinite alternate}
-.i-boden path{fill:none;stroke:#b3cad8;stroke-width:.42;stroke-linecap:round}
+.i-boden path{fill:none;stroke:var(--wl,#b3cad8);stroke-width:.42;stroke-linecap:round}
 .i-boden .w-hell{stroke:#fff;stroke-width:.5;opacity:.85}
-.i-boden .w-ufer{fill:#aebfc9;stroke:none;opacity:.5}
-.i-boden .w-ufer2{fill:#aebfc9;stroke:none;opacity:.22}
+.i-boden .w-ufer{fill:var(--wu,#aebfc9);stroke:none;opacity:.5}
+.i-boden .w-ufer2{fill:var(--wu,#aebfc9);stroke:none;opacity:.22}
 .i-schiff{animation:i-schiff 70s ease-in-out infinite alternate}
 .i-schiff .s-rumpf{fill:#fdfcf8;stroke:#8f9aa1;stroke-width:.22}
 .i-schiff .s-aufbau{fill:#ebe6dc;stroke:#8f9aa1;stroke-width:.2}
 .i-schiff .s-linie{stroke:#c8102e;stroke-width:.34;opacity:.75}
 .i-schiff .s-fenster{fill:#7f8f99;stroke:none}
 .i-schiff .s-spiegel{stroke:#fff;stroke-width:.5;opacity:.8}
-.i-licht{position:absolute;left:50%;top:60.55%;width:0;height:0;opacity:calc(1 - var(--p,0) * 1.5);scale:calc(1 + var(--e,0) * 1.4)}
+.i-licht{position:absolute;left:50%;top:60.55%;width:0;height:0;opacity:calc(var(--schein,1) - var(--p,0) * 1.5);scale:calc(1 + var(--e,0) * 1.4)}
 .i-schein,.i-strahlen{position:absolute;border-radius:50%;aspect-ratio:1}
 .i-schein{width:calc(var(--L) * 4.2);margin:calc(var(--L) * -2.1);background:radial-gradient(closest-side,rgba(226,70,60,.26),rgba(240,140,96,.13) 36%,rgba(246,200,160,0) 72%);animation:i-schein 1.7s var(--weich) .75s both}
 .i-strahlen{width:calc(var(--L) * 5.6);margin:calc(var(--L) * -2.8);animation:i-ein 1.4s ease 1.5s both}
@@ -179,7 +248,8 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-strahlen::before{background:repeating-conic-gradient(rgba(203,8,56,0) 0deg,rgba(203,8,56,.05) 2.4deg,rgba(203,8,56,0) 4.8deg,rgba(203,8,56,0) 15deg);animation:i-drehen 140s linear infinite}
 .i-strahlen::after{background:repeating-conic-gradient(from 6deg,rgba(244,160,96,0) 0deg,rgba(244,160,96,.06) 4deg,rgba(244,160,96,0) 8deg,rgba(244,160,96,0) 22.5deg);animation:i-drehen 200s linear infinite reverse}
 .i-wolke{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * -8vh);opacity:calc(1 - var(--p,0) * 1.8)}
-.i-wolke svg{display:block;width:100%;height:auto;fill:#fffdf9;opacity:.82;animation:i-wolke 2.2s var(--weich) calc(.5s + var(--v)) both,i-zieh 46s ease-in-out calc(2.8s + var(--v) * 9) infinite alternate}
+.i-mehr{display:none}
+.i-wolke svg{display:block;width:100%;height:auto;fill:var(--wo,#fffdf9);opacity:var(--wod,.82);animation:i-wolke 2.2s var(--weich) calc(.5s + var(--v)) both,i-zieh 46s ease-in-out calc(2.8s + var(--v) * 9) infinite alternate}
 .i-l{position:absolute;inset:0;transform-origin:0 0;transform:translate(var(--dx,0px),var(--dy,0px)) scale(var(--ds,1));will-change:transform}
 .i-l svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .i-sonne svg,.i-dom svg{transform-origin:50% 60.55%;--z:2.15;animation:i-zoom 2.5s var(--fahrt) both}
@@ -191,12 +261,14 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-band{position:absolute;left:50%;bottom:39.45%;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);transform-origin:50% 100%;
   translate:0 calc(var(--e,0) * 72vh);scale:calc(1 + var(--e,0) * var(--k));will-change:transform}
 .i-band svg{display:block;width:100%;height:auto;transform-origin:50% 100%;animation:i-zoom 2.5s var(--fahrt) both,i-steig .95s cubic-bezier(.2,.9,.25,1.04) var(--ab,0s) both}
-.i-huegel{--k:.08}.i-huegel svg{fill:#dfe4dc;--z:1.16;animation:i-zoom 2.5s var(--fahrt) both}
-.i-huegel2{--k:.18}.i-huegel2 svg{fill:#d3dac8;--z:1.3;animation:i-zoom 2.5s var(--fahrt) both}.i-huegel2 .i-tupfen{fill:#c2cdb6}
-.i-fern{--k:.4}.i-fern svg{fill:#d3ccc1;--z:1.5;--ab:0s}.i-fern .i-dach{fill:#c7bfb4}.i-fern .i-fenster{fill:#e1dcd4}.i-fern .i-lichter{fill:#f3e3bd}
-.i-stadt{--k:1}.i-stadt svg{fill:#bcb3a6;--z:1.9;--ab:.12s}.i-stadt .i-dach{fill:#a89d90}.i-stadt .i-patina{fill:#9fb5a7}.i-stadt .i-fenster{fill:#d6cfc4}.i-stadt .i-lichter{fill:#f8dfa2}
+.i-huegel{--k:.08}.i-huegel svg{fill:var(--hu1,#dfe4dc);--z:1.16;animation:i-zoom 2.5s var(--fahrt) both}
+.i-huegel2{--k:.18}.i-huegel2 svg{fill:var(--hu2,#d3dac8);--z:1.3;animation:i-zoom 2.5s var(--fahrt) both}.i-huegel2 .i-tupfen{fill:var(--tu1,#c2cdb6)}.i-huegel2 .t2{fill:var(--tu2,#c2cdb6)}
+.i-fern{--k:.4}.i-fern svg{fill:#d3ccc1;--z:1.5;--ab:0s}.i-fern .i-dach{fill:var(--d1,#c7bfb4)}.i-fern .i-fenster{fill:#e1dcd4}.i-fern .i-lichter{fill:#f3e3bd}
+.i-stadt{--k:1}.i-stadt svg{fill:#bcb3a6;--z:1.9;--ab:.12s}.i-stadt .i-dach{fill:var(--d2,#a89d90)}.i-stadt .i-patina{fill:#9fb5a7}.i-stadt .i-fenster{fill:#d6cfc4}.i-stadt .i-lichter{fill:#f8dfa2}
 .i-ufer{--k:2.2}.i-ufer svg{fill:#a8a092;--z:2.5;--ab:.26s}
-.i-ufer .b-a{fill:#8da582}.i-ufer .b-b{fill:#7f9a78}.i-ufer .b-hell{fill:#a8bb9b}.i-ufer .b-stamm{fill:#8a7d6e;stroke:#8a7d6e;stroke-width:.3}.i-ufer .b-lampe{fill:#857d70}.i-ufer .b-kante{fill:#bcb4a7}
+.i-ufer .b-a{fill:var(--ba,#8da582)}.i-ufer .b-b{fill:var(--bb,#7f9a78)}.i-ufer .b-c{fill:var(--bc,#8da582)}.i-ufer .b-hell{fill:var(--bh,#a8bb9b)}.i-ufer .b-chell{fill:var(--bch,#a8bb9b)}
+.i-ufer .b-busch{fill:var(--bu,#86a07c)}.i-ufer .b-buschhell{fill:var(--buh,#a8bb9b)}.i-ufer .b-stamm{fill:#8a7d6e;stroke:#8a7d6e;stroke-width:.3}.i-ufer .b-lampe{fill:#857d70}
+.i-ufer .b-kahl{display:none;fill:none;stroke:#7b6f63;stroke-width:.3;stroke-linecap:round}.i-ufer .b-wiese{fill:var(--wi,#a5bb95)}.i-ufer .b-kante{fill:var(--ka,#bcb4a7)}.i-ufer .b-blume{display:none}
 .i-vogel{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * var(--fy));scale:calc(1 + var(--e,0) * 6);opacity:calc(var(--o,1) - var(--p,0) * 1.7)}
 .i-vogel svg{display:block;width:100%;height:auto;overflow:visible;animation:i-flug 1.7s cubic-bezier(.3,.6,.3,1) calc(1.2s + var(--v)) both,i-schweben 7s ease-in-out calc(2.9s + var(--v) * 6) infinite alternate}
 .i-vogel path{fill:#3d3934;transform-box:fill-box;transform-origin:50% 62%;animation:i-schlag .62s ease-in-out calc(var(--v) * -2s) infinite alternate}
@@ -221,6 +293,9 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 @keyframes i-ein{from{opacity:0}}
 @keyframes i-zoom{from{scale:var(--z)}}
 @keyframes i-steig{from{translate:0 104%}}
+${VARIANTEN}
+@keyframes i-fall{to{transform:translate3d(calc(var(--kx) * var(--kr,0)),var(--ky),0)}}
+@keyframes i-wiegen{from{transform:translateX(calc(var(--wieg,0px) * -1))}to{transform:translateX(var(--wieg,0px))}}
 @keyframes i-wolke{from{transform:translateX(calc(var(--fx) * .25));opacity:0}}
 @keyframes i-zieh{to{transform:translateX(16%)}}
 @keyframes i-schiff{from{transform:translateX(5px)}to{transform:translateX(-9px)}}
@@ -257,12 +332,13 @@ const html = `<!-- INTRO-START -->
       <div class="i-himmel"></div>
       <div class="i-licht"><div class="i-schein"></div><div class="i-strahlen"></div></div>
       <div class="i-l i-sonne"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont)"><path d="M5.5 77.5a58.5 58.5 0 0 1 117 0Z"/></g></svg></div>
-      ${WOLKEN.map(w => `<div class="i-wolke" style="left:${w.l}%;top:${w.t}%;--g:${w.g};--fx:${w.fx};--v:${w.v}s">${WOLKE}</div>`).join("\n      ")}
+      ${WOLKEN.map((w, i) => `<div class="i-wolke${w.mehr ? " i-mehr" : ""}" style="left:${w.l}%;top:${w.t}%;--g:${w.g};--fx:${w.fx};--v:${w.v}s">${i % 2 ? WOLKE2 : WOLKE}</div>`).join("\n      ")}
       ${svgBand("i-huegel", `<path d="${HUEGEL_FERN.d}"/>`)}
-      ${svgBand("i-huegel2", `<path d="${HUEGEL_NAH.d}"/><path class="i-tupfen" d="${HUEGEL_NAH.t}"/>`)}
+      ${svgBand("i-huegel2", `<path d="${HUEGEL_NAH.d}"/><path class="i-tupfen" d="${HUEGEL_NAH.t[0]}"/><path class="i-tupfen t2" d="${HUEGEL_NAH.t[1]}"/>`)}
       ${stadtBand("i-fern", FERN, "i-dunst1", "#cdc6bb", "#ddd7ce")}
       ${stadtBand("i-stadt", STADT, "i-dunst2", "#b4ab9e", "#c8c0b5")}
-      ${svgBand("i-ufer", `<path class="b-lampe" d="${UFER.lampe}"/><path class="b-stamm" d="${UFER.stamm}"/><path class="b-a" d="${UFER.a}"/><path class="b-b" d="${UFER.b}"/><path class="b-hell" d="${UFER.hell}"/><path d="M0 ${H}V${H - 1.6}H${B}V${H}Z"/><path class="b-kante" d="M0 ${H - 1.6}H${B}v.45H0Z"/>`)}
+      ${svgBand("i-ufer", `<path class="b-lampe" d="${UFER.lampe}"/><path class="b-stamm" d="${UFER.stamm}"/><path class="b-kahl" d="${UFER.kahl}"/><path class="b-a" d="${UFER.a}"/><path class="b-b" d="${UFER.b}"/><path class="b-c" d="${UFER.c}"/><path class="b-hell" d="${UFER.hell}"/><path class="b-chell" d="${UFER.chell}"/>`
+        + `<path class="b-busch" d="${UFER.busch}"/><path class="b-buschhell" d="${UFER.buschhell}"/><path class="b-wiese" d="M0 ${H - 2.05}H${B}v.5H0Z"/><path class="b-blume bl1" d="${UFER.blume1}"/><path class="b-blume bl2" d="${UFER.blume2}"/><path d="M0 ${H}V${H - 1.6}H${B}V${H}Z"/><path class="b-kante" d="M0 ${H - 1.6}H${B}v.45H0Z"/>`)}
       <div class="i-boden"><svg viewBox="0 0 ${B} 50"><path class="w-ufer" d="M0 0H${B}V1.3H0Z"/><path class="w-ufer2" d="M0 1.3H${B}V3.4H0Z"/><path d="${WASSER.blau}"/><path class="w-hell" d="${WASSER.weiss}"/>${SCHIFF}</svg></div>
       <div class="i-kante"></div>
       </div>
@@ -275,9 +351,11 @@ const html = `<!-- INTRO-START -->
     <div class="i-titelplatz"><h1 class="i-titel"><span class="i-w">${buchstaben("Mainzer", 0)}</span> <br><span class="i-w">${buchstaben("Fachbrief", 7)}</span><b>.</b></h1></div>
     <p class="i-unter"><span>Deine tagesaktuelle Fachzeitung aus Mainz</span></p>
   </div>
+  <div class="i-nieder" aria-hidden="true"><div class="i-wieg"><div class="n n1"></div><div class="n n2"></div><div class="n n3"></div><div class="n n4"></div></div></div>
   <button type="button" class="i-weiter">Zur Ausgabe<i aria-hidden="true">↓</i></button>
  </div>
 </section>
+<script src="daten/wetter.js"></script>
 <script>
 /* Intro bei jedem Aufruf der Ausgabe (auch mit Ressort-Lesezeichen), nur hell und nicht nach der Rückkehr von ueber.html; ?intro erzwingt es. ?zeit=1.5 / ?p=0.5 = Standbilder für Entwürfe. */
 (() => {
@@ -286,6 +364,18 @@ const html = `<!-- INTRO-START -->
   const hell = document.documentElement.dataset.thema !== "dunkel";
   const vonUeber = document.referrer.includes("/ueber.html");
   if (!(q.has("intro") || (hell && !vonUeber))) { intro.remove(); return; }
+  // Variante: Jahreszeit aus dem Datum, Wetterlage für heute aus daten/wetter.js (Mainz). ?wetter=herbst-regen zeigt eine bestimmte.
+  const jetzt = new Date(), monat = +new Intl.DateTimeFormat("en-US", { timeZone: "Europe/Berlin", month: "numeric" }).format(jetzt);
+  const heute = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(jetzt);
+  let zeit = monat >= 3 && monat <= 5 ? "fruehling" : monat >= 6 && monat <= 8 ? "sommer" : monat >= 9 && monat <= 11 ? "herbst" : "winter";
+  let wetter = (window.FACHBRIEF_WETTER || {})[heute];
+  for (const teil of (q.get("wetter") || "").split("-")) {
+    if (["fruehling", "sommer", "herbst", "winter"].includes(teil)) zeit = teil;
+    if (["sonne", "bewoelkt", "regen", "schnee"].includes(teil)) wetter = teil;
+  }
+  if (!["sonne", "bewoelkt", "regen", "schnee"].includes(wetter)) wetter = "sonne";
+  if (wetter === "schnee" && zeit !== "winter") wetter = "regen";
+  intro.dataset.zeit = zeit; intro.dataset.wetter = wetter;
   intro.hidden = false;
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo");
@@ -295,6 +385,7 @@ const html = `<!-- INTRO-START -->
   let offen = false;
   const rechne = () => {
     offen = false; bild = bild || document.querySelector("#kopf .marke img.logo-hell"); if (!bild || !intro.isConnected) return;
+    if (fertig) { if (scrollY < strecke()) scrollTo(0, strecke()); return; }      // angekommen: kein Zurück ins Intro
     const p = grenze(scrollY / strecke()), e = sanft(p);
     s.setProperty("--p", p.toFixed(4)); s.setProperty("--e", e.toFixed(4));
     // Platz des Bildzeichens in der Kopfzeile: das linke Quadrat des Logo-Bilds
@@ -315,8 +406,22 @@ const html = `<!-- INTRO-START -->
     bild.style.clipPath = gelandet ? "" : "inset(0 0 0 13.9%)";
     bild.style.opacity = gelandet ? "" : grenze((t - .3) / .45).toFixed(3);
     buehne.style.visibility = p >= 1 ? "hidden" : "";
+    if (p >= 1) { fertig = true; clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }
   };
-  addEventListener("scroll", () => { if (!offen) { offen = true; requestAnimationFrame(rechne); } }, { passive: true });
+  // Ist die Ausgabe ganz da, verschwindet das Intro endgültig (erst wieder nach dem Neuladen). Es wird entfernt, sobald
+  // das Scrollen kurz ruht – so springt nichts, auch nicht beim Schwung-Scrollen auf dem Handy.
+  let fertig = false, ruhe = 0;
+  const einklappen = () => {
+    if (!fertig || !intro.isConnected) return;
+    const rest = Math.max(0, scrollY - strecke());
+    if (bild) bild.style.clipPath = bild.style.opacity = "";
+    intro.remove(); scrollTo(0, rest);
+  };
+  addEventListener("scrollend", einklappen);
+  addEventListener("scroll", () => {
+    if (fertig) { clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }
+    if (!offen) { offen = true; requestAnimationFrame(rechne); }
+  }, { passive: true });
   addEventListener("resize", rechne);
   // Wer am Intro auf Dunkel schaltet, bekommt die Ausgabe ohne Intro (die Szene gibt es nur hell).
   new MutationObserver(() => {
