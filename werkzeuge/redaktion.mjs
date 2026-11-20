@@ -3,7 +3,8 @@
  * Mainzer Fachbrief – Redaktionswerkzeug
  *
  *   node werkzeuge/redaktion.mjs vorbereiten   offene Kandidaten aus dem Pool in arbeit/kandidaten.md schreiben
- *   node werkzeuge/redaktion.mjs abschliessen  daten/ausgaben/<heute>.json prüfen, anreichern und die Webseiten-Daten bauen
+ *   node werkzeuge/redaktion.mjs abschliessen  daten/ausgaben/<heute>.json und daten/gremien-notizen.json prüfen, anreichern
+ *                                              und die Webseiten-Daten bauen
  *   node werkzeuge/redaktion.mjs veroeffentlichen  wie abschliessen, danach Commit und Push – nur wenn die Prüfung bestanden ist
  *   node werkzeuge/redaktion.mjs bauen         nur die Webseiten-Daten aus allen Ausgaben neu bauen
  *
@@ -24,9 +25,14 @@ const RESSORTS = {
 };
 const STUFEN = ["aufmacher", "wichtig", "kurz"];
 const RUBRIKEN = ["mainz", "land", "bund", "fach"];
+// Themen-Icons je Meldung (Feld „icon“) – Dateien unter docs/bilder/icons/hell|dunkel/<id>.svg, Bedeutung in REDAKTION.md
+const ICONS = ["jugendhilfeplanung", "fruehe-hilfen", "kinderschutz", "familie", "kita", "schule", "quartier",
+  "sozialraum", "gremien", "haushalt", "zahl-des-tages", "quellen", "termine"];
 const OFFEN_TAGE = 4;          // Kandidaten bleiben so viele Tage „offen“
 const SEITE_TAGE = 14;         // so viele Ausgaben lädt die Startseite
 const ARCHIV_TAGE = 400;       // so weit reicht die Archivsuche
+const NOTIZ_TAGE = 21;         // Gremien-Notizen vergangener Sitzungen so lange auf der Seite
+const NOTIZ_MAX = 160;         // Zeichen je Ressort-Notiz
 
 async function poolLesen() {
   const dir = path.join(ROOT, "daten/pool");
@@ -88,11 +94,18 @@ function pruefen(ausgabe, bekannte) {
   for (const [id, def] of Object.entries(RESSORTS)) {
     const liste = r[id]?.meldungen;
     if (!Array.isArray(liste)) { fehler.push(`ressorts.${id}.meldungen fehlt (leere Liste ist erlaubt).`); continue; }
-    const z = r[id].zahl;
-    if (z !== undefined && z !== null) {
-      if (!z.wert || z.wert.length > 16 || !/\d/.test(z.wert)) fehler.push(`${id}.zahl.wert fehlt, enthält keine Ziffer oder ist länger als 16 Zeichen.`);
-      if (!z.text || z.text.length < 15 || z.text.length > 140) fehler.push(`${id}.zahl.text muss 15–140 Zeichen lang sein.`);
-      if (!bekannte.has(z.id)) fehler.push(`${id}.zahl.id „${z.id}“ ist kein Kandidat.`);
+    // „Wusstest du schon?“ (optional): besondere Zahl (wert + text) oder besonderer Fakt (nur text).
+    // Das frühere Feld „zahl“ wird noch gelesen und beim Abschließen in „wusstest“ umbenannt.
+    const w = r[id].wusstest ?? r[id].zahl;
+    if (w !== undefined && w !== null) {
+      const feld = r[id].wusstest != null ? "wusstest" : "zahl";
+      const text = typeof w.text === "string" ? w.text.trim() : "";
+      if (text.length < 20 || text.length > 160) fehler.push(`${id}.${feld}.text muss 20–160 Zeichen lang sein (sind ${text.length}).`);
+      if (w.wert !== undefined && w.wert !== null && w.wert !== "") {
+        const wert = String(w.wert).trim();
+        if (wert.length > 16 || !/\d/.test(wert)) fehler.push(`${id}.${feld}.wert muss eine Ziffer enthalten und darf höchstens 16 Zeichen lang sein.`);
+      }
+      if (!bekannte.has(w.id)) fehler.push(`${id}.${feld}.id „${w.id}“ ist kein Kandidat.`);
     }
     if (liste.length > def.max) fehler.push(`${id}: höchstens ${def.max} Meldungen (sind ${liste.length}).`);
     const aufmacher = liste.filter(m => m.stufe === "aufmacher").length;
@@ -110,9 +123,34 @@ function pruefen(ausgabe, bekannte) {
       if (!m.titel || m.titel.length > 150) fehler.push(`${wo}: „titel“ fehlt oder ist länger als 150 Zeichen.`);
       if (m.titel && m.titel === m.titel.toUpperCase() && /[A-ZÄÖÜ]{6}/.test(m.titel)) fehler.push(`${wo}: Titel steht in Großbuchstaben.`);
       if (m.rubrik && !RUBRIKEN.includes(m.rubrik)) fehler.push(`${wo}: rubrik muss mainz, land, bund oder fach sein.`);
+      if (m.icon !== undefined && !ICONS.includes(m.icon)) fehler.push(`${wo}: icon „${m.icon}“ ist nicht erlaubt (erlaubt: ${ICONS.join(", ")}).`);
       if (m.stufe !== "kurz" && (!m.kurz || m.kurz.length < 30)) fehler.push(`${wo}: Aufmacher und wichtige Meldungen brauchen „kurz“ (ein Satz).`);
       if (m.kurz && m.kurz.length > 240) fehler.push(`${wo}: „kurz“ ist länger als 240 Zeichen.`);
     });
+  }
+  return fehler;
+}
+
+/** Gremien-Notizen (daten/gremien-notizen.json) prüfen: { notizen: { <Sitzungs-id>: { gremium, datum, url, vorschau?, ressorts } } } */
+function notizenPruefen(datei) {
+  const fehler = [];
+  if (!datei || typeof datei.notizen !== "object" || Array.isArray(datei.notizen)) return ["daten/gremien-notizen.json: Objekt „notizen“ fehlt."];
+  for (const [id, n] of Object.entries(datei.notizen)) {
+    const wo = `gremien-notizen ${id}`;
+    if (!/^\d+$/.test(id)) fehler.push(`${wo}: Schlüssel muss die Sitzungs-id aus gremien.json sein.`);
+    if (!n || typeof n !== "object") { fehler.push(`${wo}: Eintrag fehlt.`); continue; }
+    if (!n.gremium) fehler.push(`${wo}: „gremium“ fehlt.`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(n.datum || "")) fehler.push(`${wo}: „datum“ muss JJJJ-MM-TT sein.`);
+    if (!/^https?:\/\//.test(n.url || "")) fehler.push(`${wo}: „url“ fehlt.`);
+    if (n.vorschau !== undefined && typeof n.vorschau !== "boolean") fehler.push(`${wo}: „vorschau“ muss true sein oder fehlen.`);
+    if (!n.ressorts || typeof n.ressorts !== "object" || Array.isArray(n.ressorts)) {
+      fehler.push(`${wo}: „ressorts“ fehlt (altes Format mit „text“? Leeres Objekt, wenn nichts relevant ist).`);
+      continue;
+    }
+    for (const [r, t] of Object.entries(n.ressorts)) {
+      if (!RESSORTS[r]) fehler.push(`${wo}: unbekanntes Ressort „${r}“.`);
+      if (typeof t !== "string" || !t.trim() || t.length > NOTIZ_MAX) fehler.push(`${wo}.${r}: Text fehlt oder ist länger als ${NOTIZ_MAX} Zeichen.`);
+    }
   }
   return fehler;
 }
@@ -122,9 +160,9 @@ async function abschliessen() {
   const ausgabe = await readJson(datei);
   const vorbereitet = await readJson("arbeit/kandidaten.json", { kandidaten: [] });
   const pool = await poolLesen();
-  const fehler = pruefen(ausgabe, new Set(pool.keys()));
+  const fehler = [...pruefen(ausgabe, new Set(pool.keys())), ...notizenPruefen(await readJson("daten/gremien-notizen.json", { notizen: {} }))];
   if (fehler.length) {
-    console.error(`Die Ausgabe ${datei} hat ${fehler.length} Fehler:\n- ` + fehler.join("\n- "));
+    console.error(`Prüfung nicht bestanden – ${fehler.length} Fehler in ${datei} bzw. daten/gremien-notizen.json:\n- ` + fehler.join("\n- "));
     process.exit(2);
   }
   const quellen = Object.fromEntries((await readJson("quellen.json")).map(q => [q.id, q]));
@@ -134,10 +172,15 @@ async function abschliessen() {
       return {
         id: m.id, stufe: m.stufe, thema: m.thema.trim(), titel: m.titel.trim(),
         ...(m.kurz && m.stufe !== "kurz" ? { kurz: m.kurz.trim() } : {}),
+        ...(m.icon ? { icon: m.icon } : {}),
         rubrik: m.rubrik || quellen[k.quelle]?.ebene || "fach",
         quelle: k.quelle, url: k.url, datum: k.datum || k.termin || k.gefunden, originaltitel: k.titel,
       };
     });
+    const w = def.wusstest ?? def.zahl;          // frühere „Zahl des Tages“ heißt jetzt „wusstest“
+    delete def.zahl;
+    if (w) def.wusstest = { ...(w.wert ? { wert: String(w.wert).trim() } : {}), text: w.text.trim(), id: w.id };
+    else delete def.wusstest;
   }
   ausgabe.gesichtet = [...new Set([...(ausgabe.gesichtet || []), ...vorbereitet.kandidaten.map(k => k.id)])];
   ausgabe.erstellt = ausgabe.erstellt || new Date().toISOString();
@@ -181,17 +224,28 @@ async function veroeffentlichen() {
 async function bauen() {
   const quellen = await readJson("quellen.json");
   const ausgaben = (await ausgabenLesen()).sort((a, b) => b.datum.localeCompare(a.datum));
+  // „Wusstest du schon?“ je Ressort; ältere Ausgaben mit „zahl“ werden auf dasselbe Format abgebildet
+  const wusstest = r => {
+    const w = r.wusstest ?? r.zahl;
+    return w?.text ? { ...(w.wert ? { wert: w.wert } : {}), text: w.text, id: w.id } : null;
+  };
   const schlank = a => ({
     datum: a.datum, erstellt: a.aktualisiert || a.erstellt, ...(a.nachtraeglich ? { nachtraeglich: true } : {}),
     ressorts: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, r.meldungen.map(({ originaltitel, ...m }) => m)])),
-    zahlen: Object.fromEntries(Object.entries(a.ressorts).filter(([, r]) => r.zahl?.wert).map(([id, r]) => [id, r.zahl])),
+    wusstest: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, wusstest(r)]).filter(([, w]) => w)),
   });
-  // Gremien-Notizen (von der Redaktion geschrieben) für die Webseite: nur die letzten 21 Tage
+  // Gremien-Notizen (von der Redaktion geschrieben) für die Webseite: vergangene Sitzungen der letzten 21 Tage mit
+  // mindestens einem Ressort-Bezug, dazu alle kommenden Sitzungen (Vorschau, auch ohne Bezug).
   const notizen = await readJson("daten/gremien-notizen.json", { notizen: {} });
-  const notizGrenze = dayOffset(berlinDay(), -21);
-  await writeJson("docs/daten/gremien-notizen.json", {
-    notizen: Object.fromEntries(Object.entries(notizen.notizen || {}).filter(([, n]) => n && n.text && (n.datum || "") >= notizGrenze)),
-  }, false);
+  const heute = berlinDay(), notizGrenze = dayOffset(heute, -NOTIZ_TAGE);
+  const seitenNotizen = {};
+  for (const [id, n] of Object.entries(notizen.notizen || {})) {
+    if (!n || typeof n.ressorts !== "object" || !n.ressorts || !/^\d{4}-\d{2}-\d{2}$/.test(n.datum || "") || n.datum < notizGrenze) continue;
+    const ressorts = Object.fromEntries(Object.entries(n.ressorts).filter(([r, t]) => RESSORTS[r] && typeof t === "string" && t.trim()));
+    if (n.datum < heute && !Object.keys(ressorts).length) continue;
+    seitenNotizen[id] = { gremium: n.gremium, datum: n.datum, url: n.url, ...(n.vorschau ? { vorschau: true } : {}), ressorts };
+  }
+  await writeJson("docs/daten/gremien-notizen.json", { notizen: seitenNotizen }, false);
   await writeJson("docs/daten/ausgaben.json", {
     stand: new Date().toISOString(),
     erste: (ausgaben.filter(a => !a.nachtraeglich).pop() || ausgaben[ausgaben.length - 1] || { datum: DATUM }).datum,
@@ -203,11 +257,11 @@ async function bauen() {
   const archiv = [];
   for (const a of ausgaben.filter(x => x.datum >= grenze)) {
     for (const [ressort, r] of Object.entries(a.ressorts)) {
-      for (const m of r.meldungen) archiv.push([a.datum, ressort, m.stufe[0], m.thema, m.titel, m.kurz || "", m.quelle, m.url, m.rubrik || "", m.datum || ""]);
+      for (const m of r.meldungen) archiv.push([a.datum, ressort, m.stufe[0], m.thema, m.titel, m.kurz || "", m.quelle, m.url, m.rubrik || "", m.datum || "", m.icon || ""]);
     }
   }
   await writeJson("docs/daten/archiv.json", {
-    felder: ["ausgabe", "ressort", "stufe", "thema", "titel", "kurz", "quelle", "url", "rubrik", "datum"],
+    felder: ["ausgabe", "ressort", "stufe", "thema", "titel", "kurz", "quelle", "url", "rubrik", "datum", "icon"],
     ausgaben: ausgaben.filter(x => x.datum >= grenze).map(a => ({ datum: a.datum, erstellt: a.aktualisiert || a.erstellt, ...(a.nachtraeglich ? { nachtraeglich: true } : {}) })),
     eintraege: archiv,
   }, false);

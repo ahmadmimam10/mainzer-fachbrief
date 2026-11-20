@@ -18,7 +18,7 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
 3. `arbeit/kandidaten.md` **vollständig** lesen.
 4. Die Ausgabe als `daten/ausgaben/JJJJ-MM-TT.json` (heutiges Datum, Europe/Berlin) schreiben, Format unten.
    Nur `id`s aus der Kandidatenliste verwenden. Links, Quellen und Daten ergänzt das Skript selbst.
-   Danach die **Gremien-Notizen** ergänzen (Abschnitt „Gremien-Notizen“ unten).
+   Danach die **Gremien-Notizen** ergänzen und die Vorschau der nächsten Sitzung pflegen (Abschnitt „Gremien-Notizen“ unten).
 5. `node werkzeuge/redaktion.mjs veroeffentlichen` – als **einzelnen** Befehl ausführen, nichts davor oder
    dahinter verketten. Das Skript prüft die Ausgabe, baut die Seitendaten und committet und pusht **nur, wenn die
    Prüfung bestanden ist** (bei Bedarf mit `pull --rebase`; ist main gesperrt, auf `claude/ausgabe-JJJJ-MM-TT`,
@@ -135,8 +135,9 @@ genannten Schlagworten in Mainz.
   „irgendetwas“ aus der AZ nehmen, nur weil sie wichtig ist. Gleiches gilt für Spiegel und SWR.
 - **JAdigital**: Taucht ein JAdigital-Newsletter auf, immer in Jugendhilfeplanung und Frühe Hilfen aufnehmen
   (Stufe `kurz`).
-- **Ratsinformationssystem**: Sitzungstermine (Stadtrat, Jugendhilfeausschuss, Ortsbeiräte) stellt die Seite
-  automatisch im Kasten „Termine“ dar – dafür nichts tun.
+- **Ratsinformationssystem**: Sitzungstermine (Stadtrat, Jugendhilfeausschuss, Ortsbeiräte) nicht als Meldung
+  aufnehmen – die Seite zeigt die nächste Sitzung automatisch im Kasten „Gremien“. Was in den Sitzungen für die
+  Ressorts wichtig ist, steht in den **Gremien-Notizen** (Abschnitt unten).
 - **Doppelte Meldungen** (dieselbe Nachricht bei mehreren Quellen, z. B. Bundesministerium und NZFH, Stadt Mainz
   und Merkurist): nur einmal aufnehmen, bevorzugt die Originalquelle (Ministerium, Stadt, Institut) oder die
   ergiebigste Fassung.
@@ -174,27 +175,87 @@ Je Ressort, in dieser Reihenfolge in der Liste:
   es geht und was daran wichtig ist (z. B. Zahl, Entscheidung, Folge). Kein Teaser-Deutsch, keine Wertung.
 - `rubrik` – optional: `mainz`, `land`, `bund` oder `fach`. Standard ist die Ebene der Quelle. Angeben, wenn
   sie abweicht (z. B. AZ-Meldung aus Rheinland-Pfalz → `land`; Spiegel-Bericht über Mainz → `mainz`).
+- `icon` – optional, empfohlen: kleines Themen-Icon neben der Dachzeile. Nach dem **Thema der Dachzeile** wählen,
+  nicht nach Nebenaspekten. Fehlt `icon`, leitet die Seite es per Schlagwort aus dem Thema ab. Nur diese IDs:
 
-## Zahl des Tages (optional, je Ressort)
+  | `icon` | Bedeutung – verwenden bei |
+  |---|---|
+  | `jugendhilfeplanung` | Kinder- und Jugendhilfe allgemein: SGB VIII, Jugendhilfeplanung, Hilfen zur Erziehung, Heimerziehung, Jugendarbeit, Jugendpolitik, Beteiligung junger Menschen |
+  | `fruehe-hilfen` | Frühe Hilfen (0–3 Jahre), Schwangerschaft und Geburt, Familienhebammen, Gesundheit im Säuglings- und Kleinkindalter |
+  | `kinderschutz` | Kinderschutz, Schutzkonzepte, Kindeswohlgefährdung, (sexualisierte) Gewalt, Aufarbeitung, Kinder- und Jugendmedienschutz |
+  | `familie` | Familie und Familienpolitik, Eltern, Familienbildung, Familienzentren, Familienleistungen (Unterhaltsvorschuss, Elterngeld, Kindergeld) |
+  | `kita` | Kindertagesbetreuung: Kita, Krippe, Kindertagespflege, Kita-Fachkräfte, Kita-Gesetze |
+  | `schule` | Schule und Bildung: Startchancen, Ganztag, Schulbau, Schulwege, Übergang Kita–Schule |
+  | `quartier` | Quartiersmanagement, Soziale Stadt / Sozialer Zusammenhalt, Städtebauförderung, Stadtteile und ihre Projekte |
+  | `sozialraum` | Sozialraum und Stadtentwicklung: Sozialraumanalyse, Planung, Wohnen, Verkehr, Grün- und Freiflächen |
+  | `gremien` | Stadtrat, Ausschüsse, Ortsbeiräte, Parlamente und Regierungen: Beschlüsse, Anträge, Anfragen |
+  | `haushalt` | Haushalt und Finanzen: Etats, Förderprogramme, Zuschüsse, Kosten |
+  | `zahl-des-tages` | Statistik, Daten, Monitoring, Prognosen |
+  | `quellen` | Studien, Berichte, Fachpublikationen, Newsletter, Handreichungen |
+  | `termine` | Veranstaltungen, Fachtage, Fortbildungen, Fristen |
 
-Enthält eine ausgewählte Meldung eines Ressorts eine aussagekräftige Zahl (Geldbetrag, Anzahl, Quote), sie als
-`zahl` beim Ressort angeben – neben `meldungen`:
-`"zahl": { "wert": "31,7 Mio. €", "text": "fließen aus dem Startchancen-Programm an Mainzer Schulen", "id": "<id der Meldung>" }`
-- `wert` höchstens 16 Zeichen, mit Ziffer, deutsch geschrieben („31,7 Mio. €“, „1,2 Mrd. €“, „38 %“, „1 603“).
-- `text` 15–140 Zeichen; ergänzt die Zahl zu einer Aussage. Nur Fakten aus Titel und Kurzbeschreibung der Meldung.
-- Nichts erzwingen. Keine reißerischen Zahlen (z. B. Opferzahlen) – dann lieber keine Zahl.
+## Wusstest du schon? (ersetzt die frühere Zahl des Tages)
+
+Optional je Ressort, als `wusstest` neben `meldungen`: ein kleiner Kasten in der Seitenspalte – **entweder** eine
+besondere Zahl **oder** ein besonderer Fakt aus einer ausgewählten Meldung. Gibt es nichts Besonderes, das Feld
+weglassen – dann entfällt der Kasten.
+- Zahl: `"wusstest": { "wert": "31,7 Mio. €", "text": "fließen aus dem Startchancen-Programm an Mainzer Schulen", "id": "<id der Meldung>" }`
+- Fakt: `"wusstest": { "text": "Mainz entwickelt seine Kitas zu Familienzentren weiter und führt ein Campus-Modell ein.", "id": "<id der Meldung>" }`
+- `text` 20–160 Zeichen. Mit `wert` ergänzt der Text die Zahl zu einer Aussage, ohne `wert` ist er ein ganzer Satz.
+- `wert` nur bei einer Zahl: höchstens 16 Zeichen, mit Ziffer, deutsch geschrieben („31,7 Mio. €“, „1,2 Mrd. €“,
+  „38 %“, „1 603“).
+- `id` – die Meldung, aus der Zahl oder Fakt stammen (aus der Kandidatenliste); die Seite verlinkt darauf.
+- „Besonders“ heißt: überraschend, einordnend oder für die Steuerung wichtig – nicht irgendeine Zahl aus dem Text.
+  Nur Fakten aus Titel und Kurzbeschreibung der Meldung. Nichts erzwingen, keine reißerischen Zahlen (z. B. Opferzahlen).
+- Das frühere Feld `zahl` wird noch gelesen und beim Abschließen in `wusstest` umbenannt – neu nur `wusstest` schreiben.
 
 ## Gremien-Notizen (Ratsinformationssystem)
 
 `docs/daten/gremien.json` enthält die Sitzungen der Mainzer Gremien (letzte 14 Tage, nächste 60 Tage) mit
-Tagesordnungspunkten (`tops`: `titel`, `ergebnis`, `art`). Für jede **vergangene** Sitzung der letzten 7 Tage, die in
-`daten/gremien-notizen.json` noch keine Notiz hat und mindestens einen Punkt mit `ergebnis` besitzt, eine Notiz anlegen:
-`{ "notizen": { "<id der Sitzung>": { "gremium": "…", "datum": "JJJJ-MM-TT", "text": "…" } } }`
-- Ein bis zwei Sätze, höchstens 260 Zeichen: was beschlossen oder beraten wurde – nur aus Titeln und Ergebnissen,
-  nichts erfinden. Beispiel: „Wirtschaftsplan 2027 der Gebäudewirtschaft mehrheitlich beschlossen; Prüfbericht zum
-  Jahresabschluss 2025 einstimmig beschlossen.“
-- Formalien, Personalien und reine Anfragen weglassen; bei bloßen Kenntnisnahmen: „Beraten: …“.
-- Bestehende Notizen nicht ändern. Die Datei wird mit `veroeffentlichen` hochgeladen.
+Tagesordnungspunkten (`tops`: `titel`, `ergebnis`, `art`). Daraus entsteht in `daten/gremien-notizen.json` je Sitzung
+eine Notiz **je Ressort**. Die Seite zeigt im Kasten „Gremien“ nur die **nächste Sitzung** von Jugendhilfeausschuss,
+Sozialausschuss oder Stadtrat mit einer Zeile für das gewählte Ressort und unter „Zuletzt“ nur Sitzungen (aller
+Gremien), die für dieses Ressort etwas Relevantes hatten.
+
+```json
+{ "notizen": {
+  "5137": { "gremium": "Jugendhilfeausschuss", "datum": "2026-11-10", "url": "https://bi.mainz.de/si0057.php?__ksinr=5137",
+    "ressorts": {
+      "jugendhilfeplanung": "Teilhaushalt Jugend 2027, 2,4 Mio. € Mehrbedarf HzE/§ 35a und Campus-Modell beschlossen; Kita-Schutzkonzept zurückgestellt.",
+      "fruehe-hilfen": "Familienzentren/Campus-Modell beschlossen; Rahmenschutzkonzept für städtische Kitas zurückgestellt." } },
+  "4961": { "gremium": "Stadtrat", "datum": "2026-11-25", "url": "https://bi.mainz.de/si0057.php?__ksinr=4961", "vorschau": true,
+    "ressorts": { "jugendhilfeplanung": "Haushalt 2027, 2,4 Mio. € Mehrbedarf HzE/§ 35a, Krippe Pusteblume, Sozialraumanalyse." } },
+  "5189": { "gremium": "Werkausschuss der Stadtreinigung Mainz", "datum": "2026-11-13", "url": "https://bi.mainz.de/si0057.php?__ksinr=5189",
+    "ressorts": {} }
+} }
+```
+- Schlüssel ist die `id` der Sitzung; `gremium`, `datum` und `url` aus `gremien.json` übernehmen.
+- `ressorts`: einen Schlüssel (`jugendhilfeplanung`, `fruehe-hilfen`, `quartiersmanagement`) **nur**, wenn die Sitzung
+  einen echten Bezug zu diesem Ressort hat (Profile oben). Hat sie für kein Ressort etwas: `"ressorts": {}` – so ist
+  erkennbar, dass sie gesichtet wurde.
+- Text je Ressort **eine kurze Zeile** (Richtwert 60–120 Zeichen, höchstens 160): die relevanten Punkte als Stichworte
+  und, falls vorhanden, das Ergebnis („beschlossen“, „zurückgestellt“, „zur Kenntnis genommen“). Nur aus Titeln und
+  Ergebnissen, nichts erfinden. Formalien, Personalien und Punkte ohne Ressortbezug weglassen.
+- Maßstab: **Jugendhilfeplanung** – Jugendhilfeausschuss, Haushalt der Jugendhilfe, Kita-Bedarfsplanung und
+  Kita-Plätze, Schule und Bildung, Sozialraumanalyse, Integration und anderes mit städtischer Tragweite.
+  **Frühe Hilfen** – Kinderschutz, Schutzkonzepte, Frühe Hilfen, Familienbildung und Familienzentren.
+  **Quartiersmanagement** – die vier Stadtteile Lerchenberg, Neustadt, Mombach, Hartenberg-Münchfeld (auch ihre
+  Ortsbeiräte), Soziale Stadt / Sozialer Zusammenhalt, Städtebauförderung, Sozialraumanalyse. Ortsbeiräte anderer
+  Stadtteile nur bei ausdrücklichem Bezug.
+- `vorschau: true` – die Notiz beruht nur auf der Tagesordnung (kommende Sitzung oder noch keine Ergebnisse
+  veröffentlicht). Dann ohne Ergebnis formulieren („auf der Tagesordnung“, „Anfragen zu …“).
+
+**Jeden Morgen**, nach der Ausgabe:
+1. **Neue vergangene Sitzungen:** Jede vergangene Sitzung in `gremien.json` mit Tagesordnung (`tops`), die noch keine
+   Notiz hat, bekommt eine. Sitzungen ohne `tops` überspringen.
+2. **Ergebnisse nachtragen:** Notizen mit `vorschau: true`, deren Sitzung vorbei ist und für die jetzt Ergebnisse
+   (`ergebnis`) vorliegen, neu schreiben und `vorschau` entfernen.
+3. **Vorschau der nächsten Sitzung:** Die nächste kommende Sitzung von Jugendhilfeausschuss, Sozialausschuss oder
+   Stadtrat (wer zuerst tagt) bekommt eine Notiz mit `vorschau: true`, **sobald ihre Tagesordnung steht** (`tops` nicht
+   leer); ändert sich die Tagesordnung, die Vorschau anpassen. Ohne Punkte für ein Ressort schreibt die Seite
+   „Keine Punkte mit Bezug zu …“.
+4. Notizen ohne `vorschau` nicht mehr ändern. `veroeffentlichen` prüft die Datei (Format, Ressorts, höchstens
+   160 Zeichen) und lädt sie hoch; die Seite zeigt vergangene Sitzungen der letzten 21 Tage und die kommenden.
 
 ## Format von `daten/ausgaben/JJJJ-MM-TT.json`
 
@@ -203,12 +264,13 @@ Tagesordnungspunkten (`tops`: `titel`, `ergebnis`, `art`). Für jede **vergangen
   "datum": "2026-11-21",
   "ressorts": {
     "jugendhilfeplanung": { "meldungen": [
-      { "id": "4b8006a55f", "stufe": "aufmacher", "thema": "Haushalt 2027",
+      { "id": "4b8006a55f", "stufe": "aufmacher", "thema": "Haushalt 2027", "icon": "haushalt",
         "titel": "Bund kürzt den Familienetat deutlich",
         "kurz": "Der Etat des Bundesfamilienministeriums sinkt 2027 auf 15,93 Milliarden Euro – mit Folgen für Programme der Kinder- und Jugendhilfe." },
-      { "id": "045f39dc49", "stufe": "wichtig", "thema": "Startchancen", "titel": "…", "kurz": "…" },
-      { "id": "883477e153", "stufe": "kurz", "thema": "Frühe Hilfen", "titel": "…" }
-    ] },
+      { "id": "045f39dc49", "stufe": "wichtig", "thema": "Startchancen", "icon": "schule", "titel": "…", "kurz": "…" },
+      { "id": "883477e153", "stufe": "kurz", "thema": "Frühe Hilfen", "icon": "fruehe-hilfen", "titel": "…" }
+    ],
+      "wusstest": { "wert": "15,93 Mrd. €", "text": "umfasst der Etat des Bundesfamilienministeriums 2027", "id": "4b8006a55f" } },
     "fruehe-hilfen": { "meldungen": [] },
     "quartiersmanagement": { "meldungen": [] }
   }
