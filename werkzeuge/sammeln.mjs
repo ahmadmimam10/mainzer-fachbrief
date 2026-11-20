@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Mainzer Fachbrief – Quellenabruf
+ * Mainzer Boniblatt – Quellenabruf
  *
  * Ruft alle Quellen aus quellen.json ab und legt neue Meldungen als Kandidaten im Pool ab
  * (daten/pool/<Zeitpunkt>.json). Sitzungstermine aus dem Ratsinformationssystem landen in

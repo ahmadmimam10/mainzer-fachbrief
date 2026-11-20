@@ -1,4 +1,4 @@
-# Mainzer Fachbrief
+# Mainzer Boniblatt
 
 Der werktägliche Morgenüberblick für **Jugendhilfeplanung**, **Frühe Hilfen & Kinderschutz** und
 **Quartiersmanagement** in Mainz – als Zeitungsseite im Netz:
@@ -10,7 +10,12 @@ unter der Suche (› älterer Tag, ‹ neuerer Tag), das Archiv-Symbol („Alle 
 `…/mainzer-fachbrief/?ausgabe=2026-11-19#jugendhilfeplanung`.
 Die Ausgaben vom 13.–19.11.2026 sind nachträglich aus dem Make/Notion-Archiv zusammengestellt (Rückblick).
 
-Der Fachbrief ersetzt die früheren Make.com-Szenarien (Scraping/RSS → Notion → DeepSeek → E-Mail).
+Der Name kommt von den **Bonifaziustürmen** am Mainzer Hauptbahnhof; sie stehen auch im Stadtbild des Intros.
+Die Webadresse heißt aus technischen Gründen weiter `…/mainzer-fachbrief/`.
+
+**Eigene Ausgabe für eine andere Stadt:** Dieses Repository ist eine Vorlage – siehe [NEUE-STADT.md](NEUE-STADT.md).
+
+Das Boniblatt ersetzt die früheren Make.com-Szenarien (Scraping/RSS → Notion → DeepSeek → E-Mail).
 Keine amtliche Veröffentlichung der Stadt Mainz.
 
 ## So läuft es
@@ -34,6 +39,10 @@ die letzte Ausgabe.
 - `REDAKTION.md` – die Redaktionsregeln (fachliche Profile der drei Ressorts, Auswahl- und Gewichtungsregeln)
 - `werkzeuge/sammeln.mjs` – Quellenabruf · `werkzeuge/redaktion.mjs` – Kandidatenliste, Prüfung, Seitendaten
 - `daten/` – Pool, bekannte Links, Ausgaben, Gremien-Notizen · `docs/` – die Webseite (`index.html`, `daten/*.json`, Schriften)
+- `werkzeuge/intro-einbauen.mjs` – baut das Intro („Morgen über Mainz“) in `docs/index.html`; dazu
+  `intro-feste.mjs` (besondere Tage, Ferien- und Festtermine), `intro-boni.mjs` (Bonifaziustürme und ihre kleinen
+  Szenen), `wetter.mjs` (Wetterlage je Tag), `termine-pruefen.mjs` (Jahresplan und fehlende Termine)
+- `routinen/` – Aufträge und Einstellungen der beiden Cloud-Routinen · `NEUE-STADT.md` – Übernahme für eine andere Stadt
 - `docs/bilder/` – Logo (`logo-hell.svg`, `logo-dunkel.svg`), Favicon und die Icons (`icons/hell`, `icons/dunkel`)
 - `daten/quellen-zustand.json` – Zustand je Quelle (`ok` / `auffaellig` / `gestoert`, Verlauf), `daten/diagnose/` –
   Rohmaterial auffälliger Quellen, `daten/wartung.md` – Protokoll der Reparaturen
@@ -80,6 +89,37 @@ python -m http.server 8765 --directory docs
 ```
 
 Benötigt Node.js 20 oder neuer, keine weiteren Pakete.
+
+## Das Intro
+
+Bei jedem Aufruf der Ausgabe (nur im hellen Modus, nicht nach der Seite „Über das Boniblatt“) erscheint eine kurze
+Szene über Mainz. Sie wechselt mit Jahreszeit und Wetter (13 Varianten), zeigt an besonderen Tagen kleine Motive und
+in den Bonifaziustürmen Bürolichter und gelegentlich eine kleine Szene im 14. OG (Raucherbalkon, Sprechblasen,
+Fensterputzer, Papierflieger). Zum Ausprobieren: `?intro`, `?wetter=winter-schnee`, `?fest=advent`,
+`?boni=raucher,blase`, `?zeit=6` (Standbild nach 6 Sekunden).
+
+### Besondere Tage – wann erscheinen die Motive?
+
+Maßstab ist der Arbeitsalltag in der Verwaltung (TVöD, Stadt Mainz): frei sind Wochenende, Feiertage in
+Rheinland-Pfalz, Heiligabend, Silvester und Rosenmontag; ein einzelner Arbeitstag zwischen zwei freien Tagen gilt als
+Brückentag. Regeln in `werkzeuge/intro-feste.mjs`, Jahresplan mit `node werkzeuge/termine-pruefen.mjs 2027`.
+
+| Anlass | Motiv erscheint |
+|---|---|
+| Neujahr | an den ersten zwei Arbeitstagen im Januar (davor sind die meisten im Urlaub) |
+| Heilige Drei Könige, Valentinstag, Kindertag (1.6.), Weltkindertag, Halloween, Sankt Martin und 11.11., Tag der Kinderrechte, Nikolaus | am Tag selbst; fällt er aufs Wochenende, am Freitag davor |
+| Fastnacht | Weiberfastnacht bis Fastnachtsdienstag |
+| Ostern | Mittwoch und Donnerstag vor Karfreitag |
+| 1. Mai, Muttertag, Himmelfahrt, Pfingsten, Fronleichnam, Tag der Deutschen Einheit | am letzten Arbeitstag davor (Brückentage übersprungen) |
+| Johannisnacht | vom Donnerstag vor dem Fest bis zum Festmontag (Feuerwerk am Montag) |
+| Weinmarkt | an beiden Festwochenenden ab Donnerstag |
+| Ferienbeginn | an den letzten zwei Arbeitstagen vor den Schulferien |
+| Schulanfang | an den ersten zwei Schultagen nach den Sommerferien |
+| Advent | ab dem Freitag vor dem 1. Advent bis 23.12. |
+| Weihnachten | an den letzten zwei Arbeitstagen vor Heiligabend bis 30.12. |
+
+Schulferien und die Termine von Johannisnacht und Weinmarkt trägt die Qualitätssicherung einmal im Jahr für das
+Folgejahr nach (QUALITAET.md, Punkt 8).
 
 ## Lizenzen
 

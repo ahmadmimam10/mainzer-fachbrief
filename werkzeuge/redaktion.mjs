@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Mainzer Fachbrief – Redaktionswerkzeug
+ * Mainzer Boniblatt – Redaktionswerkzeug
  *
  *   node werkzeuge/redaktion.mjs vorbereiten   offene Kandidaten aus dem Pool in arbeit/kandidaten.md schreiben
  *   node werkzeuge/redaktion.mjs abschliessen  daten/ausgaben/<heute>.json und daten/gremien-notizen.json prüfen, anreichern
@@ -208,7 +208,7 @@ function gitVersuch(args) {
 async function veroeffentlichen() {
   await abschliessen();                       // bricht bei Prüffehlern mit Exit-Code 2 ab – dann wird nichts hochgeladen
   const identitaet = (() => { try { return git(["config", "user.email"], true).trim(); } catch { return ""; } })()
-    ? [] : ["-c", "user.name=Fachbrief-Redaktion", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com"];
+    ? [] : ["-c", "user.name=Boniblatt-Redaktion", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com"];
   git(["add", "daten", "docs/daten", "quellen.json"]);
   const geaendert = (() => { try { git(["diff", "--cached", "--quiet"], true); return false; } catch { return true; } })();
   if (!geaendert) { console.log("Nichts Neues zu veröffentlichen."); return; }

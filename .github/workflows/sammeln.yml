@@ -41,7 +41,7 @@ jobs:
       - name: Ergebnis speichern
         id: speichern
         run: |
-          git config user.name "Fachbrief-Abruf"
+          git config user.name "Boniblatt-Abruf"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add daten docs/daten
           if git diff --cached --quiet; then
