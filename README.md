@@ -5,8 +5,9 @@ Der tägliche Morgenüberblick für **Jugendhilfeplanung**, **Frühe Hilfen & Ki
 **https://ahmadmimam10.github.io/mainzer-fachbrief/**
 
 Direktlinks je Ressort: `#jugendhilfeplanung`, `#fruehe-hilfen`, `#quartiersmanagement`
-(z. B. `https://ahmadmimam10.github.io/mainzer-fachbrief/#fruehe-hilfen`). Frühere Ausgaben über „‹ Vortag“ und
-„Alle Ausgaben“ oder direkt per Adresse, z. B. `…/mainzer-fachbrief/?ausgabe=2026-11-19#jugendhilfeplanung`.
+(z. B. `https://ahmadmimam10.github.io/mainzer-fachbrief/#fruehe-hilfen`). Frühere Ausgaben über die Pfeile am Datum
+unter der Suche (› älterer Tag, ‹ neuerer Tag), das Archiv-Symbol („Alle Ausgaben“) oder direkt per Adresse, z. B.
+`…/mainzer-fachbrief/?ausgabe=2026-11-19#jugendhilfeplanung`.
 Die Ausgaben vom 13.–19.11.2026 sind nachträglich aus dem Make/Notion-Archiv zusammengestellt (Rückblick).
 
 Der Fachbrief ersetzt die früheren Make.com-Szenarien (Scraping/RSS → Notion → DeepSeek → E-Mail).
@@ -32,7 +33,8 @@ die letzte Ausgabe.
 - `quellen.json` – alle Quellen (RSS, Übersichtsseiten, Ratsinformationssystem, Landtag-Schnittstelle …)
 - `REDAKTION.md` – die Redaktionsregeln (fachliche Profile der drei Ressorts, Auswahl- und Gewichtungsregeln)
 - `werkzeuge/sammeln.mjs` – Quellenabruf · `werkzeuge/redaktion.mjs` – Kandidatenliste, Prüfung, Seitendaten
-- `daten/` – Pool, bekannte Links, Ausgaben · `docs/` – die Webseite (`index.html`, `daten/*.json`, Schriften)
+- `daten/` – Pool, bekannte Links, Ausgaben, Gremien-Notizen · `docs/` – die Webseite (`index.html`, `daten/*.json`, Schriften)
+- `docs/bilder/` – Logo (`logo-hell.svg`, `logo-dunkel.svg`), Favicon und die Icons (`icons/hell`, `icons/dunkel`)
 - `daten/quellen-zustand.json` – Zustand je Quelle (`ok` / `auffaellig` / `gestoert`, Verlauf), `daten/diagnose/` –
   Rohmaterial auffälliger Quellen, `daten/wartung.md` – Protokoll der Reparaturen
 
