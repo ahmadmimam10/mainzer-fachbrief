@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-20T09:43:40.917Z",
+ "stand": "2026-11-20T10:30:24.619Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -23,7 +23,7 @@
    "id": "merkurist",
    "name": "Merkurist Mainz",
    "ok": true,
-   "treffer": 8
+   "treffer": 7
   },
   {
    "id": "sensor",
@@ -62,16 +62,34 @@
    "treffer": 10
   },
   {
-   "id": "ism",
-   "name": "Institut für Sozialpädagogische Forschung Mainz (ISM)",
-   "ok": true,
-   "treffer": 10
-  },
-  {
-   "id": "ikj",
-   "name": "Institut für Kinder- und Jugendhilfe (IKJ) Mainz",
+   "id": "lsjv",
+   "name": "Landesamt für Soziales, Jugend und Versorgung RLP (Landesjugendamt) – Pressemitteilungen",
    "ok": true,
    "treffer": 5
+  },
+  {
+   "id": "kita-rlp",
+   "name": "Kita-Server Rheinland-Pfalz – Aktuelles und Veranstaltungshinweise",
+   "ok": true,
+   "treffer": 20
+  },
+  {
+   "id": "statistik-rlp",
+   "name": "Statistisches Landesamt Rheinland-Pfalz – Pressemitteilungen",
+   "ok": true,
+   "treffer": 100
+  },
+  {
+   "id": "staedtetag-rlp",
+   "name": "Städtetag Rheinland-Pfalz – Pressemitteilungen",
+   "ok": true,
+   "treffer": 9
+  },
+  {
+   "id": "netzwerk-familie-rlp",
+   "name": "Servicestelle Netzwerk Familien stärken RLP – Aktuelles",
+   "ok": true,
+   "treffer": 8
   },
   {
    "id": "bmbfsfj",
@@ -96,6 +114,36 @@
    "name": "DER SPIEGEL",
    "ok": true,
    "treffer": 40
+  },
+  {
+   "id": "destatis",
+   "name": "Statistisches Bundesamt (Destatis) – Pressemitteilungen",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "ubskm",
+   "name": "Unabhängige Bundesbeauftragte gegen sexuellen Missbrauch von Kindern und Jugendlichen (UBSKM)",
+   "ok": true,
+   "treffer": 20
+  },
+  {
+   "id": "bmwsb",
+   "name": "Bundesministerium für Wohnen, Stadtentwicklung und Bauwesen – Pressemitteilungen",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "ism",
+   "name": "Institut für Sozialpädagogische Forschung Mainz (ISM)",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "ikj",
+   "name": "Institut für Kinder- und Jugendhilfe (IKJ) Mainz",
+   "ok": true,
+   "treffer": 5
   },
   {
    "id": "jugendhilfeportal",
@@ -198,54 +246,6 @@
    "name": "JAdigital – Newsletter",
    "ok": true,
    "treffer": 1
-  },
-  {
-   "id": "lsjv",
-   "name": "Landesamt für Soziales, Jugend und Versorgung RLP (Landesjugendamt) – Pressemitteilungen",
-   "ok": true,
-   "treffer": 5
-  },
-  {
-   "id": "kita-rlp",
-   "name": "Kita-Server Rheinland-Pfalz – Aktuelles und Veranstaltungshinweise",
-   "ok": true,
-   "treffer": 20
-  },
-  {
-   "id": "statistik-rlp",
-   "name": "Statistisches Landesamt Rheinland-Pfalz – Pressemitteilungen",
-   "ok": true,
-   "treffer": 100
-  },
-  {
-   "id": "staedtetag-rlp",
-   "name": "Städtetag Rheinland-Pfalz – Pressemitteilungen",
-   "ok": true,
-   "treffer": 9
-  },
-  {
-   "id": "netzwerk-familie-rlp",
-   "name": "Servicestelle Netzwerk Familien stärken RLP – Aktuelles",
-   "ok": true,
-   "treffer": 8
-  },
-  {
-   "id": "destatis",
-   "name": "Statistisches Bundesamt (Destatis) – Pressemitteilungen",
-   "ok": true,
-   "treffer": 10
-  },
-  {
-   "id": "ubskm",
-   "name": "Unabhängige Bundesbeauftragte gegen sexuellen Missbrauch von Kindern und Jugendlichen (UBSKM)",
-   "ok": true,
-   "treffer": 20
-  },
-  {
-   "id": "bmwsb",
-   "name": "Bundesministerium für Wohnen, Stadtentwicklung und Bauwesen – Pressemitteilungen",
-   "ok": true,
-   "treffer": 10
   },
   {
    "id": "staedtetag",
