@@ -1,0 +1,125 @@
+{
+ "datum": "2026-11-19",
+ "erstellt": "2026-11-19T05:00:00.000Z",
+ "nachtraeglich": true,
+ "hinweis": "Nachträglich aus dem Make/Notion-Archiv zusammengestellt (Start des Fachbriefs: 20.11.2026).",
+ "ressorts": {
+  "jugendhilfeplanung": {
+   "meldungen": [
+    {
+     "id": "e83502e15b",
+     "stufe": "aufmacher",
+     "thema": "Jugendbeteiligung",
+     "titel": "DJI: Junge Menschen sind nicht nur Wähler:innen von morgen",
+     "kurz": "Das DJI zeigt angesichts der Jugendproteste, welches politische Gewicht die Interessen junger Menschen haben und wie sich aktuelle Reformen auf ihre Teilhabechancen auswirken.",
+     "rubrik": "fach",
+     "quelle": "dji",
+     "url": "https://www.dji.de/veroeffentlichungen/aktuelles/news/article/1848-junge-menschen-sind-nicht-nur-waehlerinnen-von-morgen.html",
+     "datum": "2026-11-18",
+     "originaltitel": "„Junge Menschen sind nicht nur Wähler:innen von morgen“"
+    },
+    {
+     "id": "fed0b48f26",
+     "stufe": "wichtig",
+     "thema": "Jugendverbandsarbeit",
+     "titel": "DBJR-Bedrohungs-Studie zur Jugendverbandsarbeit veröffentlicht",
+     "kurz": "Der Deutsche Bundesjugendring hat eine Studie zur Bedrohung in der Jugendverbandsarbeit veröffentlicht.",
+     "rubrik": "fach",
+     "quelle": "jugendhilfeportal",
+     "url": "https://jugendhilfeportal.de/artikel/dbjr-bedrohungs-studie-veroeffentlicht",
+     "datum": "2026-11-19",
+     "originaltitel": "Jugendverbandsarbeit DBJR-BEDROHUNGS-STUDIE VERÖFFENTLICHT"
+    },
+    {
+     "id": "b804b51026",
+     "stufe": "wichtig",
+     "thema": "Bildungsmonitoring",
+     "titel": "Praxisbeispiel: Das Dashboard Bildungsreport der Stadt Leipzig",
+     "kurz": "Die Leipziger Bildungsmonitorerin berichtet über Erfahrungen bei der Umsetzung des Dashboards und dessen geplante Weiterentwicklung.",
+     "rubrik": "fach",
+     "quelle": "kosmo",
+     "url": "https://www.kommunales-bildungsmonitoring.de/aktuelles-termine/news/details/neues-praxisbeispiel-das-dashboard-bildungsreport-der-stadt-leipzig",
+     "datum": "2026-11-19",
+     "originaltitel": "NEUES PRAXISBEISPIEL: DAS \"DASHBOARD BILDUNGSREPORT\" DER STADT LEIPZIG"
+    },
+    {
+     "id": "a248daa9e0",
+     "stufe": "kurz",
+     "thema": "Kita-Verpflegung",
+     "titel": "Positionspapier: Wie sich das NRW-Bündnis für bessere Verpflegung in Kitas und Schulen einsetzt",
+     "rubrik": "fach",
+     "quelle": "jugendhilfeportal",
+     "url": "https://jugendhilfeportal.de/artikel/wie-sich-das-nrw-buendnis-fuer-bessere-verpflegung-in-kitas-und-schulen-einsetzt",
+     "datum": "2026-11-19",
+     "originaltitel": "Positionspapier WIE SICH DAS NRW-BÜNDNIS FÜR BESSERE VERPFLEGUNG IN KITAS UND SCHULEN EINSETZT"
+    },
+    {
+     "id": "34d52bb714",
+     "stufe": "kurz",
+     "thema": "Medienpädagogik",
+     "titel": "Dieter Baacke Preis 2026: Auszeichnung für herausragende Medienpädagogik",
+     "rubrik": "fach",
+     "quelle": "jugendhilfeportal",
+     "url": "https://jugendhilfeportal.de/artikel/ausgezeichnet-fuer-herausragende-medienpaedagogik",
+     "datum": "2026-11-19",
+     "originaltitel": "Dieter Baacke Preisträger*innen 2026 AUSGEZEICHNET FÜR HERAUSRAGENDE MEDIENPÄDAGOGIK"
+    }
+   ]
+  },
+  "fruehe-hilfen": {
+   "meldungen": []
+  },
+  "quartiersmanagement": {
+   "meldungen": [
+    {
+     "id": "c51b983761",
+     "stufe": "aufmacher",
+     "thema": "Brahmsweg Lerchenberg",
+     "titel": "Saatkrähen am Brahmsweg: Stadt zieht ernüchternde Bilanz der Vergrämung",
+     "kurz": "179 Nester wurden entfernt und ein Falkner eingesetzt; im Umweltausschuss zog die Stadt nun eine ernüchternde Bilanz.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/saatkraehen-am-brahmsweg-stadt-zieht-ernuechternde-bilanz-6682501",
+     "datum": "2026-11-18",
+     "originaltitel": "Saatkrähen am Brahmsweg: Stadt zieht ernüchternde Bilanz"
+    },
+    {
+     "id": "6527823762",
+     "stufe": "wichtig",
+     "thema": "Radverkehr",
+     "titel": "Ortsbeirat fordert Prüfung sicherer Radverbindung zwischen Laubenheim und Weisenau",
+     "kurz": "Auf dem Weg fehlen an mehreren Stellen sichere Übergänge; der Ortsbeirat verlangt eine Prüfung möglicher Verbesserungen.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/mainz-laubenheim/sichere-radverbindung-nach-weisenau-soll-geprueft-werden-6751421",
+     "datum": "2026-11-18",
+     "originaltitel": "Sichere Radverbindung nach Weisenau soll geprüft werden"
+    },
+    {
+     "id": "1790c0973e",
+     "stufe": "wichtig",
+     "thema": "Öffentliche Toiletten",
+     "titel": "Mainz plant selbstreinigende öffentliche Toiletten",
+     "kurz": "Die Stadt will sanierungsbedürftige Anlagen durch neue, selbstreinigende Modelle ersetzen und Lücken im Netz schließen.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/mainz-bekommt-selbstreinigende-oeffentliche-toiletten-6685614",
+     "datum": "2026-11-18",
+     "originaltitel": "Mainz bekommt selbstreinigende öffentliche Toiletten"
+    },
+    {
+     "id": "a0ac8a98f4",
+     "stufe": "kurz",
+     "thema": "Campus-Zisterne",
+     "titel": "Neue Zisterne unter dem JGU-Campus speichert bis zu 2,4 Millionen Liter Wasser",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/einblicke-in-die-riesige-zisterne-unterhalb-der-mainzer-uni-6826118",
+     "datum": "2026-11-18",
+     "originaltitel": "Einblicke in die riesige Zisterne unterhalb der Mainzer Uni"
+    }
+   ]
+  }
+ },
+ "gesichtet": []
+}

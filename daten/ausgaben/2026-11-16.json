@@ -1,0 +1,44 @@
+{
+ "datum": "2026-11-16",
+ "erstellt": "2026-11-16T05:00:00.000Z",
+ "nachtraeglich": true,
+ "hinweis": "Nachträglich aus dem Make/Notion-Archiv zusammengestellt (Start des Fachbriefs: 20.11.2026).",
+ "ressorts": {
+  "jugendhilfeplanung": {
+   "meldungen": [
+    {
+     "id": "1f2a5cd08e",
+     "stufe": "aufmacher",
+     "thema": "Kita-Startchancengesetz",
+     "titel": "Städtetag warnt vor Qualitätsverlust durch neues Kita-Startchancengesetz",
+     "kurz": "Der Bund plant bessere Kitas, die Städte sollen zahlen; der Städtetag warnt, nun droht Streit im Bundesrat.",
+     "rubrik": "bund",
+     "quelle": "spiegel",
+     "url": "https://www.spiegel.de/politik/deutschland/kita-staedtetag-warnt-vor-qualitaetsverlust-durch-neues-startchancengesetz-a-b36952d9-c7fa-4c96-96de-7f549279a26d",
+     "datum": "2026-11-15",
+     "originaltitel": "Kita: Städtetag warnt vor Qualitätsverlust durch neues Startchancengesetz"
+    }
+   ]
+  },
+  "fruehe-hilfen": {
+   "meldungen": []
+  },
+  "quartiersmanagement": {
+   "meldungen": [
+    {
+     "id": "a37465ee98",
+     "stufe": "aufmacher",
+     "thema": "Ortsbeirat Laubenheim",
+     "titel": "Laubenheim: Ortsbeirat will keine Parteiwerbung auf dem historischen Marktplatz",
+     "kurz": "Der Ortsbeirat fordert einen parteipolitikfreien Marktplatz, der AfD-Vertreter hält dagegen, die nächste Veranstaltung sei bereits genehmigt.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/mainz-laubenheim/laubenheim-keine-parteiwerbung-auf-historischem-marktplatz-6724173",
+     "datum": "2026-11-15",
+     "originaltitel": "Laubenheim: keine Parteiwerbung auf historischem Marktplatz"
+    }
+   ]
+  }
+ },
+ "gesichtet": []
+}

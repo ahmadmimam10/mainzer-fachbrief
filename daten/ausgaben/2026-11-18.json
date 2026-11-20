@@ -1,0 +1,125 @@
+{
+ "datum": "2026-11-18",
+ "erstellt": "2026-11-18T05:00:00.000Z",
+ "nachtraeglich": true,
+ "hinweis": "Nachträglich aus dem Make/Notion-Archiv zusammengestellt (Start des Fachbriefs: 20.11.2026).",
+ "ressorts": {
+  "jugendhilfeplanung": {
+   "meldungen": [
+    {
+     "id": "a2c62f727e",
+     "stufe": "aufmacher",
+     "thema": "Kinderschutz in Kitas",
+     "titel": "Stadt Mainz legt Schutzkonzept gegen Gewalt in Kitas vor",
+     "kurz": "Das geplante Konzept für städtische Kitas sieht Mitsprache- und Beschwerdemöglichkeiten für Kinder sowie Regeln für den Umgang mit Gewalt und Übergriffen vor.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/stadt-legt-schutzkonzept-gegen-gewalt-in-kitas-vor-6728758",
+     "datum": "2026-11-17",
+     "originaltitel": "Stadt legt Schutzkonzept gegen Gewalt in Kitas vor"
+    },
+    {
+     "id": "0ef6d032ab",
+     "stufe": "wichtig",
+     "thema": "Landeshaushalt",
+     "titel": "Rheinland-Pfalz greift für den Doppelhaushalt in Rücklagen – Kommunen sollen mehr Geld erhalten",
+     "kurz": "Der Entwurf der Landesregierung setzt auf hohe Investitionen; Kommunen sollen mehr Geld bekommen, zentrale Versprechen sollen schrittweise folgen.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/rheinland-pfalz/griff-in-ruecklagen-fuer-doppelhaushalt-mehr-investitionen-6890772",
+     "datum": "2026-11-17",
+     "originaltitel": "Griff in Rücklagen für Doppelhaushalt – mehr Investitionen"
+    },
+    {
+     "id": "cfeb68b614",
+     "stufe": "kurz",
+     "thema": "Kinder- und Jugendsport",
+     "titel": "Bund, Länder und Sport vereinbaren gemeinsame Schritte für mehr Kinder- und Jugendsport",
+     "rubrik": "bund",
+     "quelle": "bmbfsfj",
+     "url": "https://www.bmbfsfj.bund.de/bmbfsfj/gemeinsam-zeichen-fuer-mehr-kinder-und-jugendsport-setzen-299374",
+     "datum": "2026-11-16",
+     "originaltitel": "Gemeinsam Zeichen für mehr Kinder- und Jugendsport setzen"
+    },
+    {
+     "id": "2112f00494",
+     "stufe": "kurz",
+     "thema": "Jugendproteste",
+     "titel": "GEW zu den GenZ-Protesten: In Bildung investieren, statt bei der jungen Generation zu kürzen",
+     "rubrik": "fach",
+     "quelle": "jugendhilfeportal",
+     "url": "https://jugendhilfeportal.de/artikel/in-bildung-investieren-statt-weiter-bei-der-jungen-generation-kuerzen",
+     "datum": "2026-11-18",
+     "originaltitel": "GEW zu den GenZ-Protesten „IN BILDUNG INVESTIEREN, STATT WEITER BEI DER JUNGEN GENERATION KÜRZEN“"
+    },
+    {
+     "id": "0136485546",
+     "stufe": "kurz",
+     "thema": "Gesundheitsschutz",
+     "titel": "Rheinland-Pfalz will Rauchverbote zum Schutz von Kindern und Jugendlichen ausweiten",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/rheinland-pfalz/rheinland-pfalz-will-rauchverbote-ausweiten-6889528",
+     "datum": "2026-11-17",
+     "originaltitel": "Rheinland-Pfalz will Rauchverbote ausweiten"
+    }
+   ]
+  },
+  "fruehe-hilfen": {
+   "meldungen": [
+    {
+     "id": "a2c62f727e",
+     "stufe": "aufmacher",
+     "thema": "Kinderschutz in Kitas",
+     "titel": "Stadt Mainz legt Schutzkonzept gegen Gewalt in Kitas vor",
+     "kurz": "Das geplante Konzept für städtische Kitas sieht Mitsprache- und Beschwerdemöglichkeiten für Kinder sowie Regeln für den Umgang mit Gewalt und Übergriffen vor.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/stadt-legt-schutzkonzept-gegen-gewalt-in-kitas-vor-6728758",
+     "datum": "2026-11-17",
+     "originaltitel": "Stadt legt Schutzkonzept gegen Gewalt in Kitas vor"
+    }
+   ]
+  },
+  "quartiersmanagement": {
+   "meldungen": [
+    {
+     "id": "f2ed484cd2",
+     "stufe": "aufmacher",
+     "thema": "Mieten und Kaufpreise",
+     "titel": "Mieten in Mainzer Stadtteilen steigen, Kaufpreise sinken – Blick auf Gonsenheim, Mombach und Finthen",
+     "kurz": "Die AZ-Serie „Wohnen in Mainz“ beleuchtet mit einem Immobilienexperten die Preisentwicklung in Gonsenheim, Mombach und Finthen.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/mieten-in-stadtteilen-steigen-immobilienpreise-sinken-6669036",
+     "datum": "2026-11-17",
+     "originaltitel": "Mieten in Mainzer Stadtteilen steigen, Kaufpreise sinken"
+    },
+    {
+     "id": "08f4c29bd7",
+     "stufe": "wichtig",
+     "thema": "Mainzer Wohnbau",
+     "titel": "Astrid Fath ist neue Geschäftsführerin der Mainzer Wohnbau",
+     "kurz": "Im Interview spricht sie über ihren Werdegang, die größten Herausforderungen und den Reiz der neuen Position.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/interview-das-ist-die-neue-wohnbau-geschaeftsfuehrerin-6591421",
+     "datum": "2026-11-17",
+     "originaltitel": "Interview: Das ist die neue Wohnbau-Geschäftsführerin"
+    },
+    {
+     "id": "3cc0641315",
+     "stufe": "kurz",
+     "thema": "Gedenkort",
+     "titel": "Stele und Sitzplatz für Ahrtalflut-Opfer nahe dem Landtag: Kulturausschuss macht Weg frei",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/stele-und-sitzplatz-zum-gedenken-an-ahrtalflut-opfer-geplant-6411021",
+     "datum": "2026-11-17",
+     "originaltitel": "Stele und Sitzplatz zum Gedenken an Ahrtalflut-Opfer geplant"
+    }
+   ]
+  }
+ },
+ "gesichtet": []
+}

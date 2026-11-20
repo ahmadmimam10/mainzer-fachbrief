@@ -5,7 +5,9 @@ Der tägliche Morgenüberblick für **Jugendhilfeplanung**, **Frühe Hilfen & Ki
 **https://ahmadmimam10.github.io/mainzer-fachbrief/**
 
 Direktlinks je Ressort: `#jugendhilfeplanung`, `#fruehe-hilfen`, `#quartiersmanagement`
-(z. B. `https://ahmadmimam10.github.io/mainzer-fachbrief/#fruehe-hilfen`).
+(z. B. `https://ahmadmimam10.github.io/mainzer-fachbrief/#fruehe-hilfen`). Frühere Ausgaben über „‹ Vortag“ und
+„Alle Ausgaben“ oder direkt per Adresse, z. B. `…/mainzer-fachbrief/?ausgabe=2026-11-19#jugendhilfeplanung`.
+Die Ausgaben vom 13.–19.11.2026 sind nachträglich aus dem Make/Notion-Archiv zusammengestellt (Rückblick).
 
 Der Fachbrief ersetzt die früheren Make.com-Szenarien (Scraping/RSS → Notion → DeepSeek → E-Mail).
 Keine amtliche Veröffentlichung der Stadt Mainz.
@@ -67,6 +69,6 @@ Benötigt Node.js 20 oder neuer, keine weiteren Pakete.
 
 ## Lizenzen
 
-Schriften (SIL Open Font License 1.1): UnifrakturMaguntia, Newsreader, Schibsted Grotesk – siehe
+Schriften (SIL Open Font License 1.1): Source Serif 4 und Schibsted Grotesk – siehe
 `docs/schriften/LIZENZ.md`. Alle Meldungen verlinken auf die Originalquellen; übernommen werden nur
 Überschriften, Quellenname und Datum, die Kurztexte sind eigene Formulierungen.

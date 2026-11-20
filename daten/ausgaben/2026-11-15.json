@@ -1,0 +1,68 @@
+{
+ "datum": "2026-11-15",
+ "erstellt": "2026-11-15T05:00:00.000Z",
+ "nachtraeglich": true,
+ "hinweis": "Nachträglich aus dem Make/Notion-Archiv zusammengestellt (Start des Fachbriefs: 20.11.2026).",
+ "ressorts": {
+  "jugendhilfeplanung": {
+   "meldungen": [
+    {
+     "id": "be1351197f",
+     "stufe": "aufmacher",
+     "thema": "JAdigital",
+     "titel": "Neue Newsletter von JAdigital erschienen",
+     "kurz": "JAdigital hat neue Newsletter veröffentlicht, die laut Quelle hochrelevant für die Jugendhilfeplanung sind.",
+     "rubrik": "fach",
+     "quelle": "jadigital",
+     "url": "https://www.digitalejugendhilfe.de/jadigital/jadigital-newsletter.html",
+     "datum": "2026-11-15",
+     "originaltitel": "Check die neuen Newsletter von JAdigital"
+    }
+   ]
+  },
+  "fruehe-hilfen": {
+   "meldungen": [
+    {
+     "id": "be1351197f",
+     "stufe": "aufmacher",
+     "thema": "JAdigital",
+     "titel": "Neue Newsletter von JAdigital erschienen",
+     "kurz": "JAdigital hat neue Newsletter veröffentlicht, die laut Quelle hochrelevant für die Jugendhilfeplanung sind.",
+     "rubrik": "fach",
+     "quelle": "jadigital",
+     "url": "https://www.digitalejugendhilfe.de/jadigital/jadigital-newsletter.html",
+     "datum": "2026-11-15",
+     "originaltitel": "Check die neuen Newsletter von JAdigital"
+    }
+   ]
+  },
+  "quartiersmanagement": {
+   "meldungen": [
+    {
+     "id": "2de1df9152",
+     "stufe": "aufmacher",
+     "thema": "Straßenbahnausbau",
+     "titel": "Straßenbahn: Neues und offene Fragen beim Infoforum",
+     "kurz": "Mehrere hundert Bürgerinnen und Bürger informierten sich beim Infoforum der Mainzer Mobilität über die Planungen zum Straßenbahnausbau.",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/strassenbahn-neues-und-offene-fragen-beim-infoforum-6730865",
+     "datum": "2026-11-14",
+     "originaltitel": "Straßenbahn: Neues und offene Fragen beim Infoforum"
+    },
+    {
+     "id": "4c46825ba5",
+     "stufe": "kurz",
+     "thema": "Straßenbahnausbau",
+     "titel": "Straßenbahn Richtung Heiligkreuz-Viertel: Zeitplan verschiebt sich, Debatte geht weiter (Kommentar)",
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/weniger-zeitdruck-doch-die-debatte-wird-weitergehen-6816520",
+     "datum": "2026-11-14",
+     "originaltitel": "Weniger Zeitdruck, doch die Debatte wird weitergehen"
+    }
+   ]
+  }
+ },
+ "gesichtet": []
+}
