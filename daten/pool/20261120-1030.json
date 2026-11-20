@@ -1,126 +1,61 @@
 {
- "abgerufen": "2026-11-20T10:30:00.049Z",
+ "abgerufen": "2026-11-20T10:30:24.619Z",
  "kandidaten": [
   {
-   "id": "b6c0a43bdf",
-   "url": "https://kita.rlp.de/service/veranstaltungshinweise/detail/kinder-staerken-und-schuetzen-einladung-zu-impulsveranstaltungen-zum-kinderschutz-online",
-   "quelle": "kita-rlp",
-   "titel": "„Kinder stärken und schützen“: Einladung zu Impulsveranstaltungen zum Kinderschutz (online)",
-   "teaser": "An die Kita-Träger und Kita-Teams, Kita-Sozialarbeiterinnen und -Sozialarbeiter, Kita-Fachberatungen, Elternausschüsse in Rheinland-Pfalz",
-   "datum": "2026-11-18"
-  },
-  {
-   "id": "f36b404f3f",
-   "url": "https://kita.rlp.de/service/veranstaltungshinweise/detail/neue-fortbildungskurse-2027-simuki-singen-und-musizieren-in-kindertagesstaetten",
-   "quelle": "kita-rlp",
-   "titel": "Neue Fortbildungskurse 2027 Simuki – Singen und Musizieren in Kindertagesstätten",
-   "teaser": "Unter dem Arbeitstitel „Simuki“ kooperiert der LV der Musikschulen mit den Chorverbänden in Rheinland-Pfalz seit 2010 mit dem Ziel, gemeinsame Fortbildungen für Erzieherinnen und Erzieher unter dem Titel „Singen und Musizieren in der Kindertagesstätte“ zu veranstalten.",
-   "datum": "2026-11-17"
-  },
-  {
-   "id": "56324d1191",
-   "url": "https://www.staedtetag-rlp.de/presse/aktuell/pm-2026/2026-11-17-ksv-doppelhaushalt-des-landes/",
-   "quelle": "staedtetag-rlp",
-   "titel": "Entwurf des Doppelhaushaltes 2027/2028 des Landes Rheinland-Pfalz Stellungnahme der kommunalen Spitzenverbände",
-   "teaser": "Der Ministerrat hat heute den Entwurf des Doppelhaushaltes 2027/2028 beschlossen. Nach den bislang vorliegenden Informationen soll der Kommunale Finanzausgleich (KFA) im Jahr 2027 auf 4,91 Milliarden Euro und im Jahr 2028 auf 5,01 Milliarden Euro steigen. Die kommunalen Spitzenverbände begrüßen den …",
-   "datum": "2026-11-17"
-  },
-  {
-   "id": "f1ebbeb1ea",
-   "url": "https://www.servicestelle-netzwerk-familie.de/aktuelles/veranstaltungen-intern-details.html?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=365&cHash=f442d5566e4cc7084b865c7be4a65cb5",
-   "quelle": "netzwerk-familie-rlp",
-   "titel": "Save the date: Kinderrechtefachtagung RLP 2027",
-   "teaser": "Die jährliche Kinderrechtefachtagung des Jugendministeriums/MASFFJ Rheinland-Pfalz findet am Donnerstag, 18. März 2027 in Trier statt. Die Tagung wird den Artikel 27 der UN-KRK - Recht auf einen angemessenen Lebensstandard - in den Blick nehmen. Das Motto lautet: \"Gleiche Rechte. Gleiche Chancen. Für jedes Kind.\"",
-   "datum": "",
-   "termin": "2027-03-18"
-  },
-  {
-   "id": "3a0127e3de",
-   "url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/11/PD26_N080_23.html",
-   "quelle": "destatis",
-   "titel": "Dichte gestiegen: Eine Kinderärztin oder ein Kinderarzt versorgt im Schnitt 1 603 Kinder und Jugendliche",
-   "teaser": "In Deutschland kamen im Jahr 2025 durchschnittlich 1 603 Kinder und Jugendliche unter 18 Jahren auf eine ambulant tätige Kinderärztin oder einen ambulant tätigen Kinderarzt. Die Dichte von Kinderärztinnen und Kinderärzten ist in den letzten zehn Jahren gestiegen, wie das Statistische Bundesamt (Destatis) zum Internationalen Tag der Kinderrechte am 20. November mitteilt. Im Jahr 2015 hatte sie noch bei 1 876 unter …",
-   "datum": "2026-11-17"
-  },
-  {
-   "id": "adb2eed572",
-   "url": "https://beauftragte-missbrauch.de/presse/artikel/1236",
-   "quelle": "ubskm",
-   "titel": "#NICHTWEGSCHIEBEN 2026 – BUNDESMINISTERIN PRIEN UND BUNDESBEAUFTRAGTE CLAUS RUFEN ZUM HANDELN GEGEN SEXUELLE GEWALT IM NETZ AUF",
-   "teaser": "Bundesfamilienministerin Karin Prien und die Unabhängige Bundesbeauftragte Kerstin Claus haben in der Bundespressekonferenz den neuen Schwerpunkt der Kampagne „Schieb deine Verantwortung nicht weg!“ vorgestellt: sexuelle Übergriffe und Gewalt im Netz. Eine aktuelle Civey-Umfrage zeigt: Eltern unterschätzen, was Kinder und Jugendliche online erleben.",
-   "datum": "2026-11-18"
-  },
-  {
-   "id": "51bcf1db95",
-   "url": "https://beauftragte-missbrauch.de/presse/artikel/1235",
-   "quelle": "ubskm",
-   "titel": "Sexuelle Übergriffe im Netz „Schieb deine Verantwortung nicht weg!“",
-   "teaser": "Eltern stärken, Kinder schützen: Karin Prien und Kerstin Claus starten Kampagne gegen sexuelle Gewalt im Netz",
-   "datum": "2026-11-18"
-  },
-  {
-   "id": "7ba92eec78",
-   "url": "https://www.dstgb.de/themen/finanzen/steuern/absenkung-der-stromsteuer-loest-kommunale-finanzkrise-nicht/",
-   "quelle": "dstgb",
-   "titel": "Statement Absenkung der Stromsteuer löst kommunale Finanzkrise nicht",
-   "teaser": "Die geplante Absenkung der Stromsteuer entlastet auch die Kommunen. Der DStGB betont jedoch, dass dadurch die strukturellen Finanzprobleme der Städte und Gemeinden nicht gelöst werden. Angesichts eines erwarteten Defizits von rund 30 Milliarden Euro fordert DStGB-Hauptgeschäftsführer Dr. André …",
-   "datum": "2026-11-18"
-  },
-  {
-   "id": "11f45a1c34",
-   "url": "https://www.dstgb.de/themen/finanzen/kommunalfinanzen/bundeshaushalt-2027-bleibt-antworten-auf-kommunale-finanzkrise-schuldig/",
-   "quelle": "dstgb",
-   "titel": "Statement Bundeshaushalt 2027 bleibt Antworten auf kommunale Finanzkrise schuldig",
-   "teaser": "Der DStGB sieht im Bundeshaushalt 2027 keine Lösung für die dramatische Finanzlage der Kommunen. Trotz wichtiger Fördermittel fehlen nach Ansicht von DStGB-Hauptgeschäftsführer Dr. André Berghegger die dringend benötigten strukturellen Reformen, um Handlungsfähigkeit, Investitionen und …",
-   "datum": "2026-11-18"
-  },
-  {
-   "id": "e6d2062a4d",
-   "url": "https://www.dkhw.de/informieren/im-ueberblick/aktuelles/nachricht/stadt-hemmoor-kinderrechtepfad/",
-   "quelle": "dkhw",
-   "titel": "Stadt Hemmoor und Deutsches Kinderhilfswerk eröffnen „Kinderrechtepfad“",
-   "teaser": "Der Lernpfad bietet Kindern und Erwachsenen gleichermaßen einen Zugang zu kinderrechtlichen Grundsatzthemen.",
+   "id": "c4dd75267c",
+   "url": "https://www.allgemeine-zeitung.de/lokales/rheinland-pfalz/prozess-nach-messerattacke-in-trier-beginnt-im-januar-6942115",
+   "quelle": "az",
+   "titel": "Prozess nach Messerattacke in Trier beginnt im Januar",
+   "teaser": "Einem Gutachter zufolge leidet der Beschuldigte an einer psychischen Erkrankung. Welche gravierenden Folgen das für die Verhandlung hat.",
    "datum": "2026-11-20"
   },
   {
-   "id": "221408fdf8",
-   "url": "https://www.dkhw.de/informieren/im-ueberblick/aktuelles/nachricht/deutsches-kinderhilfswerk-fordert-bessere-rahmenbedingungen-fuer-kitas-und-begruesst-geplante-anrufung-des-vermittlungsausschusses-beim-startchancen-und-qualitaetsentwicklungsgesetz-scqeg/",
-   "quelle": "dkhw",
-   "titel": "Deutsches Kinderhilfswerk fordert bessere Rahmenbedingungen für Kitas und begrüßt geplante Anrufung des Vermittlungsausschusses beim Startchancen- und Qualitätsentwicklungsgesetz (SCQEG)",
-   "teaser": "Das Deutsche Kinderhilfswerk begrüßt die geplante Anrufung des Vermittlungsausschusses durch den Bundesrat beim Gesetz zur Verbesserung der Startchancen von Kindern und zur Qualitätsentwicklung in der…",
+   "id": "9e5e3505e3",
+   "url": "https://www.swr.de/swraktuell/rheinland-pfalz/ludwigshafen/boom-bei-erziehungshilfen-in-der-suedpfalz-100.html",
+   "quelle": "swr",
+   "titel": "Was Familien in der Südpfalz belastet und wie sie Hilfe finden",
+   "teaser": "Steigende Lebenshaltungskosten, wenig gemeinsame Zeit und der Anspruch, bei der Erziehung alles richtig zu machen: Familien stehen zunehmend unter Druck. Viele Eltern suchen deshalb Unterstützung im Alltag.",
    "datum": "2026-11-20"
   },
   {
-   "id": "1718496ab3",
-   "url": "https://www.dkhw.de/informieren/im-ueberblick/aktuelles/nachricht/internationaler-tag-der-kinderrechte/",
-   "quelle": "dkhw",
-   "titel": "Internationaler Tag der Kinderrechte: Kinder und Jugendliche ernst nehmen, politische Mitbestimmung sichern",
-   "teaser": "Wir fordern eine Verbesserung der politischen Mitbestimmungsrechte von Kindern und Jugendlichen!",
+   "id": "4460db47f1",
+   "url": "https://www.swr.de/swraktuell/rheinland-pfalz/trier/sparkasse-hat-selbstbedienungsterminals-in-mariahof-geschlossen-100.html",
+   "quelle": "swr",
+   "titel": "Menschen verärgert: Sparkasse baut Terminal in Mariahof ab",
+   "teaser": "In Trier-Mariahof ist die Sparkassen-Filiale seit Jahren zu, nun verschwindet auch das letzte Selbstbedienungsterminal - viele ältere Menschen fühlen sich abgehängt.",
    "datum": "2026-11-19"
   },
   {
-   "id": "9f72ee7b9c",
-   "url": "https://www.dkhw.de/informieren/im-ueberblick/aktuelles/nachricht/kinderrechte-verwirklichen-in-niedersachsen/",
-   "quelle": "dkhw",
-   "titel": "Kinderrechte verwirklichen in Niedersachsen",
-   "teaser": "Deutsches Kinderhilfswerk begrüßt geplante koordinierende Stelle für kindgerechte Justiz in Niedersachsen",
-   "datum": "2026-11-18"
+   "id": "4297e273b3",
+   "url": "https://www.tagesschau.de/wirtschaft/unternehmen/volkswagen-tarifstreit-ig-metall-100.html",
+   "quelle": "swr",
+   "titel": "Was die Volkswagen-Forderungen für Beschäftigte bedeuten",
+   "teaser": "Kein Lohnplus, mehr Arbeit, weniger Extras: VW hat der IG Metall einen Forderungskatalog vorgelegt, der es in sich hat. Was auf die Beschäftigten zukommen könnte - und warum eine …",
+   "datum": "2026-11-20"
   },
   {
-   "id": "9fefce06bb",
-   "url": "https://www.kinderschutz-zentren.org/aktuelles/stellungnahmen/neue-studie-von-ecpat-deutschland/",
-   "quelle": "kinderschutz-zentren",
-   "titel": "Neue Studie von ECPAT Deutschland e.V.",
-   "teaser": "Mittwoch, 18. November 2026",
-   "datum": "2026-11-18"
+   "id": "5efa59e9e1",
+   "url": "https://mkbwk.rlp.de/service/presse/detail/besser-bauen-fuer-alle-land-foerdert-innovative-ideen-fuer-bezahlbaren-wohnraum",
+   "quelle": "mkbwk",
+   "titel": "„Besser Bauen. Für Alle.“: Land fördert innovative Ideen für bezahlbaren Wohnraum",
+   "teaser": "Mit der Initiative „Besser Bauen. Für Alle.“ unterstützt das Land Rheinland-Pfalz innovative Ansätze, um Wohnungsbau einfacher, schneller und kostengünstiger zu machen. Drei Innovationsprojekte mit einer Gesamtfördersumme von rund 615.000 Euro wurden bereits bewilligt. Weitere Vorhaben sollen noch im Jahr 2026 folgen. Ziel ist es, die Baukosten bei gleichbleibender Wohnqualität zu senken, Planungs- und …",
+   "datum": "2026-11-20"
   },
   {
-   "id": "5d72e98926",
-   "url": "https://www.der-paritaetische.de/alle-meldungen/fhk-und-acht-weitere-verbaende-fordern-nachbesserungen-an-den-geplanten-reformen-im-kindschafts-und-familienrecht/",
-   "quelle": "paritaet",
-   "titel": "FHK und acht weitere Verbände fordern Nachbesserungen an den geplanten Reformen im Kindschafts- und Familienrecht",
-   "teaser": "Seit Mai 2026 liegen zwei Referentenentwürfe des BMJV vor: das Kindschaftsrechtsmodernisierungsgesetz (KiMoG) und die FamFG-Reform. Neben eigenen Stellungnahmen hat Frauenhauskoordinierung e.V. (FHK) zusammen mit dem Bundesverband Frauenberatungsstellen und Frauennotrufe (bff), dem Dachverband der Migrantinnenorganisationen (DaMigra), dem Kinderschutzbund, dem Deutschen Kinderhilfswerk, dem Deutschen Juristinnenbund …",
-   "datum": "2026-11-18"
+   "id": "b66a1edc60",
+   "url": "https://jugendhilfeportal.de/artikel/die-anliegen-junger-menschen-muessen-politisches-gewicht-bekommen",
+   "quelle": "jugendhilfeportal",
+   "titel": "Die Anliegen junger Menschen müssen politisches Gewicht bekommen",
+   "teaser": "Junge Menschen fordern mehr Bildung, bezahlbaren Wohnraum und Klimaschutz. Das Bundesjugendkuratorium betont, dass ihre Rechte materielle Absicherung und demokratische Mitbestimmung brauchen. Ihre Perspektiven müssen politisches Handeln leiten. Die Politik ist aufgerufen, diese Anliegen verbindlich einzubeziehen.",
+   "datum": ""
+  },
+  {
+   "id": "3b3218afae",
+   "url": "https://www.dji.de/veroeffentlichungen/aktuelles/news/article/stationaere-kinder-und-jugendhilfe-in-der-kinder-und-jugendhilfestatistik-erste-ergebnisse-zu-angebotsstrukturen-liegen-vor.html",
+   "quelle": "dji",
+   "titel": "Stationäre Kinder- und Jugendhilfe in der Kinder- und Jugendhilfestatistik: Erste Ergebnisse zu Angebotsstrukturen liegen vor",
+   "teaser": "Stationäre Gruppenstrukturen und die breit gefächerte Trägerlandschaft der Kindertagesbetreuung sind zentrale Themen der aktuellen KomDat -Ausgabe",
+   "datum": "2026-11-20"
   }
  ]
 }
