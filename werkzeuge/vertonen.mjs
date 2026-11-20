@@ -81,10 +81,27 @@ async function anfrage(text, stimme, optionen) {
   throw e;
 }
 
-async function synthese(text) {
+// Stimmen im Wechsel, werktags reihum (Wunsch des Nutzers): Conrad (fröhlich), Seraphina, Florian.
+// Ist AZURE_SPEECH_STIMME gesetzt, gilt stattdessen immer diese Stimme.
+const WECHSEL = [
+  { stimme: "de-DE-ConradNeural", stil: "cheerful", tempo: "+4%", hoehe: "+0%" },
+  { stimme: "de-DE-SeraphinaMultilingualNeural", stil: "", tempo: "+3%", hoehe: "+0%" },
+  { stimme: "de-DE-FlorianMultilingualNeural", stil: "", tempo: "+3%", hoehe: "+0%" },
+];
+function stimmeFuer(datum) {
+  if ((process.env.AZURE_SPEECH_STIMME || "").trim() && STIMMEN.length) {
+    return { stimme: STIMMEN[0], stil: STIL, tempo: TEMPO, hoehe: HOEHE, ersatz: STIMMEN.slice(1) };
+  }
+  const tage = Math.round((Date.UTC(+datum.slice(0, 4), +datum.slice(5, 7) - 1, +datum.slice(8, 10)) - Date.UTC(2026, 0, 5)) / 86400000);
+  const werktage = Math.floor(tage / 7) * 5 + Math.min(((tage % 7) + 7) % 7, 4);          // Werktage seit Mo, 5.1.2026
+  return { ...WECHSEL[(((werktage + 2) % 3) + 3) % 3], ersatz: ["de-DE-KatjaNeural"] };
+}
+
+async function synthese(text, wahl) {
+  const versuche = [wahl, ...wahl.ersatz.map(stimme => ({ stimme, stil: "", tempo: wahl.tempo, hoehe: wahl.hoehe }))];
   let letzter;
-  for (const stimme of STIMMEN) {
-    try { return { daten: await anfrage(text, stimme), stimme }; }
+  for (const v of versuche) {
+    try { return { daten: await anfrage(text, v.stimme, v), stimme: v.stimme }; }
     catch (fehler) { if (fehler.abbruch) throw fehler; letzter = fehler; }   // 400 = Stimme/Stil nicht verfügbar → Ersatzstimme
   }
   throw letzter || new Error("Keine Stimme konfiguriert.");
@@ -139,19 +156,20 @@ async function hauptteil() {
 
   await mkdir(CACHE, { recursive: true });
   await mkdir("docs/audio", { recursive: true });
-  const manifest = { stand: new Date().toISOString(), stimme: STIMMEN[0], ausgaben: {} };
+  const manifest = { stand: new Date().toISOString(), stimme: "wechselnd", ausgaben: {} };
   const behalten = new Set();
   let neu = 0, zeichen = 0, abbruch = false;
 
   for (const { datum, texte } of ausgaben) {
+    const wahl = stimmeFuer(datum);
     for (const [ressort, text] of texte) {
-      const hash = createHash("sha1").update(`${STIMMEN[0]}|${STIL}|${TEMPO}|${HOEHE}|${FORMAT}|${text}`).digest("hex").slice(0, 12);
+      const hash = createHash("sha1").update(`${wahl.stimme}|${wahl.stil}|${wahl.tempo}|${wahl.hoehe}|${FORMAT}|${text}`).digest("hex").slice(0, 12);
       const cacheDatei = join(CACHE, `${hash}.mp3`);
       behalten.add(`${hash}.mp3`);
       if (!existsSync(cacheDatei)) {
         if (abbruch) continue;
         try {
-          const { daten, stimme } = await synthese(text);
+          const { daten, stimme } = await synthese(text, wahl);
           await writeFile(cacheDatei, daten);
           neu++; zeichen += text.length;
           console.log(`✓ ${datum} ${ressort}: ca. ${Math.round(daten.length / BYTES_PRO_SEKUNDE)} s, ${text.length} Zeichen (${stimme})`);
@@ -165,7 +183,8 @@ async function hauptteil() {
       const datei = `audio/${datum}-${ressort}-${hash.slice(0, 8)}.mp3`;
       await copyFile(cacheDatei, join("docs", datei));
       const { size } = await stat(cacheDatei);
-      (manifest.ausgaben[datum] ||= {})[ressort] = { datei, sekunden: Math.round(size / BYTES_PRO_SEKUNDE) };
+      (manifest.ausgaben[datum] ||= {})[ressort] = { datei, sekunden: Math.round(size / BYTES_PRO_SEKUNDE),
+        stimme: wahl.stimme.replace(/^de-DE-|MultilingualNeural$|Neural$/g, "") };
     }
   }
 
