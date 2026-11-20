@@ -18,13 +18,12 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
 3. `arbeit/kandidaten.md` **vollständig** lesen.
 4. Die Ausgabe als `daten/ausgaben/JJJJ-MM-TT.json` (heutiges Datum, Europe/Berlin) schreiben, Format unten.
    Nur `id`s aus der Kandidatenliste verwenden. Links, Quellen und Daten ergänzt das Skript selbst.
-5. `node werkzeuge/redaktion.mjs abschliessen`
-   Das Skript prüft die Ausgabe. Meldet es Fehler: Datei korrigieren und den Befehl erneut ausführen.
-6. Veröffentlichen:
-   `git add daten/ausgaben docs/daten && git commit -m "Ausgabe JJJJ-MM-TT" && git push origin HEAD:main`
-   Wird der Push abgelehnt, weil main inzwischen neuer ist: `git pull --rebase origin main` und erneut pushen.
-   Ist ein Push auf main nicht erlaubt, auf den Branch `claude/ausgabe-JJJJ-MM-TT` pushen – die GitHub Action
-   „Ausgabe übernehmen“ führt ihn dann automatisch nach main zusammen und veröffentlicht die Seite.
+5. `node werkzeuge/redaktion.mjs veroeffentlichen` – als **einzelnen** Befehl ausführen, nichts davor oder
+   dahinter verketten. Das Skript prüft die Ausgabe, baut die Seitendaten und committet und pusht **nur, wenn die
+   Prüfung bestanden ist** (bei Bedarf mit `pull --rebase`; ist main gesperrt, auf `claude/ausgabe-JJJJ-MM-TT`,
+   das die Action „Ausgabe übernehmen“ nach main holt).
+   Meldet es Prüffehler: Datei korrigieren und denselben Befehl erneut ausführen. Nie selbst `git commit`/`git push`
+   aufrufen.
 
 **Sonderfälle**
 - Gibt es keine offenen Kandidaten, **keine** Ausgabe anlegen – das deutet auf einen gestörten Abruf hin. Nur berichten.

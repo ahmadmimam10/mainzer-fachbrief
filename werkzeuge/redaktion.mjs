@@ -4,6 +4,7 @@
  *
  *   node werkzeuge/redaktion.mjs vorbereiten   offene Kandidaten aus dem Pool in arbeit/kandidaten.md schreiben
  *   node werkzeuge/redaktion.mjs abschliessen  daten/ausgaben/<heute>.json prüfen, anreichern und die Webseiten-Daten bauen
+ *   node werkzeuge/redaktion.mjs veroeffentlichen  wie abschliessen, danach Commit und Push – nur wenn die Prüfung bestanden ist
  *   node werkzeuge/redaktion.mjs bauen         nur die Webseiten-Daten aus allen Ausgaben neu bauen
  *
  * Optional: --datum=YYYY-MM-DD (Standard: heutiges Datum in Europe/Berlin)
@@ -11,6 +12,7 @@
 import { readdir } from "node:fs/promises";
 import path from "node:path";
 import { writeFile, mkdir } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
 import { ROOT, berlinDay, dayOffset, readJson, writeJson, cut } from "./lib.mjs";
 
 const [befehl = "", ...rest] = process.argv.slice(2);
@@ -140,6 +142,36 @@ async function abschliessen() {
   console.log(`Ausgabe ${DATUM} geprüft und gespeichert (${zahlen}). ${ausgabe.gesichtet.length} Kandidaten als gesichtet markiert.`);
 }
 
+function git(args, still = false) {
+  return execFileSync("git", args, { cwd: ROOT, encoding: "utf8", stdio: still ? ["ignore", "pipe", "pipe"] : ["ignore", "inherit", "inherit"] });
+}
+
+function gitVersuch(args) {
+  try { git(args); return true; } catch { return false; }
+}
+
+async function veroeffentlichen() {
+  await abschliessen();                       // bricht bei Prüffehlern mit Exit-Code 2 ab – dann wird nichts hochgeladen
+  const identitaet = (() => { try { return git(["config", "user.email"], true).trim(); } catch { return ""; } })()
+    ? [] : ["-c", "user.name=Fachbrief-Redaktion", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com"];
+  git(["add", "daten", "docs/daten"]);
+  const geaendert = (() => { try { git(["diff", "--cached", "--quiet"], true); return false; } catch { return true; } })();
+  if (!geaendert) { console.log("Nichts Neues zu veröffentlichen."); return; }
+  git([...identitaet, "commit", "-q", "-m", `Ausgabe ${DATUM}`]);
+  for (let versuch = 1; versuch <= 3; versuch++) {
+    if (gitVersuch(["push", "-q", "origin", "HEAD:main"])) { console.log(`Ausgabe ${DATUM} auf main veröffentlicht.`); return; }
+    console.log(`Push auf main abgelehnt (Versuch ${versuch}) – hole den neuen Stand und versuche es erneut.`);
+    if (!gitVersuch(["pull", "-q", "--rebase", "origin", "main"])) { gitVersuch(["rebase", "--abort"]); break; }
+  }
+  const zweig = `claude/ausgabe-${DATUM}`;
+  if (gitVersuch(["push", "-q", "-f", "origin", `HEAD:${zweig}`])) {
+    console.log(`Push auf main nicht möglich – Ausgabe liegt auf dem Branch ${zweig}; die Action „Ausgabe übernehmen“ führt ihn nach main.`);
+    return;
+  }
+  console.error("Veröffentlichen fehlgeschlagen: weder main noch der Ausweich-Branch ließen sich pushen.");
+  process.exit(3);
+}
+
 async function bauen() {
   const quellen = await readJson("quellen.json");
   const ausgaben = (await ausgabenLesen()).sort((a, b) => b.datum.localeCompare(a.datum));
@@ -164,9 +196,9 @@ async function bauen() {
   await writeJson("docs/daten/archiv.json", { felder: ["ausgabe", "ressort", "stufe", "thema", "titel", "kurz", "quelle", "url"], eintraege: archiv }, false);
 }
 
-const befehle = { vorbereiten, abschliessen, bauen };
+const befehle = { vorbereiten, abschliessen, veroeffentlichen, bauen };
 if (!befehle[befehl]) {
-  console.error("Aufruf: node werkzeuge/redaktion.mjs vorbereiten|abschliessen|bauen [--datum=YYYY-MM-DD]");
+  console.error("Aufruf: node werkzeuge/redaktion.mjs vorbereiten|abschliessen|veroeffentlichen|bauen [--datum=YYYY-MM-DD]");
   process.exit(1);
 }
 befehle[befehl]().catch(error => { console.error(error); process.exit(1); });
