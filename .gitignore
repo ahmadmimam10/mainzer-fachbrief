@@ -7,3 +7,4 @@ Thumbs.db
 docs/audio/
 docs/daten/audio.json
 stimmproben/
+docs/_*

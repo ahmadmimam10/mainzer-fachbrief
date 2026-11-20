@@ -33,7 +33,8 @@ dokumentiert. GitHub schreibt nur Protokolle; die Läufe schlagen nie „rot“ 
    - `TERMINE` in derselben Datei: Johannisnacht und Weinmarkt Mainz (erster und letzter Festtag laut mainz.de bzw.
      mainzplus.com). Sind sie noch nicht veröffentlicht, nichts eintragen – dann gilt die Faustregel; im nächsten Lauf
      wieder prüfen.
-   - Danach `node werkzeuge/intro-einbauen.mjs` (baut `docs/index.html` neu) und `node werkzeuge/termine-pruefen.mjs`
+   - Danach `node werkzeuge/intro-einbauen.mjs` (baut `docs/index.html` neu; die Fundstücke in `docs/intro-funde.js` und
+     `werkzeuge/funde/` bleiben unberührt) und `node werkzeuge/termine-pruefen.mjs`
      erneut; den ausgegebenen Plan auf Plausibilität prüfen (z. B. Ostern Mi–Mo, Weihnachten ab den letzten zwei
      Arbeitstagen vor Heiligabend) und im Protokoll festhalten. Die Regeln selbst (wann ein Motiv erscheint) nicht ändern.
 

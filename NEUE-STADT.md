@@ -57,7 +57,8 @@ Die Werkzeuge legen fehlende Dateien beim ersten Lauf selbst wieder an. Danach `
 | `docs/bilder/logo-hell.svg`, `logo-dunkel.svg`, `favicon-*.svg`, `docs/bilder/intro/*.svg` | Bildzeichen (hier: Sonne, Dom, Zeitung) und Schriftzug. Der Schriftzug ist Times New Roman Bold, in Pfade umgewandelt (Maßstab 0,88, Höhe der Großbuchstaben 72,8). |
 | `docs/index.html`, `docs/ueber.html` | Titel, Beschreibung, Texte über die Zeitung, Kontakt im Fuß, Bildbreite der Logos (`width`). |
 | `werkzeuge/intro-einbauen.mjs` | Titel und Untertitel im Intro (`buchstaben(…)`, `i-unter`), Stadtsilhouette (`STADT`/`FERN` → `marken`), Fluss/Ufer; danach `node werkzeuge/intro-einbauen.mjs`. Ist das Seitenverhältnis des Logos anders, auch `inset(0 0 0 14.2%)` (Anteil des Bildzeichens an der Logobreite). |
-| `werkzeuge/intro-boni.mjs` | Die Bonifaziustürme mit ihren kleinen Szenen sind Mainz-spezifisch: durch ein eigenes Wahrzeichen ersetzen oder die Einbindung (`BONI_*`, `boniSzene`) in `intro-einbauen.mjs` entfernen. |
+| `werkzeuge/intro-boni.mjs` | Die Bonifaziustürme mit ihrem Balkon sind Mainz-spezifisch: durch ein eigenes Wahrzeichen ersetzen oder die Einbindung (`BONI_*`, `boniSzene`) in `intro-einbauen.mjs` entfernen. |
+| `werkzeuge/funde/*.mjs` | Fundstücke des Tages. Ufer, Wasser und Himmel passen fast überall; `stadt.mjs` (Dächer, Hügel) und `tuerme.mjs` hängen an der Mainzer Silhouette und brauchen neue Plätze (oder aus `MODULE` in `intro-funde.mjs` streichen). Danach `node werkzeuge/intro-funde.mjs`. |
 | `README.md`, `QUALITAET.md`, `REDAKTION.md`, `werkzeuge/*.mjs` (Kopfkommentare), `.github/workflows/*.yml` (`git config user.name`) | Namen und Adressen. |
 
 **d) Besondere Tage** (`werkzeuge/intro-feste.mjs`)
@@ -78,7 +79,7 @@ python -m http.server 8765 --directory docs      # http://localhost:8765/?intro
 node werkzeuge/redaktion.mjs vorbereiten         # erster Probelauf der Redaktion
 ```
 
-Erst wenn Seite, Intro (`?wetter=winter-schnee`, `?fest=advent`, `?boni=raucher`) und ein Probelauf stimmen:
+Erst wenn Seite, Intro (`?wetter=winter-schnee`, `?fest=advent`, `?boni=raucher`, `?fund=angler`) und ein Probelauf stimmen:
 committen und pushen. Der Workflow „Seite“ veröffentlicht `docs/` auf GitHub Pages.
 
 ## Was Kosten verursacht

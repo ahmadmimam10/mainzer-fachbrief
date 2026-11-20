@@ -1,4 +1,5 @@
-// Besondere Tage und kleine Überraschungen im Intro (wird von intro-einbauen.mjs eingebunden).
+// Besondere Tage im Intro (wird von intro-einbauen.mjs eingebunden). Die täglichen Fundstücke stehen in intro-funde.mjs;
+// einige davon (Schwäne, Frachtschiff, Heißluftballon …) benutzen Zeichnungen aus dieser Datei.
 // – festeFuer() läuft im Browser (wird als Text in die Seite geschrieben) und bestimmt aus Datum, Jahreszeit und Wetter,
 //   welche Elemente heute erscheinen.
 // – Wann ein Motiv erscheint, richtet sich nach dem Arbeitsalltag einer Sachbearbeiterin / eines Sachbearbeiters in der
@@ -27,7 +28,7 @@ export const FERIEN = [
 export const TERMINE = {};
 
 // d: Datum (Ortszeit Mainz, ohne Uhrzeit), zeit: fruehling|sommer|herbst|winter, wetter: sonne|bewoelkt|regen|schnee,
-// wuerfel: Zahl 0…1 für die gelegentlichen Überraschungen, ferien/termine: Tabellen oben. Ergebnis: { anlaesse, elemente }.
+// wuerfel: nicht mehr benutzt (früher für gelegentliche Überraschungen), ferien/termine: Tabellen oben. Ergebnis: { anlaesse, elemente }.
 export function festeFuer(d, zeit, wetter, wuerfel, ferien, termine) {
   const J = d.getFullYear();
   const T = (m, t, j) => new Date(j === undefined ? J : j, m - 1, t);
@@ -93,14 +94,6 @@ export function festeFuer(d, zeit, wetter, wuerfel, ferien, termine) {
   let elemente = [];
   liste.forEach(a => { if (a[1]) a[2].forEach(e => { if (elemente.indexOf(e) < 0) elemente.push(e); }); });
 
-  // Gelegentliche Überraschungen passend zu Jahreszeit und Wetter – nur an gewöhnlichen Tagen, etwa bei jedem dritten Aufruf.
-  const hell = wetter === "sonne" || wetter === "bewoelkt";
-  const moeglich = ["schwaene", "frachtschiff"]
-    .concat(wetter === "sonne" ? ["flugzeug"] : [])
-    .concat(wetter === "sonne" && zeit !== "winter" ? ["heissluftballon", "regenbogen"] : [])
-    .concat(hell && (zeit === "sommer" || zeit === "fruehling") ? ["segelboot", "schmetterlinge"] : [])
-    .concat(hell && zeit === "herbst" ? ["drachen"] : []);
-  if (!elemente.length && wuerfel < 0.36) elemente.push(moeglich[Math.floor(wuerfel / 0.36 * moeglich.length) % moeglich.length]);
   if (wetter === "schnee") elemente.push("schneemann");                               // Schnee ist selten: immer mit Schneemann
   return { anlaesse: anlaesse, elemente: elemente, alle: liste.map(a => [a[0], a[2]]) };
 }

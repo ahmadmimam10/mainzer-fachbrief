@@ -4,11 +4,15 @@
 // Aufbau läuft von selbst (rund 3 s); der Weggang ist an das Scrollen gekoppelt (Bühne bleibt stehen, Ausgabe schiebt
 // sich darüber, Logo dockt in der Kopfzeile an). Wiederholbar: ersetzt die markierten Blöcke INTRO-START … INTRO-ENDE.
 //   node werkzeuge/intro-einbauen.mjs
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { FERIEN, TERMINE, festeFuer, FEST_CSS, FEST_HIMMEL, FEST_VORN, FEST_STADT, FEST_UFER, FEST_WASSER, FEST_BUEHNE } from "./intro-feste.mjs";
 import { BONI_SVG, BONI_CSS, boniSzene } from "./intro-boni.mjs";
 
 const DOCS = "docs", ZIEL = "docs";
+// Fassung der Fundstücke (docs/intro-funde.js aus werkzeuge/intro-funde.mjs): hängt als ?v=… an der Adresse, damit nach
+// einer Änderung niemand die alte Datei aus dem Zwischenspeicher bekommt.
+const FUNDE_V = existsSync(`${DOCS}/intro-funde.js`) ? createHash("sha1").update(readFileSync(`${DOCS}/intro-funde.js`)).digest("hex").slice(0, 8) : "";
 const teil = n => {
   const svg = readFileSync(`${DOCS}/bilder/intro/${n}.svg`, "utf8");
   return [...svg.matchAll(/<path [^>]*\/>/g)].map(m => m[0].replace(/ fill="[^"]*"/, "")).join("");
@@ -418,8 +422,9 @@ const html = `<!-- INTRO-START -->
   const vonUeber = document.referrer.includes("/ueber.html");
   if (!(q.has("intro") || (hell && !vonUeber))) { intro.remove(); return; }
   // Variante: Jahreszeit aus dem Datum, Wetterlage für heute aus daten/wetter.js (Mainz). ?wetter=herbst-regen zeigt eine bestimmte.
-  const jetzt = new Date(), monat = +new Intl.DateTimeFormat("en-US", { timeZone: "Europe/Berlin", month: "numeric" }).format(jetzt);
-  const heute = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(jetzt);
+  // ?tag=2027-06-18 zeigt das Intro eines anderen Tages (Anlässe und Fundstücke; das Wetter dazu mit ?wetter=).
+  const heute = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(q.get("tag") || "") ? q.get("tag") : new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
+  const monat = +heute.slice(5, 7);
   let zeit = monat >= 3 && monat <= 5 ? "fruehling" : monat >= 6 && monat <= 8 ? "sommer" : monat >= 9 && monat <= 11 ? "herbst" : "winter";
   let wetter = (window.FACHBRIEF_WETTER || {})[heute];
   for (const teil of (q.get("wetter") || "").split("-")) {
@@ -428,8 +433,8 @@ const html = `<!-- INTRO-START -->
   }
   if (!["sonne", "bewoelkt", "regen", "schnee"].includes(wetter)) wetter = "sonne";
   if (wetter === "schnee" && zeit !== "winter") wetter = "regen";
-  intro.dataset.zeit = zeit; intro.dataset.wetter = wetter;
-  // Besondere Tage und gelegentliche Überraschungen (Regeln in werkzeuge/intro-feste.mjs). ?fest=advent oder ?fest=riesenrad zeigt
+  intro.dataset.zeit = zeit; intro.dataset.wetter = wetter; intro.dataset.tag = heute;
+  // Besondere Tage (Regeln in werkzeuge/intro-feste.mjs). ?fest=advent oder ?fest=riesenrad zeigt
   // einen Anlass bzw. ein Element gezielt, ?fest=aus keines.
   const festeFuer = ${festeFuer.toString()};
   const hd = heute.split("-"), fest = festeFuer(new Date(+hd[0], +hd[1] - 1, +hd[2]), zeit, wetter, Math.random(), ${JSON.stringify(FERIEN)}, ${JSON.stringify(TERMINE)});
@@ -439,8 +444,14 @@ const html = `<!-- INTRO-START -->
     q.get("fest").split(",").forEach(n => { const a = fest.alle.find(x => x[0] === n); (a ? a[1] : n === "aus" ? [] : [n]).forEach(e => elemente.push(e)); });
   }
   intro.dataset.fest = elemente.join(" ");
-  // Bonifaziustürme: kleine Szene je Aufruf (werkzeuge/intro-boni.mjs); ?boni=raucher, ?boni=putzer, ?boni=flieger oder ?boni=aus
+  // Bonifaziustürme: Auf dem Balkon stehen je Aufruf die Raucher oder die Kaffeerunde (werkzeuge/intro-boni.mjs); ?boni=raucher, ?boni=kaffee
   (${boniSzene.toString()})(intro, q);
+  // Fundstücke des Tages (werkzeuge/intro-funde.mjs): werden nachgeladen und suchen sich ihren Platz selbst.
+  // ?fund=name,name zeigt bestimmte, ?fund=aus keine; ?fq=ufer lädt einen Entwurf (docs/_funde-ufer.js).
+  const fq = /^[a-z-]+$/.test(q.get("fq") || "") ? q.get("fq") : "", fundSkript = document.createElement("script");
+  fundSkript.src = fq ? "_funde-" + fq + ".js?" + Date.now() : "intro-funde.js?v=${FUNDE_V}";
+  // Für Standbilder (?zeit, ?p) wird die Datei sofort mitgeladen, damit das Bild verlässlich alles enthält.
+  if (q.get("fund") === "aus") ; else if (q.has("zeit") || q.has("p")) document.write('<script src="' + fundSkript.src + '"><' + '/script>'); else document.head.appendChild(fundSkript);
   intro.hidden = false;
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo");
