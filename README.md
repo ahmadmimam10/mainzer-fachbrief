@@ -1,6 +1,6 @@
 # Mainzer Fachbrief
 
-Der tägliche Morgenüberblick für **Jugendhilfeplanung**, **Frühe Hilfen & Kinderschutz** und
+Der werktägliche Morgenüberblick für **Jugendhilfeplanung**, **Frühe Hilfen & Kinderschutz** und
 **Quartiersmanagement** in Mainz – als Zeitungsseite im Netz:
 **https://ahmadmimam10.github.io/mainzer-fachbrief/**
 
@@ -18,7 +18,7 @@ Keine amtliche Veröffentlichung der Stadt Mainz.
 | Schritt | Wer | Wann | Was |
 |---|---|---|---|
 | 1. Quellen abrufen | GitHub Actions (`.github/workflows/sammeln.yml`) | mehrmals täglich | `werkzeuge/sammeln.mjs` liest alle Quellen aus `quellen.json`, legt neue Meldungen im Pool ab (`daten/pool/`), aktualisiert Ratstermine und Quellenstatus |
-| 2. Redaktion | Claude-Routine in der Cloud | täglich 04:00 UTC (5 Uhr Winter-, 6 Uhr Sommerzeit) | sichtet die offenen Kandidaten nach `REDAKTION.md`, wählt je Ressort höchstens 12 Meldungen, schreibt `daten/ausgaben/JJJJ-MM-TT.json` |
+| 2. Redaktion | Claude-Routine in der Cloud | werktags (Mo–Fr) 04:00 UTC (5 Uhr Winter-, 6 Uhr Sommerzeit); montags mit allen Meldungen seit Freitag | sichtet die offenen Kandidaten nach `REDAKTION.md`, wählt je Ressort höchstens 12 Meldungen, schreibt `daten/ausgaben/JJJJ-MM-TT.json` |
 | 3. Veröffentlichen | GitHub Actions (`seite.yml`) → GitHub Pages | nach jeder Änderung | veröffentlicht den Ordner `docs/` |
 
 Nichts davon läuft auf einem privaten Rechner.

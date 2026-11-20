@@ -18,7 +18,7 @@ dokumentiert. GitHub schreibt nur Protokolle; die Läufe schlagen nie „rot“ 
 4. **Stille Ausfälle**: Quellen, die laut `trefferVerlauf` Treffer melden, aber seit über 14 Tagen keine neue Meldung
    in `daten/pool/` geliefert haben, obwohl sie sonst regelmäßig liefern. Prüfen, ob die Seite nur alte Meldungen
    zeigt oder das Datum falsch erkannt wird; reparieren wie unter 3.
-5. **Ausgaben** der letzten 3 Tage in `daten/ausgaben/`: Gibt es für jeden Tag eine? Haben alle Meldungen `url`,
+5. **Ausgaben** der letzten 3 Werktage in `daten/ausgaben/`: Gibt es für jeden Werktag (Mo–Fr) eine? Samstags und sonntags erscheint bewusst keine. Haben alle Meldungen `url`,
    `quelle`, `titel`? Doppelte Meldungen über mehrere Tage? Auffällige Titel (Großbuchstaben, Datumsreste, Müll)?
    `node werkzeuge/redaktion.mjs bauen` muss fehlerfrei laufen.
 6. **Gremien** `docs/daten/gremien.json`: `fehler`-Felder? Vergangene Sitzungen ohne Tagesordnung, die eine haben

@@ -1,15 +1,24 @@
 # Redaktionsanleitung – Mainzer Fachbrief
 
-Diese Datei ist die verbindliche Arbeitsanweisung für die tägliche Morgenausgabe. Sie ersetzt die drei
+Diese Datei ist die verbindliche Arbeitsanweisung für die werktägliche Morgenausgabe. Sie ersetzt die drei
 DeepSeek-Prompts aus den früheren Make-Szenarien (Jugendhilfeplanung, Frühe Hilfen, Quartiersmanagement)
 und übernimmt deren fachliche Kriterien.
 
 Ziel: Fachkräfte öffnen morgens eine Seite und erkennen in einer Minute, **was heute wichtig ist, worum es
 geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine lange Liste.
 
+## Erscheinungsweise
+
+- Der Fachbrief erscheint **werktags (Montag bis Freitag)**. Samstags und sonntags gibt es keine Ausgabe.
+- Die **Montagsausgabe** umfasst alle offenen Kandidaten seit der Freitagsausgabe (Freitag, Samstag, Sonntag).
+  Die Höchstgrenzen bleiben gleich (12 je Ressort, ein Aufmacher, höchstens 3 wichtig) – die Auswahl wird also
+  strenger, nicht länger.
+- Die Hörfassung erwähnt montags kurz, dass die Ausgabe auch die Meldungen vom Wochenende enthält; freitags
+  verabschiedet sie sich ins Wochenende („bis Montag“).
+
 ---
 
-## Ablauf (jeden Morgen)
+## Ablauf (werktags)
 
 1. `git pull --rebase` (aktuellen Stand holen).
 2. `node werkzeuge/redaktion.mjs vorbereiten`
@@ -18,6 +27,7 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
 3. `arbeit/kandidaten.md` **vollständig** lesen.
 4. Die Ausgabe als `daten/ausgaben/JJJJ-MM-TT.json` (heutiges Datum, Europe/Berlin) schreiben, Format unten.
    Nur `id`s aus der Kandidatenliste verwenden. Links, Quellen und Daten ergänzt das Skript selbst.
+   Zum Schluss die **Hörfassung** (`hoerfassung`) aus den ausgewählten Meldungen schreiben (Abschnitt „Hörfassung“ unten).
    Danach die **Gremien-Notizen** ergänzen und die Vorschau der nächsten Sitzung pflegen (Abschnitt „Gremien-Notizen“ unten).
 5. `node werkzeuge/redaktion.mjs veroeffentlichen` – als **einzelnen** Befehl ausführen, nichts davor oder
    dahinter verketten. Das Skript prüft die Ausgabe, baut die Seitendaten und committet und pusht **nur, wenn die
@@ -30,7 +40,8 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
 - Gibt es keine offenen Kandidaten, **keine** Ausgabe anlegen – das deutet auf einen gestörten Abruf hin. Nur berichten.
 - Existiert die Datei für heute schon (zweiter Lauf am selben Tag), sie **ergänzen**: bestehende Meldungen
   behalten, neue wichtige Kandidaten einordnen, Grenzen (12 je Ressort, ein Aufmacher, höchstens 3 wichtig) einhalten.
-  Ein neuer Kandidat darf den Aufmacher nur ablösen, wenn er klar wichtiger ist.
+  Ein neuer Kandidat darf den Aufmacher nur ablösen, wenn er klar wichtiger ist. Die Hörfassung dann anpassen,
+  wenn sich Aufmacher oder wichtige Meldungen geändert haben.
 
 ---
 
@@ -209,6 +220,34 @@ weglassen – dann entfällt der Kasten.
   Nur Fakten aus Titel und Kurzbeschreibung der Meldung. Nichts erzwingen, keine reißerischen Zahlen (z. B. Opferzahlen).
 - Das frühere Feld `zahl` wird noch gelesen und beim Abschließen in `wusstest` umbenannt – neu nur `wusstest` schreiben.
 
+## Hörfassung („Ausgabe anhören“)
+
+Teil jeder Ausgabe: das Feld `hoerfassung` auf oberster Ebene (neben `datum` und `ressorts`). Die Seite liest den Text
+mit der Sprachausgabe des Browsers vor (Knopf „Ausgabe anhören“ über dem Aufmacher). Optional, aber werktags
+immer schreiben; fehlt das Feld, entfällt der Knopf.
+
+- **Länge:** 3–5 Minuten Sprechzeit, also etwa **450–700 Wörter**. `pruefen` verlangt 1500–6000 Zeichen.
+- **Stil:** ein lockerer, professioneller Morgen-Überblick mit leicht spielerischer Note – wie eine freundliche
+  Radiomoderation für Fachleute. Kurze Begrüßung mit Wochentag und Datum („Guten Morgen und willkommen beim Mainzer
+  Fachbrief für Freitag, den 20. November 2026“), dann **alle drei Ressorts** in der Reihenfolge der Seite:
+  Jugendhilfeplanung, Frühe Hilfen und Kinderschutz, Quartiersmanagement. Je Ressort zuerst der Aufmacher,
+  dann die wichtigen Meldungen, dann zwei bis vier Punkte aus „Kurz notiert“. Mit kurzen Übergängen („Wechsel zu …“,
+  „Und damit ins Quartiersmanagement“) und einem kurzen Ausklang. Montags kurz erwähnen, dass die Ausgabe auch das
+  Wochenende umfasst; freitags ins Wochenende verabschieden („bis Montag“).
+- **Ton:** Ein Augenzwinkern ist willkommen (etwa „Kaffee bereit? Dann legen wir los.“), aber nie auf Kosten der
+  Sache. Bei ernsten Themen – Gewalt, Missbrauch, Todesfälle, Armut – sachlich und ohne Scherz überleiten.
+- **Nur Fakten aus den ausgewählten Meldungen** (Titel, Kurztext, „Wusstest du schon?“). Nichts erfinden, nichts
+  ergänzen, keine eigenen Wertungen, keine Gremien-Notizen, keine Kandidaten, die nicht in der Ausgabe stehen.
+  Zahlen genau wie in der Meldung.
+- **Für das Ohr schreiben:** kurze Sätze (höchstens etwa 25 Wörter), keine Klammern, keine Aufzählungszeichen,
+  kein Markdown, keine Emojis. Absätze durch eine Leerzeile trennen (`\n\n` im JSON), etwa einer je Abschnitt.
+- **Keine Links**, keine Adressen, keine IDs, keine Quellenangaben in Klammern (`pruefen` lehnt Links ab).
+- **Abkürzungen und Zeichen ausschreiben:** „Millionen Euro“ statt „Mio. €“, „Milliarden“ statt „Mrd.“,
+  „Paragraf 8a“ statt „§ 8a“, „Prozent“ statt „%“, „zum Beispiel“ statt „z. B.“, „Rheinland-Pfalz“ statt „RLP“,
+  „Nationales Zentrum Frühe Hilfen“ statt „NZFH“, „Deutsches Jugendinstitut“ statt „DJI“,
+  „Sozialgesetzbuch Acht“ statt „SGB VIII“. Gängige, buchstabiert gesprochene Kürzel wie EU, OECD oder SWR dürfen
+  bleiben. Daten ohne Jahreszahl, wenn klar („am Samstag“, „im Januar“).
+
 ## Gremien-Notizen (Ratsinformationssystem)
 
 `docs/daten/gremien.json` enthält die Sitzungen der Mainzer Gremien (letzte 14 Tage, nächste 60 Tage) mit
@@ -245,7 +284,7 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
 - `vorschau: true` – die Notiz beruht nur auf der Tagesordnung (kommende Sitzung oder noch keine Ergebnisse
   veröffentlicht). Dann ohne Ergebnis formulieren („auf der Tagesordnung“, „Anfragen zu …“).
 
-**Jeden Morgen**, nach der Ausgabe:
+**Werktags**, nach der Ausgabe:
 1. **Neue vergangene Sitzungen:** Jede vergangene Sitzung in `gremien.json` mit Tagesordnung (`tops`), die noch keine
    Notiz hat, bekommt eine. Sitzungen ohne `tops` überspringen.
 2. **Ergebnisse nachtragen:** Notizen mit `vorschau: true`, deren Sitzung vorbei ist und für die jetzt Ergebnisse
@@ -261,7 +300,7 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
 
 ```json
 {
-  "datum": "2026-11-21",
+  "datum": "2026-11-23",
   "ressorts": {
     "jugendhilfeplanung": { "meldungen": [
       { "id": "4b8006a55f", "stufe": "aufmacher", "thema": "Haushalt 2027", "icon": "haushalt",
@@ -273,7 +312,8 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
       "wusstest": { "wert": "15,93 Mrd. €", "text": "umfasst der Etat des Bundesfamilienministeriums 2027", "id": "4b8006a55f" } },
     "fruehe-hilfen": { "meldungen": [] },
     "quartiersmanagement": { "meldungen": [] }
-  }
+  },
+  "hoerfassung": "Guten Morgen und willkommen beim Mainzer Fachbrief für Montag, den 23. November 2026. Heute mit allem, was seit Freitag passiert ist. …\n\nWir starten in der Jugendhilfeplanung …\n\n…"
 }
 ```
 
