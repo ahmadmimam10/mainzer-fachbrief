@@ -1,7 +1,7 @@
 // Die Bonifaziustürme im Stadtbild des Intros (daher der Name „Boniblatt“): zwei Bürotürme am Hauptbahnhof, von der
 // Rheinseite aus rechts neben dem Dom. Gezeichnet in Logo-Einheiten des Stadtbands (Breite 1280, Höhe 60, Horizont unten).
 // Dazu kleine Szenen – zufällig je Aufruf, gezielt mit ?boni=raucher,putzer,flieger (oder ?boni=aus):
-//   raucher  zwei Kolleg:innen auf dem Balkon im 20. OG von Turm A (vier Etagen unter der obersten): Sie ziehen
+//   raucher  zwei Kollegen auf dem Balkon im 20. OG von Turm A (vier Etagen unter der obersten): Sie ziehen
 //            abwechselnd an der Zigarette, die Glut leuchtet auf, sie legen den Kopf zurück und blasen den Rauch aus
 //   putzer   Fensterputzer-Gondel, die langsam an Turm B herabfährt
 //   flieger  ein Papierflieger segelt aus dem 20. OG
@@ -106,7 +106,7 @@ const FLACHBAU = `<path fill="#cfc8bd" d="${rechteck(703.5, 53.4, 36, 6.6)}"/><p
 const ETAGE = 20, BODEN = SOCKEL - (ETAGE - 1) * A.fh, BL = 702;                   // Fußboden und linke Kante des Balkons
 const TUER = zelle(A, ETAGE, 0);
 const TAKT = 8;                                                                    // Sekunden je Zug
-function mensch({ x, s, mantel, arm, hose, haar, schal, dutt, v, d }) {
+function mensch({ x, s, mantel, arm, hose, haar, haut = "#e8bf9b", schal, locken, bart, v, d }) {
   const y = BODEN, S = [x + s * .14, y - 1.76], E = [x + s * .38, y - 1.42];        // Schulter, Ellbogen
   // Ruhehaltung: Unterarm schräg nach vorn unten, die Hand liegt am Handlauf, die Zigarette zeigt nach oben.
   // Beim Zug dreht der Unterarm um 138° nach oben (Hand vor dem Mund), die Zigarette dreht sich in die Waagerechte.
@@ -121,22 +121,27 @@ function mensch({ x, s, mantel, arm, hose, haar, schal, dutt, v, d }) {
     + `<path fill="${arm}" opacity=".55" d="${rechteck(x + s * .19 - .03, y - 1.75, .06, .82)}"/>`
     // Dienstausweis am Band
     + `<path fill="none" stroke="#f4efe6" stroke-width=".035" d="M${f(x - s * .1)} ${f(y - 1.9)}L${f(x + s * .02)} ${f(y - 1.5)}L${f(x + s * .12)} ${f(y - 1.9)}"/><path fill="#fbf8f2" d="${rechteck(x + s * .02 - .06, y - 1.5, .12, .16)}"/>`
-    + `<path fill="${schal}" d="M${f(x - .19)} ${f(y - 1.99)}h.38v.15h-.38Z${dutt ? `M${f(x - s * .19)} ${f(y - 1.86)}h${f(s * .13)}v.42h${f(-s * .13)}Z` : ""}"/>`
+    + `<path fill="${schal}" d="M${f(x - .19)} ${f(y - 1.99)}h.38v.15h-.38Z"/>`
     + `<g class="bt-kopf" style="transform-origin:${f(x)}px ${f(y - 1.95)}px;${st};--k:${-11 * s}deg">`
-    + `<circle cx="${f(kx - s * .05)}" cy="${f(ky - .05)}" r=".285" fill="${haar}"/>${dutt ? `<circle cx="${f(kx - s * .3)}" cy="${f(ky - .2)}" r=".13" fill="${haar}"/>` : ""}`
-    + `<circle cx="${f(kx + s * .045)}" cy="${f(ky + .04)}" r=".235" fill="#e8bf9b"/><circle cx="${f(kx + s * .15)}" cy="${f(ky + .01)}" r=".028" fill="#3a302a"/></g>`
+    // Haare: glatter Kurzhaarschnitt oder leichte Locken (ein Kranz kleiner Kringel über Stirn, Scheitel und Hinterkopf)
+    + (locken ? `<circle cx="${f(kx - s * .04)}" cy="${f(ky - .03)}" r=".25" fill="${haar}"/><path fill="${haar}" d="${[-58, -30, -2, 26, 54, 82, 108].map((a, i) => { const w = a * Math.PI / 180, r = i % 2 ? .125 : .11, cx = kx - s * Math.sin(w) * .225, cy = ky - .02 - Math.cos(w) * .235; return `M${f(cx - r)} ${f(cy)}a${r} ${r} 0 1 0 ${f(2 * r)} 0a${r} ${r} 0 1 0 ${f(-2 * r)} 0Z`; }).join("")}"/>`
+      : `<circle cx="${f(kx - s * .05)}" cy="${f(ky - .05)}" r=".28" fill="${haar}"/>`)
+    + `<circle cx="${f(kx + s * .045)}" cy="${f(ky + .04)}" r=".235" fill="${haut}"/>`
+    + (bart ? `<path fill="none" stroke="${haar}" stroke-width=".1" stroke-linecap="round" opacity=".9" d="M${f(kx + s * .045 - s * .19)} ${f(ky + .1)}A.2 .2 0 0 ${s > 0 ? 0 : 1} ${f(kx + s * .045 + s * .16)} ${f(ky + .17)}"/>` : "")
+    + `<circle cx="${f(kx + s * .15)}" cy="${f(ky + .01)}" r=".028" fill="#2e2622"/></g>`
     + `<path fill="none" stroke="${arm}" stroke-width=".21" stroke-linecap="round" d="M${f(S[0])} ${f(S[1])}L${f(E[0])} ${f(E[1])}"/>`
     + `<g class="bt-arm" style="transform-origin:${f(E[0])}px ${f(E[1])}px;${st};--w:${-138 * s}deg">`
     + `<g class="bt-zig" style="transform-origin:${f(hand[0])}px ${f(hand[1])}px;${st};--w:${178 * s}deg"><path fill="none" stroke="#fbf7ef" stroke-width=".075" d="M${f(hand[0])} ${f(hand[1])}L${f(spitze[0])} ${f(spitze[1])}"/>`
     + `<circle class="bt-glut" style="--v:${v}s" cx="${f(spitze[0])}" cy="${f(spitze[1])}" r=".07"/></g>`
     + `<path fill="none" stroke="${arm}" stroke-width=".2" stroke-linecap="round" d="M${f(E[0])} ${f(E[1])}L${f(hand[0] - s * .05)} ${f(hand[1] - .06)}"/>`
-    + `<circle cx="${f(hand[0])}" cy="${f(hand[1])}" r=".105" fill="#e8bf9b"/></g></g>`,
+    + `<circle cx="${f(hand[0])}" cy="${f(hand[1])}" r=".105" fill="${haut}"/></g></g>`,
     // Rauch: feiner Faden von der Zigarette (solange die Hand unten ist) und drei Wölkchen beim Ausatmen
     rauch: `<path class="bt-faden" style="--v:${v}s" d="M${f(spitze[0])} ${f(spitze[1] - .07)}c.2-.28-.18-.56 0-.86s.18-.5-.02-.84"/>`
     + [0, 1, 2].map(i => `<circle class="bt-hauch" style="--s:${s};--v:${f(v + i * .28)}s" cx="${f(mund[0])}" cy="${f(mund[1])}" r="${f(.15 + i * .03)}"/>`).join("") };
 }
-const M1 = mensch({ x: 703.4, s: 1, mantel: "#4d6a8c", arm: "#5b7a9e", hose: "#3a3f4a", haar: "#3b3029", schal: "#e7dfd2", v: 0, d: 5.3 });
-const M2 = mensch({ x: 706.15, s: -1, mantel: "#b4513d", arm: "#c7624c", hose: "#4a4038", haar: "#d2a55f", schal: "#e9c35a", dutt: true, v: -4, d: 6.4 });
+// Zwei Kollegen: links der Herausgeber (dunkle, leicht lockige Haare, kurzer Bart, dunkles Hemd), rechts ein Kollege
+const M1 = mensch({ x: 703.4, s: 1, mantel: "#343a48", arm: "#444b5c", hose: "#4b5261", haar: "#2a211c", haut: "#d9a982", schal: "#4a5163", locken: true, bart: true, v: 0, d: 5.3 });
+const M2 = mensch({ x: 706.15, s: -1, mantel: "#b4513d", arm: "#c7624c", hose: "#4a4038", haar: "#7a5638", schal: "#efe9dd", v: -4, d: 6.4 });
 const RAUCHER = `<g class="bt-raucher">`
   + `<path class="bt-tuer" d="${rechteck(TUER.x, TUER.y + .13, A.cw, A.gh - .13)}"/>`
   + `<path fill="#aaa296" d="M707 ${f(BODEN + .3)}V${f(BODEN + 1.55)}L${f(BL + 1.6)} ${f(BODEN + .3)}Z"/><path fill="#c9c2b6" d="${rechteck(BL, BODEN, 707 - BL, .3)}"/><path fill="#e9e4dc" d="${rechteck(BL, BODEN, 707 - BL, .09)}"/>`
