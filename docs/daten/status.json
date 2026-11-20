@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-20T15:38:44.557Z",
+ "stand": "2026-11-20T18:38:46.227Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 46,
+   "treffer": 44,
    "zustand": "ok",
-   "hinweis": "unauffällig – 41 Treffer"
+   "hinweis": "unauffällig – 39 Treffer"
   },
   {
    "id": "landtag",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "ok": true,
+   "treffer": 28,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 28 Treffer"
   },
   {
    "id": "spiegel",
@@ -526,10 +526,10 @@
    "name": "Der Paritätische Gesamtverband",
    "kurz": "Paritätischer",
    "ebene": "fach",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "ok": true,
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "bertelsmann",
