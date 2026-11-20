@@ -234,18 +234,21 @@ Das frühere Feld `hoerfassung` auf oberster Ebene (ein Text für alle Ressorts)
 
 - **Länge:** höchstens 3 Minuten Sprechzeit, also etwa **250–400 Wörter**. `pruefen` verlangt 900–2800 Zeichen je Text.
 - **Jeder Text steht für sich** – wer nur ein Ressort hört, versteht alles ohne die anderen:
-  1. kurze Begrüßung mit Wochentag, Datum und Ressort („Guten Morgen und willkommen beim Mainzer Fachbrief für
-     Freitag, den 20. November 2026 – heute in der Jugendhilfeplanung.“),
+  1. ein einziger kurzer Einstiegssatz mit Datum und Ressort („Guten Morgen, hier ist der Mainzer Fachbrief für die
+     Jugendhilfeplanung am Freitag, 20. November.“) – danach sofort zur ersten Meldung,
   2. der Aufmacher,
   3. die wichtigen Meldungen,
   4. ein bis drei Punkte aus „Kurz notiert“,
-  5. ein kurzer Ausklang.
+  5. ein Schluss von höchstens zwei kurzen Sätzen („Alle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.“).
   Montags kurz erwähnen, dass die Ausgabe auch das Wochenende umfasst; freitags ins Wochenende verabschieden
   („bis Montag“).
-- **Stil:** ein lockerer, professioneller Morgen-Überblick mit leicht spielerischer Note – wie eine freundliche
-  Radiomoderation für Fachleute.
-- **Ton:** Ein Augenzwinkern ist willkommen (etwa „Kaffee bereit? Dann legen wir los.“), aber nie auf Kosten der
-  Sache. Bei ernsten Themen – Gewalt, Missbrauch, Todesfälle, Armut – sachlich und ohne Scherz überleiten.
+- **Stil: kompakt und zur Sache.** Lebendig formuliert, aber ohne Füllsätze – jeder Satz trägt eine Information.
+  Spielerisch heißt hier: anschauliche Verben, gute Übergänge, mal eine pointierte Zuspitzung einer Zahl; keine Gags.
+  Die Hörfassung läuft jeden Werktag – wiederkehrende Sprüche nerven schnell.
+- **Keine Floskeln:** nicht „Kaffee bereit?“, „Dann legen wir los“, „Schön, dass Sie reinhören“, „Schnappen Sie
+  sich …“, „Bleiben Sie dran“; keine rhetorischen Fragen an die Hörer, keine Wetter- oder Wochentagswitze. Einstieg
+  und Schluss knapp halten und nicht jeden Tag wortgleich formulieren.
+- **Ernste Themen** – Gewalt, Missbrauch, Todesfälle, Armut – sachlich und ohne lockeren Übergang.
 - **Nur Fakten aus den ausgewählten Meldungen dieses Ressorts** (Titel, Kurztext, „Wusstest du schon?“). Nichts
   erfinden, nichts ergänzen, keine eigenen Wertungen, keine Gremien-Notizen, keine Kandidaten, die nicht in der
   Ausgabe stehen. Zahlen genau wie in der Meldung.
