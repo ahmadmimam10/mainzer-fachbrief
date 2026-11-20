@@ -209,24 +209,14 @@ Je Ressort, in dieser Reihenfolge in der Liste:
   | `quellen` | Studien, Berichte, Fachpublikationen, Newsletter, Handreichungen |
   | `termine` | Veranstaltungen, Fachtage, Fortbildungen, Fristen |
 
-## Wusstest du schon? (ersetzt die frühere Zahl des Tages)
+## „Wusstest du schon?“ – abgeschafft
 
-Optional je Ressort, als `wusstest` neben `meldungen`: ein kleiner Kasten in der Seitenspalte – **entweder** eine
-besondere Zahl **oder** ein besonderer Fakt aus einer ausgewählten Meldung. Gibt es nichts Besonderes, das Feld
-weglassen – dann entfällt der Kasten.
-- Zahl: `"wusstest": { "wert": "31,7 Mio. €", "text": "fließen aus dem Startchancen-Programm an Mainzer Schulen", "id": "<id der Meldung>" }`
-- Fakt: `"wusstest": { "text": "Mainz entwickelt seine Kitas zu Familienzentren weiter und führt ein Campus-Modell ein.", "id": "<id der Meldung>" }`
-- `text` 20–160 Zeichen. Mit `wert` ergänzt der Text die Zahl zu einer Aussage, ohne `wert` ist er ein ganzer Satz.
-- `wert` nur bei einer Zahl: höchstens 16 Zeichen, mit Ziffer, deutsch geschrieben („31,7 Mio. €“, „1,2 Mrd. €“,
-  „38 %“, „1 603“).
-- `id` – die Meldung, aus der Zahl oder Fakt stammen (aus der Kandidatenliste); die Seite verlinkt darauf.
-- „Besonders“ heißt: überraschend, einordnend oder für die Steuerung wichtig – nicht irgendeine Zahl aus dem Text.
-  Nur Fakten aus Titel und Kurzbeschreibung der Meldung. Nichts erzwingen, keine reißerischen Zahlen (z. B. Opferzahlen).
-- Das frühere Feld `zahl` wird noch gelesen und beim Abschließen in `wusstest` umbenannt – neu nur `wusstest` schreiben.
+Den Kasten „Wusstest du schon?“ (früher „Zahl des Tages“) gibt es seit dem 20.11.2026 nicht mehr. Die Felder
+`wusstest` und `zahl` **nicht mehr schreiben**; stehen sie noch in einer Datei, werden sie beim Abschließen entfernt.
 
 ## Hörfassung („Anhören“) – je Ressort
 
-Teil jeder Ausgabe: **je Ressort** ein Sprechtext im Feld `hoerfassung` neben `meldungen` und `wusstest`
+Teil jeder Ausgabe: **je Ressort** ein Sprechtext im Feld `hoerfassung` neben `meldungen`
 (`ressorts.<id>.hoerfassung`). Beim Veröffentlichen spricht eine Azure-Stimme jeden Text als MP3 ein; die Seite spielt
 sie über den Knopf „Anhören“ oben auf dem Bogen. Fehlt die MP3, liest die Sprachausgabe des Browsers den Text vor.
 Optional, aber werktags für jedes Ressort mit Meldungen schreiben; Ressorts ohne Meldungen bekommen keine Hörfassung.
@@ -249,7 +239,7 @@ Das frühere Feld `hoerfassung` auf oberster Ebene (ein Text für alle Ressorts)
   sich …“, „Bleiben Sie dran“; keine rhetorischen Fragen an die Hörer, keine Wetter- oder Wochentagswitze. Einstieg
   und Schluss knapp halten und nicht jeden Tag wortgleich formulieren.
 - **Ernste Themen** – Gewalt, Missbrauch, Todesfälle, Armut – sachlich und ohne lockeren Übergang.
-- **Nur Fakten aus den ausgewählten Meldungen dieses Ressorts** (Titel, Kurztext, „Wusstest du schon?“). Nichts
+- **Nur Fakten aus den ausgewählten Meldungen dieses Ressorts** (Titel, Kurztext). Nichts
   erfinden, nichts ergänzen, keine eigenen Wertungen, keine Gremien-Notizen, keine Kandidaten, die nicht in der
   Ausgabe stehen. Zahlen genau wie in der Meldung.
 - **Für das Ohr schreiben:** kurze Sätze (höchstens etwa 25 Wörter), keine Klammern, keine Aufzählungszeichen,
@@ -322,7 +312,6 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
       { "id": "045f39dc49", "stufe": "wichtig", "thema": "Startchancen", "icon": "schule", "titel": "…", "kurz": "…" },
       { "id": "883477e153", "stufe": "kurz", "thema": "Frühe Hilfen", "icon": "fruehe-hilfen", "titel": "…" }
     ],
-      "wusstest": { "wert": "15,93 Mrd. €", "text": "umfasst der Etat des Bundesfamilienministeriums 2027", "id": "4b8006a55f" },
       "hoerfassung": "Guten Morgen und willkommen beim Mainzer Fachbrief für Montag, den 23. November 2026 – heute in der Jugendhilfeplanung, mit allem, was seit Freitag passiert ist. …\n\n…" },
     "fruehe-hilfen": { "meldungen": [] },
     "quartiersmanagement": { "meldungen": [] }

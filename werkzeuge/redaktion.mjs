@@ -109,19 +109,8 @@ function pruefen(ausgabe, bekannte) {
   for (const [id, def] of Object.entries(RESSORTS)) {
     const liste = r[id]?.meldungen;
     if (!Array.isArray(liste)) { fehler.push(`ressorts.${id}.meldungen fehlt (leere Liste ist erlaubt).`); continue; }
-    // „Wusstest du schon?“ (optional): besondere Zahl (wert + text) oder besonderer Fakt (nur text).
-    // Das frühere Feld „zahl“ wird noch gelesen und beim Abschließen in „wusstest“ umbenannt.
-    const w = r[id].wusstest ?? r[id].zahl;
-    if (w !== undefined && w !== null) {
-      const feld = r[id].wusstest != null ? "wusstest" : "zahl";
-      const text = typeof w.text === "string" ? w.text.trim() : "";
-      if (text.length < 20 || text.length > 160) fehler.push(`${id}.${feld}.text muss 20–160 Zeichen lang sein (sind ${text.length}).`);
-      if (w.wert !== undefined && w.wert !== null && w.wert !== "") {
-        const wert = String(w.wert).trim();
-        if (wert.length > 16 || !/\d/.test(wert)) fehler.push(`${id}.${feld}.wert muss eine Ziffer enthalten und darf höchstens 16 Zeichen lang sein.`);
-      }
-      if (!bekannte.has(w.id)) fehler.push(`${id}.${feld}.id „${w.id}“ ist kein Kandidat.`);
-    }
+    // „Wusstest du schon?“ gibt es seit dem 20.11.2026 nicht mehr: die Felder „wusstest“/„zahl“ werden nicht geprüft
+    // und beim Abschließen entfernt.
     hoerPruefen(r[id].hoerfassung, `${id}.hoerfassung`, HOER_MIN, HOER_MAX);
     if (liste.length > def.max) fehler.push(`${id}: höchstens ${def.max} Meldungen (sind ${liste.length}).`);
     const aufmacher = liste.filter(m => m.stufe === "aufmacher").length;
@@ -193,10 +182,7 @@ async function abschliessen() {
         quelle: k.quelle, url: k.url, datum: k.datum || k.termin || k.gefunden, originaltitel: k.titel,
       };
     });
-    const w = def.wusstest ?? def.zahl;          // frühere „Zahl des Tages“ heißt jetzt „wusstest“
-    delete def.zahl;
-    if (w) def.wusstest = { ...(w.wert ? { wert: String(w.wert).trim() } : {}), text: w.text.trim(), id: w.id };
-    else delete def.wusstest;
+    delete def.zahl; delete def.wusstest;         // „Wusstest du schon?“ ist abgeschafft
     if (typeof def.hoerfassung === "string" && def.hoerfassung.trim()) def.hoerfassung = def.hoerfassung.replace(/\r\n?/g, "\n").trim();
     else delete def.hoerfassung;
   }
@@ -244,12 +230,7 @@ async function veroeffentlichen() {
 async function bauen() {
   const quellen = await readJson("quellen.json");
   const ausgaben = (await ausgabenLesen()).sort((a, b) => b.datum.localeCompare(a.datum));
-  // „Wusstest du schon?“ je Ressort; ältere Ausgaben mit „zahl“ werden auf dasselbe Format abgebildet
-  const wusstest = r => {
-    const w = r.wusstest ?? r.zahl;
-    return w?.text ? { ...(w.wert ? { wert: w.wert } : {}), text: w.text, id: w.id } : null;
-  };
-  // Hörfassungen je Ressort stehen auf der Seite (wie „wusstest“) in einem eigenen Objekt neben den Meldungslisten,
+  // Hörfassungen je Ressort stehen auf der Seite in einem eigenen Objekt neben den Meldungslisten,
   // weil ressorts.<id> dort die Liste der Meldungen ist: hoerfassungen.<id> = ressorts.<id>.hoerfassung der Ausgabe.
   const text = t => typeof t === "string" && t.trim() ? t.trim() : "";
   const schlank = a => {
@@ -258,7 +239,6 @@ async function bauen() {
       datum: a.datum, erstellt: a.aktualisiert || a.erstellt, ...(a.nachtraeglich ? { nachtraeglich: true } : {}),
       ...(text(a.hoerfassung) ? { hoerfassung: text(a.hoerfassung) } : {}),   // früheres Feld (alte Ausgaben)
       ressorts: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, r.meldungen.map(({ originaltitel, ...m }) => m)])),
-      wusstest: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, wusstest(r)]).filter(([, w]) => w)),
       ...(Object.keys(hoerfassungen).length ? { hoerfassungen } : {}),
     };
   };
