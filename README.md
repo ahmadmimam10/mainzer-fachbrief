@@ -33,6 +33,8 @@ die letzte Ausgabe.
 - `REDAKTION.md` – die Redaktionsregeln (fachliche Profile der drei Ressorts, Auswahl- und Gewichtungsregeln)
 - `werkzeuge/sammeln.mjs` – Quellenabruf · `werkzeuge/redaktion.mjs` – Kandidatenliste, Prüfung, Seitendaten
 - `daten/` – Pool, bekannte Links, Ausgaben · `docs/` – die Webseite (`index.html`, `daten/*.json`, Schriften)
+- `daten/quellen-zustand.json` – Zustand je Quelle (`ok` / `auffaellig` / `gestoert`, Verlauf), `daten/diagnose/` –
+  Rohmaterial auffälliger Quellen, `daten/wartung.md` – Protokoll der Reparaturen
 
 ## Häufige Änderungen
 
@@ -47,6 +49,16 @@ Bei einer neuen Übersichtsseite einmal den Grundstand setzen, damit alte Meldun
 
 ```bash
 node werkzeuge/sammeln.mjs --grundstand --nur=quellen-id
+```
+
+**Gestörte Quelle:** Der Abruf lässt nur Kandidaten mit plausiblem Titel und erreichbarem Link in den Pool und führt
+je Quelle einen Zustand. Ist eine Quelle seit über 2 Tagen `gestoert`, schlägt der Workflow „Quellen abrufen“ im
+letzten Schritt fehl (GitHub schickt eine E-Mail). Die Morgenroutine repariert bis zu 3 Quellen
+(`REDAKTION.md`, Abschnitt „Quellenpflege“). Von Hand:
+
+```bash
+node werkzeuge/sammeln.mjs --zustand                                         # Übersicht
+node werkzeuge/sammeln.mjs --probe --nur=ism --datei=daten/diagnose/ism.html # Schnappschuss offline parsen
 ```
 
 **Auswahlregeln ändern:** `REDAKTION.md` bearbeiten – die Routine liest die Datei jeden Morgen neu.

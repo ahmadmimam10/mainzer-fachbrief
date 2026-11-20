@@ -18,6 +18,7 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
 3. `arbeit/kandidaten.md` **vollständig** lesen.
 4. Die Ausgabe als `daten/ausgaben/JJJJ-MM-TT.json` (heutiges Datum, Europe/Berlin) schreiben, Format unten.
    Nur `id`s aus der Kandidatenliste verwenden. Links, Quellen und Daten ergänzt das Skript selbst.
+   Danach die **Gremien-Notizen** ergänzen (Abschnitt „Gremien-Notizen“ unten).
 5. `node werkzeuge/redaktion.mjs veroeffentlichen` – als **einzelnen** Befehl ausführen, nichts davor oder
    dahinter verketten. Das Skript prüft die Ausgabe, baut die Seitendaten und committet und pusht **nur, wenn die
    Prüfung bestanden ist** (bei Bedarf mit `pull --rebase`; ist main gesperrt, auf `claude/ausgabe-JJJJ-MM-TT`,
@@ -30,6 +31,46 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
 - Existiert die Datei für heute schon (zweiter Lauf am selben Tag), sie **ergänzen**: bestehende Meldungen
   behalten, neue wichtige Kandidaten einordnen, Grenzen (12 je Ressort, ein Aufmacher, höchstens 3 wichtig) einhalten.
   Ein neuer Kandidat darf den Aufmacher nur ablösen, wenn er klar wichtiger ist.
+
+---
+
+## Quellenpflege (vor der Ausgabe)
+
+Der Abruf bewertet bei jedem Lauf jede Quelle und schreibt das Ergebnis nach `daten/quellen-zustand.json`:
+`zustand` (`ok`, `auffaellig` oder `gestoert`), `hinweis`, `seit`, `beispiele` (verworfene Einträge mit Grund),
+`fehler` und `trefferVerlauf`. Von auffälligen und gestörten HTML- und Sonderquellen liegt das zuletzt geladene
+Rohmaterial unter `daten/diagnose/<id>.html` (bzw. `.json`/`.xml`), der Pfad steht im Feld `diagnose`.
+Diese Dateien und `docs/daten/status.json` nie von Hand ändern.
+
+Nach `git pull --rebase`, vor `vorbereiten`:
+
+1. In `daten/quellen-zustand.json` nach `"zustand": "gestoert"` sehen (Übersicht: `node werkzeuge/sammeln.mjs --zustand`).
+   Keine gestörte Quelle → weiter mit der Ausgabe. `auffaellig` nur beobachten, nicht reparieren.
+2. Je gestörter Quelle – **höchstens 3 pro Morgen**, die am längsten gestörten (`seit`) zuerst:
+   - `hinweis`, `beispiele` und `fehler` lesen, den Schnappschuss öffnen und mit dem Eintrag in `quellen.json`
+     vergleichen: Wie sehen die Links auf einzelne Meldungen jetzt aus? Wo stehen Titel und Datum?
+   - Nur den Eintrag dieser Quelle in `quellen.json` anpassen: `muster` (Regex auf Pfad und Query der Meldungslinks,
+     ohne Host), `ohne`, `bereich` (Regex für den Seitenausschnitt mit den Meldungen), `datumNach`, `urls`, `hosts`,
+     ggf. `typ`. Die Datei muss gültiges JSON bleiben (Backslashes in Regex doppelt schreiben).
+   - Offline prüfen: `node werkzeuge/sammeln.mjs --probe --nur=<id> --datei=<Pfad aus „diagnose“>` – so lange anpassen,
+     bis die Liste plausibel ist: echte Überschriften (keine Navigation, kein „Weiterlesen“, kein Störtext), Links auf
+     einzelne Meldungen der Quelle, Daten vorhanden und nicht überall gleich, am Ende „Bewertung …: ok“.
+     Die Linkprüfung entfällt offline, der nächste Abruf holt sie nach. Mit Netzzugang zusätzlich
+     `node werkzeuge/sammeln.mjs --probe --nur=<id>`.
+   - RSS-Quellen haben keinen Schnappschuss: Bei dauerhaftem `HTTP 404/410` oder „kein RSS-/Atom-Feed“ nur mit
+     Netzzugang eine neue Feed-Adresse suchen, sonst Schritt 3.
+3. Keine Reparatur möglich (Inhalte nur per JavaScript, Seite gesperrt, Quelle eingestellt, Schnappschuss ohne
+   Meldungen): in `quellen.json` `"aktiv": false` und `"hinweis": "<Grund> (seit JJJJ-MM-TT)"` setzen.
+   Einzelne Netzaussetzer (Zeitüberschreitung, HTTP 403/429/5xx in einzelnen Läufen) sind kein Grund zum Abschalten.
+4. Jede Änderung in `daten/wartung.md` protokollieren (neuester Eintrag oben, eine Zeile je Quelle):
+   `- JJJJ-MM-TT · <id> · was geändert wurde (alt → neu) · Ergebnis` – z. B. „Probe offline: 10 Einträge, Titel
+   und Daten plausibel“ oder „abgeschaltet: Inhalte nur per JavaScript“.
+5. Nicht selbst committen: `veroeffentlichen` lädt `quellen.json` und `daten/` zusammen mit der Ausgabe hoch.
+   Entsteht heute keine Ausgabe, werden die Änderungen nicht hochgeladen – dann im Bericht nennen.
+
+Die Ausgabe hat Vorrang: für die Quellenpflege höchstens etwa 10 Minuten. Wird die Zeit knapp, abbrechen,
+halbfertige Änderungen mit `git checkout -- quellen.json` verwerfen und die Ausgabe fertigstellen. Ob eine Reparatur
+wirkt, zeigt der Zustand erst nach dem nächsten Abruf (GitHub Actions, alle drei Stunden).
 
 ---
 
@@ -133,6 +174,27 @@ Je Ressort, in dieser Reihenfolge in der Liste:
   es geht und was daran wichtig ist (z. B. Zahl, Entscheidung, Folge). Kein Teaser-Deutsch, keine Wertung.
 - `rubrik` – optional: `mainz`, `land`, `bund` oder `fach`. Standard ist die Ebene der Quelle. Angeben, wenn
   sie abweicht (z. B. AZ-Meldung aus Rheinland-Pfalz → `land`; Spiegel-Bericht über Mainz → `mainz`).
+
+## Zahl des Tages (optional, je Ressort)
+
+Enthält eine ausgewählte Meldung eines Ressorts eine aussagekräftige Zahl (Geldbetrag, Anzahl, Quote), sie als
+`zahl` beim Ressort angeben – neben `meldungen`:
+`"zahl": { "wert": "31,7 Mio. €", "text": "fließen aus dem Startchancen-Programm an Mainzer Schulen", "id": "<id der Meldung>" }`
+- `wert` höchstens 16 Zeichen, mit Ziffer, deutsch geschrieben („31,7 Mio. €“, „1,2 Mrd. €“, „38 %“, „1 603“).
+- `text` 15–140 Zeichen; ergänzt die Zahl zu einer Aussage. Nur Fakten aus Titel und Kurzbeschreibung der Meldung.
+- Nichts erzwingen. Keine reißerischen Zahlen (z. B. Opferzahlen) – dann lieber keine Zahl.
+
+## Gremien-Notizen (Ratsinformationssystem)
+
+`docs/daten/gremien.json` enthält die Sitzungen der Mainzer Gremien (letzte 14 Tage, nächste 60 Tage) mit
+Tagesordnungspunkten (`tops`: `titel`, `ergebnis`, `art`). Für jede **vergangene** Sitzung der letzten 7 Tage, die in
+`daten/gremien-notizen.json` noch keine Notiz hat und mindestens einen Punkt mit `ergebnis` besitzt, eine Notiz anlegen:
+`{ "notizen": { "<id der Sitzung>": { "gremium": "…", "datum": "JJJJ-MM-TT", "text": "…" } } }`
+- Ein bis zwei Sätze, höchstens 260 Zeichen: was beschlossen oder beraten wurde – nur aus Titeln und Ergebnissen,
+  nichts erfinden. Beispiel: „Wirtschaftsplan 2027 der Gebäudewirtschaft mehrheitlich beschlossen; Prüfbericht zum
+  Jahresabschluss 2025 einstimmig beschlossen.“
+- Formalien, Personalien und reine Anfragen weglassen; bei bloßen Kenntnisnahmen: „Beraten: …“.
+- Bestehende Notizen nicht ändern. Die Datei wird mit `veroeffentlichen` hochgeladen.
 
 ## Format von `daten/ausgaben/JJJJ-MM-TT.json`
 

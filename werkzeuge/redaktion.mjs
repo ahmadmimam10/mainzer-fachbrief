@@ -88,6 +88,12 @@ function pruefen(ausgabe, bekannte) {
   for (const [id, def] of Object.entries(RESSORTS)) {
     const liste = r[id]?.meldungen;
     if (!Array.isArray(liste)) { fehler.push(`ressorts.${id}.meldungen fehlt (leere Liste ist erlaubt).`); continue; }
+    const z = r[id].zahl;
+    if (z !== undefined && z !== null) {
+      if (!z.wert || z.wert.length > 16 || !/\d/.test(z.wert)) fehler.push(`${id}.zahl.wert fehlt, enthält keine Ziffer oder ist länger als 16 Zeichen.`);
+      if (!z.text || z.text.length < 15 || z.text.length > 140) fehler.push(`${id}.zahl.text muss 15–140 Zeichen lang sein.`);
+      if (!bekannte.has(z.id)) fehler.push(`${id}.zahl.id „${z.id}“ ist kein Kandidat.`);
+    }
     if (liste.length > def.max) fehler.push(`${id}: höchstens ${def.max} Meldungen (sind ${liste.length}).`);
     const aufmacher = liste.filter(m => m.stufe === "aufmacher").length;
     if (liste.length && aufmacher !== 1) fehler.push(`${id}: genau ein Aufmacher nötig (sind ${aufmacher}).`);
@@ -154,7 +160,7 @@ async function veroeffentlichen() {
   await abschliessen();                       // bricht bei Prüffehlern mit Exit-Code 2 ab – dann wird nichts hochgeladen
   const identitaet = (() => { try { return git(["config", "user.email"], true).trim(); } catch { return ""; } })()
     ? [] : ["-c", "user.name=Fachbrief-Redaktion", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com"];
-  git(["add", "daten", "docs/daten"]);
+  git(["add", "daten", "docs/daten", "quellen.json"]);
   const geaendert = (() => { try { git(["diff", "--cached", "--quiet"], true); return false; } catch { return true; } })();
   if (!geaendert) { console.log("Nichts Neues zu veröffentlichen."); return; }
   git([...identitaet, "commit", "-q", "-m", `Ausgabe ${DATUM}`]);
@@ -178,7 +184,14 @@ async function bauen() {
   const schlank = a => ({
     datum: a.datum, erstellt: a.aktualisiert || a.erstellt, ...(a.nachtraeglich ? { nachtraeglich: true } : {}),
     ressorts: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, r.meldungen.map(({ originaltitel, ...m }) => m)])),
+    zahlen: Object.fromEntries(Object.entries(a.ressorts).filter(([, r]) => r.zahl?.wert).map(([id, r]) => [id, r.zahl])),
   });
+  // Gremien-Notizen (von der Redaktion geschrieben) für die Webseite: nur die letzten 21 Tage
+  const notizen = await readJson("daten/gremien-notizen.json", { notizen: {} });
+  const notizGrenze = dayOffset(berlinDay(), -21);
+  await writeJson("docs/daten/gremien-notizen.json", {
+    notizen: Object.fromEntries(Object.entries(notizen.notizen || {}).filter(([, n]) => n && n.text && (n.datum || "") >= notizGrenze)),
+  }, false);
   await writeJson("docs/daten/ausgaben.json", {
     stand: new Date().toISOString(),
     erste: (ausgaben.filter(a => !a.nachtraeglich).pop() || ausgaben[ausgaben.length - 1] || { datum: DATUM }).datum,

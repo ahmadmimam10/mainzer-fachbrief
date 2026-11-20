@@ -58,3 +58,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run seite.yml --ref main --repo "$GITHUB_REPOSITORY"
+      # Letzter Schritt: Abruf, Speichern und Push sind schon erledigt. Ist eine Quelle seit über 2 Tagen gestört
+      # (daten/quellen-zustand.json), schlägt der Lauf mit lesbarer Meldung fehl – GitHub schickt dann eine E-Mail.
+      # Einzelne Netzaussetzer ergeben kein „gestoert“ und lösen daher keine Mail aus.
+      # Damit höchstens eine Mail pro Tag kommt, wird nur beim ersten Lauf des Tages (02:47 UTC) „streng“ geprüft.
+      - name: Quellenzustand prüfen
+        run: |
+          case "$(date -u +%H)" in 02|03) node werkzeuge/sammeln.mjs --zustand --streng ;; *) node werkzeuge/sammeln.mjs --zustand ;; esac
