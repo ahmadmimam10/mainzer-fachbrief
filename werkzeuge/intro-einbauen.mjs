@@ -64,9 +64,9 @@ const html = `<!-- INTRO-START -->
   <button type="button" class="intro-weiter">Zur Ausgabe<i aria-hidden="true">↓</i></button>
 </section>
 <script>
-/* Intro: vorerst nur als Vorschau mit ?intro. Nach Freigabe FUER_ALLE = true: dann auf der Startseite ohne Ressort-Lesezeichen, nur hell. */
+/* Intro auf der Startseite ohne Ressort-Lesezeichen, nur hell (freigegeben am 20.11.2026); ?intro erzwingt es zum Testen. */
 (() => {
-  const FUER_ALLE = false;
+  const FUER_ALLE = true;
   const intro = document.getElementById("intro");
   const q = new URLSearchParams(location.search);
   const startseite = !location.hash && !q.has("ausgabe") && !q.has("ansicht") && !q.has("q");
