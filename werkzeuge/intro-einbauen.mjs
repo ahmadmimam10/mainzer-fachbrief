@@ -6,7 +6,7 @@
 //   node werkzeuge/intro-einbauen.mjs
 import { readFileSync, writeFileSync } from "node:fs";
 import { FERIEN, TERMINE, festeFuer, FEST_CSS, FEST_HIMMEL, FEST_VORN, FEST_STADT, FEST_UFER, FEST_WASSER, FEST_BUEHNE } from "./intro-feste.mjs";
-import { BONI_SVG, BONI_HTML, BONI_CSS, boniSzene } from "./intro-boni.mjs";
+import { BONI_SVG, BONI_CSS, boniSzene } from "./intro-boni.mjs";
 
 const DOCS = "docs", ZIEL = "docs";
 const teil = n => {
@@ -386,7 +386,7 @@ const html = `<!-- INTRO-START -->
       ${svgBand("i-huegel", `<path d="${HUEGEL_FERN.d}"/>`)}
       ${svgBand("i-huegel2", `<path d="${HUEGEL_NAH.d}"/><path class="i-tupfen" d="${HUEGEL_NAH.t[0]}"/><path class="i-tupfen t2" d="${HUEGEL_NAH.t[1]}"/>`)}
       ${stadtBand("i-fern", FERN, "i-dunst1", "#cdc6bb", "#ddd7ce")}
-      ${stadtBand("i-stadt", STADT, "i-dunst2", "#b4ab9e", "#c8c0b5", FEST_STADT, BONI_SVG, BONI_HTML)}
+      ${stadtBand("i-stadt", STADT, "i-dunst2", "#b4ab9e", "#c8c0b5", FEST_STADT, BONI_SVG)}
       ${svgBand("i-ufer", `<path class="b-lampe" d="${UFER.lampe}"/><path class="b-stamm" d="${UFER.stamm}"/><defs><path id="i-ast" d="${UFER.kahl}"/></defs><use class="b-kahl" href="#i-ast"/><use class="b-reif" href="#i-ast" transform="translate(-.1 -.24)"/><path class="b-a" d="${UFER.a}"/><path class="b-b" d="${UFER.b}"/><path class="b-c" d="${UFER.c}"/><path class="b-hell" d="${UFER.hell}"/><path class="b-chell" d="${UFER.chell}"/>`
         + `<path class="b-busch" d="${UFER.busch}"/><path class="b-buschhell" d="${UFER.buschhell}"/><path class="b-wiese" d="M0 ${H - 2.05}H${B}v.5H0Z"/><path class="b-blume bl1" d="${UFER.blume1}"/><path class="b-blume bl2" d="${UFER.blume2}"/><path d="M0 ${H}V${H - 1.6}H${B}V${H}Z"/><path class="b-kante" d="M0 ${H - 1.6}H${B}v.45H0Z"/><path class="b-schnee" d="${SCHNEEBANK}"/>${FEST_UFER}`)}
       <div class="i-dunst"></div>
@@ -439,8 +439,8 @@ const html = `<!-- INTRO-START -->
     q.get("fest").split(",").forEach(n => { const a = fest.alle.find(x => x[0] === n); (a ? a[1] : n === "aus" ? [] : [n]).forEach(e => elemente.push(e)); });
   }
   intro.dataset.fest = elemente.join(" ");
-  // Bonifaziustürme: kleine Szenen im 14. OG (Regeln in werkzeuge/intro-boni.mjs); ?boni=raucher,blase,putzer,flieger oder ?boni=aus
-  (${boniSzene.toString()})(intro, q, zeit, wetter, elemente, q.has("zeit") || q.has("p"));
+  // Bonifaziustürme: kleine Szene je Aufruf (werkzeuge/intro-boni.mjs); ?boni=raucher, ?boni=putzer, ?boni=flieger oder ?boni=aus
+  (${boniSzene.toString()})(intro, q);
   intro.hidden = false;
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo");
