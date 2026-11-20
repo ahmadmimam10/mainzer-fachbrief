@@ -106,16 +106,23 @@ function listeLesen(html, quelle, basis) {
     const ueberschrift = (l.inner.match(/<(h[1-6])\b[^>]*>([\s\S]*?)<\/\1>/i) || [])[2];
     let titel = text(ueberschrift || l.inner) || text(attr(l.attrs, "title"));
     if (!titel || titel.length < 12 || GENERISCH.test(titel)) {
+      // bei „Weiterlesen“-Links steht der Titel oft im title-Attribut, sonst in einer Überschrift im Umfeld
+      const t = text(attr(l.attrs, "title")).replace(/^(?:weiterlesen|mehr|details|zum artikel|zur meldung)\s*[:–-]?\s*/i, "");
       const h = (block.match(/<(h[1-6])\b[^>]*>([\s\S]*?)<\/\1>/i) || [])[2];
-      titel = text(h || attr(l.attrs, "title") || "");
+      titel = t.length >= 12 && !GENERISCH.test(t) ? t : text(h || "");
     }
     titel = titel.replace(/^(?:mehr erfahren|artikel|news|meldung|pressemitteilung|nachricht)\s+/i, "")
       .replace(/^\d{1,2}\.\d{1,2}\.20\d{2}\s*[|·–-]?\s*/, "")
       .replace(/\s*(?:mehr|weiterlesen|mehr erfahren)\s*[»›>→]?$/i, "").trim();
     if (titel.length < 12 || GENERISCH.test(titel)) return;
     const absaetze = [...block.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)].map(x => text(x[1])).filter(p => p.length >= 50 && p !== titel);
-    const zeit = block.match(/<time\b[^>]*>/i);
-    const datum = (zeit && parseDate(attr(zeit[0], "datetime") || zeit[0])) || parseDate(text(block).slice(0, 700)) || parseDate(l.pfad);
+    // Datum: normalerweise im Block; bei „datumNach“ zuerst hinter dem Link suchen (sonst erbt man das Datum der Vormeldung)
+    const nach = bereich.slice(l.end, bis), vor = bereich.slice(von, l.start);
+    const suchraum = quelle.datumNach ? nach + vor : block;
+    const zeit = suchraum.match(/<time\b[^>]*>/i);
+    const datum = (zeit && parseDate(attr(zeit[0], "datetime") || zeit[0]))
+      || (quelle.datumNach ? parseDate(text(nach).slice(0, 400)) || parseDate(text(vor).slice(-400)) : parseDate(text(block).slice(0, 700)))
+      || parseDate(l.pfad);
     const alt = treffer.get(l.url);
     const besserTitel = alt && alt.titel.length >= titel.length && alt.titel.length < 260 ? alt.titel : titel.slice(0, 300);
     treffer.set(l.url, { url: l.url, titel: besserTitel, teaser: alt?.teaser || absaetze[0] || "", datum: alt?.datum || datum || "" });
@@ -309,9 +316,12 @@ async function main() {
       termine: termine.sort((a, b) => (a.datum + a.zeit).localeCompare(b.datum + b.zeit)),
     });
   }
+  // Status: bei Teilabrufen (--nur) die übrigen Quellen und den Zeitstempel aus dem bisherigen Stand übernehmen
+  const bisher = ONLY.length ? await readJson("docs/daten/status.json", { stand: jetzt.toISOString(), quellen: [] }) : null;
+  const neuStatus = Object.entries(status).map(([id, s]) => ({ id, name: quellenNamen[id], ok: s.ok, treffer: s.treffer }));
   await writeJson("docs/daten/status.json", {
-    stand: jetzt.toISOString(),
-    quellen: Object.entries(status).map(([id, s]) => ({ id, name: quellenNamen[id], ok: s.ok, treffer: s.treffer })),
+    stand: bisher ? bisher.stand : jetzt.toISOString(),
+    quellen: [...(bisher ? bisher.quellen.filter(q => !status[q.id] && quellenNamen[q.id]) : []), ...neuStatus],
   });
 
   // alte Pool-Dateien aufräumen
