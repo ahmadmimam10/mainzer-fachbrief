@@ -1,5 +1,8 @@
 name: Quellen abrufen
 
+# Dokumentiert nur – schlägt nie „rot“ fehl und verschickt daher keine Mails.
+# Fehler landen in daten/laufprotokoll.json und daten/quellen-zustand.json; die Qualitätssicherungs-Routine
+# (alle 3 Tage, siehe QUALITAET.md) wertet sie aus und repariert.
 on:
   schedule:
     # mehrmals täglich (Zeiten in UTC): 03:47, 06:47, 09:47, 12:47, 15:47, 18:47, 21:47 Uhr Winterzeit
@@ -25,8 +28,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Quellen abrufen
-        run: node werkzeuge/sammeln.mjs
+      - name: Quellen abrufen und protokollieren
+        run: |
+          set +e
+          node werkzeuge/sammeln.mjs 2>&1 | tee abruf.log
+          code=${PIPESTATUS[0]}
+          node werkzeuge/protokoll.mjs "$code" abruf.log
+          node werkzeuge/sammeln.mjs --zustand
+          rm -f abruf.log
+          exit 0
       - name: Ergebnis speichern
         id: speichern
         run: |
@@ -47,21 +57,17 @@ jobs:
             echo "main hat sich geändert – Abruf auf neuem Stand wiederholen ($versuch)"
             git fetch -q origin main
             git reset -q --hard origin/main
-            node werkzeuge/sammeln.mjs
+            node werkzeuge/sammeln.mjs > abruf.log 2>&1; node werkzeuge/protokoll.mjs "$?" abruf.log; rm -f abruf.log
             git add daten docs/daten
             git diff --cached --quiet && { echo "geaendert=nein" >> "$GITHUB_OUTPUT"; exit 0; }
             git commit -q -m "Abruf $(date -u +'%Y-%m-%d %H:%M') UTC"
           done
-          exit 1
+          echo "::warning::Speichern nicht möglich – der nächste Lauf versucht es erneut."
+          echo "geaendert=nein" >> "$GITHUB_OUTPUT"
+          exit 0
       - name: Seite neu veröffentlichen
         if: steps.speichern.outputs.geaendert == 'ja'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run seite.yml --ref main --repo "$GITHUB_REPOSITORY"
-      # Letzter Schritt: Abruf, Speichern und Push sind schon erledigt. Ist eine Quelle seit über 2 Tagen gestört
-      # (daten/quellen-zustand.json), schlägt der Lauf mit lesbarer Meldung fehl – GitHub schickt dann eine E-Mail.
-      # Einzelne Netzaussetzer ergeben kein „gestoert“ und lösen daher keine Mail aus.
-      # Damit höchstens eine Mail pro Tag kommt, wird nur beim ersten Lauf des Tages (02:47 UTC) „streng“ geprüft.
-      - name: Quellenzustand prüfen
-        run: |
-          case "$(date -u +%H)" in 02|03) node werkzeuge/sammeln.mjs --zustand --streng ;; *) node werkzeuge/sammeln.mjs --zustand ;; esac
