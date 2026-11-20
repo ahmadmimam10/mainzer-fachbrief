@@ -24,6 +24,32 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # Hörfassungen je Ressort als MP3 (Azure Speech, Gratis-Tarif F0). Die MP3s landen nur im Seitenpaket,
+      # nicht im Repository; der Zwischenspeicher verhindert, dass derselbe Text zweimal vertont wird.
+      - name: Vertonungen aus dem Zwischenspeicher holen
+        uses: actions/cache/restore@v4
+        with:
+          path: .audio-cache
+          key: vertonung-${{ github.run_id }}
+          restore-keys: vertonung-
+      - name: Hörfassungen vertonen
+        id: vertonen
+        continue-on-error: true
+        env:
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
+          AZURE_SPEECH_STIMME: ${{ vars.AZURE_SPEECH_STIMME }}
+        run: node werkzeuge/vertonen.mjs
+      - name: Vertonungen zwischenspeichern
+        if: steps.vertonen.outputs.neu == 'ja'
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: .audio-cache
+          key: vertonung-${{ github.run_id }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

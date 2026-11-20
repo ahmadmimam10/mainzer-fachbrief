@@ -3,3 +3,6 @@ node_modules/
 .DS_Store
 Thumbs.db
 .claude/
+.audio-cache/
+docs/audio/
+docs/daten/audio.json
