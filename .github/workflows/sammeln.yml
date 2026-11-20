@@ -1,0 +1,60 @@
+name: Quellen abrufen
+
+on:
+  schedule:
+    # mehrmals täglich (Zeiten in UTC): 03:47, 06:47, 09:47, 12:47, 15:47, 18:47, 21:47 Uhr Winterzeit
+    - cron: "47 2,5,8,11,14,17,20 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: sammeln
+  cancel-in-progress: false
+
+jobs:
+  abrufen:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    outputs:
+      geaendert: ${{ steps.speichern.outputs.geaendert }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Quellen abrufen
+        run: node werkzeuge/sammeln.mjs
+      - name: Ergebnis speichern
+        id: speichern
+        run: |
+          git config user.name "Fachbrief-Abruf"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add daten docs/daten
+          if git diff --cached --quiet; then
+            echo "Keine neuen Daten."
+            echo "geaendert=nein" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -q -m "Abruf $(date -u +'%Y-%m-%d %H:%M') UTC"
+          for versuch in 1 2 3; do
+            if git push -q origin HEAD:main; then
+              echo "geaendert=ja" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "main hat sich geändert – Abruf auf neuem Stand wiederholen ($versuch)"
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            node werkzeuge/sammeln.mjs
+            git add daten docs/daten
+            git diff --cached --quiet && { echo "geaendert=nein" >> "$GITHUB_OUTPUT"; exit 0; }
+            git commit -q -m "Abruf $(date -u +'%Y-%m-%d %H:%M') UTC"
+          done
+          exit 1
+      - name: Seite neu veröffentlichen
+        if: steps.speichern.outputs.geaendert == 'ja'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run seite.yml --ref main --repo "$GITHUB_REPOSITORY"

@@ -1,0 +1,35 @@
+name: Ausgabe übernehmen
+
+# Falls die Claude-Routine nicht direkt auf main schreiben darf, pusht sie auf einen Branch „claude/…“.
+# Dieser Workflow führt den Branch nach main zusammen und veröffentlicht die Seite.
+on:
+  push:
+    branches: ["claude/**"]
+
+concurrency:
+  group: sammeln
+  cancel-in-progress: false
+
+jobs:
+  zusammenfuehren:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Branch nach main übernehmen
+        run: |
+          git config user.name "Fachbrief-Redaktion"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch -q origin "$GITHUB_REF_NAME"
+          git merge --no-edit "origin/$GITHUB_REF_NAME"
+          git push -q origin HEAD:main
+          git push -q origin --delete "$GITHUB_REF_NAME" || true
+      - name: Seite neu veröffentlichen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run seite.yml --ref main --repo "$GITHUB_REPOSITORY"

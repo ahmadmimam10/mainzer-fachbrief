@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mainzer Fachbrief</title>
+<meta name="description" content="Der tägliche Morgenüberblick für Jugendhilfeplanung, Frühe Hilfen und Quartiersmanagement in Mainz – jeden Morgen aus über 30 öffentlichen Quellen zusammengestellt.">
+<meta property="og:title" content="Mainzer Fachbrief">
+<meta property="og:description" content="Der tägliche Morgenüberblick für Jugendhilfeplanung, Frühe Hilfen und Quartiersmanagement in Mainz.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#151413" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23b8172f'/%3E%3Ctext x='32' y='47' font-family='Georgia,serif' font-size='44' font-weight='700' text-anchor='middle' fill='white'%3EF%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="schriften/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/unifraktur-maguntia.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* VOICE   Ruhige, souveräne Morgenzeitung für Fachleute: klare Rangfolge, nichts Überflüssiges.
+   IDEA    Die Titelseite einer gedruckten Tageszeitung aus Gutenbergs Stadt – Fraktur-Kopf mit „Ohren“,
+           Doppellinie, Ressortleiste, Aufmacher, Spalten mit Haarlinien, „Kurz notiert“.
+   PICTURE Der Zeitungskopf in UnifrakturMaguntia (Maguntia = Mainz) und die große Aufmacher-Schlagzeile.
+   COLOUR  Weißes Papier, Druckschwarz, Mainzer Rot; je Ressort eine Kennfarbe (Rot, Petrol, Indigo).
+   TYPE    UnifrakturMaguntia (Kopf), Newsreader (Schlagzeilen, Lesetext), Schibsted Grotesk (Angaben).
+   LAYOUT  Kopf → Ressorts → Ausgabe/Suche → Aufmacher + Termine → drei wichtige Meldungen → Kurz notiert → Fuß.
+           Unter 640 px eine Spalte. */
+@font-face{font-family:"Maguntia";src:url(schriften/unifraktur-maguntia.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Newsreader";src:url(schriften/newsreader.woff2) format("woff2");font-weight:400 800;font-style:normal;font-display:swap}
+@font-face{font-family:"Newsreader";src:url(schriften/newsreader-kursiv.woff2) format("woff2");font-weight:400 600;font-style:italic;font-display:swap}
+@font-face{font-family:"Schibsted Grotesk";src:url(schriften/schibsted-grotesk.woff2) format("woff2");font-weight:400 800;font-display:swap}
+
+:root{
+  color-scheme:light dark;
+  --papier:#fff;--tinte:#141414;--grau:#5b5751;--linie:#141414;--haar:#dcd8d0;--flaeche:#f4f2ee;
+  --rot:#b8172f;--rot-flaeche:#fbe9eb;--besucht:#6d6963;
+  --r-jhp:#b8172f;--r-fh:#0b6b75;--r-qm:#2d469b;
+  --serif:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:"Schibsted Grotesk","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+  --fraktur:"Maguntia","UnifrakturMaguntia","Old English Text MT",serif;
+  --akzent:var(--r-jhp);
+}
+@media (prefers-color-scheme:dark){:root{
+  --papier:#151413;--tinte:#ece8e1;--grau:#a7a197;--linie:#ece8e1;--haar:#35322e;--flaeche:#1f1e1c;
+  --rot:#ff7280;--rot-flaeche:#3b1d22;--besucht:#9a948a;--r-jhp:#ff7280;--r-fh:#5cc6d0;--r-qm:#9fb0ff;
+}}
+body[data-ressort="fruehe-hilfen"]{--akzent:var(--r-fh)}
+body[data-ressort="quartiersmanagement"]{--akzent:var(--r-qm)}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:16px}
+body{margin:0;background:var(--papier);color:var(--tinte);font:16px/1.55 var(--sans);overflow-x:clip}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--akzent);outline-offset:3px;border-radius:2px}
+button,input{font:inherit;color:inherit}
+.blatt{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Zeitungskopf */
+.kopf{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:end;gap:24px;padding-top:clamp(18px,3vw,34px)}
+.titel{margin:0;font:400 clamp(44px,7.2vw,94px)/.95 var(--fraktur);text-align:center;letter-spacing:0;white-space:nowrap}
+.titel a{text-decoration:none}
+.ohr{font-size:13px;line-height:1.35;color:var(--grau);padding-bottom:10px;display:grid;gap:2px}
+.ohr b{font:700 22px/1.1 var(--serif);color:var(--tinte)}
+.ohr.rechts{text-align:right}
+.unterzeile{margin:12px 0 14px;text-align:center;font:italic 400 clamp(15px,1.8vw,18px)/1.4 var(--serif);color:var(--grau);text-wrap:balance}
+.doppellinie{border-top:3px solid var(--linie);border-bottom:1px solid var(--linie);height:7px}
+
+/* Ressortleiste */
+.ressorts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--linie)}
+.ressorts a{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:10px 8px;
+  text-decoration:none;font:700 16px/1.2 var(--sans);color:var(--grau);text-align:center}
+.ressorts a+a{border-left:1px solid var(--haar)}
+.ressorts a::before{content:"";flex:none;width:11px;height:11px;background:var(--farbe)}
+.ressorts a[data-r="jugendhilfeplanung"]{--farbe:var(--r-jhp)}
+.ressorts a[data-r="fruehe-hilfen"]{--farbe:var(--r-fh)}
+.ressorts a[data-r="quartiersmanagement"]{--farbe:var(--r-qm)}
+.ressorts a:hover{color:var(--tinte)}
+.ressorts a[aria-current="page"]{color:var(--tinte)}
+.ressorts a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:5px;background:var(--farbe)}
+.zahl{font:600 13px/1 var(--sans);color:var(--grau);border:1px solid var(--haar);border-radius:99px;padding:3px 8px}
+.ressorts .kurzname{display:none}
+
+/* Ausgabe & Suche */
+.werkzeuge{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px;padding:14px 0;border-bottom:1px solid var(--haar)}
+.ausgaben{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.ausgaben::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:40px;padding:0 14px;border:1px solid var(--haar);border-radius:99px;background:transparent;font-size:14px;font-weight:600;color:var(--grau);cursor:pointer;white-space:nowrap}
+.chip:hover{color:var(--tinte);border-color:var(--grau)}
+.chip[aria-pressed="true"]{background:var(--tinte);border-color:var(--tinte);color:var(--papier)}
+.ausgabe-label{font-size:14px;color:var(--grau)}
+.suche{position:relative;flex:0 1 300px;margin-left:auto}
+.suche svg{position:absolute;left:12px;top:50%;translate:0 -50%;width:18px;height:18px;stroke:var(--grau);fill:none;stroke-width:2}
+.suche input{width:100%;min-height:44px;padding:8px 12px 8px 40px;border:1px solid var(--haar);border-radius:99px;background:var(--papier);font-size:16px}
+.suche input:focus{border-color:var(--tinte);outline:none}
+
+/* Meldungen */
+main{min-height:50vh}
+.hinweis{margin:18px 0 0;padding:10px 14px;background:var(--flaeche);border-left:4px solid var(--akzent);font-size:15px}
+.meldung{position:relative}
+.dach{margin:0 0 6px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font:700 13.5px/1.3 var(--sans);color:var(--akzent)}
+.mainz{font:700 13px/1 var(--sans);color:var(--rot);background:var(--rot-flaeche);padding:4px 8px;border-radius:99px}
+.meldung h2,.meldung h3{margin:0;font-family:var(--serif);font-variation-settings:"opsz" 60;text-wrap:balance}
+.meldung h2 a,.meldung h3 a{text-decoration:none}
+.meldung h2 a::after,.meldung h3 a::after{content:"";position:absolute;inset:0}
+.meldung:hover h2 a,.meldung:hover h3 a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.meldung a:visited{color:var(--besucht)}
+.text{font-family:var(--serif);margin:0}
+.meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0 0;font-size:13.5px;color:var(--grau)}
+.meta b{color:var(--tinte);font-weight:700}
+.teilen{position:relative;z-index:1;margin-left:auto;display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;color:var(--grau)}
+.teilen:hover{background:var(--flaeche);color:var(--tinte)}
+.teilen svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.erste{display:grid;grid-template-columns:minmax(0,1fr);gap:28px 40px;padding:28px 0 30px}
+.erste.mit-seite{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+.solo .seitenspalte{border-left:0;padding-left:0;max-width:640px;width:100%;margin:0 auto}
+.aufmacher h2{font-weight:700;font-size:clamp(30px,4.3vw,48px);line-height:1.05;letter-spacing:-.012em;max-width:22em;font-variation-settings:"opsz" 72}
+.aufmacher .dach{font-size:14.5px}
+.aufmacher .text{font-size:clamp(18px,1.7vw,20.5px);line-height:1.45;margin-top:14px;max-width:38em}
+.aufmacher .meta{font-size:14px}
+
+.seitenspalte{border-left:1px solid var(--haar);padding-left:28px;display:grid;gap:26px;align-content:start}
+.kopfzeile{margin:0 0 4px;padding-top:9px;border-top:3px solid var(--linie);font:700 15px/1.2 var(--sans);display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.kopfzeile small{font-weight:500;font-size:13px;color:var(--grau)}
+.termine,.auch{list-style:none;margin:0;padding:0}
+.termine li+li,.auch li+li{border-top:1px solid var(--haar)}
+.termine a{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;align-items:center;padding:12px 0;text-decoration:none}
+.termine a:hover strong,.auch a:hover strong{text-decoration:underline}
+.auch a{display:block;padding:12px 0;text-decoration:none}
+.auch a[data-r="jugendhilfeplanung"]{--farbe:var(--r-jhp)}
+.auch a[data-r="fruehe-hilfen"]{--farbe:var(--r-fh)}
+.auch a[data-r="quartiersmanagement"]{--farbe:var(--r-qm)}
+.auch-ressort{display:flex;align-items:center;gap:8px;font:700 13px/1.3 var(--sans);color:var(--farbe)}
+.auch-ressort::before{content:"";flex:none;width:9px;height:9px;background:var(--farbe)}
+.auch strong{display:block;margin-top:4px;font:600 17px/1.3 var(--serif);text-wrap:balance}
+.kal{display:grid;text-align:center;border:1px solid var(--linie);line-height:1}
+.kal small{display:block;background:var(--linie);color:var(--papier);font:700 12px/1 var(--sans);padding:4px 0}
+.kal b{font:700 22px/1 var(--serif);padding:5px 0 6px}
+.termine strong{display:block;font:600 16px/1.3 var(--serif)}
+.termine span>small{font-size:13px;color:var(--grau);line-height:1.35;display:block;margin-top:2px}
+
+.reihe{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));border-top:1px solid var(--linie)}
+.reihe .meldung{padding:18px 22px 24px}
+.reihe .meldung:first-child{padding-left:0}
+.reihe .meldung:last-child{padding-right:0}
+.reihe .meldung+.meldung{border-left:1px solid var(--haar)}
+.reihe h3{font-weight:650;font-size:22px;line-height:1.18}
+.reihe .text{font-size:16.5px;line-height:1.5;margin-top:10px}
+
+.notiert{padding:26px 0 8px}
+.notiert-liste{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 34px}
+.notiert .meldung{padding:14px 0 16px;border-bottom:1px solid var(--haar)}
+.notiert h3{font-weight:600;font-size:18px;line-height:1.28}
+.notiert .meta{margin-top:7px}
+
+.leer{padding:56px 0;text-align:center;max-width:34em;margin:0 auto}
+.leer h2{font:600 26px/1.2 var(--serif);margin:0 0 8px}
+.leer p{color:var(--grau);margin:0}
+
+.treffer{padding:24px 0 10px}
+.treffer-kopf{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:3px solid var(--linie);padding-top:10px}
+.treffer-kopf h2{margin:0;font:600 24px/1.2 var(--serif)}
+.knopf{min-height:40px;padding:0 16px;border:1px solid var(--tinte);border-radius:99px;background:transparent;font-weight:600;font-size:14px;cursor:pointer}
+.knopf:hover{background:var(--tinte);color:var(--papier)}
+.treffer ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 34px}
+.treffer .meldung{padding:14px 0 16px;border-bottom:1px solid var(--haar)}
+.treffer h3{font-weight:600;font-size:18px;line-height:1.28}
+
+/* Fuß */
+.fuss{margin-top:36px;padding-bottom:40px;font-size:14.5px;color:var(--grau)}
+.fuss-raster{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:28px 40px;border-top:3px solid var(--linie);padding-top:24px}
+.fuss h2{margin:0 0 8px;font:700 15px/1.2 var(--sans);color:var(--tinte)}
+.fuss p{margin:0 0 8px}
+.fuss ol{margin:0;padding-left:20px}
+.fuss li{margin-bottom:6px}
+.fuss a{color:var(--tinte)}
+.fuss b{color:var(--tinte)}
+.fuss details summary{cursor:pointer;color:var(--tinte);font-weight:600;min-height:32px;display:flex;align-items:center}
+.quellgruppe{margin:10px 0 0}
+.quellgruppe h3{margin:0 0 4px;font:700 13.5px/1.3 var(--sans);color:var(--tinte)}
+.quellgruppe ul{margin:0;padding:0;list-style:none;font-size:13.5px;line-height:1.5}
+.quellgruppe .aus{color:var(--rot)}
+.signatur{margin-top:18px;padding-top:14px;border-top:1px solid var(--haar);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font-size:13.5px}
+
+.ohrzeile{display:none;justify-content:center;flex-wrap:wrap;gap:4px 14px;font-size:13.5px;color:var(--grau);margin-top:8px}
+.ohrzeile b{color:var(--tinte)}
+.nur-schmal{display:none}
+@media (max-width:959px){
+  .nur-breit{display:none}
+  .nur-schmal{display:grid}
+  .ende{padding:8px 0 0}
+  .kopf{grid-template-columns:1fr;gap:6px}
+  .ohr{display:none}
+  .ohrzeile{display:flex}
+  .erste.mit-seite{grid-template-columns:1fr}
+  .seitenspalte{border-left:0;padding-left:0;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px 34px}
+  .notiert-liste{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fuss-raster{grid-template-columns:1fr 1fr}
+  .fuss-raster section:first-child{grid-column:1/-1}
+}
+@media (max-width:640px){
+  .ressorts a{flex-direction:column;gap:6px;min-height:64px;font-size:14px;padding:8px 4px}
+  .ressorts a::before{display:none}
+  .ressorts .langname{display:none}
+  .ressorts .kurzname{display:inline}
+  .suche{flex:1 1 100%}
+  .reihe{grid-template-columns:1fr}
+  .reihe .meldung{padding:18px 0 20px}
+  .reihe .meldung+.meldung{border-left:0;border-top:1px solid var(--haar)}
+  .notiert-liste,.treffer ol{grid-template-columns:1fr}
+  .fuss-raster{grid-template-columns:1fr}
+}
+@media print{
+  .werkzeuge,.teilen,.fuss details{display:none}
+  .ressorts a:not([aria-current]){display:none}
+  body{font-size:12pt}
+}
+@media (prefers-reduced-motion:no-preference){
+  #inhalt.neu{animation:auftritt .35s ease-out}
+  @keyframes auftritt{from{opacity:.55;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body data-ressort="jugendhilfeplanung">
+<header class="blatt">
+  <div class="kopf">
+    <div class="ohr"><b id="nummer">Ausgabe</b><span id="datum-lang">&nbsp;</span></div>
+    <h1 class="titel"><a href="./">Mainzer Fachbrief</a></h1>
+    <div class="ohr rechts"><b id="umfang">&nbsp;</b><span id="stand">&nbsp;</span></div>
+  </div>
+  <p class="ohrzeile" id="ohrzeile"></p>
+  <p class="unterzeile">Der Morgenüberblick für Jugendhilfeplanung, Frühe Hilfen und Quartiersmanagement in Mainz</p>
+  <div class="doppellinie" aria-hidden="true"></div>
+  <nav class="ressorts" aria-label="Ressorts">
+    <a href="#jugendhilfeplanung" data-r="jugendhilfeplanung"><span class="langname">Jugendhilfeplanung</span><span class="kurzname">Jugendhilfe</span><span class="zahl" data-zahl>–</span></a>
+    <a href="#fruehe-hilfen" data-r="fruehe-hilfen"><span class="langname">Frühe Hilfen &amp; Kinderschutz</span><span class="kurzname">Frühe Hilfen</span><span class="zahl" data-zahl>–</span></a>
+    <a href="#quartiersmanagement" data-r="quartiersmanagement"><span class="langname">Quartiersmanagement</span><span class="kurzname">Quartier</span><span class="zahl" data-zahl>–</span></a>
+  </nav>
+  <div class="werkzeuge">
+    <div class="ausgaben" id="ausgaben" aria-label="Ausgabe wählen"></div>
+    <label class="suche"><span class="sr">Im Archiv suchen</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <input id="suche" type="search" placeholder="Archiv durchsuchen, z. B. Kita" autocomplete="off" enterkeyhint="search">
+    </label>
+  </div>
+</header>
+
+<main class="blatt" id="inhalt" aria-live="polite">
+  <p class="leer">Die Ausgabe wird geladen …</p>
+</main>
+<noscript><p class="blatt">Bitte JavaScript aktivieren, um die Ausgabe zu lesen.</p></noscript>
+
+<footer class="blatt fuss">
+  <div class="fuss-raster">
+    <section>
+      <h2>So entsteht der Fachbrief</h2>
+      <ol>
+        <li><b>Mehrmals täglich</b> ruft ein Skript alle öffentlichen Quellen ab – Stadt Mainz und Ratsinformationssystem, Lokalpresse, Land, Bund und Fachinstitute.</li>
+        <li><b>Frühmorgens</b> sichtet Claude (KI) alle neuen Meldungen nach festen Redaktionsregeln, wählt je Ressort höchstens zwölf aus und gewichtet sie.</li>
+        <li><b>Gegen 6 Uhr</b> steht die neue Ausgabe hier. Jede Überschrift führt zur Originalquelle.</li>
+      </ol>
+    </section>
+    <section>
+      <h2>Quellen</h2>
+      <p id="quellen-stand">Wird geladen …</p>
+      <details><summary>Alle Quellen anzeigen</summary><div id="quellen-liste"></div></details>
+    </section>
+    <section>
+      <h2>Hinweise</h2>
+      <p>Keine amtliche Veröffentlichung der Stadt Mainz. Die Auswahl erfolgt automatisch und kann Fehler enthalten – maßgeblich ist immer die Originalquelle.</p>
+      <p>Keine Cookies, kein Tracking, Schriften lokal eingebunden.</p>
+    </section>
+  </div>
+  <div class="signatur">
+    <span>Mainzer Fachbrief · Redaktion: Claude nach Regeln der Fachbereiche</span>
+    <span>Entwickelt von <a href="https://github.com/ahmadmimam10">ahmadmimam10</a> · <a href="https://github.com/ahmadmimam10/mainzer-fachbrief">Quellcode auf GitHub</a></span>
+  </div>
+</footer>
+
+<script>
+{
+  const RESSORTS = [
+    { id: "jugendhilfeplanung", name: "Jugendhilfeplanung", gremien: /Jugendhilfeausschuss|Stadtrat|Soziales|Sozialausschuss/i },
+    { id: "fruehe-hilfen", name: "Frühe Hilfen & Kinderschutz", gremien: /Jugendhilfeausschuss|Stadtrat/i },
+    { id: "quartiersmanagement", name: "Quartiersmanagement", gremien: /Stadtrat|Ortsbeirat|Jugendhilfeausschuss/i },
+  ];
+  const EBENEN = { mainz: "Mainz", land: "Rheinland-Pfalz", bund: "Bund und überregional", fach: "Fachwelt" };
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+  const sicher = u => /^https?:\/\//i.test(u || "") ? u : "#";
+  const tagBerlin = (d = new Date()) => new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Berlin", year: "numeric", month: "2-digit", day: "2-digit" }).format(d);
+  const fmt = (iso, o) => new Intl.DateTimeFormat("de-DE", { timeZone: "UTC", ...o }).format(new Date(iso + "T12:00:00Z"));
+  const uhr = ts => new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", hour: "2-digit", minute: "2-digit" }).format(new Date(ts));
+  const plus = (iso, n) => { const d = new Date(iso + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+  const falten = s => String(s || "").toLowerCase().normalize("NFD").replace(/\p{M}/gu, "").replace(/ß/g, "ss");
+  const ICON_TEILEN = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>';
+
+  let daten = null, termine = null, status = null, archiv = null;
+  let ressort = startRessort();
+  let tag = null;
+  let suchwort = "";
+  const HEUTE = tagBerlin();
+
+  function startRessort() {
+    const h = location.hash.slice(1);
+    if (RESSORTS.some(r => r.id === h)) return h;
+    try { const g = localStorage.getItem("fachbrief.ressort"); if (RESSORTS.some(r => r.id === g)) return g; } catch {}
+    return RESSORTS[0].id;
+  }
+  const holen = u => fetch(u, { cache: "no-cache" }).then(r => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
+
+  function quelleName(id) { return daten?.quellen?.[id]?.kurz || id; }
+  function chipName(iso) {
+    if (iso === HEUTE) return "Heute";
+    if (iso === plus(HEUTE, -1)) return "Gestern";
+    return fmt(iso, { weekday: "short", day: "2-digit", month: "2-digit" }).replace(",", "");
+  }
+  function datumMeta(iso, ausgabe) {
+    if (!iso) return "";
+    if (iso > ausgabe) return "Termin am " + fmt(iso, { day: "numeric", month: "short", year: "numeric" });
+    return fmt(iso, { day: "numeric", month: "short" });
+  }
+  function mail(m) {
+    const q = quelleName(m.quelle);
+    const text = `Liebe:r Kolleg:in,\n\nich bin auf diese Meldung gestoßen, die für dich interessant sein könnte:\n\n${m.titel} (${q})\n${m.url}\n\nGefunden im Mainzer Fachbrief: ${location.origin + location.pathname}`;
+    return `mailto:?subject=${encodeURIComponent(m.titel)}&body=${encodeURIComponent(text)}`;
+  }
+
+  function meldung(m, art, ausgabe, extra = "") {
+    const ort = m.rubrik === "mainz" ? '<span class="mainz">Mainz</span>' : "";
+    const h = art === "aufmacher" ? "h2" : "h3";
+    return `<article class="meldung ${art}">
+      <p class="dach"><span>${esc(extra || m.thema)}</span>${ort}</p>
+      <${h}><a href="${esc(sicher(m.url))}" target="_blank" rel="noopener">${esc(m.titel)}</a></${h}>
+      ${m.kurz && art !== "kurz" ? `<p class="text">${esc(m.kurz)}</p>` : ""}
+      <p class="meta"><b>${esc(quelleName(m.quelle))}</b><span aria-hidden="true">·</span><span>${esc(datumMeta(m.datum, ausgabe))}</span>
+        <a class="teilen" href="${esc(mail(m))}" data-titel="${esc(m.titel)}" data-url="${esc(sicher(m.url))}" title="Per E-Mail weiterleiten" aria-label="Weiterleiten: ${esc(m.titel)}">${ICON_TEILEN}</a></p>
+    </article>`;
+  }
+
+  function seitenspalte(a) {
+    const r = RESSORTS.find(x => x.id === ressort);
+    const liste = (termine?.termine || []).filter(t => t.datum >= HEUTE && r.gremien.test(t.titel)).slice(0, 4);
+    const termin = liste.length ? `<section class="block">
+      <h2 class="kopfzeile">Termine im Rat <small>nächste Sitzungen</small></h2>
+      <ul class="termine">${liste.map(t => `<li><a href="${esc(sicher(t.url))}" target="_blank" rel="noopener">
+        <span class="kal" aria-hidden="true"><small>${esc(fmt(t.datum, { month: "short" }).replace(".", ""))}</small><b>${esc(fmt(t.datum, { day: "numeric" }))}</b></span>
+        <span><strong>${esc(t.titel)}</strong><small>${esc(fmt(t.datum, { weekday: "long", day: "numeric", month: "long" }))}${t.zeit ? ", " + esc(t.zeit) + " Uhr" : ""}${t.ort ? " · " + esc(t.ort.split(",")[0]) : ""}</small></span>
+      </a></li>`).join("")}</ul></section>` : "";
+    const andere = RESSORTS.filter(x => x.id !== ressort).map(x => ({ ...x, top: (a.ressorts[x.id] || [])[0], n: (a.ressorts[x.id] || []).length }));
+    const auch = `<section class="block">
+      <h2 class="kopfzeile">Auch heute <small>in den anderen Ressorts</small></h2>
+      <ul class="auch">${andere.map(x => `<li><a href="#${x.id}" data-r="${x.id}">
+        <span class="auch-ressort">${esc(x.name)} · ${x.n}</span>
+        <strong>${x.top ? esc(x.top.titel) : "Heute keine neuen Meldungen"}</strong></a></li>`).join("")}</ul></section>`;
+    return wo => `<aside class="seitenspalte ${wo}">${termin}${auch}</aside>`;
+  }
+
+  function kopfFuellen(a) {
+    const nr = Math.round((new Date(a.datum) - new Date(daten.erste)) / 864e5) + 1;
+    const alle = Object.values(a.ressorts).flat();
+    const urls = new Set(alle.map(m => m.url));
+    const quellen = new Set(alle.map(m => m.quelle));
+    const lang = fmt(a.datum, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    $("#nummer").textContent = "Nr. " + nr;
+    $("#datum-lang").innerHTML = esc(fmt(a.datum, { weekday: "long" })) + "<br>" + esc(fmt(a.datum, { day: "numeric", month: "long", year: "numeric" }));
+    $("#umfang").textContent = urls.size + (urls.size === 1 ? " Meldung" : " Meldungen");
+    $("#stand").innerHTML = `aus ${quellen.size} Quellen<br>Stand ${a.erstellt ? esc(uhr(a.erstellt)) + " Uhr" : "–"}`;
+    $("#ohrzeile").innerHTML = `<b>Nr. ${nr}</b><span>${esc(lang)}</span><span>${urls.size} Meldungen aus ${quellen.size} Quellen</span>`;
+    document.querySelectorAll(".ressorts a").forEach(el => {
+      const n = (a.ressorts[el.dataset.r] || []).length;
+      el.querySelector("[data-zahl]").textContent = n;
+      el.setAttribute("aria-label", `${RESSORTS.find(r => r.id === el.dataset.r).name}, ${n} Meldungen`);
+    });
+  }
+
+  function ausgabeZeigen() {
+    const a = daten.ausgaben.find(x => x.datum === tag) || daten.ausgaben[0];
+    kopfFuellen(a);
+    const liste = a.ressorts[ressort] || [];
+    let html = "";
+    if (a.datum !== HEUTE && a === daten.ausgaben[0]) {
+      html += `<p class="hinweis">Die Ausgabe für heute erscheint gegen 6 Uhr. Hier ist die Ausgabe vom ${esc(fmt(a.datum, { weekday: "long", day: "numeric", month: "long" }))}.</p>`;
+    } else if (a !== daten.ausgaben[0]) {
+      html += `<p class="hinweis">Sie lesen die Ausgabe vom ${esc(fmt(a.datum, { weekday: "long", day: "numeric", month: "long" }))}.</p>`;
+    }
+    if (!liste.length) {
+      html += `<div class="leer"><h2>Heute nichts Neues in diesem Ressort.</h2><p>Alle Quellen wurden gesichtet – keine Meldung war wichtig genug. Ältere Ausgaben finden Sie oben.</p></div>`;
+      html += `<div class="erste solo">${seitenspalte(a)("")}</div>`;
+    } else {
+      const [auf, ...rest] = liste;
+      const wichtig = rest.filter(m => m.stufe === "wichtig");
+      const kurz = rest.filter(m => m.stufe !== "wichtig");
+      const seite = seitenspalte(a);
+      html += `<div class="erste mit-seite">${meldung(auf, "aufmacher", a.datum)}${seite("nur-breit")}</div>`;
+      if (wichtig.length) html += `<div class="reihe">${wichtig.map(m => meldung(m, "wichtig", a.datum)).join("")}</div>`;
+      if (kurz.length) html += `<section class="notiert" aria-label="Kurz notiert"><h2 class="kopfzeile">Kurz notiert <small>${kurz.length} weitere Meldungen</small></h2>
+        <div class="notiert-liste">${kurz.map(m => meldung(m, "kurz", a.datum)).join("")}</div></section>`;
+      html += `<div class="ende">${seite("nur-schmal")}</div>`;
+    }
+    zeichnen(html);
+  }
+
+  function zeichnen(html) {
+    const ziel = $("#inhalt");
+    ziel.innerHTML = html;
+    ziel.classList.remove("neu"); void ziel.offsetWidth; ziel.classList.add("neu");
+  }
+
+  function chipsZeigen() {
+    const box = $("#ausgaben");
+    const liste = daten.ausgaben.slice(0, 7);
+    if (liste.length < 2) { box.innerHTML = `<span class="ausgabe-label">Ausgabe vom ${esc(fmt(liste[0].datum, { weekday: "long", day: "numeric", month: "long" }))}</span>`; return; }
+    box.innerHTML = liste.map(a => `<button type="button" class="chip" data-tag="${a.datum}" aria-pressed="${a.datum === tag}">${esc(chipName(a.datum))}</button>`).join("");
+  }
+
+  function ressortSetzen(id, scrollen) {
+    ressort = id;
+    document.body.dataset.ressort = id;
+    try { localStorage.setItem("fachbrief.ressort", id); } catch {}
+    document.querySelectorAll(".ressorts a").forEach(a => {
+      if (a.dataset.r === id) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    document.title = RESSORTS.find(r => r.id === id).name + " – Mainzer Fachbrief";
+    if (!daten) return;
+    if (suchwort) sucheZeigen(); else ausgabeZeigen();
+    if (scrollen && window.scrollY > 300) $(".ressorts").scrollIntoView({ behavior: "smooth" });
+  }
+
+  async function sucheZeigen() {
+    const wort = suchwort.trim();
+    if (wort.length < 2) { ausgabeZeigen(); return; }
+    if (!archiv) {
+      zeichnen('<p class="leer">Archiv wird geladen …</p>');
+      try { archiv = await holen("daten/archiv.json"); } catch { zeichnen('<div class="leer"><h2>Das Archiv ist gerade nicht erreichbar.</h2></div>'); return; }
+    }
+    const teile = falten(wort).split(/\s+/).filter(Boolean);
+    const gesehen = new Map();
+    for (const [ausgabe, rid, stufe, thema, titel, kurz, quelle, url] of archiv.eintraege) {
+      const text = falten(`${thema} ${titel} ${kurz} ${quelleName(quelle)}`);
+      if (!teile.every(t => text.includes(t))) continue;
+      const alt = gesehen.get(url);
+      if (alt) { alt.ressorts.add(rid); continue; }
+      gesehen.set(url, { ausgabe, thema, titel, quelle, url, ressorts: new Set([rid]), datum: ausgabe });
+    }
+    const treffer = [...gesehen.values()].sort((x, y) => y.ausgabe.localeCompare(x.ausgabe)).slice(0, 60);
+    const namen = Object.fromEntries(RESSORTS.map(r => [r.id, r.name]));
+    zeichnen(`<section class="treffer"><div class="treffer-kopf"><h2>${treffer.length ? treffer.length + (treffer.length === 1 ? " Treffer" : " Treffer") : "Keine Treffer"} für „${esc(wort)}“</h2>
+      <button type="button" class="knopf" id="suche-zu">Zur Ausgabe</button></div>
+      ${treffer.length ? `<ol>${treffer.map(t => `<li>${meldung({ ...t, kurz: "" }, "kurz", t.ausgabe, [...t.ressorts].map(r => namen[r]).join(" · ") + " · " + t.thema)}</li>`).join("")}</ol>`
+        : '<p class="leer">Versuchen Sie einen anderen Begriff – gesucht wird in Überschriften, Themen und Quellen aller bisherigen Ausgaben.</p>'}</section>`);
+  }
+
+  function quellenZeigen() {
+    if (!daten) return;
+    const ok = new Map((status?.quellen || []).map(q => [q.id, q.ok]));
+    const aktiv = Object.entries(daten.quellen).filter(([, q]) => q.aktiv);
+    const erreichbar = aktiv.filter(([id]) => ok.get(id) !== false).length;
+    $("#quellen-stand").innerHTML = `${aktiv.length} Quellen fest eingebunden${status ? `, beim letzten Abruf (${esc(uhr(status.stand))} Uhr) waren ${erreichbar} erreichbar.` : "."}`;
+    $("#quellen-liste").innerHTML = Object.entries(EBENEN).map(([eb, name]) => {
+      const qs = aktiv.filter(([, q]) => q.ebene === eb).sort((x, y) => x[1].name.localeCompare(y[1].name, "de"));
+      return qs.length ? `<div class="quellgruppe"><h3>${esc(name)}</h3><ul>${qs.map(([id, q]) => `<li${ok.get(id) === false ? ' class="aus"' : ""}>${esc(q.name)}${ok.get(id) === false ? " – zuletzt nicht erreichbar" : ""}</li>`).join("")}</ul></div>` : "";
+    }).join("");
+  }
+
+  document.addEventListener("click", e => {
+    const chip = e.target.closest(".chip");
+    if (chip) { tag = chip.dataset.tag; suchwort = ""; $("#suche").value = ""; chipsZeigen(); ausgabeZeigen(); return; }
+    if (e.target.closest("#suche-zu")) { suchwort = ""; $("#suche").value = ""; ausgabeZeigen(); return; }
+    const teilen = e.target.closest(".teilen");
+    if (teilen && navigator.share && matchMedia("(pointer: coarse)").matches) {
+      e.preventDefault();
+      navigator.share({ title: teilen.dataset.titel, url: teilen.dataset.url }).catch(() => {});
+    }
+  });
+  window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (RESSORTS.some(r => r.id === h)) ressortSetzen(h, false); });
+  let warte;
+  $("#suche").addEventListener("input", e => { clearTimeout(warte); warte = setTimeout(() => { suchwort = e.target.value; daten && sucheZeigen(); }, 220); });
+  $("#suche").addEventListener("keydown", e => { if (e.key === "Escape") { e.target.value = ""; suchwort = ""; daten && ausgabeZeigen(); } });
+  document.addEventListener("keydown", e => { if (e.key === "/" && document.activeElement?.tagName !== "INPUT") { e.preventDefault(); $("#suche").focus(); } });
+
+  ressortSetzen(ressort, false);
+  Promise.all([holen("daten/ausgaben.json"), holen("daten/termine.json").catch(() => null), holen("daten/status.json").catch(() => null)])
+    .then(([a, t, s]) => {
+      daten = a; termine = t; status = s;
+      if (!daten.ausgaben?.length) { zeichnen('<div class="leer"><h2>Noch keine Ausgabe erschienen.</h2><p>Die erste Ausgabe erscheint am nächsten Morgen gegen 6 Uhr.</p></div>'); return; }
+      tag = daten.ausgaben[0].datum;
+      chipsZeigen();
+      ressortSetzen(ressort, false);
+      quellenZeigen();
+    })
+    .catch(() => zeichnen('<div class="leer"><h2>Die Ausgabe konnte nicht geladen werden.</h2><p>Bitte laden Sie die Seite in einigen Minuten neu.</p></div>'));
+}
+</script>
+</body>
+</html>

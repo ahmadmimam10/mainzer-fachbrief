@@ -1,0 +1,21 @@
+{
+ "stand": "2026-11-20T09:12:20.706Z",
+ "termine": [
+  {
+   "url": "https://bi.mainz.de/si0057.php?__ksinr=5072",
+   "titel": "Ortsbeirat Mainz-Mombach",
+   "datum": "2026-11-19",
+   "zeit": "19:00",
+   "ort": "Haus Haifa (Mombacher Zimmer), Zeystr. 5, 55120 Mainz",
+   "quelle": "ratsinfo"
+  },
+  {
+   "url": "https://bi.mainz.de/si0057.php?__ksinr=4961",
+   "titel": "Stadtrat",
+   "datum": "2026-11-25",
+   "zeit": "15:00",
+   "ort": "Frankfurter Hof Mainz, Augustinerstraße 55, 55116 Mainz",
+   "quelle": "ratsinfo"
+  }
+ ]
+}

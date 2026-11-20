@@ -1,0 +1,203 @@
+{
+ "stand": "2026-11-20T09:12:20.706Z",
+ "quellen": [
+  {
+   "id": "ratsinfo",
+   "name": "Ratsinformationssystem Mainz",
+   "ok": true,
+   "treffer": 6
+  },
+  {
+   "id": "stadt-mainz",
+   "name": "Stadt Mainz – Pressemeldungen",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "az",
+   "name": "Allgemeine Zeitung",
+   "ok": true,
+   "treffer": 80
+  },
+  {
+   "id": "merkurist",
+   "name": "Merkurist Mainz",
+   "ok": true,
+   "treffer": 8
+  },
+  {
+   "id": "sensor",
+   "name": "Sensor Mainz",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "swr",
+   "name": "SWR Aktuell Rheinland-Pfalz",
+   "ok": true,
+   "treffer": 51
+  },
+  {
+   "id": "landtag",
+   "name": "Landtag Rheinland-Pfalz",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "bm-rlp",
+   "name": "Bildungsministerium Rheinland-Pfalz",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "masffj",
+   "name": "Ministerium für Arbeit, Soziales, Frauen, Familie und Jugend RLP",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "mkbwk",
+   "name": "Ministerium für Kommunen, Bauen, Wohnen und Kultur RLP",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "ism",
+   "name": "Institut für Sozialpädagogische Forschung Mainz (ISM)",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "ikj",
+   "name": "Institut für Kinder- und Jugendhilfe (IKJ) Mainz",
+   "ok": true,
+   "treffer": 5
+  },
+  {
+   "id": "bmbfsfj",
+   "name": "Bundesministerium für Bildung, Familie, Senioren, Frauen und Jugend",
+   "ok": true,
+   "treffer": 40
+  },
+  {
+   "id": "bundestag",
+   "name": "Deutscher Bundestag",
+   "ok": true,
+   "treffer": 45
+  },
+  {
+   "id": "bundesrat",
+   "name": "BundesratKompakt",
+   "ok": true,
+   "treffer": 30
+  },
+  {
+   "id": "spiegel",
+   "name": "DER SPIEGEL",
+   "ok": true,
+   "treffer": 40
+  },
+  {
+   "id": "jugendhilfeportal",
+   "name": "Jugendhilfeportal",
+   "ok": true,
+   "treffer": 30
+  },
+  {
+   "id": "dji",
+   "name": "Deutsches Jugendinstitut",
+   "ok": true,
+   "treffer": 30
+  },
+  {
+   "id": "difu",
+   "name": "Deutsches Institut für Urbanistik",
+   "ok": true,
+   "treffer": 124
+  },
+  {
+   "id": "nzfh",
+   "name": "Nationales Zentrum Frühe Hilfen",
+   "ok": true,
+   "treffer": 28
+  },
+  {
+   "id": "dijuf",
+   "name": "Deutsches Institut für Jugendhilfe und Familienrecht",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "agj",
+   "name": "Arbeitsgemeinschaft für Kinder- und Jugendhilfe",
+   "ok": true,
+   "treffer": 25
+  },
+  {
+   "id": "akjstat",
+   "name": "Arbeitsstelle Kinder- und Jugendhilfestatistik",
+   "ok": true,
+   "treffer": 4
+  },
+  {
+   "id": "igfh",
+   "name": "Internationale Gesellschaft für erzieherische Hilfen",
+   "ok": true,
+   "treffer": 4
+  },
+  {
+   "id": "dv",
+   "name": "Deutscher Verein für öffentliche und private Fürsorge",
+   "ok": true,
+   "treffer": 52
+  },
+  {
+   "id": "dbjr",
+   "name": "Deutscher Bundesjugendring",
+   "ok": true,
+   "treffer": 30
+  },
+  {
+   "id": "jugendgerecht",
+   "name": "jugendgerecht.de",
+   "ok": true,
+   "treffer": 40
+  },
+  {
+   "id": "kommune360",
+   "name": "Kommune360",
+   "ok": true,
+   "treffer": 8
+  },
+  {
+   "id": "kosmo",
+   "name": "Kommunales Bildungsmonitoring",
+   "ok": true,
+   "treffer": 8
+  },
+  {
+   "id": "bildungsserver",
+   "name": "Deutscher Bildungsserver",
+   "ok": true,
+   "treffer": 12
+  },
+  {
+   "id": "sozial-de",
+   "name": "sozial.de",
+   "ok": true,
+   "treffer": 20
+  },
+  {
+   "id": "startchancen",
+   "name": "Startchancen-Programm (Blog)",
+   "ok": true,
+   "treffer": 10
+  },
+  {
+   "id": "jadigital",
+   "name": "JAdigital – Newsletter",
+   "ok": true,
+   "treffer": 1
+  }
+ ]
+}
