@@ -13,24 +13,43 @@ const teil = n => {
 };
 const DOM = teil("02-Dom"), LINKS = teil("03-Zeitung-links"), RECHTS = teil("04-Zeitung-rechts");
 
-// ---------- Silhouetten (Einheiten wie im Logo: 128 = Logobreite; Bandmitte = 640) ----------
+// ---------- Szene (Einheiten wie im Logo: 128 = Logobreite; Bandmitte = 640; H = Horizont) ----------
 const B = 1280, H = 60;
 const f = n => +n.toFixed(1);
 const zufall = seed => () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
+const kreis = (cx, cy, rx, ry = rx) => `M${f(cx - rx)} ${f(cy)}a${f(rx)} ${f(ry)} 0 1 0 ${f(rx * 2)} 0a${f(rx)} ${f(ry)} 0 1 0 ${f(-rx * 2)} 0Z`;
 
-function pfad(teile) {
-  let x = 0, d = `M0 ${H}`;
+// Gebäude: Umriss, dazu Dächer (etwas dunkler), Kuppeln (Patina), Fenster (heller) und einzelne erleuchtete Fenster
+function bauten(teile, r) {
+  let x = 0, umriss = `M0 ${H}`, dach = "", patina = "", fenster = "", licht = "";
   for (const [typ, w, h = 0, e = 0] of teile) {
     const y = H - h, x2 = x + w, xm = x + w / 2;
-    d += `V${f(y)}`;
-    if (typ === "g") d += `L${f(xm)} ${f(y - e)}L${f(x2)} ${f(y)}`;                                   // Giebel / Turmspitze
-    else if (typ === "s") d += `L${f(x + w * .22)} ${f(y - e)}H${f(x + w * .78)}L${f(x2)} ${f(y)}`;      // Walmdach
-    else if (typ === "T") d += `H${f(x + w * .2)}V${f(y - e * .28)}L${f(xm)} ${f(y - e)}L${f(x2 - w * .2)} ${f(y - e * .28)}V${f(y)}H${f(x2)}`; // Turm mit Helm
-    else if (typ === "k") d += `C${f(x)} ${f(y - e * .9)} ${f(xm - w * .14)} ${f(y - e)} ${f(xm - w * .06)} ${f(y - e)}V${f(y - e * 1.35)}H${f(xm + w * .06)}V${f(y - e)}C${f(xm + w * .14)} ${f(y - e)} ${f(x2)} ${f(y - e * .9)} ${f(x2)} ${f(y)}`; // Kuppel mit Laterne
-    else d += `H${f(x2)}`;
+    umriss += `V${f(y)}`;
+    if (typ === "g") {                                                   // Giebel / Turmspitze
+      const p = `L${f(xm)} ${f(y - e)}L${f(x2)} ${f(y)}`; umriss += p; if (w > 3) dach += `M${f(x)} ${f(y)}${p}Z`;
+    } else if (typ === "s") {                                            // Walmdach
+      const p = `L${f(x + w * .22)} ${f(y - e)}H${f(x + w * .78)}L${f(x2)} ${f(y)}`; umriss += p; dach += `M${f(x)} ${f(y)}${p}Z`;
+    } else if (typ === "T") {                                            // Turm mit Helm und Schallfenster
+      umriss += `H${f(x + w * .2)}V${f(y - e * .28)}L${f(xm)} ${f(y - e)}L${f(x2 - w * .2)} ${f(y - e * .28)}V${f(y)}H${f(x2)}`;
+      dach += `M${f(x + w * .2)} ${f(y - e * .28)}L${f(xm)} ${f(y - e)}L${f(x2 - w * .2)} ${f(y - e * .28)}Z`;
+      fenster += `M${f(xm - .55)} ${f(y + 3.6)}v-1.6a.55 .55 0 0 1 1.1 0v1.6Z`;
+      if (h > 14) fenster += `M${f(xm - .45)} ${f(y + 7.4)}v-1.3a.45 .45 0 0 1 .9 0v1.3Z`;
+    } else if (typ === "k") {                                            // Kuppel mit Laterne
+      const p = `C${f(x)} ${f(y - e * .9)} ${f(xm - w * .14)} ${f(y - e)} ${f(xm - w * .06)} ${f(y - e)}V${f(y - e * 1.35)}H${f(xm + w * .06)}V${f(y - e)}C${f(xm + w * .14)} ${f(y - e)} ${f(x2)} ${f(y - e * .9)} ${f(x2)} ${f(y)}`;
+      umriss += p; patina += `M${f(x)} ${f(y)}${p}Z`;
+      for (let i = 0; i < 3; i++) fenster += `M${f(x + w * (.22 + i * .28) - .5)} ${f(y + 3.4)}v-1.5a.5 .5 0 0 1 1 0v1.5Z`;
+    } else umriss += `H${f(x2)}`;
+    if ("hgs".includes(typ) && w >= 6 && w < 40 && h >= 6) {             // Fensterreihen
+      const sp = Math.max(1, Math.floor((w - 1.6) / 2.3)), ze = Math.max(1, Math.floor((h - 2.2) / 2.7)), ab = (w - sp * .9) / (sp + 1);
+      for (let i = 0; i < sp; i++) for (let j = 0; j < ze; j++) {
+        const z = r(); if (z < .2) continue;
+        const d = `M${f(x + ab + i * (.9 + ab))} ${f(y + 1.5 + j * 2.7)}h.9v1.3h-.9Z`;
+        if (z > .93) licht += d; else fenster += d;
+      }
+    }
     x = x2;
   }
-  return d + `V${H}Z`;
+  return { umriss: umriss + `V${H}Z`, dach, patina, fenster, licht };
 }
 
 function stadt({ seed, hMin, hMax, wMin, wMax, marken }) {
@@ -43,15 +62,19 @@ function stadt({ seed, hMin, hMax, wMin, wMax, marken }) {
     teile.push(z < .34 ? ["h", w, h] : z < .74 ? ["g", w, h, w * (.26 + r() * .2)] : z < .92 ? ["s", w, h, w * .22] : ["h", w * .6, hMin * .6]);
     x += teile.at(-1)[1];
   }
-  return pfad(teile);
+  return bauten(teile, r);
 }
 
-const HUEGEL = (() => {
-  const y = x => H - (11 + 6 * Math.sin(x / 95) + 4 * Math.sin(x / 41 + 1) + 3 * Math.sin(x / 170 + 2));
+// Hügel in zwei Lagen; auf der vorderen Kuppe ein paar Baumtupfen
+const huegel = (y, tupfen) => {
   let d = `M0 ${H}V${f(y(0))}`;
   for (let x = 20; x <= B; x += 20) d += `Q${x - 10} ${f(y(x - 10) - .6)} ${x} ${f(y(x))}`;
-  return d + `V${H}Z`;
-})();
+  let t = "";
+  if (tupfen) { const r = zufall(3); for (let x = 8; x < B; x += 5 + r() * 16) { const g = .7 + r() * .9; t += kreis(x, y(x) - g * .3, g, g * .8); } }
+  return { d: d + `V${H}Z`, t };
+};
+const HUEGEL_FERN = huegel(x => H - (15 + 6 * Math.sin(x / 120 + 1.4) + 4 * Math.sin(x / 53) + 2 * Math.sin(x / 23 + 2)));
+const HUEGEL_NAH = huegel(x => H - (9 + 6 * Math.sin(x / 95) + 4 * Math.sin(x / 41 + 1) + 3 * Math.sin(x / 170 + 2)), true);
 
 const FERN = stadt({ seed: 7, hMin: 3, hMax: 8, wMin: 6, wMax: 13, marken: [
   { x: 150, teile: [["h", 7, 18]] }, { x: 300, teile: [["g", 1.8, 26, 8]] },
@@ -68,21 +91,45 @@ const STADT = stadt({ seed: 21, hMin: 6, hMax: 12, wMin: 7, wMax: 14, marken: [
   { x: 880, teile: [["k", 14, 10, 9]] }, { x: 1010, teile: [["g", 5, 17, 13]] }, { x: 1150, teile: [["T", 6, 14, 9]] },
 ] });
 
+// Uferpromenade: Laubbäume (Krone aus drei Kugeln mit hellem Fleck), Pappeln, Büsche, Laternen, Kaimauer mit heller Kante
 const UFER = (() => {
-  const r = zufall(5); let d = "";
-  for (let x = 6; x < B; x += 8 + r() * 9) {
-    const rad = 2.4 + r() * 1.6, cy = H - 1.6 - 2.6 - rad;
-    d += `M${f(x - .35)} ${H - 1.6}V${f(cy)}h.7V${H - 1.6}ZM${f(x - rad)} ${f(cy)}a${f(rad)} ${f(rad)} 0 1 0 ${f(rad * 2)} 0a${f(rad)} ${f(rad)} 0 1 0 ${f(-rad * 2)} 0Z`;
+  const r = zufall(5), fuss = H - 1.6, k = { a: "", b: "", hell: "", stamm: "", lampe: "" };
+  for (let x = 5; x < B; x += 6.5 + r() * 8.5) {
+    const art = r(), g = 2.1 + r() * 1.7, ton = r() < .42 ? "b" : "a";
+    if (art < .17) {                                                     // Pappel
+      const ry = g * 1.95, cy = fuss - 1 - ry;
+      k.stamm += `M${f(x - .3)} ${fuss}V${f(cy)}h.6V${fuss}Z`; k[ton] += kreis(x, cy, g * .6, ry); k.hell += kreis(x - g * .16, cy - ry * .18, g * .28, ry * .62);
+    } else if (art < .3) {                                               // Busch
+      k[ton] += kreis(x, fuss - g * .5, g * .95, g * .62) + kreis(x + g * .85, fuss - g * .36, g * .62, g * .45); k.hell += kreis(x - g * .25, fuss - g * .72, g * .4, g * .26);
+    } else {                                                             // Laubbaum
+      const cy = fuss - 2.3 - g;
+      k.stamm += `M${f(x - .34)} ${fuss}V${f(cy)}h.68V${fuss}ZM${f(x)} ${f(cy + g + 1.1)}l${f(g * .5)} ${f(-g * .5)}`;
+      k[ton] += kreis(x, cy, g) + kreis(x - g * .64, cy + g * .34, g * .62) + kreis(x + g * .68, cy + g * .3, g * .58);
+      k.hell += kreis(x - g * .3, cy - g * .32, g * .46);
+    }
   }
-  return d;
+  for (let x = 14; x < B; x += 27) k.lampe += `M${x} ${fuss}v-4.4h1.3v.5h-.8V${fuss}Z`;
+  return k;
 })();
-const MAUER = `M0 ${H}V${H - 1.6}H${B}V${H}Z`;
 
+// Rhein: feine Wellenstriche in zwei Tönen (um das Logo herum frei gelassen), Spiegelung am Ufer, ein kleines Ausflugsschiff
 const WASSER = (() => {
-  const r = zufall(11); let d = "";
-  for (let i = 0; i < 70; i++) { const y = 2 + r() * r() * 46, x = r() * B, l = 14 + r() * 70; d += `M${f(x)} ${f(y)}h${f(l)}`; }
-  return d;
+  const r = zufall(11); let blau = "", weiss = "";
+  for (let i = 0; i < 110; i++) {
+    const y = 2.4 + r() * r() * 44, l = 8 + r() * 46 * (.45 + y / 44), x = r() * B, hell = r() < .4;
+    if (x + l > 574 && x < 706) continue;
+    if (hell) weiss += `M${f(x)} ${f(y)}h${f(l)}`; else blau += `M${f(x)} ${f(y)}h${f(l)}`;
+  }
+  return { blau, weiss };
 })();
+const SCHIFF = `<g class="i-schiff"><path class="s-spiegel" d="M725.5 5.3h14M728 6.2h8"/><path class="s-rumpf" d="M723.6 2.7h18.2l-1.9 2h-14.4Z"/><path class="s-aufbau" d="M727 2.7v-1.5h10.4l.9 1.5ZM729.6 1.2v-.9h4.6v.9Z"/><path class="s-linie" d="M724.6 3.5h16.4"/><path class="s-fenster" d="M728.2 1.7h1v.6h-1ZM730.4 1.7h1v.6h-1ZM732.6 1.7h1v.6h-1ZM734.8 1.7h1v.6h-1Z"/></g>`;
+
+const WOLKE = `<svg viewBox="0 0 56 16"><path d="${kreis(12, 10, 5)}${kreis(22, 7.2, 7)}${kreis(34, 8.2, 6)}${kreis(44, 10.6, 4.4)}M9.5 10h37a2.5 2.5 0 0 1 0 5h-37a2.5 2.5 0 0 1 0-5Z"/></svg>`;
+// Wolken: Lage in % der Logofläche, Breite als Vielfaches der Logobreite, Weg beim Scrollen
+const WOLKEN = [
+  { l: -62, t: -50, g: .5, fx: "-34vw", v: 0 }, { l: 104, t: -36, g: .38, fx: "30vw", v: .25 },
+  { l: 196, t: -14, g: .46, fx: "42vw", v: .1 }, { l: -176, t: -8, g: .56, fx: "-46vw", v: .3 }, { l: 20, t: -74, g: .3, fx: "-12vw", v: .4 },
+];
 
 // Vögel: Endlage im Himmel (in % der Logofläche), Startversatz (Richtung Dom) und Größe
 const VOEGEL = [
@@ -112,13 +159,26 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell, nur Startsei
 .i-boden{top:60.55%;background:linear-gradient(#d9e6ed 0,#e7eef0 8vh,#f6f4ef 24vh);translate:0 calc(var(--e,0) * 72vh)}
 .i-boden::after{background:linear-gradient(#c2cddb 0,#d2dae3 12vh,#e2e6ea 44vh)}
 .i-boden svg{position:absolute;left:50%;top:0;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);height:auto;overflow:visible;z-index:1;animation:i-wasser 11s ease-in-out infinite alternate}
-.i-boden path{fill:none;stroke:#b3cad8;stroke-width:.45;stroke-linecap:round}
+.i-boden path{fill:none;stroke:#b3cad8;stroke-width:.42;stroke-linecap:round}
+.i-boden .w-hell{stroke:#fff;stroke-width:.5;opacity:.85}
+.i-boden .w-ufer{fill:#aebfc9;stroke:none;opacity:.5}
+.i-boden .w-ufer2{fill:#aebfc9;stroke:none;opacity:.22}
+.i-schiff{animation:i-schiff 70s ease-in-out infinite alternate}
+.i-schiff .s-rumpf{fill:#fdfcf8;stroke:#8f9aa1;stroke-width:.22}
+.i-schiff .s-aufbau{fill:#ebe6dc;stroke:#8f9aa1;stroke-width:.2}
+.i-schiff .s-linie{stroke:#c8102e;stroke-width:.34;opacity:.75}
+.i-schiff .s-fenster{fill:#7f8f99;stroke:none}
+.i-schiff .s-spiegel{stroke:#fff;stroke-width:.5;opacity:.8}
 .i-licht{position:absolute;left:50%;top:60.55%;width:0;height:0;opacity:calc(1 - var(--p,0) * 1.5);scale:calc(1 + var(--e,0) * 1.4)}
 .i-schein,.i-strahlen{position:absolute;border-radius:50%;aspect-ratio:1}
 .i-schein{width:calc(var(--L) * 4.2);margin:calc(var(--L) * -2.1);background:radial-gradient(closest-side,rgba(226,70,60,.26),rgba(240,140,96,.13) 36%,rgba(246,200,160,0) 72%);animation:i-schein 1.7s var(--weich) .75s both}
 .i-strahlen{width:calc(var(--L) * 5.6);margin:calc(var(--L) * -2.8);animation:i-ein 1.4s ease 1.5s both}
-.i-strahlen::before{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-conic-gradient(rgba(203,8,56,.038) 0 4deg,rgba(203,8,56,0) 4deg 15deg);
-  -webkit-mask:radial-gradient(closest-side,transparent 26%,#000 34%,transparent 100%);mask:radial-gradient(closest-side,transparent 26%,#000 34%,transparent 100%);animation:i-drehen 120s linear infinite}
+.i-strahlen::before,.i-strahlen::after{content:"";position:absolute;inset:0;border-radius:50%;
+  -webkit-mask:radial-gradient(closest-side,transparent 24%,#000 36%,transparent 100%);mask:radial-gradient(closest-side,transparent 24%,#000 36%,transparent 100%)}
+.i-strahlen::before{background:repeating-conic-gradient(rgba(203,8,56,0) 0deg,rgba(203,8,56,.05) 2.4deg,rgba(203,8,56,0) 4.8deg,rgba(203,8,56,0) 15deg);animation:i-drehen 140s linear infinite}
+.i-strahlen::after{background:repeating-conic-gradient(from 6deg,rgba(244,160,96,0) 0deg,rgba(244,160,96,.06) 4deg,rgba(244,160,96,0) 8deg,rgba(244,160,96,0) 22.5deg);animation:i-drehen 200s linear infinite reverse}
+.i-wolke{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * -8vh);opacity:calc(1 - var(--p,0) * 1.8)}
+.i-wolke svg{display:block;width:100%;height:auto;fill:#fffdf9;opacity:.82;animation:i-wolke 2.2s var(--weich) calc(.5s + var(--v)) both,i-zieh 46s ease-in-out calc(2.8s + var(--v) * 9) infinite alternate}
 .i-l{position:absolute;inset:0;transform-origin:0 0;transform:translate(var(--dx,0px),var(--dy,0px)) scale(var(--ds,1));will-change:transform}
 .i-l svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .i-sonne svg,.i-dom svg{transform-origin:50% 60.55%;--z:2.15;animation:i-zoom 2.5s var(--fahrt) both}
@@ -130,10 +190,12 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell, nur Startsei
 .i-band{position:absolute;left:50%;bottom:39.45%;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);transform-origin:50% 100%;
   translate:0 calc(var(--e,0) * 72vh);scale:calc(1 + var(--e,0) * var(--k));will-change:transform}
 .i-band svg{display:block;width:100%;height:auto;transform-origin:50% 100%;animation:i-zoom 2.5s var(--fahrt) both,i-steig .95s cubic-bezier(.2,.9,.25,1.04) var(--ab,0s) both}
-.i-huegel{--k:.12}.i-huegel svg{fill:#d7dccd;--z:1.22;animation:i-zoom 2.5s var(--fahrt) both}
-.i-fern{--k:.4}.i-fern svg{fill:#d3ccc1;--z:1.5;--ab:0s}
-.i-stadt{--k:1}.i-stadt svg{fill:#bcb3a6;--z:1.9;--ab:.12s}
-.i-ufer{--k:2.2}.i-ufer .i-baum{fill:#92a686}.i-ufer svg{fill:#a8a092;--z:2.5;--ab:.26s}
+.i-huegel{--k:.08}.i-huegel svg{fill:#dfe4dc;--z:1.16;animation:i-zoom 2.5s var(--fahrt) both}
+.i-huegel2{--k:.18}.i-huegel2 svg{fill:#d3dac8;--z:1.3;animation:i-zoom 2.5s var(--fahrt) both}.i-huegel2 .i-tupfen{fill:#c2cdb6}
+.i-fern{--k:.4}.i-fern svg{fill:#d3ccc1;--z:1.5;--ab:0s}.i-fern .i-dach{fill:#c7bfb4}.i-fern .i-fenster{fill:#e1dcd4}.i-fern .i-lichter{fill:#f3e3bd}
+.i-stadt{--k:1}.i-stadt svg{fill:#bcb3a6;--z:1.9;--ab:.12s}.i-stadt .i-dach{fill:#a89d90}.i-stadt .i-patina{fill:#9fb5a7}.i-stadt .i-fenster{fill:#d6cfc4}.i-stadt .i-lichter{fill:#f8dfa2}
+.i-ufer{--k:2.2}.i-ufer svg{fill:#a8a092;--z:2.5;--ab:.26s}
+.i-ufer .b-a{fill:#8da582}.i-ufer .b-b{fill:#7f9a78}.i-ufer .b-hell{fill:#a8bb9b}.i-ufer .b-stamm{fill:#8a7d6e;stroke:#8a7d6e;stroke-width:.3}.i-ufer .b-lampe{fill:#857d70}.i-ufer .b-kante{fill:#bcb4a7}
 .i-vogel{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * var(--fy));scale:calc(1 + var(--e,0) * 6);opacity:calc(var(--o,1) - var(--p,0) * 1.7)}
 .i-vogel svg{display:block;width:100%;height:auto;overflow:visible;animation:i-flug 1.7s cubic-bezier(.3,.6,.3,1) calc(1.2s + var(--v)) both,i-schweben 7s ease-in-out calc(2.9s + var(--v) * 6) infinite alternate}
 .i-vogel path{fill:#3d3934;transform-box:fill-box;transform-origin:50% 62%;animation:i-schlag .62s ease-in-out calc(var(--v) * -2s) infinite alternate}
@@ -158,6 +220,9 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell, nur Startsei
 @keyframes i-ein{from{opacity:0}}
 @keyframes i-zoom{from{scale:var(--z)}}
 @keyframes i-steig{from{translate:0 104%}}
+@keyframes i-wolke{from{transform:translateX(calc(var(--fx) * .25));opacity:0}}
+@keyframes i-zieh{to{transform:translateX(16%)}}
+@keyframes i-schiff{from{transform:translateX(5px)}to{transform:translateX(-9px)}}
 @keyframes i-wasser{from{transform:translateX(-1.2%)}to{transform:translateX(1.2%)}}
 @keyframes i-schein{from{transform:scale(.25);opacity:0}}
 @keyframes i-drehen{to{transform:rotate(360deg)}}
@@ -177,7 +242,10 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell, nur Startsei
 /* INTRO-ENDE */
 `;
 
-const band = (kl, d) => `<div class="i-band ${kl}"><svg viewBox="0 0 ${B} ${H}">${`<path d="${d}"/>`}</svg></div>`;
+const svgBand = (kl, innen) => `<div class="i-band ${kl}"><svg viewBox="0 0 ${B} ${H}">${innen}</svg></div>`;
+// Stadtlage mit leichtem Dunst nach unten (Verlauf), Dächern, Fenstern und einzelnen Lichtern
+const stadtBand = (kl, b, id, oben, unten) => svgBand(kl, `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset=".3" stop-color="${oben}"/><stop offset="1" stop-color="${unten}"/></linearGradient></defs>`
+  + `<path fill="url(#${id})" d="${b.umriss}"/><path class="i-dach" d="${b.dach}"/>${b.patina ? `<path class="i-patina" d="${b.patina}"/>` : ""}<path class="i-fenster" d="${b.fenster}"/><path class="i-lichter" d="${b.licht}"/>`);
 
 const html = `<!-- INTRO-START -->
 <section class="intro" id="intro" hidden aria-label="Mainzer Fachbrief">
@@ -188,11 +256,13 @@ const html = `<!-- INTRO-START -->
       <div class="i-himmel"></div>
       <div class="i-licht"><div class="i-schein"></div><div class="i-strahlen"></div></div>
       <div class="i-l i-sonne"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont)"><path d="M5.5 77.5a58.5 58.5 0 0 1 117 0Z"/></g></svg></div>
-      ${band("i-huegel", HUEGEL)}
-      ${band("i-fern", FERN)}
-      ${band("i-stadt", STADT)}
-      <div class="i-band i-ufer"><svg viewBox="0 0 ${B} ${H}"><path class="i-baum" d="${UFER}"/><path d="${MAUER}"/></svg></div>
-      <div class="i-boden"><svg viewBox="0 0 ${B} 50"><path d="${WASSER}"/></svg></div>
+      ${WOLKEN.map(w => `<div class="i-wolke" style="left:${w.l}%;top:${w.t}%;--g:${w.g};--fx:${w.fx};--v:${w.v}s">${WOLKE}</div>`).join("\n      ")}
+      ${svgBand("i-huegel", `<path d="${HUEGEL_FERN.d}"/>`)}
+      ${svgBand("i-huegel2", `<path d="${HUEGEL_NAH.d}"/><path class="i-tupfen" d="${HUEGEL_NAH.t}"/>`)}
+      ${stadtBand("i-fern", FERN, "i-dunst1", "#cdc6bb", "#ddd7ce")}
+      ${stadtBand("i-stadt", STADT, "i-dunst2", "#b4ab9e", "#c8c0b5")}
+      ${svgBand("i-ufer", `<path class="b-lampe" d="${UFER.lampe}"/><path class="b-stamm" d="${UFER.stamm}"/><path class="b-a" d="${UFER.a}"/><path class="b-b" d="${UFER.b}"/><path class="b-hell" d="${UFER.hell}"/><path d="M0 ${H}V${H - 1.6}H${B}V${H}Z"/><path class="b-kante" d="M0 ${H - 1.6}H${B}v.45H0Z"/>`)}
+      <div class="i-boden"><svg viewBox="0 0 ${B} 50"><path class="w-ufer" d="M0 0H${B}V1.3H0Z"/><path class="w-ufer2" d="M0 1.3H${B}V3.4H0Z"/><path d="${WASSER.blau}"/><path class="w-hell" d="${WASSER.weiss}"/>${SCHIFF}</svg></div>
       <div class="i-kante"></div>
       </div>
       <div class="i-l i-sonne i-vorn"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont2"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont2)"><path d="M5.5 77.5a58.5 58.5 0 0 1 117 0Z"/></g></svg></div>
@@ -218,20 +288,24 @@ const html = `<!-- INTRO-START -->
   intro.hidden = false;
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo");
-  let marke;
+  let bild;
   const s = intro.style, grenze = x => Math.min(1, Math.max(0, x)), sanft = x => x * x * (3 - 2 * x);
   const strecke = () => intro.offsetHeight - buehne.offsetHeight;
   let offen = false;
   const rechne = () => {
-    offen = false; marke = marke || document.querySelector("#kopf .marke a"); if (!marke || !intro.isConnected) return;
-    const p = grenze(scrollY / strecke()), e = sanft(p), d = sanft(grenze(p / .86));
+    offen = false; bild = bild || document.querySelector("#kopf .marke img.logo-hell"); if (!bild || !intro.isConnected) return;
+    const p = grenze(scrollY / strecke()), e = sanft(p);
     s.setProperty("--p", p.toFixed(4)); s.setProperty("--e", e.toFixed(4));
-    const a = logo.getBoundingClientRect(), z = marke.getBoundingClientRect(), bild = marke.querySelector("img.logo-hell");
-    // Das Logo schrumpft zügig und landet von oben auf seinem Platz links neben dem Schriftzug: rechte und untere Kante
-    // zielen auf den Platz, damit es unterwegs nicht über den Schriftzug fährt.
-    const ds = 1 + (z.height / a.width - 1) * sanft(grenze(p / .82)), g = a.width * ds, w = sanft(grenze((p - .3) / .64));
-    const mx = a.left + a.width / 2 + (z.left + z.height - g / 2 - a.left - a.width / 2) * w;
-    const my = a.top + a.height / 2 + (z.top + z.height - g / 2 - a.top - a.height / 2) * w;
+    // Platz des Bildzeichens in der Kopfzeile: das linke Quadrat des Logo-Bilds
+    const a = logo.getBoundingClientRect(), z = bild.getBoundingClientRect(), zx = z.left + z.height / 2, zy = z.top + z.height / 2;
+    // 1. Das Logo schrumpft zügig an Ort und Stelle und gleitet seitlich über seinen späteren Platz.
+    // 2. Es wartet dort auf seiner Höhe, bis die Kopfzeile von unten ankommt, und fährt dann mit ihr nach oben –
+    //    weich angesetzt, aber nie tiefer als sein Platz neben dem Schriftzug.
+    const ds = 1 + (z.height / a.width - 1) * sanft(grenze(p / .5)), g = a.width * ds;
+    const ax = a.left + a.width / 2, ay = a.top + a.height / 2 - e * buehne.offsetHeight * .05, k = 16;
+    let mx = ax + (zx - ax) * sanft(grenze((p - .05) / .5));
+    let my = -k * Math.log(Math.exp(-ay / k) + Math.exp(-zy / k));
+    if (p > .999) { mx = zx; my = zy; }
     s.setProperty("--dx", (mx - g / 2 - a.left).toFixed(1) + "px");
     s.setProperty("--dy", (my - g / 2 - a.top).toFixed(1) + "px");
     s.setProperty("--ds", ds.toFixed(4));
@@ -239,7 +313,7 @@ const html = `<!-- INTRO-START -->
     s.setProperty("--to", (1 - grenze((p - .02) / .2)).toFixed(3));
     s.setProperty("--unten", (a.bottom - (strecke() - scrollY)).toFixed(1) + "px");
     bild.style.clipPath = p < 1 ? "inset(0 0 0 13.9%)" : "";
-    bild.style.opacity = p < 1 ? grenze((p - .34) / .46).toFixed(3) : "";
+    bild.style.opacity = p < 1 ? grenze((p - .2) / .4).toFixed(3) : "";
     buehne.style.visibility = p >= 1 ? "hidden" : "";
   };
   addEventListener("scroll", () => { if (!offen) { offen = true; requestAnimationFrame(rechne); } }, { passive: true });
