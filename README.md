@@ -54,7 +54,7 @@ node werkzeuge/sammeln.mjs --grundstand --nur=quellen-id
 ```bash
 node werkzeuge/redaktion.mjs vorbereiten
 # arbeit/kandidaten.md lesen, daten/ausgaben/JJJJ-MM-TT.json schreiben (Format siehe REDAKTION.md)
-node werkzeuge/redaktion.mjs abschliessen
+node werkzeuge/redaktion.mjs veroeffentlichen   # prüft, baut und lädt nur bei bestandener Prüfung hoch
 ```
 
 **Lokal ansehen:**
