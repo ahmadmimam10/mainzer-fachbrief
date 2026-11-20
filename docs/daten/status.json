@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-20T13:02:31.458Z",
+ "stand": "2026-11-20T15:38:44.557Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -37,9 +37,9 @@
    "kurz": "Merkurist",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 7,
+   "treffer": 6,
    "zustand": "ok",
-   "hinweis": "unauffällig – 7 Treffer"
+   "hinweis": "unauffällig – 6 Treffer"
   },
   {
    "id": "sensor",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": true,
-   "treffer": 30,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
@@ -457,9 +457,9 @@
    "kurz": "DStGB",
    "ebene": "fach",
    "ok": true,
-   "treffer": 13,
+   "treffer": 14,
    "zustand": "ok",
-   "hinweis": "unauffällig – 13 Treffer"
+   "hinweis": "unauffällig – 14 Treffer"
   },
   {
    "id": "bagljae",
@@ -526,10 +526,10 @@
    "name": "Der Paritätische Gesamtverband",
    "kurz": "Paritätischer",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 30,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "bertelsmann",
