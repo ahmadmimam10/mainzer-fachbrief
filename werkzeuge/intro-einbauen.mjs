@@ -5,6 +5,7 @@
 // sich darüber, Logo dockt in der Kopfzeile an). Wiederholbar: ersetzt die markierten Blöcke INTRO-START … INTRO-ENDE.
 //   node werkzeuge/intro-einbauen.mjs
 import { readFileSync, writeFileSync } from "node:fs";
+import { FERIEN, festeFuer, FEST_CSS, FEST_HIMMEL, FEST_VORN, FEST_STADT, FEST_UFER, FEST_WASSER, FEST_BUEHNE } from "./intro-feste.mjs";
 
 const DOCS = "docs", ZIEL = "docs";
 const teil = n => {
@@ -131,10 +132,28 @@ const WASSER = (() => {
   }
   return { blau, weiss };
 })();
+const WASSERDINGE = (() => {
+  const r = zufall(19); let ringe = "", eis = "", laub = "";
+  const frei = (x, breit) => x + breit < 572 || x > 708;
+  for (let i = 0; i < 26; i++) { const x = 300 + r() * 680, y = 4 + r() * 30; if (frei(x - 4, 8)) ringe += `<ellipse class="w-ring" cx="${f(x)}" cy="${f(y)}" rx="${f(2.2 + y * .06)}" ry="${f(.55 + y * .015)}" style="animation-delay:${f(-r() * 2.4)}s"/>`; }
+  for (let i = 0; i < 30; i++) { const x = 300 + r() * 680, y = 3 + r() * r() * 34, b = 3 + r() * 7; if (frei(x, b)) eis += `M${f(x)} ${f(y)}h${f(b)}a.55 .55 0 0 1 0 1.1h${f(-b)}a.55 .55 0 0 1 0-1.1Z`; }
+  for (let i = 0; i < 34; i++) { const x = 300 + r() * 680, y = 3 + r() * r() * 30; if (frei(x, 2)) laub += `<ellipse cx="${f(x)}" cy="${f(y)}" rx="${f(.7 + r() * .5)}" ry=".32" fill="${["#d98a3d", "#c9642f", "#e0b04a", "#b5532e"][i % 4]}" transform="rotate(${Math.round(r() * 30 - 15)} ${f(x)} ${f(y)})"/>`; }
+  return `<g class="w-ringe">${ringe}</g><path class="w-eis" d="${eis}"/><g class="w-laub">${laub}</g>`;
+})();
+// Schneebank auf der Kaimauer (nur bei Schnee)
+const SCHNEEBANK = (() => { const r = zufall(27); let d = `M0 ${H - 1.5}`; for (let x = 0; x < B; ) { const b = 4 + r() * 7; d += `q${f(b / 2)} ${f(-.5 - r() * .9)} ${f(b)} 0`; x += b; } return d + `V${H - 1.35}H0Z`; })();
 const SCHIFF = `<g class="i-schiff"><path class="s-spiegel" d="M725.5 5.3h14M728 6.2h8"/><path class="s-rumpf" d="M723.6 2.7h18.2l-1.9 2h-14.4Z"/><path class="s-aufbau" d="M727 2.7v-1.5h10.4l.9 1.5ZM729.6 1.2v-.9h4.6v.9Z"/><path class="s-linie" d="M724.6 3.5h16.4"/><path class="s-fenster" d="M728.2 1.7h1v.6h-1ZM730.4 1.7h1v.6h-1ZM732.6 1.7h1v.6h-1ZM734.8 1.7h1v.6h-1Z"/></g>`;
 
-const WOLKE = `<svg viewBox="0 0 56 16"><path d="${kreis(12, 10, 5)}${kreis(22, 7.2, 7)}${kreis(34, 8.2, 6)}${kreis(44, 10.6, 4.4)}M9.5 10h37a2.5 2.5 0 0 1 0 5h-37a2.5 2.5 0 0 1 0-5Z"/></svg>`;
-const WOLKE2 = `<svg viewBox="0 0 62 16"><path d="${kreis(10, 11, 4)}${kreis(19, 8.6, 6)}${kreis(31, 7.4, 7)}${kreis(43, 8.8, 5.8)}${kreis(52, 11.2, 3.8)}M7 10.6h46a2.2 2.2 0 0 1 0 4.4h-46a2.2 2.2 0 0 1 0-4.4Z"/></svg>`;
+// Wolken: drei gezeichnete Formen (Haufenwolke, lange Bank, kleiner Bausch) mit weichem Verlauf nach unten und einer
+// helleren Kuppe; als <symbol> einmal abgelegt und je Wolke nur verwiesen.
+const WOLKENFORM = [
+  [52, "M8 23C4.2 23 2 20.6 2.4 18C2.8 15.4 5.2 14 7.8 14.5C7.4 10.6 10.4 7.6 14.2 8.2C15.6 4.2 19.8 1.6 24.4 2.4C28.4 3.1 31.4 6 32.2 9.6C34.4 7.8 37.8 7.4 40.4 8.8C43.2 10.3 44.6 13.2 44.2 16C47 15.4 49.8 17 50.2 19.6C50.5 21.6 49 23 47 23Z"],
+  [59, "M7 22C3.6 22 2 19.8 2.6 17.6C3.2 15.4 5.6 14.4 7.8 15C8.4 11.8 11.6 9.8 14.8 10.6C16.6 7.4 20.6 5.8 24.2 6.8C26.4 4 30.6 2.8 34.2 4.2C37 5.3 38.8 7.6 39.2 10.2C42 8.8 45.6 9.6 47.4 12C48.6 13.6 48.8 15.4 48.4 17C51.4 16.2 54.6 17.4 56 19.6C57 21.2 55.6 22 54 22Z"],
+  [36, "M6 20C3.4 20 2 18.2 2.4 16.4C2.8 14.6 4.6 13.6 6.4 14C6.6 10.6 9.6 8.2 13 8.8C14.8 5.6 18.8 4.2 22.2 5.6C25 6.7 26.8 9.2 27 12C29.4 11.2 32 12.4 32.8 14.6C33.6 16.8 32.4 20 29.6 20Z"],
+];
+const WOLKEN_DEFS = `<svg class="i-defs" width="0" height="0" aria-hidden="true"><defs><linearGradient id="i-wg" x1="0" y1="0" x2="0" y2="1"><stop offset=".3" style="stop-color:var(--wo,#fffdf9)"/><stop offset="1" style="stop-color:var(--wos,#ece5e1)"/></linearGradient></defs>`
+  + WOLKENFORM.map(([, d], i) => `<symbol id="i-w${i}"><path fill="url(#i-wg)" d="${d}"/><path fill="#fff" opacity=".55" transform="translate(${i === 2 ? 3.4 : 5.2} 1.4) scale(.78)" d="${d}"/></symbol>`).join("") + `</svg>`;
+const WOLKE = i => `<svg viewBox="0 0 ${WOLKENFORM[i][0]} 25"><use href="#i-w${i}"/></svg>`;
 // Wolken: Lage in % der Logofläche, Breite als Vielfaches der Logobreite, Weg beim Scrollen; „mehr“ = nur bei bedecktem Himmel
 const WOLKEN = [
   { l: -62, t: -50, g: .5, fx: "-34vw", v: 0 }, { l: 104, t: -36, g: .38, fx: "30vw", v: .25 },
@@ -146,28 +165,39 @@ const WOLKEN = [
 
 // Niederschlag: kleine SVG-Kacheln, die als Hintergrund gekachelt und nur per transform verschoben werden (läuft auf der
 // Grafikkarte). Die Bewegung ist genau ein Kachelschritt, deshalb läuft sie nahtlos.
-const kachel = (w, h, innen) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>${innen}</svg>`)}")`;
+const kachel = (w, h, innen) => `url("data:image/svg+xml,${`<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>${innen}</svg>`.replace(/[%#<>]/g, c => "%" + c.charCodeAt(0).toString(16).toUpperCase())}")`;
+// Regen: jeder Tropfen ist ein feiner Strich mit kräftigerem unteren Ende
 const regen = (w, h, n, seed, lang, dicke) => {
   const r = zufall(seed); let t = "";
-  for (let i = 0; i < n; i++) { const l = lang * (.6 + r() * .6), x = 8 + r() * (w - 12), y = 2 + r() * (h - lang * 1.25 - 4); t += `<path d='M${f(x)} ${f(y)}l${f(-l * w / h)} ${f(l)}' stroke='#6d8498' stroke-width='${dicke}' stroke-linecap='round' opacity='${(.3 + r() * .4).toFixed(2)}'/>`; }
+  for (let i = 0; i < n; i++) {
+    const l = lang * (.55 + r() * .7), x = 8 + r() * (w - 12), y = 2 + r() * (h - lang * 1.3 - 4), dx = -l * w / h, o = .22 + r() * .3;
+    t += `<path d='M${f(x)} ${f(y)}l${f(dx)} ${f(l)}' stroke='#6d8498' stroke-width='${dicke}' stroke-linecap='round' opacity='${o.toFixed(2)}'/>`
+      + `<path d='M${f(x + dx * .55)} ${f(y + l * .55)}l${f(dx * .45)} ${f(l * .45)}' stroke='#5a7389' stroke-width='${f(dicke * 1.15)}' stroke-linecap='round' opacity='${(o + .2).toFixed(2)}'/>`;
+  }
   return kachel(w, h, t);
 };
-const schnee = (w, h, n, seed, gr) => {
+// Schnee: weiche Flocken – weißer Kern, zarter Hof, ein Hauch Kontur (sonst verschwinden sie vor hellem Papier)
+const schnee = (w, h, n, seed, gr, kontur = .5) => {
   const r = zufall(seed); let t = "";
-  for (let i = 0; i < n; i++) { const g = gr * (.5 + r()); t += `<circle cx='${f(6 + r() * (w - 12))}' cy='${f(6 + r() * (h - 12))}' r='${f(g)}' fill='#fff' stroke='#9db0c2' stroke-width='.55' opacity='${(.8 + r() * .2).toFixed(2)}'/>`; }
+  for (let i = 0; i < n; i++) {
+    const g = gr * (.5 + r()), x = f(6 + r() * (w - 12)), y = f(6 + r() * (h - 12));
+    t += `<circle cx='${x}' cy='${y}' r='${f(g * 1.9)}' fill='#fff' opacity='.28'/><circle cx='${x}' cy='${y}' r='${f(g)}' fill='#fff' stroke='#9db0c2' stroke-width='${kontur}' opacity='${(.85 + r() * .15).toFixed(2)}'/>`;
+  }
   return kachel(w, h, t);
 };
-const blaetter = (w, h, n, seed, farben, form) => {
+const blaetter = (w, h, n, seed, farben, form, mass = 1) => {
   const r = zufall(seed); let t = "";
-  for (let i = 0; i < n; i++) t += `<path d='${form}' transform='translate(${f(12 + r() * (w - 24))} ${f(12 + r() * (h - 24))}) rotate(${Math.round(r() * 360)}) scale(${(.7 + r() * .7).toFixed(2)})' fill='${farben[Math.floor(r() * farben.length)]}' opacity='${(.75 + r() * .25).toFixed(2)}'/>`;
+  for (let i = 0; i < n; i++) t += `<path d='${form}' transform='translate(${f(14 + r() * (w - 28))} ${f(14 + r() * (h - 28))}) rotate(${Math.round(r() * 360)}) scale(${(mass * (.7 + r() * .7)).toFixed(2)})' fill='${farben[Math.floor(r() * farben.length)]}' opacity='${(.8 + r() * .2).toFixed(2)}'/>`;
   return kachel(w, h, t);
 };
-const LAUB = ["#d98a3d", "#c9642f", "#e0b04a", "#b5532e"], BLATT = "M0 0q3.2 -4.4 8 0q-4.8 4.4 -8 0Z", BLUETE = "M0 0q1.6 -2.6 4.6 0q-3 2.6 -4.6 0Z";
+const LAUB = ["#d98a3d", "#c9642f", "#e0b04a", "#b5532e", "#cf7a2c"];
+// Blatt mit Stiel und Spitze, Blütenblatt als Tropfen
+const BLATT = "M0 0C1.4 -3.4 5.4 -4.4 9 -2.8C8.4 .8 5.6 3.6 1.8 3.4L-1.6 5L.2 2.4C-.4 1.6 -.4 .8 0 0Z", BLUETE = "M0 0q1.6 -2.6 4.6 0q-3 2.6 -4.6 0Z";
 const KACHELN = {
-  regen1: regen(150, 600, 15, 2, 22, 1.2), regen2: regen(110, 440, 10, 9, 15, .9),
-  schnee1: schnee(220, 440, 17, 4, 2.3), schnee2: schnee(170, 340, 15, 6, 1.5),
-  laub1: blaetter(280, 560, 6, 12, LAUB, BLATT), laub2: blaetter(210, 420, 4, 17, LAUB, BLATT),
-  bluete: blaetter(260, 520, 7, 23, ["#f6bfd0", "#fbdde6", "#f2a8bf"], BLUETE),
+  regen1: regen(150, 600, 14, 2, 24, 1.1), regen2: regen(110, 440, 11, 9, 16, .8), regen3: regen(90, 360, 12, 14, 10, .6),
+  schnee1: schnee(240, 480, 12, 4, 2.7), schnee2: schnee(170, 340, 14, 6, 1.7), schnee3: schnee(120, 240, 22, 8, .95, .3),
+  laub1: blaetter(280, 560, 7, 12, LAUB, BLATT), laub2: blaetter(210, 420, 5, 17, LAUB, BLATT, .8),
+  bluete: blaetter(260, 520, 8, 23, ["#f6bfd0", "#fbdde6", "#f2a8bf"], BLUETE, 1.32),
 };
 
 // Vögel: Endlage im Himmel (in % der Logofläche), Startversatz (Richtung Dom) und Größe
@@ -188,11 +218,13 @@ const VARIANTEN = `.i-nieder{position:absolute;inset:0;z-index:1;overflow:hidden
 .i-nieder .n{display:none;position:absolute;inset:calc(var(--ky) * -1) calc(var(--kx) * -1 - 12px) 0 calc(var(--kx) * -1 - 12px);background-size:var(--kx) var(--ky);animation:i-fall var(--kd) linear infinite;will-change:transform}
 /* Jahreszeiten */
 .intro[data-zeit="fruehling"]{--ba:#9bc48a;--bb:#86b77b;--bc:#f0aec2;--bh:#b8d8a8;--bch:#fbd7e1;--bu:#8fbd80;--buh:#b4d6a3;--wi:#a6cc92;--hu1:#dfeadb;--hu2:#cfe3bf;--tu1:#f3c3cf;--tu2:#b6d4a3;--wieg:12px}
-.intro[data-zeit="fruehling"] .b-blume{display:block}.i-ufer .bl1{fill:#fff4c2}.i-ufer .bl2{fill:#f3a3ba}
-.intro[data-zeit="fruehling"]:not([data-wetter="regen"]) .n3{display:block;background-image:${KACHELN.bluete};--kx:260px;--ky:520px;--kr:-1;--kd:14s}
-.intro[data-zeit="sommer"]{--ba:#82ad70;--bb:#6fa066;--bc:#7ba96c;--bh:#a2c58f;--bch:#a2c58f;--bu:#7aa66c;--buh:#a2c58f;--wi:#9fc289;--hu1:#dbe6d6;--hu2:#c8dcb6;--tu1:#b2cba1;--tu2:#bdd3ab}
-.intro[data-zeit="sommer"][data-wetter="sonne"]{--h3:#eef3f1;--h4:#dbeaf4;--wa1:#d2e4ef;--wl:#a9c6d9}
+.intro[data-zeit="fruehling"] .b-blume{display:block}
+.intro[data-zeit="fruehling"]:not([data-wetter="regen"]) .n3{display:block;background-image:${KACHELN.bluete};--kx:260px;--ky:520px;--kr:-1;--kd:13s}
+.intro[data-zeit="sommer"]{--ba:#6fae5a;--bb:#5a9c52;--bc:#66a655;--bh:#97c97f;--bch:#97c97f;--bu:#64a258;--buh:#97c97f;--wi:#8fc474;--hu1:#d5e6cf;--hu2:#bcdba6;--tu1:#a1c98b;--tu2:#aed39a;--d2:#b08f7c}
+.intro[data-zeit="sommer"] :is(.i-stadt,.i-fern){filter:saturate(1.25)}
+.intro[data-zeit="sommer"][data-wetter="sonne"]{--h1:#fbe2cf;--h2:#f8ece0;--h3:#e9f2f4;--h4:#cfe5f5;--wa1:#bfdcf0;--wa2:#dcebf3;--wl:#8fbcd9;--wu:#93b9d2}
 .intro[data-zeit="herbst"]{--ba:#dca45c;--bb:#c8773e;--bc:#b5533a;--bh:#efc986;--bch:#d88f6c;--bu:#b98a4e;--buh:#d6ad6c;--wi:#c6b98c;--hu1:#e6e3d6;--hu2:#dcd5b5;--tu1:#d2a55f;--tu2:#c58a55;--wieg:12px}
+.intro[data-zeit="herbst"] :is(.b-blume,.w-laub){display:block}.intro[data-zeit="herbst"]{--bl1:#d98a3d;--bl2:#b5532e}
 .intro[data-zeit="herbst"] .n3{display:block;background-image:${KACHELN.laub1};--kx:280px;--ky:560px;--kr:-1;--kd:10s}
 .intro[data-zeit="herbst"]:not([data-wetter="regen"]) .n4{display:block;background-image:${KACHELN.laub2};--kx:210px;--ky:420px;--kr:-1;--kd:15s;opacity:.8}
 .intro[data-zeit="winter"]{--bu:#a59a8e;--buh:#b9afa3;--wi:#d0cfc6;--hu1:#e6e8e6;--hu2:#dadcd5;--tu1:#cbcec6;--tu2:#cfd2ca}
@@ -200,15 +232,18 @@ const VARIANTEN = `.i-nieder{position:absolute;inset:0;z-index:1;overflow:hidden
 .intro[data-zeit="winter"] :is(.b-a,.b-b,.b-c,.b-hell,.b-chell){display:none}.intro[data-zeit="winter"] .b-kahl{display:block}
 /* Wetterlagen */
 .intro:not([data-wetter="sonne"]) .i-strahlen{display:none}.intro:not([data-wetter="sonne"]) .i-mehr{display:block}
-.intro[data-wetter="bewoelkt"]{--h1:#f2e6df;--h2:#edebe8;--h3:#e6e9eb;--h4:#dce2e8;--schein:.42;--wo:#f6f7f8;--wod:.95;--wa1:#d2dde4;--wa2:#e3e8ea;--wl:#a8bcc9}
-.intro[data-wetter="regen"]{--h1:#e4e2e2;--h2:#dfe2e5;--h3:#d5dbe0;--h4:#c7d0d9;--schein:.14;--wo:#dde2e7;--wod:1;--wa1:#c4d0d9;--wa2:#dbe1e5;--wl:#9db0bd;--wu:#9fb0bb}
+.intro[data-wetter="bewoelkt"]{--wos:#d9dfe6;--h1:#f2e6df;--h2:#edebe8;--h3:#e6e9eb;--h4:#dce2e8;--schein:.42;--wo:#f6f7f8;--wod:.95;--wa1:#d2dde4;--wa2:#e3e8ea;--wl:#a8bcc9}
+.intro[data-wetter="regen"]{--wos:#b9c3ce;--h1:#e2e1e2;--h2:#dbdfe3;--h3:#cfd6dd;--h4:#bfc9d4;--schein:.14;--wo:#e3e7eb;--wod:1;--wa1:#c4d0d9;--wa2:#dbe1e5;--wl:#9db0bd;--wu:#9fb0bb}
 .intro[data-wetter="regen"] :is(.i-ufer,.i-huegel2){filter:saturate(.8) brightness(.97)}
-.intro[data-wetter="regen"] .n1{display:block;background-image:${KACHELN.regen1};--kx:150px;--ky:600px;--kr:-1;--kd:.62s}
+.intro:is([data-wetter="regen"],[data-wetter="schnee"]) .i-dunst,.intro[data-wetter="regen"] .w-ringe{display:block}
+.intro[data-wetter="regen"] .n5{display:block;background-image:${KACHELN.regen3};--kx:90px;--ky:360px;--kr:-1;--kd:1.05s;opacity:.55}
+.intro[data-wetter="regen"] .n1{display:block;background-image:${KACHELN.regen1};--kx:150px;--ky:600px;--kr:-1;--kd:.58s}
 .intro[data-wetter="regen"] .n2{display:block;background-image:${KACHELN.regen2};--kx:110px;--ky:440px;--kr:-1;--kd:.8s;opacity:.7}
-.intro[data-wetter="schnee"]{--h1:#e8e9ec;--h2:#e0e4e9;--h3:#d6dce4;--h4:#c8d1dc;--schein:.18;--wo:#f1f3f6;--wod:1;--wa1:#cfd9e0;--wa2:#e2e7ea;--wl:#a9b9c4;
-  --d1:#f1f3f4;--d2:#fafafa;--hu1:#eff1f2;--hu2:#e9eced;--tu1:#dfe3e4;--tu2:#e3e6e7;--bu:#eceef0;--buh:#fafbfb;--wi:#f6f7f8;--ka:#fdfdfd;--wieg:16px}
-.intro[data-wetter="schnee"] .n1{display:block;background-image:${KACHELN.schnee1};--kx:220px;--ky:440px;--kd:9s}
-.intro[data-wetter="schnee"] .n2{display:block;background-image:${KACHELN.schnee2};--kx:170px;--ky:340px;--kd:14s;opacity:.85}
+.intro[data-wetter="schnee"]{--wos:#c3cdd9;--h1:#e3e6ea;--h2:#d6dde5;--h3:#c5cfdb;--h4:#b3c0d0;--schein:.2;--wo:#eef1f5;--wod:1;--wa1:#c3d0db;--wa2:#dde4e9;--wl:#a2b4c2;--wu:#9fb1bf;--du:rgba(236,240,244,.6);
+  --d1:#f1f3f4;--d2:#fbfbfb;--hu1:#f1f3f4;--hu2:#eaedef;--tu1:#dfe3e4;--tu2:#e3e6e7;--bu:#eceef0;--buh:#fafbfb;--wi:#f6f7f8;--ka:#fdfdfd;--wieg:18px}
+.intro[data-wetter="schnee"] :is(.b-reif,.b-schnee,.i-flocken),.intro[data-wetter="schnee"] .i-boden .w-eis{display:block}
+.intro[data-wetter="schnee"] .n1{display:block;background-image:${KACHELN.schnee1};--kx:240px;--ky:480px;--kd:8s}
+.intro[data-wetter="schnee"] .n2{display:block;background-image:${KACHELN.schnee2};--kx:170px;--ky:340px;--kd:12s;opacity:.9}
 .intro:is([data-wetter="regen"],[data-wetter="schnee"]) .i-vogel{display:none}`;
 
 const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Aufruf der Ausgabe) */
@@ -226,10 +261,10 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-himmel{bottom:39.45%;background:linear-gradient(to top,var(--h1,#fbe6d8) 0,var(--h2,#f9ede3) 16vh,var(--h3,#f1f2ef) 40vh,var(--h4,#e9f0f3) 78vh);opacity:calc(1 - var(--e,0))}
 .i-himmel::after,.i-boden::after{content:"";position:absolute;inset:0;opacity:0;animation:i-aus 1.9s ease-in-out .3s both}
 .i-himmel::after{background:linear-gradient(to top,#ecd8d0 0,#dcdbe3 24vh,#c6cedb 78vh)}
-.i-boden{top:60.55%;background:linear-gradient(var(--wa1,#d9e6ed) 0,var(--wa2,#e7eef0) 8vh,#f6f4ef 24vh);translate:0 calc(var(--e,0) * 72vh)}
+.i-boden{top:calc(60.55% - 1px);background:linear-gradient(var(--wa1,#d9e6ed) 0,var(--wa2,#e7eef0) 8vh,#f6f4ef 24vh);translate:0 calc(var(--e,0) * 72vh)}
 .i-boden::after{background:linear-gradient(#c2cddb 0,#d2dae3 12vh,#e2e6ea 44vh)}
 .i-boden svg{position:absolute;left:50%;top:0;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);height:auto;overflow:visible;z-index:1;animation:i-wasser 11s ease-in-out infinite alternate}
-.i-boden path{fill:none;stroke:var(--wl,#b3cad8);stroke-width:.42;stroke-linecap:round}
+.i-boden svg>path{fill:none;stroke:var(--wl,#b3cad8);stroke-width:.42;stroke-linecap:round}
 .i-boden .w-hell{stroke:#fff;stroke-width:.5;opacity:.85}
 .i-boden .w-ufer{fill:var(--wu,#aebfc9);stroke:none;opacity:.5}
 .i-boden .w-ufer2{fill:var(--wu,#aebfc9);stroke:none;opacity:.22}
@@ -249,7 +284,8 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-strahlen::after{background:repeating-conic-gradient(from 6deg,rgba(244,160,96,0) 0deg,rgba(244,160,96,.06) 4deg,rgba(244,160,96,0) 8deg,rgba(244,160,96,0) 22.5deg);animation:i-drehen 200s linear infinite reverse}
 .i-wolke{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * -8vh);opacity:calc(1 - var(--p,0) * 1.8)}
 .i-mehr{display:none}
-.i-wolke svg{display:block;width:100%;height:auto;fill:var(--wo,#fffdf9);opacity:var(--wod,.82);animation:i-wolke 2.2s var(--weich) calc(.5s + var(--v)) both,i-zieh 46s ease-in-out calc(2.8s + var(--v) * 9) infinite alternate}
+.i-defs{position:absolute}
+.i-wolke svg{display:block;width:100%;height:auto;opacity:var(--wod,.92);animation:i-wolke 2.2s var(--weich) calc(.5s + var(--v)) both,i-zieh 46s ease-in-out calc(2.8s + var(--v) * 9) infinite alternate}
 .i-l{position:absolute;inset:0;transform-origin:0 0;transform:translate(var(--dx,0px),var(--dy,0px)) scale(var(--ds,1));will-change:transform}
 .i-l svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .i-sonne svg,.i-dom svg{transform-origin:50% 60.55%;--z:2.15;animation:i-zoom 2.5s var(--fahrt) both}
@@ -268,7 +304,13 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-ufer{--k:2.2}.i-ufer svg{fill:#a8a092;--z:2.5;--ab:.26s}
 .i-ufer .b-a{fill:var(--ba,#8da582)}.i-ufer .b-b{fill:var(--bb,#7f9a78)}.i-ufer .b-c{fill:var(--bc,#8da582)}.i-ufer .b-hell{fill:var(--bh,#a8bb9b)}.i-ufer .b-chell{fill:var(--bch,#a8bb9b)}
 .i-ufer .b-busch{fill:var(--bu,#86a07c)}.i-ufer .b-buschhell{fill:var(--buh,#a8bb9b)}.i-ufer .b-stamm{fill:#8a7d6e;stroke:#8a7d6e;stroke-width:.3}.i-ufer .b-lampe{fill:#857d70}
-.i-ufer .b-kahl{display:none;fill:none;stroke:#7b6f63;stroke-width:.3;stroke-linecap:round}.i-ufer .b-wiese{fill:var(--wi,#a5bb95)}.i-ufer .b-kante{fill:var(--ka,#bcb4a7)}.i-ufer .b-blume{display:none}
+.i-ufer .b-kahl{display:none;fill:none;stroke:#7b6f63;stroke-width:.3;stroke-linecap:round}.i-ufer .b-wiese{fill:var(--wi,#a5bb95)}.i-ufer .b-kante{fill:var(--ka,#bcb4a7)}.i-ufer .b-blume{display:none}.i-ufer .bl1{fill:var(--bl1,#fff4c2)}.i-ufer .bl2{fill:var(--bl2,#f3a3ba)}
+.i-ufer .b-reif{display:none;fill:none;stroke:#fff;stroke-width:.26;stroke-linecap:round}.i-ufer .b-schnee{display:none;fill:#fdfdfd}
+.i-dunst{display:none;position:absolute;left:50%;bottom:39.45%;width:300vw;margin-left:-150vw;height:13vh;background:linear-gradient(to top,var(--du,rgba(215,222,228,.7)),transparent);
+  -webkit-mask:linear-gradient(90deg,#000 calc(50% - var(--L) * .56),transparent calc(50% - var(--L) * .47),transparent calc(50% + var(--L) * .47),#000 calc(50% + var(--L) * .56));mask:linear-gradient(90deg,#000 calc(50% - var(--L) * .56),transparent calc(50% - var(--L) * .47),transparent calc(50% + var(--L) * .47),#000 calc(50% + var(--L) * .56))}
+.i-flocken{display:none;position:absolute;left:50%;bottom:39.45%;width:140vw;margin-left:-70vw;height:calc(78vh + 240px);background-image:${KACHELN.schnee3};background-size:120px 240px;animation:i-flocken 13s linear infinite;will-change:transform}
+.w-ringe,.w-laub,.i-boden .w-eis{display:none}.w-ring{fill:none;stroke:#fff;stroke-width:.3;transform-box:fill-box;transform-origin:50% 50%;animation:i-ring 2.4s ease-out infinite}
+.i-boden .w-eis{fill:#fdfdfd;stroke:#b9c7d2;stroke-width:.14}
 .i-vogel{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * var(--fy));scale:calc(1 + var(--e,0) * 6);opacity:calc(var(--o,1) - var(--p,0) * 1.7)}
 .i-vogel svg{display:block;width:100%;height:auto;overflow:visible;animation:i-flug 1.7s cubic-bezier(.3,.6,.3,1) calc(1.2s + var(--v)) both,i-schweben 7s ease-in-out calc(2.9s + var(--v) * 6) infinite alternate}
 .i-vogel path{fill:#3d3934;transform-box:fill-box;transform-origin:50% 62%;animation:i-schlag .62s ease-in-out calc(var(--v) * -2s) infinite alternate}
@@ -294,6 +336,9 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 @keyframes i-zoom{from{scale:var(--z)}}
 @keyframes i-steig{from{translate:0 104%}}
 ${VARIANTEN}
+@keyframes i-flocken{from{transform:translateY(-240px)}}
+@keyframes i-ring{from{transform:scale(.15);opacity:.9}to{transform:scale(1);opacity:0}}
+${FEST_CSS}
 @keyframes i-fall{to{transform:translate3d(calc(var(--kx) * var(--kr,0)),var(--ky),0)}}
 @keyframes i-wiegen{from{transform:translateX(calc(var(--wieg,0px) * -1))}to{transform:translateX(var(--wieg,0px))}}
 @keyframes i-wolke{from{transform:translateX(calc(var(--fx) * .25));opacity:0}}
@@ -320,8 +365,8 @@ ${VARIANTEN}
 
 const svgBand = (kl, innen) => `<div class="i-band ${kl}"><svg viewBox="0 0 ${B} ${H}">${innen}</svg></div>`;
 // Stadtlage mit leichtem Dunst nach unten (Verlauf), Dächern, Fenstern und einzelnen Lichtern
-const stadtBand = (kl, b, id, oben, unten) => svgBand(kl, `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset=".3" stop-color="${oben}"/><stop offset="1" stop-color="${unten}"/></linearGradient></defs>`
-  + `<path fill="url(#${id})" d="${b.umriss}"/><path class="i-dach" d="${b.dach}"/>${b.patina ? `<path class="i-patina" d="${b.patina}"/>` : ""}<path class="i-fenster" d="${b.fenster}"/><path class="i-lichter" d="${b.licht}"/>`);
+const stadtBand = (kl, b, id, oben, unten, extra = "") => svgBand(kl, `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset=".3" stop-color="${oben}"/><stop offset="1" stop-color="${unten}"/></linearGradient></defs>`
+  + `<path fill="url(#${id})" d="${b.umriss}"/><path class="i-dach" d="${b.dach}"/>${b.patina ? `<path class="i-patina" d="${b.patina}"/>` : ""}<path class="i-fenster" d="${b.fenster}"/><path class="i-lichter" d="${b.licht}"/>${extra}`);
 
 const html = `<!-- INTRO-START -->
 <section class="intro" id="intro" hidden aria-label="Mainzer Fachbrief">
@@ -329,17 +374,22 @@ const html = `<!-- INTRO-START -->
   <div class="i-mitte">
     <div class="i-logo" aria-hidden="true">
       <div class="i-welt">
+      ${WOLKEN_DEFS}
       <div class="i-himmel"></div>
       <div class="i-licht"><div class="i-schein"></div><div class="i-strahlen"></div></div>
-      <div class="i-l i-sonne"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont)"><path d="M5.5 77.5a58.5 58.5 0 0 1 117 0Z"/></g></svg></div>
-      ${WOLKEN.map((w, i) => `<div class="i-wolke${w.mehr ? " i-mehr" : ""}" style="left:${w.l}%;top:${w.t}%;--g:${w.g};--fx:${w.fx};--v:${w.v}s">${i % 2 ? WOLKE2 : WOLKE}</div>`).join("\n      ")}
+      <div class="i-l i-sonne"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont"><rect width="128" height="76.7"/></clipPath></defs><g clip-path="url(#i-horizont)"><path d="M5.5 77.5a58.5 58.5 0 0 1 117 0Z"/></g></svg></div>
+      ${WOLKEN.map((w, i) => `<div class="i-wolke${w.mehr ? " i-mehr" : ""}" style="left:${w.l}%;top:${w.t}%;--g:${w.g};--fx:${w.fx};--v:${w.v}s">${WOLKE(i % 3)}</div>`).join("\n      ")}
+      <div class="i-flocken"></div>
+      ${FEST_HIMMEL}
       ${svgBand("i-huegel", `<path d="${HUEGEL_FERN.d}"/>`)}
       ${svgBand("i-huegel2", `<path d="${HUEGEL_NAH.d}"/><path class="i-tupfen" d="${HUEGEL_NAH.t[0]}"/><path class="i-tupfen t2" d="${HUEGEL_NAH.t[1]}"/>`)}
       ${stadtBand("i-fern", FERN, "i-dunst1", "#cdc6bb", "#ddd7ce")}
-      ${stadtBand("i-stadt", STADT, "i-dunst2", "#b4ab9e", "#c8c0b5")}
-      ${svgBand("i-ufer", `<path class="b-lampe" d="${UFER.lampe}"/><path class="b-stamm" d="${UFER.stamm}"/><path class="b-kahl" d="${UFER.kahl}"/><path class="b-a" d="${UFER.a}"/><path class="b-b" d="${UFER.b}"/><path class="b-c" d="${UFER.c}"/><path class="b-hell" d="${UFER.hell}"/><path class="b-chell" d="${UFER.chell}"/>`
-        + `<path class="b-busch" d="${UFER.busch}"/><path class="b-buschhell" d="${UFER.buschhell}"/><path class="b-wiese" d="M0 ${H - 2.05}H${B}v.5H0Z"/><path class="b-blume bl1" d="${UFER.blume1}"/><path class="b-blume bl2" d="${UFER.blume2}"/><path d="M0 ${H}V${H - 1.6}H${B}V${H}Z"/><path class="b-kante" d="M0 ${H - 1.6}H${B}v.45H0Z"/>`)}
-      <div class="i-boden"><svg viewBox="0 0 ${B} 50"><path class="w-ufer" d="M0 0H${B}V1.3H0Z"/><path class="w-ufer2" d="M0 1.3H${B}V3.4H0Z"/><path d="${WASSER.blau}"/><path class="w-hell" d="${WASSER.weiss}"/>${SCHIFF}</svg></div>
+      ${stadtBand("i-stadt", STADT, "i-dunst2", "#b4ab9e", "#c8c0b5", FEST_STADT)}
+      ${svgBand("i-ufer", `<path class="b-lampe" d="${UFER.lampe}"/><path class="b-stamm" d="${UFER.stamm}"/><defs><path id="i-ast" d="${UFER.kahl}"/></defs><use class="b-kahl" href="#i-ast"/><use class="b-reif" href="#i-ast" transform="translate(-.1 -.24)"/><path class="b-a" d="${UFER.a}"/><path class="b-b" d="${UFER.b}"/><path class="b-c" d="${UFER.c}"/><path class="b-hell" d="${UFER.hell}"/><path class="b-chell" d="${UFER.chell}"/>`
+        + `<path class="b-busch" d="${UFER.busch}"/><path class="b-buschhell" d="${UFER.buschhell}"/><path class="b-wiese" d="M0 ${H - 2.05}H${B}v.5H0Z"/><path class="b-blume bl1" d="${UFER.blume1}"/><path class="b-blume bl2" d="${UFER.blume2}"/><path d="M0 ${H}V${H - 1.6}H${B}V${H}Z"/><path class="b-kante" d="M0 ${H - 1.6}H${B}v.45H0Z"/><path class="b-schnee" d="${SCHNEEBANK}"/>${FEST_UFER}`)}
+      <div class="i-dunst"></div>
+      ${FEST_VORN}
+      <div class="i-boden"><svg viewBox="0 0 ${B} 50"><path class="w-ufer" d="M0 0H${B}V1.3H0Z"/><path class="w-ufer2" d="M0 1.3H${B}V3.4H0Z"/><path d="${WASSER.blau}"/><path class="w-hell" d="${WASSER.weiss}"/>${WASSERDINGE}${SCHIFF}${FEST_WASSER}</svg></div>
       <div class="i-kante"></div>
       </div>
       <div class="i-l i-sonne i-vorn"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont2"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont2)"><path d="M5.5 77.5a58.5 58.5 0 0 1 117 0Z"/></g></svg></div>
@@ -351,7 +401,8 @@ const html = `<!-- INTRO-START -->
     <div class="i-titelplatz"><h1 class="i-titel"><span class="i-w">${buchstaben("Mainzer", 0)}</span> <br><span class="i-w">${buchstaben("Fachbrief", 7)}</span><b>.</b></h1></div>
     <p class="i-unter"><span>Deine tagesaktuelle Fachzeitung aus Mainz</span></p>
   </div>
-  <div class="i-nieder" aria-hidden="true"><div class="i-wieg"><div class="n n1"></div><div class="n n2"></div><div class="n n3"></div><div class="n n4"></div></div></div>
+  ${FEST_BUEHNE}
+  <div class="i-nieder" aria-hidden="true"><div class="i-wieg"><div class="n n1"></div><div class="n n2"></div><div class="n n5"></div><div class="n n3"></div><div class="n n4"></div></div></div>
   <button type="button" class="i-weiter">Zur Ausgabe<i aria-hidden="true">↓</i></button>
  </div>
 </section>
@@ -376,6 +427,16 @@ const html = `<!-- INTRO-START -->
   if (!["sonne", "bewoelkt", "regen", "schnee"].includes(wetter)) wetter = "sonne";
   if (wetter === "schnee" && zeit !== "winter") wetter = "regen";
   intro.dataset.zeit = zeit; intro.dataset.wetter = wetter;
+  // Besondere Tage und gelegentliche Überraschungen (Regeln in werkzeuge/intro-feste.mjs). ?fest=advent oder ?fest=riesenrad zeigt
+  // einen Anlass bzw. ein Element gezielt, ?fest=aus keines.
+  const festeFuer = ${festeFuer.toString()};
+  const hd = heute.split("-"), fest = festeFuer(new Date(+hd[0], +hd[1] - 1, +hd[2]), zeit, wetter, Math.random(), ${JSON.stringify(FERIEN)});
+  let elemente = fest.elemente;
+  if (q.has("fest")) {
+    elemente = wetter === "schnee" ? ["schneemann"] : [];
+    q.get("fest").split(",").forEach(n => { const a = fest.alle.find(x => x[0] === n); (a ? a[1] : n === "aus" ? [] : [n]).forEach(e => elemente.push(e)); });
+  }
+  intro.dataset.fest = elemente.join(" ");
   intro.hidden = false;
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo");
