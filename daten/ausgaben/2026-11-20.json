@@ -129,18 +129,15 @@
      "originaltitel": "Kreuznacher Diakonie: Studie deckt 242 Fälle sexualisierter Gewalt in Heimen auf"
     },
     {
-     "id": "206d30e67a",
-     "stufe": "kurz",
-     "thema": "Kita-Infrastruktur",
-     "titel": "Gonsenheimer Ortsbeirat: Klimaanlagen und Verschattung für überhitzte Kitas",
-     "rubrik": "mainz"
-    },
-    {
      "id": "d77b55fe0f",
      "stufe": "kurz",
      "thema": "Fachpublikation",
      "titel": "Praxishandbuch „Kinder von Inhaftierten“ mit wissenschaftlichem Beitrag des IKJ erschienen",
-     "rubrik": "fach"
+     "rubrik": "fach",
+     "quelle": "ikj",
+     "url": "https://www.ikj-online.de/neu-erschienen-praxishandbuch-kinder-von-inhaftierten-mit-wissenschaftlichem-beitrag-des-ikj/",
+     "datum": "2026-11-19",
+     "originaltitel": "Neu erschienen: Praxishandbuch „Kinder von Inhaftierten“ – mit wissenschaftlichem Beitrag des IKJ"
     }
    ]
   },
@@ -348,7 +345,11 @@
      "stufe": "kurz",
      "thema": "Ortsbeirat",
      "titel": "Ortsvorsteher fordert Klimaanlagen für Gonsenheimer Kitas",
-     "rubrik": "mainz"
+     "rubrik": "mainz",
+     "quelle": "az",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/mainz-gonsenheim/ortsvorsteher-fordert-klimaanlagen-fuer-gonsenheimer-kitas-6812180",
+     "datum": "2026-11-20",
+     "originaltitel": "Ortsvorsteher fordert Klimaanlagen für Gonsenheimer Kitas"
     }
    ]
   }
@@ -505,7 +506,12 @@
   "90bc64255e",
   "2a8f5385da",
   "62235fc69d",
-  "fb65e7bc93"
+  "fb65e7bc93",
+  "206d30e67a",
+  "b011dd3a28",
+  "8364ce29ee",
+  "d77b55fe0f"
  ],
- "erstellt": "2026-11-20T09:17:48.884Z"
+ "erstellt": "2026-11-20T09:17:48.884Z",
+ "aktualisiert": "2026-11-20T09:44:36.847Z"
 }
