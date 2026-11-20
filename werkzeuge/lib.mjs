@@ -64,6 +64,12 @@ export function parseDate(raw) {
     const d = new Date(s);
     if (!Number.isNaN(+d)) return berlinDay(d);
   }
+  // Bluesky-Form ohne Wochentag: „20 Nov 2026 09:00 +0000“
+  const bsky = s.match(/^(\d{1,2})\s+([A-Za-z]{3})\s+(\d{4})\s+(\d{1,2}:\d{2})(?::\d{2})?\s*([+-]\d{4}|Z|GMT|UTC)?/);
+  if (bsky) {
+    const d = new Date(`${bsky[2]} ${bsky[1]}, ${bsky[3]} ${bsky[4]} ${bsky[5] && bsky[5] !== "Z" ? bsky[5] : "+0000"}`);
+    if (!Number.isNaN(+d)) return berlinDay(d);
+  }
   let m = s.match(/\b(20\d{2})-(\d{2})-(\d{2})\b/);
   if (m) return `${m[1]}-${m[2]}-${m[3]}`;
   m = s.match(/\b(\d{1,2})\.\s?(\d{1,2})\.\s?(20\d{2})\b/);

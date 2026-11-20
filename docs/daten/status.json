@@ -312,6 +312,38 @@
    "name": "Bundesarbeitsgemeinschaft Kinder- und Jugendschutz (BAJ) – Aktuelle Meldungen",
    "ok": true,
    "treffer": 18
+  },
+  {
+   "id": "wohnbau-mainz",
+   "name": "Wohnbau Mainz – Pressemitteilungen",
+   "kurz": "Wohnbau Mainz",
+   "ebene": "mainz",
+   "ok": true,
+   "treffer": 9
+  },
+  {
+   "id": "mainz-mastodon",
+   "name": "Stadt Mainz auf Mastodon",
+   "kurz": "Stadt Mainz (Mastodon)",
+   "ebene": "mainz",
+   "ok": true,
+   "treffer": 20
+  },
+  {
+   "id": "staedtebaufoerderung",
+   "name": "Städtebauförderung (Bund/Länder) – Aktuelles",
+   "kurz": "Städtebauförderung",
+   "ebene": "bund",
+   "ok": true,
+   "treffer": 40
+  },
+  {
+   "id": "bag-ssg",
+   "name": "BAG Soziale Stadtentwicklung und Gemeinwesenarbeit",
+   "kurz": "BAG Soziale Stadtentwicklung",
+   "ebene": "fach",
+   "ok": true,
+   "treffer": 10
   }
  ]
 }

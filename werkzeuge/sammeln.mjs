@@ -65,10 +65,13 @@ function feedLesen(xml, quelle, basis) {
     if (!link) link = text(feld("guid"));
     const url = cleanUrl(link, basis);
     if (!url) continue;
+    const teaser = text(text(feld("description") || feld("summary") || feld("content:encoded") || feld("content")));
+    // Bluesky/Mastodon-Posts haben keinen Titel: dann den Anfang des Post-Textes nehmen
+    const titel = text(text(feld("title"))) || cut(teaser.split(/(?<=[.!?])\s/)[0], 140);
     out.push({
       url,
-      titel: text(text(feld("title"))),
-      teaser: text(text(feld("description") || feld("summary") || feld("content:encoded") || feld("content"))),
+      titel,
+      teaser,
       datum: parseDate(feld("pubDate") || feld("dc:date") || feld("published") || feld("updated")),
     });
   }
@@ -205,7 +208,10 @@ async function quelleAbrufen(quelle) {
       const accept = quelle.typ === "rss" ? "application/rss+xml, application/atom+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.5"
         : quelle.typ === "landtag-api" ? "application/json" : "text/html,application/xhtml+xml;q=0.9,*/*;q=0.5";
       const { body, finalUrl } = await holen(url, accept);
-      const items = LESER[quelle.typ](body, quelle, finalUrl);
+      // Manche Seiten geben mit <base href> eine andere Basis für relative Links vor
+      const baseHref = quelle.typ === "html" ? (body.slice(0, 20000).match(/<base\b[^>]*\bhref=["']([^"']+)["']/i) || [])[1] : "";
+      const basis = baseHref ? cleanUrl(baseHref, finalUrl) || finalUrl : finalUrl;
+      const items = LESER[quelle.typ](body, quelle, basis);
       ergebnisse.push(...items);
     } catch (error) {
       fehler.push(`${new URL(url).hostname}: ${error.message}`.slice(0, 160));
