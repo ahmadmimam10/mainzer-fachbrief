@@ -6,7 +6,7 @@
  {"id":"sensor","name":"Sensor Mainz","kurz":"Sensor","ebene":"mainz","typ":"rss","urls":["https://sensor-magazin.de/feed/"]},
  {"id":"wohnbau-mainz","name":"Wohnbau Mainz – Pressemitteilungen","kurz":"Wohnbau Mainz","ebene":"mainz","typ":"rss","urls":["https://www.wohnbau-mainz.de/category/presse/feed/"]},
  {"id":"mainz-mastodon","name":"Stadt Mainz auf Mastodon","kurz":"Stadt Mainz (Mastodon)","ebene":"mainz","typ":"rss","urls":["https://mastodon.social/@mainz_de.rss"]},
- {"id":"swr","name":"SWR Aktuell Rheinland-Pfalz","kurz":"SWR Aktuell","ebene":"land","typ":"rss","urls":["https://www.swr.de/~rss/swraktuell/rheinland-pfalz/index.xml"]},
+ {"id":"swr","name":"SWR Aktuell Rheinland-Pfalz","kurz":"SWR Aktuell","ebene":"land","typ":"rss","urls":["https://www.swr.de/~rss/swraktuell/rheinland-pfalz/index.xml"],"hosts":["tagesschau.de"]},
  {"id":"landtag","name":"Landtag Rheinland-Pfalz","kurz":"Landtag RLP","ebene":"land","typ":"landtag-api","urls":["https://api.landtag-rlp.de/api/news/filteredList?langId=2"]},
  {"id":"bm-rlp","name":"Bildungsministerium Rheinland-Pfalz","kurz":"Bildungsministerium RLP","ebene":"land","typ":"html","urls":["https://bm.rlp.de/service/pressemitteilungen"],"muster":"^/service/pressemitteilungen/detail/"},
  {"id":"masffj","name":"Ministerium für Arbeit, Soziales, Frauen, Familie und Jugend RLP","kurz":"Familienministerium RLP","ebene":"land","typ":"html","urls":["https://masffj.rlp.de/service/presse"],"muster":"^/service/presse/detail/"},

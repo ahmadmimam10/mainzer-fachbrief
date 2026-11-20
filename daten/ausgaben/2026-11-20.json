@@ -139,7 +139,12 @@
      "datum": "2026-11-19",
      "originaltitel": "Neu erschienen: Praxishandbuch „Kinder von Inhaftierten“ – mit wissenschaftlichem Beitrag des IKJ"
     }
-   ]
+   ],
+   "zahl": {
+    "wert": "31,7 Mio. €",
+    "text": "fließen aus dem Startchancen-Programm an Mainzer Schulen",
+    "id": "045f39dc49"
+   }
   },
   "fruehe-hilfen": {
    "meldungen": [
@@ -245,7 +250,12 @@
      "datum": "2026-11-17",
      "originaltitel": "Gemeinsame Standards für die Weiterbildung zur FASD- Fachkraft"
     }
-   ]
+   ],
+   "zahl": {
+    "wert": "300",
+    "text": "Fachkräfte, Träger und Elternvertretungen beraten über gelebten Kinderschutz in Kitas",
+    "id": "0aa0ec169a"
+   }
   },
   "quartiersmanagement": {
    "meldungen": [
@@ -351,7 +361,12 @@
      "datum": "2026-11-20",
      "originaltitel": "Ortsvorsteher fordert Klimaanlagen für Gonsenheimer Kitas"
     }
-   ]
+   ],
+   "zahl": {
+    "wert": "10,27 Mio. €",
+    "text": "Städtebauförderung erhält das Lahnquartier in Bad Ems",
+    "id": "64252aa00e"
+   }
   }
  },
  "gesichtet": [

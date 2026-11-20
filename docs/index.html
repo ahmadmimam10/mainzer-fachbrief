@@ -102,15 +102,34 @@ main{min-height:55vh}
 .teilen:hover{color:var(--tinte);text-decoration:underline;text-underline-offset:4px}
 .teilen svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
-.erste{display:grid;grid-template-columns:minmax(0,1fr);gap:28px 44px;padding:30px 0 32px}
-.erste.mit-seite{grid-template-columns:minmax(0,2.1fr) minmax(0,1fr)}
+.seite{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1fr);gap:0 44px;align-items:start}
+.aufmacher{padding:30px 0 32px}
 .aufmacher h2{font-weight:700;font-size:clamp(31px,4.5vw,52px);line-height:1.03;letter-spacing:-.022em;max-width:20em}
 .aufmacher .dach{font-size:14px}
 .aufmacher .text{font-size:clamp(18px,1.6vw,20px);line-height:1.5;margin-top:16px;max-width:36em}
 .aufmacher .meta{font-size:13.5px}
 
-.seitenspalte{border-left:1px solid var(--haar);padding-left:30px;display:grid;gap:30px;align-content:start}
-.ende .seitenspalte{border-left:0;padding-left:0;padding-top:26px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px 36px}
+.seitenspalte{border-left:1px solid var(--haar);padding:30px 0 10px 30px;display:grid;gap:34px;align-content:start}
+.zahl{display:block;padding-top:10px;text-decoration:none}
+.zahl b{display:block;font:700 clamp(46px,4.6vw,62px)/.95 var(--serif);letter-spacing:-.035em;color:var(--rot);font-variant-numeric:lining-nums}
+.zahl span{display:block;margin-top:10px;font:500 16.5px/1.4 var(--serif);color:var(--text)}
+.zahl small{display:block;margin-top:6px;font-size:12.5px;color:var(--grau)}
+.zahl:hover span{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.gremien h3{margin:14px 0 2px;font:700 12.5px/1.2 var(--sans);color:var(--grau)}
+.sitzung{display:grid;grid-template-columns:46px minmax(0,1fr);gap:12px;padding:11px 0;text-decoration:none}
+.sitzung+.sitzung{border-top:1px solid var(--haar)}
+.sitzung time{display:grid;justify-items:start;align-content:start;line-height:1}
+.sitzung time b{font:700 26px/1 var(--serif);letter-spacing:-.02em}
+.sitzung time span{font:600 12px/1.2 var(--sans);color:var(--grau);margin-top:3px}
+.sitzung strong{display:block;font:600 16px/1.25 var(--serif)}
+.sitzung small{display:block;margin-top:2px;font-size:12.5px;color:var(--grau)}
+.sitzung ul{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.38;color:var(--text)}
+.sitzung li{position:relative;margin-top:4px;padding-left:12px}
+.sitzung li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:1px;background:var(--grau)}
+.sitzung em{font-style:normal;color:var(--grau)}
+.sitzung p{margin:6px 0 0;font:400 14px/1.42 var(--serif);color:var(--text)}
+.sitzung:hover strong{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.gremien .mehr{display:inline-block;margin-top:8px;font-size:13px;font-weight:600;color:var(--tinte)}
 .rubrik{margin:0 0 2px;padding-top:9px;border-top:3px solid var(--linie);font:700 15px/1.2 var(--sans);display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .rubrik small{font-weight:500;font-size:13px;color:var(--grau)}
 .termine,.auch{list-style:none;margin:0;padding:0}
@@ -131,11 +150,11 @@ main{min-height:55vh}
 .reihe .meldung:first-child{padding-left:0}
 .reihe .meldung:last-child{padding-right:0}
 .reihe .meldung+.meldung{border-left:1px solid var(--haar)}
-.reihe h3{font-weight:650;font-size:23px;line-height:1.15;letter-spacing:-.012em}
+.reihe h3{font-weight:650;font-size:21px;line-height:1.17;letter-spacing:-.01em}
 .reihe .text{font-size:16.5px;line-height:1.5;margin-top:10px}
 
 .notiert{padding:30px 0 6px}
-.notiert-liste{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 36px}
+.notiert-liste{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px}
 .notiert .meldung{padding:15px 0 16px;border-bottom:1px solid var(--haar)}
 .notiert h3{font-weight:600;font-size:18.5px;line-height:1.26;letter-spacing:-.005em}
 .notiert .meta{margin-top:8px}
@@ -158,31 +177,37 @@ main{min-height:55vh}
 .treffer .meldung{padding:15px 0 16px;border-bottom:1px solid var(--haar)}
 .treffer h3{font-weight:600;font-size:18.5px;line-height:1.26}
 
-/* Fuß */
-.fuss{margin-top:44px;padding-bottom:44px;font-size:14.5px;color:var(--grau)}
-.fuss-raster{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:28px 44px;border-top:4px solid var(--linie);padding-top:22px}
-.fuss h2{margin:0 0 8px;font:700 15px/1.2 var(--sans);color:var(--tinte)}
-.fuss p{margin:0 0 8px}
-.fuss ol{margin:0;padding-left:20px}
-.fuss li{margin-bottom:6px}
-.fuss a{color:var(--tinte)}
-.fuss b{color:var(--tinte)}
-.fuss details summary{cursor:pointer;color:var(--tinte);font-weight:600;min-height:32px;display:flex;align-items:center}
-.quellgruppe{margin:10px 0 0}
-.quellgruppe h3{margin:0 0 4px;font:700 13.5px/1.3 var(--sans);color:var(--tinte)}
-.quellgruppe ul{margin:0;padding:0;list-style:none;font-size:13.5px;line-height:1.5}
-.quellgruppe .aus{color:var(--rot)}
-.signatur{margin-top:20px;padding-top:14px;border-top:1px solid var(--haar);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font-size:13.5px}
+/* Testphase-Hinweis */
+.testphase{background:var(--tinte);color:var(--papier);font-size:13px;line-height:1.45}
+.testphase .blatt{display:flex;flex-wrap:wrap;gap:2px 10px;padding-top:7px;padding-bottom:7px}
+.testphase b{font-weight:700;letter-spacing:.01em}
 
-.nur-schmal{display:none}
+/* Fuß: bewusst abgesetzt – dunkles Band, kleinere Schrift */
+.fuss{margin-top:60px;background:#1b1a18;color:#bdb7ad;font-size:13.5px;line-height:1.55}
+.fuss .blatt{padding-top:34px;padding-bottom:40px}
+.fuss-kopf{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 20px;padding-bottom:18px;margin-bottom:22px;border-bottom:1px solid #3b3833}
+.fuss-kopf strong{font:700 22px/1.1 var(--serif);letter-spacing:-.02em;color:#f3f1ec}
+.fuss-kopf span{font-size:13px;color:#9d978d}
+.fuss-raster{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:26px 44px}
+.fuss h2{margin:0 0 8px;font:700 13px/1.2 var(--sans);color:#f3f1ec;letter-spacing:.01em}
+.fuss p{margin:0 0 8px}
+.fuss ol{margin:0;padding-left:18px}
+.fuss li{margin-bottom:6px}
+.fuss a,.fuss b{color:#f3f1ec}
+.fuss details summary{cursor:pointer;color:#f3f1ec;font-weight:600;min-height:32px;display:flex;align-items:center}
+.quellgruppe{margin:10px 0 0}
+.quellgruppe h3{margin:0 0 4px;font:700 12.5px/1.3 var(--sans);color:#f3f1ec}
+.quellgruppe ul{margin:0;padding:0;list-style:none;font-size:13px;line-height:1.5}
+.quellgruppe .aus{color:#ff8f99}
+.signatur{margin-top:24px;padding-top:14px;border-top:1px solid #3b3833;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font-size:13px}
+@media (prefers-color-scheme:dark){.fuss{background:#0d0c0b}}
+
 @media (min-width:760px){
   .aufmacher .text{text-align:justify}
 }
 @media (max-width:999px){
-  .nur-breit{display:none}
-  .nur-schmal{display:grid}
-  .erste.mit-seite{grid-template-columns:minmax(0,1fr)}
-  .notiert-liste{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .seite{grid-template-columns:minmax(0,1fr)}
+  .seitenspalte{border-left:0;padding:10px 0 0;border-top:4px solid var(--linie);margin-top:30px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:26px 36px}
   .fuss-raster{grid-template-columns:1fr 1fr}
   .fuss-raster section:first-child{grid-column:1/-1}
 }
@@ -219,6 +244,7 @@ main{min-height:55vh}
 </style>
 </head>
 <body data-ressort="jugendhilfeplanung">
+<div class="testphase" role="note"><div class="blatt"><b>Testphase</b><span>Der Fachbrief wird gerade erprobt – Auswahl und Darstellung können sich noch ändern.</span></div></div>
 <header class="blatt">
   <div class="kopf-marke">
     <h1 class="marke"><a href="./">Mainzer Fachbrief<span>.</span></a></h1>
@@ -246,7 +272,8 @@ main{min-height:55vh}
 <main class="blatt" id="inhalt" aria-live="polite"></main>
 <noscript><p class="blatt">Bitte JavaScript aktivieren, um die Ausgabe zu lesen.</p></noscript>
 
-<footer class="blatt fuss">
+<footer class="fuss"><div class="blatt">
+  <div class="fuss-kopf"><strong>Über den Fachbrief</strong><span>Testphase · automatisch zusammengestellt, redaktionell gewichtet</span></div>
   <div class="fuss-raster">
     <section>
       <h2>So entsteht der Fachbrief</h2>
@@ -271,7 +298,7 @@ main{min-height:55vh}
     <span>Mainzer Fachbrief · Redaktion: Claude nach Regeln der Fachbereiche</span>
     <span>Entwickelt von <a href="https://github.com/ahmadmimam10">ahmadmimam10</a> · <a href="https://github.com/ahmadmimam10/mainzer-fachbrief">Quellcode auf GitHub</a></span>
   </div>
-</footer>
+</div></footer>
 
 <script>
 {
@@ -293,7 +320,7 @@ main{min-height:55vh}
   const ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h12M12 6l6 6-6 6"/></svg>';
   const HEUTE = tagBerlin();
 
-  let daten = null, termine = null, status = null, archiv = null, archivLaden = null;
+  let daten = null, termine = null, status = null, archiv = null, archivLaden = null, gremien = null, notizen = null;
   let ressort = startRessort();
   let tag = null, ansicht = "ausgabe", suchwort = "";
 
@@ -353,21 +380,76 @@ main{min-height:55vh}
         <a class="teilen" href="${esc(mail(m))}" data-titel="${esc(m.titel)}" data-url="${esc(sicher(m.url))}" aria-label="Weiterleiten: ${esc(m.titel)}">Weiterleiten ${ICON}</a></p>
     </article>`;
   }
+  // ---------- Seitenspalte: Zahl des Tages, Gremien, Auch heute ----------
+  const DEMNAECHST = {
+    "jugendhilfeplanung": /^(Jugendhilfeausschuss|Sozialausschuss|Stadtrat)$/i,
+    "fruehe-hilfen": /^(Jugendhilfeausschuss|Sozialausschuss|Stadtrat)$/i,
+    "quartiersmanagement": /^(Stadtrat|Ortsbeirat Mainz-(Lerchenberg|Neustadt|Mombach|Hartenberg)|Bau- und Sanierungsausschuss)/i,
+  };
+  const kalender = d => `<time datetime="${esc(d)}"><b>${esc(fmt(d, { day: "numeric" }))}</b><span>${esc(fmt(d, { month: "short" }))}</span></time>`;
+  function zahlBox(a) {
+    const z = a.zahlen?.[ressort];
+    if (!z?.wert) return "";
+    const m = Object.values(a.ressorts).flat().find(x => x.id === z.id);
+    const inhalt = `<b>${esc(z.wert)}</b><span>${esc(z.text)}</span>${m ? `<small>Quelle: ${esc(quelleName(m.quelle))}</small>` : ""}`;
+    return `<section><h2 class="rubrik">Zahl des Tages</h2>${m ? `<a class="zahl" href="${esc(sicher(m.url))}" target="_blank" rel="noopener">${inhalt}</a>` : `<div class="zahl">${inhalt}</div>`}</section>`;
+  }
+  // Tagesordnung: Vorlagen, Berichte und Anträge zuerst, echte Beschlüsse bevorzugt, Personalien/Formalien ausblenden
+  const FORMAL = /^(Verpflichtung|Verabschiedung|Ernennung|Vereidigung|Wahl\b|Neuwahl|Nachwahl|Benennung|Bestellung|Sitzungstermine|Berichte? aus den)/i;
+  const PFLICHT = { "jugendhilfeplanung": ["Jugendhilfeausschuss", "Sozialausschuss"], "fruehe-hilfen": ["Jugendhilfeausschuss", "Sozialausschuss"], "quartiersmanagement": [] };
+  function topsListe(tops, n, mitErgebnis) {
+    const alle = tops || [];
+    const rang = t => FORMAL.test(t.titel) ? -1 : ({ vorlage: 3, bericht: 3, antrag: 2, sonstiges: 1, anfrage: 0 }[t.art] ?? 1)
+      + (mitErgebnis && /beschlossen|zugestimmt|abgelehnt|vertagt/i.test(t.ergebnis || "") ? 1 : 0);
+    const auswahl = alle.map((t, i) => ({ t, i, r: rang(t) })).filter(x => x.r >= 0)
+      .sort((x, y) => y.r - x.r || x.i - y.i).slice(0, n).sort((x, y) => x.i - y.i).map(x => x.t);
+    if (!auswahl.length) return "";
+    const rest = alle.length - auswahl.length;
+    return `<ul>${auswahl.map(t => `<li>${esc(t.titel)}${mitErgebnis && t.ergebnis ? ` <em>– ${esc(t.ergebnis)}</em>` : ""}</li>`).join("")}${rest > 0 ? `<li><em>und ${rest} weitere ${rest === 1 ? "Punkt" : "Punkte"}</em></li>` : ""}</ul>`;
+  }
+  function gremienBox() {
+    const alle = gremien?.sitzungen || [];
+    const zeile = (s, vergangen) => `<a class="sitzung" href="${esc(sicher(s.url))}" target="_blank" rel="noopener">${kalender(s.datum)}<span>
+        <strong>${esc(s.gremium || s.titel)}</strong><small>${esc(fmt(s.datum, { weekday: "long" }))}${s.zeit ? ", " + esc(s.zeit) + " Uhr" : ""}${!vergangen && s.ort ? " · " + esc(s.ort.split(",")[0]) : ""}</small>
+        ${vergangen && notizen?.[s.id]?.text ? `<p>${esc(notizen[s.id].text)}</p>` : topsListe(s.tops, matchMedia("(max-width: 640px)").matches ? (vergangen ? 1 : 2) : (vergangen ? 2 : 3), vergangen)}</span></a>`;
+    if (!alle.length) {   // Rückfall: nur Sitzungstermine
+      const r = RESSORTS.find(x => x.id === ressort);
+      const liste = (termine?.termine || []).filter(t => t.datum >= HEUTE && r.gremien.test(t.titel)).slice(0, 4);
+      return liste.length ? `<section class="gremien"><h2 class="rubrik">Gremien <small>nächste Sitzungen</small></h2>${liste.map(t => zeile(t, false)).join("")}</section>` : "";
+    }
+    const kommend = [], schon = new Set();
+    for (const s of alle.filter(s => s.status === "kommend" && s.datum >= HEUTE).sort((x, y) => x.datum.localeCompare(y.datum))) {
+      if (!DEMNAECHST[ressort].test(s.gremium) || schon.has(s.gremium)) continue;
+      schon.add(s.gremium); kommend.push(s);
+    }
+    // Zuletzt getagt: wichtige Gremien zuerst, innerhalb gleicher Wichtigkeit die jüngste Sitzung
+    const PRIO = ressort === "quartiersmanagement"
+      ? [/^Stadtrat$/i, /Ortsbeirat Mainz-(Lerchenberg|Neustadt|Mombach|Hartenberg)|Bau- und Sanierungsausschuss/i, /Ausschuss für (Finanzen|Mobilität)|Haupt- und Personalausschuss|Sozialausschuss|Jugendhilfeausschuss/i, /Ausschuss/i, /Ortsbeirat|Beirat/i]
+      : [/^Stadtrat$/i, /Jugendhilfeausschuss|Sozialausschuss|Arbeitsgruppe .*Jugendhilfeausschuss/i, /Haupt- und Personalausschuss|Ausschuss für Finanzen|Schulträgerausschuss/i, /Ausschuss/i, /Ortsbeirat|Beirat/i];
+    const prio = s => { const i = PRIO.findIndex(r => r.test(s.gremium)); return i < 0 ? PRIO.length : i; };
+    const kompakt = matchMedia("(max-width: 640px)").matches;
+    const vorbei = alle.filter(s => s.status === "vergangen" && (s.tops?.length || notizen?.[s.id]))
+      .sort((x, y) => prio(x) - prio(y) || y.datum.localeCompare(x.datum)).slice(0, kompakt ? 3 : 5);
+    // Wichtige Ausschüsse ohne veröffentlichten Termin ausdrücklich nennen
+    const offen = PFLICHT[ressort].filter(n => !kommend.some(s => s.gremium === n)).map(n => {
+      const letzte = alle.filter(s => s.gremium === n && s.status === "vergangen").sort((x, y) => y.datum.localeCompare(x.datum))[0];
+      return `<div class="sitzung"><time><b>–</b><span>offen</span></time><span><strong>${esc(n)}</strong><small>Nächster Termin noch nicht veröffentlicht${letzte ? " · zuletzt am " + esc(fmt(letzte.datum, { day: "numeric", month: "long" })) : ""}</small></span></div>`;
+    });
+    if (!kommend.length && !vorbei.length && !offen.length) return "";
+    return `<section class="gremien">
+      <h2 class="rubrik">Gremien <small>Ratsinformationssystem Mainz</small></h2>
+      ${kommend.length || offen.length ? `<h3>Demnächst</h3>${kommend.slice(0, 4).map(s => zeile(s, false)).join("")}${offen.join("")}` : ""}
+      ${vorbei.length ? `<h3>Zuletzt getagt</h3>${vorbei.map(s => zeile(s, true)).join("")}` : ""}
+      <a class="mehr" href="https://bi.mainz.de/si0046.php" target="_blank" rel="noopener">Alle Sitzungen im Ratsinformationssystem →</a>
+    </section>`;
+  }
   function seitenspalte(a) {
-    const r = RESSORTS.find(x => x.id === ressort);
-    const liste = (termine?.termine || []).filter(t => t.datum >= HEUTE && r.gremien.test(t.titel)).slice(0, 4);
-    const termin = liste.length ? `<section>
-      <h2 class="rubrik">Termine im Rat <small>nächste Sitzungen</small></h2>
-      <ul class="termine">${liste.map(t => `<li><a href="${esc(sicher(t.url))}" target="_blank" rel="noopener">
-        <time datetime="${esc(t.datum)}"><b>${esc(fmt(t.datum, { day: "numeric" }))}</b><span>${esc(fmt(t.datum, { month: "short" }))}</span></time>
-        <span><strong>${esc(t.titel)}</strong><small>${esc(fmt(t.datum, { weekday: "long" }))}${t.zeit ? ", " + esc(t.zeit) + " Uhr" : ""}${t.ort ? " · " + esc(t.ort.split(",")[0]) : ""}</small></span>
-      </a></li>`).join("")}</ul></section>` : "";
     const andere = RESSORTS.filter(x => x.id !== ressort).map(x => ({ ...x, top: (a.ressorts[x.id] || [])[0], n: (a.ressorts[x.id] || []).length }));
     const auch = `<section>
       <h2 class="rubrik">${a.datum === HEUTE ? "Auch heute" : "Auch in dieser Ausgabe"} <small>andere Ressorts</small></h2>
       <ul class="auch">${andere.map(x => `<li><a href="#${x.id}" data-r="${x.id}">
         <span>${esc(x.name)} · ${x.n}</span><strong>${x.top ? esc(x.top.titel) : "Keine Meldungen in dieser Ausgabe"}</strong></a></li>`).join("")}</ul></section>`;
-    return wo => `<aside class="seitenspalte ${wo}">${termin}${auch}</aside>`;
+    return `<aside class="seitenspalte">${zahlBox(a)}${gremienBox()}${auch}</aside>`;
   }
 
   // ---------- Ansichten ----------
@@ -403,20 +485,19 @@ main{min-height:55vh}
     let html = "";
     if (a.nachtraeglich) html += `<p class="hinweis">Rückblick: Diese Ausgabe wurde nachträglich aus dem früheren Make-Archiv zusammengestellt – der Fachbrief erscheint seit dem 20. November 2026.</p>`;
     else if (a.datum !== HEUTE && a === daten.ausgaben[0]) html += `<p class="hinweis">Die Ausgabe für heute erscheint gegen 6 Uhr – hier ist die letzte Ausgabe.</p>`;
-    const seite = seitenspalte(a);
+    let haupt = "";
     if (!liste.length) {
-      html += `<div class="leer"><h2>Keine Meldungen in diesem Ressort.</h2><p>Alle Quellen wurden gesichtet – keine Meldung war für dieses Ressort wichtig genug. Mit „Vortag“ blättern Sie zur vorherigen Ausgabe.</p></div>`;
-      html += `<div class="ende">${seite("")}</div>`;
+      haupt = `<div class="leer"><h2>Keine Meldungen in diesem Ressort.</h2><p>Alle Quellen wurden gesichtet – keine Meldung war für dieses Ressort wichtig genug. Mit „Vortag“ blättern Sie zur vorherigen Ausgabe.</p></div>`;
     } else {
       const [auf, ...rest] = liste;
       const wichtig = rest.filter(m => m.stufe === "wichtig");
       const kurz = rest.filter(m => m.stufe !== "wichtig");
-      html += `<div class="erste mit-seite">${meldung(auf, "aufmacher", a.datum)}${seite("nur-breit")}</div>`;
-      if (wichtig.length) html += `<div class="reihe">${wichtig.map(m => meldung(m, "wichtig", a.datum)).join("")}</div>`;
-      if (kurz.length) html += `<section class="notiert" aria-label="Kurz notiert"><h2 class="rubrik">Kurz notiert <small>${kurz.length} weitere Meldungen</small></h2>
+      haupt = meldung(auf, "aufmacher", a.datum);
+      if (wichtig.length) haupt += `<div class="reihe">${wichtig.map(m => meldung(m, "wichtig", a.datum)).join("")}</div>`;
+      if (kurz.length) haupt += `<section class="notiert" aria-label="Kurz notiert"><h2 class="rubrik">Kurz notiert <small>${kurz.length} weitere Meldungen</small></h2>
         <div class="notiert-liste">${kurz.map(m => meldung(m, "kurz", a.datum)).join("")}</div></section>`;
-      html += `<div class="ende">${seite("nur-schmal")}</div>`;
     }
+    html += `<div class="seite"><div class="haupt">${haupt}</div>${seitenspalte(a)}</div>`;
     zeichnen(html);
   }
 
@@ -548,9 +629,10 @@ main{min-height:55vh}
   });
 
   setzeRessort(ressort);
-  Promise.all([holen("daten/ausgaben.json"), holen("daten/termine.json").catch(() => null), holen("daten/status.json").catch(() => null)])
-    .then(([a, t, s]) => {
-      daten = a; termine = t; status = s;
+  Promise.all([holen("daten/ausgaben.json"), holen("daten/termine.json").catch(() => null), holen("daten/status.json").catch(() => null),
+    holen("daten/gremien.json").catch(() => null), holen("daten/gremien-notizen.json").catch(() => null)])
+    .then(([a, t, s, g, n]) => {
+      daten = a; termine = t; status = s; gremien = g; notizen = n?.notizen || null;
       if (!daten.ausgaben?.length) { zeichnen('<div class="leer"><h2>Noch keine Ausgabe erschienen.</h2><p>Die erste Ausgabe erscheint am nächsten Morgen gegen 6 Uhr.</p></div>'); return; }
       ausAdresse();
       history.replaceState(null, "", adresse());
