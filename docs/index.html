@@ -394,7 +394,7 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
 @media (prefers-reduced-motion:reduce){
   .schiene::before,.hoer-spur span,.reiter{transition:none}
 }
-/* INTRO-START – „Morgen über Mainz“ (nur hell, nur Startseite ohne Lesezeichen) */
+/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Aufruf der Ausgabe) */
 .intro{position:relative;z-index:0;height:200vh;height:200svh;margin-bottom:-100vh;margin-bottom:-100svh;color:#141414;--weich:cubic-bezier(.16,.84,.24,1);--fahrt:cubic-bezier(.45,.05,.2,1)}
 .intro[hidden]{display:none}
 .intro ~ :not(script){position:relative;z-index:1}
@@ -403,6 +403,7 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
 .i-logo{position:relative;width:var(--L);aspect-ratio:1;perspective:900px;flex:none}
 .i-welt{position:absolute;inset:0;clip-path:inset(-200vh -200vw var(--unten,-200vh) -200vw)}
 .i-vorn{opacity:calc(var(--p,0) * 3.4)}
+.intro.gelandet .i-l{visibility:hidden}
 .i-kante{position:absolute;left:-200vw;right:-200vw;bottom:var(--unten,-200vh);height:110px;background:linear-gradient(rgba(246,244,239,0),#f6f4ef)}
 .i-himmel,.i-boden{position:absolute;left:50%;width:300vw;height:160vh;margin-left:-150vw}
 .i-himmel{bottom:39.45%;background:linear-gradient(to top,#fbe6d8 0,#f9ede3 16vh,#f1f2ef 40vh,#e9f0f3 78vh);opacity:calc(1 - var(--e,0))}
@@ -534,13 +535,13 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
  </div>
 </section>
 <script>
-/* Intro auf der Startseite ohne Ressort-Lesezeichen, nur hell; ?intro erzwingt es. ?zeit=1.5 / ?p=0.5 = Standbilder für Entwürfe. */
+/* Intro bei jedem Aufruf der Ausgabe (auch mit Ressort-Lesezeichen), nur hell und nicht nach der Rückkehr von ueber.html; ?intro erzwingt es. ?zeit=1.5 / ?p=0.5 = Standbilder für Entwürfe. */
 (() => {
   const intro = document.getElementById("intro");
   const q = new URLSearchParams(location.search);
-  const startseite = !location.hash && !q.has("ausgabe") && !q.has("ansicht") && !q.has("q");
   const hell = document.documentElement.dataset.thema !== "dunkel";
-  if (!(q.has("intro") || (startseite && hell))) { intro.remove(); return; }
+  const vonUeber = document.referrer.includes("/ueber.html");
+  if (!(q.has("intro") || (hell && !vonUeber))) { intro.remove(); return; }
   intro.hidden = false;
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo");
@@ -554,22 +555,21 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
     s.setProperty("--p", p.toFixed(4)); s.setProperty("--e", e.toFixed(4));
     // Platz des Bildzeichens in der Kopfzeile: das linke Quadrat des Logo-Bilds
     const a = logo.getBoundingClientRect(), z = bild.getBoundingClientRect(), zx = z.left + z.height / 2, zy = z.top + z.height / 2;
-    // 1. Das Logo schrumpft zügig an Ort und Stelle und gleitet seitlich über seinen späteren Platz.
-    // 2. Es wartet dort auf seiner Höhe, bis die Kopfzeile von unten ankommt, und fährt dann mit ihr nach oben –
-    //    weich angesetzt, aber nie tiefer als sein Platz neben dem Schriftzug.
-    const ds = 1 + (z.height / a.width - 1) * sanft(grenze(p / .5)), g = a.width * ds;
-    const ax = a.left + a.width / 2, ay = a.top + a.height / 2 - e * buehne.offsetHeight * .05, k = 16;
-    let mx = ax + (zx - ax) * sanft(grenze((p - .05) / .5));
-    let my = -k * Math.log(Math.exp(-ay / k) + Math.exp(-zy / k));
-    if (p > .999) { mx = zx; my = zy; }
+    // Das Logo bleibt auf seiner Höhe stehen (die Bühne ist angeheftet, es kann also nicht ruckeln) und wird stetig
+    // kleiner, je näher die Kopfzeile von unten kommt: Genau bei ihrer Ankunft hat es seine Endgröße und steht über
+    // seinem Platz. Ab dann zeigt die Kopfzeile ihr eigenes Bildzeichen – das scrollt mit der Seite und sitzt fest.
+    const ax = a.left + a.width / 2, ay = a.top + a.height / 2;
+    const t = grenze(1 - (zy - ay) / Math.max(1, zy + scrollY - ay)), gelandet = zy <= ay;
+    const ds = 1 + (z.height / a.width - 1) * sanft(t), g = a.width * ds, mx = ax + (zx - ax) * sanft(grenze(t / .85));
     s.setProperty("--dx", (mx - g / 2 - a.left).toFixed(1) + "px");
-    s.setProperty("--dy", (my - g / 2 - a.top).toFixed(1) + "px");
+    s.setProperty("--dy", (ay - g / 2 - a.top).toFixed(1) + "px");
     s.setProperty("--ds", ds.toFixed(4));
     s.setProperty("--ts", (1 - e * .14).toFixed(4));
     s.setProperty("--to", (1 - grenze((p - .02) / .2)).toFixed(3));
     s.setProperty("--unten", (a.bottom - (strecke() - scrollY)).toFixed(1) + "px");
-    bild.style.clipPath = p < 1 ? "inset(0 0 0 13.9%)" : "";
-    bild.style.opacity = p < 1 ? grenze((p - .2) / .4).toFixed(3) : "";
+    intro.classList.toggle("gelandet", gelandet);
+    bild.style.clipPath = gelandet ? "" : "inset(0 0 0 13.9%)";
+    bild.style.opacity = gelandet ? "" : grenze((t - .3) / .45).toFixed(3);
     buehne.style.visibility = p >= 1 ? "hidden" : "";
   };
   addEventListener("scroll", () => { if (!offen) { offen = true; requestAnimationFrame(rechne); } }, { passive: true });
