@@ -1,0 +1,27 @@
+name: Stimmproben
+
+# Erzeugt eine kurze Hörprobe je deutscher Azure-Stimme (auch mit fröhlichem Sprechstil, wo vorhanden)
+# und legt sie 7 Tage als Download („Artifact“) am Lauf ab. Nur von Hand starten.
+on:
+  workflow_dispatch:
+
+jobs:
+  proben:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Hörproben erzeugen
+        env:
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
+        run: node werkzeuge/vertonen.mjs --stimmproben
+      - uses: actions/upload-artifact@v4
+        with:
+          name: stimmproben
+          path: stimmproben/
+          retention-days: 7
