@@ -15,9 +15,9 @@
   const elWind = $(".sp-wind"), elLeben = $(".sp-leben"), elPunkte = $(".sp-punkte"), elListe = $(".sp-liste ol"), elHinweis = $(".sp-liste p");
   const stil = getComputedStyle(wurzel), farbe = (n, ers) => (stil.getPropertyValue(n) || "").trim() || ers;
   const TINTE = "#1f1c18", AKZ = farbe("--ra", "#a8472b"), AKZ2 = farbe("--rb", "#dba63f");
-  const H = 430, BODEN = H - 44, KH = 68, R = 10, SCHULTER = { x: 246, y: 101 }, HAUT = "#d9a981"; let W = 900;
+  const H = 430, BODEN = H - 44, KH = 68, R = 10, FIG = 1.22, FUSS = { x: 236, y: 170 }, ARM = { x: 246, y: 101 }, SCHULTER = { x: FUSS.x + (ARM.x - FUSS.x) * FIG, y: FUSS.y + (ARM.y - FUSS.y) * FIG }, HAUT = "#dcae87"; let W = 900;
   // Wurf: Schwerkraft, Luftwiderstand je Bild, Windwirkung, Tempo von–bis, Mausweg bis zur vollen Kraft, steilster Wurf nach unten, Reichweite des Korbs
-  const K = { G: .2, LUFT: .988, WIND: .0085, V0: 3, V1: 9.5, WEG: 340, NEIG: .3, NAH: 380, WEIT: 760 };
+  const K = { G: .2, LUFT: .988, WIND: .0085, V0: 3, V1: 9.5, WEG: 340, NEIG: .3, NAH: 380, WEIT: 760, SX: SCHULTER.x, SY: SCHULTER.y, ARM: 24 * FIG };
   const zufall = (a, b) => a + Math.random() * (b - a);
   const BILDER = ["dom", "christuskirche", "staatstheater", "holzturm"].map(n => { const b = new Image(); b.src = "bilder/motive/" + n + ".webp"; return b; });
   const LEBEN = 4;
@@ -31,7 +31,7 @@
     K.V1 = Math.max(8.5, Math.min(11.5, 8.5 + (W - 820) / 58.5)); K.WEIT = W - 90; S.korb.x = Math.min(S.korb.x, K.WEIT); };   // 11,5 Tempo landen bei x 800, je 58,5 px mehr ein Punkt Tempo
   const windJetzt = () => S.boeig ? S.wind * (1 + .35 * Math.sin(S.t * .04 + S.phase)) : S.wind;
   const ziel = () => { const dx = Math.max(20, S.maus.x - SCHULTER.x), dy = Math.min(S.maus.y - SCHULTER.y, dx * K.NEIG), l = Math.hypot(dx, dy); return { x: dx / l, y: dy / l, k: K.V0 + Math.min(1, Math.max(0, (l - 40) / K.WEG)) * K.V1 }; };
-  const hand = z => ({ x: SCHULTER.x + z.x * 24, y: SCHULTER.y + z.y * 24 });
+  const hand = z => ({ x: SCHULTER.x + z.x * 24 * FIG, y: SCHULTER.y + z.y * 24 * FIG });
   const anzeige = () => { const w = S.wind;
     elWind.innerHTML = Math.abs(w) < .05 ? "windstill" : `Wind <b>${Math.abs(w).toFixed(1).replace(".", ",")}</b> ${w > 0 ? "→" : "←"}${S.boeig ? " · böig" : ""}`;
     elLeben.innerHTML = Array.from({ length: LEBEN }, (_, i) => i).map(i => `<i${i < S.leben ? "" : ' class="weg"'}></i>`).join(""); elPunkte.textContent = S.punkte; };
@@ -92,39 +92,43 @@
     cx.strokeStyle = "#2c477c"; cx.lineWidth = 2; cx.beginPath(); cx.moveTo(-r * .55, -r * .28); cx.lineTo(r * .3, -r * .52); cx.stroke();
     cx.strokeStyle = "rgba(31,28,24,.35)"; cx.lineWidth = .9; cx.beginPath(); cx.moveTo(...ecke(0)); cx.lineTo(r * .1, r * .15); cx.lineTo(...ecke(7)); cx.moveTo(r * .1, r * .15); cx.lineTo(...ecke(3)); cx.stroke();
     cx.strokeStyle = TINTE; cx.lineWidth = 1.4; cx.beginPath(); for (let i = 0; i < n; i++) cx[i ? "lineTo" : "moveTo"](...ecke(i)); cx.closePath(); cx.stroke(); cx.restore(); };
-  // Figur auf dem Balkon – Ahmed: dunkle Locken, kurzer Bart, dunkles Hemd. Zielt mit dem Wurfarm und schwingt nach dem Wurf durch.
-  const HEMD = "#31363d", HAAR = "#1c1917", LOCKEN = [[-9.8, -3.4, 3.4], [-7.6, -8.4, 4], [-2.8, -12, 4.3], [3, -12.8, 4.2], [7.8, -10.6, 3.8], [9.8, -7.4, 2.8], [.4, -8.6, 4.4], [-4.8, -7, 3.6], [5.2, -8.4, 3.4], [-10.6, .6, 2.4]];
-  const figur = z => { const fx = 236, kx = fx + 1.5, ky = 79, bw = Math.atan2(z.y, z.x), nach = S.zustand === "ziel" || S.zustand === "start" ? 0 : .95 * (1 - S.schwung / 16), w = bw + nach, dx = Math.cos(w), dy = Math.sin(w);
-    cx.lineCap = "round"; cx.lineJoin = "round";
+  // Figur auf dem Balkon – Ahmed: dunkle Locken, kurzer Bart, breites Lächeln, dunkles Hemd. Schaut halb zu uns, zielt mit dem Wurfarm
+  // und schwingt nach dem Wurf durch. Gezeichnet in eigenen Maßen und um den Fußpunkt vergrößert (FIG).
+  const HEMD = "#343a43", HAAR = "#231d19", LOCKEN = [[-10.8, -4, 3.6], [-8.4, -9.4, 4.2], [-3, -13.2, 4.5], [3.2, -14, 4.4], [8.2, -12, 3.9], [10.4, -9.2, 2.8], [.4, -10.6, 4.3], [-5.4, -7.8, 3.8], [5.6, -10.4, 3.4], [-11.6, .2, 2.5]];
+  const figur = z => { const fx = FUSS.x, kx = fx + 1.5, ky = 78, bw = Math.atan2(z.y, z.x), nach = S.zustand === "ziel" || S.zustand === "start" ? 0 : .95 * (1 - S.schwung / 16), w = bw + nach, dx = Math.cos(w), dy = Math.sin(w);
+    cx.save(); cx.translate(FUSS.x, FUSS.y); cx.scale(FIG, FIG); cx.translate(-FUSS.x, -FUSS.y); cx.lineCap = "round"; cx.lineJoin = "round";
     // Beine und Schuhe
-    cx.fillStyle = "#47566d"; cx.beginPath(); cx.roundRect(fx - 9.5, 128, 8.5, 40, 3.5); cx.roundRect(fx + 1, 128, 8.5, 40, 3.5); cx.fill();
+    cx.fillStyle = "#4a5a72"; cx.beginPath(); cx.roundRect(fx - 9.5, 128, 8.5, 40, 3.5); cx.roundRect(fx + 1, 128, 8.5, 40, 3.5); cx.fill();
     cx.fillStyle = "#f4f1ea"; cx.beginPath(); cx.roundRect(fx - 10.5, 164.5, 13, 5.5, 2.7); cx.roundRect(fx, 164.5, 14, 5.5, 2.7); cx.fill(); cx.fillStyle = TINTE; cx.fillRect(fx - 10.5, 168.4, 13, 1.6); cx.fillRect(fx, 168.4, 14, 1.6);
     // hinterer Arm, locker an der Seite
     cx.strokeStyle = HEMD; cx.lineWidth = 7; cx.beginPath(); cx.moveTo(fx - 8, 103); cx.lineTo(fx - 12, 116); cx.lineTo(fx - 11.5, 127); cx.stroke();
     cx.fillStyle = HAUT; cx.beginPath(); cx.arc(fx - 11.3, 131, 3.4, 0, 7); cx.fill();
     // Rumpf: dunkles Hemd mit Kragen und Knopfleiste
     cx.fillStyle = HEMD; cx.beginPath(); cx.moveTo(fx - 11.5, 101); cx.quadraticCurveTo(fx, 92.5, fx + 11.5, 101); cx.lineTo(fx + 10, 132); cx.quadraticCurveTo(fx, 136, fx - 10, 132); cx.closePath(); cx.fill();
-    cx.fillStyle = "rgba(255,255,255,.07)"; cx.beginPath(); cx.moveTo(fx + 3, 96); cx.lineTo(fx + 11.5, 101); cx.lineTo(fx + 10, 132); cx.lineTo(fx + 4, 133.8); cx.closePath(); cx.fill();
-    cx.strokeStyle = "rgba(255,255,255,.28)"; cx.lineWidth = 1; cx.setLineDash([1.2, 4.6]); cx.beginPath(); cx.moveTo(fx + 2.2, 102); cx.lineTo(fx + 2.6, 132); cx.stroke(); cx.setLineDash([]);
-    cx.fillStyle = "#474d56"; cx.beginPath(); cx.moveTo(fx - 4.5, 94.5); cx.lineTo(fx + 1, 101.5); cx.lineTo(fx - 6.5, 99.5); cx.closePath(); cx.moveTo(fx + 6.5, 94.5); cx.lineTo(fx + 1, 101.5); cx.lineTo(fx + 8.5, 99.5); cx.closePath(); cx.fill();
-    // Hals, Kopf, Ohr, Nase
-    cx.fillStyle = "#c79a72"; cx.fillRect(fx - 2.5, 87, 6.5, 9); cx.fillStyle = HAUT; cx.beginPath(); cx.arc(kx, ky, 10.6, 0, 7); cx.fill(); cx.beginPath(); cx.arc(kx + 10.9, ky + 2.3, 1.8, 0, 7); cx.fill();
-    cx.fillStyle = "#c99670"; cx.beginPath(); cx.arc(kx - 6, ky + 1.6, 2.6, 0, 7); cx.fill();
-    // kurzer Bart am Kiefer, darin das Lächeln
-    cx.fillStyle = HAAR; cx.beginPath(); cx.arc(kx, ky, 10.9, .1 * Math.PI, .9 * Math.PI); cx.quadraticCurveTo(kx - 6.8, ky + 7.4, kx - 1, ky + 7.6); cx.quadraticCurveTo(kx + 4.4, ky + 7.6, kx + 7.2, ky + 5.4); cx.closePath(); cx.fill();
-    cx.strokeStyle = HAAR; cx.lineWidth = 1.9; cx.beginPath(); cx.moveTo(kx + 4.2, ky + 3.9); cx.quadraticCurveTo(kx + 7.4, ky + 2.9, kx + 9.9, ky + 4.2); cx.stroke();
-    cx.strokeStyle = "#fffdf8"; cx.lineWidth = 1.4; cx.beginPath(); cx.moveTo(kx + 5.4, ky + 5.6); cx.quadraticCurveTo(kx + 7.6, ky + 6.5, kx + 9.3, ky + 5.4); cx.stroke();
+    cx.fillStyle = "rgba(255,255,255,.08)"; cx.beginPath(); cx.moveTo(fx + 3, 96); cx.lineTo(fx + 11.5, 101); cx.lineTo(fx + 10, 132); cx.lineTo(fx + 4, 133.8); cx.closePath(); cx.fill();
+    cx.strokeStyle = "rgba(255,255,255,.3)"; cx.lineWidth = 1; cx.setLineDash([1.2, 4.6]); cx.beginPath(); cx.moveTo(fx + 2.2, 103); cx.lineTo(fx + 2.6, 132); cx.stroke(); cx.setLineDash([]);
+    cx.fillStyle = "#4b525c"; cx.beginPath(); cx.moveTo(fx - 4.5, 95); cx.lineTo(fx + 1, 102); cx.lineTo(fx - 6.5, 100); cx.closePath(); cx.moveTo(fx + 6.5, 95); cx.lineTo(fx + 1, 102); cx.lineTo(fx + 8.5, 100); cx.closePath(); cx.fill();
+    // Hals, Ohr, Kopf
+    cx.fillStyle = "#c99b74"; cx.fillRect(fx - 2.5, 87.5, 6.5, 9); cx.fillStyle = "#cf9d77"; cx.beginPath(); cx.arc(kx - 10.6, ky + 1.4, 2.7, 0, 7); cx.fill();
+    cx.fillStyle = HAUT; cx.beginPath(); cx.arc(kx, ky, 11.5, 0, 7); cx.fill();
+    // kurzer, weicher Bart über Kinn und Wangen – das breite Lächeln bleibt frei
+    cx.fillStyle = HAAR; cx.beginPath(); cx.arc(kx, ky, 11.6, .05 * Math.PI, .95 * Math.PI); cx.quadraticCurveTo(kx - 8.2, ky + 2.2, kx - 4.2, ky + 3.3); cx.quadraticCurveTo(kx + 3, ky + 1.5, kx + 9.4, ky + 3); cx.closePath(); cx.fill();
+    cx.fillStyle = "#fffdf8"; cx.beginPath(); cx.moveTo(kx - 1.4, ky + 4.7); cx.quadraticCurveTo(kx + 3.4, ky + 11, kx + 8.2, ky + 4.5); cx.quadraticCurveTo(kx + 3.4, ky + 6.5, kx - 1.4, ky + 4.7); cx.fill();
+    // Wangen, Nase, Augen mit Glanzpunkt, hochgezogene Brauen
+    cx.fillStyle = "rgba(222,112,86,.32)"; cx.beginPath(); cx.arc(kx - 4.8, ky + 1.3, 2.1, 0, 7); cx.arc(kx + 9.4, ky + 1.2, 1.5, 0, 7); cx.fill();
+    cx.strokeStyle = "#bd8a63"; cx.lineWidth = 1.2; cx.beginPath(); cx.moveTo(kx + 4.2, ky - .2); cx.quadraticCurveTo(kx + 5.8, ky + 2.2, kx + 3.8, ky + 2.5); cx.stroke();
+    cx.fillStyle = TINTE; cx.beginPath(); cx.arc(kx + .4, ky - 1.2, 1.5, 0, 7); cx.arc(kx + 7, ky - 1, 1.4, 0, 7); cx.fill();
+    cx.fillStyle = "#fff"; cx.beginPath(); cx.arc(kx + .9, ky - 1.7, .5, 0, 7); cx.arc(kx + 7.5, ky - 1.5, .45, 0, 7); cx.fill();
+    cx.strokeStyle = HAAR; cx.lineWidth = 1.4; cx.beginPath(); cx.moveTo(kx - 2, ky - 4); cx.quadraticCurveTo(kx + .4, ky - 5.8, kx + 2.8, ky - 4.3); cx.moveTo(kx + 5, ky - 4.2); cx.quadraticCurveTo(kx + 7.2, ky - 5.6, kx + 9.2, ky - 3.8); cx.stroke();
     // Locken: dunkle Kappe aus Kringeln, obenauf ein paar Glanzbögen
-    cx.fillStyle = HAAR; cx.beginPath(); cx.arc(kx, ky - 3.2, 10.6, Math.PI * 1.03, Math.PI * 1.9); cx.closePath(); cx.fill();
+    cx.fillStyle = HAAR; cx.beginPath(); cx.arc(kx, ky - 3.6, 11.4, Math.PI * 1.03, Math.PI * 1.92); cx.closePath(); cx.fill();
     for (const [lx, ly, lr] of LOCKEN) { cx.beginPath(); cx.arc(kx + lx, ky + ly, lr, 0, 7); cx.fill(); }
-    cx.strokeStyle = "rgba(255,255,255,.2)"; cx.lineWidth = 1; for (const [lx, ly, lr] of LOCKEN.slice(1, 7)) { cx.beginPath(); cx.arc(kx + lx, ky + ly, lr * .55, 3.6, 5.6); cx.stroke(); }
-    // Auge und Braue (blickt zum Korb)
-    cx.fillStyle = TINTE; cx.beginPath(); cx.arc(kx + 5.9, ky + .7, 1.3, 0, 7); cx.fill(); cx.strokeStyle = HAAR; cx.lineWidth = 1.7; cx.beginPath(); cx.moveTo(kx + 3.4, ky - 2.4); cx.lineTo(kx + 8.2, ky - 1.9); cx.stroke();
+    cx.strokeStyle = "rgba(255,255,255,.22)"; cx.lineWidth = 1; for (const [lx, ly, lr] of LOCKEN.slice(1, 7)) { cx.beginPath(); cx.arc(kx + lx, ky + ly, lr * .55, 3.6, 5.6); cx.stroke(); }
     // Wurfarm: Ärmel bis zum Handgelenk, Hand
-    const el = { x: SCHULTER.x + dx * 11 - dy * 4, y: SCHULTER.y + dy * 11 + dx * 4 }, ha = { x: SCHULTER.x + dx * 21, y: SCHULTER.y + dy * 21 };
-    cx.strokeStyle = HEMD; cx.lineWidth = 7.5; cx.beginPath(); cx.moveTo(SCHULTER.x - 2, SCHULTER.y + 1); cx.lineTo(el.x, el.y); cx.stroke();
+    const el = { x: ARM.x + dx * 11 - dy * 4, y: ARM.y + dy * 11 + dx * 4 }, ha = { x: ARM.x + dx * 21, y: ARM.y + dy * 21 };
+    cx.strokeStyle = HEMD; cx.lineWidth = 7.5; cx.beginPath(); cx.moveTo(ARM.x - 2, ARM.y + 1); cx.lineTo(el.x, el.y); cx.stroke();
     cx.lineWidth = 6.2; cx.beginPath(); cx.moveTo(el.x, el.y); cx.lineTo(ha.x - dx * 3, ha.y - dy * 3); cx.stroke();
-    cx.fillStyle = HAUT; cx.beginPath(); cx.arc(ha.x + dx * 1.5, ha.y + dy * 1.5, 3.8, 0, 7); cx.fill(); };
+    cx.fillStyle = HAUT; cx.beginPath(); cx.arc(ha.x + dx * 1.5, ha.y + dy * 1.5, 3.8, 0, 7); cx.fill(); cx.restore(); };
   // Papierkorb aus Drahtgitter: Rückwand, Papier darin, Rautengitter, Rand mit Glanz, bei Bedarf ein Rollbrett
   const korb = k => { const oben = BODEN - KH, kb = k.b / 2, ku = kb - 7, unten = BODEN - (k.v ? 9 : 2), form = () => { cx.beginPath(); cx.moveTo(k.x - kb, oben); cx.lineTo(k.x - ku, unten); cx.quadraticCurveTo(k.x, unten + 5, k.x + ku, unten); cx.lineTo(k.x + kb, oben); cx.closePath(); };
     cx.fillStyle = "rgba(31,28,24,.13)"; cx.beginPath(); cx.ellipse(k.x + 3, BODEN + 5, kb + 10, 5.5, 0, 0, 7); cx.fill();
