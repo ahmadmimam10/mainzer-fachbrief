@@ -306,20 +306,20 @@ Woran er anknüpfen kann, in dieser Reihenfolge der Vorliebe:
 | Advent | `Noch drei Sitzungen bis Weihnachten` |
 | Fastnacht | `Helau! Auch im Jugendhilfeausschuss` |
 
-## „Was geht heute ab?“ – Termine des Tages
+## „Was geht ab?“ – Termine der nächsten 7 Tage
 
-Unten auf der Seite steht eine Reihe kleiner Karten mit dem, was am Erscheinungstag los ist – ausdrücklich auch für den
-Feierabend gedacht. Das Feld `heute` der Ausgabe ist eine Liste mit 4 bis 8 Terminen. Gibt es nichts Belegtes, fehlt das Feld;
-die Kachel erscheint dann nicht.
+Unten auf der Seite steht eine Reihe kleiner Karten mit dem, was vom Erscheinungstag an in den nächsten 7 Tagen los ist –
+ausdrücklich auch für Feierabend und Wochenende gedacht. Das Feld `termine` der Ausgabe ist eine Liste mit 8 bis 14
+Terminen, jeder mit seinem Tag. Die Seite zeigt daraus immer nur, was noch nicht vorbei ist. Gibt es nichts Belegtes,
+fehlt das Feld; die Kachel erscheint dann nicht.
 
-**Immer prüfen und aufnehmen, wenn am Erscheinungstag gespielt wird** (bei der Freitagsausgabe auch Samstag und Sonntag –
-dann steht der Wochentag in `wann`):
+**Immer prüfen und aufnehmen, wenn in den 7 Tagen gespielt wird:**
 
 - alle Pflicht- und Länderspiele von **FC Barcelona**, **Real Madrid**, der **spanischen** und der **ägyptischen
   Nationalmannschaft** (Männer),
 - **wichtige Spiele der Champions League**: K.-o.-Runde, Spitzenspiele der Ligaphase, Spiele deutscher Vereine.
 
-Anstoß immer in deutscher Zeit (Europe/Berlin); `ort` nennt den Wettbewerb. Fußball steht in der Liste vorn.
+Anstoß immer in deutscher Zeit (Europe/Berlin); `ort` nennt den Wettbewerb.
 
 **Dazu aus dem Rhein-Main-Gebiet** – Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim und Umgebung: Feste, Märkte,
 Konzerte, große Sportereignisse (z. B. Mainz 05), Kino- und Theaterabende mit breitem Publikum, Neueröffnungen, Angebote
@@ -331,7 +331,8 @@ aus dem Gedächtnis schreiben. Lässt sich ein Termin nicht belegen, bleibt er w
 | Feld | Inhalt |
 | --- | --- |
 | `art` | bestimmt das Bild: `fussball`, `sport`, `markt`, `flohmarkt`, `fest`, `musik`, `party`, `kino`, `theater`, `ausstellung`, `neu` (Neueröffnung), `familie`, `wein`, `essen`, `fastnacht` |
-| `wann` | kurz, 2–16 Zeichen: „21 Uhr“, „ab 16 Uhr“, „Sa 18:30 Uhr“ |
+| `tag` | Datum des Termins, `JJJJ-MM-TT`, vom Erscheinungstag bis 7 Tage danach |
+| `wann` | kurz, höchstens 16 Zeichen: „21 Uhr“, „ab 16 Uhr“; ganztägig: leer |
 | `titel` | 4–52 Zeichen: „Real Madrid – FC Barcelona“, „Weihnachtsmarkt eröffnet“ |
 | `ort` | 2–34 Zeichen: „La Liga“, „Champions League“, „Mainz, Domplätze“ |
 | `url` | die Quelle (https://…) |
@@ -390,9 +391,9 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
 {
   "datum": "2026-11-23",
   "flieger": "Wie viel kostet HzE? Ja.",
-  "heute": [
-    { "art": "fussball", "wann": "21 Uhr", "titel": "Real Madrid – FC Barcelona", "ort": "La Liga", "url": "https://…" },
-    { "art": "markt", "wann": "ab 16 Uhr", "titel": "Feierabendmarkt", "ort": "Mainz, Altstadt", "url": "https://…" }
+  "termine": [
+    { "art": "fussball", "tag": "2026-11-25", "wann": "21 Uhr", "titel": "Real Madrid – FC Barcelona", "ort": "La Liga", "url": "https://…" },
+    { "art": "markt", "tag": "2026-11-26", "wann": "ab 16 Uhr", "titel": "Feierabendmarkt", "ort": "Mainz, Altstadt", "url": "https://…" }
   ],
   "ressorts": {
     "jugendhilfeplanung": { "meldungen": [

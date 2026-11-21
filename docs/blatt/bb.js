@@ -51,10 +51,12 @@
   const BEISPIELE = [["marktstand", "ab 16 Uhr", "Feierabendmarkt", "Mainz, Altstadt"], ["musik", "20 Uhr", "Offene Bühne", "Mainz, Neustadt"], ["ausstellung", "bis 18 Uhr", "Neue Ausstellung eröffnet", "Wiesbaden"],
     ["wein", "ab 17 Uhr", "Weinstand am Rheinufer", "Mainz"], ["flohmarkt", "Samstag", "Flohmarkt am Fluss", "Frankfurt"], ["film", "21 Uhr", "Kurzfilmabend", "Ingelheim"]];
   const LOS_BILD = { fussball: "fussball", sport: "laufschuh", markt: "marktstand", flohmarkt: "flohmarkt", fest: "riesenrad", musik: "musik", party: "disko", kino: "film", theater: "theater", ausstellung: "ausstellung", neu: "luftballons", familie: "spielplatz", wein: "wein", essen: "brezel", fastnacht: "narrenkappe" };
-  const losKachel = () => { const echt = Array.isArray(E.ausgabe.heute) && E.ausgabe.heute.length ? E.ausgabe.heute : null;
-    const liste = echt ? echt.map(x => [LOS_BILD[x.art] || "riesenrad", x.wann, x.titel, x.ort, x.url]) : q.has("beispiele") ? BEISPIELE : null; if (!liste) return "";
-    return `<div class="k los" data-ein><div class="los-kopf"><h3>Was geht <i>heute ab?</i></h3><span class="etikett">Mainz &amp; Rhein-Main${echt ? "" : " · Beispiele"}</span></div>
-    <div class="los-reihe">${liste.map(([m, wann, was, wo, url], i) => { const innen = `${motiv(m || "riesenrad")}<b>${esc(wann)}</b><strong>${esc(was)}</strong><small>${esc(wo)}</small>`;
+  const losKachel = () => { const neu = E.daten.ausgaben[0] || {}, iso = n => new Date(mittag(heute).getTime() + n * 864e5).toLocaleDateString("sv-SE"), bis = iso(7);
+    const echt = (Array.isArray(neu.termine) ? neu.termine : []).filter(x => x.tag >= heute && x.tag <= bis).sort((x, y) => x.tag.localeCompare(y.tag));
+    const liste = echt.length ? echt.map(x => [LOS_BILD[x.art] || "riesenrad", x.tag, x.wann, x.titel, x.ort, x.url]) : q.has("beispiele") ? BEISPIELE.map((x, i) => [x[0], iso(i), x[1], x[2], x[3]]) : null; if (!liste) return "";
+    const tagWort = d => { const z = tageBis(d); return z === 0 ? "Heute" : z === 1 ? "Morgen" : mittag(d).toLocaleDateString("de-DE", { weekday: "short" }).replace(".", "") + " " + mittag(d).getDate() + "."; };
+    return `<div class="k los" data-ein><div class="los-kopf"><h3>Was geht <i>ab?</i></h3><span class="etikett">Die nächsten 7 Tage · Fußball, Mainz &amp; Rhein-Main${echt.length ? "" : " · Beispiele"}</span></div>
+    <div class="los-reihe">${liste.map(([m, tag, wann, was, wo, url], i) => { const innen = `${motiv(m)}<b>${esc(tagWort(tag))}${wann ? " · " + esc(wann) : ""}</b><strong>${esc(was)}</strong><small>${esc(wo)}</small>`;
       return /^https?:/.test(url || "") ? `<a class="los-karte f${i % 5}" href="${esc(url)}">${innen}</a>` : `<div class="los-karte f${i % 5}">${innen}</div>`; }).join("")}</div></div>`; };
 
   // ---- Bild des Tages: ein Mainzer Motiv, jeden Tag ein anderes ----
@@ -137,16 +139,12 @@
     const war = notiz.filter(n => n.datum < heute && tageBis(n.datum) >= (KERN_G.test(n.gremium || "") ? -14 : -7)).sort((x, y) => y.datum.localeCompare(x.datum));
     const naechste = alle.filter(s => s.datum >= heute && s.status !== "vergangen" && KERN_G.test(s.gremium || "") && !kommt.some(n => n.id === s.id)).sort((x, y) => (x.datum + (x.zeit || "")).localeCompare(y.datum + (y.zeit || "")))[0];
     const wann = d => { const z = tageBis(d); return z === 0 ? "heute" : z === 1 ? "morgen" : z > 0 ? `in ${z} Tagen` : z === -1 ? "gestern" : `vor ${-z} Tagen`; };
-    const eintrag = (n, kl) => { const d = mittag(n.datum); return `<a class="g-eintrag${kl ? " " + kl : ""}" href="${esc(n.url)}" target="_blank" rel="noopener"><span class="g-tag"><i>${esc(d.toLocaleDateString("de-DE", { weekday: "short" }))}</i><b>${d.getDate()}.</b><i>${esc(d.toLocaleDateString("de-DE", { month: "short" }))}</i></span>
-      <span class="g-text"><strong>${esc(n.gremium)}</strong><em>${wann(n.datum)}${n.zeit && n.datum >= heute ? " · " + esc(n.zeit) + " Uhr" : ""}</em><span>${esc(n.text)}</span></span><span class="g-pfeil" aria-hidden="true">↗</span></a>`; };
+    const eintrag = (n, kl) => { const d = mittag(n.datum); return `<a class="g-eintrag${kl ? " " + kl : ""}" href="${esc(n.url)}" target="_blank" rel="noopener"><span class="g-text"><em>${esc(d.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" }))} · ${wann(n.datum)}${n.zeit && n.datum >= heute ? " · " + esc(n.zeit) + " Uhr" : ""}</em><strong>${esc(n.gremium)}</strong><span>${esc(n.text)}</span></span><span class="g-pfeil" aria-hidden="true">↗</span></a>`; };
     const STEMPEL = [[/abgelehnt/i, "abgelehnt", "nein"], [/zurückgestellt|vertagt|verschoben/i, "zurückgestellt", "halt"], [/einstimmig/i, "einstimmig", "ja"], [/mehrheitlich/i, "mehrheitlich", "ja"], [/beschlossen|zugestimmt|angenommen/i, "beschlossen", "ja"], [/zur Kenntnis/i, "zur Kenntnis", "info"]];
     const stempel = s => { const l = STEMPEL.filter(x => x[0].test(s)).slice(0, 2); return l.length ? `<span class="g-stempelzeile">${l.map(x => `<i class="g-stempel ${x[2]}">${x[1]}</i>`).join("")}</span>` : ""; };
     const zeile = (n, j, kl) => eintrag(n, kl).replace('class="g-eintrag', `style="--j:${j}" class="g-eintrag`).replace("</span><span class=\"g-pfeil\"", (n.datum < heute ? stempel(n.text) : "") + "</span><span class=\"g-pfeil\"");
     const leer = s => `<p class="g-leer">${s}</p>`, mehr = l => l.length > 4 ? leer(`und ${l.length - 4} weitere im Ratsinfo`) : "";
-    const strahl = Array.from({ length: 15 }, (_, i) => { const d = new Date(mittag(heute).getTime() + (i - 7) * 864e5), iso = d.toLocaleDateString("sv-SE"), da = notiz.filter(n => n.datum === iso);
-      return `<span class="g-zt${i === 7 ? " heute" : ""}${d.getDay() % 6 ? "" : " we"}${da.length ? " voll" : ""}${i > 7 ? " zukunft" : ""}" style="--i:${i}"${da.length ? ` title="${esc(da.map(n => n.gremium).join(", "))}"` : ""}><i>${esc(d.toLocaleDateString("de-DE", { weekday: "short" }).slice(0, 2))}</i><b>${d.getDate()}</b>${da.length ? `<u>${da.length > 1 ? da.length : ""}</u>` : ""}</span>`; }).join("");
-    return `<div class="k rat" data-ein><div class="rat-kopf"><span class="rat-zeichen">${motiv("runder-tisch")}</span><div><h3>Mainzer <i>Gremien</i></h3><p>Aus dem Ratsinformationssystem der Stadt · ${esc(b.reiter)}</p></div><a class="rat-info" href="https://bi.mainz.de/si0046.php" target="_blank" rel="noopener">Ratsinfo öffnen ↗</a></div>
-      <div class="rat-strahl" aria-hidden="true">${strahl}</div>
+    return `<div class="k rat" data-ein><div class="rat-kopf"><span class="rat-zeichen"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 4 16.5V20h40v-3.5L24 5Z"/><path d="M8 23h5.5v13H8zM17 23h5.5v13H17zM25.5 23H31v13h-5.5zM34.5 23H40v13h-5.5z"/><path d="M5 38.5h38V43H5z"/></svg></span><div><h3>Mainzer <i>Gremien</i></h3><p>Aus dem Ratsinformationssystem der Stadt · ${esc(b.reiter)}</p></div><a class="rat-info" href="https://bi.mainz.de/si0046.php" target="_blank" rel="noopener">Ratsinfo öffnen ↗</a></div>
       <div class="rat-spalten"><section class="rat-kommt"><h4>Das <i>kommt</i><small>nächste 7 Tage</small></h4>
         ${kommt.length ? kommt.slice(0, 4).map((n, j) => zeile(n, j)).join("") + mehr(kommt) : leer("In den nächsten 7 Tagen steht kein Thema für den Bereich an.")}
         ${!kommt.length && naechste ? zeile({ ...naechste, text: roh[naechste.id] ? "Bisher kein Thema für den Bereich vermerkt." : "Die Tagesordnung ist noch nicht ausgewertet." }, 1, "blass") : ""}</section>
@@ -203,8 +201,8 @@
   async function wechsel(id) {
     if (id === aktiv || laeuft) return;
     const b = bereich(id), nr = BEREICHE.indexOf(b);
-    wurzel.querySelectorAll(".bb-reiter button").forEach(x => { const an = x.dataset.r === b.id; x.setAttribute("aria-pressed", an); x.classList.remove("hops"); if (an && aktiv) { void x.offsetWidth; x.classList.add("hops"); } });
-    pilleSetzen();
+    wurzel.querySelectorAll(".bb-reiter button").forEach(x => x.setAttribute("aria-pressed", x.dataset.r === b.id));
+    pilleSetzen(true);
     const setzen = () => { history.replaceState(null, "", "#" + b.id); wurzel.dataset.r = b.id; wurzel.dataset.n = nr % 5; };
     if (!aktiv || q.has("still")) { setzen(); aktiv = b.id; zeichne(b.id); E.zeigen(raster); return; }
     laeuft = true;
@@ -221,14 +219,18 @@
     raster.querySelectorAll(".w-tag").forEach(y => y.classList.toggle("heute", y === x)); const g = raster.querySelector(".w-heute"); g.innerHTML = wetterGross(w, +x.dataset.i); g.classList.remove("neu"); void g.offsetWidth; g.classList.add("neu"); });
 
   // ---- Reiter: die farbige Pille wandert zum gewählten Bereich ----
-  function pilleSetzen() { const x = wurzel.querySelector('.bb-reiter button[aria-pressed="true"]'), pi = wurzel.querySelector(".r-pille"); if (!x || !pi) return;
-    pi.style.cssText = `left:${x.offsetLeft}px;top:${x.offsetTop}px;width:${x.offsetWidth}px;height:${x.offsetHeight}px;opacity:1`; }
-  addEventListener("resize", pilleSetzen); if (document.fonts && document.fonts.ready) document.fonts.ready.then(pilleSetzen);
+  function pilleSetzen(wechsel) { const x = wurzel.querySelector('.bb-reiter button[aria-pressed="true"]'), pi = wurzel.querySelector(".r-pille"); if (!x || !pi) return;
+    const l = x.offsetLeft, r = pi.parentNode.clientWidth - l - x.offsetWidth, nachRechts = l > (parseFloat(pi.style.left) || 0);
+    pi.style.setProperty("--tl", nachRechts ? ".68s" : ".4s"); pi.style.setProperty("--tr", nachRechts ? ".4s" : ".68s");   // die vordere Kante läuft voraus, die hintere zieht nach
+    pi.style.left = l + "px"; pi.style.right = r + "px"; pi.style.top = x.offsetTop + "px"; pi.style.height = x.offsetHeight + "px"; pi.style.opacity = 1;
+    if (wechsel === true) { pi.classList.remove("zieht"); void pi.offsetWidth; pi.classList.add("zieht"); } }
+  addEventListener("resize", () => pilleSetzen()); if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => pilleSetzen());
 
   // ---- Ausgaben: kleine Karten neben dem Titel wie eine Hand Spielkarten – die gezeigte steht heraus; daneben Archiv und Suche ----
-  const ausgabenZeigen = () => { const alle = E.daten.ausgaben.slice(0, 7), liste = alle.includes(E.ausgabe) ? alle : [E.ausgabe, ...alle.slice(0, 6)];
-    wurzel.querySelector(".bb-ausgaben").innerHTML = `<span class="au-wort">Ausgaben</span><span class="au-karten">${liste.map((x, i) => { const d = new Date(x.datum + "T12:00:00");
-      return `<button type="button" class="au-karte" data-d="${x.datum}" style="--i:${i}"${x === E.ausgabe ? ' aria-current="true"' : ""} title="Ausgabe vom ${esc(d.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" }))}"><i>${esc(d.toLocaleDateString("de-DE", { weekday: "short" }).replace(".", ""))}</i><b>${d.getDate()}</b></button>`; }).join("")}</span>
+  const ausgabenZeigen = () => { const alle = E.daten.ausgaben, pos = alle.indexOf(E.ausgabe), aelter = pos >= 0 ? alle[pos + 1] : null, neuer = pos > 0 ? alle[pos - 1] : pos < 0 ? alle[0] : null;
+    wurzel.querySelector(".bb-ausgaben").innerHTML = `<span class="au-nav"><button type="button" class="au-pfeil" data-d="${aelter ? aelter.datum : ""}" aria-label="Ältere Ausgabe" title="Ältere Ausgabe"${aelter ? "" : " disabled"}>←</button>
+      <span class="au-jetzt"><small>${pos === 0 ? "Aktuelle Ausgabe" : "Ausgabe vom"}</small><b>${esc(E.datum({ weekday: "short", day: "numeric", month: "long" }))}</b></span>
+      <button type="button" class="au-pfeil" data-d="${neuer ? neuer.datum : ""}" aria-label="Neuere Ausgabe" title="Neuere Ausgabe"${neuer ? "" : " disabled"}>→</button></span>
       <button type="button" class="au-archiv"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>Archiv &amp; Suche</button>`; };
   async function ausgabeWechseln(datum, eigene) {
     if (laeuft || datum === E.ausgabe.datum) return; laeuft = true;
@@ -262,7 +264,7 @@
     if (!archiv) archiv = await fetch("daten/archiv.json").then(r => r.json()).catch(() => ({ felder: [], ausgaben: [], eintraege: [] }));
     archivSuchen();
   }
-  wurzel.querySelector(".bb-ausgaben").addEventListener("click", e => { const x = e.target.closest(".au-karte"); if (x) return ausgabeWechseln(x.dataset.d); if (e.target.closest(".au-archiv")) archivOeffnen(); });
+  wurzel.querySelector(".bb-ausgaben").addEventListener("click", e => { const x = e.target.closest(".au-pfeil"); if (x) { if (x.dataset.d) ausgabeWechseln(x.dataset.d); return; } if (e.target.closest(".au-archiv")) archivOeffnen(); });
   ausgabenZeigen();
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });
   const h = location.hash.slice(1);
