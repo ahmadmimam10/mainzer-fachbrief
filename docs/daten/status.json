@@ -1,15 +1,15 @@
 {
- "stand": "2026-11-21T12:28:34.452Z",
+ "stand": "2026-11-21T15:28:12.445Z",
  "quellen": [
   {
    "id": "ratsinfo",
    "name": "Ratsinformationssystem Mainz",
    "kurz": "Ratsinfo Mainz",
    "ebene": "mainz",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): bi.mainz.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "ok": true,
+   "treffer": 6,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 6 Treffer"
   },
   {
    "id": "stadt-mainz",
@@ -37,9 +37,9 @@
    "kurz": "Merkurist",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 7,
+   "treffer": 6,
    "zustand": "ok",
-   "hinweis": "unauffällig – 7 Treffer"
+   "hinweis": "unauffällig – 6 Treffer"
   },
   {
    "id": "sensor",
@@ -199,7 +199,7 @@
    "ok": false,
    "treffer": 0,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "hinweis": "Abruffehler (2. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
@@ -406,10 +406,10 @@
    "name": "Deutscher Bildungsserver",
    "kurz": "Bildungsserver",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 12,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 12 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "sozial-de",
