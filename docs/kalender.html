@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fundstück-Kalender 2027 – Mainzer Boniblatt</title>
+<meta name="description" content="An jedem Werktag 2027 taucht im Startbild des Mainzer Boniblatts genau ein Fundstück auf. Der Kalender sammelt das Jahr.">
+<link rel="icon" href="bilder/favicon.ico" sizes="32x32">
+<link rel="icon" href="bilder/favicon-hell.svg" type="image/svg+xml">
+<link rel="stylesheet" href="blatt/schrift.css">
+<style>
+/* Fundstück-Kalender: ein Sammelalbum fürs Jahr. Jeder Werktag ist ein Klebeplatz; ist der Tag da, klebt das Fundstück drin. */
+*{box-sizing:border-box}
+:root{--tinte:#1f1c18;--pap:#f6f4ef;--sans:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--pap);color:var(--tinte);font:16px/1.5 var(--sans);overflow-x:clip}
+a{color:inherit}
+:focus-visible{outline:2px solid #c8102e;outline-offset:3px}
+@keyframes i-ein{from{opacity:0}}@keyframes i-drehen{to{transform:rotate(360deg)}}
+.k-kopf{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;max-width:1320px;margin:0 auto;padding:22px clamp(14px,3vw,34px) 6px}
+.k-heim{justify-self:start;padding:8px 14px;border-radius:99px;font-weight:600;font-size:14px;text-decoration:none;transition:background .3s,color .3s}
+.k-heim:hover{background:var(--tinte);color:var(--pap)}
+.k-marke{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:640 clamp(22px,2.6vw,32px)/1 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.04em;white-space:nowrap}
+.k-marke img{width:40px;height:40px}.k-marke i{font-weight:420}.k-marke b{color:#c8102e}
+main{max-width:1320px;margin:0 auto;padding:0 clamp(12px,3vw,34px) 80px}
+.k-held{position:relative;display:grid;gap:10px;padding:clamp(28px,6vw,70px) 0 clamp(22px,4vw,44px)}
+.k-ober{margin:0;font:600 12.5px/1 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;opacity:.6}
+h1{margin:0;font:460 clamp(48px,9.4vw,138px)/.86 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.045em}
+h1 i{font-weight:320;color:#a8472b}h1 span{display:inline-block;font-style:normal;font-size:.5em;vertical-align:.5em;padding:.08em .3em .12em;border-radius:.3em;background:var(--tinte);color:var(--pap);rotate:-4deg;letter-spacing:-.02em}
+.k-text{margin:8px 0 0;max-width:38em;font-size:clamp(16px,1.5vw,19px);line-height:1.45}
+.k-stand{display:grid;grid-template-columns:auto 1fr;align-items:baseline;gap:4px 14px;max-width:560px;margin-top:14px}
+.k-stand b{font:460 clamp(44px,5vw,70px)/.9 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.04em}
+.k-stand span{font:600 12.5px/1.3 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.65}
+.k-balken{grid-column:1 / -1;display:block;height:10px;border-radius:99px;background:rgba(0,0,0,.08);overflow:hidden}
+.k-balken i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#2e4a66,#4f8a5b 33%,#f25c3a 62%,#a8472b);transition:width 1.6s cubic-bezier(.2,.8,.2,1) .3s}
+.k-hinweis{margin:6px 0 0;font-size:14.5px;opacity:.75}
+/* Monate */
+.k-jahr{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:16px}
+.k-monat{position:relative;overflow:hidden;padding:22px 20px 20px;border-radius:30px;background:var(--h);color:var(--tinte);opacity:0;transform:translateY(40px) rotate(var(--kipp,0deg));transition:opacity .7s ease,transform .9s cubic-bezier(.2,1.2,.35,1)}
+.k-monat.da{opacity:1;transform:none}
+[data-zeit="winter"]{--f:#2e4a66;--h:#e3eaee;--a:#c0533e}
+[data-zeit="fruehling"]{--f:#3f7a4c;--h:#eaf0d9;--a:#e07d9c}
+[data-zeit="sommer"]{--f:#2456c9;--h:#fbefca;--a:#f25c3a}
+[data-zeit="herbst"]{--f:#a8472b;--h:#f3e4cd;--a:#c98a1e}
+.k-monat header{position:relative;display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 2px 14px}
+.k-monat h2{margin:0;font:400 clamp(34px,3.4vw,46px)/.95 "Fraunces",serif;font-style:italic;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.03em;color:var(--f)}
+.k-monat header small{font:600 11.5px/1 "JetBrains Mono",monospace;letter-spacing:.05em;opacity:.6}
+.k-nr{position:absolute;right:-8px;top:-34px;font:700 150px/1 "Fraunces",serif;font-variation-settings:"opsz" 144;letter-spacing:-.06em;color:var(--f);opacity:.07;pointer-events:none}
+.k-tage{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.k-tage>i{font:600 10.5px/1.6 "JetBrains Mono",monospace;font-style:normal;text-align:center;text-transform:uppercase;opacity:.5}
+.t{position:relative;display:grid;place-items:center;aspect-ratio:1;border-radius:12px;font:600 12px/1 "JetBrains Mono",monospace;color:inherit}
+.t.we{opacity:.28;font-weight:500}
+.t.zu{border:1.5px dashed color-mix(in srgb,var(--f) 34%,transparent);color:color-mix(in srgb,var(--f) 70%,transparent)}
+.t.auf{padding:0;border:0;background:#fffdf8;cursor:pointer;rotate:var(--dr,0deg);box-shadow:0 1px 0 rgba(0,0,0,.08),0 8px 14px -10px rgba(0,0,0,.5);overflow:hidden;
+  scale:0;transition:scale .55s cubic-bezier(.3,1.7,.5,1) calc(var(--i,0) * 26ms + .25s),rotate .4s cubic-bezier(.3,1.7,.5,1),box-shadow .3s}
+.k-monat.da .t.auf{scale:1}
+.t.auf:hover{rotate:0deg;scale:1.16;z-index:2;box-shadow:0 14px 24px -12px rgba(0,0,0,.6)}
+.t.auf>b{position:absolute;left:4px;top:3px;z-index:2;padding:1px 3px;border-radius:5px;background:rgba(255,253,248,.85);font-size:10px;font-weight:600}
+.t.auf>u{position:absolute;right:3px;top:2px;z-index:2;font-size:9px;text-decoration:none;color:var(--a)}
+.t.heute{outline:3px solid var(--a);outline-offset:2px;animation:k-heute 2.4s ease-in-out infinite}
+@keyframes k-heute{50%{outline-offset:5px}}
+.t-bild{position:absolute;inset:0;display:block;background:#f6e6dc}
+.t-bild[data-o="himmel"],.t-bild[data-o="vorn"],.g-bild[data-o="himmel"],.g-bild[data-o="vorn"]{background:linear-gradient(#bcd9ea,#e3eef2)}
+.t-bild[data-o="fest"],.t-bild[data-o="boni"]{background:#f1e6c8}
+/* Zeichnungen */
+svg.k-band{position:absolute;inset:0;width:100%;height:100%}
+.k-frei{position:absolute;inset:14% 8% 6%;--L:70px;font:760 16px/1 Georgia,serif}
+.k-frei .fu-h{position:static;width:100%;translate:none;opacity:1}.k-frei .fu-b,.k-frei .fu-u{position:static;width:60%;opacity:1}.k-frei svg{max-height:100%}.k-frei>svg{position:static;width:60%;height:auto}
+.k-frei .fu-t{position:static;width:auto;height:auto}.k-frei .fu-t>svg{position:static;width:60%;height:auto}
+.k-schmuck{position:absolute;inset:0;display:grid;place-items:center;font-size:20px}
+.fu-fahrt,.fu-hinher,.fu-weg{animation:none!important;translate:0 0!important;rotate:0deg!important;scale:1!important;opacity:1!important}
+/* Großansicht */
+.k-gross{width:min(720px,94vw);padding:0;border:0;border-radius:30px;background:#fffdf8;color:var(--tinte);overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.6)}
+.k-gross::backdrop{background:rgba(24,20,16,.55);backdrop-filter:blur(4px)}
+.k-gross[open]{animation:k-auf .5s cubic-bezier(.3,1.4,.5,1)}@keyframes k-auf{from{opacity:0;transform:translateY(30px) rotate(-3deg) scale(.9)}}
+.g-bild{position:relative;aspect-ratio:1.5;background:#f6e6dc}.g-bild .k-frei{--L:320px;font-size:60px}
+.g-text{display:grid;grid-template-columns:1fr auto;align-items:end;gap:6px 16px;padding:20px 26px 24px}
+.g-text p{grid-column:1 / -1;margin:0;font:600 12px/1.3 "JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;opacity:.6}
+.g-text h3{margin:0;font:460 clamp(32px,5vw,52px)/.95 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.03em}
+.g-text span{font-size:14px;opacity:.75}
+.g-nav{display:flex;gap:8px}
+.g-nav button,.g-zu{width:42px;height:42px;border:0;border-radius:50%;background:var(--tinte);color:var(--pap);font:600 17px/1 var(--sans);cursor:pointer;transition:scale .3s cubic-bezier(.3,1.7,.5,1)}
+.g-nav button:hover:not(:disabled),.g-zu:hover{scale:1.12}.g-nav button:disabled{opacity:.2;cursor:default}
+.g-zu{position:absolute;right:14px;top:14px;z-index:3;background:rgba(31,28,24,.75)}
+footer{max-width:1320px;margin:0 auto;padding:0 clamp(12px,3vw,34px) 46px;font-size:13.5px;opacity:.7}
+@media (max-width:560px){.k-kopf{grid-template-columns:auto 1fr}.k-kopf>span{display:none}.k-marke{justify-self:end}.k-monat{padding:18px 12px 14px;border-radius:24px}.k-tage{gap:4px}.t{border-radius:9px;font-size:11px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.k-monat{opacity:1;transform:none}.t.auf{scale:1}}
+</style>
+</head>
+<body>
+<header class="k-kopf">
+  <a class="k-heim" href="./">← Zur Ausgabe</a>
+  <a class="k-marke" href="./" title="Mainzer Boniblatt"><img src="bilder/zeichen.svg" alt="" width="40" height="40"><span>Mainzer <i>Boniblatt</i><b>.</b></span></a>
+  <span></span>
+</header>
+<main>
+  <section class="k-held">
+    <p class="k-ober">Ein Sammelalbum fürs ganze Jahr</p>
+    <h1>Fundstück-<i>Kalender</i> <span id="jahrzahl">2027</span></h1>
+    <p class="k-text">Im Startbild des Boniblatts taucht an jedem Werktag genau ein Fundstück auf – 261 im Jahr, keines zweimal. Hier klebt jedes an seinem Tag, sobald der Tag da ist. Was noch kommt, bleibt eine Überraschung.</p>
+    <div class="k-stand"><b id="zahl">0</b><span id="von">von 261 aufgedeckt</span><i class="k-balken"><i id="balken"></i></i></div>
+    <p class="k-hinweis" id="hinweis"></p>
+  </section>
+  <section class="k-jahr" id="jahr" aria-label="Kalender"></section>
+</main>
+<footer>Die Zeichnungen sind von Hand als kleine Vektorbilder gebaut und bewegen sich – einfach antippen.</footer>
+<dialog class="k-gross" id="gross" aria-label="Fundstück">
+  <button class="g-zu" type="button" aria-label="Schließen">×</button>
+  <div class="g-bild" id="g-bild"></div>
+  <div class="g-text"><p id="g-tag"></p><div><h3 id="g-name"></h3><span id="g-mehr"></span></div><div class="g-nav"><button type="button" id="g-vor" aria-label="Voriges Fundstück">←</button><button type="button" id="g-nach" aria-label="Nächstes Fundstück">→</button></div></div>
+</dialog>
+<script src="intro-funde.js"></script>
+<script>
+(() => {
+  const B = window.BONI_FUNDSTUECKE || {}, F = B.F || [], PLAN = B.PLAN || {}, q = new URLSearchParams(location.search);
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const heute = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(q.get("heute") || "") ? q.get("heute") : new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
+  const tage = Object.keys(PLAN).sort(), JAHR = +(tage[0] || "2027").slice(0, 4), offen = tage.filter(t => t <= heute);
+  const stueck = Object.fromEntries(F.map(x => [x.n, x])), mittag = d => new Date(d + "T12:00:00"), zwei = n => String(n).padStart(2, "0");
+  const fundName = n => n.split("-").map(w => { w = ({ weisser: "weißer", strassenmusiker: "straßenmusiker", strassenkehrer: "straßenkehrer", e: "E" })[w] || w.replace(/ae/g, "ä").replace(/oe/g, "ö").replace(/([^aeq])ue/g, "$1ü"); return w.charAt(0).toUpperCase() + w.slice(1); }).join(" ").replace("E Roller", "E-Roller").replace("Nordic Walking", "Nordic Walking");
+  const GRUPPE = x => ({ himmel: "am Himmel", vorn: "am Himmel", ufer: "am Ufer", wasser: "auf dem Rhein", stadt: "in der Stadt", turm: "an den Türmen", boni: "an den Türmen", fern: "in der Ferne", ferne: "in der Ferne", huegel: "auf dem Hügel", titel: "auf dem Blatt", unter: "auf dem Blatt", buehne: "auf dem Blatt", logo: "auf dem Dom", fest: "im Bild" })[x.o] || "";
+  const HINTER = { ufer: '<rect x="-99" y="-99" width="2999" height="157.4" fill="#d9d1c5"/><rect x="-99" y="57.95" width="2999" height=".5" fill="#8fc474"/><rect x="-99" y="58.4" width="2999" height="99" fill="#a8a092"/>',
+    wasser: '<rect x="-99" y="-99" width="2999" height="99" fill="#f3e2d8"/><rect x="-99" y="0" width="2999" height="99" fill="#c9dfee"/>', huegel: '<rect x="-99" y="-99" width="2999" height="299" fill="#cfe3bf"/>' };
+  const bild = x => ["ufer", "wasser", "stadt", "turm", "fern", "ferne", "huegel", "logo"].includes(x.o) ? `<svg class="k-band">${HINTER[x.o] || '<rect x="-99" y="-99" width="2999" height="299" fill="#f6e6dc"/>'}<g class="fu-${x.n}">${x.m}</g></svg>`
+    : x.m ? `<div class="k-frei fu-${x.n}">${x.m.replace("{{TAG}}", "")}</div>` : `<span class="k-schmuck">✦</span>`;
+  const passen = wurzel => { for (const s of wurzel.querySelectorAll("svg.k-band")) { let b; try { b = s.lastElementChild.getBBox(); } catch (e) { continue; } const r = 1.4; let w = Math.max(b.width + 2 * r, 9), h = Math.max(b.height + 2 * r, 6), v = s.closest(".g-bild") ? 1.5 : 1;
+    if (w / h > v) h = w / v; else w = h * v; s.setAttribute("viewBox", [b.x + b.width / 2 - w / 2, b.y + b.height / 2 - h / 2, w, h].join(" ")); } };
+  const halt = el => el.getAnimations({ subtree: true }).forEach(a => { a.pause(); a.currentTime = 5000; });
+
+  // Stand
+  document.getElementById("jahrzahl").textContent = JAHR; document.title = "Fundstück-Kalender " + JAHR + " – Mainzer Boniblatt";
+  document.getElementById("von").textContent = "von " + tage.length + " aufgedeckt";
+  const zahl = document.getElementById("zahl"); let n = 0; const zaehl = () => { n = Math.min(offen.length, n + Math.max(1, Math.ceil(offen.length / 40))); zahl.textContent = n; if (n < offen.length) setTimeout(zaehl, 30); }; zaehl();
+  setTimeout(() => { document.getElementById("balken").style.width = (tage.length ? offen.length / tage.length * 100 : 0) + "%"; }, 60);
+  const bis = Math.round((mittag(JAHR + "-01-01") - mittag(heute)) / 864e5), hinweis = document.getElementById("hinweis");
+  hinweis.textContent = bis > 0 ? `Der Kalender beginnt am 1. Januar ${JAHR} – noch ${bis} ${bis === 1 ? "Tag" : "Tage"}. Bis dahin taucht im Startbild schon jeden Werktag ein Fundstück zur Probe auf.`
+    : offen.length >= tage.length ? `Das Album ${JAHR} ist voll.` : `Heute ist der ${mittag(heute).toLocaleDateString("de-DE", { day: "numeric", month: "long" })}. Am Wochenende bleibt das Fundstück vom Freitag stehen.`;
+
+  // Monate
+  const stil = document.createElement("style"); stil.textContent = (B.CSS || "") + offen.map(t => (stueck[PLAN[t]] || {}).c || "").join("\n"); document.head.appendChild(stil);
+  const MONATE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+  const jahr = document.getElementById("jahr"); let lauf = 0;
+  jahr.innerHTML = MONATE.map((name, m) => { const zeit = m >= 2 && m <= 4 ? "fruehling" : m >= 5 && m <= 7 ? "sommer" : m >= 8 && m <= 10 ? "herbst" : "winter", letzter = new Date(JAHR, m + 1, 0).getDate(), leer = (new Date(JAHR, m, 1).getDay() + 6) % 7;
+    let da = 0, alle = 0, zellen = "<i>Mo</i><i>Di</i><i>Mi</i><i>Do</i><i>Fr</i><i>Sa</i><i>So</i>" + "<span></span>".repeat(leer);
+    for (let d = 1; d <= letzter; d++) { const tag = `${JAHR}-${zwei(m + 1)}-${zwei(d)}`, x = stueck[PLAN[tag]];
+      if (!PLAN[tag]) { zellen += `<span class="t we">${d}</span>`; continue; } alle++;
+      if (tag > heute || !x) { zellen += `<span class="t zu">${d}</span>`; continue; } da++;
+      zellen += `<button type="button" class="t auf${tag === heute ? " heute" : ""}" data-tag="${tag}" style="--dr:${((lauf * 37) % 9 - 4) * .9}deg;--i:${da}" aria-label="${d}. ${name}: ${esc(fundName(x.n))}"><span class="t-bild" data-o="${x.o}">${bild(x)}</span><b>${d}</b>${x.s > 1 ? `<u>${"★".repeat(x.s - 1)}</u>` : ""}</button>`; lauf++; }
+    return `<article class="k-monat" data-zeit="${zeit}" style="--kipp:${m % 2 ? 1.2 : -1.2}deg"><span class="k-nr">${zwei(m + 1)}</span><header><h2>${name}</h2><small>${da} / ${alle}</small></header><div class="k-tage">${zellen}</div></article>`; }).join("");
+  passen(jahr); setTimeout(() => halt(jahr), 80);
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("da"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+  jahr.querySelectorAll(".k-monat").forEach(el => io.observe(el));
+
+  // Großansicht
+  const gross = document.getElementById("gross"); let akt = -1;
+  const zeige = i => { akt = i; const tag = offen[i], x = stueck[PLAN[tag]]; if (!x) return;
+    const gb = document.getElementById("g-bild"); gb.innerHTML = bild(x); gb.dataset.o = x.o; passen(gross);
+    document.getElementById("g-tag").textContent = mittag(tag).toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    document.getElementById("g-name").textContent = fundName(x.n);
+    document.getElementById("g-mehr").textContent = GRUPPE(x) + (x.s > 2 ? " · selten" : x.s > 1 ? " · besonders" : "") + " · Nr. " + (tage.indexOf(tag) + 1) + " von " + tage.length;
+    document.getElementById("g-vor").disabled = i <= 0; document.getElementById("g-nach").disabled = i >= offen.length - 1; };
+  jahr.addEventListener("click", e => { const t = e.target.closest(".t.auf"); if (!t) return; zeige(offen.indexOf(t.dataset.tag)); gross.showModal(); });
+  document.getElementById("g-vor").onclick = () => zeige(akt - 1); document.getElementById("g-nach").onclick = () => zeige(akt + 1);
+  gross.querySelector(".g-zu").onclick = () => gross.close();
+  gross.addEventListener("click", e => { if (e.target === gross) gross.close(); });
+  gross.addEventListener("close", () => { document.getElementById("g-bild").innerHTML = ""; });
+  addEventListener("keydown", e => { if (!gross.open) return; if (e.key === "ArrowLeft" && akt > 0) zeige(akt - 1); if (e.key === "ArrowRight" && akt < offen.length - 1) zeige(akt + 1); });
+})();
+</script>
+</body>
+</html>

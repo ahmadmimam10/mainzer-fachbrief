@@ -362,8 +362,8 @@ main{min-height:55vh}
 @media (prefers-reduced-motion:reduce){.intro *,.intro *::before,.intro *::after{animation:none!important}}
 /* INTRO-ENDE */
 </style>
-<link rel="stylesheet" href="blatt/schrift.css?v=10">
-<link rel="stylesheet" href="blatt/bb.css?v=10">
+<link rel="stylesheet" href="blatt/schrift.css?v=12">
+<link rel="stylesheet" href="blatt/bb.css?v=12">
 </head>
 <body data-ressort="jugendhilfeplanung">
 <!-- INTRO-START -->
@@ -555,7 +555,7 @@ main{min-height:55vh}
   // ?fund=name,name zeigt bestimmte, ?fund=aus keine; ?fq=ufer lädt einen Entwurf (docs/_funde-ufer.js).
   // Dieselbe Datei zeichnet auch den Werbeflieger mit dem Spruch des Tages (daten/flieger.js); ?spruch=Text zeigt einen beliebigen.
   const fq = /^[a-z-]+$/.test(q.get("fq") || "") ? q.get("fq") : "", fundSkript = document.createElement("script");
-  fundSkript.src = fq ? "_funde-" + fq + ".js?" + Date.now() : "intro-funde.js?v=9ffd7948";
+  fundSkript.src = fq ? "_funde-" + fq + ".js?" + Date.now() : "intro-funde.js?v=a2bc31a7";
   // Für Standbilder (?zeit, ?p) wird die Datei sofort mitgeladen, damit das Bild verlässlich alles enthält.
   if (q.get("fund") === "aus" && !q.has("spruch") && !(window.BONIBLATT_FLIEGER || {})[heute]) ; else if (q.has("zeit") || q.has("p")) document.write('<script src="' + fundSkript.src + '"><' + '/script>'); else document.head.appendChild(fundSkript);
   intro.hidden = false;
@@ -662,11 +662,11 @@ main{min-height:55vh}
 </script>
 <!-- INTRO-ENDE -->
 <header id="kopf" class="e-kopf bb-kopf"><div class="blatt kopf-zeile"><span></span><h1 class="marke bb-marke"><a href="./" title="Zum Anfang">
-      <img class="logo-hell" src="bilder/zeichen.svg" alt="" width="128" height="128"><span class="bb-wort">Mainzer <i>Boniblatt</i><b>.</b></span></a></h1><span></span></div></header>
+      <img class="logo-hell" src="bilder/zeichen.svg" alt="" width="128" height="128"><span class="bb-wort">Mainzer <i>Boniblatt</i><b>.</b></span></a></h1><a class="kopf-info" href="ueber.html" title="Wie das Boniblatt entsteht"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4Z"/></svg><span>Werkstatt</span></a></div></header>
 <main id="e" class="bb b1" data-r="jugendhilfeplanung"></main>
 <noscript><p>Bitte JavaScript aktivieren, um die Ausgabe zu lesen.</p></noscript>
 <script src="daten/wetter7.js"></script>
-<script src="blatt/gemeinsam.js?v=10"></script>
-<script src="blatt/bb.js?v=10"></script>
+<script src="blatt/gemeinsam.js?v=12"></script>
+<script src="blatt/bb.js?v=12"></script>
 </body>
 </html>
