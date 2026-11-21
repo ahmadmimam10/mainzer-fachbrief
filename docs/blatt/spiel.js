@@ -3,7 +3,7 @@
 // schwerer: mehr Wind, kleinerer Korb, ab 12 Treffern Böen, ab 18 rollt der Korb. Drei Fehlwürfe beenden die Runde.
 // Das Papier fliegt wie Papier: gemächlich, mit Luftwiderstand und im Bogen – ein gerader Schuss in den Korb geht nicht.
 (() => {
-  const LISTE_URL = "";   // Adresse des Bestenlisten-Dienstes (cloudflare/bestenliste). Leer = Spiel ohne gemeinsame Bestenliste.
+  const LISTE_URL = "https://boniblatt-bestenliste.ahmadmimam10.workers.dev/";   // Adresse des Bestenlisten-Dienstes (cloudflare/bestenliste). Leer = Spiel ohne gemeinsame Bestenliste.
   const wurzel = document.getElementById("spiel"); if (!wurzel || wurzel.dataset.an) return; wurzel.dataset.an = "1";
   const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   wurzel.innerHTML = `
