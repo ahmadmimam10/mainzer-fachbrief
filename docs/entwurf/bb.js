@@ -2,6 +2,7 @@
 (async () => {
   const { esc } = E, q = E.q, wurzel = document.getElementById("e"), SPIEL = wurzel.classList.contains("b2");
   await E.laden();
+  const [gremien, gNotizen] = await Promise.all(["daten/gremien.json", "daten/gremien-notizen.json"].map(u => fetch(u).then(r => r.json()).catch(() => null)));
 
   // ---- Bereiche. Neue Bereiche einfach anhängen: Reiter, Farbrollen und Kacheln richten sich nach der Liste. ----
   // daten = Schlüssel in der Ausgabe, reiter = kurzer Name im Reiter, lang = voller Name, motive = Bildmotive (docs/bilder/motive)
@@ -61,7 +62,15 @@
     <header class="bb-oben">${motiv(ORTE[(tagNr + 9) % ORTE.length][0], "wz kopfwz")}<p class="bb-gruss">Guten <i>Morgen.</i><small>${esc(E.datum({ weekday: "long", day: "numeric", month: "long" }))}</small></p>
       <nav class="bb-reiter" aria-label="Bereiche">${BEREICHE.map((b, i) => `<button type="button" data-r="${b.id}" aria-pressed="false" style="--nr:${i}">${motiv(b.motive[0])}<span>${esc(b.reiter)}</span></button>`).join("")}</nav></header>
     <section class="bb-raster" id="kacheln"></section>
-    <div class="bb-skyline" aria-hidden="true">${["kirschgarten", "christuskirche", "holzturm", "dom", "staatstheater", "bonituerme", "bruecke"].map(m => motiv(m)).join("")}</div></div>`;
+    <div class="bb-skyline" aria-hidden="true">${["kirschgarten", "christuskirche", "holzturm", "dom", "staatstheater", "bonituerme", "bruecke"].map(m => motiv(m)).join("")}</div>
+    <footer class="bb-fuss">
+      <a class="f-bild" href="https://github.com/ahmadmimam10" target="_blank" rel="author noopener" aria-label="Ahmed Imam auf GitHub">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="f-kreis" d="M100 100m-76 0a76 76 0 1 1 152 0a76 76 0 1 1 -152 0"/></defs><text><textPath href="#f-kreis" textLength="470">Mainzer Boniblatt · ein Projekt von Ahmed Imam · </textPath></text></svg>
+        <img src="bilder/ahmed-imam.jpg" alt="Ahmed Imam" width="120" height="120" loading="lazy"></a>
+      <div class="f-wer"><p class="f-klein">Ein Projekt von</p><p class="f-name">Ahmed <i>Imam</i></p>
+        <p class="f-links"><a href="https://github.com/ahmadmimam10" target="_blank" rel="author noopener">GitHub-Profil</a><a href="https://github.com/ahmadmimam10/mainzer-fachbrief" target="_blank" rel="noopener">Quellcode</a><a href="mailto:ahmadmimam10@gmail.com">ahmadmimam10@gmail.com</a></p></div>
+      <div class="f-ueber"><strong>Über das <i>Boniblatt</i></strong><span>Testphase · automatisch zusammengestellt, redaktionell gewichtet</span><a class="f-mehr" href="ueber.html">So entsteht das Boniblatt <span aria-hidden="true">→</span></a></div>
+    </footer></div>`;
   const raster = wurzel.querySelector("#kacheln");
 
   // ---- Wetter und Jahreszeit laufen unten dezent weiter: wenige fallende Teilchen, ein paar bleiben auf den Kacheln liegen ----
@@ -93,9 +102,9 @@
     const b = bereich(id), t = E.teile(b.daten), nr = BEREICHE.indexOf(b), k = [];
     const text = ((E.ausgabe.hoerfassungen || {})[b.daten] || "").trim();
     if (t.auf) k.push(`<a class="k auf" data-ein href="${esc(t.auf.url)}">${motiv(b.motive[0], "gross")}<span class="etikett">Aufmacher · ${esc(t.auf.thema)}</span><h2>${esc(t.auf.titel)}</h2><p>${esc(t.auf.kurz || "")}</p>${unten(t.auf)}</a>`);
-    k.push(`<div class="k ohr" data-ein data-zustand="aus"><span class="etikett">Anhören · ${esc(b.reiter)}</span>
+    k.push(`<div class="k ohr" data-ein data-zustand="aus"><div class="h-glut" aria-hidden="true"></div><span class="etikett">Anhören · ${esc(b.reiter)}</span>
       <div class="h-buehne"><div class="h-scheibe" aria-hidden="true"><i></i>${motiv("kopfhoerer")}</div>
-        <button type="button" class="h-knopf" aria-label="Abspielen"><svg class="h-ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="spur" cx="60" cy="60" r="54"/><circle class="gang" cx="60" cy="60" r="54" pathLength="100"/></svg><span class="h-symbol"></span></button>
+        <div class="h-kern"><div class="h-strahlen" aria-hidden="true">${Array.from({ length: 40 }, (_, i) => `<i style="--n:${i}"></i>`).join("")}</div><i class="h-ping"></i><i class="h-ping"></i><button type="button" class="h-knopf" aria-label="Abspielen"><svg class="h-ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="spur" cx="60" cy="60" r="54"/><circle class="gang" cx="60" cy="60" r="54" pathLength="100"/></svg><span class="h-symbol"></span></button></div>
         <div class="h-wellen" aria-hidden="true">${Array.from({ length: 26 }, (_, i) => `<i style="--w:${(.2 + .8 * Math.abs(Math.sin(i * 1.9 + nr))).toFixed(2)};--i:${i}"></i>`).join("")}</div></div>
       <p class="h-satz">${text ? "Drei Minuten für die Ohren: die Ausgabe zum Hören." : "Für diese Ausgabe gibt es noch keine Hörfassung."}</p>
       <div class="h-leiste"><span class="h-zeit">0:00</span><span class="h-spur" role="slider" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i></i></span><span class="h-dauer">–:––</span></div></div>`);
@@ -105,17 +114,75 @@
     const tagK = `<div class="k tag" data-ein>${motiv(b.motive[1 + tagNr % 3])}<p><b>${E.tag().getDate()}.</b>${esc(E.datum({ month: "long" }))}<small>${esc(b.lang)}</small></p></div>`;
     const ort = ORTE[(tagNr + nr * 4) % ORTE.length];
     k.push(document.documentElement.dataset.entwurf === "b1" ? `<div class="bb-seite">${tagK}<div class="bb-frei" aria-hidden="true">${motiv(ort[0])}<small>${esc(ort[1] || "")}</small></div></div>` : tagK);
+    const saal = gremienKachel(b); if (saal) k.push(saal);
     k.push(losKachel());
     raster.innerHTML = k.join("");
     // Fremde Seiten öffnen immer in einem neuen Tab
     raster.querySelectorAll('a[href^="http"]').forEach(l => { l.target = "_blank"; l.rel = "noopener"; });
     belegen();
+    gremienBinden(b);
     hoerenBinden(b, text);
   }
 
   // ---- Anhören: echte Hörfassung, Fortschritt als Ring und Leiste, dazu läuft der gerade gesprochene Satz mit ----
+  // ---- Gremien „Im Saal“: jeder Punkt im Halbrund ist ein Tagesordnungspunkt – antippen zeigt ihn, die Legende filtert ----
+  const KERN_G = /^(Jugendhilfeausschuss|Sozialausschuss|Stadtrat)$/i;
+  const ARTEN = [["vorlage", "Vorlagen", "Vorlage"], ["antrag", "Anträge", "Antrag"], ["anfrage", "Anfragen", "Anfrage"], ["bericht", "Berichte", "Bericht"], ["sonstiges", "Sonstiges", "Sonstiges"]];
+  const STICHWORT = { "jugendhilfeplanung": /jugend|kinder|kita|krippe|schul|famil|erzieh|eingliederung|sgb|sozialraum/i, "fruehe-hilfen": /kinder|famil|kita|krippe|eltern|geburt|hebamm|schutz|frühe/i, "quartiersmanagement": /quartier|stadtteil|sozialraum|soziale|wohn|platz|bürgerhaus|treff|nachbar|beteiligung/i };
+  const mittag = d => new Date(d + "T12:00:00");
+  const kurzG = g => String(g).replace("Ortsbeirat Mainz-", "Ortsbeirat ").replace(" der Stadt Mainz", "").replace("Beirat für Migration und Integration", "Migrationsbeirat");
+  let gSitzungen = [];
+  function gremienKachel(b) {
+    const alle = (gremien && gremien.sitzungen) || [], notiz = (gNotizen && gNotizen.notizen) || {};
+    const naechste = alle.filter(s => s.datum >= heute && s.status !== "vergangen" && KERN_G.test(s.gremium || "")).sort((x, y) => (x.datum + (x.zeit || "")).localeCompare(y.datum + (y.zeit || "")))[0];
+    const zuletzt = Object.entries(notiz).filter(([id, n]) => n.datum < heute && n.ressorts && n.ressorts[b.daten]).sort((x, y) => y[1].datum.localeCompare(x[1].datum)).slice(0, 4)
+      .map(([id, n]) => ({ ...(alle.find(s => s.id === id) || {}), id, gremium: n.gremium, datum: n.datum, url: n.url }));
+    gSitzungen = [...(naechste ? [naechste] : []), ...zuletzt].map(s => ({ ...s, text: ((notiz[s.id] || {}).ressorts || {})[b.daten] || "", gelesen: !!notiz[s.id], kommt: s.datum >= heute }));
+    if (!gSitzungen.length) return "";
+    return `<div class="k saal" data-ein><span class="etikett">Gremien · ${esc(b.reiter)}</span>
+      <div class="s-kopf"><h3>Im <i>Saal</i></h3><div class="s-wahl" role="tablist">${gSitzungen.map((s, i) => `<button type="button" role="tab" aria-selected="${!i}" data-i="${i}">${s.kommt ? "<em>kommt</em>" : ""}${esc(kurzG(s.gremium))}<small>${esc(mittag(s.datum).toLocaleDateString("de-DE", { day: "numeric", month: "short" }))}</small></button>`).join("")}</div></div>
+      <div class="s-buehne"><div class="s-text"></div><div class="s-rund"></div></div></div>`;
+  }
+  function gremienBinden(b) {
+    const k = raster.querySelector(".saal"); if (!k) return;
+    const text = k.querySelector(".s-text"), rund = k.querySelector(".s-rund"), stich = STICHWORT[b.daten] || /$^/;
+    const zeige = nr => {
+      const s = gSitzungen[nr], tops = s.tops || [], n = tops.length, tage = Math.round((mittag(s.datum) - mittag(heute)) / 864e5);
+      k.querySelectorAll(".s-wahl button").forEach((x, i) => x.setAttribute("aria-selected", i === nr));
+      const wann = tage === 0 ? "heute" : tage === 1 ? "morgen" : tage > 0 ? `in ${tage} Tagen` : tage === -1 ? "gestern" : `vor ${-tage} Tagen`;
+      text.innerHTML = `<p class="s-wann"><b>${wann}</b><span>${esc(mittag(s.datum).toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" }))}${s.zeit ? " · " + esc(s.zeit) + " Uhr" : ""}</span></p>
+        <h4>${esc(s.gremium)}</h4>${s.ort ? `<p class="s-ort">${esc(s.ort.split(",").slice(0, 2).join(","))}</p>` : ""}
+        <p class="s-notiz">${s.text ? `<b>Darum geht’s:</b> ${esc(s.text)}` : s.gelesen ? "Für diesen Bereich ist nichts vermerkt." : "Die Tagesordnung ist noch nicht ausgewertet."}</p>
+        <a class="s-link" href="${esc(s.url)}" target="_blank" rel="noopener">Zur Sitzung im Ratsinfo <span aria-hidden="true">→</span></a>`;
+      if (!n) { rund.innerHTML = `<p class="s-leer">Die Tagesordnung ist noch nicht veröffentlicht.</p>`; return; }
+      // Plätze: Reihen von innen nach außen, gleichmäßig auf den Bögen verteilt, von links nach rechts durchgezählt
+      const reihen = n <= 9 ? 1 : n <= 24 ? 2 : n <= 48 ? 3 : n <= 80 ? 4 : 5, r1 = 176, r0 = reihen === 1 ? 150 : reihen === 2 ? 128 : reihen === 3 ? 104 : 86;
+      const radien = Array.from({ length: reihen }, (_, i) => reihen === 1 ? r0 : r0 + (r1 - r0) * i / (reihen - 1)), sr = radien.reduce((x, y) => x + y, 0);
+      const z = radien.map(r => Math.floor(n * r / sr)); let offen = n - z.reduce((x, y) => x + y, 0); for (let i = reihen - 1; offen > 0; i = (i - 1 + reihen) % reihen, offen--) z[i]++;
+      const plaetze = []; radien.forEach((r, i) => { for (let j = 0; j < z[i]; j++) { const w = z[i] === 1 ? Math.PI / 2 : Math.PI * (1 - j / (z[i] - 1)); plaetze.push({ w, r, x: 200 + r * Math.cos(w), y: 196 - r * Math.sin(w) }); } });
+      plaetze.sort((x, y) => y.w - x.w || x.r - y.r);
+      const pr = Math.min(11, .42 * Math.min(Math.PI * radien[0] / Math.max(1, z[0] - 1), reihen > 1 ? (r1 - r0) / (reihen - 1) : 99));
+      const art = x => ARTEN.find(a => a[0] === x.art) || ARTEN[4], treffer = tops.filter(x => stich.test(x.titel)).length;
+      rund.removeAttribute("data-filter");
+      rund.innerHTML = `<div class="s-halb"><svg viewBox="0 0 400 210" role="group" aria-label="Tagesordnung, ${n} Punkte">${tops.map((x, i) => `<circle class="s-p a-${art(x)[0]}${stich.test(x.titel) ? " s-treffer" : ""}" data-t="${i}" cx="${plaetze[i].x.toFixed(1)}" cy="${plaetze[i].y.toFixed(1)}" r="${pr.toFixed(1)}" style="--i:${i}" tabindex="0" role="button" aria-label="TOP ${esc(x.nr)}: ${esc(x.titel)}"/>`).join("")}</svg>
+        <div class="s-mitte"><b>${n}</b><span>Punkte</span></div></div>
+        <p class="s-top"><span>Jeder Punkt ist ein Tagesordnungspunkt – einfach antippen.</span></p>
+        <div class="s-legende">${ARTEN.map(a => [a, tops.filter(x => art(x) === a).length]).filter(a => a[1]).map(([a, zahl]) => `<button type="button" data-art="${a[0]}" aria-pressed="false"><i class="a-${a[0]}"></i>${a[1]} <b>${zahl}</b></button>`).join("")}${treffer ? `<button type="button" data-art="treffer" aria-pressed="false"><i class="s-treffer"></i>Stichworte zum Bereich <b>${treffer}</b></button>` : ""}</div>`;
+      const waehle = el => { const x = tops[el.dataset.t]; if (!x || el.classList.contains("s-an")) return;
+        rund.querySelectorAll(".s-an").forEach(y => y.classList.remove("s-an")); el.classList.add("s-an");
+        rund.querySelector(".s-mitte").innerHTML = `<span>TOP</span><b>${esc(x.nr)}</b>`;
+        rund.querySelector(".s-top").innerHTML = `<b>${art(x)[2]}${x.ergebnis ? " · " + esc(x.ergebnis) : ""}</b>${esc(x.titel)}${x.url ? ` <a href="${esc(x.url)}" target="_blank" rel="noopener">öffnen →</a>` : ""}`; };
+      rund.onpointerover = rund.onfocusin = e => { const el = e.target.closest(".s-p"); if (el) waehle(el); };
+      rund.onclick = e => { const el = e.target.closest(".s-p"); if (el) return waehle(el);
+        const l = e.target.closest("[data-art]"); if (!l) return; const an = rund.dataset.filter === l.dataset.art;
+        rund.querySelectorAll("[data-art]").forEach(y => y.setAttribute("aria-pressed", !an && y === l)); if (an) rund.removeAttribute("data-filter"); else rund.dataset.filter = l.dataset.art; };
+    };
+    k.querySelector(".s-wahl").onclick = e => { const x = e.target.closest("button"); if (x) zeige(+x.dataset.i); };
+    zeige(0);
+  }
+
   const AUDIO_BASIS = /^(localhost|127\.)/.test(location.hostname) ? "https://boniblatt-mainz.de/" : "";
-  let hoerIndex = null, audio = null;
+  let hoerIndex = null, audio = null, hoerCtx = null;
   const hoerDaten = fetch(AUDIO_BASIS + "daten/audio.json").then(r => r.json()).then(d => { hoerIndex = (d.ausgaben || {})[E.ausgabe.datum] || {}; }).catch(() => { hoerIndex = {}; });
   const uhr = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
   function hoerenBinden(b, text) {
@@ -126,12 +193,29 @@
     const stand = () => { if (!audio || !audio.duration) return; const p = audio.currentTime / audio.duration;
       gang.style.strokeDashoffset = 100 - p * 100; spur.firstElementChild.style.width = p * 100 + "%"; spur.setAttribute("aria-valuenow", Math.round(p * 100));
       k.style.setProperty("--p", p.toFixed(4)); k.querySelector(".h-zeit").textContent = uhr(audio.currentTime);
-      const nr = grenzen.findIndex(g => g / summe >= p); if (nr !== gezeigt && saetze[nr]) { gezeigt = nr; satz.classList.remove("neu"); void satz.offsetWidth; satz.textContent = saetze[nr]; satz.classList.add("neu"); } };
+      const nr = grenzen.findIndex(g => g / summe >= p); if (nr !== gezeigt && saetze[nr]) { gezeigt = nr; satz.classList.remove("neu"); void satz.offsetWidth; satz.innerHTML = saetze[nr].split(" ").map(w => "<span>" + esc(w) + "</span>").join(" "); satz.classList.add("neu"); }
+      // Wörter leuchten nach und nach auf (geschätzt aus der Textlänge)
+      if (saetze[nr]) { const von = nr ? grenzen[nr - 1] : 0, anteil = (p * summe - von) / (grenzen[nr] - von), ges = saetze[nr].length; let z = 0;
+        for (const w of satz.children) { const a = z / ges; z += w.textContent.length + 1; const kl = anteil >= z / ges ? "war" : anteil >= a ? "jetzt" : ""; if (w.className !== kl) w.className = kl; } } };
+    // Pegel: die echten Frequenzen der Aufnahme (Web Audio); klappt das nicht, läuft eine ruhige Ersatzbewegung
+    const strahlen = [...k.querySelectorAll(".h-strahlen i")], wellen = [...k.querySelectorAll(".h-wellen i")]; let analyser = null, bins = null, bild = 0, glatt = 0, versucht = false;
+    const messen = () => { try { const AC = window.AudioContext || window.webkitAudioContext; hoerCtx = hoerCtx || new AC(); hoerCtx.resume(); const quelle = hoerCtx.createMediaElementSource(audio);
+        analyser = hoerCtx.createAnalyser(); analyser.fftSize = 128; analyser.smoothingTimeConstant = .78; quelle.connect(analyser); analyser.connect(hoerCtx.destination); bins = new Uint8Array(analyser.frequencyBinCount); } catch (e) { analyser = null; } };
+    const pegel = (i, ms) => analyser ? bins[2 + i % 28] / 255 : .35 + .3 * Math.sin(ms / 190 + i * 1.7) + .25 * Math.sin(ms / 83 + i * .6);
+    const malen = ms => { let s = 0; strahlen.forEach((el, i) => { const v = Math.max(0, pegel(i < 20 ? i : 39 - i, ms)); s += v; el.style.setProperty("--s", v.toFixed(3)); });
+      wellen.forEach((el, i) => el.style.setProperty("--w", Math.max(.06, pegel(Math.abs(i - 13), ms)).toFixed(3))); return s / 40; };
+    const lauf = ms => { if (!audio || audio.paused || !k.isConnected) { bild = 0; return; }
+      if (analyser) analyser.getByteFrequencyData(bins);
+      glatt += (malen(ms) - glatt) * .25; k.style.setProperty("--pegel", glatt.toFixed(3)); stand(); bild = requestAnimationFrame(lauf); };
+    if (q.has("hoerbild")) { // Standbild der laufenden Wiedergabe (für Bilder)
+      k.dataset.zustand = "spielt"; malen(900); k.style.setProperty("--pegel", ".5"); gang.style.strokeDashoffset = 63; spur.firstElementChild.style.width = "37%"; k.querySelector(".h-zeit").textContent = "0:41";
+      satz.innerHTML = (saetze[2] || saetze[0] || "").split(" ").map((w, i) => `<span class="${i < 5 ? "war" : i === 5 ? "jetzt" : ""}">${esc(w)}</span>`).join(" "); return; }
     hoerDaten.then(() => {
       const info = hoerIndex[b.daten]; if (!info || !k.isConnected) { k.dataset.zustand = "fehlt"; return; }
       k.querySelector(".h-dauer").textContent = uhr(info.sekunden);
-      const starten = () => { if (!audio) { audio = new Audio(AUDIO_BASIS + info.datei); k.dataset.zustand = "laedt";
-          audio.addEventListener("timeupdate", stand); audio.addEventListener("playing", () => { k.dataset.zustand = "spielt"; knopf.setAttribute("aria-label", "Pause"); });
+      const starten = () => { if (!audio) { audio = new Audio(); audio.crossOrigin = "anonymous"; audio.src = AUDIO_BASIS + info.datei; k.dataset.zustand = "laedt";
+          audio.addEventListener("timeupdate", stand); audio.addEventListener("playing", () => { k.dataset.zustand = "spielt"; knopf.setAttribute("aria-label", "Pause"); if (!versucht) { versucht = true; messen(); } if (!bild) bild = requestAnimationFrame(lauf); });
+          audio.addEventListener("error", () => { k.dataset.zustand = "aus"; satz.textContent = "Die Hörfassung lädt gerade nicht."; });
           audio.addEventListener("pause", () => { if (k.dataset.zustand !== "aus") k.dataset.zustand = "pause"; knopf.setAttribute("aria-label", "Weiter"); });
           audio.addEventListener("ended", () => { k.dataset.zustand = "aus"; gang.style.strokeDashoffset = 100; spur.firstElementChild.style.width = "0"; gezeigt = -1; satz.textContent = "Das war’s für heute. Bis morgen."; knopf.setAttribute("aria-label", "Abspielen"); }); }
         if (audio.paused) audio.play().catch(() => { k.dataset.zustand = "aus"; }); else audio.pause(); };
