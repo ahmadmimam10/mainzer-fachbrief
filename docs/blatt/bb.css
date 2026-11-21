@@ -398,7 +398,7 @@ body{background:#f6f4ef}
 .g-eintrag.blass .g-text>span{opacity:.6}
 .g-pfeil{font-size:17px;opacity:.35;transition:opacity .3s,translate .3s}.g-eintrag:hover .g-pfeil{opacity:1;translate:2px -2px}
 .g-leer{margin:0;padding:14px 0;border-top:1.5px solid color-mix(in srgb,var(--tinte) 12%,transparent);font-size:15px;opacity:.65}
-#e a.los-karte{color:inherit;text-decoration:none}
+#e a.los-karte{text-decoration:none}#e a.los-karte.f0{color:var(--at)}#e a.los-karte.f1{color:var(--bt)}#e a.los-karte.f2{color:var(--ct)}#e a.los-karte.f3{color:var(--dt)}#e a.los-karte.f4{color:var(--et)}
 #e a.f-mehr+a.f-mehr{margin-top:0}
 @media (max-width:960px){
   .rat-spalten{grid-template-columns:minmax(0,1fr)}
