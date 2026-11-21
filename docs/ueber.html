@@ -106,7 +106,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 
 /* ---- Kapitel 1: ein Ablauf wie in Make.com – Blasen in einer Kette, auf der Bühne darüber, was gerade passiert ---- */
 .szen{position:relative;margin-top:30px;border-radius:30px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06);overflow:hidden}
-.szen-zeit{position:absolute;left:0;top:0;z-index:2;height:4px;width:100%;background:var(--f1);transform-origin:0 50%;animation:sz-zeit 7s linear both}
+.szen-zeit{position:absolute;left:0;top:0;z-index:2;height:4px;width:100%;background:var(--f1);transform-origin:0 50%;animation:sz-zeit 11s linear both}
 .szen.ruht .szen-zeit{animation-play-state:paused}
 @media (hover:hover){.szen:hover .szen-zeit{animation-play-state:paused}}
 @keyframes sz-zeit{from{scale:0 1}to{scale:1 1}}
@@ -193,15 +193,25 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 @keyframes brief{0%,100%{translate:0 0;rotate:-4deg}50%{translate:6px -10px;rotate:6deg}}
 .wisch{display:none;margin:8px 0 0!important;font-size:13px;opacity:.6}
 
-/* ---- Kapitel 2: viele Bausteine werden ein Blatt ---- */
-.haufen{position:relative;height:min(62vw,460px)}
-.haufen i{position:absolute;left:50%;top:50%;width:74px;height:50px;margin:-25px 0 0 -37px;border-radius:10px;background:var(--b,var(--f1));border:2px solid rgba(255,255,255,.2);
-  transform:translate(var(--x),var(--y)) rotate(var(--r));transition:transform 1.5s cubic-bezier(.6,0,.2,1) calc(var(--n) * 28ms),opacity .6s ease calc(var(--n) * 28ms + .9s);animation:zittern 3s ease-in-out calc(var(--n) * -.3s) infinite alternate}
-@keyframes zittern{to{margin-top:-31px}}
-.haufen.eins i{transform:translate(0,0) rotate(calc(var(--n) * .6deg - 9deg));opacity:0}
-.haufen .blatt{position:absolute;left:50%;top:50%;width:min(78%,360px);translate:-50% -50%;padding:26px 24px;border-radius:26px;background:#f6f1e6;color:var(--tinte);text-align:center;scale:.2;opacity:0;rotate:-14deg;transition:scale 1s var(--feder) 1.5s,opacity .5s ease 1.5s,rotate 1s var(--feder) 1.5s}
-.haufen.eins .blatt{scale:1;opacity:1;rotate:-3deg}
-.haufen .blatt img{width:64px;height:64px}.haufen .blatt b{display:block;font:640 30px/1 "Fraunces",serif;letter-spacing:-.04em;margin-top:6px}.haufen .blatt small{display:block;margin-top:8px;font-size:13.5px;opacity:.7}
+/* ---- Kapitel 2: ein Auftrag statt vieler Blasen – der Auftrag tippt sich, die Arbeit hakt sich von selbst ab ---- */
+.auftrag{display:grid;gap:16px;padding:clamp(16px,2.4vw,26px);border-radius:30px;background:rgba(255,255,255,.06)}
+.af-prompt{padding:16px 20px 18px;border-radius:22px 22px 22px 6px;background:#f6f1e6;color:var(--tinte)}
+.af-prompt small{display:block;margin-bottom:6px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--f1)}
+.af-prompt p{margin:0!important;max-width:none!important;min-height:3.9em;font:460 clamp(19px,1.95vw,24px)/1.3 "Fraunces",serif;letter-spacing:-.015em}
+.af-strich{display:inline-block;width:2px;height:1.05em;margin-left:2px;vertical-align:-.16em;background:var(--f1);animation:af-blink 1s steps(1) infinite}
+@keyframes af-blink{50%{opacity:0}}
+.af-kern{display:flex;align-items:center;gap:12px;padding-left:6px;font-size:15px;font-weight:700}
+.af-kern i{flex:none;width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--f2),var(--f1),var(--f4),var(--f3),var(--f2));-webkit-mask:radial-gradient(circle,#0000 9px,#000 10px);mask:radial-gradient(circle,#0000 9px,#000 10px);animation:drehe 1.8s linear infinite paused}
+.auftrag.laeuft .af-kern i{animation-play-state:running}
+.af-liste{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.af-liste li{position:relative;padding:10px 10px 10px 31px;border-radius:12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);font-size:13.5px;font-weight:600;line-height:1.2;color:rgba(246,241,230,.42);transition:background .45s,color .45s,box-shadow .45s,translate .45s var(--feder)}
+.af-liste li::before{content:"";position:absolute;left:10px;top:50%;display:grid;place-items:center;width:13px;height:13px;margin-top:-6.5px;border-radius:50%;box-shadow:inset 0 0 0 2px rgba(255,255,255,.3);font-size:9px;line-height:1;color:#fff}
+.af-liste li.dran{color:#f6f1e6;box-shadow:inset 0 0 0 1.5px var(--f2);translate:0 -2px}.af-liste li.dran::before{box-shadow:inset 0 0 0 2px var(--f2);animation:af-puls .45s ease infinite alternate}
+@keyframes af-puls{to{scale:.55}}
+.af-liste li.fertig{background:#f6f1e6;color:var(--tinte);box-shadow:none}.af-liste li.fertig::before{content:"✓";background:#3d9a55;box-shadow:none}
+.af-blatt{justify-self:start;display:flex;align-items:center;gap:12px;padding:10px 20px 10px 12px;border-radius:99px;background:var(--f2);color:var(--tinte);font:640 clamp(20px,2.2vw,27px)/1 "Fraunces",serif;letter-spacing:-.04em;scale:.5;opacity:0;rotate:-8deg;transform-origin:0 50%;transition:scale .8s var(--feder),opacity .4s,rotate .8s var(--feder),background 1.2s}
+.af-blatt img{width:44px;height:44px}
+.auftrag.fertig .af-blatt{scale:1;opacity:1;rotate:-2deg}
 .zahlen{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:34px}
 .zahlen div{padding:18px 16px;border-radius:20px;background:rgba(255,255,255,.07)}
 .zahlen b{display:block;font:460 clamp(38px,5vw,66px)/.9 "Fraunces",serif;letter-spacing:-.04em;color:var(--f2)}.zahlen span{font-size:13.5px;opacity:.75}
@@ -276,8 +286,8 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .klein{margin-top:26px!important;font-size:14px;opacity:.65;max-width:44em}
 @media (max-width:980px){.schritte{grid-template-columns:repeat(2,minmax(0,1fr))}.schritte li:nth-child(3){border-left:0}.schritte li:nth-child(n+3){border-top:1px solid rgba(0,0,0,.08)}}
 @media (max-width:860px){.szen-buehne{grid-template-columns:minmax(0,1fr)}.sb .bild{zoom:1.25}.szen-bild{min-height:213px}.vierzig{min-height:213px;padding:14px;gap:12px}.sk{flex:0 0 92px}.tuftel{grid-template-columns:minmax(0,1fr)}.zwei{grid-template-columns:minmax(0,1fr)}.zahlen{grid-template-columns:repeat(2,minmax(0,1fr))}.wer{grid-template-columns:minmax(0,1fr)}.wer .ring{width:170px}.wisch{display:block}.buehne{aspect-ratio:3/4}.post{rotate:1deg}}
-@media (max-width:560px){.notiz{font-size:23px;margin-left:2px}.notiz svg{width:34px}.schalter button{padding:9px 13px;font-size:14px}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt span,.notiz span{clip-path:none}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.haufen i{opacity:0}.haufen .blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
+@media (max-width:560px){.af-liste{grid-template-columns:repeat(2,minmax(0,1fr))}.notiz{font-size:23px;margin-left:2px}.notiz svg{width:34px}.schalter button{padding:9px 13px;font-size:14px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt span,.notiz span{clip-path:none}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.af-blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
 </style>
 </head>
 <body>
@@ -330,12 +340,17 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 <section class="kap dunkel" id="warum"><div class="innen">
   <div class="akt" data-ein><b aria-hidden="true">2</b><span>Der Wechsel</span><i></i></div>
   <div class="zwei">
-    <div class="haufen" id="haufen"><div class="blatt"><img src="bilder/zeichen.svg" alt="" width="64" height="64"><b>Mainzer Boniblatt.</b><small>eine Seite statt vieler Abläufe</small></div></div>
+    <div class="auftrag" id="auftrag" data-ein aria-hidden="true">
+      <div class="af-prompt"><small>Der Auftrag, sinngemäß</small><p><span id="af-text"></span><i class="af-strich"></i></p></div>
+      <div class="af-kern"><i></i><span id="af-status">wartet auf den Auftrag</span></div>
+      <ul class="af-liste" id="af-liste"></ul>
+      <div class="af-blatt"><img src="bilder/zeichen.svg" alt="" width="44" height="44"><b>Mainzer Boniblatt.</b></div>
+    </div>
     <div>
-      <h2 data-ein>Aus vielen Abläufen wird <i>ein Blatt</i></h2>
-      <p data-ein style="--v:1">Seit dem 20. November 2026 ersetzt das Boniblatt den JHP-Newsletter und die Make-Automationen. Ein einziges Skript ruft alle Quellen ab, eine KI-Redaktion sichtet nach festen Regeln, und die Seite baut sich selbst. Kommt eine Quelle dazu, ist das eine Zeile in einer Liste – kein neuer Ablauf.</p>
-      <p data-ein style="--v:2">Statt im Postfach liegt alles offen im Netz: mit Archiv, Suche, Hörfassung, Gremien und Wetter – und nicht mehr nur für die Jugendhilfeplanung.</p>
-      <div class="zahlen" data-ein style="--v:3"><div><b data-zahl="1">0</b><span>Skript statt vieler Abläufe</span></div><div><b data-zahl="50" data-plus="+">0</b><span>öffentliche Quellen</span></div><div><b data-zahl="3">0</b><span>Fachbereiche</span></div><div><b data-zahl="0">0</b><span>E-Mails</span></div></div>
+      <h2 data-ein>Aus Blasen wird <i>ein Auftrag</i></h2>
+      <p data-ein style="--v:1">Seit dem 20. November 2026 ersetzt das Boniblatt den JHP-Newsletter und die Make-Automationen. Der Grund ist kein besseres Werkzeug, sondern eine neue Art zu arbeiten: Agentische KI ist so stark geworden, dass man die ganze Aufgabe in Auftrag geben kann.</p>
+      <p data-ein style="--v:2">Claude Fable 5.2 von Anthropic hat sich jede Quelle selbst vorgenommen, den Abruf geschrieben, getestet und repariert – ohne dass jemand Blase für Blase einrichtet. Im Hintergrund laufen weiter Automationen, nur baut und pflegt sie jetzt die KI. Was früher Tüftelarbeit war, ist heute ein Gespräch; die Low-Code-Automatisierung ist in diesem Beispiel fast überflüssig geworden.</p>
+      <div class="zahlen" data-ein style="--v:3"><div><b data-zahl="0">0</b><span>Blasen von Hand eingerichtet</span></div><div><b data-zahl="50" data-plus="+">0</b><span>öffentliche Quellen</span></div><div><b data-zahl="3">0</b><span>Fachbereiche</span></div><div><b data-zahl="0">0</b><span>E-Mails</span></div></div>
     </div>
   </div>
 </div></section>
@@ -364,7 +379,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   <div class="buehne laedt" data-ein style="--v:3"><iframe id="schaubild" title="Das Startbild des Boniblatts" loading="lazy" tabindex="-1" src="./?intro"></iframe></div>
   <p class="geheim" data-ein>Den Rest verraten wir nicht – der zeigt sich an seinem Tag.</p>
   <h3 data-ein>Entstanden <i>Wunsch für Wunsch</i></h3>
-  <p data-ein>Kein Entwurf am Stück, sondern ein langes Gespräch: zeigen, anschauen, nachschärfen. Ein paar der Anweisungen, die hineingeflossen sind:</p>
+  <p data-ein>Kein Entwurf am Stück, sondern ein langes Gespräch: zeigen, anschauen, nachschärfen. Am Anfang stand der Wunsch nach einem Auftakt vor der Ausgabe – mit Tiefe, aber ohne Pathos. Das Logo lieferte Ahmed in Einzelteilen, die Motive der Kacheln als eigenes Bilderset. Ein paar der Anweisungen, die hineingeflossen sind:</p>
   <div class="wuensche" aria-hidden="true"><div id="w1"></div><div id="w2"></div></div>
 </div></section>
 
@@ -418,9 +433,8 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   addEventListener("scroll", () => { if (offen) return; offen = true; requestAnimationFrame(() => { offen = false; balken.style.scale = (scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)).toFixed(4) + " 1"; }); }, { passive: true });
   // Einblenden
   const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; e.target.classList.add("da"); io.unobserve(e.target);
-    if (e.target.id === "haufen") setTimeout(() => e.target.classList.add("eins"), 900);
     e.target.querySelectorAll?.("[data-zahl]").forEach(z => { const ziel = +z.dataset.zahl; let n = 0; const t = setInterval(() => { n = Math.min(ziel, n + Math.max(1, Math.ceil(ziel / 30))); z.textContent = n + (n === ziel ? z.dataset.plus || "" : ""); if (n >= ziel) clearInterval(t); }, 40); }); }), { rootMargin: "0px 0px -12% 0px" });
-  document.querySelectorAll("[data-ein],#haufen,.quellen").forEach(el => io.observe(el));
+  document.querySelectorAll("[data-ein],.quellen").forEach(el => io.observe(el));
 
   // Kapitel 1: der Newsletter, nachgebaut nach der Ausgabe vom 15.10.2026
   const ARTIKEL = [["Allgemeine Zeitung", "#2c477c", "Ebersheimer Eltern haben Fragen zur Ganztagsbetreuung"], ["Allgemeine Zeitung", "#2c477c", "Schulumzug zum Lerchenberg: Ausschuss gibt 850.000 Euro frei"], ["Allgemeine Zeitung", "#2c477c", "Kulturminister sorgen sich um Jungen und junge Männer"],
@@ -473,9 +487,22 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
       + `<path class="weg" d="M1103 140C1103 112 1112 96 1126 82"/><g class="brief"><rect x="1108" y="34" width="60" height="42" rx="7" fill="#fff" stroke="#1b1917" stroke-width="1.8"/><path d="M1108 39L1138 60L1168 39" fill="none" stroke="#1b1917" stroke-width="1.8"/></g>`;
     $("#plan").innerHTML = s; }
 
-  // Kapitel 2: Bausteine
-  const haufen = $("#haufen"), farben = ["var(--f1)", "var(--f2)", "var(--f3)", "var(--f4)", "#f6f1e6"];
-  haufen.insertAdjacentHTML("afterbegin", Array.from({ length: 34 }, (_, n) => `<i style="--n:${n};--x:${((r() - .5) * 480).toFixed(0)}%;--y:${((r() - .5) * 760).toFixed(0)}%;--r:${((r() - .5) * 70).toFixed(0)}deg;--b:${farben[n % 5]}"></i>`).join(""));
+  // Kapitel 2: ein Auftrag statt vieler Blasen – der Auftrag tippt sich, die Arbeit hakt sich nacheinander ab, am Ende steht das Blatt.
+  // Läuft nur, solange der Kasten zu sehen ist, und beginnt dann wieder von vorn.
+  { const af = $("#auftrag"), txt = $("#af-text"), status = $("#af-status"), liste = $("#af-liste"), SCHLUSS = "Fertig – und läuft seitdem von selbst";
+    const AUFTRAG = "Mach aus dem JHP-Newsletter eine Seite, die sich jeden Morgen selbst füllt. Nimm dir alle Quellen vor.";
+    const AUFGABEN = [["Bundestag", "bindet die Quellen an"], ["Landtag", "bindet die Quellen an"], ["Allgemeine Zeitung", "bindet die Quellen an"], ["ISM", "bindet die Quellen an"], ["Ratsinfo Mainz", "bindet die Quellen an"], ["… rund 50 weitere", "bindet die Quellen an"],
+      ["Abruf geschrieben", "schreibt den Abruf"], ["Getestet", "testet"], ["Fehler behoben", "repariert, was hakt"], ["Redaktionsregeln", "übernimmt die Redaktionsregeln"], ["Seite gebaut", "baut die Seite"], ["Startbild gezeichnet", "zeichnet das Startbild"]];
+    liste.innerHTML = AUFGABEN.map(a => `<li>${esc(a[0])}</li>`).join(""); const punkte = [...liste.children], pause = ms => new Promise(r => setTimeout(r, ms)); let sichtbar = false, aktiv = false;
+    const ablauf = async () => { if (aktiv) return; aktiv = true;
+      while (sichtbar) { af.classList.remove("laeuft", "fertig"); punkte.forEach(x => { x.className = ""; }); txt.textContent = ""; status.textContent = "Wartet auf den Auftrag"; await pause(800);
+        for (let i = 1; i <= AUFTRAG.length && sichtbar; i++) { txt.textContent = AUFTRAG.slice(0, i); await pause(28); }
+        await pause(600); af.classList.add("laeuft");
+        for (let i = 0; i < punkte.length && sichtbar; i++) { status.textContent = "Claude " + AUFGABEN[i][1] + " …"; punkte[i].className = "dran"; await pause(i < 6 ? 360 : 680); punkte[i].className = "fertig"; }
+        if (!sichtbar) break; af.classList.remove("laeuft"); af.classList.add("fertig"); status.textContent = SCHLUSS; await pause(7000); }
+      aktiv = false; };
+    if (matchMedia("(prefers-reduced-motion:reduce)").matches) { txt.textContent = AUFTRAG; punkte.forEach(x => { x.className = "fertig"; }); af.classList.add("fertig"); status.textContent = SCHLUSS; }
+    else new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar) ablauf(); }, { rootMargin: "-8% 0px" }).observe(af); }
   // Kapitel 3: Punktefeld beim Sammeln
   $("#pk").innerHTML = Array.from({ length: 28 }, (_, n) => `<i style="--k:${(n % 7) + Math.floor(n / 7)}"></i>`).join("");
   // Kapitel 4: Startbild umschalten (lädt die echte Startseite mit Testangaben), Seite färbt sich mit
@@ -484,8 +511,8 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   document.querySelectorAll(".schalter button").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".schalter button").forEach(x => x.setAttribute("aria-pressed", x === b));
     document.documentElement.dataset.zeit = b.dataset.z || jetzt; buehne.classList.add("laedt"); setTimeout(() => { schau.src = "./?intro" + (b.dataset.q ? "&" + b.dataset.q : ""); }, 300); }));
   const chips = w => { const s = w.map(x => `<span>${esc(x)}</span>`).join(""); return s + s; };
-  $("#w1").innerHTML = chips(["Das Ufer und alles dahinter etwas näher ran", "Die Kuppel feiner zeichnen", "Komplex, aber dezent", "Weniger fallende Blätter", "Die Brücke wirkt abgeschnitten", "So smooth wie es geht", "Die Fundstücke leicht größer"]);
-  $("#w2").innerHTML = chips(["Jeden Werktag ein Fundstück – nur eins", "Kein Rattern beim Wechsel", "Das soll ernst wirken, nicht verspielt", "Die Unterzeile bricht am Handy um", "Ressourcenschonend bitte", "Bilder in die Kacheln, keine leeren Flächen", "Ein Kalender für das ganze Jahr"]);
+  $("#w1").innerHTML = chips(["Erst nur der Zeitungsname und das Logo, groß", "Ein Parallax-Effekt: weit und nah", "Nicht zu episch – es ist eine Tageszeitung", "Das Logo kommt in Teilen: Dom, Sonne, Zeitung", "Zwölf Varianten, drei je Jahreszeit", "Das Ufer und alles dahinter etwas näher ran", "Die Kuppel feiner zeichnen", "Komplex, aber dezent"]);
+  $("#w2").innerHTML = chips(["Regen, Blüten, Schnee und Laub auch unten – nur dezenter", "Ein Bilderset für die Motive in den Kacheln", "Jeden Werktag ein Fundstück – nur eins", "So smooth wie es geht", "Ressourcenschonend bitte", "Das Logo landet neben dem Titel", "Das soll ernst wirken, nicht verspielt", "Ein Kalender für das ganze Jahr"]);
 
   // Quellenliste (aus dem Abrufstatus) mit Ampelpunkt
   const EBENEN = { mainz: "Mainz", land: "Rheinland-Pfalz", bund: "Bund und überregional", fach: "Fachwelt" }, holen = u => fetch(u, { cache: "no-cache" }).then(a => { if (!a.ok) throw new Error(u); return a.json(); });

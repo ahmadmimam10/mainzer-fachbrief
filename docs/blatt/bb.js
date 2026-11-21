@@ -276,7 +276,7 @@
   ausgabenZeigen();
   // Altpapier-Wurf unter der Fußleiste – nur am PC; das Skript lädt erst, wenn der Fuß in Sicht kommt
   if (matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches) { const sp = document.createElement("section"); sp.id = "spiel"; sp.className = "bb-spiel"; sp.setAttribute("aria-label", "Spiel: Altpapier-Wurf"); wurzel.querySelector(".bb-fuss").after(sp);
-    new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=15"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
+    new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=16"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });
   const h = location.hash.slice(1);
   wechsel(BEREICHE.some(b => b.id === h) ? h : BEREICHE[0].id);
