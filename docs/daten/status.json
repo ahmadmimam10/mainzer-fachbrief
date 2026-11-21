@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-21T03:33:52.449Z",
+ "stand": "2026-11-21T06:42:31.295Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": true,
-   "treffer": 30,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
