@@ -9,10 +9,10 @@
 // Danach node werkzeuge/intro-einbauen.mjs (trägt die neue Fassung in die Seite ein).
 // Im Browser: ?fund=name,name zeigt bestimmte, ?fund=aus keine, ?tag=2027-06-18 einen anderen Tag.
 import { writeFileSync, renameSync, existsSync, readFileSync } from "node:fs";
-import { CSS_ALLE, BELEGT, MIT } from "./funde/hilfen.mjs";
+import { CSS_ALLE, BELEGT, MIT, zufall } from "./funde/hilfen.mjs";
 import { FLUGZEUG } from "./funde/himmel.mjs";
 
-const MODULE = ["himmel", "stadt", "tuerme", "ufer-leute", "ufer-szenen", "wasser", "blatt"];
+const MODULE = ["himmel", "stadt", "tuerme", "ufer-leute", "ufer-szenen", "wasser", "blatt", "neu-ufer", "neu-wasser", "neu-himmel"];
 const ORTE = ["himmel", "vorn", "ferne", "huegel", "fern", "stadt", "turm", "ufer", "wasser", "buehne", "titel", "unter", "logo", "fest", "boni"];
 const arg = n => (process.argv.find(a => a.startsWith(`--${n}=`)) || "").split("=")[1];
 const nur = arg("nur");
@@ -35,9 +35,36 @@ const daten = funde.map(x => {
     m: x.bild || "", c: (x.css || "").trim(), x: x.dazu || 0, sp: x.spiegeln ? 1 : 0 };
 });
 
+// ---- Jahreskalender: An jedem Werktag (Mo–Fr) des Kalenderjahres erscheint genau ein Fundstück, jedes genau einmal.
+// Feste Tage (am) bleiben fest, Jahreszeiten werden beachtet (das Wetter nicht mehr – der Kalender steht vorher fest);
+// der Rest wird so verteilt, dass gleiche Bereiche und seltene Stücke möglichst weit auseinanderliegen. Seed = Jahr.
+const KALENDERJAHR = 2027;
+function jahresplan(jahr, liste) {
+  const zwei = n => String(n).padStart(2, "0"), tage = [];
+  for (let m = 0; m < 12; m++) for (let d = 1; d <= new Date(jahr, m + 1, 0).getDate(); d++) { const wt = new Date(jahr, m, d).getDay();
+    if (wt >= 1 && wt <= 5) tage.push({ tag: `${jahr}-${zwei(m + 1)}-${zwei(d)}`, md: `${zwei(m + 1)}-${zwei(d)}`, z: m >= 2 && m <= 4 ? "f" : m >= 5 && m <= 7 ? "s" : m >= 8 && m <= 10 ? "h" : "w", wt, fr13: wt === 5 && d === 13, nr: tage.length }); }
+  if (tage.length !== liste.length) console.warn(`Hinweis: ${jahr} hat ${tage.length} Werktage, es gibt ${liste.length} Fundstücke.`);
+  const r = zufall(jahr), plan = new Array(tage.length).fill(null);
+  const bereich = x => ({ turm: "stadt", boni: "stadt", ferne: "stadt", fern: "stadt", huegel: "stadt", vorn: "himmel", titel: "blatt", unter: "blatt", buehne: "blatt", logo: "blatt", fest: x.p[0].split("-")[0] })[x.o] || x.o;
+  const darf = (x, t) => x.a ? x.a.includes(t.md) || (t.fr13 && x.a.includes("fr13")) : x.z.includes(t.z) && x.t.includes(t.wt);
+  const abstand = (x, i, pruef) => { let n = 999; for (let k = 0; k < plan.length; k++) if (plan[k] && pruef(plan[k], x)) n = Math.min(n, Math.abs(k - i)); return n; };
+  const offen = liste.map(x => ({ x, tage: tage.filter(t => darf(x, t)).length, w: r() })).sort((a, b) => (b.x.a ? 1 : 0) - (a.x.a ? 1 : 0) || a.tage - b.tage || a.w - b.w);
+  for (const { x } of offen) {
+    let kand = tage.filter(t => !plan[t.nr] && darf(x, t));
+    if (!kand.length && x.a) { const erste = tage.find(t => t.md >= x.a.filter(a => a !== "fr13").sort()[0]) || tage[0]; kand = tage.filter(t => !plan[t.nr]).sort((a, b) => Math.abs(a.nr - erste.nr) - Math.abs(b.nr - erste.nr)).slice(0, 1); }
+    if (!kand.length) kand = tage.filter(t => !plan[t.nr] && x.z.includes(t.z));
+    if (!kand.length) kand = tage.filter(t => !plan[t.nr]);
+    if (!kand.length) break;
+    let best = null, wert = -1;
+    for (const t of kand) { const w = Math.min(abstand(x, t.nr, (y, z) => bereich(y) === bereich(z)), 12) + Math.min(abstand(x, t.nr, (y, z) => y.s > 1 && z.s > 1), 9) * (x.s > 1 ? 1.5 : 0) + r() * 3; if (w > wert) { wert = w; best = t; } }
+    plan[best.nr] = x;
+  }
+  return Object.fromEntries(tage.filter(t => plan[t.nr]).map(t => [t.tag, plan[t.nr].n]));
+}
+
 // ---- Läuft im Browser ----
-function fundeZeigen(F, CSS, BELEGT, MIT, FLUGZEUG) {
-  window.BONI_FUNDSTUECKE = { F, CSS };                                  // fürs Fundstück-Album (auch ohne Intro)
+function fundeZeigen(F, CSS, BELEGT, MIT, FLUGZEUG, PLAN) {
+  window.BONI_FUNDSTUECKE = { F, CSS, PLAN };                            // für den Fundstück-Kalender (auch ohne Intro)
   const intro = document.getElementById("intro"); if (!intro || intro.dataset.funde !== undefined) return;
   const q = new URLSearchParams(location.search), D = intro.dataset;
   const tag = D.tag || new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
@@ -71,13 +98,17 @@ function fundeZeigen(F, CSS, BELEGT, MIT, FLUGZEUG) {
   };
   // ?fund=angler,gassi zeigt bestimmte Stücke; angler@ufer-r2 = an diesem Platz, gassi@spiegel = gespiegelt
   if (q.has("fund")) q.get("fund").split(",").forEach(w => { const t = w.split("@"), x = F.find(y => y.n === t[0]); if (!x) return; platzFuer(x, t[1] === "spiegel" ? "" : t[1] || " "); x.gespiegelt = t[1] === "spiegel"; wahl.push(x); });
-  else {
-    const festtag = festNamen.some(n => n !== "schneemann"), max = festtag ? 2 : 4, min = festtag ? 1 : 2;
+  else if (PLAN && PLAN[wt > 5 ? new Date(dat - (wt - 5) * 864e5).toISOString().slice(0, 10) : tag]) {
+    // Jahreskalender: genau das Fundstück dieses Werktags (am Wochenende das vom Freitag)
+    const x = F.find(y => y.n === PLAN[wt > 5 ? new Date(dat - (wt - 5) * 864e5).toISOString().slice(0, 10) : tag]);
+    if (x) { if (x.p[0].slice(-2) === "-*" && !platzFuer(x)) platzFuer(x, " "); x.gespiegelt = x.sp && hash(x.n + "~" + at) % 2 === 1; wahl.push(x); }
+  } else {
+    // außerhalb des Kalenderjahres: ebenfalls nur eines am Tag, reihum
+    const festtag = festNamen.some(n => n !== "schneemann"), max = 1, min = 1;
     const kann = F.filter(passt), rang = x => hash(x.n + "/" + at);
     // höchstens zwei Stücke aus demselben Bereich (Ufer, Wasser, Himmel, Stadt mit Türmen, Hügel, Blatt), damit es sich verteilt
     const bereich = x => ({ turm: "stadt", boni: "stadt", ferne: "huegel", fern: "huegel", titel: "blatt", unter: "blatt", buehne: "blatt", logo: "blatt", fest: x.p[0].split("-")[0] })[x.o] || x.o;
     const nimm = x => { if (wahl.length < max && !wahl.includes(x) && wahl.filter(y => bereich(y) === bereich(x)).length < 2 && platzFuer(x)) { x.gespiegelt = x.sp && hash(x.n + "~" + at) % 2 === 1; wahl.push(x); } };
-    festNamen.forEach(n => (MIT[n] || []).forEach(m => { const x = F.find(y => y.n === m); if (x && platzFuer(x)) wahl.push(x); }));
     kann.filter(dran).sort((a, b) => (b.a ? 9 : b.s) - (a.a ? 9 : a.s) || rang(a) - rang(b)).forEach(nimm);
     kann.filter(x => !x.a && x.s === 1 && !wahl.includes(x) && !anDer(x, at - 1)).sort((a, b) => rang(a) - rang(b)).forEach(x => { if (wahl.length < min) nimm(x); });
   }
@@ -156,25 +187,6 @@ const t = parseFloat(new URLSearchParams(location.search).get("t") || "5");
 addEventListener("load", () => { for (const a of document.getAnimations()) { a.pause(); a.currentTime = t * 1000; } });
 </script>`;
   writeFileSync(`docs/_blatt-${nur || "alle"}.html`, seite); console.log(`docs/_blatt-${nur || "alle"}.html: ${daten.length} Fundstücke`);
-} else if (process.argv.includes("--album")) {
-  // Fundstück-Album: hält in docs/daten/album.json fest, was an welchem Tag im Startbild zu sehen war. Läuft mit dem Abruf
-  // mehrmals täglich; es zählt der letzte Stand des Tages (das Wetter des Tages kann sich noch ändern).
-  //   node werkzeuge/intro-funde.mjs --album [--tag=JJJJ-MM-TT]
-  const tag = arg("tag") || new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date()), mo = +tag.slice(5, 7), p = tag.split("-");
-  const ausJs = datei => { try { return JSON.parse(readFileSync(datei, "utf8").match(/=(\{.*\});/)[1]); } catch { return {}; } };
-  const zeit = mo >= 3 && mo <= 5 ? "fruehling" : mo >= 6 && mo <= 8 ? "sommer" : mo >= 9 && mo <= 11 ? "herbst" : "winter";
-  let wetter = ausJs("docs/daten/wetter.js")[tag] || "sonne"; if (wetter === "schnee" && zeit !== "winter") wetter = "regen";
-  const { festeFuer, FERIEN, TERMINE } = await import("./intro-feste.mjs");
-  const fest = festeFuer(new Date(+p[0], +p[1] - 1, +p[2]), zeit, wetter, .5, FERIEN, TERMINE);
-  const ds = { tag, zeit, wetter, fest: fest.elemente.join(" ") };
-  globalThis.window = { BONIBLATT_FLIEGER: ausJs("docs/daten/flieger.js") }; globalThis.location = { search: "" };
-  globalThis.document = { getElementById: () => ({ dataset: ds, querySelector: () => null }), createElement: () => { throw 0; } };
-  try { fundeZeigen(daten, "", BELEGT, MIT, ""); } catch { /* ohne Browser endet der Lauf nach der Auswahl */ }
-  const heute = (ds.funde || "").split(" ").filter(Boolean);
-  let album = { start: tag, tage: {} }; try { album = JSON.parse(readFileSync("docs/daten/album.json", "utf8")); } catch { /* erster Lauf */ }
-  album.tage[tag] = heute; album.gesamt = daten.length;
-  writeFileSync("docs/daten/album.json", JSON.stringify(album) + "\n");
-  console.log(`Album ${tag} (${zeit}, ${wetter}): ${heute.join(", ") || "nichts"} – ${new Set(Object.values(album.tage).flat()).size} von ${daten.length} bisher`);
 } else if (arg("plan")) {
   // Probelauf ohne Browser: was erscheint an den Tagen eines Monats (bei Sonne, ohne Festmotive)
   const [j, mo] = arg("plan").split("-").map(Number), wetter = arg("wetter") || "sonne";
@@ -182,11 +194,11 @@ addEventListener("load", () => { for (const a of document.getAnimations()) { a.p
     const tag = `${j}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`, ds = { tag, zeit: mo >= 3 && mo <= 5 ? "fruehling" : mo >= 6 && mo <= 8 ? "sommer" : mo >= 9 && mo <= 11 ? "herbst" : "winter", wetter, fest: "" };
     globalThis.window = {}; globalThis.location = { search: "" };
     globalThis.document = { getElementById: () => ({ dataset: ds, querySelector: () => null }), createElement: () => { throw 0; } };
-    try { fundeZeigen(daten, "", BELEGT, MIT, ""); } catch { /* ohne Browser endet der Lauf nach der Auswahl */ }
+    try { fundeZeigen(daten, "", BELEGT, MIT, "", nur ? null : jahresplan(KALENDERJAHR, daten)); } catch { /* ohne Browser endet der Lauf nach der Auswahl */ }
     console.log(tag, ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"][new Date(j, mo - 1, d).getDay()], ds.funde);
   }
 } else {
-  const js = `/* Mainzer Boniblatt – Fundstücke des Tages. Erzeugt von werkzeuge/intro-funde.mjs, nicht von Hand ändern. */\n(${fundeZeigen.toString()})(${JSON.stringify(daten)},${JSON.stringify(CSS_ALLE.trim())},${JSON.stringify(BELEGT)},${JSON.stringify(MIT)},${JSON.stringify(FLUGZEUG)});\n`;
+  const js = `/* Mainzer Boniblatt – Fundstücke des Tages. Erzeugt von werkzeuge/intro-funde.mjs, nicht von Hand ändern. */\n(${fundeZeigen.toString()})(${JSON.stringify(daten)},${JSON.stringify(CSS_ALLE.trim())},${JSON.stringify(BELEGT)},${JSON.stringify(MIT)},${JSON.stringify(FLUGZEUG)},${JSON.stringify(nur ? null : jahresplan(KALENDERJAHR, daten))});\n`;
   const ziel = nur ? `docs/_funde-${nur}.js` : "docs/intro-funde.js";
   writeFileSync(ziel + ".neu", js); renameSync(ziel + ".neu", ziel);
   console.log(`${ziel}: ${daten.length} Fundstücke, ${js.length} Zeichen`);

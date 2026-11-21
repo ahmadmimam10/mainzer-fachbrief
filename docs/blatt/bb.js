@@ -79,8 +79,8 @@
         <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="f-kreis" d="M100 100m-76 0a76 76 0 1 1 152 0a76 76 0 1 1 -152 0"/></defs><text><textPath href="#f-kreis" textLength="470">Mainzer Boniblatt · ein Projekt von Ahmed Imam · </textPath></text></svg>
         <img src="bilder/ahmed-imam.jpg" alt="Ahmed Imam" width="120" height="120" loading="lazy"></a>
       <div class="f-wer"><p class="f-klein">Ein Projekt von</p><p class="f-name">Ahmed <i>Imam</i></p>
-        <p class="f-links"><a href="https://github.com/ahmadmimam10" target="_blank" rel="author noopener">GitHub-Profil</a><a href="https://github.com/ahmadmimam10/mainzer-fachbrief" target="_blank" rel="noopener">Quellcode</a><a href="mailto:ahmadmimam10@gmail.com">ahmadmimam10@gmail.com</a></p></div>
-      <div class="f-ueber"><strong>Über das <i>Boniblatt</i></strong><span>Testphase · automatisch zusammengestellt, redaktionell gewichtet</span><a class="f-mehr" href="ueber.html">So entsteht das Boniblatt <span aria-hidden="true">→</span></a><button type="button" class="f-mehr f-album">Fundstück-Album <span aria-hidden="true">→</span></button></div>
+        <p class="f-links"><a href="https://www.linkedin.com/in/ahmadmimam10/" target="_blank" rel="author noopener">LinkedIn</a><a href="https://github.com/ahmadmimam10" target="_blank" rel="author noopener">GitHub-Profil</a><a href="https://github.com/ahmadmimam10/mainzer-fachbrief" target="_blank" rel="noopener">Quellcode</a><a href="mailto:ahmadmimam10@gmail.com">ahmadmimam10@gmail.com</a></p></div>
+      <div class="f-ueber"><strong>Über das <i>Boniblatt</i></strong><span>Testphase · automatisch zusammengestellt, redaktionell gewichtet</span><a class="f-mehr" href="ueber.html">So entsteht das Boniblatt <span aria-hidden="true">→</span></a><a class="f-mehr" href="kalender.html">Fundstück-Kalender 2027 <span aria-hidden="true">→</span></a></div>
     </footer></div>`;
   const raster = wurzel.querySelector("#kacheln");
 
@@ -238,7 +238,7 @@
       <span class="au-jetzt"><b>${esc(E.datum({ weekday: "long", day: "numeric", month: "long" }))}</b></span>
       <button type="button" class="au-pfeil" data-d="${neuer ? neuer.datum : ""}" aria-label="Neuere Ausgabe" title="Neuere Ausgabe"${neuer ? "" : " disabled"}>→</button></span>
       <button type="button" class="au-archiv"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>Archiv &amp; Suche</button>
-      <button type="button" class="au-archiv au-album"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3Z"/><path d="M9 9h6M9 13h4"/></svg>Fundstücke</button>`; };
+      <a class="au-archiv au-album" href="kalender.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Fundstück-Kalender</a>`; };
   async function ausgabeWechseln(datum, eigene) {
     if (laeuft || datum === E.ausgabe.datum) return; laeuft = true;
     E.setze(datum, eigene);
@@ -271,48 +271,7 @@
     if (!archiv) archiv = await fetch("daten/archiv.json").then(r => r.json()).catch(() => ({ felder: [], ausgaben: [], eintraege: [] }));
     archivSuchen();
   }
-  // ---- Fundstück-Album: ein gemeinsames Album für alle – es zeigt, was seit dem Start schon im Startbild zu sehen war.
-  // Nichts wird beim Leser gespeichert: Der Abruf hält jeden Tag fest, was erschienen ist (daten/album.json).
-  const FUND_GRUPPEN = [["himmel", "Am Himmel"], ["stadt", "In der Stadt"], ["ufer", "Am Ufer"], ["wasser", "Auf dem Rhein"], ["blatt", "Auf dem Blatt"]];
-  const fundGruppe = x => ({ turm: "stadt", boni: "stadt", ferne: "stadt", fern: "stadt", huegel: "stadt", vorn: "himmel", titel: "blatt", unter: "blatt", buehne: "blatt", logo: "blatt", fest: x.p[0].split("-")[0] === "himmel" ? "himmel" : x.p[0].split("-")[0] === "wasser" ? "wasser" : "ufer" })[x.o] || x.o;
-  const fundName = n => n.split("-").map(w => { w = ({ weisser: "weißer", strassenmusiker: "straßenmusiker", fr13: "Freitag der 13." })[w] || w.replace(/ae/g, "ä").replace(/oe/g, "ö").replace(/([^aeq])ue/g, "$1ü"); return w.charAt(0).toUpperCase() + w.slice(1); }).join(" ");
-  const HINTER = { ufer: '<rect x="-99" y="-99" width="2999" height="157.4" fill="#d9d1c5"/><rect x="-99" y="57.95" width="2999" height=".5" fill="#8fc474"/><rect x="-99" y="58.4" width="2999" height="99" fill="#a8a092"/>',
-    wasser: '<rect x="-99" y="-99" width="2999" height="99" fill="#f3e2d8"/><rect x="-99" y="0" width="2999" height="99" fill="#c9dfee"/>', huegel: '<rect x="-99" y="-99" width="2999" height="299" fill="#cfe3bf"/>' };
-  let albumDaten = null;
-  async function albumOeffnen() {
-    let dlg = wurzel.querySelector(".bb-album");
-    if (!dlg) { wurzel.insertAdjacentHTML("beforeend", `<dialog class="bb-archiv bb-album" aria-label="Fundstück-Album"><form method="dialog"><button class="ar-zu" aria-label="Schließen">×</button></form>
-        <h3>Fundstück-<i>Album</i></h3><p class="al-stand">Wird geladen …</p><div class="al-seiten"></div></dialog>`);
-      dlg = wurzel.querySelector(".bb-album"); dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); }); }
-    dlg.showModal(); if (albumDaten) return;
-    try {
-      if (!window.BONI_FUNDSTUECKE) await new Promise((ok, nein) => { const s = document.createElement("script"); s.src = (document.querySelector('script[src*="intro-funde.js"]') || {}).src || "intro-funde.js"; s.onload = ok; s.onerror = nein; document.head.appendChild(s); });
-      const album = await fetch("daten/album.json", { cache: "no-cache" }).then(r => r.json()), { F, CSS } = window.BONI_FUNDSTUECKE;
-      const wann = {}; Object.entries(album.tage).sort().forEach(([tag, namen]) => namen.forEach(n => (wann[n] = wann[n] || []).push(tag)));
-      const heuteDa = album.tage[heute] || [], da = F.filter(x => wann[x.n]), datum = d => new Date(d + "T12:00:00").toLocaleDateString("de-DE", { day: "numeric", month: "short" });
-      const stil = document.createElement("style"); stil.textContent = CSS + da.map(x => x.c).join("\n") + ".bb-album .fu-fahrt,.bb-album .fu-hinher,.bb-album .fu-weg{animation:none!important;translate:0 0!important;rotate:0deg!important;scale:1!important;opacity:1!important}"; document.head.appendChild(stil);
-      const bild = x => ["ufer", "wasser", "stadt", "turm", "fern", "ferne", "huegel", "logo"].includes(x.o) ? `<svg class="al-band">${HINTER[x.o] || '<rect x="-99" y="-99" width="2999" height="299" fill="#f6e6dc"/>'}<g class="fu-${x.n}">${x.m}</g></svg>`
-        : x.m ? `<div class="al-frei fu-${x.n}">${x.m.replace("{{TAG}}", "")}</div>` : `<span class="al-schmuck">Schmuck im Bild</span>`;
-      dlg.querySelector(".al-stand").innerHTML = `<b>${da.length} von ${F.length}</b> waren schon zu sehen – seit dem ${esc(new Date(album.start + "T12:00:00").toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" }))}. Jeden Tag tauchen im Startbild zwei bis vier auf; was noch fehlt, bleibt ein Rätsel.`;
-      // Oben groß, was schon zu sehen war (neueste zuerst); darunter je Bereich nur kleine Platzhalter für das, was noch fehlt
-      const gruppenName = x => (FUND_GRUPPEN.find(g => g[0] === fundGruppe(x)) || [0, ""])[1], zuletzt = x => wann[x.n][wann[x.n].length - 1];
-      const zelle = x => { const t = wann[x.n], stern = x.s > 1 ? `<i class="al-stern" title="${x.s > 2 ? "selten" : "besonders"}">${"★".repeat(x.s - 1)}</i>` : "";
-        return `<figure class="al-da${heuteDa.includes(x.n) ? " al-heute" : ""}"><div class="al-bild" data-o="${x.o}">${bild(x)}</div><figcaption><b>${esc(fundName(x.n))}</b>${stern}<small>${esc(gruppenName(x))} · ${heuteDa.includes(x.n) ? "heute" : "zuletzt " + esc(datum(zuletzt(x)))}${t.length > 1 ? " · " + t.length + "-mal" : ""}</small></figcaption></figure>`; };
-      dlg.querySelector(".al-seiten").innerHTML = `<section><h4>Schon entdeckt<small>${da.length} von ${F.length}</small></h4><div class="al-raster">${da.slice().sort((x, y) => zuletzt(y).localeCompare(zuletzt(x))).map(zelle).join("")}</div></section>
-        <section><h4>Noch verborgen<small>${F.length - da.length} warten</small></h4>${FUND_GRUPPEN.map(([g, titel]) => { const l = F.filter(x => fundGruppe(x) === g), offen = l.filter(x => !wann[x.n]); if (!l.length) return "";
-          return `<div class="al-zeile"><b>${titel}</b><span>${l.length - offen.length} von ${l.length}</span><div class="al-punkte">${offen.map(x => `<i class="s${x.s}" title="${x.s > 2 ? "selten" : x.s > 1 ? "besonders" : "gewöhnlich"}">?</i>`).join("")}</div></div>`; }).join("")}
-          <p class="al-legende"><i class="s1">?</i> gewöhnlich <i class="s2">?</i> besonders <i class="s3">?</i> selten</p></section>`;
-      // Bildausschnitt um jede Zeichnung legen, Bewegungen anhalten (bei Mauszeiger oder Antippen laufen sie)
-      for (const s of dlg.querySelectorAll("svg.al-band")) { const b = s.lastElementChild.getBBox(), r = 1.4; let w = Math.max(b.width + 2 * r, 9), h = Math.max(b.height + 2 * r, 6);
-        if (w / h > 1.4) h = w / 1.4; else w = h * 1.4; s.setAttribute("viewBox", [b.x + b.width / 2 - w / 2, b.y + b.height / 2 - h / 2, w, h].join(" ")); }
-      const halt = el => el.getAnimations({ subtree: true }).forEach(a => { a.pause(); a.currentTime = 5000; });
-      setTimeout(() => halt(dlg.querySelector(".al-seiten")), 60);
-      dlg.querySelectorAll(".al-da").forEach(z => { z.addEventListener("pointerenter", () => z.getAnimations({ subtree: true }).forEach(a => a.play())); z.addEventListener("pointerleave", () => halt(z)); });
-      albumDaten = album;
-    } catch (e) { dlg.querySelector(".al-stand").textContent = "Das Album lässt sich gerade nicht laden."; }
-  }
-  wurzel.addEventListener("click", e => { if (e.target.closest(".f-album")) albumOeffnen(); });
-  wurzel.querySelector(".bb-ausgaben").addEventListener("click", e => { const x = e.target.closest(".au-pfeil"); if (x) { if (x.dataset.d) ausgabeWechseln(x.dataset.d); return; } if (e.target.closest(".au-album")) return albumOeffnen(); if (e.target.closest(".au-archiv")) archivOeffnen(); });
+  wurzel.querySelector(".bb-ausgaben").addEventListener("click", e => { const x = e.target.closest(".au-pfeil"); if (x) { if (x.dataset.d) ausgabeWechseln(x.dataset.d); return; } if (e.target.closest(".au-archiv")) archivOeffnen(); });
   ausgabenZeigen();
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });
   const h = location.hash.slice(1);
