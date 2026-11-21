@@ -1,0 +1,87 @@
+/* Entwurf A „Druckbogen“: schwarzes Raster wie ein Andruckbogen, weiße und farbige Felder, laute Typografie
+   (enge Grotesk gegen kursive Serife), Kritzel, senkrechte Zeilen. Je Ressort eine Leitfarbe. */
+@property --akz{syntax:"<color>";inherits:true;initial-value:#2463ff}
+@property --akz2{syntax:"<color>";inherits:true;initial-value:#ffe45c}
+body{background:#f6f4ef}
+.a{--akz:#2463ff;--akzt:#fff;--akz2:#ffe45c;--tinte:#0c0c0c;--papier:#fbfaf5;--spalt:10px;
+  margin-top:10px;padding:var(--spalt);background:#0c0c0c;color:var(--tinte);font-family:"Bricolage Grotesque",var(--sans);transition:--akz 1s ease,--akz2 1s ease}
+.a[data-r="fruehe-hilfen"]{--akz:#ff4f2e;--akz2:#ffc7dc}
+.a[data-r="quartiersmanagement"]{--akz:#0f9d58;--akz2:#d2f25a}
+
+/* Laufband mit dem Tag */
+.a-lauf{overflow:hidden;white-space:nowrap;color:#fbfaf5;padding:8px 0 16px;font:500 clamp(40px,8.4vw,128px)/1 "Bricolage Grotesque",var(--sans);letter-spacing:-.045em}
+.a-lauf div{display:inline-block;animation:a-lauf 38s linear infinite}
+.a-lauf em{font:italic 400 1.04em/1 "Instrument Serif",serif;letter-spacing:-.02em;color:var(--akz2);transition:color 1s}
+.a-lauf i{font-style:normal;color:var(--akz);padding:0 .22em;transition:color 1s}
+@keyframes a-lauf{to{transform:translateX(-50%)}}
+
+/* Ressort-Wahl: drei Felder */
+.a-wahl{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--spalt);margin-bottom:var(--spalt)}
+.a-wahl button{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:26px;min-height:132px;padding:14px 16px 12px;border:0;border-radius:0;background:var(--papier);color:var(--tinte);text-align:left;cursor:pointer;overflow:hidden;font:inherit}
+.a-wahl button::before{content:"";position:absolute;inset:0;background:var(--akz);transform:translateY(101%);transition:transform .6s cubic-bezier(.7,0,.2,1)}
+.a-wahl button[aria-pressed="true"]::before{transform:none}
+.a-wahl button>*{position:relative}
+.a-wahl small{font:700 11px/1.2 var(--sans);letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between}
+.a-wahl strong{font:500 clamp(20px,3.3vw,46px)/.96 "Bricolage Grotesque",var(--sans);letter-spacing:-.04em;transition:color .5s}
+.a-wahl button[aria-pressed="true"]{color:var(--akzt)}
+.a-wahl button:not([aria-pressed="true"]) strong{font:italic 400 clamp(22px,3.6vw,50px)/.96 "Instrument Serif",serif;letter-spacing:-.01em}
+
+/* Raster */
+.a-raster{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--spalt);grid-auto-flow:dense}
+.a .k{position:relative;display:flex;flex-direction:column;gap:12px;padding:18px 18px 16px;background:var(--papier);min-width:0;overflow:hidden;
+  clip-path:inset(0 0 100% 0);transition:clip-path .75s cubic-bezier(.2,.8,.2,1) calc(var(--i,0) * 55ms)}
+.a .k.da{clip-path:inset(0)}
+.a .k.raus{clip-path:inset(100% 0 0 0);transition:clip-path .32s cubic-bezier(.7,0,.8,.3) calc(var(--i,0) * 22ms)}
+.a .k>*{transform:translateY(22px);transition:transform .8s cubic-bezier(.2,.8,.2,1) calc(var(--i,0) * 55ms + 90ms)}
+.a .k.da>*{transform:none}
+.a .marke-klein{font:700 11px/1.25 var(--sans);letter-spacing:.07em;text-transform:uppercase}
+.a .marke-klein b{display:inline-block;padding:2px 7px 1px;margin-right:6px;background:var(--tinte);color:var(--papier);font-weight:700}
+.a h2{margin:0;font:560 clamp(24px,2.5vw,33px)/1.03 "Bricolage Grotesque",var(--sans);letter-spacing:-.035em;text-wrap:balance}
+.a h2 em{font:italic 400 1.08em/1 "Instrument Serif",serif;letter-spacing:-.01em}
+.a h2,.a h3,.a p{color:inherit}
+.a p{margin:0;font:400 15px/1.42 var(--sans);text-wrap:pretty}
+.a .k-fuss{margin-top:auto;padding-top:10px;border-top:1.5px solid currentColor;display:flex;justify-content:space-between;gap:10px;font:700 10.5px/1.3 var(--sans);letter-spacing:.07em;text-transform:uppercase}
+.a .senk{position:absolute;right:9px;bottom:52px;writing-mode:vertical-rl;transform:rotate(180deg)!important;font:800 10.5px/1 var(--sans);letter-spacing:.06em;white-space:nowrap}
+.a a.k:hover{background:var(--akz2)}.a a.k.schwarz:hover{background:#222}
+
+.a .auf{grid-column:span 8;grid-row:span 2;padding:22px 46px 18px 22px;justify-content:space-between;min-height:430px}
+.a .auf h2{font-size:clamp(34px,5.6vw,84px);line-height:.94;letter-spacing:-.05em}
+.a .auf p{font-size:clamp(16px,1.35vw,19px);max-width:46em}
+.a .tag{grid-column:span 4;background:var(--akz2);transition:background 1s,clip-path .75s cubic-bezier(.2,.8,.2,1) calc(var(--i,0) * 55ms)}
+.a .tag .gross{position:relative;align-self:flex-start;font:400 clamp(96px,13vw,190px)/.8 "Instrument Serif",serif;letter-spacing:-.04em;padding:.06em .1em 0 0}
+.a .kritzel{position:absolute;inset:-12% -16% -8% -20%;width:136%;height:120%;overflow:visible;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 1.5s ease .5s}
+.a .k.da .kritzel{stroke-dashoffset:0}
+.a .tag h3{margin:0;font:560 clamp(22px,2.6vw,34px)/1 "Bricolage Grotesque",var(--sans);letter-spacing:-.04em}
+.a .zahl{grid-column:span 4;background:var(--akz);color:var(--akzt);transition:background 1s,clip-path .75s cubic-bezier(.2,.8,.2,1) calc(var(--i,0) * 55ms)}
+.a .zahl .gross{font:520 clamp(84px,11vw,160px)/.82 "Bricolage Grotesque",var(--sans);letter-spacing:-.07em}
+.a .zahl h3{margin:0;font:italic 400 clamp(24px,2.8vw,36px)/1 "Instrument Serif",serif}
+.a .siegel{position:absolute;right:14px;top:14px;width:92px;height:92px;animation:a-dreh 22s linear infinite}
+.a .siegel text{font:700 10.4px var(--sans);letter-spacing:.14em;fill:currentColor}
+@keyframes a-dreh{to{rotate:360deg}}
+.a .wichtig{grid-column:span 4;min-height:300px}
+.a .schwarz{background:#0c0c0c;color:var(--papier);outline:1.5px solid #3a3a3a;outline-offset:-1.5px}
+.a .schwarz .marke-klein b{background:var(--akz2);color:#0c0c0c;transition:background 1s}
+.a .serif h2{font:400 clamp(28px,3vw,40px)/1 "Instrument Serif",serif;letter-spacing:-.015em}
+.a .serif h2 em{font:560 .86em/1 "Bricolage Grotesque",var(--sans);letter-spacing:-.04em}
+.a .titel{grid-column:span 12;flex-direction:row;align-items:baseline;justify-content:space-between;background:transparent;color:var(--papier);padding:26px 4px 6px}
+.a .titel h3{margin:0;font:italic 400 clamp(40px,7vw,104px)/.9 "Instrument Serif",serif;letter-spacing:-.02em}
+.a .titel h3 b{font:560 .9em/1 "Bricolage Grotesque",var(--sans);letter-spacing:-.05em}
+.a .titel span{font:700 11px/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase;text-align:right}
+.a .kurz{grid-column:span 3;min-height:210px}
+.a .kurz h2{font-size:clamp(18px,1.55vw,21px);line-height:1.08;letter-spacing:-.025em;font-weight:520}
+.a .kurz.serif h2{font:400 clamp(22px,1.9vw,26px)/1.04 "Instrument Serif",serif;letter-spacing:-.01em}
+.a .kurz.farbe{background:var(--akz2);transition:background 1s,clip-path .75s cubic-bezier(.2,.8,.2,1) calc(var(--i,0) * 55ms)}
+.a .kurz.breit{grid-column:span 6}.a .kurz.r1{grid-column:span 12;min-height:0}.a .kurz.r2{grid-column:span 6}.a .kurz.r3{grid-column:span 4}
+.a-ende{color:#8d8a84;font:700 11px/1.4 var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:20px 4px 60px;display:flex;justify-content:space-between;gap:12px}
+
+@media (max-width:900px){
+  .a .auf{grid-column:span 12;min-height:0}.a .tag,.a .zahl{grid-column:span 6}.a .wichtig{grid-column:span 12;min-height:0}.a .kurz,.a .kurz.breit{grid-column:span 6}.a .kurz.r1{grid-column:span 12;min-height:0}.a .kurz.r2{grid-column:span 6}.a .kurz.r3{grid-column:span 4}
+}
+@media (max-width:560px){
+  .a{--spalt:7px}.a-wahl button{min-height:96px;padding:10px 10px 9px;gap:14px}.a-wahl small span:last-child{display:none}
+  .a .k{padding:14px 14px 13px}.a .auf{padding:16px 34px 14px 14px}.a .senk{right:6px}
+  .a .kurz,.a .kurz.breit,.a .kurz.r2,.a .kurz.r3{grid-column:span 12;min-height:0}.a .siegel{width:70px;height:70px;right:8px;top:8px}
+}
+@media (prefers-reduced-motion:reduce){.a .k,.a .k>*{transition:none;clip-path:none;transform:none}.a-lauf div,.a .siegel{animation:none}}
+/* Textfarben der besonderen Felder (müssen gegen die allgemeine Kachelfarbe gewinnen) */
+#e.a .zahl{color:var(--akzt)}#e.a .schwarz,#e.a .titel{color:var(--papier)}

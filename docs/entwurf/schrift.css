@@ -1,0 +1,21 @@
+/* Schriften der Entwürfe (alle frei, SIL Open Font License; Quelle: Fontsource) */
+@font-face{font-family:"Bricolage Grotesque";src:url(../schriften/entwurf/bricolage.woff2) format("woff2");font-weight:200 800;font-stretch:75% 100%;font-display:swap}
+@font-face{font-family:"Fraunces";src:url(../schriften/entwurf/fraunces.woff2) format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Fraunces";src:url(../schriften/entwurf/fraunces-kursiv.woff2) format("woff2");font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(../schriften/entwurf/instrument-serif.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(../schriften/entwurf/instrument-serif-kursiv.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(../schriften/entwurf/jetbrains-mono.woff2) format("woff2");font-weight:100 800;font-display:swap}
+@font-face{font-family:"Unbounded";src:url(../schriften/entwurf/unbounded.woff2) format("woff2");font-weight:200 900;font-display:swap}
+@font-face{font-family:"Caveat";src:url(../schriften/entwurf/caveat.woff2) format("woff2");font-weight:400 700;font-display:swap}
+
+/* Gemeinsames: Kopf nur mit Logo, kleiner Umschalter zwischen den Entwürfen */
+.e-kopf .kopf-zeile{padding-bottom:18px}
+.e-wahl{position:fixed;z-index:50;right:14px;bottom:14px;display:flex;gap:2px;padding:4px;border-radius:999px;background:rgba(20,20,20,.82);backdrop-filter:blur(8px);font:600 12px/1 var(--sans)}
+.e-wahl a{padding:8px 11px;border-radius:999px;color:#d8d4cc;text-decoration:none;white-space:nowrap}.e-wahl a b{font-weight:800}
+.e-wahl a[aria-current]{background:#f6f4ef;color:#141414}
+@media (max-width:640px){.e-wahl a{font-size:0;padding:8px 10px}.e-wahl a b{font-size:12px}}
+#e a{text-decoration:none}
+#e a:not(.k){color:inherit}
+#e .k{color:var(--tinte)}
+#e{min-height:100vh}
+.e-still #e *,.e-still #e *::before,.e-still #e *::after{transition:none!important;animation-play-state:paused!important}

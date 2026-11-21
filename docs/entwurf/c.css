@@ -1,0 +1,94 @@
+/* Entwurf C „Morgenglas“: der Morgenhimmel des Intros läuft als weicher Farbverlauf weiter, darauf Kacheln aus Milchglas.
+   Die Ressorts sind drei gestapelte Mappen – die gewählte kommt nach vorn, und die Farbstimmung der Seite zieht langsam mit. */
+@property --h1{syntax:"<color>";inherits:true;initial-value:#fde3cf}
+@property --h2{syntax:"<color>";inherits:true;initial-value:#f6d9e6}
+@property --h3{syntax:"<color>";inherits:true;initial-value:#dfe6f6}
+@property --h4{syntax:"<color>";inherits:true;initial-value:#ffb36b}
+@property --h5{syntax:"<color>";inherits:true;initial-value:#ff8fb0}
+body{background:#f6f4ef}
+.c{--h1:#fde3cf;--h2:#f6d9e6;--h3:#dfe6f6;--h4:#ffb36b;--h5:#ff8fb0;--tinte:#1d1b22;--glas:rgba(255,255,255,.52);
+  position:relative;margin-top:26px;border-radius:38px 38px 0 0;overflow:hidden;color:var(--tinte);font-family:"Bricolage Grotesque",var(--sans);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--h1) 72%,transparent) 0,var(--h2) 620px,var(--h3) 100%);
+  -webkit-backdrop-filter:blur(26px) saturate(1.5);backdrop-filter:blur(26px) saturate(1.5);box-shadow:0 -1px 0 rgba(255,255,255,.9) inset,0 -24px 60px -30px rgba(80,50,90,.35);
+  transition:--h1 1.6s ease,--h2 1.6s ease,--h3 1.6s ease,--h4 1.6s ease,--h5 1.6s ease}
+.c[data-r="fruehe-hilfen"]{--h1:#fbdbe6;--h2:#ead9fb;--h3:#fde7d6;--h4:#ff7fa8;--h5:#b18cff}
+.c[data-r="quartiersmanagement"]{--h1:#d6ecf5;--h2:#dcf3e4;--h3:#f3ecd6;--h4:#5fb4f0;--h5:#6fd6a4}
+
+/* Lichtflecken, die langsam wandern */
+.c-licht{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.c-licht i{position:absolute;width:46vw;height:46vw;max-width:620px;max-height:620px;border-radius:50%;filter:blur(80px);opacity:.55;background:var(--h4);animation:c-licht 26s ease-in-out infinite alternate}
+.c-licht i:nth-child(1){left:-8%;top:120px}.c-licht i:nth-child(2){right:-10%;top:560px;background:var(--h5);animation-duration:34s;animation-direction:alternate-reverse}
+.c-licht i:nth-child(3){left:22%;top:1300px;background:var(--h5);animation-duration:30s}.c-licht i:nth-child(4){right:6%;top:1900px;animation-duration:38s}
+@keyframes c-licht{from{transform:translate(-6%,-4%) scale(1)}to{transform:translate(10%,8%) scale(1.25)}}
+
+.c-innen{position:relative;max-width:1240px;margin:0 auto;padding:34px clamp(12px,3vw,32px) 100px}
+.c-oben{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:0 6px 26px;font:500 12px/1.4 "JetBrains Mono",monospace;letter-spacing:.04em;text-transform:uppercase}
+.c-oben b{font:italic 400 clamp(30px,4.6vw,58px)/1 "Instrument Serif",serif;letter-spacing:-.01em;text-transform:none}
+
+/* Mappen */
+.c-mappen{position:relative;height:clamp(250px,30vw,330px);margin:44px 0 30px;perspective:1400px}
+.c-mappe{position:absolute;inset:0;display:block;padding:0;border:0;background:none;color:#fffaf2;text-align:left;cursor:pointer;font:inherit;
+  transform-origin:50% 100%;z-index:calc(3 - var(--pos));transform:translateY(calc(var(--pos) * -34px)) scale(calc(1 - var(--pos) * .045));
+  transition:transform .85s cubic-bezier(.3,1.25,.4,1),filter .8s}
+.c-mappe[data-r="jugendhilfeplanung"]{--f1:#f7a65a;--f2:#e2722c}.c-mappe[data-r="fruehe-hilfen"]{--f1:#f59ab8;--f2:#cf4f86}.c-mappe[data-r="quartiersmanagement"]{--f1:#8fc1f1;--f2:#3b78cf}
+.c-mappe:not([aria-pressed="true"]){filter:saturate(.9) brightness(1.04)}
+.c-mappe.hebt{transform:translateY(-62%) scale(.97) rotateX(8deg);transition:transform .38s cubic-bezier(.4,0,.6,1)}
+.c-lasche{position:absolute;top:-33px;left:calc(18px + var(--nr) * (22% + 10px));height:36px;min-width:21%;padding:10px 18px 0;border-radius:14px 14px 0 0;background:var(--f1);
+  font:600 12px/1.2 "JetBrains Mono",monospace;letter-spacing:.03em;white-space:nowrap}
+.c-lasche::after{content:"";position:absolute;right:-17px;bottom:0;width:18px;height:22px;background:radial-gradient(circle at 100% 0,transparent 17px,var(--f1) 18px)}
+.c-blatt{position:absolute;inset:0;display:grid;grid-template-columns:1fr auto;grid-template-rows:auto 1fr;gap:10px 24px;padding:24px 28px 22px;border-radius:6px 22px 22px 22px;
+  background:linear-gradient(170deg,var(--f1),var(--f2));box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 22px 44px -22px rgba(70,30,60,.5);overflow:hidden}
+.c-blatt strong{grid-column:1;grid-row:2;align-self:end;font:300 clamp(30px,5.6vw,76px)/.98 "Unbounded",var(--sans);letter-spacing:-.045em}
+.c-tabelle{grid-column:2;grid-row:1 / 3;align-self:start;display:grid;grid-template-columns:auto 1fr;gap:0 18px;min-width:min(340px,38vw);padding:6px 16px;border:1.5px solid rgba(255,250,242,.7);border-radius:14px;font:500 12.5px/1.3 "JetBrains Mono",monospace}
+.c-tabelle span{padding:9px 0;border-top:1px solid rgba(255,250,242,.4)}.c-tabelle span:nth-child(-n+2){border-top:0}.c-tabelle span:nth-child(odd){opacity:.8}
+.c-stempel{grid-column:1;grid-row:1;justify-self:start;padding:5px 12px;border:1.5px solid rgba(255,250,242,.8);border-radius:999px;rotate:-7deg;font:700 10.5px/1.2 "JetBrains Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+
+/* Kacheln aus Glas */
+.c-raster{position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:14px;grid-auto-flow:dense}
+.c .k{position:relative;display:flex;flex-direction:column;gap:12px;min-width:0;padding:22px 24px;border-radius:26px;background:var(--glas);border:1px solid rgba(255,255,255,.8);
+  box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 18px 44px -26px rgba(70,40,90,.45);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  opacity:0;transform:translateY(34px) scale(.985);filter:blur(10px);transition:opacity .9s ease calc(var(--i,0) * 80ms),transform 1s cubic-bezier(.2,.9,.3,1) calc(var(--i,0) * 80ms),filter .9s ease calc(var(--i,0) * 80ms),background .3s}
+.c .k.da{opacity:1;transform:none;filter:none}
+.c a.k:hover{background:rgba(255,255,255,.78)}
+.c h2,.c h3,.c p{margin:0;color:inherit}
+.c .zeile{display:flex;justify-content:space-between;gap:10px;font:500 11.5px/1.3 "JetBrains Mono",monospace;letter-spacing:.05em;text-transform:uppercase}
+.c .zeile span:first-child::before{content:"";display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:var(--h5);transition:background 1.6s}
+.c h2{font:520 clamp(21px,2vw,26px)/1.12 "Bricolage Grotesque",var(--sans);letter-spacing:-.03em;text-wrap:balance}
+.c p{font:400 15.5px/1.48 "Bricolage Grotesque",var(--sans);color:#3b3742;text-wrap:pretty}
+.c .unten{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;font:500 11.5px/1.3 "JetBrains Mono",monospace;letter-spacing:.04em;text-transform:uppercase}
+.c .pille{padding:9px 15px;border-radius:999px;background:var(--tinte);color:#fff;font:600 12px/1 "Bricolage Grotesque",var(--sans);letter-spacing:0;text-transform:none}
+
+.c .auf{grid-column:span 8;grid-row:span 2;min-height:440px;padding:28px 30px}
+.c .auf h2{font:500 clamp(30px,4.1vw,60px)/1 "Bricolage Grotesque",var(--sans);letter-spacing:-.045em}
+.c .auf h2 em{font:italic 400 1.06em/1 "Instrument Serif",serif;letter-spacing:-.01em}
+.c .auf p{font-size:clamp(16px,1.3vw,18.5px);max-width:38em}
+.c .datum{grid-column:span 4;align-items:flex-start;overflow:hidden;min-height:250px}
+.c .datum .sonne{position:absolute;right:-30px;bottom:-40px;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle at 40% 35%,var(--h4),var(--h5) 70%);filter:blur(6px);opacity:.85;transition:background 1.6s}
+.c .datum b{position:relative;font:300 clamp(54px,6.4vw,92px)/.9 "Unbounded",var(--sans);letter-spacing:-.06em}
+.c .datum b span{display:block;color:rgba(29,27,34,.4)}
+.c .dunkel{grid-column:span 4;background:#1d1b22;border-color:#35323c;color:#f6f2ee;box-shadow:0 18px 44px -22px rgba(20,10,30,.7)}
+.c .dunkel h3{font:italic 400 30px/1 "Instrument Serif",serif}
+.c .dunkel .pille{background:#f6f2ee;color:#1d1b22}
+.c .wellen{display:flex;align-items:center;gap:4px;height:44px}
+.c .wellen i{width:4px;border-radius:2px;background:var(--h4);height:calc(8px + var(--w) * 34px);animation:c-wellen 1.1s ease-in-out calc(var(--w) * -1s) infinite alternate;transition:background 1.6s}
+@keyframes c-wellen{to{height:8px}}
+.c .wichtig{grid-column:span 4;min-height:290px}
+.c .wichtig:nth-of-type(even){background:rgba(255,255,255,.34)}
+.c .ueber{grid-column:span 12;background:none;border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:26px 6px 0;flex-direction:row;align-items:baseline;justify-content:space-between}
+.c .ueber h3{font:italic 400 clamp(36px,5.4vw,70px)/1 "Instrument Serif",serif;letter-spacing:-.01em}
+.c .ueber span{font:500 11.5px/1.3 "JetBrains Mono",monospace;letter-spacing:.05em;text-transform:uppercase}
+.c .kurz{grid-column:span 6;flex-direction:row;align-items:center;gap:18px;padding:18px 20px 18px 24px}
+.c .kurz div{display:flex;flex-direction:column;gap:7px;min-width:0;flex:1}
+.c .kurz h2{font-size:clamp(17px,1.5vw,19.5px);font-weight:500;line-height:1.2;letter-spacing:-.02em}
+.c .kurz .kreis{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.75);border:1px solid #fff;font-size:17px;transition:transform .3s,background .3s}
+.c a.kurz:hover .kreis{transform:translateX(4px);background:var(--tinte);color:#fff}
+
+@media (max-width:960px){.c .auf{grid-column:span 12;min-height:0}.c .datum,.c .dunkel{grid-column:span 6}.c .wichtig{grid-column:span 12;min-height:0}.c .kurz{grid-column:span 12}}
+@media (max-width:620px){
+  .c{border-radius:26px 26px 0 0}.c-mappen{height:300px}.c-lasche{left:calc(8px + var(--nr) * 31.5%);min-width:29%;padding:10px 10px 0;font-size:11px}
+  .c-blatt{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;padding:18px 18px 16px}.c-tabelle{grid-column:1;grid-row:2;min-width:0}.c-blatt strong{grid-row:3}
+  .c-tabelle span{padding:6px 0}.c .k{padding:18px 18px;border-radius:22px}.c .datum,.c .dunkel{grid-column:span 12;min-height:0}.c-raster{gap:10px}
+}
+@media (prefers-reduced-motion:reduce){.c .k{opacity:1;transform:none;filter:none;transition:none}.c-licht i,.c .wellen i{animation:none}}
+/* Textfarbe der dunklen Kachel */
+#e.c .dunkel{color:#f6f2ee}
