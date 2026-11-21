@@ -8,3 +8,4 @@ docs/audio/
 docs/daten/audio.json
 stimmproben/
 docs/_*
+.wrangler/
