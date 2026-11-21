@@ -6,7 +6,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
 const ZIEL = "docs/daten/wetter.js";
-const URL_ = "https://api.open-meteo.com/v1/forecast?latitude=50.0&longitude=8.27&daily=weather_code,snowfall_sum&timezone=Europe%2FBerlin&forecast_days=7";
+const URL_ = "https://api.open-meteo.com/v1/forecast?latitude=50.0&longitude=8.27&daily=weather_code,snowfall_sum,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FBerlin&forecast_days=7";
 
 // WMO-Wettercodes → vier Lagen. Schnee gilt nur, wenn auch wirklich Schnee fällt; im Intro gibt es ihn nur im Winter.
 function lage(code, schnee) {
@@ -24,6 +24,11 @@ try {
   const tage = {};
   d.time.forEach((tag, i) => { if (/^\d{4}-\d{2}-\d{2}$/.test(tag)) tage[tag] = lage(Number(d.weather_code[i]), Number(d.snowfall_sum?.[i]) || 0); });
   const neu = `/* Wetterlage je Tag in Mainz (Quelle: Open-Meteo, CC BY 4.0) – erzeugt von werkzeuge/wetter.mjs */\nwindow.FACHBRIEF_WETTER=${JSON.stringify(tage)};\n`;
+  // Für die Wetter-Kachel: je Tag auch Höchst- und Tiefstwert und Regenwahrscheinlichkeit (docs/daten/wetter7.js)
+  const woche = d.time.map((tag, i) => ({ tag, lage: tage[tag], max: Math.round(d.temperature_2m_max?.[i]), min: Math.round(d.temperature_2m_min?.[i]), regen: Math.round(d.precipitation_probability_max?.[i] ?? 0) }));
+  writeFileSync("docs/daten/wetter7.js", `/* Wetter der nächsten sieben Tage in Mainz (Quelle: Open-Meteo, CC BY 4.0) – erzeugt von werkzeuge/wetter.mjs */
+window.BONIBLATT_WETTER7=${JSON.stringify(woche)};
+`);
   let alt = ""; try { alt = readFileSync(ZIEL, "utf8"); } catch {}
   if (neu !== alt) writeFileSync(ZIEL, neu);
   console.log("Wetter Mainz:", Object.entries(tage).map(([t, l]) => `${t.slice(5)} ${l}`).join(", "));
