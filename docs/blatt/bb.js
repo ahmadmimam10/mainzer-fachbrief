@@ -22,7 +22,7 @@
   const zeit = ZEITEN.includes(q.get("farbe")) ? q.get("farbe") : ausWetter ? ausWetter : monat >= 3 && monat <= 5 ? "fruehling" : monat >= 6 && monat <= 8 ? "sommer" : monat >= 9 && monat <= 11 ? "herbst" : "winter";
   wurzel.dataset.zeit = zeit;
 
-  const motiv = (name, kl = "") => `<span class="st ${kl}" style="-webkit-mask-image:url(bilder/motive/${name}.png);mask-image:url(bilder/motive/${name}.png)" aria-hidden="true"></span>`;
+  const motiv = (name, kl = "") => `<span class="st ${kl}" style="-webkit-mask-image:url(bilder/motive/${name}.webp);mask-image:url(bilder/motive/${name}.webp)" aria-hidden="true"></span>`;
   const tagNr = Math.floor(E.tag() / 864e5);
 
   // ---- Wetter: sieben Tage, gezeichnet und bewegt ----
@@ -68,8 +68,9 @@
 
   // ---- Gerüst ----
   const welle = `<svg viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V30C100 6 200 6 300 30S500 54 600 30S800 6 900 30S1100 54 1200 30V60Z"/></svg>`;
+  const stunde = new Date().getHours(), gruss = stunde >= 4 && stunde < 11 ? "Morgen" : stunde >= 11 && stunde < 17 ? "Tag" : "Abend";
   wurzel.innerHTML = `<div class="bb-welle">${welle}${welle}</div><div class="bb-nieder" aria-hidden="true"></div><div class="bb-innen">
-    <header class="bb-oben">${motiv(ORTE[(tagNr + 9) % ORTE.length][0], "wz kopfwz")}<p class="bb-gruss">Guten <i>Morgen.</i></p><div class="bb-ausgaben"></div>
+    <header class="bb-oben">${motiv(ORTE[(tagNr + 9) % ORTE.length][0], "wz kopfwz")}<p class="bb-gruss">Guten <i>${gruss}.</i></p><div class="bb-ausgaben"></div>
       <nav class="bb-reiter" aria-label="Bereiche"><i class="r-pille" aria-hidden="true"></i>${BEREICHE.map((b, i) => `<button type="button" data-r="${b.id}" aria-pressed="false" style="--nr:${i}">${motiv(b.motive[0])}<span>${esc(b.reiter)}</span></button>`).join("")}</nav></header>
     <section class="bb-raster" id="kacheln"></section>
     
@@ -79,7 +80,7 @@
         <img src="bilder/ahmed-imam.jpg" alt="Ahmed Imam" width="120" height="120" loading="lazy"></a>
       <div class="f-wer"><p class="f-klein">Ein Projekt von</p><p class="f-name">Ahmed <i>Imam</i></p>
         <p class="f-links"><a href="https://github.com/ahmadmimam10" target="_blank" rel="author noopener">GitHub-Profil</a><a href="https://github.com/ahmadmimam10/mainzer-fachbrief" target="_blank" rel="noopener">Quellcode</a><a href="mailto:ahmadmimam10@gmail.com">ahmadmimam10@gmail.com</a></p></div>
-      <div class="f-ueber"><strong>Über das <i>Boniblatt</i></strong><span>Testphase · automatisch zusammengestellt, redaktionell gewichtet</span><a class="f-mehr" href="ueber.html">So entsteht das Boniblatt <span aria-hidden="true">→</span></a><a class="f-mehr" href="klassisch.html">Bisherige Ansicht <span aria-hidden="true">→</span></a></div>
+      <div class="f-ueber"><strong>Über das <i>Boniblatt</i></strong><span>Testphase · automatisch zusammengestellt, redaktionell gewichtet</span><a class="f-mehr" href="ueber.html">So entsteht das Boniblatt <span aria-hidden="true">→</span></a></div>
     </footer></div>`;
   const raster = wurzel.querySelector("#kacheln");
 
@@ -144,7 +145,9 @@
     const wann = d => { const z = tageBis(d); return z === 0 ? "heute" : z === 1 ? "morgen" : z > 0 ? `in ${z} Tagen` : z === -1 ? "gestern" : `vor ${-z} Tagen`; };
     const eintrag = (n, kl) => { const d = mittag(n.datum); return `<a class="g-eintrag${kl ? " " + kl : ""}" href="${esc(n.url)}" target="_blank" rel="noopener"><span class="g-text"><em>${esc(d.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" }))} · ${wann(n.datum)}${n.zeit && n.datum >= heute ? " · " + esc(n.zeit) + " Uhr" : ""}</em><strong>${esc(n.gremium)}</strong><span>${esc(n.text)}</span></span><span class="g-pfeil" aria-hidden="true">↗</span></a>`; };
     const STEMPEL = [[/abgelehnt/i, "abgelehnt", "nein"], [/zurückgestellt|vertagt|verschoben/i, "zurückgestellt", "halt"], [/einstimmig/i, "einstimmig", "ja"], [/mehrheitlich/i, "mehrheitlich", "ja"], [/beschlossen|zugestimmt|angenommen/i, "beschlossen", "ja"], [/zur Kenntnis/i, "zur Kenntnis", "info"]];
-    const stempel = s => { const l = STEMPEL.filter(x => x[0].test(s)).slice(0, 2); return l.length ? `<span class="g-stempelzeile">${l.map(x => `<i class="g-stempel ${x[2]}">${x[1]}</i>`).join("")}</span>` : ""; };
+    // Ein Stempel gilt nur, wenn das Wort nicht verneint ist („nicht beschlossen“, „kein Beschluss“): geprüft wird der Satzteil vor dem Treffer
+    const bejaht = (s, r) => { const m = r.exec(s); if (!m) return false; const davor = s.slice(0, m.index).split(/[;,.:–]/).pop(); return !/(^|[^a-zäöüß])(nicht|kein|keine|keinen|keiner|keinem|ohne|weder)([^a-zäöüß]|$)/i.test(davor); };
+    const stempel = s => { const l = STEMPEL.filter(x => bejaht(s, x[0])).slice(0, 2); return l.length ? `<span class="g-stempelzeile">${l.map(x => `<i class="g-stempel ${x[2]}">${x[1]}</i>`).join("")}</span>` : ""; };
     const zeile = (n, j, kl) => eintrag(n, kl).replace('class="g-eintrag', `style="--j:${j}" class="g-eintrag`).replace("</span><span class=\"g-pfeil\"", (n.datum < heute ? stempel(n.text) : "") + "</span><span class=\"g-pfeil\"");
     const leer = s => `<p class="g-leer">${s}</p>`, mehr = l => l.length > 4 ? leer(`und ${l.length - 4} weitere im Ratsinfo`) : "";
     return `<div class="k rat" data-ein><div class="rat-kopf"><span class="rat-zeichen"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 4 16.5V20h40v-3.5L24 5Z"/><path d="M8 23h5.5v13H8zM17 23h5.5v13H17zM25.5 23H31v13h-5.5zM34.5 23H40v13h-5.5z"/><path d="M5 38.5h38V43H5z"/></svg></span><div><h3>Mainzer <i>Gremien</i></h3><p>Aus dem Ratsinformationssystem der Stadt · ${esc(b.reiter)}</p></div><a class="rat-info" href="https://bi.mainz.de/si0046.php" target="_blank" rel="noopener">Ratsinfo öffnen ↗</a></div>

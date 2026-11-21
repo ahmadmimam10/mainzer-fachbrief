@@ -39,7 +39,7 @@ die letzte Ausgabe.
 - `REDAKTION.md` – die Redaktionsregeln (fachliche Profile der drei Ressorts, Auswahl- und Gewichtungsregeln)
 - `werkzeuge/sammeln.mjs` – Quellenabruf · `werkzeuge/redaktion.mjs` – Kandidatenliste, Prüfung, Seitendaten
 - `daten/` – Pool, bekannte Links, Ausgaben, Gremien-Notizen · `docs/` – die Webseite (`index.html`, `daten/*.json`, Schriften)
-- `docs/blatt/` – die Kachel-Ansicht der Hauptseite (`bb.js`, `bb.css`, `gemeinsam.js`, `schrift.css`; Motive in `docs/bilder/motive/`) · `docs/klassisch.html` – die frühere Ansicht mit Suche und Archiv
+- `docs/blatt/` – die Kachel-Ansicht der Hauptseite (`bb.js`, `bb.css`, `gemeinsam.js`, `schrift.css`; Motive in `docs/bilder/motive/`)
 - `werkzeuge/intro-einbauen.mjs` – baut das Intro („Morgen über Mainz“) in `docs/index.html`; dazu
   `intro-feste.mjs` (besondere Tage, Ferien- und Festtermine), `intro-boni.mjs` (Bonifaziustürme mit Balkon),
   `intro-funde.mjs` mit `funde/*.mjs` (die Fundstücke des Tages → `docs/intro-funde.js`), `wetter.mjs` (Wetterlage

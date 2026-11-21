@@ -4,15 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mainzer Boniblatt</title>
-<meta name="description" content="Der werktägliche Morgenüberblick für Jugendhilfeplanung, Frühe Hilfen und Quartiersmanagement in Mainz – jeden Werktag aus über 50 öffentlichen Quellen zusammengestellt.">
+<meta name="description" content="Der werktägliche Morgenüberblick für Jugendhilfeplanung, Frühe Hilfen, Kinderschutz und Familienbildung sowie Quartiermanagement in Mainz – jeden Werktag aus über 50 öffentlichen Quellen zusammengestellt.">
 <meta property="og:title" content="Mainzer Boniblatt">
-<meta property="og:description" content="Der werktägliche Morgenüberblick für Jugendhilfeplanung, Frühe Hilfen und Quartiersmanagement in Mainz.">
+<meta property="og:description" content="Der werktägliche Morgenüberblick für Jugendhilfeplanung, Frühe Hilfen, Kinderschutz und Familienbildung sowie Quartiermanagement in Mainz.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#f6f4ef">
 <link rel="icon" href="bilder/favicon.ico" sizes="32x32">
 <link rel="icon" href="bilder/favicon-hell.svg" type="image/svg+xml" id="favicon">
-<link rel="preload" href="schriften/source-serif-4.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="schriften/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <script>
 /* Darstellung vor dem ersten Zeichnen setzen: Standard ist hell, dunkel nur nach eigener Wahl (localStorage „fachbrief.thema“) */
 try {
@@ -24,19 +22,8 @@ try {
 } catch (e) {}
 </script>
 <style>
-/* VOICE   Moderne Tageszeitung für Fachleute: ruhig, präzise, klare Rangfolge – mit lebendigen Ressortfarben.
-   IDEA    Registermappe: Kopf auf einem neutralen Tisch, darüber Registerreiter je Ressort, die Ausgabe als Papierbogen.
-   PICTURE Der aktive Reiter geht nahtlos in den Bogen über; darauf die große Aufmacher-Schlagzeile und feine Spaltenlinien.
-   COLOUR  Heller Tisch (#f6f4ef), Bogen (#fffefb), Druckschwarz; je Ressort eine Kennfarbe nur an Reitern, Abzeichen,
-           Dachzeilen und Akzenten – nie im Hintergrund. Standard hell; dunkel nur nach Wahl über den Umschalter im Kopf
-           (localStorage „fachbrief.thema“, Attribut data-thema an <html>).
-   TYPE    Source Serif 4 (Schlagzeilen, Lesetext), Schibsted Grotesk (Rubriken, Angaben, Bedienung); Schriftzug als Logo.
-   LAYOUT  Kopf (Logo · kleine Marke „Testphase“ · Hell/Dunkel · Suche · Datum mit Pfeilen) → Reiter → Bogen (Hörleiste, Aufmacher +
-           Seitenspalte, drei Spalten, Kurz notiert) → dunkler Fuß. */
-@font-face{font-family:"Source Serif 4";src:url(schriften/source-serif-4.woff2) format("woff2");font-weight:400 800;font-style:normal;font-display:swap}
-@font-face{font-family:"Source Serif 4";src:url(schriften/source-serif-4-kursiv.woff2) format("woff2");font-weight:400 600;font-style:italic;font-display:swap}
-@font-face{font-family:"Schibsted Grotesk";src:url(schriften/schibsted-grotesk.woff2) format("woff2");font-weight:400 800;font-display:swap}
-
+/* Grundlage (Rest der früheren Ansicht, auf das Nötige gekürzt): Schriften, Farben, Kopfzeile */
+@font-face{font-family:"Source Serif 4";src:url(schriften/source-serif-4.woff2) format("woff2");font-weight:400 800;font-style:normal;font-display:swap}@font-face{font-family:"Source Serif 4";src:url(schriften/source-serif-4-kursiv.woff2) format("woff2");font-weight:400 600;font-style:italic;font-display:swap}@font-face{font-family:"Schibsted Grotesk";src:url(schriften/schibsted-grotesk.woff2) format("woff2");font-weight:400 800;font-display:swap}
 :root{
   color-scheme:light;
   --tisch:#f6f4ef;--band:#efebe4;--bogen:#fffefb;--reiter:#fbfaf6;--fuss:#1b1a18;--fein:#d9d3c8;
@@ -49,350 +36,21 @@ try {
   --rand:clamp(10px,calc(4vw - 4px),44px);     /* Abstand des Bogens zum Rand: Handy 10–12 px */
   --innen:clamp(16px,3vw,40px);                 /* Innenabstand des Bogens */
 }
-:root[data-thema="dunkel"]{
-  color-scheme:dark;
-  --tisch:#0e0d0c;--band:#1a1917;--bogen:#1d1c1a;--reiter:#1d1c1a;--fuss:#161513;--fein:#34312d;
-  --papier:#161514;--papier2:#292724;--tinte:#ece8e1;--text:#d8d3ca;--grau:#a39d92;--haar:#36332f;--linie:#ece8e1;
-  --rot:#ff6b78;--besucht:#9a948a;--r-jhp:#ff6b78;--r-fh:#5cc3cc;--r-qm:#9cadff;
-}
-body[data-ressort="fruehe-hilfen"]{--akzent:var(--r-fh)}
-body[data-ressort="quartiersmanagement"]{--akzent:var(--r-qm)}
-[data-r="jugendhilfeplanung"]{--farbe:var(--r-jhp)}
-[data-r="fruehe-hilfen"]{--farbe:var(--r-fh)}
-[data-r="quartiersmanagement"]{--farbe:var(--r-qm)}
 *{box-sizing:border-box;min-width:0}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0;background:var(--tisch);color:var(--tinte);font:16px/1.5 var(--sans);overflow-x:clip;font-optical-sizing:auto}
 a{color:inherit}
 button,input{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--akzent);outline-offset:3px}
 .blatt{max-width:1200px;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-
-/* Icons (docs/bilder/icons): farbig – helle Fassung auf Papier, dunkle Fassung bei dunkler Darstellung; „maske“ = einfarbig in Textfarbe */
-.ic{display:inline-block;flex:none;width:20px;height:20px;vertical-align:middle;background:var(--ic-h) center/contain no-repeat}
-:root[data-thema="dunkel"] .ic:not(.maske){background-image:var(--ic-d)}
-.ic.maske{background:currentColor;-webkit-mask:var(--ic-h) center/contain no-repeat;mask:var(--ic-h) center/contain no-repeat}
-.i-archiv{--ic-h:url(bilder/icons/hell/archiv.svg);--ic-d:url(bilder/icons/dunkel/archiv.svg)}
-.i-familie{--ic-h:url(bilder/icons/hell/familie.svg);--ic-d:url(bilder/icons/dunkel/familie.svg)}
-.i-fruehe-hilfen{--ic-h:url(bilder/icons/hell/fruehe-hilfen.svg);--ic-d:url(bilder/icons/dunkel/fruehe-hilfen.svg)}
-.i-gremien{--ic-h:url(bilder/icons/hell/gremien.svg);--ic-d:url(bilder/icons/dunkel/gremien.svg)}
-.i-haushalt{--ic-h:url(bilder/icons/hell/haushalt.svg);--ic-d:url(bilder/icons/dunkel/haushalt.svg)}
-.i-jugendhilfeplanung{--ic-h:url(bilder/icons/hell/jugendhilfeplanung.svg);--ic-d:url(bilder/icons/dunkel/jugendhilfeplanung.svg)}
-.i-kinderschutz{--ic-h:url(bilder/icons/hell/kinderschutz.svg);--ic-d:url(bilder/icons/dunkel/kinderschutz.svg)}
-.i-kita{--ic-h:url(bilder/icons/hell/kita.svg);--ic-d:url(bilder/icons/dunkel/kita.svg)}
-.i-quartier{--ic-h:url(bilder/icons/hell/quartier.svg);--ic-d:url(bilder/icons/dunkel/quartier.svg)}
-.i-quellen{--ic-h:url(bilder/icons/hell/quellen.svg);--ic-d:url(bilder/icons/dunkel/quellen.svg)}
-.i-schule{--ic-h:url(bilder/icons/hell/schule.svg);--ic-d:url(bilder/icons/dunkel/schule.svg)}
-.i-sozialraum{--ic-h:url(bilder/icons/hell/sozialraum.svg);--ic-d:url(bilder/icons/dunkel/sozialraum.svg)}
-.i-suche{--ic-h:url(bilder/icons/hell/suche.svg);--ic-d:url(bilder/icons/dunkel/suche.svg)}
-.i-termine{--ic-h:url(bilder/icons/hell/termine.svg);--ic-d:url(bilder/icons/dunkel/termine.svg)}
-.i-zahl-des-tages{--ic-h:url(bilder/icons/hell/zahl-des-tages.svg);--ic-d:url(bilder/icons/dunkel/zahl-des-tages.svg)}
-
-
-/* Ruhiger Zeitungskopf: links „Suchen“, in der Mitte das Logo, rechts Hell/Dunkel; darunter die Datumszeile zwischen
-   zwei feinen Linien (‹ Archiv-Symbol + Datum ›). Das Datum öffnet „Alle Ausgaben“, die Lupe klappt das Suchfeld auf. */
 .kopf-zeile{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:16px;padding-top:30px;padding-bottom:22px}
 .marke{justify-self:center;margin:0;line-height:0}
 .marke a{display:inline-block;max-width:100%}
 .marke img{display:block;width:auto;height:60px}
-.marke .logo-dunkel,:root[data-thema="dunkel"] .marke .logo-hell{display:none}
-:root[data-thema="dunkel"] .marke .logo-dunkel{display:block}
-.lupe{justify-self:start;display:inline-flex;align-items:center;gap:8px;height:40px;margin-left:-8px;padding:0 12px 0 8px;border:0;border-radius:8px;background:none;color:var(--grau);font:600 14px/1 var(--sans);cursor:pointer;transition:background-color .15s,color .15s}
-.lupe .ic{width:20px;height:20px;color:var(--tinte)}
-.lupe:hover,.lupe[aria-expanded="true"]{background:var(--band);color:var(--tinte)}
-.suchzeile{display:none;padding-bottom:16px}
-#kopf.suche-offen .suchzeile{display:block}
-.suche{position:relative;display:block;max-width:560px;margin:0 auto}
-.suche .ic{position:absolute;left:11px;top:50%;translate:0 -50%;width:19px;height:19px}
-.suche input{width:100%;min-height:42px;padding:8px 10px 8px 38px;border:1px solid #ddd7cc;border-radius:3px;background:var(--bogen);font-size:16px;outline:none;-webkit-appearance:none;appearance:none;transition:border-color .15s,box-shadow .15s}
-:root[data-thema="dunkel"] .suche input{border-color:var(--haar)}
-.suche input::placeholder{color:var(--grau)}
-.suche input:focus{border-color:var(--akzent);box-shadow:0 0 0 3px color-mix(in srgb,var(--akzent) 18%,transparent)}
-.dateline{display:flex;justify-content:center;align-items:center;gap:18px;padding:5px 0;border-top:1px solid var(--fein);border-bottom:1px solid var(--fein)}
-.pfeil{flex:none;display:grid;place-items:center;width:34px;height:34px;padding:0 0 3px;border:0;border-radius:6px;background:none;color:var(--tinte);font:400 22px/1 var(--serif);cursor:pointer;transition:color .15s,background-color .15s}
-.pfeil:hover{color:var(--akzent);background:var(--band)}
-.pfeil[hidden]{display:grid;visibility:hidden}   /* unsichtbar, aber platzhaltend – das Datum bleibt mittig */
-.archiv-knopf{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 10px;border:0;border-radius:6px;background:none;color:var(--text);font:600 13.5px/1 var(--sans);letter-spacing:.02em;white-space:nowrap;cursor:pointer;transition:background-color .15s,color .15s}
-.archiv-knopf .ic{width:17px;height:17px;color:var(--grau)}
-.archiv-knopf:hover{background:var(--band);color:var(--tinte)}
-.archiv-knopf[aria-pressed="true"]{background:color-mix(in srgb,var(--akzent) 10%,transparent);color:var(--akzent)}
-.archiv-knopf[aria-pressed="true"] .ic{color:var(--akzent)}
-.ausgabe-zusatz{display:none;margin:6px 0 0;text-align:center;font:500 12.5px/1.3 var(--sans);color:var(--akzent)}
-
-/* Umschalter hell/dunkel: Desktop eine kleine Schiene (der Knopf trägt das Zeichen der gewählten Darstellung),
-   Handy nur ein Symbol – Mond im hellen, Sonne im dunklen Modus */
-.thema-schalter{justify-self:end;display:grid;place-items:center;width:58px;height:42px;margin:0 -2px 0 0;padding:0;border:0;border-radius:8px;background:none;color:var(--tinte);cursor:pointer;-webkit-tap-highlight-color:transparent}
-.thema-kurz{display:none}
-/* „Testphase“: nur noch eine ganz kleine Marke neben dem Schalter (Erklärung als Tooltip und im Fuß) */
-.kopf-rechts{justify-self:end;display:flex;align-items:center;gap:10px}
-.probe{padding:2px 7px 1px;border:1px solid var(--fein);border-radius:99px;color:var(--grau);font:600 9.5px/1.5 var(--sans);letter-spacing:.09em;text-transform:uppercase;white-space:nowrap;cursor:default}
-.thema-kurz svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.thema-kurz .k-sonne,.thema-schalter[aria-checked="true"] .k-mond{display:none}
-.thema-schalter[aria-checked="true"] .k-sonne{display:block}
-.schiene{position:relative;display:block;width:54px;height:30px;border-radius:15px;background:var(--bogen);box-shadow:inset 0 0 0 1px var(--haar);transition:background-color .2s,box-shadow .2s}
-.schiene::before{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(20,20,20,.3);transition:transform .22s cubic-bezier(.3,.7,.4,1),background-color .2s}
-.schiene svg{position:absolute;top:7px;width:16px;height:16px;transition:color .2s}
-.schiene .sonne{left:7px;color:var(--rot);fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-.schiene .sonne circle{fill:currentColor;stroke:none}
-.schiene .mond{right:7px;color:var(--grau);fill:currentColor}
-.thema-schalter:hover .schiene{box-shadow:inset 0 0 0 1px var(--grau)}
-.thema-schalter[aria-checked="true"] .schiene{background:#2a2724}
-.thema-schalter[aria-checked="true"] .schiene::before{transform:translateX(24px);background:#f3d9a4}
-.thema-schalter[aria-checked="true"] .sonne{color:var(--grau)}
-.thema-schalter[aria-checked="true"] .mond{color:#1b1a18}
-
-/* Registermappe: Reiter je Ressort direkt über dem Bogen. Aktiv: Bogenfarbe mit Oberkante in Ressortfarbe, geht nahtlos
-   in den Bogen über. Inaktiv: leicht in der eigenen Farbe getönt, etwas niedriger, innen unten ein feiner Schatten. */
-.mappe{max-width:1200px;margin:0 auto;padding:0 var(--rand)}
-.reiterleiste{display:flex;justify-content:flex-start;align-items:flex-end;gap:6px;padding:26px 0 0}
-.reiter{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 22px 0 18px;border-radius:9px 9px 0 0;background:color-mix(in srgb,var(--farbe) 8%,var(--reiter));color:color-mix(in srgb,var(--farbe) 90%,#000);font:700 15px/1.15 var(--sans);text-decoration:none;white-space:nowrap;box-shadow:inset 0 -7px 9px -8px rgba(0,0,0,.16);transition:height .2s ease,background-color .2s ease}
-.reiter:hover{background:color-mix(in srgb,var(--farbe) 15%,var(--reiter))}
-.reiter .ic{width:19px;height:19px}
-.reiter .name-zwei{display:none}
-.reiter small{display:none}
-.reiter[aria-current="page"]{height:53px;background:var(--bogen);color:var(--farbe);box-shadow:inset 0 3px 0 var(--farbe)}
-:root[data-thema="dunkel"] .reiter{background:color-mix(in srgb,var(--farbe) 16%,var(--reiter));color:var(--farbe);box-shadow:inset 0 -7px 9px -8px rgba(0,0,0,.6)}
-:root[data-thema="dunkel"] .reiter:hover{background:color-mix(in srgb,var(--farbe) 24%,var(--reiter))}
-:root[data-thema="dunkel"] .reiter small{color:#141312}
-:root[data-thema="dunkel"] .reiter[aria-current="page"]{background:var(--bogen);box-shadow:inset 0 3px 0 var(--farbe)}
-/* Der Bogen: die ganze Ausgabe (Meldungen, Seitenspalte, Archiv, Suche) auf einem hellen Papierbogen */
-.bogen{background:var(--bogen);border-radius:0 6px 6px 6px;padding:0 var(--innen) 18px;box-shadow:0 10px 30px -14px rgba(70,50,30,.22),0 0 0 1px rgba(60,45,30,.06)}
-:root[data-thema="dunkel"] .bogen{box-shadow:0 14px 34px -14px rgba(0,0,0,.8)}
-.ausgabe-meta{margin:0 0 0 auto;font-size:12.5px;line-height:1.35;color:var(--grau);text-align:right}
-
-/* Hörleiste oben auf dem Bogen: die ganze Ausgabe vorlesen lassen (Web Speech API des Browsers) */
-.hoeren{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;min-height:67px;padding:12px 0;border-bottom:1px solid var(--haar)}
-.hoeren[data-text="nein"] .hoer-knopf,.hoeren[data-text="nein"] .hoer-info,.hoer-stopp[hidden]{display:none}
-.hoer-knopf{display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:5px 18px 5px 5px;border:0;border-radius:999px;background:var(--tinte);color:var(--papier);font:650 15px/1.1 var(--sans);cursor:pointer;transition:background-color .15s,transform .1s}
-.hoer-knopf:hover{background:color-mix(in srgb,var(--tinte) 80%,var(--akzent))}
-.hoer-knopf:active{transform:scale(.98)}
-.hoer-knopf:disabled{opacity:.5;cursor:default}
-.hoer-symbol{position:relative;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--akzent);color:#fff}
-:root[data-thema="dunkel"] .hoer-symbol{color:#161514}
-.hoer-symbol svg{width:15px;height:15px;fill:currentColor}
-.hoer-symbol .i-pause,.hoeren[data-zustand="laeuft"] .hoer-symbol .i-play{display:none}
-.hoeren[data-zustand="laeuft"] .hoer-symbol .i-pause{display:block}
-.hoer-dauer{font-weight:500;opacity:.78}
-.hoer-stopp{display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:0 15px 0 11px;border:1px solid var(--haar);border-radius:999px;background:none;color:var(--tinte);font:600 14px/1 var(--sans);cursor:pointer;transition:border-color .15s,color .15s}
-.hoer-stopp:hover{border-color:var(--akzent);color:var(--akzent)}
-.hoer-stopp svg{width:14px;height:14px;fill:currentColor}
-.hoer-info{margin:0;font-size:13.5px;line-height:1.35;color:var(--grau);font-variant-numeric:tabular-nums}
-/* Fortschritt: schmale Leiste, aber 28 px hohe Tippfläche; Antippen springt an die Stelle */
-.hoer-spur{display:none;position:relative;flex:0 1 200px;min-width:120px;height:28px;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}
-.hoer-spur::before{content:"";position:absolute;left:0;right:0;top:12px;height:4px;border-radius:2px;background:var(--haar)}
-.hoer-spur span{position:absolute;left:0;top:12px;width:0;height:4px;border-radius:2px;background:var(--akzent);transition:width .25s linear}
-.hoer-spur span::after{content:"";position:absolute;right:-6px;top:-4px;width:12px;height:12px;border-radius:50%;background:var(--akzent)}
-.hoer-spur:focus-visible{outline:2px solid var(--akzent);outline-offset:2px;border-radius:4px}
-.hoeren[data-zustand="laeuft"] .hoer-spur,.hoeren[data-zustand="pause"] .hoer-spur{display:block}
-
-/* Meldungen */
 main{min-height:55vh}
-.hinweis{margin:16px 0 0;font:italic 400 16px/1.5 var(--serif);color:var(--grau)}
-.meldung{position:relative}
-/* Dachzeile: Icon · Thema | Ebene. Bricht die Ebene um, verschwindet ihr Trennstrich links außerhalb (overflow). */
-.dach{display:block;margin:0 0 7px;overflow:hidden;font:700 13.5px/1.3 var(--sans);color:var(--akzent)}
-.dach-zeile{display:flex;flex-wrap:wrap;align-items:center;gap:4px 0;margin-left:-19px}
-.dach-zeile>:first-child{margin-left:19px}
-.dach .ic{width:21px;height:21px;margin-right:7px}
-.ebene{display:inline-flex;align-items:center;font-weight:600;color:var(--grau)}
-.ebene::before{content:"";width:1px;height:.95em;background:var(--haar);margin:0 9px}
-.ebene:empty{display:none}
-.ebene.mainz{color:var(--rot);font-weight:700}
-.meldung h2,.meldung h3{margin:0;font-family:var(--serif);color:var(--tinte);text-wrap:balance}
-.meldung h2 a,.meldung h3 a{text-decoration:none}
-.meldung h2 a::after,.meldung h3 a::after{content:"";position:absolute;inset:0}
-.meldung:hover h2 a,.meldung:hover h3 a{text-decoration:underline;text-decoration-color:var(--akzent);text-decoration-thickness:2px;text-underline-offset:5px}
-.text{margin:0;font-family:var(--serif);color:var(--text);hyphens:auto}
-.meta{display:flex;align-items:center;flex-wrap:wrap;gap:4px 7px;margin:11px 0 0;font-size:13px;color:var(--grau)}
-.meta b{color:var(--tinte);font-weight:700}
-.teilen{position:relative;z-index:1;margin-left:auto;display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 0 0 8px;text-decoration:none;color:var(--grau);font-weight:600;transition:color .15s}
-.teilen:hover{color:var(--akzent);text-decoration:underline;text-underline-offset:4px}
-.teilen svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
-.teilen:hover svg{transform:translateX(3px)}
-
-.seite{display:grid;grid-template-columns:minmax(0,2.3fr) minmax(0,1fr);gap:0 40px;align-items:start}
-.aufmacher{padding:28px 0 32px}
-.aufmacher h2{font-weight:700;font-size:clamp(31px,4.5vw,52px);line-height:1.03;letter-spacing:-.022em;max-width:20em}
-.aufmacher .dach{font-size:14px;margin-bottom:9px}
-.aufmacher .dach .ic{width:25px;height:25px;margin-right:8px}
-.aufmacher .text{font-size:clamp(18px,1.6vw,20px);line-height:1.5;margin-top:16px;max-width:36em}
-.aufmacher .meta{font-size:13.5px}
-
-/* Seitenspalte: Gremien */
-.seitenspalte{border-left:1px solid var(--haar);padding:28px 0 10px 28px;display:grid;gap:30px;align-content:start}
-/* Rubrikköpfe: schwarzer Balken mit einem Anfangsstück in der Ressortfarbe */
-.rubrik{position:relative;margin:0 0 2px;padding-top:9px;border-top:3px solid var(--linie);font:700 15px/1.2 var(--sans);display:flex;justify-content:space-between;align-items:center;gap:10px}
-.rubrik::before{content:"";position:absolute;left:0;top:-3px;width:52px;height:3px;background:var(--akzent)}
-.rubrik>span:first-child{display:inline-flex;align-items:center;gap:8px}
-.rubrik .ic{width:23px;height:23px}
-.rubrik small,.rubrik .klein{font-weight:500;font-size:13px;color:var(--grau)}
-.rubrik .klein:hover{color:var(--akzent)}
-.gremien h3{display:flex;align-items:center;gap:6px;margin:12px 0 0;font:700 12.5px/1.2 var(--sans);color:var(--grau)}
-.gremien h3 .ic{width:19px;height:19px}
-.sitzung{display:block;margin:0;padding:6px 0 9px;text-decoration:none}
-.sitzung+.sitzung,.weitere .sitzung{border-top:1px solid var(--haar)}
-.sitzung strong{font:600 16px/1.25 var(--serif)}
-.sitzung .wann{font:600 12.5px/1.2 var(--sans);color:var(--grau);white-space:nowrap}
-.sitzung p{margin:3px 0 0;font:400 14px/1.42 var(--serif);color:var(--text)}
-.sitzung p b{font-weight:650;color:var(--tinte)}
-.ohne{font-style:italic;color:var(--grau)}
-a.sitzung:hover strong{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;text-decoration-color:var(--akzent)}
-.weitere summary{display:flex;align-items:center;min-height:32px;cursor:pointer;list-style:none;font-size:13px;font-weight:600;color:var(--tinte);border-top:1px solid var(--haar)}
-.weitere summary::-webkit-details-marker{display:none}
-.weitere summary::before{content:"+";width:1.1em;font-weight:700;color:var(--akzent)}
-.weitere[open] summary::before{content:"–"}
-.weitere summary:hover{text-decoration:underline;text-underline-offset:4px}
-
-/* Wichtige Meldungen: zwei Spalten; eine einzelne letzte Meldung nimmt die ganze Breite */
-.reihe{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--linie)}
-.reihe .meldung{padding:20px 24px 26px}
-.reihe .meldung:nth-child(odd){padding-left:0}
-.reihe .meldung:nth-child(even){padding-right:0;border-left:1px solid var(--haar)}
-.reihe .meldung:nth-child(n+3){border-top:1px solid var(--haar)}
-.reihe .meldung:last-child:nth-child(odd){grid-column:1/-1;padding-right:0}
-.reihe h3{font-weight:650;font-size:21px;line-height:1.17;letter-spacing:-.01em;hyphens:auto;overflow-wrap:break-word}
-.reihe .text{font-size:16.5px;line-height:1.5;margin-top:10px}
-
-.notiert{padding:30px 0 6px}
-.notiert-liste{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 36px}
-.notiert .meldung{padding:15px 0 16px;border-bottom:1px solid var(--haar)}
-.notiert .dach .ic{width:19px;height:19px;margin-right:6px}
-.notiert h3{font-weight:600;font-size:18.5px;line-height:1.26;letter-spacing:-.005em}
-.notiert .meta{margin-top:8px}
-
-.leer{padding:56px 0 40px;max-width:34em}
-.leer h2{margin:0 0 8px;font:600 27px/1.2 var(--serif)}
-.leer p{margin:0;color:var(--grau);font:400 17px/1.5 var(--serif)}
-
-/* Archiv „Alle Ausgaben“: jede Zeile eine Ausgabe – Datumsblock wie ein Zeitungskopf, Zahl der Meldungen je Ressort, kleine Vorschau */
-.archiv,.treffer{padding:28px 0 10px}
-.ausgabenliste{list-style:none;margin:4px 0 0;padding:0}
-.ausgabe-karte{display:grid;grid-template-columns:70px minmax(0,1fr) auto;grid-template-areas:"datum kopf oeffnen" "datum zahlen oeffnen" "datum vorschau oeffnen";column-gap:22px;row-gap:5px;align-items:start;padding:16px 14px 17px 0;border-bottom:1px solid var(--haar);text-decoration:none;transition:background-color .15s}
-.ausgabe-karte:hover{background:color-mix(in srgb,var(--akzent) 6%,transparent)}
-.ak-datum{grid-area:datum;display:grid;justify-items:center;padding:7px 0 8px;border-top:4px solid var(--linie);background:var(--papier2);line-height:1}
-.ausgabe-karte[aria-current="true"] .ak-datum{border-top-color:var(--akzent)}
-.ak-datum b{font:700 30px/1 var(--serif);letter-spacing:-.02em;font-variant-numeric:lining-nums}
-.ak-datum span{margin-top:3px;font:700 11.5px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase}
-.ak-datum small{margin-top:3px;font:500 11px/1 var(--sans);color:var(--grau)}
-.ak-kopf{grid-area:kopf;display:grid;gap:2px}
-.ak-marke{font:600 12.5px/1.3 var(--sans);color:var(--grau)}
-.ak-marke em{margin-left:8px;padding:1px 6px;border-radius:2px;background:var(--akzent);color:var(--papier);font-style:normal;font-weight:700;font-size:11.5px}
-.ak-kopf strong{font:650 20px/1.22 var(--serif);letter-spacing:-.01em;color:var(--tinte)}
-.ausgabe-karte:hover .ak-kopf strong{text-decoration:underline;text-decoration-color:var(--akzent);text-decoration-thickness:2px;text-underline-offset:4px}
-.ak-zahlen{grid-area:zahlen;display:flex;flex-wrap:wrap;align-items:center;gap:3px 15px;font:600 13.5px/1.35 var(--sans)}
-.ak-zahlen span{display:inline-flex;align-items:center;gap:6px;color:var(--farbe)}
-.ak-zahlen i{width:8px;height:8px;border-radius:50%;background:var(--farbe)}
-.ak-zahlen b{font-weight:700;font-variant-numeric:tabular-nums}
-.ak-zahlen .gewaehlt{font-weight:750}
-.ak-zahlen .gewaehlt i{box-shadow:0 0 0 3px color-mix(in srgb,var(--farbe) 28%,transparent)}
-.ak-zahlen .ak-gesamt{color:var(--grau);font-weight:500}
-.ak-vorschau{grid-area:vorschau;font:400 14.5px/1.4 var(--serif);color:var(--grau);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ak-vorschau span{font:600 12.5px/1 var(--sans)}
-.ak-oeffnen{grid-area:oeffnen;align-self:center;display:inline-flex;align-items:center;gap:6px;font:600 13.5px/1 var(--sans);color:var(--grau);white-space:nowrap;transition:color .15s}
-.ak-oeffnen svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .15s}
-.ausgabe-karte:hover .ak-oeffnen{color:var(--akzent)}
-.ausgabe-karte:hover .ak-oeffnen svg{transform:translateX(3px)}
-.treffer ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px}
-.treffer .meldung{padding:15px 0 16px;border-bottom:1px solid var(--haar)}
-.treffer h3{font-weight:600;font-size:18.5px;line-height:1.26}
-
-/* Fuß: dunkel unter dem Tisch – Kante in der Ressortfarbe, kleinere Schrift */
-.fuss{--fa:#ff8f99;margin-top:34px;border-top:4px solid var(--akzent);background:var(--fuss);color:#bdb7ad;font-size:13.5px;line-height:1.55}
-body[data-ressort="fruehe-hilfen"] .fuss{--fa:#5cc3cc}
-body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
-.fuss-zeile{display:flex;flex-wrap:wrap;align-items:center;gap:18px 72px;padding-top:22px;padding-bottom:24px}
-.fuss-titel strong{display:block;font:700 19px/1.1 var(--serif);letter-spacing:-.02em;color:#f3f1ec}
-.fuss-titel span{display:block;margin-top:5px;font-size:12.5px;color:#9d978d}
-.fuss-titel .fuss-mehr{display:inline-block;margin-top:8px;font-weight:600;font-size:13.5px}
-.fuss-mehr span{display:inline;margin:0 0 0 2px;font-size:inherit;color:inherit;transition:margin-left .15s}
-.fuss-mehr:hover span{margin-left:6px}
-.autor{display:flex;align-items:center;gap:13px;margin:0;font-style:normal}
-.autor img{flex:none;width:48px;height:48px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--fuss),0 0 0 3.5px var(--fa)}
-.autor p{margin:0}
-.autor-name{font-size:12.5px;color:#9d978d}
-.autor-name b{display:block;margin-top:1px;font:700 17px/1.2 var(--serif);letter-spacing:-.01em;color:#f3f1ec}
-.autor-links{margin-top:3px!important;font-size:13px}
-.fuss a,.fuss b{color:#f3f1ec}
-.fuss a{text-decoration-color:color-mix(in srgb,#f3f1ec 45%,transparent);text-underline-offset:3px;transition:color .15s,text-decoration-color .15s}
-.fuss a:hover{color:var(--fa);text-decoration-color:var(--fa)}
-
-@media (max-width:999px){
-  .notiert-liste{grid-template-columns:repeat(2,minmax(0,1fr))}
-  /* schmal: erst alle Meldungen, dann die Gremien */
-  #inhalt{display:flex;flex-direction:column}
-  .seite{display:contents}
-  .notiert{order:1}
-  .seitenspalte{order:2}
-  .seite{grid-template-columns:minmax(0,1fr)}
-  .seitenspalte{border-left:0;padding:0;margin-top:40px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:30px 36px}
-}
-@media (max-width:1100px){
-  .hoeren[data-zustand="aus"] .hoer-info{display:none}
-}
-@media (max-width:880px){
-  .ausgabe-meta{display:none}
-  .ausgabe-zusatz:not(:empty){display:block}
-  .hoeren[data-text="nein"]{display:none}
-}
 @media (max-width:760px){
-  /* Handy: Lupe links, Logo mittig (32 px), rechts nur Mond bzw. Sonne */
   .kopf-zeile{grid-template-columns:30px minmax(0,1fr) 30px;column-gap:6px;padding-top:18px;padding-bottom:14px}
   .marke img{height:auto;width:min(100%,234px);margin:0 auto}
-  .lupe{width:38px;height:40px;margin-left:-8px;padding:0;justify-content:center}
-  .lupe .ic{width:22px;height:22px}
-  .lupe-text{display:none}
-  .probe{display:none}
-  .thema-schalter{width:38px;height:40px;margin-right:-8px}
-  .thema-schalter:hover{background:var(--band)}
-  .schiene{display:none}
-  .thema-kurz{display:grid;place-items:center}
-  .suchzeile{padding-bottom:12px}
-  .dateline{gap:12px;padding:4px 0}
-  .archiv-knopf{font-size:13px;padding:0 8px}
-}
-/* Schmal: drei gleich breite Reiter, zweizeilig mit vollem Namen, ohne Icon – von 360 px an ohne Scrollen */
-@media (max-width:860px){
-  .reiterleiste{gap:5px;padding:16px 0 0}
-  .bogen{border-radius:0 0 6px 6px}
-  .reiter{flex:1 1 0;min-width:0;height:50px;padding:0 4px;font-size:clamp(12.5px,3.4vw,14px);line-height:1.15;text-align:center;white-space:normal}
-  .reiter[aria-current="page"]{height:56px}
-  .reiter .ic,.reiter .name-lang{display:none}
-  .reiter .name-zwei{display:block}
-  .reiter small{top:-8px;right:5px;min-width:19px;height:19px;padding:0 5px;font-size:10.5px;line-height:19px}
-}
-@media (max-width:640px){
-  .reihe{grid-template-columns:minmax(0,1fr)}
-  .reihe .meldung,.reihe .meldung:nth-child(n){padding:20px 0 22px;border-left:0}
-  .reihe .meldung+.meldung{border-top:1px solid var(--haar)}
-  .notiert-liste,.treffer ol{grid-template-columns:minmax(0,1fr)}
-  .ausgabe-karte{grid-template-columns:56px minmax(0,1fr);grid-template-areas:"datum kopf" "datum zahlen" "datum vorschau";column-gap:14px;padding:14px 0 15px}
-  .ak-datum b{font-size:25px}
-  .ak-kopf strong{font-size:17.5px}
-  .ak-zahlen{gap:2px 11px;font-size:12.5px}
-  .ak-zahlen .ak-gesamt{display:none}
-  .ak-vorschau{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;font-size:13.5px}
-  .ak-oeffnen{display:none}
-}
-@media (max-width:520px){
-  .hoeren{gap:8px 10px;min-height:0;padding:12px 0}
-  .hoeren[data-zustand="aus"] .hoer-info{display:none}
-  .hoer-knopf{font-size:14.5px;padding-right:16px}
-  .hoer-spur{flex:1 1 100%;order:5}   /* beim Abspielen eigene, volle Zeile zum Antippen */
-  .fuss{margin-top:28px}
-}
-@media print{
-  body,.bogen{background:#fff;box-shadow:none}
-  .probe,.lupe,.suchzeile,.pfeil,.archiv-knopf .ic,.thema-schalter,.hoeren,.teilen,.reiter:not([aria-current]){display:none}
-}
-@media (prefers-reduced-motion:no-preference){
-  #inhalt.neu{animation:auftritt .3s ease-out}
-  @keyframes auftritt{from{opacity:.6;transform:translateY(4px)}to{opacity:1;transform:none}}
-  .hoeren[data-zustand="laeuft"] .hoer-symbol::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--akzent);animation:welle 1.6s ease-out infinite}
-  @keyframes welle{from{transform:scale(1);opacity:.75}to{transform:scale(1.55);opacity:0}}
-}
-@media (prefers-reduced-motion:reduce){
-  .schiene::before,.hoer-spur span,.reiter{transition:none}
 }
 /* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Aufruf der Ausgabe) */
 .intro{--wh:78px;position:relative;display:grid;grid-template:100%/100%;height:calc(200vh + var(--wh));height:calc(200svh + var(--wh));margin-bottom:-100vh;margin-bottom:-100svh;color:#141414;--weich:cubic-bezier(.16,.84,.24,1);--fahrt:cubic-bezier(.45,.05,.2,1);--L:clamp(210px,56vw,340px)}
@@ -704,8 +362,8 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
 @media (prefers-reduced-motion:reduce){.intro *,.intro *::before,.intro *::after{animation:none!important}}
 /* INTRO-ENDE */
 </style>
-<link rel="stylesheet" href="blatt/schrift.css?v=7">
-<link rel="stylesheet" href="blatt/bb.css?v=7">
+<link rel="stylesheet" href="blatt/schrift.css?v=8">
+<link rel="stylesheet" href="blatt/bb.css?v=8">
 </head>
 <body data-ressort="jugendhilfeplanung">
 <!-- INTRO-START -->
@@ -1008,7 +666,7 @@ body[data-ressort="quartiersmanagement"] .fuss{--fa:#9cadff}
 <main id="e" class="bb b1" data-r="jugendhilfeplanung"></main>
 <noscript><p>Bitte JavaScript aktivieren, um die Ausgabe zu lesen.</p></noscript>
 <script src="daten/wetter7.js"></script>
-<script src="blatt/gemeinsam.js?v=7"></script>
-<script src="blatt/bb.js?v=7"></script>
+<script src="blatt/gemeinsam.js?v=8"></script>
+<script src="blatt/bb.js?v=8"></script>
 </body>
 </html>
