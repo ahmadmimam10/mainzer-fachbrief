@@ -31,5 +31,5 @@ const E = (() => {
   const zeigen = wurzel => wurzel.querySelectorAll("[data-ein]").forEach((el, i) => { el.style.setProperty("--i", i % 9); if (still) el.classList.add("da"); else io.observe(el); });
   const wahl = (id, ohneSprung) => { history.replaceState(null, "", "#" + id); document.getElementById("e").dataset.r = id; };
   const warte = ms => new Promise(r => setTimeout(r, ms));
-  return { RESSORTS, q, esc, laden, tag, datum, quelle, teile, herkunft, start, gesamt, gemischt, zeigen, wahl, warte, get ausgabe() { return ausgabe; } };
+  return { RESSORTS, q, esc, laden, tag, datum, quelle, teile, herkunft, start, gesamt, gemischt, zeigen, wahl, warte, get ausgabe() { return ausgabe; }, get daten() { return daten; }, setze(d) { const a = daten.ausgaben.find(x => x.datum === d); if (a) ausgabe = a; return ausgabe; } };
 })();

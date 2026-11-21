@@ -431,7 +431,7 @@ const html = `<!-- INTRO-START -->
   const q = new URLSearchParams(location.search);
   const hell = document.documentElement.dataset.thema !== "dunkel";
   const vonUeber = document.referrer.includes("/ueber.html");
-  if (!(q.has("intro") || (hell && !vonUeber))) { intro.remove(); return; }
+  if (q.has("ohne") || !(q.has("intro") || (hell && !vonUeber))) { intro.remove(); return; }
   // Variante: Jahreszeit aus dem Datum, Wetterlage für heute aus daten/wetter.js (Mainz). ?wetter=herbst-regen zeigt eine bestimmte.
   // ?tag=2027-06-18 zeigt das Intro eines anderen Tages (Anlässe und Fundstücke; das Wetter dazu mit ?wetter=).
   const heute = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(q.get("tag") || "") ? q.get("tag") : new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
@@ -496,7 +496,7 @@ const html = `<!-- INTRO-START -->
     s.setProperty("--ts", (1 - e * .14).toFixed(4));
     s.setProperty("--to", (1 - grenze((p - .02) / .2)).toFixed(3));
     s.setProperty("--unten", (a.bottom - (strecke() - scrollY)).toFixed(1) + "px");
-    bild.style.clipPath = "inset(0 0 0 14.2%)";
+    bild.style.clipPath = "inset(0 0 0 100%)";
     bild.style.opacity = grenze((t - .3) / .45).toFixed(3);
     buehne.style.visibility = p >= 1 ? "hidden" : "";
     if (p >= 1) { fertig = true; clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }
