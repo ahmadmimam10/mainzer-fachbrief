@@ -241,7 +241,8 @@
     const u = new URL(location.href); if (E.ausgabe === E.daten.ausgaben[0]) u.searchParams.delete("ausgabe"); else u.searchParams.set("ausgabe", E.ausgabe.datum); history.replaceState(null, "", u);
     ausgabenZeigen();
     if (!q.has("still")) { raster.classList.add("blatt"); await E.warte(240); }
-    zeichne(aktiv); raster.classList.remove("blatt"); E.zeigen(raster); laeuft = false;
+    zeichne(aktiv); raster.classList.remove("blatt"); raster.classList.add("sanft"); E.zeigen(raster);
+    setTimeout(() => raster.querySelectorAll(".k").forEach(el => el.classList.add("da")), 40); setTimeout(() => raster.classList.remove("sanft"), 1100); laeuft = false;
   }
   // ---- Archiv und Suche: alle Ausgaben und eine Suche über alle Meldungen (docs/daten/archiv.json) ----
   let archiv = null;

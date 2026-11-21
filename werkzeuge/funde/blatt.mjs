@@ -48,7 +48,7 @@ export default [
 
   // Montag: Jemand hat die Kaffeetasse auf der Zeitung abgestellt
   { n: "kaffeering", ort: "buehne", platz: "rand-ul", tage: "1", stufe: 2,
-    bild: `<div class="fu-b" style="left:max(12px,6%);bottom:14%;width:clamp(62px,9vw,96px);opacity:calc(.9 - var(--p,0) * 3)"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="none" stroke="#9a6a3a" stroke-width="2.6" opacity=".2"/><path fill="none" stroke="#8a5a2c" stroke-width=".8" stroke-linecap="round" opacity=".34" d="M8.6 9.6A15.6 15.6 0 0 1 33.6 12M35.4 22A15.6 15.6 0 0 1 12 33.6"/>`
+    bild: `<div class="fu-b" style="left:max(12px,6%);bottom:14%;width:clamp(62px,9vw,96px);opacity:calc(.9 - var(--ip,0) * 3)"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" fill="none" stroke="#9a6a3a" stroke-width="2.6" opacity=".2"/><path fill="none" stroke="#8a5a2c" stroke-width=".8" stroke-linecap="round" opacity=".34" d="M8.6 9.6A15.6 15.6 0 0 1 33.6 12M35.4 22A15.6 15.6 0 0 1 12 33.6"/>`
       + `<circle cx="20" cy="20" r="13.2" fill="#9a6a3a" opacity=".05"/><circle cx="36" cy="33" r="1.5" fill="#9a6a3a" opacity=".22"/><circle cx="33" cy="37" r=".8" fill="#9a6a3a" opacity=".2"/></svg></div>` },
 
   // Eselsohr oben rechts
@@ -67,13 +67,13 @@ export default [
 
   // Eingangsstempel mit dem Datum von heute
   { n: "eingangsstempel", ort: "buehne", platz: "rand-ur", stufe: 2,
-    bild: `<div class="fu-b fu-stempel" style="right:max(14px,7%);bottom:16%;opacity:calc(.58 - var(--p,0) * 3)"><b>Eingegangen</b><i>{{TAG}}</i><u>Mainz · Poststelle</u></div>`,
+    bild: `<div class="fu-b fu-stempel" style="right:max(14px,7%);bottom:16%;opacity:calc(.58 - var(--ip,0) * 3)"><b>Eingegangen</b><i>{{TAG}}</i><u>Mainz · Poststelle</u></div>`,
     css: `.fu-stempel{rotate:-9deg;padding:5px 9px 4px;border:2px solid #2c5aa8;border-radius:4px;outline:1px solid #2c5aa8;outline-offset:2px;color:#2c5aa8;font:700 11px/1.25 var(--sans);letter-spacing:.09em;text-transform:uppercase;text-align:center;mix-blend-mode:multiply}
 .fu-stempel b,.fu-stempel i,.fu-stempel u{display:block;font-style:normal;text-decoration:none}.fu-stempel i{font:700 15px/1.2 var(--serif);letter-spacing:.04em}.fu-stempel u{font-weight:600;font-size:8.5px}` },
 
   // Eine Katze ist über die Zeitung gelaufen
   { n: "pfoten", ort: "buehne", platz: "rand-ul", stufe: 2,
-    bild: `<div class="fu-b" style="left:max(8px,5%);bottom:9%;width:clamp(130px,22vw,220px);opacity:calc(.5 - var(--p,0) * 3)"><svg viewBox="0 0 80 40">` + [[6, 32, 0], [15, 24, 1], [25, 27, 0], [34, 18, 1], [44, 21, 0], [53, 12, 1], [63, 15, 0], [72, 6, 1]].map(([x, y, s], i) =>
+    bild: `<div class="fu-b" style="left:max(8px,5%);bottom:9%;width:clamp(130px,22vw,220px);opacity:calc(.5 - var(--ip,0) * 3)"><svg viewBox="0 0 80 40">` + [[6, 32, 0], [15, 24, 1], [25, 27, 0], [34, 18, 1], [44, 21, 0], [53, 12, 1], [63, 15, 0], [72, 6, 1]].map(([x, y, s], i) =>
       `<g class="fu-pfote" style="animation-delay:${f(i * .45 - 9)}s" transform="translate(${x} ${y}) rotate(${52 + (s ? 8 : -8)})">` + E(0, 0, 1.7, 1.4, "#6b5a50") + F(kreis(-1.7, -2, .7) + kreis(-.6, -2.7, .72) + kreis(.6, -2.7, .72) + kreis(1.7, -2, .7), "#6b5a50") + `</g>`).join("") + `</svg></div>`,
     css: `.fu-pfote{opacity:0;animation:fu-pfote 9s linear infinite}@keyframes fu-pfote{0%{opacity:0}2%{opacity:1}55%{opacity:1}75%,100%{opacity:0}}` },
 

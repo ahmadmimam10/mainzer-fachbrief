@@ -299,7 +299,7 @@ const NAMEN = ["regenbogen", "heissluftballon", "feuerwerk", "stern", "schlitten
 export const FEST_CSS = `/* Besondere Tage und Überraschungen: unsichtbar, bis der Name in data-fest steht */
 .f{display:none}
 ${NAMEN.map(n => `.intro[data-fest~="${n}"] .f-${n}`).join(",")}{display:block}
-.f-h{position:absolute;left:var(--l);top:var(--t);width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx,0vw)) calc(var(--e,0) * -10vh);opacity:calc(1 - var(--p,0) * 1.8)}
+.f-h{position:absolute;left:var(--l);top:var(--t);width:calc(var(--L) * var(--g));translate:calc(var(--ie,0) * var(--fx,0vw)) calc(var(--ie,0) * -10vh);opacity:calc(1 - var(--ip,0) * 1.8)}
 @media (min-aspect-ratio:1/1){.f-h{left:var(--lb,var(--l));top:var(--tb,var(--t))}}
 .f-h>svg{width:100%;height:auto;overflow:visible;animation:i-ein 1.2s ease 1.6s both}
 .f-h>svg,.intro[data-fest] .f-h>svg{display:block}
@@ -307,7 +307,7 @@ ${NAMEN.map(n => `.intro[data-fest~="${n}"] .f-${n}`).join(",")}{display:block}
 .f-schweb{transform-box:fill-box;transform-origin:50% 0;animation:f-schweb 7s ease-in-out infinite alternate}
 .f-wackel{transform-box:fill-box;transform-origin:50% 100%;animation:f-wackel 3.4s ease-in-out infinite alternate}
 .f-flamme{transform-box:fill-box;transform-origin:50% 100%;animation:f-flamme .5s ease-in-out infinite alternate}
-.f-regenbogen{position:absolute;left:104%;bottom:39.45%;width:calc(var(--L) * 2.7);opacity:calc(.5 - var(--p,0) * 1.2);translate:0 calc(var(--e,0) * 30vh)}
+.f-regenbogen{position:absolute;left:104%;bottom:39.45%;width:calc(var(--L) * 2.7);opacity:calc(.5 - var(--ip,0) * 1.2);translate:0 calc(var(--ie,0) * 30vh)}
 .f-regenbogen svg{display:block;width:100%;height:auto;animation:f-bogen 2.6s ease 1.6s both}
 .f-funke{transform-box:view-box;transform-origin:0 0;animation:f-funke 3s cubic-bezier(.12,.72,.2,1) infinite}
 .f-rakete{animation:f-rakete 3s ease-out infinite}
@@ -349,7 +349,7 @@ ${NAMEN.map(n => `.intro[data-fest~="${n}"] .f-${n}`).join(",")}{display:block}
 .f-wiege{animation:f-wiege 3.2s ease-in-out infinite alternate}
 .f-treib2{animation:f-treib2 120s linear infinite alternate}
 .intro[data-fest~="frachtschiff"] .i-schiff{display:none}
-.f-wimpel{position:absolute;left:0;right:0;top:0;height:26px;z-index:1;pointer-events:none;background-repeat:repeat-x;background-position:50% 0;opacity:calc(1 - var(--p,0) * 3);transform-origin:50% 0;animation:f-herab .9s cubic-bezier(.2,.9,.3,1.2) 1.4s both,f-flattern 2.6s ease-in-out 2.4s infinite alternate}
+.f-wimpel{position:absolute;left:0;right:0;top:0;height:26px;z-index:1;pointer-events:none;background-repeat:repeat-x;background-position:50% 0;opacity:calc(1 - var(--ip,0) * 3);transform-origin:50% 0;animation:f-herab .9s cubic-bezier(.2,.9,.3,1.2) 1.4s both,f-flattern 2.6s ease-in-out 2.4s infinite alternate}
 .intro[data-fest~="wimpel-fastnacht"] .f-wimpel{display:block;background-image:${wimpel(["#d6243a", "#fdfcf9", "#2c5aa8", "#f4c542"])}}
 .intro[data-fest~="wimpel-bunt"] .f-wimpel{display:block;background-image:${wimpel(BUNT)}}
 .intro[data-fest~="wimpel-gelbweiss"] .f-wimpel{display:block;background-image:${wimpel(["#f4c542", "#fdfcf9"])}}

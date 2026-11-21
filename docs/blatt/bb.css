@@ -592,3 +592,12 @@ body{background:#f6f4ef}
 .au-archiv svg{width:15px;height:15px}
 @media (max-width:1180px){.bb-oben{grid-template-areas:"gruss" "ausgaben" "reiter"}}
 @media (max-width:560px){.au-jetzt{min-width:0}.au-archiv{margin-left:2px;padding:6px 8px}}
+
+/* ==== Übergang vom Intro: Die Kopfzeile ist deckend (das Blatt schiebt sich über die Szene), der Abstand zur ersten Fläche
+   gehört jetzt zur Kopfzeile statt als durchsichtiger Rand zur Ausgabe ==== */
+#kopf.bb-kopf{background:#f6f4ef;padding-bottom:70px}
+.bb{margin-top:0}
+/* Ausgabenwechsel: altes Blatt blendet kurz aus, das neue kommt ruhig herein – ohne das Schrumpfen des großen Auftritts */
+.bb-raster.blatt .k{opacity:0!important;transform:translateY(8px)!important;transition:opacity .18s ease,transform .2s ease!important}
+.bb-raster.sanft .k{transform:translateY(10px);transition:opacity .42s ease calc(var(--i,0) * 26ms),transform .5s cubic-bezier(.2,.8,.3,1) calc(var(--i,0) * 26ms),background 1.1s}
+.bb-raster.sanft .k.da{transform:none}

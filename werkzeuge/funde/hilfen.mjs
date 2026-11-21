@@ -122,7 +122,7 @@ export const MIT = { herzen: ["herzfenster"] };
 // @keyframes dort bitte fu-<name>-… nennen.
 export const CSS_ALLE = `
 .fu{animation:i-ein .9s ease 1.1s both}.fu-w{display:contents}
-.fu-h{position:absolute;left:var(--l);top:var(--t);width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx,0vw)) calc(var(--e,0) * -10vh);opacity:calc(1 - var(--p,0) * 1.8)}
+.fu-h{position:absolute;left:var(--l);top:var(--t);width:calc(var(--L) * var(--g));translate:calc(var(--ie,0) * var(--fx,0vw)) calc(var(--ie,0) * -10vh);opacity:calc(1 - var(--ip,0) * 1.8)}
 @media (min-aspect-ratio:1/1){.fu-h{left:var(--lb,var(--l));top:var(--tb,var(--t))}}
 .fu-h>svg{display:block;width:100%;height:auto;overflow:visible;animation:i-ein 1.2s ease 1.2s both}
 .fu-h svg{display:block;width:100%;height:auto;overflow:visible}
@@ -136,13 +136,13 @@ export const CSS_ALLE = `
 .fu-sp-tuch{transform-box:fill-box;transform-origin:100% 50%;animation:fu-sp-tuch 1.7s ease-in-out infinite alternate}
 .fu-sp-tuch text{font:700 5px var(--sans,sans-serif);letter-spacing:.12px;fill:#181716}
 @keyframes fu-sp-tuch{from{transform:skewY(-1.6deg)}to{transform:skewY(1.6deg)}}
-.fu-b{position:absolute;z-index:2;pointer-events:none;opacity:calc(1 - var(--p,0) * 3);animation:i-ein .8s ease 2.2s both}
+.fu-b{position:absolute;z-index:2;pointer-events:none;opacity:calc(1 - var(--ip,0) * 3);animation:i-ein .8s ease 2.2s both}
 .fu-b>svg{display:block;width:100%;height:auto;overflow:visible}
 .i-titel{position:relative}
 .fu-t{position:absolute;left:var(--tl,50%);top:var(--tt,0);width:0;height:0;pointer-events:none;font-size:1em;letter-spacing:0;animation:i-ein .5s ease 3s both}
 .fu-t>svg{position:absolute;overflow:visible}
 .fu-u{position:absolute;pointer-events:none;animation:i-ein .5s ease 3.2s both}.fu-u>svg{display:block;width:100%;height:auto;overflow:visible}
-.fu-logo{opacity:calc(1 - var(--p,0) * 5)}.fu-logo>svg{animation:i-ein .8s ease 2.6s both}
+.fu-logo{opacity:calc(1 - var(--ip,0) * 5)}.fu-logo>svg{animation:i-ein .8s ease 2.6s both}
 .fu-geht{animation:fu-tritt var(--takt,.5s) ease-in-out infinite alternate}
 .fu-geht .fu-b1,.fu-geht .fu-a2{animation:fu-bein var(--takt,.5s) ease-in-out infinite alternate}
 .fu-geht .fu-b2,.fu-geht .fu-a1{animation:fu-bein var(--takt,.5s) ease-in-out infinite alternate-reverse}

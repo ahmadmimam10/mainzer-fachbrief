@@ -221,7 +221,7 @@ const buchstaben = (wort, ab) => [...wort].map((b, i) => `<i style="--i:${ab + i
 
 // Jahreszeit (aus dem Datum) × Wetterlage (aus daten/wetter.js): 4 × 3 Varianten, im Winter zusätzlich Schnee = 13.
 // Die Jahreszeit färbt Bäume, Wiese und Hügel, die Wetterlage Himmel, Licht, Wolken und Wasser.
-const VARIANTEN = `.i-nieder{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none;opacity:calc(1 - var(--p,0) * 2.6)}
+const VARIANTEN = `.i-nieder{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none;opacity:calc(1 - var(--ip,0) * 2.6)}
 .i-wieg{position:absolute;inset:0;animation:i-ein 1.4s ease 1s both,i-wiegen 4.6s ease-in-out infinite alternate}
 .i-nieder .n{display:none;position:absolute;inset:calc(var(--ky) * -1) calc(var(--kx) * -1 - 12px) 0 calc(var(--kx) * -1 - 12px);background-size:var(--kx) var(--ky);animation:i-fall var(--kd) linear infinite;will-change:transform}
 /* Jahreszeiten */
@@ -255,27 +255,39 @@ const VARIANTEN = `.i-nieder{position:absolute;inset:0;z-index:1;overflow:hidden
 .intro:is([data-wetter="regen"],[data-wetter="schnee"]) .i-vogel{display:none}`;
 
 const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Aufruf der Ausgabe) */
-.intro{position:relative;z-index:0;display:grid;grid-template:100%/100%;height:200vh;height:200svh;margin-bottom:-100vh;margin-bottom:-100svh;color:#141414;--weich:cubic-bezier(.16,.84,.24,1);--fahrt:cubic-bezier(.45,.05,.2,1);--L:clamp(210px,56vw,340px)}
+.intro{--wh:78px;position:relative;display:grid;grid-template:100%/100%;height:calc(200vh + var(--wh));height:calc(200svh + var(--wh));margin-bottom:-100vh;margin-bottom:-100svh;color:#141414;--weich:cubic-bezier(.16,.84,.24,1);--fahrt:cubic-bezier(.45,.05,.2,1);--L:clamp(210px,56vw,340px)}
 .intro[hidden]{display:none}
+/* Scroll-Fortschritt (--ip) und seine geglättete Form (--ie): als eigene, NICHT vererbte Eigenschaften angemeldet. Das Skript
+   setzt sie nur an den Elementen, deren Regeln sie benutzen – so rechnet der Browser beim Scrollen nicht mehr die Stile der
+   ganzen Szene neu (das kostete rund 15 ms je Bild), sondern nur die der wenigen bewegten Lagen. */
+@property --ip{syntax:"<number>";inherits:false;initial-value:0}
+@property --ie{syntax:"<number>";inherits:false;initial-value:0}
+/* Die Ausgabe kommt als Blatt mit Wellenkante von unten über die Szene: zwei Wellen, die gegeneinander laufen (nur transform,
+   läuft im Compositor). Die Kante hängt am Ende der ersten Bildschirmhöhe und fährt mit der Seite mit – ganz ohne Skript. */
+.i-woge{position:absolute;left:0;right:0;top:calc(100vh - 1px);top:calc(100svh - 1px);height:calc(var(--wh) + 2px);overflow:hidden;z-index:1;pointer-events:none}
+.i-woge svg{position:absolute;left:0;bottom:-1px;width:200%;height:78%;fill:#f6f4ef;animation:i-woge 19s linear infinite;will-change:transform}
+.i-woge svg:first-child{height:100%;fill:#fff;opacity:.55;animation-duration:31s;animation-direction:reverse}
+@keyframes i-woge{to{transform:translateX(-50%)}}
+@media (max-width:700px){.intro{--wh:52px}.i-woge svg{width:320%}}
 .intro-buehne,.i-traeger{grid-area:1/1;align-self:start;min-width:0}
 /* Das Logo liegt in einem eigenen Träger über der Bühne. Er klebt wie die Bühne oben am Fenster und ist genau so hoch,
    dass ihn das Ende des Intros in dem Moment nach oben mitnimmt, in dem der Platz in der Kopfzeile das Logo erreicht:
    Ab da läuft das Logo mit der Seite mit – das macht der Browser selbst, ohne Skript, also ohne Nachhinken. */
-.i-traeger{position:sticky;top:0;z-index:1;height:var(--hc,calc(100vh + 260px));overflow:hidden;pointer-events:none}
+.i-traeger{position:sticky;top:0;z-index:2;height:var(--hc,calc(100vh + 260px));overflow:hidden;pointer-events:none}
 .i-platz{position:absolute;left:var(--ll,calc(50% - var(--L) / 2));top:var(--lt,0px);width:var(--L);aspect-ratio:1}
 .intro ~ :not(script){position:relative;z-index:1}
 .intro-buehne{position:sticky;top:0;height:100vh;height:100svh;min-height:520px;overflow:hidden;background:#f6f4ef}
 .i-mitte{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,2vh,22px);padding:0 14px 5vh}
 .i-logo{position:relative;width:var(--L);aspect-ratio:1;perspective:900px;flex:none}
-.i-welt{position:absolute;inset:0;clip-path:inset(-200vh -200vw var(--unten,-200vh) -200vw)}
-.i-vorn{opacity:calc(var(--p,0) * 3.4)}
-.i-welt .i-sonne{opacity:calc((.5 - var(--p,0)) * 12)}
-.i-kante{position:absolute;left:-200vw;right:-200vw;bottom:var(--unten,-200vh);height:110px;background:linear-gradient(rgba(246,244,239,0),#f6f4ef)}
+.i-welt{position:absolute;inset:0}
+.i-vorn{opacity:calc(var(--ip,0) * 3.4)}
+.i-welt .i-sonne{opacity:calc((.5 - var(--ip,0)) * 12)}
+.i-kante{display:none}
 .i-himmel,.i-boden{position:absolute;left:50%;width:300vw;height:160vh;margin-left:-150vw}
-.i-himmel{bottom:39.45%;background:linear-gradient(to top,var(--h1,#fbe6d8) 0,var(--h2,#f9ede3) 16vh,var(--h3,#f1f2ef) 40vh,var(--h4,#e9f0f3) 78vh);opacity:calc(1 - var(--e,0))}
+.i-himmel{bottom:39.45%;background:linear-gradient(to top,var(--h1,#fbe6d8) 0,var(--h2,#f9ede3) 16vh,var(--h3,#f1f2ef) 40vh,var(--h4,#e9f0f3) 78vh);opacity:calc(1 - var(--ie,0) * .55)}
 .i-himmel::after,.i-boden::after{content:"";position:absolute;inset:0;opacity:0;animation:i-aus 1.9s ease-in-out .3s both}
 .i-himmel::after{background:linear-gradient(to top,#ecd8d0 0,#dcdbe3 24vh,#c6cedb 78vh)}
-.i-boden{top:calc(60.55% - 1px);background:linear-gradient(var(--wa1,#d9e6ed) 0,var(--wa2,#e7eef0) 8vh,#f6f4ef 24vh);translate:0 calc(var(--e,0) * 72vh)}
+.i-boden{top:calc(60.55% - 1px);background:linear-gradient(var(--wa1,#d9e6ed) 0,var(--wa2,#e7eef0) 8vh,#f6f4ef 24vh);translate:0 calc(var(--ie,0) * -27vh);will-change:transform}
 .i-boden::after{background:linear-gradient(#c2cddb 0,#d2dae3 12vh,#e2e6ea 44vh)}
 .i-boden svg{position:absolute;left:50%;top:0;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);height:auto;overflow:visible;z-index:1}
 .i-boden svg>path:not(.w-ufer):not(.w-ufer2):not(.w-eis){animation:i-wasser 9s ease-in-out infinite alternate}
@@ -289,7 +301,7 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-schiff .s-linie{stroke:#c8102e;stroke-width:.34;opacity:.75}
 .i-schiff .s-fenster{fill:#7f8f99;stroke:none}
 .i-schiff .s-spiegel{stroke:#fff;stroke-width:.5;opacity:.8}
-.i-licht{position:absolute;left:50%;top:60.55%;width:0;height:0;opacity:calc(var(--schein,1) - var(--p,0) * 1.5);scale:calc(1 + var(--e,0) * 1.4)}
+.i-licht{position:absolute;left:50%;top:60.55%;width:0;height:0;opacity:calc(var(--schein,1) - var(--ip,0) * 1.5);scale:calc(1 + var(--ie,0) * 1.4)}
 .i-schein,.i-strahlen{position:absolute;border-radius:50%;aspect-ratio:1}
 .i-schein{width:calc(var(--L) * 4.2);margin:calc(var(--L) * -2.1);background:radial-gradient(closest-side,rgba(226,70,60,.26),rgba(240,140,96,.13) 36%,rgba(246,200,160,0) 72%);animation:i-schein 1.7s var(--weich) .75s both}
 .i-strahlen{width:calc(var(--L) * 5.6);margin:calc(var(--L) * -2.8);animation:i-ein 1.4s ease 1.5s both}
@@ -297,7 +309,7 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
   -webkit-mask:radial-gradient(closest-side,transparent 24%,#000 36%,transparent 100%);mask:radial-gradient(closest-side,transparent 24%,#000 36%,transparent 100%)}
 .i-strahlen::before{background:repeating-conic-gradient(rgba(203,8,56,0) 0deg,rgba(203,8,56,.05) 2.4deg,rgba(203,8,56,0) 4.8deg,rgba(203,8,56,0) 15deg);animation:i-drehen 140s linear infinite}
 .i-strahlen::after{background:repeating-conic-gradient(from 6deg,rgba(244,160,96,0) 0deg,rgba(244,160,96,.06) 4deg,rgba(244,160,96,0) 8deg,rgba(244,160,96,0) 22.5deg);animation:i-drehen 200s linear infinite reverse}
-.i-wolke{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * -8vh);opacity:calc(1 - var(--p,0) * 1.8)}
+.i-wolke{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--ie,0) * var(--fx)) calc(var(--ie,0) * -8vh);opacity:calc(1 - var(--ip,0) * 1.8)}
 .i-mehr{display:none}
 .i-defs{position:absolute}
 .i-wolke svg{display:block;width:100%;height:auto;opacity:var(--wod,.92);animation:i-wolke 2.2s var(--weich) calc(.5s + var(--v)) both,i-zieh 46s ease-in-out calc(2.8s + var(--v) * 9) infinite alternate}
@@ -310,7 +322,9 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-zl svg{animation:i-blatt-l .95s cubic-bezier(.2,.9,.24,1.06) 1.05s both}
 .i-zr svg{animation:i-blatt-r .95s cubic-bezier(.2,.9,.24,1.06) 1.13s both}
 .i-band{position:absolute;left:50%;bottom:39.45%;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);transform-origin:50% 100%;
-  translate:0 calc(var(--e,0) * 72vh);scale:calc(var(--nah,1) * (1 + var(--e,0) * var(--k)));will-change:transform}
+  translate:0 calc(var(--ie,0) * var(--hub,-26vh));scale:calc(var(--nah,1) * (1 + var(--ie,0) * var(--k) * .12));will-change:transform}
+/* Die Lagen steigen langsamer als das Blatt (ferne etwas weniger als nahe): Das Blatt holt die Stadt erst kurz vor dem Ziel ein und deckt sie von unten zu */
+.i-huegel{--hub:-22vh}.i-huegel2{--hub:-23.5vh}.i-fern{--hub:-25vh}.i-stadt{--hub:-26vh}.i-ufer{--hub:-27vh}
 @media (min-width:700px){.intro{--nah:1.16}}@media (min-width:1000px){.intro{--nah:1.32}}
 .i-band svg{display:block;width:100%;height:auto;transform-origin:50% 100%;animation:i-zoom 2.5s var(--fahrt) both,i-steig .95s cubic-bezier(.2,.9,.25,1.04) var(--ab,0s) both}
 .i-huegel{--k:.08}.i-huegel svg{fill:var(--hu1,#dfe4dc);--z:1.16;animation:i-zoom 2.5s var(--fahrt) both}
@@ -327,7 +341,7 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-flocken{display:none;position:absolute;left:50%;bottom:39.45%;width:140vw;margin-left:-70vw;height:calc(78vh + 240px);background-image:${KACHELN.schnee3};background-size:120px 240px;animation:i-flocken 13s linear infinite;will-change:transform}
 .w-ringe,.w-laub,.i-boden .w-eis{display:none}.w-ring{fill:none;stroke:#fff;stroke-width:.3;transform-box:fill-box;transform-origin:50% 50%;animation:i-ring 3.6s ease-out infinite}
 .i-boden .w-eis{fill:#fdfdfd;stroke:#b9c7d2;stroke-width:.14}
-.i-vogel{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * var(--fy));scale:calc(1 + var(--e,0) * 3);opacity:calc(.72 - var(--p,0) * 1.7);animation:i-ein 1.2s ease 1.3s both}
+.i-vogel{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--ie,0) * var(--fx)) calc(var(--ie,0) * var(--fy));scale:calc(1 + var(--ie,0) * 3);opacity:calc(.72 - var(--ip,0) * 1.7);animation:i-ein 1.2s ease 1.3s both}
 .i-vogel svg{display:block;width:100%;height:auto;overflow:visible;animation:i-flug var(--d) cubic-bezier(.3,.25,.55,1) var(--v) infinite}
 .i-vogel path{fill:#4a443e;transform-box:fill-box;transform-origin:50% 62%;animation:i-schlag .62s ease-in-out calc(var(--v) * .37) infinite alternate}
 .i-titelplatz{position:relative;z-index:2;flex:none}
@@ -338,13 +352,13 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-titel b{display:inline-block;color:#c8102e;transform-origin:50% 85%;animation:i-punkt .55s cubic-bezier(.3,1.7,.5,1) 2.5s both}
 @media (min-width:700px){.i-titel{white-space:nowrap}.i-titel br{display:none}}
 .i-unter{position:relative;z-index:2;margin:0;display:flex;align-items:center;gap:12px;color:#57524a;font:600 clamp(13px,3.5vw,17px)/1.3 var(--sans);text-align:center;
-  opacity:calc(1 - var(--p,0) * 5);translate:0 calc(var(--p,0) * -60px)}
-.i-unter span{letter-spacing:.02em;animation:i-unter 1s cubic-bezier(.16,1,.3,1) 2.4s both}
+  opacity:calc(1 - var(--ip,0) * 5);translate:0 calc(var(--ip,0) * -60px)}
+.i-unter span{display:inline-block;white-space:nowrap;letter-spacing:.02em;animation:i-unter 1s cubic-bezier(.16,1,.3,1) 2.4s both}
 .i-unter::before,.i-unter::after{content:"";width:clamp(0px,calc((100vw - 380px) * .3),34px);height:1px;background:#a8a093;animation:i-strich .8s cubic-bezier(.16,1,.3,1) 2.6s both}
 .i-unter::before{transform-origin:100% 50%}.i-unter::after{transform-origin:0 50%}
 .i-weiter{position:absolute;z-index:3;left:50%;bottom:max(18px,env(safe-area-inset-bottom));display:inline-flex;flex-direction:column;align-items:center;gap:4px;
   padding:8px 14px;border:0;background:none;color:#5d584f;font:600 13px/1 var(--sans);letter-spacing:.04em;cursor:pointer;
-  transform:translateX(-50%);opacity:calc(1 - var(--p,0) * 6);animation:i-ein .6s ease 2.9s both}
+  transform:translateX(-50%);opacity:calc(1 - var(--ip,0) * 6);animation:i-ein .6s ease 2.9s both}
 .i-weiter i{font-style:normal;font-size:20px;animation:i-wippen 1.8s ease-in-out 3.5s infinite}
 .intro.fertig *,.intro.fertig *::before,.intro.fertig *::after{animation:none!important}
 @keyframes i-aus{from{opacity:1}}
@@ -371,7 +385,7 @@ ${FEST_CSS}
 @keyframes i-schlag{from{transform:scaleY(1.08)}to{transform:scaleY(.42)}}
 @keyframes i-buchstabe{from{transform:translateY(118%) rotate(7deg)}}
 @keyframes i-punkt{from{transform:scale(0)}}
-@keyframes i-unter{from{opacity:0;letter-spacing:.24em}}
+@keyframes i-unter{from{opacity:0;transform:translateY(6px) scaleX(1.1)}}
 @keyframes i-strich{from{transform:scaleX(0)}}
 @keyframes i-wippen{0%,100%{transform:none}50%{transform:translateY(5px)}}
 @media (prefers-reduced-motion:reduce){.intro *,.intro *::before,.intro *::after{animation:none!important}}
@@ -422,6 +436,7 @@ const html = `<!-- INTRO-START -->
       <div class="i-l i-zl"><svg viewBox="0 0 128 128">${LINKS}</svg></div>
       <div class="i-l i-zr"><svg viewBox="0 0 128 128">${RECHTS}</svg></div>
  </div></div>
+ <div class="i-woge" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 60V30C100 6 200 6 300 30S500 54 600 30S800 6 900 30S1100 54 1200 30V60Z"/></svg><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 60V30C100 6 200 6 300 30S500 54 600 30S800 6 900 30S1100 54 1200 30V60Z"/></svg></div>
 </section>
 <script src="daten/wetter.js"></script>
 <script src="daten/flieger.js"></script>
@@ -467,46 +482,64 @@ const html = `<!-- INTRO-START -->
   if (q.get("fund") === "aus" && !q.has("spruch") && !(window.BONIBLATT_FLIEGER || {})[heute]) ; else if (q.has("zeit") || q.has("p")) document.write('<script src="' + fundSkript.src + '"><' + '/script>'); else document.head.appendChild(fundSkript);
   intro.hidden = false;
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-  const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo");
-  let bild;
-  const s = intro.style, grenze = x => Math.min(1, Math.max(0, x)), sanft = x => x * x * (3 - 2 * x);
-  // Platz des Logos im Träger = Platz der Logofläche auf der Bühne (hängt von Fensterhöhe und Titelschrift ab)
-  const platz = () => { const a = logo.getBoundingClientRect(), b = buehne.getBoundingClientRect(); s.setProperty("--lt", (a.top - b.top).toFixed(1) + "px"); s.setProperty("--ll", (a.left - b.left).toFixed(1) + "px"); return [a, b]; };
+  const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo"), platzEl = intro.querySelector(".i-platz"), traeger = intro.querySelector(".i-traeger"), titel = intro.querySelector(".i-titel"), sonneHinten = intro.querySelector(".i-welt .i-sonne");
+  let bild, geo = null, fertig = false, ruhe = 0, offen = false, fahrt = 0;
+  const grenze = x => Math.min(1, Math.max(0, x)), sanft = x => x * x * (3 - 2 * x);
   const strecke = () => intro.offsetHeight - buehne.offsetHeight;
-  let offen = false;
+  // Wer die Scroll-Werte braucht: alle Elemente, deren Regeln --ip oder --ie benutzen (auch Fundstücke und Festschmuck, die
+  // später dazukommen). Die Werte stehen nur an diesen Elementen, nie an der Wurzel des Intros.
+  let nutzer = [], sammelnNoetig = true;
+  const sammeln = () => {
+    sammelnNoetig = false; const menge = new Set();
+    const durch = liste => { for (const r of liste) {
+      if (r.cssRules && r.cssRules.length && !r.selectorText) { durch(r.cssRules); continue; }
+      if (!r.selectorText || !(r.cssText.includes("var(--ip") || r.cssText.includes("var(--ie"))) continue;
+      try { intro.querySelectorAll(r.selectorText).forEach(x => menge.add(x)); } catch (e) {} } };
+    for (const blatt of document.styleSheets) { try { durch(blatt.cssRules); } catch (e) {} }
+    nutzer = [...menge];
+  };
+  new MutationObserver(() => { sammelnNoetig = true; }).observe(intro, { childList: true, subtree: true });
+  // Maße: nur beim Laden und wenn sich die Größe ändert. Beim Scrollen wird nichts gemessen – der Platz des Logos auf der
+  // Bühne steht fest (die Bühne klebt am Fenster), der Platz in der Kopfzeile wandert genau mit der Scrollhöhe.
+  const messen = () => {
+    if (!intro.isConnected || fertig) return;
+    bild = bild || document.querySelector("#kopf .marke img.logo-hell"); if (!bild) return;
+    const a = logo.getBoundingClientRect(), b = buehne.getBoundingClientRect(), z = bild.getBoundingClientRect(), i = intro.getBoundingClientRect();
+    geo = { aw: a.width, al: a.left - b.left, at: a.top - b.top, ax: a.left - b.left + a.width / 2, ay: a.top - b.top + a.height / 2,
+      zx: z.left + z.height / 2 - b.left, zy: z.top + z.height / 2 + scrollY, zh: z.height, strecke: strecke() };
+    platzEl.style.setProperty("--lt", geo.at.toFixed(1) + "px"); platzEl.style.setProperty("--ll", geo.al.toFixed(1) + "px");
+    // Der Träger ist genau so hoch, dass ihn das Ende des Intros in dem Moment nach oben mitnimmt, in dem der Platz in der
+    // Kopfzeile das Logo erreicht – ab da läuft das Logo mit der Seite mit, das macht der Browser selbst.
+    traeger.style.setProperty("--hc", (i.bottom + scrollY - geo.zy + geo.ay).toFixed(1) + "px");
+    bild.style.clipPath = "inset(0 0 0 100%)";
+    zeichnen();
+  };
+  const zeichnen = () => {
+    if (!geo || !intro.isConnected) return 0;
+    if (sammelnNoetig) sammeln();
+    const y = scrollY, p = grenze(y / geo.strecke), e = sanft(p), ps = p.toFixed(4), es = e.toFixed(4);
+    for (const x of nutzer) { x.style.setProperty("--ip", ps); x.style.setProperty("--ie", es); }
+    // Das Logo bleibt auf seiner Höhe stehen und wird stetig kleiner, je näher die Kopfzeile von unten kommt: Genau bei
+    // ihrer Ankunft hat es seine Endgröße und steht über seinem Platz.
+    const t = grenze(1 - (geo.zy - y - geo.ay) / Math.max(1, geo.zy - geo.ay));
+    const ds = 1 + (geo.zh / geo.aw - 1) * sanft(t), g = geo.aw * ds, mx = geo.ax + (geo.zx - geo.ax) * sanft(grenze(t / .85));
+    const dx = (mx - g / 2 - geo.al).toFixed(1) + "px", dy = ((geo.aw - g) / 2).toFixed(1) + "px", dss = ds.toFixed(4);
+    for (const x of [platzEl, sonneHinten]) if (x) { x.style.setProperty("--dx", dx); x.style.setProperty("--dy", dy); x.style.setProperty("--ds", dss); }
+    titel.style.setProperty("--ts", (1 - e * .14).toFixed(4)); titel.style.setProperty("--to", (1 - grenze((p - .02) / .2)).toFixed(3));
+    bild.style.opacity = grenze((t - .3) / .45).toFixed(3);
+    return p;
+  };
   const rechne = () => {
     offen = false; if (!intro.isConnected) return;
-    if (!fertig) platz();
-    bild = bild || document.querySelector("#kopf .marke img.logo-hell"); if (!bild) return;
-    if (fertig) { if (scrollY < strecke()) scrollTo(0, strecke()); return; }      // angekommen: kein Zurück ins Intro
-    const p = grenze(scrollY / strecke()), e = sanft(p);
-    s.setProperty("--p", p.toFixed(4)); s.setProperty("--e", e.toFixed(4));
-    // Platz des Bildzeichens in der Kopfzeile: das linke Quadrat des Logo-Bilds
-    const a = logo.getBoundingClientRect(), z = bild.getBoundingClientRect(), zx = z.left + z.height / 2, zy = z.top + z.height / 2;
-    // Das Logo bleibt auf seiner Höhe stehen (der Träger ist angeheftet) und wird stetig kleiner, je näher die Kopfzeile
-    // von unten kommt: Genau bei ihrer Ankunft hat es seine Endgröße und steht über seinem Platz. Von da an schiebt das
-    // Ende des Intros den Träger mit der Seite nach oben – dafür ist er genau so hoch (--hc), dass sein unterer Rand
-    // das Intro-Ende in diesem Moment trifft. Das Bildzeichen der Kopfzeile bleibt verdeckt, bis das Intro entfernt ist.
-    const ax = a.left + a.width / 2, ay = a.top + a.height / 2, bt = buehne.getBoundingClientRect().top;
-    s.setProperty("--hc", (intro.getBoundingClientRect().bottom - zy + ay - bt).toFixed(1) + "px");
-    const t = grenze(1 - (zy - ay) / Math.max(1, zy + scrollY - ay));
-    const ds = 1 + (z.height / a.width - 1) * sanft(t), g = a.width * ds, mx = ax + (zx - ax) * sanft(grenze(t / .85));
-    s.setProperty("--dx", (mx - g / 2 - a.left).toFixed(1) + "px");
-    s.setProperty("--dy", (ay - g / 2 - a.top).toFixed(1) + "px");
-    s.setProperty("--ds", ds.toFixed(4));
-    s.setProperty("--ts", (1 - e * .14).toFixed(4));
-    s.setProperty("--to", (1 - grenze((p - .02) / .2)).toFixed(3));
-    s.setProperty("--unten", (a.bottom - (strecke() - scrollY)).toFixed(1) + "px");
-    bild.style.clipPath = "inset(0 0 0 100%)";
-    bild.style.opacity = grenze((t - .3) / .45).toFixed(3);
-    buehne.style.visibility = p >= 1 ? "hidden" : "";
-    if (p >= 1) { fertig = true; clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }
+    if (!geo) messen(); if (!geo) return;
+    if (fertig) { if (!fahrt && scrollY < geo.strecke) scrollTo(0, geo.strecke); return; }      // angekommen: kein Zurück ins Intro
+    if (zeichnen() >= 1) { buehne.style.visibility = "hidden"; fertig = true; clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }
   };
   // Ist die Ausgabe ganz da, verschwindet das Intro endgültig (erst wieder nach dem Neuladen). Es wird entfernt, sobald
-  // das Scrollen kurz ruht – so springt nichts, auch nicht beim Schwung-Scrollen auf dem Handy.
-  let fertig = false, ruhe = 0;
+  // das Scrollen kurz ruht – so springt nichts, auch nicht beim Schwung-Scrollen auf dem Handy. Solange die Fahrt nach dem
+  // Klick auf „Zur Ausgabe“ läuft, bleibt es stehen: Sonst landete ihr letzter Schritt eine Bildschirmhöhe zu tief.
   const einklappen = () => {
-    if (!fertig || !intro.isConnected) return;
+    if (!fertig || fahrt || !intro.isConnected) return;
     const rest = Math.max(0, scrollY - strecke());
     if (bild) bild.style.clipPath = bild.style.opacity = "";
     intro.remove(); scrollTo(0, rest);
@@ -516,22 +549,31 @@ const html = `<!-- INTRO-START -->
     if (fertig) { clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }
     if (!offen) { offen = true; requestAnimationFrame(rechne); }
   }, { passive: true });
-  addEventListener("resize", rechne);
+  addEventListener("resize", () => { messen(); rechne(); });
   // Wer am Intro auf Dunkel schaltet, bekommt die Ausgabe ohne Intro (die Szene gibt es nur hell).
   new MutationObserver(() => {
     if (document.documentElement.dataset.thema !== "dunkel" || !intro.isConnected) return;
     const bild = document.querySelector("#kopf .marke img.logo-hell"); if (bild) bild.style.clipPath = bild.style.opacity = "";
     const rest = Math.max(0, scrollY - strecke()); intro.remove(); scrollTo(0, rest);
   }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-thema"] });
+  // „Zur Ausgabe“: eine einzige ruhige Fahrt bis genau an den Anfang der Ausgabe. Wer dabei selbst scrollt, übernimmt.
+  const halt = () => { if (fahrt) { cancelAnimationFrame(fahrt); fahrt = 0; if (fertig) { clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); } } };
+  addEventListener("wheel", halt, { passive: true }); addEventListener("touchstart", halt, { passive: true });
   intro.querySelector(".i-weiter").addEventListener("click", () => {
-    const von = scrollY, bis = strecke(), t0 = performance.now(), dauer = 1500;
-    const schritt = jetzt => { const x = grenze((jetzt - t0) / dauer); scrollTo(0, von + (bis - von) * (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2)); if (x < 1) requestAnimationFrame(schritt); };
-    requestAnimationFrame(schritt);
+    if (fahrt || fertig) return; if (!geo) messen();
+    const von = scrollY, bis = strecke(), t0 = performance.now(), dauer = 1400;
+    const schritt = jetzt => {
+      if (!intro.isConnected) { fahrt = 0; return; }
+      const x = grenze((jetzt - t0) / dauer);
+      scrollTo(0, von + (bis - von) * (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2));
+      if (x < 1) fahrt = requestAnimationFrame(schritt); else { fahrt = 0; clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }
+    };
+    fahrt = requestAnimationFrame(schritt);
   });
-  rechne(); addEventListener("DOMContentLoaded", rechne); addEventListener("load", rechne);
+  messen(); addEventListener("DOMContentLoaded", messen); addEventListener("load", messen);
   // Lädt die Titelschrift nach, verschiebt sich die Logofläche auf der Bühne um ein paar Pixel – der Träger zieht sofort nach.
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(rechne);
-  if (window.ResizeObserver) { const ro = new ResizeObserver(() => { if (intro.isConnected && !fertig) platz(); }); intro.querySelectorAll(".i-mitte > *, .intro-buehne").forEach(e => ro.observe(e)); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(messen);
+  if (window.ResizeObserver) { const ro = new ResizeObserver(() => messen()); intro.querySelectorAll(".i-mitte > *, .intro-buehne").forEach(e => ro.observe(e)); }
   // Standbilder für Entwürfe
   if (q.has("zeit") || q.has("p")) addEventListener("load", () => {
     if (q.has("p")) { intro.classList.add("fertig"); scrollTo(0, strecke() * parseFloat(q.get("p"))); rechne(); return; }
