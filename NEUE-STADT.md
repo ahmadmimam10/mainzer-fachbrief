@@ -86,3 +86,11 @@ committen und pushen. Der Workflow „Seite“ veröffentlicht `docs/` auf GitHu
 
 GitHub (öffentliches Repository, Actions, Pages) und Open-Meteo sind kostenlos. Die Routinen laufen über das
 Claude-Abonnement. Azure Speech ist bis 500 000 Zeichen im Monat kostenlos (Stufe F0).
+
+## Eigene Domain (optional)
+
+Das Mainzer Boniblatt läuft unter `boniblatt-mainz.de`. So geht es für eine Kopie: Domain kaufen; bei GitHub unter
+Profil → Settings → Pages → „Add a domain“ bestätigen (TXT-Eintrag beim Domainanbieter); beim Anbieter A-Einträge auf
+`185.199.108.153` bis `185.199.111.153` und AAAA auf `2606:50c0:8000::153` setzen; erst wenn diese Einträge wirken,
+im Repository unter Settings → Pages → Custom domain eintragen und „Enforce HTTPS“ einschalten. Die Seite nutzt nur
+relative Pfade und braucht dafür keine Änderung.
