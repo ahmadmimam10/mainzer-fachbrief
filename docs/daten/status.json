@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-21T15:28:12.445Z",
+ "stand": "2026-11-21T18:21:24.989Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 46,
+   "treffer": 44,
    "zustand": "ok",
-   "hinweis": "unauffällig – 41 Treffer"
+   "hinweis": "unauffällig – 39 Treffer"
   },
   {
    "id": "landtag",
@@ -198,8 +198,8 @@
    "ebene": "bund",
    "ok": false,
    "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (2. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "zustand": "gestoert",
+   "hinweis": "Abruf seit 3 Läufen fehlerhaft: www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
@@ -406,10 +406,10 @@
    "name": "Deutscher Bildungsserver",
    "kurz": "Bildungsserver",
    "ebene": "fach",
-   "ok": false,
-   "treffer": 0,
+   "ok": true,
+   "treffer": 13,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "hinweis": "5 von 7 neuen Links nicht erreichbar (Zeitüberschreitung (10 s)), 1. Lauf in Folge"
   },
   {
    "id": "sozial-de",
@@ -466,10 +466,10 @@
    "name": "Bundesarbeitsgemeinschaft Landesjugendämter – Neues",
    "kurz": "BAG Landesjugendämter",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 37,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 37 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bag-landesjugendaemter.de: fetch failed (ETIMEDOUT)"
   },
   {
    "id": "dksb",

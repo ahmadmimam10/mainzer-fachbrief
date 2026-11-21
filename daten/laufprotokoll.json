@@ -87,5 +87,17 @@
    "✗ bildungsserver           0 gefunden,   0 neu  ⚠ www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
    "12 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-21T18:22:26.502Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "8 neue Kandidaten (5 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 53 ok, 2 auffällig, 1 gestört.",
+  "auffaellig": [
+   "✗ bundesrat                0 gefunden,   0 neu  ⚠ www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "    → gestoert: Abruf seit 3 Läufen fehlerhaft: www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "✗ bagljae                  0 gefunden,   0 neu  ⚠ www.bag-landesjugendaemter.de: fetch failed (ETIMEDOUT)",
+   "8 neue Kandidaten (5 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 53 ok, 2 auffällig, 1 gestört."
+  ]
  }
 ]
