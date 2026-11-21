@@ -306,6 +306,36 @@ Woran er anknüpfen kann, in dieser Reihenfolge der Vorliebe:
 | Advent | `Noch drei Sitzungen bis Weihnachten` |
 | Fastnacht | `Helau! Auch im Jugendhilfeausschuss` |
 
+## „Was geht heute ab?“ – Termine des Tages
+
+Unten auf der Seite steht eine Reihe kleiner Karten mit dem, was am Erscheinungstag los ist – ausdrücklich auch für den
+Feierabend gedacht. Das Feld `heute` der Ausgabe ist eine Liste mit 4 bis 8 Terminen. Gibt es nichts Belegtes, fehlt das Feld;
+die Kachel erscheint dann nicht.
+
+**Immer prüfen und aufnehmen, wenn am Erscheinungstag gespielt wird** (bei der Freitagsausgabe auch Samstag und Sonntag –
+dann steht der Wochentag in `wann`):
+
+- alle Pflicht- und Länderspiele von **FC Barcelona**, **Real Madrid**, der **spanischen** und der **ägyptischen
+  Nationalmannschaft** (Männer),
+- **wichtige Spiele der Champions League**: K.-o.-Runde, Spitzenspiele der Ligaphase, Spiele deutscher Vereine.
+
+Anstoß immer in deutscher Zeit (Europe/Berlin); `ort` nennt den Wettbewerb. Fußball steht in der Liste vorn.
+
+**Dazu aus dem Rhein-Main-Gebiet** – Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim und Umgebung: Feste, Märkte,
+Konzerte, große Sportereignisse (z. B. Mainz 05), Kino- und Theaterabende mit breitem Publikum, Neueröffnungen, Angebote
+für Familien. Nichts Nischiges, keine abseitigen Kunst-Veranstaltungen, keine Werbung, keine Dauerangebote ohne Anlass.
+
+Nur Termine mit verlässlicher Quelle (Veranstalter, Stadt, Verein, Verband, seriöse Medien) – nichts erfinden und nichts
+aus dem Gedächtnis schreiben. Lässt sich ein Termin nicht belegen, bleibt er weg.
+
+| Feld | Inhalt |
+| --- | --- |
+| `art` | bestimmt das Bild: `fussball`, `sport`, `markt`, `flohmarkt`, `fest`, `musik`, `party`, `kino`, `theater`, `ausstellung`, `neu` (Neueröffnung), `familie`, `wein`, `essen`, `fastnacht` |
+| `wann` | kurz, 2–16 Zeichen: „21 Uhr“, „ab 16 Uhr“, „Sa 18:30 Uhr“ |
+| `titel` | 4–52 Zeichen: „Real Madrid – FC Barcelona“, „Weihnachtsmarkt eröffnet“ |
+| `ort` | 2–34 Zeichen: „La Liga“, „Champions League“, „Mainz, Domplätze“ |
+| `url` | die Quelle (https://…) |
+
 ## Gremien-Notizen (Ratsinformationssystem)
 
 `docs/daten/gremien.json` enthält die Sitzungen der Mainzer Gremien (letzte 14 Tage, nächste 60 Tage) mit
@@ -360,6 +390,10 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
 {
   "datum": "2026-11-23",
   "flieger": "Wie viel kostet HzE? Ja.",
+  "heute": [
+    { "art": "fussball", "wann": "21 Uhr", "titel": "Real Madrid – FC Barcelona", "ort": "La Liga", "url": "https://…" },
+    { "art": "markt", "wann": "ab 16 Uhr", "titel": "Feierabendmarkt", "ort": "Mainz, Altstadt", "url": "https://…" }
+  ],
   "ressorts": {
     "jugendhilfeplanung": { "meldungen": [
       { "id": "4b8006a55f", "stufe": "aufmacher", "thema": "Haushalt 2027", "icon": "haushalt",

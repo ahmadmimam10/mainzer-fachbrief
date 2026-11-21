@@ -42,6 +42,10 @@ const LINK = /https?:\/\/|www\./i;
 // Werbeflieger im Intro: Spruch des Tages (Feld „flieger“ der Ausgabe, Regeln in REDAKTION.md)
 const FLIEGER_MIN = 4, FLIEGER_MAX = 34;   // Zeichen – das Banner muss auch auf dem Handy lesbar bleiben
 const FLIEGER_TAGE = 30;                   // so viele Tage stehen die Sprüche in docs/daten/flieger.js
+// „Was geht heute ab?“: Termine des Tages (Feld „heute“ der Ausgabe, Regeln in REDAKTION.md)
+const HEUTE_ARTEN = ["fussball", "sport", "markt", "flohmarkt", "fest", "musik", "party", "kino", "theater", "ausstellung", "neu", "familie", "wein", "essen", "fastnacht"];
+const HEUTE_MAX = 8;
+const heuteListe = a => Array.isArray(a?.heute) ? a.heute.filter(x => x && typeof x === "object").map(x => Object.fromEntries(["art", "wann", "titel", "ort", "url"].map(f => [f, String(x[f] ?? "").replace(/\s+/g, " ").trim()]))) : [];
 const fliegerText = a => typeof a?.flieger === "string" ? a.flieger.replace(/\s+/g, " ").trim() : "";
 
 /** Lage für den Werbeflieger: Wetter, besondere Tage, letzte Flüge und ob er heute dran ist. */
@@ -98,6 +102,10 @@ async function vorbereiten() {
   const titel = { mainz: "Mainz", land: "Rheinland-Pfalz", bund: "Bund und überregionale Medien", fach: "Fachwelt (Portale, Institute, Verbände)" };
   let md = `# Kandidaten für die Ausgabe vom ${DATUM}\n\n${offen.length} noch nicht gesichtete Meldungen. Format: [id] Titel (Datum) — Kurzbeschreibung der Quelle\n`;
   const fl = await fliegerLage(ausgaben), namen = { sonne: "sonnig", bewoelkt: "bewölkt", regen: "Regen", schnee: "Schnee", fruehling: "Frühling", sommer: "Sommer", herbst: "Herbst", winter: "Winter" };
+  md += `\n## Was geht heute ab? – Termine für ${DATUM} (Regeln: REDAKTION.md, Abschnitt „Was geht heute ab?“)\n`
+    + `- Feld „heute“ der Ausgabe: 4–${HEUTE_MAX} belegte Termine des Tages, Fußball zuerst.\n`
+    + `- Immer prüfen: FC Barcelona, Real Madrid, Spanien, Ägypten (Nationalmannschaften), wichtige Champions-League-Spiele.\n`
+    + `- Dazu Rhein-Main (Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim): Feste, Märkte, Konzerte, Sport, Neueröffnungen – nichts Nischiges. Nur mit Quelle; sonst das Feld weglassen.\n`;
   md += `\n## Werbeflieger – Lage für heute (Regeln: REDAKTION.md, Abschnitt „Werbeflieger“)\n`
     + `- Heute: ${fl.wochentag}, ${namen[fl.zeit]}, Wetter in Mainz: ${namen[fl.wetter] || "unbekannt"}\n`
     + `- Besondere Tage im Intro heute: ${fl.anlaesse.length ? fl.anlaesse.join(", ") : "keine"}\n`
@@ -122,6 +130,23 @@ async function vorbereiten() {
 function pruefen(ausgabe, bekannte, ausgaben = []) {
   const fehler = [];
   if (ausgabe.datum !== DATUM) fehler.push(`„datum“ muss ${DATUM} sein.`);
+  // „Was geht heute ab?“ (optional): höchstens 8 Termine, jeder mit Art, Zeitangabe, Titel, Ort und Quelle
+  if (ausgabe.heute !== undefined && ausgabe.heute !== null) {
+    if (!Array.isArray(ausgabe.heute)) fehler.push("„heute“ muss eine Liste sein (oder fehlen).");
+    else {
+      const termine = heuteListe(ausgabe);
+      if (termine.length > HEUTE_MAX) fehler.push(`„heute“: höchstens ${HEUTE_MAX} Termine (sind ${termine.length}).`);
+      termine.forEach((x, i) => {
+        const wo = `„heute“ Nr. ${i + 1}`;
+        if (!HEUTE_ARTEN.includes(x.art)) fehler.push(`${wo}: „art“ muss eines von ${HEUTE_ARTEN.join(", ")} sein.`);
+        if (x.wann.length < 2 || x.wann.length > 16) fehler.push(`${wo}: „wann“ kurz halten (2–16 Zeichen, z. B. „21 Uhr“).`);
+        if (x.titel.length < 4 || x.titel.length > 52) fehler.push(`${wo}: „titel“ muss 4–52 Zeichen lang sein (sind ${x.titel.length}).`);
+        if (x.ort.length < 2 || x.ort.length > 34) fehler.push(`${wo}: „ort“ muss 2–34 Zeichen lang sein (sind ${x.ort.length}).`);
+        if (!/^https:\/\/[^\s<>"]+$/.test(x.url)) fehler.push(`${wo}: „url“ muss die Quelle sein (https://…).`);
+        if (/[<>{}]/.test(x.wann + x.titel + x.ort)) fehler.push(`${wo}: keine Zeichen wie < > { }.`);
+      });
+    }
+  }
   // Werbeflieger (optional): eine kurze Zeile; nicht in zwei Ausgaben hintereinander, kein Spruch doppelt
   if (ausgabe.flieger !== undefined && ausgabe.flieger !== null && ausgabe.flieger !== "") {
     const spruch = fliegerText(ausgabe);
@@ -230,6 +255,7 @@ async function abschliessen() {
   if (typeof ausgabe.hoerfassung === "string" && ausgabe.hoerfassung.trim()) ausgabe.hoerfassung = ausgabe.hoerfassung.replace(/\r\n?/g, "\n").trim();
   else delete ausgabe.hoerfassung;
   if (fliegerText(ausgabe)) ausgabe.flieger = fliegerText(ausgabe); else delete ausgabe.flieger;
+  if (heuteListe(ausgabe).length) ausgabe.heute = heuteListe(ausgabe); else delete ausgabe.heute;
   ausgabe.gesichtet = [...new Set([...(ausgabe.gesichtet || []), ...vorbereitet.kandidaten.map(k => k.id)])];
   ausgabe.erstellt = ausgabe.erstellt || new Date().toISOString();
   ausgabe.aktualisiert = new Date().toISOString();
@@ -282,6 +308,7 @@ async function bauen() {
       ...(text(a.hoerfassung) ? { hoerfassung: text(a.hoerfassung) } : {}),   // früheres Feld (alte Ausgaben)
       ressorts: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, r.meldungen.map(({ originaltitel, ...m }) => m)])),
       ...(Object.keys(hoerfassungen).length ? { hoerfassungen } : {}),
+      ...(heuteListe(a).length ? { heute: heuteListe(a) } : {}),   // „Was geht heute ab?“
     };
   };
   // Gremien-Notizen (von der Redaktion geschrieben) für die Webseite: vergangene Sitzungen der letzten 21 Tage mit

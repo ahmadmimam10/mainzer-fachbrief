@@ -310,7 +310,8 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-zl svg{animation:i-blatt-l .95s cubic-bezier(.2,.9,.24,1.06) 1.05s both}
 .i-zr svg{animation:i-blatt-r .95s cubic-bezier(.2,.9,.24,1.06) 1.13s both}
 .i-band{position:absolute;left:50%;bottom:39.45%;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);transform-origin:50% 100%;
-  translate:0 calc(var(--e,0) * 72vh);scale:calc(1 + var(--e,0) * var(--k));will-change:transform}
+  translate:0 calc(var(--e,0) * 72vh);scale:calc(var(--nah,1) * (1 + var(--e,0) * var(--k)));will-change:transform}
+@media (min-width:700px){.intro{--nah:1.16}}@media (min-width:1000px){.intro{--nah:1.32}}
 .i-band svg{display:block;width:100%;height:auto;transform-origin:50% 100%;animation:i-zoom 2.5s var(--fahrt) both,i-steig .95s cubic-bezier(.2,.9,.25,1.04) var(--ab,0s) both}
 .i-huegel{--k:.08}.i-huegel svg{fill:var(--hu1,#dfe4dc);--z:1.16;animation:i-zoom 2.5s var(--fahrt) both}
 .i-huegel2{--k:.18}.i-huegel2 svg{fill:var(--hu2,#d3dac8);--z:1.3;animation:i-zoom 2.5s var(--fahrt) both}.i-huegel2 .i-tupfen{fill:var(--tu1,#c2cdb6)}.i-huegel2 .t2{fill:var(--tu2,#c2cdb6)}
