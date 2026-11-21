@@ -17,7 +17,8 @@
 
   // ---- Jahreszeit bestimmt die Farbwelt (?farbe=sommer zum Ansehen) ----
   const monat = E.tag().getMonth() + 1;
-  const zeit = ["fruehling", "sommer", "herbst", "winter"].includes(q.get("farbe")) ? q.get("farbe") : monat >= 3 && monat <= 5 ? "fruehling" : monat >= 6 && monat <= 8 ? "sommer" : monat >= 9 && monat <= 11 ? "herbst" : "winter";
+  const ZEITEN = ["fruehling", "sommer", "herbst", "winter"], ausWetter = (q.get("wetter") || "").split("-").find(x => ZEITEN.includes(x));
+  const zeit = ZEITEN.includes(q.get("farbe")) ? q.get("farbe") : ausWetter ? ausWetter : monat >= 3 && monat <= 5 ? "fruehling" : monat >= 6 && monat <= 8 ? "sommer" : monat >= 9 && monat <= 11 ? "herbst" : "winter";
   wurzel.dataset.zeit = zeit;
 
   const motiv = (name, kl = "") => `<span class="st ${kl}" style="-webkit-mask-image:url(bilder/motive/${name}.png);mask-image:url(bilder/motive/${name}.png)" aria-hidden="true"></span>`;
@@ -56,11 +57,36 @@
 
   // ---- Gerüst ----
   const welle = `<svg viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V30C100 6 200 6 300 30S500 54 600 30S800 6 900 30S1100 54 1200 30V60Z"/></svg>`;
-  wurzel.innerHTML = `<div class="bb-welle">${welle}${welle}</div><div class="bb-innen">
-    <header class="bb-oben"><p class="bb-gruss">Guten <i>Morgen.</i><small>${esc(E.datum({ weekday: "long", day: "numeric", month: "long" }))}</small></p>
+  wurzel.innerHTML = `<div class="bb-welle">${welle}${welle}</div><div class="bb-nieder" aria-hidden="true"></div><div class="bb-innen">
+    <header class="bb-oben">${motiv(ORTE[(tagNr + 9) % ORTE.length][0], "wz kopfwz")}<p class="bb-gruss">Guten <i>Morgen.</i><small>${esc(E.datum({ weekday: "long", day: "numeric", month: "long" }))}</small></p>
       <nav class="bb-reiter" aria-label="Bereiche">${BEREICHE.map((b, i) => `<button type="button" data-r="${b.id}" aria-pressed="false" style="--nr:${i}">${motiv(b.motive[0])}<span>${esc(b.reiter)}</span></button>`).join("")}</nav></header>
-    <section class="bb-raster" id="kacheln"></section></div>`;
+    <section class="bb-raster" id="kacheln"></section>
+    <div class="bb-skyline" aria-hidden="true">${["kirschgarten", "christuskirche", "holzturm", "dom", "staatstheater", "bonituerme", "bruecke"].map(m => motiv(m)).join("")}</div></div>`;
   const raster = wurzel.querySelector("#kacheln");
+
+  // ---- Wetter und Jahreszeit laufen unten dezent weiter: wenige fallende Teilchen, ein paar bleiben auf den Kacheln liegen ----
+  const heute = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
+  let lage = (window.FACHBRIEF_WETTER || {})[q.get("tag") || heute] || "sonne";
+  (q.get("wetter") || "").split("-").forEach(x => { if (["sonne", "bewoelkt", "regen", "schnee"].includes(x)) lage = x; });
+  if (lage === "schnee" && zeit !== "winter") lage = "regen";
+  const art = lage === "regen" ? "regen" : lage === "schnee" ? "schnee" : zeit === "herbst" ? "laub" : zeit === "fruehling" ? "bluete" : "";
+  const BLATT = "M0 0C1.4 -3.4 5.4 -4.4 9 -2.8C8.4 .8 5.6 3.6 1.8 3.4L-1.6 5L.2 2.4C-.4 1.6 -.4 .8 0 0Z", BLUETE = "M0 0q1.6 -2.6 4.6 0q-3 2.6 -4.6 0Z";
+  const LAUB = ["#d98a3d", "#c9642f", "#e0b04a", "#b5532e"], ROSA = ["#f6bfd0", "#fbdde6", "#f2a8bf"];
+  const teilchen = i => art === "laub" ? `<svg viewBox="-2 -5 12 11"><path fill="${LAUB[i % 4]}" d="${BLATT}"/></svg>` : art === "bluete" ? `<svg viewBox="-.5 -2.2 5.6 4.4"><path fill="${ROSA[i % 3]}" d="${BLUETE}"/></svg>` : "";
+  const nieder = wurzel.querySelector(".bb-nieder");
+  if (art) { nieder.dataset.art = art; const n = art === "regen" ? 22 : art === "schnee" ? 20 : 8;
+    nieder.innerHTML = Array.from({ length: n }, (_, i) => { const d = art === "regen" ? 1.3 + i % 5 * .22 : art === "schnee" ? 11 + i % 6 * 1.6 : 12 + i % 5 * 2.3;
+      return `<i style="--x:${(i * 37 + 11) % 104 - 2}%;--nd:${d.toFixed(1)}s;--v:${(-(i * 1.9) % d).toFixed(1)}s;--g:${art === "regen" ? 26 + i % 4 * 9 : art === "schnee" ? 4 + i % 4 * 2 : 15 + i % 4 * 4};--r:${art === "laub" || art === "bluete" ? 200 + i * 40 : 0}deg">${teilchen(i)}</i>`; }).join(""); }
+  // Liegenbleiben: Blätter und Blüten in den Ecken, Tropfen auf der Fläche, Schnee auf der Oberkante mancher Kacheln
+  function belegen() {
+    if (!art) return;
+    raster.querySelectorAll(".k").forEach((el, i) => {
+      if (art === "schnee") { if (i % 2 === 0) { el.classList.add("verschneit"); el.style.setProperty("--sx", 7 + i * 17 % 30 + "%"); el.style.setProperty("--sb", 38 + i * 13 % 24 + "%"); } return; }
+      if (i % 3 === 1) return;
+      el.insertAdjacentHTML("beforeend", Array.from({ length: art === "regen" ? 5 : el.matches("a") ? 2 : 1 }, (_, j) => { const z = (i * 31 + j * 47 + 13) % 100, regen = art === "regen";
+        return `<i class="bb-lieg ${art}" style="left:${regen ? 5 + z * .88 : j ? 54 + z % 22 : 72 + z % 22}%;top:${regen ? 8 + z * 53 % 82 : j ? 91 + z % 4 : 2 + z % 7}%;--r:${z * 7 % 360}deg;--g:${regen ? 5 + z % 6 : art === "bluete" ? 13 + z % 7 : 20 + z % 11}">${teilchen(i + j)}</i>`; }).join(""));
+    });
+  }
   const unten = m => `<span class="unten"><span>${esc(E.quelle(m))}</span><span class="pfeil">→</span></span>`;
 
   function zeichne(id) {
@@ -75,12 +101,15 @@
       <div class="h-leiste"><span class="h-zeit">0:00</span><span class="h-spur" role="slider" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i></i></span><span class="h-dauer">–:––</span></div></div>`);
     k.push(wetterKachel());
     t.wichtig.forEach((m, i) => k.push(`<a class="k wichtig n${t.wichtig.length}${i === 1 ? " farbe" : ""}" data-ein href="${esc(m.url)}"><span class="etikett">${esc(m.thema)}</span><h2>${esc(m.titel)}</h2><p>${esc(m.kurz || "")}</p>${unten(m)}</a>`));
-    if (t.kurz.length) k.push(`<div class="k liste" data-ein><h3>Kurz <i>notiert</i></h3>${t.kurz.map(m => `<a href="${esc(m.url)}"><b>${esc(m.thema)}</b><span>${esc(m.titel)}</span><span>${esc(E.quelle(m))}</span></a>`).join("")}</div>`);
+    if (t.kurz.length) k.push(`<div class="k liste" data-ein>${motiv(ORTE[(tagNr + nr * 4 + 5) % ORTE.length][0], "wz")}<h3>Kurz <i>notiert</i></h3>${t.kurz.map(m => `<a href="${esc(m.url)}"><b>${esc(m.thema)}</b><span>${esc(m.titel)}</span><span>${esc(E.quelle(m))}</span></a>`).join("")}</div>`);
+    const tagK = `<div class="k tag" data-ein>${motiv(b.motive[1 + tagNr % 3])}<p><b>${E.tag().getDate()}.</b>${esc(E.datum({ month: "long" }))}<small>${esc(b.lang)}</small></p></div>`;
     const ort = ORTE[(tagNr + nr * 4) % ORTE.length];
-    k.push(`<div class="k bild" data-ein>${motiv(ort[0])}<p><small>Mainz im Bild</small>${esc(ort[1])}</p></div>`);
-    k.push(`<div class="k tag" data-ein>${motiv(b.motive[1 + tagNr % 3])}<p><b>${E.tag().getDate()}.</b>${esc(E.datum({ month: "long" }))}<small>${esc(b.lang)}</small></p></div>`);
+    k.push(document.documentElement.dataset.entwurf === "b1" ? `<div class="bb-seite">${tagK}<div class="bb-frei" aria-hidden="true">${motiv(ort[0])}<small>${esc(ort[1] || "")}</small></div></div>` : tagK);
     k.push(losKachel());
     raster.innerHTML = k.join("");
+    // Fremde Seiten öffnen immer in einem neuen Tab
+    raster.querySelectorAll('a[href^="http"]').forEach(l => { l.target = "_blank"; l.rel = "noopener"; });
+    belegen();
     hoerenBinden(b, text);
   }
 
