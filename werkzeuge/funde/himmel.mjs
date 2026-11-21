@@ -9,6 +9,9 @@ const propeller = (x, y, r = 1.6) => `<ellipse class="fu-flimmer" cx="${x}" cy="
 // frei schwebend mit eigener Bewegung des ganzen Bildes (Klasse aus dem css-Feld)
 const schweb = (l, t, g, vb, innen, kl, mehr = {}) => himmel(l, t, g, vb, innen, mehr).replace(/<svg /, `<div class="${kl} fu-weg"><svg `).replace(/<\/svg><\/div>$/, "</svg></div></div>");
 
+// Kleines Schleppflugzeug (Nase rechts, Heck bei x = 76, Höhe wie das Banner); auch der Werbeflieger mit dem Tagesspruch nutzt es
+export const FLUGZEUG = F("M78 8L76.2 4.2H78.6L80.6 7Z", "#d6243a") + F("M78 8.2Q80 5.8 86 5.9H92Q95.2 6.7 95.2 8.2Q95.2 9.8 92 10H82Q79 9.8 78 8.2Z", "#fdfcf9", `stroke="#8f9aa3" stroke-width=".15"`) + L("M80 8.4H94", "#d6243a", .6) + F("M87.6 6.2H91V7.6H87.6Z", "#9fc3d8") + F("M83.4 4.6H92.4V5.6H83.4Z", "#d6243a") + L("M86 5.6L87 6.4M90.6 5.6L89.8 6.4", "#5f564c", .2) + L("M86.4 10L85.6 11.8", "#5f564c", .25) + `<circle cx="85.4" cy="12.2" r=".8" fill="${TINTE}"/>` + propeller(95.6, 8.2, 2.2);
+
 export default [
   // Diese Zeichnungen gibt es schon (intro-feste.mjs)
   { n: "heissluftballon", ort: "fest", platz: "himmel-r", zeit: "fsh", wetter: "s", dazu: ["heissluftballon"] },
@@ -60,8 +63,7 @@ export default [
   // Ein kleines Flugzeug schleppt das Banner mit dem Zeitungskopf
   { n: "bannerflieger", ort: "himmel", platz: "himmel-zug", zeit: "fs", wetter: "s", stufe: 2,
     bild: zug(-60, .8, "0 0 98 17", L("M78 8.4L60 8.4", "#7a6a58", .15) + `<g class="fu-bf-banner">` + F("M8 4.6Q21 3 34 4.6T60 4.6V12.4Q47 14 34 12.4T8 12.4Z", "#fdfcf9", `stroke="#b9b1a3" stroke-width=".18"`) + F("M13 10.6a4 4 0 0 1 8 0Z", "#c8102e") + L("M26 7.2H52M26 9.8H45", "#181716", 1.2) + `<circle cx="54.6" cy="10" r=".85" fill="#c8102e"/></g>`
-      + F("M78 8L76.2 4.2H78.6L80.6 7Z", "#d6243a") + F("M78 8.2Q80 5.8 86 5.9H92Q95.2 6.7 95.2 8.2Q95.2 9.8 92 10H82Q79 9.8 78 8.2Z", "#fdfcf9", `stroke="#8f9aa3" stroke-width=".15"`) + L("M80 8.4H94", "#d6243a", .6) + F("M87.6 6.2H91V7.6H87.6Z", "#9fc3d8") + F("M83.4 4.6H92.4V5.6H83.4Z", "#d6243a") + L("M86 5.6L87 6.4M90.6 5.6L89.8 6.4", "#5f564c", .2)
-      + L("M86.4 10L85.6 11.8", "#5f564c", .25) + `<circle cx="85.4" cy="12.2" r=".8" fill="${TINTE}"/>` + propeller(95.6, 8.2, 2.2), { d: 48, v: -14 }),
+      + FLUGZEUG, { d: 48, v: -14 }),
     css: `.fu-bf-banner{transform-box:fill-box;transform-origin:100% 50%;animation:fu-bf 1.6s ease-in-out infinite alternate}@keyframes fu-bf{from{transform:skewY(-2.5deg)}to{transform:skewY(2.5deg) scaleX(.97)}}` },
 
   // Blasser Mond am Morgenhimmel

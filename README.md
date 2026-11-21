@@ -108,6 +108,9 @@ sich nach Jahreszeit, Wetter und Wochentag; jedes Stück hat seinen Platz, damit
 bleibt der Platz den Festmotiven. Gewöhnliche Stücke kommen etwa alle sechs Wochen an die Reihe, besondere alle zwölf,
 seltene zweimal im Jahr; einige nur an einem bestimmten Tag (1. April, Freitag der 13., Walpurgisnacht, Halloween).
 
+- **Werbeflieger:** In etwa jeder dritten Ausgabe zieht ein kleines Flugzeug ein Banner mit einem Spruch des Tages über
+  den Himmel. Ob er fliegt und was draufsteht, entscheidet die Morgenredaktion (Feld `flieger` der Ausgabe, Regeln in
+  `REDAKTION.md`; `redaktion.mjs` schreibt daraus `docs/daten/flieger.js`). Ansehen: `?spruch=Guten%20Morgen`.
 - Zeichnungen: `werkzeuge/funde/*.mjs` (je Ort eine Datei, gemeinsame Bausteine und Plätze in `hilfen.mjs`).
 - Nach Änderungen: `node werkzeuge/intro-funde.mjs`, dann `node werkzeuge/intro-einbauen.mjs`.
 - Ansehen: `?fund=angler,gummiente` zeigt bestimmte Stücke (`angler@ufer-r2` = an diesem Platz), `?fund=aus` keine.

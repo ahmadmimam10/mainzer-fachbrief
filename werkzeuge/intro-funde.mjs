@@ -10,6 +10,7 @@
 // Im Browser: ?fund=name,name zeigt bestimmte, ?fund=aus keine, ?tag=2027-06-18 einen anderen Tag.
 import { writeFileSync, renameSync, existsSync } from "node:fs";
 import { CSS_ALLE, BELEGT, MIT } from "./funde/hilfen.mjs";
+import { FLUGZEUG } from "./funde/himmel.mjs";
 
 const MODULE = ["himmel", "stadt", "tuerme", "ufer-leute", "ufer-szenen", "wasser", "blatt"];
 const ORTE = ["himmel", "vorn", "ferne", "huegel", "fern", "stadt", "turm", "ufer", "wasser", "buehne", "titel", "unter", "logo", "fest", "boni"];
@@ -35,7 +36,7 @@ const daten = funde.map(x => {
 });
 
 // ---- Läuft im Browser ----
-function fundeZeigen(F, CSS, BELEGT, MIT) {
+function fundeZeigen(F, CSS, BELEGT, MIT, FLUGZEUG) {
   const intro = document.getElementById("intro"); if (!intro || intro.dataset.funde !== undefined) return;
   const q = new URLSearchParams(location.search), D = intro.dataset;
   const tag = D.tag || new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
@@ -47,6 +48,10 @@ function fundeZeigen(F, CSS, BELEGT, MIT) {
   const md = tag.slice(5), fr13 = wt === 5 && +p[2] === 13;
   const festNamen = (D.fest || "").split(" ").filter(Boolean), belegt = new Set();
   festNamen.forEach(n => (BELEGT[n] || []).forEach(x => belegt.add(x)));
+  // Werbeflieger: An manchen Tagen zieht ein kleines Flugzeug ein Banner mit dem Spruch des Tages über den Himmel. Den Spruch
+  // schreibt die Redaktion (Feld „flieger“ der Ausgabe → daten/flieger.js); ?spruch=Text zeigt einen beliebigen.
+  const spruch = (q.get("spruch") || (window.BONIBLATT_FLIEGER || {})[tag] || "").replace(/\s+/g, " ").trim().slice(0, 40);
+  if (spruch) belegt.add("himmel-zug");
   // Jedes Fundstück hat in jedem Durchgang (30, 60 oder 120 Arbeitstage – gewöhnlich, besonders, selten) genau einen Tag,
   // an dem es dran ist; Stücke mit festem Datum (am) nur dann.
   const PERIODE = [0, 30, 60, 120];
@@ -78,7 +83,7 @@ function fundeZeigen(F, CSS, BELEGT, MIT) {
   D.funde = wahl.map(x => x.n).join(" ");
   if (wahl.some(x => pl(x).includes("wasser-r"))) intro.classList.add("fu-wasser-r");      // Platz für das Stück: Das Ausflugsschiff bleibt heute im Hafen
   window.BONI_FUNDE = { heute: wahl.map(x => x.n), alle: F.map(x => x.n) };
-  if (!wahl.length) return;
+  if (!wahl.length && !spruch) return;
   const stil = document.createElement("style"); stil.textContent = CSS + wahl.map(x => x.c).join("\n"); document.head.appendChild(stil);
   const NS = "http://www.w3.org/2000/svg", welt = intro.querySelector(".i-welt"), buehne = intro.querySelector(".intro-buehne"), titel = intro.querySelector(".i-titel");
   const ZIEL = { stadt: ".i-stadt svg", turm: ".i-stadt .bt", ufer: ".i-ufer svg", wasser: ".i-boden svg", huegel: ".i-huegel2 svg", ferne: ".i-huegel svg", fern: ".i-fern svg" };
@@ -100,6 +105,21 @@ function fundeZeigen(F, CSS, BELEGT, MIT) {
     else if (x.o === "unter") intro.querySelector(".i-unter").appendChild(d);
     else if (x.o === "titel") { titel.appendChild(d); amTitel.push([d, x.x || 0]); }
   });
+  if (spruch) {
+    const d = document.createElement("div"); d.className = "fu-w fu-spruchflieger"; d.setAttribute("aria-hidden", "true");
+    d.innerHTML = '<div class="fu-h fu-spruch" style="--l:50%;--lb:50%;--t:-58%;--tb:-26%;--fx:0vw"><div class="fu-sp-flug fu-weg"><svg viewBox="0 0 120 17"><g class="fu-sp-tuch"><path class="fu-sp-stoff"/><text x="7" y="10.2"></text></g><path class="fu-sp-seil"/><g class="fu-sp-fz">' + FLUGZEUG + "</g></svg></div></div>";
+    const text = d.querySelector("text"); text.textContent = spruch;
+    welt.insertBefore(d, welt.querySelector(".i-huegel"));
+    // Das Banner wird so lang wie der Text (nachmessen, sobald die Schrift geladen ist)
+    const messen = () => { let w = 0; try { w = text.getComputedTextLength(); } catch (e) { /* noch nicht sichtbar */ } if (!w) w = spruch.length * 3.1;
+      const W = Math.ceil(w + 13);
+      d.querySelector(".fu-sp-stoff").setAttribute("d", "M0 3.4Q" + W * .25 + " 2 " + W * .5 + " 3.4T" + W + " 3.4V13.2Q" + W * .75 + " 14.6 " + W * .5 + " 13.2T0 13.2L2.6 8.3Z");
+      d.querySelector(".fu-sp-seil").setAttribute("d", "M" + W + " 8.3H" + (W + 3));
+      d.querySelector(".fu-sp-fz").setAttribute("transform", "translate(" + (W - 74) + " 0)");
+      d.querySelector("svg").setAttribute("viewBox", "0 0 " + (W + 25) + " 17"); d.firstChild.style.setProperty("--n", W + 25); };
+    messen(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(messen);
+    D.spruch = spruch;
+  }
   // Am Titel: an einen Buchstaben heften (dazu = Nummer des Buchstabens, 0 = M … 15 = letztes t); Maße in em der Titelschrift
   const heften = () => { const fs = parseFloat(getComputedStyle(titel).fontSize), bs = titel.querySelectorAll("i");
     amTitel.forEach(([d, nr]) => { const b = bs[nr]; if (!b) return; d.style.setProperty("--tl", ((b.offsetLeft + b.offsetWidth / 2) / fs).toFixed(3) + "em"); d.style.setProperty("--tt", (b.offsetTop / fs).toFixed(3) + "em"); d.style.setProperty("--tb", (b.offsetWidth / fs).toFixed(3) + "em"); d.style.setProperty("--tw", (titel.offsetWidth / fs).toFixed(3) + "em"); }); };
@@ -140,11 +160,11 @@ addEventListener("load", () => { for (const a of document.getAnimations()) { a.p
     const tag = `${j}-${String(mo).padStart(2, "0")}-${String(d).padStart(2, "0")}`, ds = { tag, zeit: mo >= 3 && mo <= 5 ? "fruehling" : mo >= 6 && mo <= 8 ? "sommer" : mo >= 9 && mo <= 11 ? "herbst" : "winter", wetter, fest: "" };
     globalThis.window = {}; globalThis.location = { search: "" };
     globalThis.document = { getElementById: () => ({ dataset: ds, querySelector: () => null }), createElement: () => { throw 0; } };
-    try { fundeZeigen(daten, "", BELEGT, MIT); } catch { /* ohne Browser endet der Lauf nach der Auswahl */ }
+    try { fundeZeigen(daten, "", BELEGT, MIT, ""); } catch { /* ohne Browser endet der Lauf nach der Auswahl */ }
     console.log(tag, ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"][new Date(j, mo - 1, d).getDay()], ds.funde);
   }
 } else {
-  const js = `/* Mainzer Boniblatt – Fundstücke des Tages. Erzeugt von werkzeuge/intro-funde.mjs, nicht von Hand ändern. */\n(${fundeZeigen.toString()})(${JSON.stringify(daten)},${JSON.stringify(CSS_ALLE.trim())},${JSON.stringify(BELEGT)},${JSON.stringify(MIT)});\n`;
+  const js = `/* Mainzer Boniblatt – Fundstücke des Tages. Erzeugt von werkzeuge/intro-funde.mjs, nicht von Hand ändern. */\n(${fundeZeigen.toString()})(${JSON.stringify(daten)},${JSON.stringify(CSS_ALLE.trim())},${JSON.stringify(BELEGT)},${JSON.stringify(MIT)},${JSON.stringify(FLUGZEUG)});\n`;
   const ziel = nur ? `docs/_funde-${nur}.js` : "docs/intro-funde.js";
   writeFileSync(ziel + ".neu", js); renameSync(ziel + ".neu", ziel);
   console.log(`${ziel}: ${daten.length} Fundstücke, ${js.length} Zeichen`);
