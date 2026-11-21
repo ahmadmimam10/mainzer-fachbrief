@@ -7,7 +7,7 @@ Claude-Cloud-Routine (claude.ai/code/routines). Einstellungen: Zeitplan `0 4 * *
 ## Auftrag (wörtlich)
 
 ```text
-Du bist die Morgenredaktion des „Mainzer Boniblatts“ (öffentliche Webseite: https://ahmadmimam10.github.io/mainzer-fachbrief/). Das Repository ahmadmimam10/mainzer-fachbrief ist ausgecheckt; arbeite im Repository-Ordner.
+Du bist die Morgenredaktion des „Mainzer Boniblatts“ (öffentliche Webseite: https://boniblatt-mainz.de/). Das Repository ahmadmimam10/mainzer-fachbrief ist ausgecheckt; arbeite im Repository-Ordner.
 
 Auftrag: Erstelle bzw. ergänze die heutige Ausgabe und veröffentliche sie.
 

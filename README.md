@@ -2,12 +2,12 @@
 
 Der werktägliche Morgenüberblick für **Jugendhilfeplanung**, **Frühe Hilfen & Kinderschutz** und
 **Quartiersmanagement** in Mainz – als Zeitungsseite im Netz:
-**https://ahmadmimam10.github.io/mainzer-fachbrief/**
+**https://boniblatt-mainz.de/**
 
 Direktlinks je Ressort: `#jugendhilfeplanung`, `#fruehe-hilfen`, `#quartiersmanagement`
-(z. B. `https://ahmadmimam10.github.io/mainzer-fachbrief/#fruehe-hilfen`). Frühere Ausgaben über die Pfeile am Datum
+(z. B. `https://boniblatt-mainz.de/#fruehe-hilfen`). Frühere Ausgaben über die Pfeile am Datum
 unter der Suche (› älterer Tag, ‹ neuerer Tag), das Archiv-Symbol („Alle Ausgaben“) oder direkt per Adresse, z. B.
-`…/mainzer-fachbrief/?ausgabe=2026-11-19#jugendhilfeplanung`.
+`https://boniblatt-mainz.de/?ausgabe=2026-11-19#jugendhilfeplanung`.
 Die Ausgaben vom 13.–19.11.2026 sind nachträglich aus dem Make/Notion-Archiv zusammengestellt (Rückblick).
 
 Der Name kommt von den **Bonifaziustürmen** am Mainzer Hauptbahnhof; sie stehen auch im Stadtbild des Intros.

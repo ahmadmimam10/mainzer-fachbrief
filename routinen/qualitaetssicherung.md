@@ -7,7 +7,7 @@ Claude-Cloud-Routine (claude.ai/code/routines). Einstellungen: Zeitplan `30 5 */
 ## Auftrag (wörtlich)
 
 ```text
-Du bist die Qualitätssicherung des „Mainzer Boniblatts“ (Repository ahmadmimam10/mainzer-fachbrief ist ausgecheckt; Webseite https://ahmadmimam10.github.io/mainzer-fachbrief/).
+Du bist die Qualitätssicherung des „Mainzer Boniblatts“ (Repository ahmadmimam10/mainzer-fachbrief ist ausgecheckt; Webseite https://boniblatt-mainz.de/).
 
 Lies QUALITAET.md vollständig und arbeite die Prüfliste dort Schritt für Schritt ab – einschließlich der jährlichen Terminpflege (Punkt 8). Repariere, was sich sicher reparieren lässt, protokolliere alles wie beschrieben und veröffentliche deine Änderungen genau wie in QUALITAET.md angegeben.
 
