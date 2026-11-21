@@ -52,7 +52,10 @@
     ["wein", "ab 17 Uhr", "Weinstand am Rheinufer", "Mainz"], ["flohmarkt", "Samstag", "Flohmarkt am Fluss", "Frankfurt"], ["film", "21 Uhr", "Kurzfilmabend", "Ingelheim"]];
   const LOS_BILD = { fussball: "fussball", sport: "laufschuh", markt: "marktstand", flohmarkt: "flohmarkt", fest: "riesenrad", musik: "musik", party: "disko", kino: "film", theater: "theater", ausstellung: "ausstellung", neu: "luftballons", familie: "spielplatz", wein: "wein", essen: "brezel", fastnacht: "narrenkappe" };
   const losKachel = () => { const neu = E.daten.ausgaben[0] || {}, iso = n => new Date(mittag(heute).getTime() + n * 864e5).toLocaleDateString("sv-SE"), bis = iso(7);
-    const echt = (Array.isArray(neu.termine) ? neu.termine : []).filter(x => x.tag >= heute && x.tag <= bis).sort((x, y) => x.tag.localeCompare(y.tag));
+    // Fußball: nur FC Barcelona, Real Madrid, Spanien und Ägypten – und je Mannschaft nur das nächste Spiel
+    const MANNSCHAFTEN = [/Real Madrid/i, /Barcelona|Barça/i, /Spanien/i, /Ägypten/i], gezeigt = new Set();
+    const echt = (Array.isArray(neu.termine) ? neu.termine : []).filter(x => x.tag >= heute && x.tag <= bis).sort((x, y) => x.tag.localeCompare(y.tag)).filter(x => { if (x.art !== "fussball") return true;
+      const wer = MANNSCHAFTEN.map((m, i) => m.test(x.titel) ? i : -1).filter(i => i >= 0); if (!wer.length || wer.every(i => gezeigt.has(i))) return false; wer.forEach(i => gezeigt.add(i)); return true; });
     const liste = echt.length ? echt.map(x => [LOS_BILD[x.art] || "riesenrad", x.tag, x.wann, x.titel, x.ort, x.url]) : q.has("beispiele") ? BEISPIELE.map((x, i) => [x[0], iso(i), x[1], x[2], x[3]]) : null; if (!liste) return "";
     const tagWort = d => { const z = tageBis(d); return z === 0 ? "Heute" : z === 1 ? "Morgen" : mittag(d).toLocaleDateString("de-DE", { weekday: "short" }).replace(".", "") + " " + mittag(d).getDate() + "."; };
     return `<div class="k los" data-ein><div class="los-kopf"><h3>Was geht <i>ab?</i></h3><span class="etikett">Die nächsten 7 Tage · Fußball, Mainz &amp; Rhein-Main${echt.length ? "" : " · Beispiele"}</span></div>
@@ -66,7 +69,7 @@
   // ---- Gerüst ----
   const welle = `<svg viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V30C100 6 200 6 300 30S500 54 600 30S800 6 900 30S1100 54 1200 30V60Z"/></svg>`;
   wurzel.innerHTML = `<div class="bb-welle">${welle}${welle}</div><div class="bb-nieder" aria-hidden="true"></div><div class="bb-innen">
-    <header class="bb-oben">${motiv(ORTE[(tagNr + 9) % ORTE.length][0], "wz kopfwz")}<p class="bb-gruss">Guten <i>Morgen.</i><small class="bb-datum">${esc(E.datum({ weekday: "long", day: "numeric", month: "long" }))}</small></p><div class="bb-ausgaben"></div>
+    <header class="bb-oben">${motiv(ORTE[(tagNr + 9) % ORTE.length][0], "wz kopfwz")}<p class="bb-gruss">Guten <i>Morgen.</i></p><div class="bb-ausgaben"></div>
       <nav class="bb-reiter" aria-label="Bereiche"><i class="r-pille" aria-hidden="true"></i>${BEREICHE.map((b, i) => `<button type="button" data-r="${b.id}" aria-pressed="false" style="--nr:${i}">${motiv(b.motive[0])}<span>${esc(b.reiter)}</span></button>`).join("")}</nav></header>
     <section class="bb-raster" id="kacheln"></section>
     
@@ -229,14 +232,13 @@
   // ---- Ausgaben: kleine Karten neben dem Titel wie eine Hand Spielkarten – die gezeigte steht heraus; daneben Archiv und Suche ----
   const ausgabenZeigen = () => { const alle = E.daten.ausgaben, pos = alle.indexOf(E.ausgabe), aelter = pos >= 0 ? alle[pos + 1] : null, neuer = pos > 0 ? alle[pos - 1] : pos < 0 ? alle[0] : null;
     wurzel.querySelector(".bb-ausgaben").innerHTML = `<span class="au-nav"><button type="button" class="au-pfeil" data-d="${aelter ? aelter.datum : ""}" aria-label="Ältere Ausgabe" title="Ältere Ausgabe"${aelter ? "" : " disabled"}>←</button>
-      <span class="au-jetzt"><small>${pos === 0 ? "Aktuelle Ausgabe" : "Ausgabe vom"}</small><b>${esc(E.datum({ weekday: "short", day: "numeric", month: "long" }))}</b></span>
+      <span class="au-jetzt"><b>${esc(E.datum({ weekday: "long", day: "numeric", month: "long" }))}</b></span>
       <button type="button" class="au-pfeil" data-d="${neuer ? neuer.datum : ""}" aria-label="Neuere Ausgabe" title="Neuere Ausgabe"${neuer ? "" : " disabled"}>→</button></span>
       <button type="button" class="au-archiv"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>Archiv &amp; Suche</button>`; };
   async function ausgabeWechseln(datum, eigene) {
     if (laeuft || datum === E.ausgabe.datum) return; laeuft = true;
     E.setze(datum, eigene);
     const u = new URL(location.href); if (E.ausgabe === E.daten.ausgaben[0]) u.searchParams.delete("ausgabe"); else u.searchParams.set("ausgabe", E.ausgabe.datum); history.replaceState(null, "", u);
-    wurzel.querySelector(".bb-datum").textContent = E.datum({ weekday: "long", day: "numeric", month: "long" });
     ausgabenZeigen();
     if (!q.has("still")) { raster.classList.add("blatt"); await E.warte(240); }
     zeichne(aktiv); raster.classList.remove("blatt"); E.zeigen(raster); laeuft = false;

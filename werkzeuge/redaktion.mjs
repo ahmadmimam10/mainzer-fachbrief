@@ -104,7 +104,7 @@ async function vorbereiten() {
   const fl = await fliegerLage(ausgaben), namen = { sonne: "sonnig", bewoelkt: "bewölkt", regen: "Regen", schnee: "Schnee", fruehling: "Frühling", sommer: "Sommer", herbst: "Herbst", winter: "Winter" };
   md += `\n## Was geht ab? – Termine vom ${DATUM} bis ${dayOffset(DATUM, HEUTE_TAGE)} (Regeln: REDAKTION.md, Abschnitt „Was geht ab?“)\n`
     + `- Feld „termine“ der Ausgabe: 8–${HEUTE_MAX} belegte Termine der nächsten ${HEUTE_TAGE} Tage, jeder mit „tag“ (JJJJ-MM-TT).\n`
-    + `- Immer prüfen: alle Spiele von FC Barcelona, Real Madrid, Spanien, Ägypten (Nationalmannschaften), wichtige Champions-League-Spiele.\n`
+    + `- Fußball nur von FC Barcelona, Real Madrid, Spanien und Ägypten (Nationalmannschaften): deren Spiele der ${HEUTE_TAGE} Tage eintragen – die Seite zeigt je Mannschaft nur das nächste. Keine anderen Vereine.\n`
     + `- Dazu Rhein-Main (Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim): Feste, Märkte, Konzerte, Sport, Neueröffnungen – nichts Nischiges. Nur mit Quelle; sonst das Feld weglassen.\n`;
   md += `\n## Werbeflieger – Lage für heute (Regeln: REDAKTION.md, Abschnitt „Werbeflieger“)\n`
     + `- Heute: ${fl.wochentag}, ${namen[fl.zeit]}, Wetter in Mainz: ${namen[fl.wetter] || "unbekannt"}\n`

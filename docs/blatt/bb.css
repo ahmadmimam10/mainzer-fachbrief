@@ -577,3 +577,18 @@ body{background:#f6f4ef}
 @media (max-width:1180px){
   .bb-oben{grid-template-columns:minmax(0,1fr);grid-template-areas:"gruss" "ausgaben" "reiter"}.bb-ausgaben,.bb-reiter{justify-self:start}
 }
+
+/* ==== Ausgaben-Wahl dezent unter dem Gruß: Sie ersetzt die Datumszeile ==== */
+.bb-oben{grid-template-areas:"gruss reiter" "ausgaben reiter";gap:8px 28px}
+.bb-ausgaben{justify-self:start;gap:2px 6px;margin-left:-7px}
+.au-nav{gap:0;padding:0;background:transparent}
+.au-pfeil{width:30px;height:30px;font-size:15px;opacity:.5}
+.au-pfeil:hover:not(:disabled){opacity:1;background:color-mix(in srgb,var(--tinte) 9%,transparent);color:inherit}
+.au-pfeil:disabled{opacity:.18}
+.au-jetzt{min-width:0;padding:0 5px}
+.au-jetzt b{font:500 15px/1.3 "Bricolage Grotesque",var(--sans)}
+.au-archiv{margin-left:8px;padding:6px 11px 6px 8px;border-color:transparent;background:transparent;font-weight:500;font-size:14px;opacity:.6}
+.au-archiv:hover{opacity:1;background:color-mix(in srgb,var(--tinte) 9%,transparent);color:inherit;translate:none}
+.au-archiv svg{width:15px;height:15px}
+@media (max-width:1180px){.bb-oben{grid-template-areas:"gruss" "ausgaben" "reiter"}}
+@media (max-width:560px){.au-jetzt{min-width:0}.au-archiv{margin-left:2px;padding:6px 8px}}

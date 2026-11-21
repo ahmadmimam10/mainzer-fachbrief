@@ -313,16 +313,14 @@ ausdrücklich auch für Feierabend und Wochenende gedacht. Das Feld `termine` de
 Terminen, jeder mit seinem Tag. Die Seite zeigt daraus immer nur, was noch nicht vorbei ist. Gibt es nichts Belegtes,
 fehlt das Feld; die Kachel erscheint dann nicht.
 
-**Immer prüfen und aufnehmen, wenn in den 7 Tagen gespielt wird:**
-
-- alle Pflicht- und Länderspiele von **FC Barcelona**, **Real Madrid**, der **spanischen** und der **ägyptischen
-  Nationalmannschaft** (Männer),
-- **wichtige Spiele der Champions League**: K.-o.-Runde, Spitzenspiele der Ligaphase, Spiele deutscher Vereine.
-
-Anstoß immer in deutscher Zeit (Europe/Berlin); `ort` nennt den Wettbewerb.
+**Fußball – nur diese vier Mannschaften:** FC Barcelona, Real Madrid, die spanische und die ägyptische
+Nationalmannschaft (Männer). Ihre Pflicht- und Länderspiele der 7 Tage eintragen; die Seite zeigt je Mannschaft nur das
+nächste Spiel, damit es nicht zu viel wird. Keine anderen Vereine, auch nicht Mainz 05, und keine weiteren
+Champions-League-Spiele. Der Mannschaftsname muss im `titel` genau so stehen: „FC Barcelona“, „Real Madrid“, „Spanien“,
+„Ägypten“. Anstoß immer in deutscher Zeit (Europe/Berlin); `ort` nennt den Wettbewerb.
 
 **Dazu aus dem Rhein-Main-Gebiet** – Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim und Umgebung: Feste, Märkte,
-Konzerte, große Sportereignisse (z. B. Mainz 05), Kino- und Theaterabende mit breitem Publikum, Neueröffnungen, Angebote
+Konzerte, Kino- und Theaterabende mit breitem Publikum, Neueröffnungen, Angebote
 für Familien. Nichts Nischiges, keine abseitigen Kunst-Veranstaltungen, keine Werbung, keine Dauerangebote ohne Anlass.
 
 Nur Termine mit verlässlicher Quelle (Veranstalter, Stadt, Verein, Verband, seriöse Medien) – nichts erfinden und nichts
