@@ -9,4 +9,4 @@ workers_dev = true
 
 [[kv_namespaces]]
 binding = "LISTE"
-id = "HIER-DIE-KV-ID-EINTRAGEN"
+id = "bed9b94007244f5eb0134c2d2891c95b"

@@ -75,12 +75,15 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .zwei{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(24px,5vw,70px);align-items:center}
 /* Kapitelmarke wie ein Filmtitel: Ziffer als Umriss, füllt sich; Wort wischt herein; Linie zieht durch */
 .akt{display:flex;align-items:flex-end;gap:clamp(12px,2vw,28px);margin-bottom:clamp(18px,3vw,40px);opacity:1;translate:none}
-.akt b{font:300 italic clamp(120px,19vw,280px)/.74 "Fraunces",serif;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px var(--f1);translate:0 60px;opacity:0;transition:color 1.4s ease .5s,translate 1.2s cubic-bezier(.2,1,.3,1),opacity .6s}
+.akt b{flex:none;display:block;font:300 italic clamp(120px,19vw,280px)/.74 "Fraunces",serif;letter-spacing:-.06em;color:var(--f1);translate:0 60px;opacity:0;transition:translate 1.2s cubic-bezier(.2,1,.3,1),opacity .6s,background 1.2s}
+.akt b.maske{background:var(--f1);-webkit-mask:var(--m) 0 0/100% 100% no-repeat;mask:var(--m) 0 0/100% 100% no-repeat}
 .akt span{font:460 clamp(26px,3.6vw,52px)/1 "Fraunces",serif;letter-spacing:-.03em;padding-bottom:.18em;clip-path:inset(0 100% 0 0);transition:clip-path 1s cubic-bezier(.6,0,.2,1) .35s}
 .akt i{flex:1;height:2px;margin-bottom:clamp(14px,1.6vw,24px);background:currentColor;scale:0 1;transform-origin:0 50%;transition:scale 1.4s cubic-bezier(.6,0,.2,1) .6s}
-.akt.da b{color:var(--f1);translate:0 0;opacity:1}.akt.da span{clip-path:inset(0 0 0 0)}.akt.da i{scale:1 1}
-.dunkel{background:var(--tinte);color:#f6f1e6}.dunkel h2 i{color:var(--f2)}.dunkel .akt b{-webkit-text-stroke-color:var(--f2)}.dunkel .akt.da b{color:var(--f2)}
-.wuerdigung{margin-top:clamp(40px,6vw,70px);padding:20px 24px;border-left:5px solid var(--f2);border-radius:0 18px 18px 0;background:color-mix(in srgb,var(--f2) 14%,transparent);font-family:"Fraunces",serif;font-style:italic;font-size:clamp(20px,2.3vw,29px);line-height:1.3;max-width:30em!important}
+.akt.da b{translate:0 0;opacity:1}.akt.da span{clip-path:inset(0 0 0 0)}.akt.da i{scale:1 1}
+.dunkel{background:var(--tinte);color:#f6f1e6}.dunkel h2 i{color:var(--f2)}.dunkel .akt b{color:var(--f2)}.dunkel .akt b.maske{background:var(--f2)}
+.tuftel{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(14px,4vw,56px);align-items:center;margin-top:clamp(40px,6vw,70px);padding:clamp(24px,4vw,46px);border-radius:30px;background:var(--f2);transition:background 1.2s}
+.tuftel strong{font:460 clamp(36px,5.2vw,72px)/.92 "Fraunces",serif;letter-spacing:-.04em}.tuftel strong i{display:block;font-weight:320}
+.tuftel p{margin:0!important;max-width:28em!important;font-size:clamp(16px,1.6vw,20px);line-height:1.45}
 
 /* ---- Kapitel 1: der nachgebaute Newsletter ---- */
 .post{margin:0;justify-self:center;width:min(100%,400px);rotate:2deg}
@@ -101,12 +104,45 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .post-fuss{margin:16px 6px 0!important;text-align:center;font-size:10px;line-height:1.45;color:#77818c}
 .post figcaption{margin-top:14px;text-align:center;font:600 22px/1.1 "Caveat",cursive;color:var(--f1);rotate:-2deg}
 
-/* ---- Kapitel 1: ein Ablauf in sechs Schritten ---- */
-.fluss{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;counter-reset:s}
-.fluss li{position:relative;counter-increment:s;padding:16px 18px 20px;border-radius:26px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06)}
-.fluss li::before{content:counter(s);position:absolute;right:16px;bottom:2px;font:300 italic 84px/1 "Fraunces",serif;color:transparent;-webkit-text-stroke:1.2px color-mix(in srgb,var(--f1) 45%,transparent)}
-.fluss strong{display:block;margin-top:14px;font:460 25px/1.05 "Fraunces",serif;letter-spacing:-.03em}
-.fluss li>span{display:block;position:relative;margin-top:6px;max-width:19em;font-size:15px;line-height:1.4}
+/* ---- Kapitel 1: ein Ablauf wie in Make.com – Blasen in einer Kette, auf der Bühne darüber, was gerade passiert ---- */
+.szen{position:relative;margin-top:30px;border-radius:30px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06);overflow:hidden}
+.szen-zeit{position:absolute;left:0;top:0;z-index:2;height:4px;width:100%;background:var(--f1);transform-origin:0 50%;animation:sz-zeit 7s linear both}
+.szen.ruht .szen-zeit{animation-play-state:paused}
+@media (hover:hover){.szen:hover .szen-zeit{animation-play-state:paused}}
+@keyframes sz-zeit{from{scale:0 1}to{scale:1 1}}
+.szen-buehne{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(18px,3vw,44px);align-items:center;padding:clamp(20px,3vw,38px)}
+.szen-text>*{animation:sz-ein .55s ease both}.szen-text>:nth-child(2){animation-delay:.06s}.szen-text>:nth-child(3){animation-delay:.12s}
+.szen-text small{display:block;font-size:13.5px;font-weight:700;color:var(--f1)}
+.szen-text strong{display:block;margin:4px 0 10px;font:460 clamp(30px,3.8vw,54px)/1 "Fraunces",serif;letter-spacing:-.035em}
+.szen-text p{margin:0;max-width:22em;font-size:clamp(16px,1.5vw,19px);line-height:1.4}
+.szen-bild{min-width:0;min-height:272px}
+.sb{display:none}.sb.an{display:block;animation:sz-ein .55s ease both}
+@keyframes sz-ein{from{opacity:0;translate:0 16px}}
+.sb .bild{zoom:1.6}
+.szen-kette{display:flex;align-items:flex-start;padding:28px clamp(10px,2vw,30px) 24px;background:var(--hell);transition:background 1.2s;overflow-x:auto;scrollbar-width:none}
+.sk{position:relative;flex:1 0 104px;display:grid;justify-items:center;align-content:start;gap:10px;padding:0;border:0;background:none;color:inherit;font:600 13.5px/1.2 var(--sans);text-align:center;cursor:pointer}
+.sk i{position:relative;z-index:1;display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--k);color:#fff;font-style:normal;box-shadow:0 0 0 7px var(--hell),0 8px 16px -8px rgba(0,0,0,.45);transition:scale .5s var(--feder),box-shadow .6s,filter .6s}
+.sk svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.sk i b{font:460 23px/1 "Fraunces",serif;letter-spacing:-.03em}
+.sk::before{content:"";position:absolute;left:-50%;right:50%;top:28px;height:8px;background:radial-gradient(circle,color-mix(in srgb,var(--tinte) 26%,transparent) 2.6px,transparent 3.2px) 0 0/13px 8px repeat-x}
+.sk:first-child::before{display:none}
+.sk.war::before,.sk.an::before{background-image:radial-gradient(circle,var(--f1) 2.6px,transparent 3.2px)}
+.sk:not(.an):not(.war) i{filter:saturate(.3) opacity(.5)}
+.sk.an i{scale:1.16;box-shadow:0 0 0 5px var(--hell),0 0 0 8px var(--k),0 12px 22px -8px rgba(0,0,0,.5)}
+.sk.an span{font-weight:800}
+.sk.reist::after{content:"";position:absolute;z-index:2;top:25px;left:-50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--f1);box-shadow:0 0 0 4px color-mix(in srgb,var(--f1) 25%,transparent);animation:sz-reise .8s cubic-bezier(.5,0,.3,1) both}
+@keyframes sz-reise{from{left:-50%;opacity:1}85%{opacity:1}to{left:50%;opacity:0}}
+/* Schritt 7: Der Ablauf wird klein – und es gibt ihn rund vierzigmal */
+.vierzig{display:grid;grid-template-columns:minmax(0,1fr) 32%;gap:22px;align-items:center;min-height:272px;padding:22px;border-radius:26px;background:var(--hell);transition:background 1.2s}
+.minis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px 14px}
+.minis i{position:relative;height:11px;background:radial-gradient(circle at 7% 50%,var(--f3) 4.5px,#0000 5.1px),radial-gradient(circle at 24% 50%,var(--f2) 4.5px,#0000 5.1px),radial-gradient(circle at 41% 50%,var(--f1) 4.5px,#0000 5.1px),radial-gradient(circle at 58% 50%,#2b2926 4.5px,#0000 5.1px),radial-gradient(circle at 75% 50%,#4d6bfe 4.5px,#0000 5.1px),radial-gradient(circle at 92% 50%,#2b2926 4.5px,#0000 5.1px),linear-gradient(color-mix(in srgb,var(--tinte) 22%,transparent) 0 0) center/86% 1.5px no-repeat;animation:mini-ein .5s var(--feder) calc(var(--n) * 40ms) both}
+@keyframes mini-ein{from{scale:0;opacity:0}}
+.minis i::after{content:"";position:absolute;left:100%;top:1.5px;width:8px;height:8px;border-radius:50%;background:var(--f1);opacity:0;animation:mini-fluss 2.8s ease-in calc(1.8s + var(--n) * .37s) infinite}
+@keyframes mini-fluss{0%{translate:0 0;opacity:0}12%{opacity:1}70%{opacity:1}100%{translate:calc(60px + (4 - var(--s)) * 46px) 0;opacity:0}}
+.gt{display:grid;gap:6px}.gt small{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.65}
+.gt u{height:17px;border-radius:5px;background:#fff;animation:gt-neu 2.4s ease calc(1.8s + var(--n, 0) * .34s) infinite}.gt u:nth-of-type(1){background:color-mix(in srgb,var(--tinte) 80%,transparent);animation:none}
+.gt u:nth-of-type(3){--n:1}.gt u:nth-of-type(4){--n:4}.gt u:nth-of-type(5){--n:2}.gt u:nth-of-type(6){--n:5}.gt u:nth-of-type(7){--n:3}
+@keyframes gt-neu{0%,100%{background:#fff}18%{background:var(--f2)}}
 .bild{position:relative;height:170px;border-radius:16px;overflow:hidden;background:var(--hell);transition:background 1.2s}
 .fen{position:absolute;left:10%;right:10%;top:16%;bottom:-8%;border-radius:12px 12px 0 0;background:#fff;box-shadow:0 10px 24px -12px rgba(0,0,0,.35)}
 .fen p{display:flex;align-items:center;gap:5px;margin:0!important;padding:9px 11px;border-bottom:1px solid #eee}
@@ -170,8 +206,8 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .zahlen div{padding:18px 16px;border-radius:20px;background:rgba(255,255,255,.07)}
 .zahlen b{display:block;font:460 clamp(38px,5vw,66px)/.9 "Fraunces",serif;letter-spacing:-.04em;color:var(--f2)}.zahlen span{font-size:13.5px;opacity:.75}
 
-/* ---- Kapitel 3: ein Morgen in vier Schritten (16 Sekunden = eine Nacht bis zum Vormittag) ---- */
-.morgen{--dauer:16s;margin-top:34px}
+/* ---- Kapitel 3: ein Morgen in vier Schritten (30 Sekunden = eine Nacht bis zum Vormittag) ---- */
+.morgen{--dauer:30s;margin-top:34px}
 .himmel{position:relative;height:clamp(150px,20vw,230px);border-radius:30px 30px 0 0;overflow:hidden;background:#172038;animation:himmel var(--dauer) linear infinite}
 @keyframes himmel{0%,14%{background:#172038}32%{background:#4a3a66}46%{background:#e79a78}62%{background:#f6d9a8}80%,100%{background:#bfe0f2}}
 .himmel .sterne{position:absolute;inset:0;background:radial-gradient(1.5px 1.5px at 8% 30%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 19% 62%,#fff 50%,transparent),radial-gradient(2px 2px at 31% 18%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 44% 44%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 57% 22%,#fff 50%,transparent),radial-gradient(2px 2px at 68% 52%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 81% 28%,#fff 50%,transparent),radial-gradient(1.5px 1.5px at 92% 58%,#fff 50%,transparent);animation:sterne var(--dauer) linear infinite}
@@ -238,10 +274,10 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .links a{padding:10px 17px;border-radius:99px;background:rgba(255,255,255,.1);font-weight:600;font-size:14.5px;text-decoration:none;transition:background .3s,color .3s,translate .3s var(--feder)}
 .links a:hover{background:var(--f2);color:var(--tinte);translate:0 -3px}
 .klein{margin-top:26px!important;font-size:14px;opacity:.65;max-width:44em}
-@media (max-width:980px){.fluss{grid-template-columns:repeat(2,minmax(0,1fr))}.schritte{grid-template-columns:repeat(2,minmax(0,1fr))}.schritte li:nth-child(3){border-left:0}.schritte li:nth-child(n+3){border-top:1px solid rgba(0,0,0,.08)}}
-@media (max-width:860px){.zwei{grid-template-columns:minmax(0,1fr)}.zahlen{grid-template-columns:repeat(2,minmax(0,1fr))}.wer{grid-template-columns:minmax(0,1fr)}.wer .ring{width:170px}.wisch{display:block}.buehne{aspect-ratio:3/4}.post{rotate:1deg}}
-@media (max-width:560px){.notiz{font-size:23px;margin-left:2px}.notiz svg{width:34px}.fluss{grid-template-columns:minmax(0,1fr)}.schalter button{padding:9px 13px;font-size:14px}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt b{color:var(--f1)}.akt span,.notiz span{clip-path:none}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.haufen i{opacity:0}.haufen .blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
+@media (max-width:980px){.schritte{grid-template-columns:repeat(2,minmax(0,1fr))}.schritte li:nth-child(3){border-left:0}.schritte li:nth-child(n+3){border-top:1px solid rgba(0,0,0,.08)}}
+@media (max-width:860px){.szen-buehne{grid-template-columns:minmax(0,1fr)}.sb .bild{zoom:1.25}.szen-bild{min-height:213px}.vierzig{min-height:213px;padding:14px;gap:12px}.sk{flex:0 0 92px}.tuftel{grid-template-columns:minmax(0,1fr)}.zwei{grid-template-columns:minmax(0,1fr)}.zahlen{grid-template-columns:repeat(2,minmax(0,1fr))}.wer{grid-template-columns:minmax(0,1fr)}.wer .ring{width:170px}.wisch{display:block}.buehne{aspect-ratio:3/4}.post{rotate:1deg}}
+@media (max-width:560px){.notiz{font-size:23px;margin-left:2px}.notiz svg{width:34px}.schalter button{padding:9px 13px;font-size:14px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt span,.notiz span{clip-path:none}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.haufen i{opacity:0}.haufen .blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
 </style>
 </head>
 <body>
@@ -262,7 +298,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 <div class="streifen" aria-hidden="true"><div><span id="s1"></span></div><div><span id="s2"></span></div></div>
 
 <section class="kap" id="vorher"><div class="innen">
-  <div class="akt" data-ein><b>1</b><span>Vorher</span><i></i></div>
+  <div class="akt" data-ein><b aria-hidden="true">1</b><span>Vorher</span><i></i></div>
   <div class="zwei">
     <div>
       <h2 data-ein>Der JHP-Newsletter, <i>von Hand gebaut</i></h2>
@@ -277,31 +313,22 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   </div>
 
   <h3 data-ein>Ein Beispiel: <i>die Seite des ISM</i></h3>
-  <p data-ein>So lief es für eine einzige Quelle – hier das Institut für Sozialpädagogische Forschung Mainz.</p>
-  <ol class="fluss">
-    <li data-ein><div class="bild"><div class="fen"><p><i></i><i></i><i></i><b>ISM · Aktuelles</b></p><u style="--n:0"></u><u style="--n:1"></u><u style="--n:2"></u><u style="--n:3"></u><u style="--n:4"></u></div><em class="marke3">alle 3 Tage</em></div>
-      <strong>Seite öffnen</strong><span>Alle drei Tage ruft der Ablauf die Nachrichtenseite auf.</span></li>
-    <li data-ein style="--v:1"><div class="bild"><pre class="code tippt" aria-hidden="true"><span style="--n:0">&lt;html&gt;</span><span style="--n:1"> &lt;nav&gt; Start · Über uns · … &lt;/nav&gt;</span><span style="--n:2"> &lt;div class="aktuelles"&gt;</span><span style="--n:3">  &lt;article&gt; Beitrag 1 … &lt;/article&gt;</span><span style="--n:4">  &lt;article&gt; Beitrag 2 … &lt;/article&gt;</span><span style="--n:5">  &lt;article&gt; Beitrag 3 … &lt;/article&gt;</span><span style="--n:6"> &lt;/div&gt;</span><span style="--n:7"> &lt;footer&gt; Kontakt · … &lt;/footer&gt;</span><span style="--n:8">&lt;/html&gt;</span></pre></div>
-      <strong>Den Quelltext holen</strong><span>Nicht das Bild der Seite, sondern ihr Gerüst aus HTML – mit allem Drumherum.</span></li>
-    <li data-ein style="--v:2"><div class="bild"><pre class="code schnitt" aria-hidden="true"><span class="weg">&lt;html&gt;</span><span class="weg"> &lt;nav&gt; Start · Über uns · … &lt;/nav&gt;</span><span class="weg"> &lt;div class="aktuelles"&gt;</span><span class="bleibt">  &lt;article&gt; Beitrag 1 … &lt;/article&gt;</span><span class="bleibt">  &lt;article&gt; Beitrag 2 … &lt;/article&gt;</span><span class="bleibt">  &lt;article&gt; Beitrag 3 … &lt;/article&gt;</span><span class="weg"> &lt;/div&gt;</span><span class="weg"> &lt;footer&gt; Kontakt · … &lt;/footer&gt;</span><span class="weg">&lt;/html&gt;</span></pre><s class="schere a"></s><s class="schere b"></s></div>
-      <strong>Zuschneiden</strong><span>Vorher von Hand nachgesehen, wo die Beiträge stehen. Alles davor und danach fliegt raus.</span></li>
-    <li data-ein><div class="bild abgl" aria-hidden="true"><div><small>auf der Seite</small><i class="neu" style="--n:0">Beitrag 4</i><i class="alt" style="--n:1">Beitrag 3</i><i class="alt" style="--n:2">Beitrag 2</i></div><div><small>in der Tabelle</small><i>Beitrag 3</i><i>Beitrag 2</i><i>Beitrag 1</i></div></div>
-      <strong>Abgleichen</strong><span>Ein Blick in die Tabelle: Was steht vom ISM schon drin? Doppeltes bleibt draußen.</span></li>
-    <li data-ein style="--v:1"><div class="bild"><pre class="code tippt" aria-hidden="true"><span style="--n:0">{</span><span style="--n:1">  "titel":  "Beitrag 4 …",</span><span style="--n:2">  "link":   "https://…",</span><span style="--n:3">  "datum":  "15.10.2026",</span><span style="--n:4">  "quelle": "ISM"</span><span style="--n:5">}</span></pre></div>
-      <strong>DeepSeek ordnet</strong><span>Die KI macht aus dem HTML-Schnipsel saubere Angaben: Titel, Link, Datum.</span></li>
-    <li data-ein style="--v:2"><div class="bild" aria-hidden="true"><div class="tab"><div><u></u><u></u><u></u></div><div class="frisch"><u></u><u></u><u></u></div><div><u></u><u></u><u></u></div><div><u></u><u></u><u></u></div><div><u></u><u></u><u></u></div></div></div>
-      <strong>In die große Tabelle</strong><span>Nur das Neue wird eingetragen – in Notion, wo alle Quellen zusammenlaufen.</span></li>
-  </ol>
+  <p data-ein>So sah ein Ablauf in Make.com aus – Blase für Blase, hier für das Institut für Sozialpädagogische Forschung Mainz. Tipp auf eine Blase, um dort zu bleiben.</p>
+  <div class="szen" id="szen" data-ein>
+    <div class="szen-zeit"></div>
+    <div class="szen-buehne"><div class="szen-text" aria-live="polite"></div><div class="szen-bild"><div class="sb" data-s="0"><div class="bild"><div class="fen"><p><i></i><i></i><i></i><b>ISM · Aktuelles</b></p><u style="--n:0"></u><u style="--n:1"></u><u style="--n:2"></u><u style="--n:3"></u><u style="--n:4"></u></div><em class="marke3">alle 3 Tage</em></div></div><div class="sb" data-s="1"><div class="bild"><pre class="code tippt" aria-hidden="true"><span style="--n:0">&lt;html&gt;</span><span style="--n:1"> &lt;nav&gt; Start · Über uns · … &lt;/nav&gt;</span><span style="--n:2"> &lt;div class="aktuelles"&gt;</span><span style="--n:3">  &lt;article&gt; Beitrag 1 … &lt;/article&gt;</span><span style="--n:4">  &lt;article&gt; Beitrag 2 … &lt;/article&gt;</span><span style="--n:5">  &lt;article&gt; Beitrag 3 … &lt;/article&gt;</span><span style="--n:6"> &lt;/div&gt;</span><span style="--n:7"> &lt;footer&gt; Kontakt · … &lt;/footer&gt;</span><span style="--n:8">&lt;/html&gt;</span></pre></div></div><div class="sb" data-s="2"><div class="bild"><pre class="code schnitt" aria-hidden="true"><span class="weg">&lt;html&gt;</span><span class="weg"> &lt;nav&gt; Start · Über uns · … &lt;/nav&gt;</span><span class="weg"> &lt;div class="aktuelles"&gt;</span><span class="bleibt">  &lt;article&gt; Beitrag 1 … &lt;/article&gt;</span><span class="bleibt">  &lt;article&gt; Beitrag 2 … &lt;/article&gt;</span><span class="bleibt">  &lt;article&gt; Beitrag 3 … &lt;/article&gt;</span><span class="weg"> &lt;/div&gt;</span><span class="weg"> &lt;footer&gt; Kontakt · … &lt;/footer&gt;</span><span class="weg">&lt;/html&gt;</span></pre><s class="schere a"></s><s class="schere b"></s></div></div><div class="sb" data-s="3"><div class="bild abgl" aria-hidden="true"><div><small>auf der Seite</small><i class="neu" style="--n:0">Beitrag 4</i><i class="alt" style="--n:1">Beitrag 3</i><i class="alt" style="--n:2">Beitrag 2</i></div><div><small>in der Tabelle</small><i>Beitrag 3</i><i>Beitrag 2</i><i>Beitrag 1</i></div></div></div><div class="sb" data-s="4"><div class="bild"><pre class="code tippt" aria-hidden="true"><span style="--n:0">{</span><span style="--n:1">  "titel":  "Beitrag 4 …",</span><span style="--n:2">  "link":   "https://…",</span><span style="--n:3">  "datum":  "15.10.2026",</span><span style="--n:4">  "quelle": "ISM"</span><span style="--n:5">}</span></pre></div></div><div class="sb" data-s="5"><div class="bild" aria-hidden="true"><div class="tab"><div><u></u><u></u><u></u></div><div class="frisch"><u></u><u></u><u></u></div><div><u></u><u></u><u></u></div><div><u></u><u></u><u></u></div><div><u></u><u></u><u></u></div></div></div></div><div class="sb" data-s="6"><div class="vierzig" aria-hidden="true"><div class="minis" id="minis"></div><div class="gt"><small>Große Tabelle</small><u></u><u></u><u></u><u></u><u></u><u></u><u></u></div></div></div></div></div>
+    <div class="szen-kette" role="group" aria-label="Die Schritte des Ablaufs"><button type="button" class="sk" data-s="0" style="--k:var(--f3)" aria-pressed="false"><i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg></i><span>Seite abrufen</span></button><button type="button" class="sk" data-s="1" style="--k:var(--f2)" aria-pressed="false"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></svg></i><span>HTML holen</span></button><button type="button" class="sk" data-s="2" style="--k:var(--f1)" aria-pressed="false"><i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="7" r="2.6"/><circle cx="6" cy="17" r="2.6"/><path d="M8.2 8.4L20 17M8.2 15.6L20 7"/></svg></i><span>Zuschneiden</span></button><button type="button" class="sk" data-s="3" style="--k:#2b2926" aria-pressed="false"><i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4L21 21M8 9.3h5M8 11.9h5"/></svg></i><span>Abgleichen</span></button><button type="button" class="sk" data-s="4" style="--k:#4d6bfe" aria-pressed="false"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2zM19 15.5v5M16.5 18h5"/></svg></i><span>DeepSeek</span></button><button type="button" class="sk" data-s="5" style="--k:#2b2926" aria-pressed="false"><i><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M3.5 10h17M9.5 5v14"/></svg></i><span>Eintragen</span></button><button type="button" class="sk" data-s="6" style="--k:var(--f4)" aria-pressed="false"><i><b>×40</b></i><span>… und alle anderen</span></button></div>
+  </div>
 
   <h3 data-ein>… und das <i>rund vierzigmal</i></h3>
-  <p data-ein>Vom Bundestag über den Bundesrat bis zur Allgemeinen Zeitung: jede Quelle mit eigenem Ablauf, alle in dieselbe große Tabelle. Jeden Morgen wachte dann eine weitere Automation auf, las an die hundert neue Artikel, ließ DeepSeek die wichtigen herausfiltern – und Outlook verschickte den Newsletter.</p>
+  <p data-ein>Vom Bundestag über den Bundesrat bis zur Allgemeinen Zeitung: jede Quelle mit eigenem Ablauf, alle in dieselbe große Tabelle. Jeden Morgen wachte dann eine weitere Automation auf, sah in der Tabelle an die hundert neue Artikel durch, ließ DeepSeek entscheiden, was hineingehört, setzte die Auswahl in eine feste Mail-Vorlage – und Outlook verschickte den Newsletter.</p>
   <div class="plan-rahmen" data-ein><svg class="plan" id="plan" viewBox="0 0 1180 400" role="img" aria-label="Der ganze Weg: rund vierzig Quellen, je ein Ablauf in Make.com, eine große Tabelle in Notion, DeepSeek filtert, Outlook verschickt den Newsletter"></svg></div>
   <p class="wisch">← zur Seite wischen →</p>
-  <p class="wuerdigung" data-ein>Das war echte Tüftelarbeit: Dutzende Bausteine, Quelle für Quelle einzeln zusammengesteckt und am Laufen gehalten. Ohne diesen Newsletter gäbe es das Boniblatt nicht.</p>
+  <div class="tuftel" data-ein><strong>Echte <i>Tüftelarbeit.</i></strong><p>Dutzende Bausteine, Quelle für Quelle einzeln zusammengesteckt und am Laufen gehalten. Ohne den JHP-Newsletter gäbe es das Boniblatt nicht.</p></div>
 </div></section>
 
 <section class="kap dunkel" id="warum"><div class="innen">
-  <div class="akt" data-ein><b>2</b><span>Der Wechsel</span><i></i></div>
+  <div class="akt" data-ein><b aria-hidden="true">2</b><span>Der Wechsel</span><i></i></div>
   <div class="zwei">
     <div class="haufen" id="haufen"><div class="blatt"><img src="bilder/zeichen.svg" alt="" width="64" height="64"><b>Mainzer Boniblatt.</b><small>eine Seite statt vieler Abläufe</small></div></div>
     <div>
@@ -314,7 +341,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 </div></section>
 
 <section class="kap" id="tag"><div class="innen">
-  <div class="akt" data-ein><b>3</b><span>Heute</span><i></i></div>
+  <div class="akt" data-ein><b aria-hidden="true">3</b><span>Heute</span><i></i></div>
   <h2 data-ein>Ein Morgen, <i>vier Schritte</i></h2>
   <div class="morgen" data-ein style="--v:1">
     <div class="himmel" aria-hidden="true"><div class="sterne"></div><div class="sonne"></div>
@@ -329,7 +356,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 </div></section>
 
 <section class="kap farbig" id="schau"><div class="innen">
-  <div class="akt" data-ein><b>4</b><span>Das Startbild</span><i></i></div>
+  <div class="akt" data-ein><b aria-hidden="true">4</b><span>Das Startbild</span><i></i></div>
   <h2 data-ein>Jeden Tag <i>ein anderes Mainz</i></h2>
   <p data-ein style="--v:1">Wer das Boniblatt öffnet, sieht zuerst die Stadt am Rhein – und nie zweimal dieselbe. Das Bild richtet sich nach Jahreszeit und echtem Wetter, an jedem Werktag taucht irgendwo ein neues Fundstück auf, und an manchen Tagen passiert etwas Besonderes. Probier es aus:</p>
   <div class="schalter" data-ein style="--v:2" role="group" aria-label="Startbild umschalten">
@@ -342,7 +369,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 </div></section>
 
 <section class="kap" id="quellen"><div class="innen">
-  <div class="akt" data-ein><b>5</b><span>Die Quellen</span><i></i></div>
+  <div class="akt" data-ein><b aria-hidden="true">5</b><span>Die Quellen</span><i></i></div>
   <h2 data-ein>Woher die <i>Meldungen kommen</i></h2>
   <p id="quellen-stand" data-ein>Wird geladen …</p>
   <p class="legende" data-ein><span><i></i>beim letzten Abruf erreichbar</span><span><i class="rot"></i>zuletzt nicht erreichbar</span></p>
@@ -403,6 +430,37 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
     + ARTIKEL.map(a => `<div class="post-art" style="--k:${a[1]}"><b>● ${esc(a[0])}</b><p>${esc(a[2])}</p><div><u>Link</u><u>Weiterleiten</u></div></div>`).join("")
     + `<p class="post-fuss">Dieser Newsletter ist noch eine Betaversion.<br>Die aktuell eingepflegten Quellen im Newsletter: AGJ, akj stat, Allgemeine Zeitung, Blog Startchancenprogramm, Bildungsserver, Bundestag, Bundesverband der Erziehungshilfe, Deutscher Verein, Difu, Dijuf, IKJ, ISM, JAdigital, Jugendgerecht.de, Jugendhilfeportal, Kommune360, Kosmo, Landtag, Merkurist Mainz, Ministerien RLP, Ratsinformationssystem Mainz, Sensor Mainz, Sozial.de, SPIEGEL.<br><br>Liebe Grüße<br>AI 😎</p>`;
 
+  // Kapitel 1: ein Ablauf wie in Make.com. Der Zeitbalken oben läuft je Schritt einmal durch und schaltet dann weiter;
+  // er ruht, solange der Zeiger auf dem Ablauf steht oder der Ablauf nicht zu sehen ist. Ein Tipp auf eine Blase springt dorthin.
+  { const SCHRITTE = [["Seite abrufen", "Alle drei Tage ruft der Ablauf die Nachrichtenseite des ISM auf."], ["Quelltext holen", "Er nimmt nicht das Bild der Seite, sondern ihr HTML-Gerüst – mit allem Drumherum."],
+      ["Zuschneiden", "Vorher von Hand nachgesehen, wo die Beiträge stehen. Alles davor und danach fliegt raus."], ["Abgleichen", "Ein Blick in die große Tabelle: Was steht vom ISM schon drin? Doppeltes bleibt draußen."],
+      ["DeepSeek ordnet", "Die KI macht aus dem HTML-Schnipsel saubere Angaben: Titel, Link, Datum."], ["Eintragen", "Nur das Neue kommt in die große Tabelle in Notion, wo alle Quellen zusammenlaufen."],
+      ["Jetzt mal vierzig", "Für jede Quelle so ein Ablauf, jeder ein wenig anders gebaut. Alle füllen dieselbe Tabelle."]];
+    const sz = $("#szen"), blasen = [...sz.querySelectorAll(".sk")], bilder = [...sz.querySelectorAll(".sb")], text = sz.querySelector(".szen-text"), zeit = sz.querySelector(".szen-zeit"), kette = sz.querySelector(".szen-kette"); let jetzt = -1;
+    $("#minis").innerHTML = Array.from({ length: 40 }, (_, n) => `<i style="--n:${n};--s:${n % 5}"></i>`).join("");
+    const zeige = n => { const vor = jetzt; jetzt = (n + SCHRITTE.length) % SCHRITTE.length;
+      blasen.forEach((b, i) => { b.classList.toggle("an", i === jetzt); b.classList.toggle("war", i < jetzt); b.classList.toggle("reist", i === jetzt && vor === jetzt - 1); b.setAttribute("aria-pressed", i === jetzt); });
+      bilder.forEach((b, i) => b.classList.toggle("an", i === jetzt));
+      text.innerHTML = `<small>${jetzt < 6 ? `Schritt ${jetzt + 1} von 6` : "Und dann"}</small><strong>${SCHRITTE[jetzt][0]}</strong><p>${SCHRITTE[jetzt][1]}</p>`;
+      zeit.style.animation = "none"; void zeit.offsetWidth; zeit.style.animation = "";
+      if (kette.scrollWidth > kette.clientWidth + 4) kette.scrollTo({ left: blasen[jetzt].offsetLeft - kette.clientWidth / 2 + blasen[jetzt].offsetWidth / 2, behavior: "smooth" }); };
+    zeit.addEventListener("animationend", () => zeige(jetzt + 1));
+    kette.addEventListener("click", e => { const b = e.target.closest(".sk"); if (b) zeige(+b.dataset.s); });
+    new IntersectionObserver(es => sz.classList.toggle("ruht", !es[0].isIntersecting), { rootMargin: "-10% 0px" }).observe(sz); sz.classList.add("ruht");
+    zeige(0); }
+
+  // Kapitelziffern als Bildmaske: Sehr große Schrift zeichnet der Browser auf der Grafikkarte als Pfad – mit sichtbaren Treppchen.
+  // Eine in Software gezeichnete Fläche in voller Bildschirmauflösung bleibt glatt; die Farbe kommt weiter aus dem Farbthema.
+  { const marken = [...document.querySelectorAll(".akt b")]; marken.forEach(b => { b.dataset.z = b.textContent; });
+    const zeichnen = () => { const d = Math.min(3, devicePixelRatio || 1);
+      for (const b of marken) { b.classList.remove("maske"); b.textContent = b.dataset.z; b.style.cssText = ""; const gr = parseFloat(getComputedStyle(b).fontSize), schrift = `italic 300 ${gr}px Fraunces`;
+        const cv = document.createElement("canvas"); let cx = cv.getContext("2d", { willReadFrequently: true }); if (!cx) continue; cx.font = schrift; const m = cx.measureText(b.dataset.z);
+        const l = Math.ceil(m.actualBoundingBoxLeft) + 2, r = Math.ceil(m.actualBoundingBoxRight) + 2, o = Math.ceil(m.actualBoundingBoxAscent) + 2, u = Math.ceil(m.actualBoundingBoxDescent) + 2;
+        cv.width = Math.round((l + r) * d); cv.height = Math.round((o + u) * d); cx = cv.getContext("2d", { willReadFrequently: true }); cx.scale(d, d); cx.font = schrift; cx.fillText(b.dataset.z, l, o);
+        b.textContent = ""; b.style.width = l + r + "px"; b.style.height = o + u + "px"; b.style.marginBottom = -(u - 2) + "px"; b.style.setProperty("--m", `url(${cv.toDataURL()})`); b.classList.add("maske"); } };
+    let warten = 0; const neuZeichnen = () => { clearTimeout(warten); warten = setTimeout(zeichnen, 200); };
+    document.fonts.load('italic 300 100px Fraunces', "12345").then(zeichnen).catch(() => {}); addEventListener("resize", neuZeichnen); }
+
   // Kapitel 1: der ganze Weg als Plan – jede Quelle eine Leitung, auf der Pakete laufen
   { const namen = ["Bundestag", "Bundesrat", "Landtag", "Allgemeine Zeitung", "ISM", "DIJuF", "Deutscher Verein", "SPIEGEL", "… und rund 30 weitere"], kl = ["", " b", " c"]; let s = "";
     namen.forEach((n, i) => { const y = 22 + i * 44.5, z = 200 + (i - 4) * 9, d = `M190 ${y}C262 ${y} 250 ${z} 322 ${z}`;
@@ -411,7 +469,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
     const leitung = (x1, x2, art) => `<path class="weg dick" d="M${x1} 200H${x2}"/><path class="puls dick ${art}" pathLength="100" d="M${x1} 200H${x2}"/>`;
     s += leitung(492, 548, "viel") + leitung(738, 794, "viel b") + leitung(974, 1030, "wenig c")
       + kasten(322, 170, "AUTOMATION", "Make.com", "je Quelle ein Ablauf") + kasten(548, 190, "SAMMELSTELLE", "Große Tabelle", "Notion · alles an einem Ort")
-      + kasten(794, 180, "JEDEN MORGEN", "DeepSeek", "behält nur das Wichtige") + kasten(1030, 146, "VERSAND", "Outlook", "eine Mail an drei")
+      + kasten(794, 180, "JEDEN MORGEN", "DeepSeek", "wählt aus, was rausgeht") + kasten(1030, 146, "VERSAND", "Outlook", "feste Vorlage, Mail an drei")
       + `<path class="weg" d="M1103 140C1103 112 1112 96 1126 82"/><g class="brief"><rect x="1108" y="34" width="60" height="42" rx="7" fill="#fff" stroke="#1b1917" stroke-width="1.8"/><path d="M1108 39L1138 60L1168 39" fill="none" stroke="#1b1917" stroke-width="1.8"/></g>`;
     $("#plan").innerHTML = s; }
 
