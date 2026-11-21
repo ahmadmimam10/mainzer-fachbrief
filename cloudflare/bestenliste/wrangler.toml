@@ -1,0 +1,12 @@
+# Bestenliste für den Altpapier-Wurf. Einrichten (einmalig, im Ordner cloudflare/bestenliste):
+#   npx wrangler login
+#   npx wrangler kv namespace create LISTE     → die ausgegebene id unten eintragen
+#   npx wrangler deploy                        → Adresse in docs/blatt/spiel.js (LISTE_URL) eintragen
+name = "boniblatt-bestenliste"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "LISTE"
+id = "HIER-DIE-KV-ID-EINTRAGEN"

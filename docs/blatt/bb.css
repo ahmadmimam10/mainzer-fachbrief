@@ -616,3 +616,30 @@ body{background:#f6f4ef}
 .kopf-info:hover{background:#1f1c18;color:#f6f4ef;translate:0 -2px}
 .kopf-info svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:760px){.kopf-info{padding:8px;border-color:transparent}.kopf-info span{display:none}}
+
+/* ==== Altpapier-Wurf (nur am PC, unter der Fußleiste; Logik in blatt/spiel.js) ==== */
+.bb-spiel{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:14px 18px;margin-top:22px;min-height:200px;padding:22px 24px 24px;border-radius:30px;background:#fff;color:var(--tinte)}
+.sp-kopf{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+.sp-kopf strong{display:block;font:460 34px/1 "Fraunces",serif;letter-spacing:-.035em}.sp-kopf strong i,.sp-tafel b i{font-weight:320;color:var(--ra,#a8472b)}
+.sp-kopf span{font-size:14.5px;opacity:.72}
+.sp-stand{display:flex;align-items:center;gap:16px;white-space:nowrap}
+.sp-wind{font-size:14.5px;font-weight:600;opacity:1}.sp-wind b{font:460 23px/1 "Fraunces",serif}
+.sp-leben{display:flex;gap:5px}.sp-leben i{width:15px;height:15px;border-radius:50%;background:#fff;border:2px solid var(--tinte);transition:opacity .4s,scale .4s}.sp-leben i.weg{opacity:.18;scale:.7}
+.sp-punkte{min-width:56px;padding:5px 14px;border-radius:99px;background:var(--tinte);color:var(--hell);font:460 26px/1.1 "Fraunces",serif;text-align:center}
+.sp-feld{position:relative;border-radius:20px;overflow:hidden;background:#eee6d8}
+.sp-feld canvas{display:block;width:100%;height:430px;cursor:crosshair}
+.sp-tafel{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:12px;padding:20px;text-align:center;background:rgba(251,245,233,.8);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.sp-tafel[hidden]{display:none}
+.sp-tafel b{font:460 46px/1 "Fraunces",serif;letter-spacing:-.04em}
+.sp-tafel p{margin:0;max-width:27em}.sp-tafel p strong{font:460 32px/1 "Fraunces",serif}
+.sp-tafel button{padding:10px 22px;border:0;border-radius:99px;background:var(--tinte);color:var(--hell);font-family:inherit;font-weight:600;font-size:15px;cursor:pointer;transition:translate .3s cubic-bezier(.3,1.5,.5,1)}.sp-tafel button:hover{translate:0 -2px}
+.sp-form{display:flex;gap:6px}.sp-form input{width:170px;padding:9px 14px;border:2px solid var(--tinte);border-radius:99px;background:#fff;color:var(--tinte);font:inherit;font-size:15px}
+.sp-meld{min-height:1.2em;font-size:13.5px}
+.sp-liste{padding:16px 18px;border-radius:20px;background:var(--tinte);color:var(--hell)}
+.sp-liste strong{font:460 24px/1 "Fraunces",serif;letter-spacing:-.03em}
+.sp-liste ol{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:3px}
+.sp-liste li{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:6px;align-items:baseline;padding:5px 9px;border-radius:9px;font-size:14.5px}
+.sp-liste li span{opacity:.5;font-size:12.5px}.sp-liste li b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sp-liste li em{font:460 18px/1 "Fraunces",serif;font-style:normal}
+.sp-liste li:first-child{background:rgba(255,255,255,.1)}.sp-liste li.ich{background:var(--rb,#dba63f);color:var(--tinte)}
+.sp-liste p{margin:10px 0 0;font-size:13.5px;opacity:.7}
+.los-karte strong.eng{font-size:14.5px;letter-spacing:-.055em}   /* sehr lange Wörter (Sternschnuppenmarkt) kleiner statt mitten im Wort getrennt */

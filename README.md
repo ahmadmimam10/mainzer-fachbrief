@@ -41,6 +41,8 @@ die letzte Ausgabe.
 - `daten/` – Pool, bekannte Links, Ausgaben, Gremien-Notizen · `docs/` – die Webseite (`index.html`, `daten/*.json`, Schriften)
 - `docs/blatt/` – die Kachel-Ansicht der Hauptseite (`bb.js`, `bb.css`, `gemeinsam.js`, `schrift.css`; Motive in `docs/bilder/motive/`)
 - Fundstück-Kalender: 261 Fundstücke, an jedem Werktag 2027 genau eines (Jahresplan in `werkzeuge/intro-funde.mjs`, `KALENDERJAHR`); `docs/kalender.html` zeigt das Jahr und deckt jeden Tag auf, sobald er da ist
+- Altpapier-Wurf: Spiel unter der Fußleiste (nur am PC), `docs/blatt/spiel.js`, wird erst geladen, wenn der Fuß in Sicht kommt; die gemeinsame Bestenliste ist ein Cloudflare Worker mit KV-Speicher (`cloudflare/bestenliste/`, Adresse in `LISTE_URL` in spiel.js)
+- Werkstatt: `docs/ueber.html` erzählt, wie das Boniblatt entstanden ist (JHP-Newsletter mit Make.com, Notion, DeepSeek, Outlook) und zeigt das Startbild mit Umschaltern
 - `werkzeuge/intro-einbauen.mjs` – baut das Intro („Morgen über Mainz“) in `docs/index.html`; dazu
   `intro-feste.mjs` (besondere Tage, Ferien- und Festtermine), `intro-boni.mjs` (Bonifaziustürme mit Balkon),
   `intro-funde.mjs` mit `funde/*.mjs` (die Fundstücke des Tages → `docs/intro-funde.js`), `wetter.mjs` (Wetterlage

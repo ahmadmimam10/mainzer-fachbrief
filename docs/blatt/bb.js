@@ -59,7 +59,7 @@
     const liste = echt.length ? echt.map(x => [LOS_BILD[x.art] || "riesenrad", x.tag, x.wann, x.titel, x.ort, x.url]) : q.has("beispiele") ? BEISPIELE.map((x, i) => [x[0], iso(i), x[1], x[2], x[3]]) : null; if (!liste) return "";
     const tagWort = d => { const z = tageBis(d); return z === 0 ? "Heute" : z === 1 ? "Morgen" : mittag(d).toLocaleDateString("de-DE", { weekday: "short" }).replace(".", "") + " " + mittag(d).getDate() + "."; };
     return `<div class="k los" data-ein><div class="los-kopf"><h3>Was geht <i>ab?</i></h3><span class="etikett">Die nächsten 7 Tage · Fußball, Mainz &amp; Rhein-Main${echt.length ? "" : " · Beispiele"}</span></div>
-    <div class="los-reihe">${liste.map(([m, tag, wann, was, wo, url], i) => { const innen = `${motiv(m)}<b>${esc(tagWort(tag))}${wann ? " · " + esc(wann) : ""}</b><strong>${esc(was)}</strong><small>${esc(wo)}</small>`;
+    <div class="los-reihe">${liste.map(([m, tag, wann, was, wo, url], i) => { const innen = `${motiv(m)}<b>${esc(tagWort(tag))}${wann ? " · " + esc(wann) : ""}</b><strong${/\S{16,}/.test(was) ? ' class="eng"' : ""}>${esc(was)}</strong><small>${esc(wo)}</small>`;
       return /^https?:/.test(url || "") ? `<a class="los-karte f${i % 5}" href="${esc(url)}">${innen}</a>` : `<div class="los-karte f${i % 5}">${innen}</div>`; }).join("")}</div></div>`; };
 
   // ---- Bild des Tages: ein Mainzer Motiv, jeden Tag ein anderes ----
@@ -271,8 +271,12 @@
     if (!archiv) archiv = await fetch("daten/archiv.json").then(r => r.json()).catch(() => ({ felder: [], ausgaben: [], eintraege: [] }));
     archivSuchen();
   }
-  wurzel.querySelector(".bb-ausgaben").addEventListener("click", e => { const x = e.target.closest(".au-pfeil"); if (x) { if (x.dataset.d) ausgabeWechseln(x.dataset.d); return; } if (e.target.closest(".au-archiv")) archivOeffnen(); });
+  wurzel.querySelector(".bb-ausgaben").addEventListener("click", e => { const x = e.target.closest(".au-pfeil"); if (x) { if (x.dataset.d) ausgabeWechseln(x.dataset.d); return; } if (e.target.closest("button.au-archiv")) archivOeffnen(); });
+  addEventListener("pageshow", e => { if (e.persisted) document.querySelectorAll("dialog[open]").forEach(d => d.close()); });   // zurück aus dem Browser-Verlauf: kein Fenster offen lassen
   ausgabenZeigen();
+  // Altpapier-Wurf unter der Fußleiste – nur am PC; das Skript lädt erst, wenn der Fuß in Sicht kommt
+  if (matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches) { const sp = document.createElement("section"); sp.id = "spiel"; sp.className = "bb-spiel"; sp.setAttribute("aria-label", "Spiel: Altpapier-Wurf"); wurzel.querySelector(".bb-fuss").after(sp);
+    new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=13"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });
   const h = location.hash.slice(1);
   wechsel(BEREICHE.some(b => b.id === h) ? h : BEREICHE[0].id);
