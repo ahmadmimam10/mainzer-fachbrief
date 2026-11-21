@@ -129,6 +129,13 @@ export const CSS_ALLE = `
 .fu-zieh{animation:fu-zieh var(--d,60s) linear var(--v,0s) infinite}.fu-zieh>svg,.fu-weg>svg{animation:i-ein 1.2s ease 1.2s both}
 @keyframes fu-zieh{from{translate:var(--von) 0}to{translate:var(--bis) 0}}
 .fu-wasser-r .i-schiff{display:none}
+.fu-h.fu-spruch{--sp:clamp(2.1px,calc(var(--L) / 128),2.65px);width:calc(var(--n,120) * var(--sp))}
+.fu-sp-flug{animation:fu-sp-flug 44s linear 1.6s infinite both}
+@keyframes fu-sp-flug{0%{translate:calc(-50vw - 100% - 16px) 0}74%,100%{translate:calc(50vw + 16px) 0}}
+.fu-sp-stoff{fill:#fdfcf9;stroke:#b9b1a3;stroke-width:.2}.fu-sp-seil{fill:none;stroke:#7a6a58;stroke-width:.15}
+.fu-sp-tuch{transform-box:fill-box;transform-origin:100% 50%;animation:fu-sp-tuch 1.7s ease-in-out infinite alternate}
+.fu-sp-tuch text{font:700 5px var(--sans,sans-serif);letter-spacing:.12px;fill:#181716}
+@keyframes fu-sp-tuch{from{transform:skewY(-1.6deg)}to{transform:skewY(1.6deg)}}
 .fu-b{position:absolute;z-index:2;pointer-events:none;opacity:calc(1 - var(--p,0) * 3);animation:i-ein .8s ease 2.2s both}
 .fu-b>svg{display:block;width:100%;height:auto;overflow:visible}
 .i-titel{position:relative}

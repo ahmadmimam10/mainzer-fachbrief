@@ -30,6 +30,8 @@ geht und woher es stammt**. Lieber eine strenge, treffsichere Auswahl als eine l
    Zum Schluss je Ressort die **Hörfassung** (`ressorts.<id>.hoerfassung`) aus dessen ausgewählten Meldungen schreiben
    (Abschnitt „Hörfassung“ unten).
    Danach die **Gremien-Notizen** ergänzen und die Vorschau der nächsten Sitzung pflegen (Abschnitt „Gremien-Notizen“ unten).
+   Zuletzt entscheiden, ob heute der **Werbeflieger** fliegt, und gegebenenfalls den Spruch eintragen (Feld `flieger`,
+   Abschnitt „Werbeflieger“ unten).
 5. `node werkzeuge/redaktion.mjs veroeffentlichen` – als **einzelnen** Befehl ausführen, nichts davor oder
    dahinter verketten. Das Skript prüft die Ausgabe, baut die Seitendaten und committet und pusht **nur, wenn die
    Prüfung bestanden ist** (bei Bedarf mit `pull --rebase`; ist main gesperrt, auf `claude/ausgabe-JJJJ-MM-TT`,
@@ -251,6 +253,59 @@ Das frühere Feld `hoerfassung` auf oberster Ebene (ein Text für alle Ressorts)
   „Sozialgesetzbuch Acht“ statt „SGB VIII“. Gängige, buchstabiert gesprochene Kürzel wie EU, OECD oder SWR dürfen
   bleiben. Daten ohne Jahreszahl, wenn klar („am Samstag“, „im Januar“).
 
+## Werbeflieger – der Spruch des Tages
+
+Im Intro der Seite zieht an manchen Tagen ein kleines Flugzeug ein Banner über den Himmel. Ob es heute fliegt und was
+auf dem Banner steht, entscheidest du beim Schreiben der Ausgabe: Feld `flieger` ganz oben in der Ausgabe (neben
+`datum`). Kein Flug = Feld weglassen.
+
+**Wie oft:** etwa in jeder dritten Ausgabe. `arbeit/kandidaten.md` nennt ganz oben die Lage für heute (Wochentag,
+Jahreszeit, Wetter in Mainz, besondere Tage, letzte Flüge) und eine Empfehlung. Nie in zwei Ausgaben hintereinander –
+das lehnt die Prüfung ab. Fällt dir nichts wirklich Gutes ein, bleibt der Flieger am Boden: lieber einen Tag später
+als ein schwacher Spruch.
+
+**Der Spruch:** eine Zeile, höchstens 34 Zeichen (besser bis 28), trocken und leicht selbstironisch – der Humor von
+Leuten, die in Jugendamt, Sozialplanung und Quartiersarbeit arbeiten und über ihren eigenen Alltag schmunzeln.
+Woran er anknüpfen kann, in dieser Reihenfolge der Vorliebe:
+
+1. eine Meldung der heutigen Ausgabe (Gesetz, Förderprogramm, Statistik, Sitzung),
+2. das Fach allgemein: Jugendhilfe, Jugendhilfeplanung, Frühe Hilfen, Quartiersmanagement, Soziale Stadt bzw. Sozialer
+   Zusammenhalt (Abkürzungen, Fristen, Fallzahlen, Bedarfsplanung, Verfügungsfonds, Gremien, Fördermittelabruf),
+3. Wetter, Wochentag oder ein besonderer Tag (steht in der Lage).
+
+**Regeln**
+
+- Gelacht wird über Verwaltung, Fachsprache, Fristen, Geld, Sitzungen und das Wetter – **nie** über Kinder, Jugendliche,
+  Familien, Betroffene, einzelne Personen, Parteien oder Träger.
+- Nichts Zynisches zu Kinderschutzfällen, Gewalt, Armut oder Tod. Ist die Hauptmeldung des Tages schwer, fliegt er nicht.
+- Keine Behauptungen, die jemand für eine Nachricht halten könnte (keine erfundenen Zahlen, Beschlüsse oder Termine).
+- Keine Links, Hashtags oder Emojis; normale Groß- und Kleinschreibung. Abkürzungen des Fachs sind willkommen
+  (HzE, JHA, SGB VIII, KJSG, ISEK, QM, ASD).
+- Jeder Spruch nur einmal – die Prüfung vergleicht mit den früheren.
+
+**Beispiele** (nur zur Orientierung, nicht übernehmen)
+
+| Anlass | Spruch |
+|---|---|
+| Meldung: Gesetzentwurf | `KJSG-Reform incoming` |
+| Meldung: Kosten der Hilfen zur Erziehung | `Wie viel kostet HzE? Ja.` |
+| Meldung: Kita-Bedarfsplan | `Bedarfsplanung: Bedarf ja, Plan folgt` |
+| Meldung: Fachkräftemangel | `Fachkräfte gesucht. Überall.` |
+| Meldung: Förderprogramm läuft aus | `Fördermittel bis 31.12. abrufen!` |
+| Fach: Sitzungswoche | `JHA tagt. Kaffee steht bereit.` |
+| Fach: Statistik | `Sozialraumdaten: Es ist kompliziert` |
+| Fach: Quartiersarbeit | `Verfügungsfonds: Ist noch was da?` |
+| Fach: Programmname | `Soziale Stadt heißt jetzt anders` |
+| Fach: Beteiligung | `Beteiligung! Bitte alle mitmachen` |
+| Wetter: Regen | `Regen. Die Akten bleiben trocken.` |
+| Wetter: Sonne | `Sonne satt – Sitzung trotzdem` |
+| Wetter: Schnee | `Schnee! Hausbesuch mit Schlitten` |
+| Montag | `Montag. Kaffee ist Fachstandard.` |
+| Freitag | `Freitag ab eins … Sie wissen schon` |
+| Brückentag | `Brückentag: Wer ist eigentlich da?` |
+| Advent | `Noch drei Sitzungen bis Weihnachten` |
+| Fastnacht | `Helau! Auch im Jugendhilfeausschuss` |
+
 ## Gremien-Notizen (Ratsinformationssystem)
 
 `docs/daten/gremien.json` enthält die Sitzungen der Mainzer Gremien (letzte 14 Tage, nächste 60 Tage) mit
@@ -304,6 +359,7 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
 ```json
 {
   "datum": "2026-11-23",
+  "flieger": "Wie viel kostet HzE? Ja.",
   "ressorts": {
     "jugendhilfeplanung": { "meldungen": [
       { "id": "4b8006a55f", "stufe": "aufmacher", "thema": "Haushalt 2027", "icon": "haushalt",
@@ -319,4 +375,5 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
 }
 ```
 
+`flieger` ist freiwillig (etwa jede dritte Ausgabe, siehe „Werbeflieger“) – sonst die Zeile weglassen.
 Die Felder `gesichtet`, `erstellt`, Links, Quellen und Daten ergänzt `redaktion.mjs abschliessen` selbst.

@@ -201,17 +201,20 @@ const BLATT = "M0 0C1.4 -3.4 5.4 -4.4 9 -2.8C8.4 .8 5.6 3.6 1.8 3.4L-1.6 5L.2 2.
 const KACHELN = {
   regen1: regen(170, 680, 9, 2, 22, 1), regen2: regen(130, 520, 8, 9, 15, .75), regen3: regen(100, 400, 8, 14, 10, .55),
   schnee1: schnee(240, 480, 12, 4, 2.7), schnee2: schnee(170, 340, 14, 6, 1.7), schnee3: schnee(120, 240, 22, 8, .95, .3),
-  laub1: blaetter(280, 560, 7, 12, LAUB, BLATT), laub2: blaetter(210, 420, 5, 17, LAUB, BLATT, .8),
+  laub1: blaetter(280, 560, 4, 12, LAUB, BLATT), laub2: blaetter(210, 420, 2, 17, LAUB, BLATT, .8),
   bluete: blaetter(260, 520, 8, 23, ["#f6bfd0", "#fbdde6", "#f2a8bf"], BLUETE, 1.32),
 };
 
-// Vögel: Endlage im Himmel (in % der Logofläche), Startversatz (Richtung Dom) und Größe
+// Vögel: klein und dezent. Sie tauchen am Rand auf und fliegen vom Betrachter weg in die Sonne – das Ziel (l, t in % der
+// Logofläche) liegt auf der roten Fläche neben den Domtürmen; unterwegs werden sie kleiner und verschwinden.
+// x0/y0 = Startversatz in Logobreiten, d = Flugdauer, v = Vorlauf in Sekunden (negativ = schon unterwegs).
 const VOEGEL = [
-  { l: -24, t: 2, g: .13, x0: "150%", y0: "310%", fx: "-60vw", fy: "-30vh", v: 0 },
-  { l: 0, t: -16, g: .09, x0: "90%", y0: "420%", fx: "-34vw", fy: "-52vh", v: .12 },
-  { l: 94, t: -10, g: .15, x0: "-80%", y0: "330%", fx: "48vw", fy: "-44vh", v: .05 },
-  { l: 116, t: 14, g: .085, x0: "-190%", y0: "260%", fx: "64vw", fy: "-22vh", v: .2 },
-  { l: 76, t: -27, g: .065, x0: "-60%", y0: "520%", fx: "30vw", fy: "-60vh", v: .28 },
+  { l: 11, t: 40, g: .11, x0: -1.25, y0: -.42, d: 13, v: -2, fx: "-40vw", fy: "-24vh" },
+  { l: 84, t: 38, g: .095, x0: 1.2, y0: -.5, d: 15, v: -8, fx: "42vw", fy: "-30vh" },
+  { l: 20, t: 31, g: .085, x0: -.7, y0: -.78, d: 12, v: -5.5, fx: "-26vw", fy: "-44vh" },
+  { l: 78, t: 33, g: .105, x0: 1.45, y0: -.2, d: 16, v: -12.5, fx: "50vw", fy: "-18vh" },
+  { l: 38.5, t: 23, g: .075, x0: -.25, y0: -.95, d: 11, v: -9.5, fx: "-8vw", fy: "-50vh" },
+  { l: 7, t: 45, g: .09, x0: -1.5, y0: .05, d: 14, v: -.5, fx: "-50vw", fy: "-12vh" },
 ];
 
 const buchstaben = (wort, ab) => [...wort].map((b, i) => `<i style="--i:${ab + i}">${b}</i>`).join("");
@@ -252,15 +255,21 @@ const VARIANTEN = `.i-nieder{position:absolute;inset:0;z-index:1;overflow:hidden
 .intro:is([data-wetter="regen"],[data-wetter="schnee"]) .i-vogel{display:none}`;
 
 const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Aufruf der Ausgabe) */
-.intro{position:relative;z-index:0;height:200vh;height:200svh;margin-bottom:-100vh;margin-bottom:-100svh;color:#141414;--weich:cubic-bezier(.16,.84,.24,1);--fahrt:cubic-bezier(.45,.05,.2,1)}
+.intro{position:relative;z-index:0;display:grid;grid-template:100%/100%;height:200vh;height:200svh;margin-bottom:-100vh;margin-bottom:-100svh;color:#141414;--weich:cubic-bezier(.16,.84,.24,1);--fahrt:cubic-bezier(.45,.05,.2,1);--L:clamp(210px,56vw,340px)}
 .intro[hidden]{display:none}
+.intro-buehne,.i-traeger{grid-area:1/1;align-self:start;min-width:0}
+/* Das Logo liegt in einem eigenen Träger über der Bühne. Er klebt wie die Bühne oben am Fenster und ist genau so hoch,
+   dass ihn das Ende des Intros in dem Moment nach oben mitnimmt, in dem der Platz in der Kopfzeile das Logo erreicht:
+   Ab da läuft das Logo mit der Seite mit – das macht der Browser selbst, ohne Skript, also ohne Nachhinken. */
+.i-traeger{position:sticky;top:0;z-index:1;height:var(--hc,calc(100vh + 260px));overflow:hidden;pointer-events:none}
+.i-platz{position:absolute;left:var(--ll,calc(50% - var(--L) / 2));top:var(--lt,0px);width:var(--L);aspect-ratio:1}
 .intro ~ :not(script){position:relative;z-index:1}
-.intro-buehne{position:sticky;top:0;height:100vh;height:100svh;min-height:520px;overflow:hidden;background:#f6f4ef;--L:clamp(210px,56vw,340px)}
+.intro-buehne{position:sticky;top:0;height:100vh;height:100svh;min-height:520px;overflow:hidden;background:#f6f4ef}
 .i-mitte{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(8px,2vh,22px);padding:0 14px 5vh}
 .i-logo{position:relative;width:var(--L);aspect-ratio:1;perspective:900px;flex:none}
 .i-welt{position:absolute;inset:0;clip-path:inset(-200vh -200vw var(--unten,-200vh) -200vw)}
 .i-vorn{opacity:calc(var(--p,0) * 3.4)}
-.intro.gelandet .i-l{visibility:hidden}
+.i-welt .i-sonne{opacity:calc((.5 - var(--p,0)) * 12)}
 .i-kante{position:absolute;left:-200vw;right:-200vw;bottom:var(--unten,-200vh);height:110px;background:linear-gradient(rgba(246,244,239,0),#f6f4ef)}
 .i-himmel,.i-boden{position:absolute;left:50%;width:300vw;height:160vh;margin-left:-150vw}
 .i-himmel{bottom:39.45%;background:linear-gradient(to top,var(--h1,#fbe6d8) 0,var(--h2,#f9ede3) 16vh,var(--h3,#f1f2ef) 40vh,var(--h4,#e9f0f3) 78vh);opacity:calc(1 - var(--e,0))}
@@ -292,7 +301,7 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-mehr{display:none}
 .i-defs{position:absolute}
 .i-wolke svg{display:block;width:100%;height:auto;opacity:var(--wod,.92);animation:i-wolke 2.2s var(--weich) calc(.5s + var(--v)) both,i-zieh 46s ease-in-out calc(2.8s + var(--v) * 9) infinite alternate}
-.i-l{position:absolute;inset:0;transform-origin:0 0;transform:translate(var(--dx,0px),var(--dy,0px)) scale(var(--ds,1));will-change:transform}
+.i-l{position:absolute;inset:0;transform-origin:0 0;transform:translate(var(--dx,0px),var(--dy,0px)) scale(var(--ds,1))}
 .i-l svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .i-sonne svg,.i-dom svg{transform-origin:50% 60.55%;--z:2.15;animation:i-zoom 2.5s var(--fahrt) both}
 .i-dom svg{fill:#181716;transform-origin:50% 63%;animation:i-zoom 2.5s var(--fahrt) both,i-dom 1.15s cubic-bezier(.3,.9,.3,1) .22s both}
@@ -317,9 +326,9 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-flocken{display:none;position:absolute;left:50%;bottom:39.45%;width:140vw;margin-left:-70vw;height:calc(78vh + 240px);background-image:${KACHELN.schnee3};background-size:120px 240px;animation:i-flocken 13s linear infinite;will-change:transform}
 .w-ringe,.w-laub,.i-boden .w-eis{display:none}.w-ring{fill:none;stroke:#fff;stroke-width:.3;transform-box:fill-box;transform-origin:50% 50%;animation:i-ring 3.6s ease-out infinite}
 .i-boden .w-eis{fill:#fdfdfd;stroke:#b9c7d2;stroke-width:.14}
-.i-vogel{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * var(--fy));scale:calc(1 + var(--e,0) * 6);opacity:calc(var(--o,1) - var(--p,0) * 1.7)}
-.i-vogel svg{display:block;width:100%;height:auto;overflow:visible;animation:i-flug 1.7s cubic-bezier(.3,.6,.3,1) calc(1.2s + var(--v)) both,i-schweben 7s ease-in-out calc(2.9s + var(--v) * 6) infinite alternate}
-.i-vogel path{fill:#3d3934;transform-box:fill-box;transform-origin:50% 62%;animation:i-schlag .62s ease-in-out calc(var(--v) * -2s) infinite alternate}
+.i-vogel{position:absolute;width:calc(var(--L) * var(--g));translate:calc(var(--e,0) * var(--fx)) calc(var(--e,0) * var(--fy));scale:calc(1 + var(--e,0) * 3);opacity:calc(.72 - var(--p,0) * 1.7);animation:i-ein 1.2s ease 1.3s both}
+.i-vogel svg{display:block;width:100%;height:auto;overflow:visible;animation:i-flug var(--d) cubic-bezier(.3,.25,.55,1) var(--v) infinite}
+.i-vogel path{fill:#4a443e;transform-box:fill-box;transform-origin:50% 62%;animation:i-schlag .62s ease-in-out calc(var(--v) * .37) infinite alternate}
 .i-titelplatz{position:relative;z-index:2;flex:none}
 .i-titel{margin:0;font:760 clamp(46px,13.6vw,100px)/1 var(--serif);letter-spacing:-.025em;text-align:center;
   transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--ts,1));opacity:var(--to,1);will-change:transform,opacity}
@@ -357,8 +366,7 @@ ${FEST_CSS}
 @keyframes i-dom{from{transform:perspective(520px) rotateX(-90deg)}55%{transform:perspective(520px) rotateX(10deg)}78%{transform:perspective(520px) rotateX(-4deg)}to{transform:perspective(520px) rotateX(0)}}
 @keyframes i-blatt-l{from{transform:perspective(900px) translate3d(-175%,120%,0) rotateY(78deg) rotateZ(-34deg) scale(5.2);opacity:0}18%{opacity:1}to{transform:perspective(900px)}}
 @keyframes i-blatt-r{from{transform:perspective(900px) translate3d(175%,120%,0) rotateY(-78deg) rotateZ(34deg) scale(5.2);opacity:0}18%{opacity:1}to{transform:perspective(900px)}}
-@keyframes i-flug{from{transform:translate(var(--x0),var(--y0)) scale(.15);opacity:0}22%{opacity:1}}
-@keyframes i-schweben{to{transform:translate(18%,-30%)}}
+@keyframes i-flug{0%{transform:translate(calc(var(--L) * var(--x0)),calc(var(--L) * var(--y0))) scale(1);opacity:0}7%{opacity:1}86%{opacity:1}100%{transform:translate(0,0) scale(.3);opacity:0}}
 @keyframes i-schlag{from{transform:scaleY(1.08)}to{transform:scaleY(.42)}}
 @keyframes i-buchstabe{from{transform:translateY(118%) rotate(7deg)}}
 @keyframes i-punkt{from{transform:scale(0)}}
@@ -398,11 +406,7 @@ const html = `<!-- INTRO-START -->
       <div class="i-boden"><svg viewBox="0 0 ${B} 50"><path class="w-ufer" d="M0 0H${B}V1.3H0Z"/><path class="w-ufer2" d="M0 1.3H${B}V3.4H0Z"/><path d="${WASSER.blau}"/><path class="w-hell" d="${WASSER.weiss}"/>${WASSERDINGE}${SCHIFF}${FEST_WASSER}</svg></div>
       <div class="i-kante"></div>
       </div>
-      <div class="i-l i-sonne i-vorn"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont2"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont2)"><path d="M5.5 77.5a58.5 58.5 0 0 1 117 0Z"/></g></svg></div>
-      <div class="i-l i-dom"><svg viewBox="0 0 128 128"><g>${DOM}</g></svg></div>
-      <div class="i-l i-zl"><svg viewBox="0 0 128 128">${LINKS}</svg></div>
-      <div class="i-l i-zr"><svg viewBox="0 0 128 128">${RECHTS}</svg></div>
-      ${VOEGEL.map(v => `<div class="i-vogel" style="left:${v.l}%;top:${v.t}%;--g:${v.g};--x0:${v.x0};--y0:${v.y0};--fx:${v.fx};--fy:${v.fy};--v:${v.v}s;--o:${(.5 + v.g * 3.4).toFixed(2)}"><svg viewBox="0 0 32 13"><path d="M16 6.2C14.6 4.2 12.4 2.6 9.8 2.4C6.6 2.2 3.6 3.4 1 5.6C4 4.6 6.8 4.3 9.4 4.9C11.8 5.5 13.6 7 14.8 9.2L16 11.6L17.2 9.2C18.4 7 20.2 5.5 22.6 4.9C25.2 4.3 28 4.6 31 5.6C28.4 3.4 25.4 2.2 22.2 2.4C19.6 2.6 17.4 4.2 16 6.2ZM14.5 6.9a1.5 1.6 0 1 0 3 0a1.5 1.6 0 1 0-3 0Z"/></svg></div>`).join("\n      ")}
+      ${VOEGEL.map(v => `<div class="i-vogel" style="left:${v.l}%;top:${v.t}%;--g:${v.g};--x0:${v.x0};--y0:${v.y0};--d:${v.d}s;--v:${v.v}s;--fx:${v.fx};--fy:${v.fy}"><svg viewBox="0 0 32 13"><path d="M16 6.6C14.4 4.2 11.8 2.7 9 2.7C6 2.7 3.2 4 1 6.2C3.6 4.9 6.4 4.5 9 5C11.8 5.6 14.2 7.2 16 9.6C17.8 7.2 20.2 5.6 23 5C25.6 4.5 28.4 4.9 31 6.2C28.8 4 26 2.7 23 2.7C20.2 2.7 17.6 4.2 16 6.6Z"/></svg></div>`).join("\n      ")}
     </div>
     <div class="i-titelplatz"><h1 class="i-titel"><span class="i-w">${buchstaben("Mainzer", 0)}</span> <br><span class="i-w">${buchstaben("Boniblatt", 7)}</span><b>.</b></h1></div>
     <p class="i-unter"><span>Deine tagesaktuelle Fachzeitung aus Mainz</span></p>
@@ -411,8 +415,15 @@ const html = `<!-- INTRO-START -->
   <div class="i-nieder" aria-hidden="true"><div class="i-wieg"><div class="n n1"></div><div class="n n2"></div><div class="n n5"></div><div class="n n3"></div><div class="n n4"></div></div></div>
   <button type="button" class="i-weiter">Zur Ausgabe<i aria-hidden="true">↓</i></button>
  </div>
+ <div class="i-traeger" aria-hidden="true"><div class="i-platz">
+      <div class="i-l i-sonne i-vorn"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont2"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont2)"><path d="M5.5 77.5a58.5 58.5 0 0 1 117 0Z"/></g></svg></div>
+      <div class="i-l i-dom"><svg viewBox="0 0 128 128"><g>${DOM}</g></svg></div>
+      <div class="i-l i-zl"><svg viewBox="0 0 128 128">${LINKS}</svg></div>
+      <div class="i-l i-zr"><svg viewBox="0 0 128 128">${RECHTS}</svg></div>
+ </div></div>
 </section>
 <script src="daten/wetter.js"></script>
+<script src="daten/flieger.js"></script>
 <script>
 /* Intro bei jedem Aufruf der Ausgabe (auch mit Ressort-Lesezeichen), nur hell und nicht nach der Rückkehr von ueber.html; ?intro erzwingt es. ?zeit=1.5 / ?p=0.5 = Standbilder für Entwürfe. */
 (() => {
@@ -448,29 +459,36 @@ const html = `<!-- INTRO-START -->
   (${boniSzene.toString()})(intro, q);
   // Fundstücke des Tages (werkzeuge/intro-funde.mjs): werden nachgeladen und suchen sich ihren Platz selbst.
   // ?fund=name,name zeigt bestimmte, ?fund=aus keine; ?fq=ufer lädt einen Entwurf (docs/_funde-ufer.js).
+  // Dieselbe Datei zeichnet auch den Werbeflieger mit dem Spruch des Tages (daten/flieger.js); ?spruch=Text zeigt einen beliebigen.
   const fq = /^[a-z-]+$/.test(q.get("fq") || "") ? q.get("fq") : "", fundSkript = document.createElement("script");
   fundSkript.src = fq ? "_funde-" + fq + ".js?" + Date.now() : "intro-funde.js?v=${FUNDE_V}";
   // Für Standbilder (?zeit, ?p) wird die Datei sofort mitgeladen, damit das Bild verlässlich alles enthält.
-  if (q.get("fund") === "aus") ; else if (q.has("zeit") || q.has("p")) document.write('<script src="' + fundSkript.src + '"><' + '/script>'); else document.head.appendChild(fundSkript);
+  if (q.get("fund") === "aus" && !q.has("spruch") && !(window.BONIBLATT_FLIEGER || {})[heute]) ; else if (q.has("zeit") || q.has("p")) document.write('<script src="' + fundSkript.src + '"><' + '/script>'); else document.head.appendChild(fundSkript);
   intro.hidden = false;
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo");
   let bild;
   const s = intro.style, grenze = x => Math.min(1, Math.max(0, x)), sanft = x => x * x * (3 - 2 * x);
+  // Platz des Logos im Träger = Platz der Logofläche auf der Bühne (hängt von Fensterhöhe und Titelschrift ab)
+  const platz = () => { const a = logo.getBoundingClientRect(), b = buehne.getBoundingClientRect(); s.setProperty("--lt", (a.top - b.top).toFixed(1) + "px"); s.setProperty("--ll", (a.left - b.left).toFixed(1) + "px"); return [a, b]; };
   const strecke = () => intro.offsetHeight - buehne.offsetHeight;
   let offen = false;
   const rechne = () => {
-    offen = false; bild = bild || document.querySelector("#kopf .marke img.logo-hell"); if (!bild || !intro.isConnected) return;
+    offen = false; if (!intro.isConnected) return;
+    if (!fertig) platz();
+    bild = bild || document.querySelector("#kopf .marke img.logo-hell"); if (!bild) return;
     if (fertig) { if (scrollY < strecke()) scrollTo(0, strecke()); return; }      // angekommen: kein Zurück ins Intro
     const p = grenze(scrollY / strecke()), e = sanft(p);
     s.setProperty("--p", p.toFixed(4)); s.setProperty("--e", e.toFixed(4));
     // Platz des Bildzeichens in der Kopfzeile: das linke Quadrat des Logo-Bilds
     const a = logo.getBoundingClientRect(), z = bild.getBoundingClientRect(), zx = z.left + z.height / 2, zy = z.top + z.height / 2;
-    // Das Logo bleibt auf seiner Höhe stehen (die Bühne ist angeheftet, es kann also nicht ruckeln) und wird stetig
-    // kleiner, je näher die Kopfzeile von unten kommt: Genau bei ihrer Ankunft hat es seine Endgröße und steht über
-    // seinem Platz. Ab dann zeigt die Kopfzeile ihr eigenes Bildzeichen – das scrollt mit der Seite und sitzt fest.
-    const ax = a.left + a.width / 2, ay = a.top + a.height / 2;
-    const t = grenze(1 - (zy - ay) / Math.max(1, zy + scrollY - ay)), gelandet = zy <= ay;
+    // Das Logo bleibt auf seiner Höhe stehen (der Träger ist angeheftet) und wird stetig kleiner, je näher die Kopfzeile
+    // von unten kommt: Genau bei ihrer Ankunft hat es seine Endgröße und steht über seinem Platz. Von da an schiebt das
+    // Ende des Intros den Träger mit der Seite nach oben – dafür ist er genau so hoch (--hc), dass sein unterer Rand
+    // das Intro-Ende in diesem Moment trifft. Das Bildzeichen der Kopfzeile bleibt verdeckt, bis das Intro entfernt ist.
+    const ax = a.left + a.width / 2, ay = a.top + a.height / 2, bt = buehne.getBoundingClientRect().top;
+    s.setProperty("--hc", (intro.getBoundingClientRect().bottom - zy + ay - bt).toFixed(1) + "px");
+    const t = grenze(1 - (zy - ay) / Math.max(1, zy + scrollY - ay));
     const ds = 1 + (z.height / a.width - 1) * sanft(t), g = a.width * ds, mx = ax + (zx - ax) * sanft(grenze(t / .85));
     s.setProperty("--dx", (mx - g / 2 - a.left).toFixed(1) + "px");
     s.setProperty("--dy", (ay - g / 2 - a.top).toFixed(1) + "px");
@@ -478,9 +496,8 @@ const html = `<!-- INTRO-START -->
     s.setProperty("--ts", (1 - e * .14).toFixed(4));
     s.setProperty("--to", (1 - grenze((p - .02) / .2)).toFixed(3));
     s.setProperty("--unten", (a.bottom - (strecke() - scrollY)).toFixed(1) + "px");
-    intro.classList.toggle("gelandet", gelandet);
-    bild.style.clipPath = gelandet ? "" : "inset(0 0 0 14.2%)";
-    bild.style.opacity = gelandet ? "" : grenze((t - .3) / .45).toFixed(3);
+    bild.style.clipPath = "inset(0 0 0 14.2%)";
+    bild.style.opacity = grenze((t - .3) / .45).toFixed(3);
     buehne.style.visibility = p >= 1 ? "hidden" : "";
     if (p >= 1) { fertig = true; clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }
   };
@@ -510,7 +527,10 @@ const html = `<!-- INTRO-START -->
     const schritt = jetzt => { const x = grenze((jetzt - t0) / dauer); scrollTo(0, von + (bis - von) * (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2)); if (x < 1) requestAnimationFrame(schritt); };
     requestAnimationFrame(schritt);
   });
-  rechne(); addEventListener("DOMContentLoaded", rechne);
+  rechne(); addEventListener("DOMContentLoaded", rechne); addEventListener("load", rechne);
+  // Lädt die Titelschrift nach, verschiebt sich die Logofläche auf der Bühne um ein paar Pixel – der Träger zieht sofort nach.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(rechne);
+  if (window.ResizeObserver) { const ro = new ResizeObserver(() => { if (intro.isConnected && !fertig) platz(); }); intro.querySelectorAll(".i-mitte > *, .intro-buehne").forEach(e => ro.observe(e)); }
   // Standbilder für Entwürfe
   if (q.has("zeit") || q.has("p")) addEventListener("load", () => {
     if (q.has("p")) { intro.classList.add("fertig"); scrollTo(0, strecke() * parseFloat(q.get("p"))); rechne(); return; }

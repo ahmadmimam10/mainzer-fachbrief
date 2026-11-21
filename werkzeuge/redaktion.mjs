@@ -12,9 +12,10 @@
  */
 import { readdir } from "node:fs/promises";
 import path from "node:path";
-import { writeFile, mkdir } from "node:fs/promises";
+import { writeFile, mkdir, readFile } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import { ROOT, berlinDay, dayOffset, readJson, writeJson, cut } from "./lib.mjs";
+import { FERIEN, TERMINE, festeFuer } from "./intro-feste.mjs";
 
 const [befehl = "", ...rest] = process.argv.slice(2);
 const DATUM = (rest.find(a => a.startsWith("--datum=")) || "").slice(8) || berlinDay();
@@ -38,6 +39,26 @@ const HOER_MAX = 2800;
 const HOER_ALT_MIN = 1500;     // früheres Feld „hoerfassung“ oben (ein Text für alle Ressorts) – nur noch für alte Ausgaben
 const HOER_ALT_MAX = 6000;
 const LINK = /https?:\/\/|www\./i;
+// Werbeflieger im Intro: Spruch des Tages (Feld „flieger“ der Ausgabe, Regeln in REDAKTION.md)
+const FLIEGER_MIN = 4, FLIEGER_MAX = 34;   // Zeichen – das Banner muss auch auf dem Handy lesbar bleiben
+const FLIEGER_TAGE = 30;                   // so viele Tage stehen die Sprüche in docs/daten/flieger.js
+const fliegerText = a => typeof a?.flieger === "string" ? a.flieger.replace(/\s+/g, " ").trim() : "";
+
+/** Lage für den Werbeflieger: Wetter, besondere Tage, letzte Flüge und ob er heute dran ist. */
+async function fliegerLage(ausgaben) {
+  const [j, m, d] = DATUM.split("-").map(Number), tag = new Date(j, m - 1, d);
+  const zeit = m >= 3 && m <= 5 ? "fruehling" : m >= 6 && m <= 8 ? "sommer" : m >= 9 && m <= 11 ? "herbst" : "winter";
+  let wetter = "";
+  try { wetter = JSON.parse((await readFile(path.join(ROOT, "docs/daten/wetter.js"), "utf8")).match(/=(\{.*\});/)[1])[DATUM] || ""; } catch { /* ohne Wetterdatei */ }
+  const anlaesse = festeFuer(tag, zeit, wetter || "sonne", 1, FERIEN, TERMINE).anlaesse;
+  const frueher = ausgaben.filter(a => a.datum < DATUM && !a.nachtraeglich).sort((a, b) => b.datum.localeCompare(a.datum));
+  const fluege = frueher.filter(a => fliegerText(a)).map(a => ({ datum: a.datum, spruch: fliegerText(a) }));
+  const seit = frueher.findIndex(a => fliegerText(a));          // Ausgaben seit dem letzten Flug (0 = flog in der letzten Ausgabe, -1 = noch nie)
+  const rat = seit === 0 ? "heute NICHT fliegen – er flog in der letzten Ausgabe (die Prüfung lehnt einen Spruch ab)"
+    : seit === 1 ? "eher pausieren – nur fliegen, wenn es heute einen wirklich guten Anlass gibt"
+    : seit === 2 || seit === 3 ? "heute dran (etwa jede dritte Ausgabe)" : "überfällig – heute fliegen";
+  return { wochentag: tag.toLocaleDateString("de-DE", { weekday: "long" }), zeit, wetter, anlaesse, fluege, seit, rat };
+}
 
 async function poolLesen() {
   const dir = path.join(ROOT, "daten/pool");
@@ -76,6 +97,12 @@ async function vorbereiten() {
 
   const titel = { mainz: "Mainz", land: "Rheinland-Pfalz", bund: "Bund und überregionale Medien", fach: "Fachwelt (Portale, Institute, Verbände)" };
   let md = `# Kandidaten für die Ausgabe vom ${DATUM}\n\n${offen.length} noch nicht gesichtete Meldungen. Format: [id] Titel (Datum) — Kurzbeschreibung der Quelle\n`;
+  const fl = await fliegerLage(ausgaben), namen = { sonne: "sonnig", bewoelkt: "bewölkt", regen: "Regen", schnee: "Schnee", fruehling: "Frühling", sommer: "Sommer", herbst: "Herbst", winter: "Winter" };
+  md += `\n## Werbeflieger – Lage für heute (Regeln: REDAKTION.md, Abschnitt „Werbeflieger“)\n`
+    + `- Heute: ${fl.wochentag}, ${namen[fl.zeit]}, Wetter in Mainz: ${namen[fl.wetter] || "unbekannt"}\n`
+    + `- Besondere Tage im Intro heute: ${fl.anlaesse.length ? fl.anlaesse.join(", ") : "keine"}\n`
+    + `- Letzte Flüge: ${fl.fluege.length ? fl.fluege.slice(0, 8).map(f => `${f.datum} „${f.spruch}“`).join(" · ") : "noch keiner"}\n`
+    + `- Empfehlung: ${fl.rat}\n`;
   let ebene = "", quelle = "";
   for (const k of offen) {
     const q = quellen[k.quelle] || { kurz: k.quelle, ebene: "fach" };
@@ -87,13 +114,27 @@ async function vorbereiten() {
   await mkdir(path.join(ROOT, "arbeit"), { recursive: true });
   await writeFile(path.join(ROOT, "arbeit/kandidaten.md"), md, "utf8");
   console.log(`${offen.length} offene Kandidaten in arbeit/kandidaten.md (Ausgabe ${DATUM}).`);
+  console.log(`Werbeflieger: ${fl.rat}.`);
   if (bestehend) console.log(`Hinweis: Die Ausgabe ${DATUM} existiert bereits (daten/ausgaben/${DATUM}.json). Neue Kandidaten dort einarbeiten, bestehende Meldungen behalten.`);
   if (!offen.length) console.log("Hinweis: Keine offenen Kandidaten – keine neue Ausgabe anlegen.");
 }
 
-function pruefen(ausgabe, bekannte) {
+function pruefen(ausgabe, bekannte, ausgaben = []) {
   const fehler = [];
   if (ausgabe.datum !== DATUM) fehler.push(`„datum“ muss ${DATUM} sein.`);
+  // Werbeflieger (optional): eine kurze Zeile; nicht in zwei Ausgaben hintereinander, kein Spruch doppelt
+  if (ausgabe.flieger !== undefined && ausgabe.flieger !== null && ausgabe.flieger !== "") {
+    const spruch = fliegerText(ausgabe);
+    if (typeof ausgabe.flieger !== "string") fehler.push("„flieger“ muss ein Text sein (oder fehlen).");
+    else {
+      if (spruch.length < FLIEGER_MIN || spruch.length > FLIEGER_MAX) fehler.push(`„flieger“ muss ${FLIEGER_MIN}–${FLIEGER_MAX} Zeichen lang sein (sind ${spruch.length}).`);
+      if (/[<>{}\\\n\r]/.test(ausgabe.flieger) || LINK.test(spruch)) fehler.push("„flieger“: nur eine Zeile, keine Links, keine Zeichen wie < > { }.");
+      const frueher = ausgaben.filter(a => a.datum < DATUM && !a.nachtraeglich).sort((a, b) => b.datum.localeCompare(a.datum));
+      if (frueher[0] && fliegerText(frueher[0])) fehler.push(`„flieger“: Der Werbeflieger flog schon in der letzten Ausgabe (${frueher[0].datum}) – heute weglassen.`);
+      const gleich = frueher.find(a => fliegerText(a).toLowerCase() === spruch.toLowerCase());
+      if (gleich) fehler.push(`„flieger“: Diesen Spruch gab es schon am ${gleich.datum}.`);
+    }
+  }
   // Hörfassung (optional): reiner Sprechtext ohne Links. Neu je Ressort (ressorts.<id>.hoerfassung, siehe unten);
   // das frühere Feld oben (ein Text für alle Ressorts) bleibt für alte Ausgaben erlaubt.
   const hoerPruefen = (text, wo, min, max) => {
@@ -165,7 +206,7 @@ async function abschliessen() {
   const ausgabe = await readJson(datei);
   const vorbereitet = await readJson("arbeit/kandidaten.json", { kandidaten: [] });
   const pool = await poolLesen();
-  const fehler = [...pruefen(ausgabe, new Set(pool.keys())), ...notizenPruefen(await readJson("daten/gremien-notizen.json", { notizen: {} }))];
+  const fehler = [...pruefen(ausgabe, new Set(pool.keys()), await ausgabenLesen()), ...notizenPruefen(await readJson("daten/gremien-notizen.json", { notizen: {} }))];
   if (fehler.length) {
     console.error(`Prüfung nicht bestanden – ${fehler.length} Fehler in ${datei} bzw. daten/gremien-notizen.json:\n- ` + fehler.join("\n- "));
     process.exit(2);
@@ -188,6 +229,7 @@ async function abschliessen() {
   }
   if (typeof ausgabe.hoerfassung === "string" && ausgabe.hoerfassung.trim()) ausgabe.hoerfassung = ausgabe.hoerfassung.replace(/\r\n?/g, "\n").trim();
   else delete ausgabe.hoerfassung;
+  if (fliegerText(ausgabe)) ausgabe.flieger = fliegerText(ausgabe); else delete ausgabe.flieger;
   ausgabe.gesichtet = [...new Set([...(ausgabe.gesichtet || []), ...vorbereitet.kandidaten.map(k => k.id)])];
   ausgabe.erstellt = ausgabe.erstellt || new Date().toISOString();
   ausgabe.aktualisiert = new Date().toISOString();
@@ -261,6 +303,10 @@ async function bauen() {
     quellen: Object.fromEntries(quellen.map(q => [q.id, { name: q.name, kurz: q.kurz, ebene: q.ebene, aktiv: q.aktiv !== false }])),
     ausgaben: ausgaben.slice(0, SEITE_TAGE).map(schlank),
   }, false);
+  // Sprüche des Werbefliegers je Tag – das Intro lädt die Datei wie die Wetterlage
+  const fliegerAb = dayOffset(berlinDay(), -FLIEGER_TAGE);
+  const sprueche = Object.fromEntries(ausgaben.filter(a => a.datum >= fliegerAb && fliegerText(a)).map(a => [a.datum, fliegerText(a)]).reverse());
+  await writeFile(path.join(ROOT, "docs/daten/flieger.js"), `/* Werbeflieger im Intro: Spruch je Tag – erzeugt von werkzeuge/redaktion.mjs */\nwindow.BONIBLATT_FLIEGER=${JSON.stringify(sprueche)};\n`, "utf8");
   const grenze = dayOffset(berlinDay(), -ARCHIV_TAGE);
   const archiv = [];
   for (const a of ausgaben.filter(x => x.datum >= grenze)) {
