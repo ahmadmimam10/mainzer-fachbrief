@@ -25,37 +25,61 @@ const f = n => +n.toFixed(1);
 const zufall = seed => () => (seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296;
 const kreis = (cx, cy, rx, ry = rx) => `M${f(cx - rx)} ${f(cy)}a${f(rx)} ${f(ry)} 0 1 0 ${f(rx * 2)} 0a${f(rx)} ${f(ry)} 0 1 0 ${f(-rx * 2)} 0Z`;
 
-// Gebäude: Umriss, dazu Dächer (etwas dunkler), Kuppeln (Patina), Fenster (heller) und einzelne erleuchtete Fenster
+// Gebäude: Umriss, dazu Dächer (etwas dunkler), Kuppeln (Patina), Fenster (heller) und einzelne erleuchtete Fenster.
+// Feinheiten obendrauf: Schattenseite (rechts), Traufen und Gesimse als feine Linien, Schornsteine, Türen, Uhren und Kreuze
+// an den Kirchtürmen, an den Kuppeln Rippen, Glanz, eine richtige Laterne mit Haube und Kreuz und Ecktürmchen.
 function bauten(teile, r) {
-  let x = 0, umriss = `M0 ${H}`, dach = "", patina = "", fenster = "", licht = "";
+  const r2 = zufall(4711);                 // eigene Zufallsfolge für die Feinheiten – die Fenster bleiben, wo sie waren
+  let x = 0, umriss = `M0 ${H}`, dach = "", patina = "", fenster = "", licht = "", schatten = "", linie = "", rippe = "", glanz = "", tuer = "", wand = "";
   for (const [typ, w, h = 0, e = 0] of teile) {
-    const y = H - h, x2 = x + w, xm = x + w / 2;
+    const y = H - h, x2 = x + w, xm = x + w / 2, haus = "hgs".includes(typ) && w >= 6 && w < 40 && h >= 6;
     umriss += `V${f(y)}`;
     if (typ === "g") {                                                   // Giebel / Turmspitze
       const p = `L${f(xm)} ${f(y - e)}L${f(x2)} ${f(y)}`; umriss += p; if (w > 3) dach += `M${f(x)} ${f(y)}${p}Z`;
+      if (w > 3) { schatten += `M${f(xm)} ${f(y - e)}L${f(x2)} ${f(y)}H${f(xm)}Z`; linie += `M${f(x - .2)} ${f(y)}H${f(x2 + .2)}`; }
+      else linie += `M${f(xm)} ${f(y - e)}v-1.3M${f(xm - .4)} ${f(y - e - .85)}h.8`;                       // schlanke Spitze: Kreuz
+      if (haus && w >= 8 && r2() < .6) { const cx = x + w * (.66 + r2() * .1), cy = y - e * (1 - Math.abs((cx - x) / w - .5) * 2); dach += `M${f(cx - .45)} ${f(cy + .5)}v-1.9h.9v1.9Z`; }
     } else if (typ === "s") {                                            // Walmdach
       const p = `L${f(x + w * .22)} ${f(y - e)}H${f(x + w * .78)}L${f(x2)} ${f(y)}`; umriss += p; dach += `M${f(x)} ${f(y)}${p}Z`;
-    } else if (typ === "T") {                                            // Turm mit Helm und Schallfenster
+      schatten += `M${f(x + w * .62)} ${f(y - e)}H${f(x + w * .78)}L${f(x2)} ${f(y)}H${f(x + w * .62)}Z`; linie += `M${f(x - .2)} ${f(y)}H${f(x2 + .2)}`;
+      if (haus && r2() < .7) { const cx = x + w * (.3 + r2() * .4); dach += `M${f(cx - .45)} ${f(y - e + .3)}v-1.7h.9v1.7Z`; }
+      if (haus && w >= 10) { const gx = x + w * .5; fenster += `M${f(gx - .5)} ${f(y - e * .28)}h1v${f(e * .22)}h-1Z`; linie += `M${f(gx - .8)} ${f(y - e * .3)}L${f(gx)} ${f(y - e * .62)}L${f(gx + .8)} ${f(y - e * .3)}`; }
+    } else if (typ === "T") {                                            // Turm mit Helm, Uhr, Schallfenster und Kreuz
       umriss += `H${f(x + w * .2)}V${f(y - e * .28)}L${f(xm)} ${f(y - e)}L${f(x2 - w * .2)} ${f(y - e * .28)}V${f(y)}H${f(x2)}`;
       dach += `M${f(x + w * .2)} ${f(y - e * .28)}L${f(xm)} ${f(y - e)}L${f(x2 - w * .2)} ${f(y - e * .28)}Z`;
-      fenster += `M${f(xm - .55)} ${f(y + 3.6)}v-1.6a.55 .55 0 0 1 1.1 0v1.6Z`;
-      if (h > 14) fenster += `M${f(xm - .45)} ${f(y + 7.4)}v-1.3a.45 .45 0 0 1 .9 0v1.3Z`;
-    } else if (typ === "k") {                                            // Kuppel mit Laterne
-      const p = `C${f(x)} ${f(y - e * .9)} ${f(xm - w * .14)} ${f(y - e)} ${f(xm - w * .06)} ${f(y - e)}V${f(y - e * 1.35)}H${f(xm + w * .06)}V${f(y - e)}C${f(xm + w * .14)} ${f(y - e)} ${f(x2)} ${f(y - e * .9)} ${f(x2)} ${f(y)}`;
+      schatten += `M${f(xm)} ${f(y - e)}L${f(x2 - w * .2)} ${f(y - e * .28)}H${f(xm)}Z` + `M${f(xm + w * .12)} ${f(y)}H${f(x2)}V${H}H${f(xm + w * .12)}Z`;
+      fenster += `M${f(xm - .55)} ${f(y + 5)}v-1.6a.55 .55 0 0 1 1.1 0v1.6Z` + kreis(xm, y + 1.5, .78);
+      linie += `M${f(xm)} ${f(y + 1.5)}v-.5M${f(xm)} ${f(y + 1.5)}h.36` + `M${f(xm)} ${f(y - e)}v-1.5M${f(xm - .45)} ${f(y - e - 1)}h.9` + `M${f(x - .15)} ${f(y)}H${f(x2 + .15)}`;
+      if (h > 14) fenster += `M${f(xm - .45)} ${f(y + 8.6)}v-1.3a.45 .45 0 0 1 .9 0v1.3Z`;
+    } else if (typ === "k") {                                            // Kuppel auf einem Tambour, mit Laterne, Haube und Kreuz
+      const lb = w * .065, lu = y - e, lo = y - e * 1.22;                // Laterne: halbe Breite, Unterkante, Oberkante des Schafts
+      const p = `C${f(x)} ${f(y - e * .9)} ${f(xm - w * .14)} ${f(lu)} ${f(xm - lb)} ${f(lu)}V${f(lo)}Q${f(xm)} ${f(y - e * 1.48)} ${f(xm + lb)} ${f(lo)}V${f(lu)}C${f(xm + w * .14)} ${f(lu)} ${f(x2)} ${f(y - e * .9)} ${f(x2)} ${f(y)}`;
       umriss += p; patina += `M${f(x)} ${f(y)}${p}Z`;
-      for (let i = 0; i < 3; i++) fenster += `M${f(x + w * (.22 + i * .28) - .5)} ${f(y + 3.4)}v-1.5a.5 .5 0 0 1 1 0v1.5Z`;
+      for (let i = 0; i < 3; i++) fenster += `M${f(x + w * (.22 + i * .28) - .5)} ${f(y + 3.6)}v-1.7a.5 .5 0 0 1 1 0v1.7Z`;
+      for (const k of [-.36, -.19, 0, .19, .36]) rippe += `M${f(xm + k * w)} ${f(y - (k ? .1 : 0))}Q${f(xm + k * w * 1.04)} ${f(y - e * (1 - Math.abs(k) * .62))} ${f(xm + k * w * .16)} ${f(lu + .15)}`;
+      glanz += `M${f(x + w * .09)} ${f(y - e * .3)}C${f(x + w * .1)} ${f(y - e * .78)} ${f(xm - w * .2)} ${f(y - e * .95)} ${f(xm - w * .13)} ${f(y - e * .97)}C${f(xm - w * .24)} ${f(y - e * .8)} ${f(x + w * .17)} ${f(y - e * .62)} ${f(x + w * .16)} ${f(y - e * .3)}Z`;
+      schatten += `M${f(xm + w * .2)} ${f(y)}H${f(x2)}V${H}H${f(xm + w * .2)}Z`;
+      linie += `M${f(x - .35)} ${f(y)}H${f(x2 + .35)}M${f(x - .15)} ${f(y + 1)}H${f(x2 + .15)}` + `M${f(xm - lb - .25)} ${f(lu)}h${f(lb * 2 + .5)}` + `M${f(xm)} ${f(y - e * 1.35)}v-1.6M${f(xm - .5)} ${f(y - e * 1.35 - 1.05)}h1`;
+      fenster += `M${f(xm - lb * .62)} ${f(lu - .45)}v${f(-(lu - lo) * .5)}a${f(lb * .23)} ${f(lb * .23)} 0 0 1 ${f(lb * .46)} 0v${f((lu - lo) * .5)}Z` + `M${f(xm + lb * .16)} ${f(lu - .45)}v${f(-(lu - lo) * .5)}a${f(lb * .23)} ${f(lb * .23)} 0 0 1 ${f(lb * .46)} 0v${f((lu - lo) * .5)}Z`;
+      if (w >= 16) for (const tx of [x - 2.3, x2 + .1]) {                 // Ecktürmchen neben der großen Kuppel
+        wand += `M${f(tx)} ${f(y + 3.2)}V${f(y - e * .3)}h2.2V${f(y + 3.2)}Z`; patina += `M${f(tx - .25)} ${f(y - e * .3)}Q${f(tx + 1.1)} ${f(y - e * .56)} ${f(tx + 2.45)} ${f(y - e * .3)}Z`;
+        fenster += `M${f(tx + .75)} ${f(y - e * .06)}v-1.2a.35 .35 0 0 1 .7 0v1.2Z`; linie += `M${f(tx + 1.1)} ${f(y - e * .43)}v-1`;
+      }
     } else umriss += `H${f(x2)}`;
-    if ("hgs".includes(typ) && w >= 6 && w < 40 && h >= 6) {             // Fensterreihen
+    if (haus) {                                                          // Fensterreihen, Schattenseite, Tür
       const sp = Math.max(1, Math.floor((w - 1.6) / 2.3)), ze = Math.max(1, Math.floor((h - 2.2) / 2.7)), ab = (w - sp * .9) / (sp + 1);
       for (let i = 0; i < sp; i++) for (let j = 0; j < ze; j++) {
         const z = r(); if (z < .2) continue;
         const d = `M${f(x + ab + i * (.9 + ab))} ${f(y + 1.5 + j * 2.7)}h.9v1.3h-.9Z`;
         if (z > .93) licht += d; else fenster += d;
       }
+      schatten += `M${f(x + w * .7)} ${f(y)}H${f(x2)}V${H}H${f(x + w * .7)}Z`;
+      if (typ === "h") linie += `M${f(x - .15)} ${f(y)}H${f(x2 + .15)}`;                                   // Flachdach: Attika
+      if (w >= 7 && r2() < .7) { const tx = x + ab + Math.floor(r2() * sp) * (.9 + ab) + .45; tuer += `M${f(tx - .55)} ${H}v-1.7a.55 .55 0 0 1 1.1 0v1.7Z`; }
     }
     x = x2;
   }
-  return { umriss: umriss + `V${H}Z`, dach, patina, fenster, licht };
+  return { umriss: umriss + `V${H}Z` + wand, dach, patina, fenster, licht, schatten, linie, rippe, glanz, tuer };
 }
 
 function stadt({ seed, hMin, hMax, wMin, wMax, marken }) {
@@ -325,12 +349,12 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
   translate:0 calc(var(--ie,0) * var(--hub,-26vh));scale:calc(var(--nah,1) * (1 + var(--ie,0) * var(--k) * .12));will-change:transform}
 /* Die Lagen steigen langsamer als das Blatt (ferne etwas weniger als nahe): Das Blatt holt die Stadt erst kurz vor dem Ziel ein und deckt sie von unten zu */
 .i-huegel{--hub:-22vh}.i-huegel2{--hub:-23.5vh}.i-fern{--hub:-25vh}.i-stadt{--hub:-26vh}.i-ufer{--hub:-27vh}
-@media (min-width:700px){.intro{--nah:1.16}}@media (min-width:1000px){.intro{--nah:1.32}}
+.intro{--nah:1.1}@media (min-width:700px){.intro{--nah:1.3}}@media (min-width:1000px){.intro{--nah:1.52}}
 .i-band svg{display:block;width:100%;height:auto;transform-origin:50% 100%;animation:i-zoom 2.5s var(--fahrt) both,i-steig .95s cubic-bezier(.2,.9,.25,1.04) var(--ab,0s) both}
 .i-huegel{--k:.08}.i-huegel svg{fill:var(--hu1,#dfe4dc);--z:1.16;animation:i-zoom 2.5s var(--fahrt) both}
 .i-huegel2{--k:.18}.i-huegel2 svg{fill:var(--hu2,#d3dac8);--z:1.3;animation:i-zoom 2.5s var(--fahrt) both}.i-huegel2 .i-tupfen{fill:var(--tu1,#c2cdb6)}.i-huegel2 .t2{fill:var(--tu2,#c2cdb6)}
 .i-fern{--k:.4}.i-fern svg{fill:#d3ccc1;--z:1.5;--ab:0s}.i-fern .i-dach{fill:var(--d1,#c7bfb4)}.i-fern .i-fenster{fill:#e1dcd4}.i-fern .i-lichter{fill:#f3e3bd}
-.i-stadt{--k:1}.i-stadt svg{fill:#bcb3a6;--z:1.9;--ab:.12s}.i-stadt .i-dach{fill:var(--d2,#a89d90)}.i-stadt .i-patina{fill:#9fb5a7}.i-stadt .i-fenster{fill:#d6cfc4}.i-stadt .i-lichter{fill:#f8dfa2}
+.i-stadt{--k:1}.i-stadt svg{fill:#bcb3a6;--z:1.9;--ab:.12s}.i-stadt .i-dach{fill:var(--d2,#a89d90)}.i-stadt .i-patina{fill:#9fb5a7}.i-schatten{fill:#3d3428;opacity:.075}.i-glanz{fill:#fff;opacity:.2}.i-rippe{fill:none;stroke:#6f8c7e;stroke-width:.16;stroke-linecap:round;opacity:.7}.i-linie{fill:none;stroke:#7d7265;stroke-width:.2;stroke-linecap:round;opacity:.6}.i-tuer{fill:#8f8475}.i-fern .i-linie,.i-fern .i-tuer{opacity:.3}.i-fern .i-schatten{opacity:.05}.i-stadt .i-fenster{fill:#d6cfc4}.i-stadt .i-lichter{fill:#f8dfa2}
 .i-ufer{--k:2.2}.i-ufer svg{fill:#a8a092;--z:2.5;--ab:.26s}
 .i-ufer .b-a{fill:var(--ba,#8da582)}.i-ufer .b-b{fill:var(--bb,#7f9a78)}.i-ufer .b-c{fill:var(--bc,#8da582)}.i-ufer .b-hell{fill:var(--bh,#a8bb9b)}.i-ufer .b-chell{fill:var(--bch,#a8bb9b)}
 .i-ufer .b-busch{fill:var(--bu,#86a07c)}.i-ufer .b-buschhell{fill:var(--buh,#a8bb9b)}.i-ufer .b-stamm{fill:#8a7d6e;stroke:#8a7d6e;stroke-width:.3}.i-ufer .b-lampe{fill:#857d70}
@@ -395,7 +419,7 @@ ${FEST_CSS}
 const svgBand = (kl, innen, nach = "") => `<div class="i-band ${kl}"><svg viewBox="0 0 ${B} ${H}">${innen}</svg>${nach}</div>`;
 // Stadtlage mit leichtem Dunst nach unten (Verlauf), Dächern, Fenstern und einzelnen Lichtern
 const stadtBand = (kl, b, id, oben, unten, extra = "", vorher = "", nach = "") => svgBand(kl, `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset=".3" stop-color="${oben}"/><stop offset="1" stop-color="${unten}"/></linearGradient></defs>`
-  + vorher + `<path fill="url(#${id})" d="${b.umriss}"/><path class="i-dach" d="${b.dach}"/>${b.patina ? `<path class="i-patina" d="${b.patina}"/>` : ""}<path class="i-fenster" d="${b.fenster}"/><path class="i-lichter" d="${b.licht}"/>${extra}`, nach);
+  + vorher + `<path fill="url(#${id})" d="${b.umriss}"/><path class="i-schatten" d="${b.schatten}"/><path class="i-dach" d="${b.dach}"/>${b.patina ? `<path class="i-patina" d="${b.patina}"/><path class="i-glanz" d="${b.glanz}"/><path class="i-rippe" d="${b.rippe}"/>` : ""}<path class="i-tuer" d="${b.tuer}"/><path class="i-fenster" d="${b.fenster}"/><path class="i-lichter" d="${b.licht}"/><path class="i-linie" d="${b.linie}"/>${extra}`, nach);
 
 const html = `<!-- INTRO-START -->
 <section class="intro" id="intro" hidden aria-label="Mainzer Boniblatt">

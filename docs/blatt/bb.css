@@ -601,3 +601,37 @@ body{background:#f6f4ef}
 .bb-raster.blatt .k{opacity:0!important;transform:translateY(8px)!important;transition:opacity .18s ease,transform .2s ease!important}
 .bb-raster.sanft .k{transform:translateY(10px);transition:opacity .42s ease calc(var(--i,0) * 26ms),transform .5s cubic-bezier(.2,.8,.3,1) calc(var(--i,0) * 26ms),background 1.1s}
 .bb-raster.sanft .k.da{transform:none}
+
+/* ==== Fundstück-Album ==== */
+.bb-album{width:min(1120px,96vw)}
+.bb .al-stand{margin:0 0 6px;max-width:46em;font-size:15.5px;line-height:1.45}.al-stand b{color:var(--ra)}
+.bb-album section{margin-top:22px}
+.bb .bb-album h4{display:flex;align-items:baseline;gap:12px;margin:0 0 10px;font-size:26px;line-height:1}
+.bb-album h4 small{font:600 11.5px/1 "JetBrains Mono",monospace;letter-spacing:.05em;text-transform:uppercase;opacity:.55}
+.b1 .bb-album h4{font-family:"Fraunces",serif;font-weight:460;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.03em}
+.al-raster{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:10px}
+.al-raster figure{margin:0;display:grid;gap:6px;align-content:start}
+.al-bild{position:relative;aspect-ratio:1.4;border-radius:14px;overflow:hidden;background:#f6e6dc}
+.al-fehlt .al-bild{display:grid;place-items:center;background:color-mix(in srgb,var(--tinte) 6%,transparent);border:1.5px dashed color-mix(in srgb,var(--tinte) 18%,transparent)}
+.al-fehlt .al-bild span{font:500 30px/1 "Fraunces",serif;opacity:.28}
+.al-heute .al-bild{box-shadow:0 0 0 3px var(--ra)}
+svg.al-band{position:absolute;inset:0;width:100%;height:100%}svg.al-logo{position:absolute;inset:8%;width:84%;height:84%}
+.al-frei{position:absolute;inset:12% 8% 6%;--L:150px;font:760 34px/1 Georgia,serif}
+.al-frei .fu-h{position:static;width:100%;translate:none;opacity:1}.al-frei .fu-b,.al-frei .fu-u{position:static;width:60%;opacity:1}.al-frei svg{max-height:100%}.al-frei>svg{position:static;width:60%;height:auto}
+.al-frei .fu-t{position:static;width:auto;height:auto;font-size:34px}.al-frei .fu-t>svg{position:static;width:60%;height:auto}
+.al-schmuck{position:absolute;inset:0;display:grid;place-items:center;font:600 12px/1.3 "Bricolage Grotesque",var(--sans);opacity:.5}
+.al-raster figcaption{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1px 6px;font:600 13px/1.25 "Bricolage Grotesque",var(--sans)}
+.al-raster figcaption small{grid-column:1 / -1;font:500 11.5px/1.3 "Bricolage Grotesque",var(--sans);opacity:.6}
+.al-stern{font-style:normal;font-size:11px;color:var(--ra)}
+.au-album svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#e button.f-mehr{justify-self:start;padding:0;border:0;background:none;color:var(--p2);font:650 13px/1.4 "Bricolage Grotesque",var(--sans);cursor:pointer;text-align:left}
+@media (max-width:560px){.al-raster{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}.au-album{margin-left:0}}
+.al-raster{grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
+.al-zeile{display:grid;grid-template-columns:150px 78px minmax(0,1fr);gap:6px 12px;align-items:start;padding:10px 0;border-top:1.5px solid color-mix(in srgb,var(--tinte) 10%,transparent);font:600 14px/1.5 "Bricolage Grotesque",var(--sans)}
+.al-zeile>span{font:600 11.5px/1.9 "JetBrains Mono",monospace;opacity:.6}
+.al-punkte{display:flex;flex-wrap:wrap;gap:5px}
+.al-punkte i,.al-legende i{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:color-mix(in srgb,var(--tinte) 7%,transparent);font:500 13px/1 "Fraunces",serif;font-style:normal;color:color-mix(in srgb,var(--tinte) 40%,transparent)}
+.al-punkte i.s2,.al-legende i.s2{background:color-mix(in srgb,var(--ra) 16%,transparent);color:var(--ra)}
+.al-punkte i.s3,.al-legende i.s3{background:var(--ra);color:var(--at)}
+.bb .al-legende{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin:12px 0 0;font-size:12.5px;opacity:.75}.al-legende i{margin-left:8px}
+@media (max-width:560px){.al-zeile{grid-template-columns:minmax(0,1fr) auto}.al-punkte{grid-column:1 / -1}.al-raster{grid-template-columns:repeat(2,minmax(0,1fr))}}

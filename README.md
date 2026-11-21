@@ -40,6 +40,7 @@ die letzte Ausgabe.
 - `werkzeuge/sammeln.mjs` – Quellenabruf · `werkzeuge/redaktion.mjs` – Kandidatenliste, Prüfung, Seitendaten
 - `daten/` – Pool, bekannte Links, Ausgaben, Gremien-Notizen · `docs/` – die Webseite (`index.html`, `daten/*.json`, Schriften)
 - `docs/blatt/` – die Kachel-Ansicht der Hauptseite (`bb.js`, `bb.css`, `gemeinsam.js`, `schrift.css`; Motive in `docs/bilder/motive/`)
+- Fundstück-Album: `node werkzeuge/intro-funde.mjs --album` hält bei jedem Abruf in `docs/daten/album.json` fest, was heute im Startbild zu sehen ist; die Seite zeigt daraus ein gemeinsames Album (nichts wird beim Leser gespeichert)
 - `werkzeuge/intro-einbauen.mjs` – baut das Intro („Morgen über Mainz“) in `docs/index.html`; dazu
   `intro-feste.mjs` (besondere Tage, Ferien- und Festtermine), `intro-boni.mjs` (Bonifaziustürme mit Balkon),
   `intro-funde.mjs` mit `funde/*.mjs` (die Fundstücke des Tages → `docs/intro-funde.js`), `wetter.mjs` (Wetterlage

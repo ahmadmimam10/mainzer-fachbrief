@@ -8,7 +8,7 @@
 //   node werkzeuge/intro-funde.mjs --liste       → zeigt alle Fundstücke; --plan=2027-03 zeigt, was an welchem Tag erscheint
 // Danach node werkzeuge/intro-einbauen.mjs (trägt die neue Fassung in die Seite ein).
 // Im Browser: ?fund=name,name zeigt bestimmte, ?fund=aus keine, ?tag=2027-06-18 einen anderen Tag.
-import { writeFileSync, renameSync, existsSync } from "node:fs";
+import { writeFileSync, renameSync, existsSync, readFileSync } from "node:fs";
 import { CSS_ALLE, BELEGT, MIT } from "./funde/hilfen.mjs";
 import { FLUGZEUG } from "./funde/himmel.mjs";
 
@@ -37,6 +37,7 @@ const daten = funde.map(x => {
 
 // ---- Läuft im Browser ----
 function fundeZeigen(F, CSS, BELEGT, MIT, FLUGZEUG) {
+  window.BONI_FUNDSTUECKE = { F, CSS };                                  // fürs Fundstück-Album (auch ohne Intro)
   const intro = document.getElementById("intro"); if (!intro || intro.dataset.funde !== undefined) return;
   const q = new URLSearchParams(location.search), D = intro.dataset;
   const tag = D.tag || new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
@@ -87,11 +88,13 @@ function fundeZeigen(F, CSS, BELEGT, MIT, FLUGZEUG) {
   const stil = document.createElement("style"); stil.textContent = CSS + wahl.map(x => x.c).join("\n"); document.head.appendChild(stil);
   const NS = "http://www.w3.org/2000/svg", welt = intro.querySelector(".i-welt"), buehne = intro.querySelector(".intro-buehne"), titel = intro.querySelector(".i-titel");
   const ZIEL = { stadt: ".i-stadt svg", turm: ".i-stadt .bt", ufer: ".i-ufer svg", wasser: ".i-boden svg", huegel: ".i-huegel2 svg", ferne: ".i-huegel svg", fern: ".i-fern svg" };
-  const amTitel = [];
+  const amTitel = [], GROSS = { ufer: 1.3, wasser: 1.3 }, MITTE = { "ufer-l1": 537, "ufer-l2": 562, "ufer-r1": 717, "ufer-r2": 743, "wasser-l": 548, "wasser-r": 736 };
   wahl.forEach(x => {
     if (x.o === "fest") { D.fest = ((D.fest || "") + " " + x.x.join(" ")).trim(); return; }
     if (x.o === "boni") { D.boni = ((D.boni || "") + " " + x.x.join(" ")).trim(); return; }
-    if (ZIEL[x.o]) { const g = document.createElementNS(NS, "g"); g.setAttribute("class", "fu fu-" + x.n); g.innerHTML = x.dx ? '<g transform="translate(' + x.dx + ' 0)">' + x.m + "</g>" : x.m;
+    if (ZIEL[x.o]) { const g = document.createElementNS(NS, "g"); g.setAttribute("class", "fu fu-" + x.n); const innen = x.dx ? '<g transform="translate(' + x.dx + ' 0)">' + x.m + "</g>" : x.m, k = GROSS[x.o];
+      // Vordergrund größer: um den Standpunkt des Stücks (Platzmitte, Boden bzw. Wasserlinie), damit nichts verrutscht
+      if (k) { const cx = x.dx || MITTE[pl(x)[0]] || 640, cy = x.o === "ufer" ? 58.4 : 0; g.innerHTML = '<g transform="translate(' + (cx * (1 - k)).toFixed(2) + " " + (cy * (1 - k)).toFixed(2) + ") scale(" + k + ')">' + innen + "</g>"; } else g.innerHTML = innen;
       if (x.gespiegelt) g.setAttribute("transform", "translate(1280 0) scale(-1 1)"); intro.querySelector(ZIEL[x.o]).appendChild(g); return; }
     const d = document.createElement(x.o === "titel" || x.o === "unter" ? "span" : "div"); d.setAttribute("aria-hidden", "true");
     if (x.o === "logo") {                                              // eigene Lage über dem Logo (wandert und schrumpft mit ihm)
@@ -153,6 +156,25 @@ const t = parseFloat(new URLSearchParams(location.search).get("t") || "5");
 addEventListener("load", () => { for (const a of document.getAnimations()) { a.pause(); a.currentTime = t * 1000; } });
 </script>`;
   writeFileSync(`docs/_blatt-${nur || "alle"}.html`, seite); console.log(`docs/_blatt-${nur || "alle"}.html: ${daten.length} Fundstücke`);
+} else if (process.argv.includes("--album")) {
+  // Fundstück-Album: hält in docs/daten/album.json fest, was an welchem Tag im Startbild zu sehen war. Läuft mit dem Abruf
+  // mehrmals täglich; es zählt der letzte Stand des Tages (das Wetter des Tages kann sich noch ändern).
+  //   node werkzeuge/intro-funde.mjs --album [--tag=JJJJ-MM-TT]
+  const tag = arg("tag") || new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date()), mo = +tag.slice(5, 7), p = tag.split("-");
+  const ausJs = datei => { try { return JSON.parse(readFileSync(datei, "utf8").match(/=(\{.*\});/)[1]); } catch { return {}; } };
+  const zeit = mo >= 3 && mo <= 5 ? "fruehling" : mo >= 6 && mo <= 8 ? "sommer" : mo >= 9 && mo <= 11 ? "herbst" : "winter";
+  let wetter = ausJs("docs/daten/wetter.js")[tag] || "sonne"; if (wetter === "schnee" && zeit !== "winter") wetter = "regen";
+  const { festeFuer, FERIEN, TERMINE } = await import("./intro-feste.mjs");
+  const fest = festeFuer(new Date(+p[0], +p[1] - 1, +p[2]), zeit, wetter, .5, FERIEN, TERMINE);
+  const ds = { tag, zeit, wetter, fest: fest.elemente.join(" ") };
+  globalThis.window = { BONIBLATT_FLIEGER: ausJs("docs/daten/flieger.js") }; globalThis.location = { search: "" };
+  globalThis.document = { getElementById: () => ({ dataset: ds, querySelector: () => null }), createElement: () => { throw 0; } };
+  try { fundeZeigen(daten, "", BELEGT, MIT, ""); } catch { /* ohne Browser endet der Lauf nach der Auswahl */ }
+  const heute = (ds.funde || "").split(" ").filter(Boolean);
+  let album = { start: tag, tage: {} }; try { album = JSON.parse(readFileSync("docs/daten/album.json", "utf8")); } catch { /* erster Lauf */ }
+  album.tage[tag] = heute; album.gesamt = daten.length;
+  writeFileSync("docs/daten/album.json", JSON.stringify(album) + "\n");
+  console.log(`Album ${tag} (${zeit}, ${wetter}): ${heute.join(", ") || "nichts"} – ${new Set(Object.values(album.tage).flat()).size} von ${daten.length} bisher`);
 } else if (arg("plan")) {
   // Probelauf ohne Browser: was erscheint an den Tagen eines Monats (bei Sonne, ohne Festmotive)
   const [j, mo] = arg("plan").split("-").map(Number), wetter = arg("wetter") || "sonne";

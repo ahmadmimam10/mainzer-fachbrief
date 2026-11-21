@@ -71,7 +71,7 @@ export function figur({ s = 1, mantel = "#6b7fa3", hose = "#4b5261", haut = HAUT
     + (beine !== undefined ? beine : bein(-.26, gehen ? "fu-b2" : "") + bein(.26, gehen ? "fu-b1" : ""))
     + (rock ? `<path fill="${mantel}" d="M-.7 -3.2L-1.02 -1.25H1.02L.7 -3.2Z"/>` : "")
     + `<path fill="${mantel}" d="M-.72 -1.95L-.66 -3.5Q-.66 -3.98 -.2 -3.98H.2Q.66 -3.98 .66 -3.5L.72 -1.95Z"/><path fill="#000" opacity=".1" d="M${f(-s * .1)} -3.98H${f(-s * .2)}Q${f(-s * .66)} -3.98 ${f(-s * .66)} -3.5L${f(-s * .72)} -1.95H${f(-s * .1)}Z"/>` + vorn
-    + haare + `<circle cx="${f(hx)}" cy="${f(ky + .04)}" r=".64" fill="${haut}"/><circle cx="${f(hx + s * .34)}" cy="${f(ky - .02)}" r=".07" fill="${TINTE}"/>` + deckel
+    + haare + `<circle cx="${f(hx)}" cy="${f(ky + .04)}" r=".64" fill="${haut}"/><circle cx="${f(hx + s * .34)}" cy="${f(ky - .02)}" r=".095" fill="${TINTE}"/>` + deckel
     + arm([s * .3, -3.7], hv, gehen && !armV ? "fu-a1" : klV, false, inHand);
 }
 
@@ -122,7 +122,7 @@ export const MIT = { herzen: ["herzfenster"] };
 // @keyframes dort bitte fu-<name>-… nennen.
 export const CSS_ALLE = `
 .fu{animation:i-ein .9s ease 1.1s both}.fu-w{display:contents}
-.fu-h{position:absolute;left:var(--l);top:var(--t);width:calc(var(--L) * var(--g));translate:calc(var(--ie,0) * var(--fx,0vw)) calc(var(--ie,0) * -10vh);opacity:calc(1 - var(--ip,0) * 1.8)}
+.fu-h{position:absolute;left:var(--l);top:var(--t);width:calc(var(--L) * var(--g) * 1.18);translate:calc(var(--ie,0) * var(--fx,0vw)) calc(var(--ie,0) * -10vh);opacity:calc(1 - var(--ip,0) * 1.8)}
 @media (min-aspect-ratio:1/1){.fu-h{left:var(--lb,var(--l));top:var(--tb,var(--t))}}
 .fu-h>svg{display:block;width:100%;height:auto;overflow:visible;animation:i-ein 1.2s ease 1.2s both}
 .fu-h svg{display:block;width:100%;height:auto;overflow:visible}
