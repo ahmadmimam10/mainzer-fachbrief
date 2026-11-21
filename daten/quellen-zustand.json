@@ -1,13 +1,13 @@
 {
- "stand": "2026-11-21T15:28:12.445Z",
+ "stand": "2026-11-21T21:21:38.649Z",
  "info": "Vom Quellenabruf (werkzeuge/sammeln.mjs) geschrieben, nicht von Hand ändern. zustand: ok | auffaellig | gestoert; trefferVerlauf: brauchbare Treffer der letzten 14 Läufe (null = Abruf fehlgeschlagen); verworfen: neue Kandidaten des letzten Laufs, die an Titel-, Link- oder Linkprüfung scheiterten. Reparatur: REDAKTION.md, Abschnitt „Quellenpflege“.",
  "quellen": {
   "ratsinfo": {
    "zustand": "ok",
    "hinweis": "unauffällig – 6 Treffer",
    "seit": "2026-11-21T15:28:12.445Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -21,15 +21,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, null, 6],
+   "trefferVerlauf": [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, null, 6, 6, 6],
    "fehler": []
   },
   "stadt-mainz": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -43,21 +43,21 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "az": {
    "zustand": "ok",
    "hinweis": "unauffällig – 80 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 80,
    "brauchbar": 80,
-   "neu": 5,
+   "neu": 1,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -65,15 +65,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80],
+   "trefferVerlauf": [80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80],
    "fehler": []
   },
   "merkurist": {
    "zustand": "ok",
    "hinweis": "unauffällig – 6 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -87,15 +87,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [7, 7, 7, 7, 6, 6, 6, 6, 6, 7, 7, 6],
+   "trefferVerlauf": [7, 7, 7, 7, 6, 6, 6, 6, 6, 7, 7, 6, 6, 6],
    "fehler": []
   },
   "sensor": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -109,15 +109,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "wohnbau-mainz": {
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -131,15 +131,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+   "trefferVerlauf": [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
    "fehler": []
   },
   "mainz-mastodon": {
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -153,21 +153,21 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
+   "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
    "fehler": []
   },
   "swr": {
    "zustand": "ok",
-   "hinweis": "unauffällig – 41 Treffer",
+   "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 46,
-   "brauchbar": 41,
-   "neu": 3,
+   "gefunden": 45,
+   "brauchbar": 40,
+   "neu": 2,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -191,15 +191,15 @@
      "url": "https://www.instagram.com/swraktuell/"
     }
    ],
-   "trefferVerlauf": [49, 43, 41, 41, 41, 39, 39, 39, 39, 40, 41, 41],
+   "trefferVerlauf": [49, 43, 41, 41, 41, 39, 39, 39, 39, 40, 41, 41, 39, 40],
    "fehler": []
   },
   "landtag": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -213,15 +213,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "bm-rlp": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -235,15 +235,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "masffj": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -257,15 +257,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "mkbwk": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -279,15 +279,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "lsjv": {
    "zustand": "ok",
    "hinweis": "unauffällig – 5 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -301,15 +301,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+   "trefferVerlauf": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
    "fehler": []
   },
   "kita-rlp": {
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -323,15 +323,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
+   "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
    "fehler": []
   },
   "statistik-rlp": {
    "zustand": "ok",
    "hinweis": "unauffällig – 100 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -345,15 +345,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
+   "trefferVerlauf": [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
    "fehler": []
   },
   "staedtetag-rlp": {
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -367,15 +367,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+   "trefferVerlauf": [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
    "fehler": []
   },
   "netzwerk-familie-rlp": {
    "zustand": "ok",
    "hinweis": "unauffällig – 8 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -389,15 +389,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+   "trefferVerlauf": [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
    "fehler": []
   },
   "bmbfsfj": {
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -411,15 +411,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
+   "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
    "fehler": []
   },
   "bundestag": {
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -433,16 +433,16 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
    "fehler": []
   },
   "bundesrat": {
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (2. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
-   "seit": "2026-11-21T12:28:34.452Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
+   "zustand": "gestoert",
+   "hinweis": "Abruf seit 4 Läufen fehlerhaft: www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "seit": "2026-11-21T18:21:24.989Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
    "letzterErfolg": "2026-11-21T09:30:32.061Z",
-   "fehlerInFolge": 2,
+   "fehlerInFolge": 4,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 0,
@@ -455,7 +455,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [0, null, null, 30, null, 28, 28, 30, null, 30, null, null],
+   "trefferVerlauf": [0, null, null, 30, null, 28, 28, 30, null, 30, null, null, null, null],
    "fehler": [
     "www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
    ]
@@ -464,8 +464,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -479,15 +479,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
+   "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
    "fehler": []
   },
   "destatis": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -501,15 +501,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "ubskm": {
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -523,15 +523,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
+   "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
    "fehler": []
   },
   "bmwsb": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -545,15 +545,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "staedtebaufoerderung": {
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -567,15 +567,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
+   "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
    "fehler": []
   },
   "ism": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -589,15 +589,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "ikj": {
    "zustand": "ok",
    "hinweis": "unauffällig – 5 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -611,15 +611,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+   "trefferVerlauf": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
    "fehler": []
   },
   "jugendhilfeportal": {
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -633,15 +633,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
    "fehler": []
   },
   "dji": {
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -655,15 +655,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
    "fehler": []
   },
   "difu": {
    "zustand": "ok",
    "hinweis": "unauffällig – 124 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -677,15 +677,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [124, 124, 124, 124, 124, 124, 124, 124, 124, 124, 124, 124],
+   "trefferVerlauf": [124, 124, 124, 124, 124, 124, 124, 124, 124, 124, 124, 124, 124, 124],
    "fehler": []
   },
   "nzfh": {
    "zustand": "ok",
    "hinweis": "unauffällig – 28 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -699,15 +699,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28],
+   "trefferVerlauf": [28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28],
    "fehler": []
   },
   "dijuf": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -721,15 +721,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "agj": {
    "zustand": "ok",
    "hinweis": "unauffällig – 25 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -743,15 +743,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25],
+   "trefferVerlauf": [25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25],
    "fehler": []
   },
   "akjstat": {
    "zustand": "ok",
    "hinweis": "unauffällig – 4 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -765,15 +765,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+   "trefferVerlauf": [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
    "fehler": []
   },
   "igfh": {
    "zustand": "ok",
    "hinweis": "unauffällig – 4 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -787,15 +787,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+   "trefferVerlauf": [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
    "fehler": []
   },
   "dv": {
    "zustand": "ok",
    "hinweis": "unauffällig – 52 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -809,15 +809,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52],
+   "trefferVerlauf": [52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52, 52],
    "fehler": []
   },
   "dbjr": {
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -831,15 +831,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
    "fehler": []
   },
   "jugendgerecht": {
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -853,15 +853,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
+   "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
    "fehler": []
   },
   "kommune360": {
    "zustand": "ok",
    "hinweis": "unauffällig – 8 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -875,15 +875,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+   "trefferVerlauf": [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
    "fehler": []
   },
   "kosmo": {
    "zustand": "ok",
    "hinweis": "unauffällig – 8 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -897,20 +897,48 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+   "trefferVerlauf": [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
    "fehler": []
   },
   "bildungsserver": {
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
-   "seit": "2026-11-21T15:28:12.445Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T12:28:34.452Z",
-   "fehlerInFolge": 1,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 13 Treffer, 1 neuer Kandidat verworfen (Zeitüberschreitung (10 s))",
+   "seit": "2026-11-21T21:21:38.649Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
+   "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 0,
-   "brauchbar": 0,
+   "gefunden": 13,
+   "brauchbar": 13,
+   "neu": 4,
+   "verworfen": 1,
+   "verworfenNach": {
+    "titel": 0,
+    "link": 0,
+    "linkpruefung": 1
+   },
+   "beispiele": [
+    {
+     "grund": "Zeitüberschreitung (10 s)",
+     "titel": "Klimabildung und Digitale Bildung verbinden",
+     "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2661"
+    }
+   ],
+   "trefferVerlauf": [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, null, 13, 13],
+   "fehler": []
+  },
+  "sozial-de": {
+   "zustand": "ok",
+   "hinweis": "unauffällig – 20 Treffer",
+   "seit": "2026-11-21T03:33:52.449Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
+   "fehlerInFolge": 0,
+   "nullTrefferInFolge": 0,
+   "linkStoerungInFolge": 0,
+   "gefunden": 20,
+   "brauchbar": 20,
    "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
@@ -919,39 +947,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, null],
-   "fehler": [
-    "www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
-   ]
-  },
-  "sozial-de": {
-   "zustand": "ok",
-   "hinweis": "unauffällig – 20 Treffer",
-   "seit": "2026-11-21T03:33:52.449Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
-   "fehlerInFolge": 0,
-   "nullTrefferInFolge": 0,
-   "linkStoerungInFolge": 0,
-   "gefunden": 20,
-   "brauchbar": 20,
-   "neu": 2,
-   "verworfen": 0,
-   "verworfenNach": {
-    "titel": 0,
-    "link": 0,
-    "linkpruefung": 0
-   },
-   "beispiele": [],
-   "trefferVerlauf": [20, 20, 20, 20, 20, 20, null, 20, 20, 20, 20, 20],
+   "trefferVerlauf": [20, 20, 20, 20, 20, 20, null, 20, 20, 20, 20, 20, 20, 20],
    "fehler": []
   },
   "startchancen": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -965,15 +969,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "jadigital": {
    "zustand": "ok",
    "hinweis": "unauffällig – 1 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -987,15 +991,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+   "trefferVerlauf": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
    "fehler": []
   },
   "staedtetag": {
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1009,15 +1013,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
    "fehler": []
   },
   "dstgb": {
    "zustand": "ok",
    "hinweis": "unauffällig – 14 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1031,15 +1035,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [13, 13, 13, 13, 14, 14, 14, 14, 14, 14, 14, 14],
+   "trefferVerlauf": [13, 13, 13, 13, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14],
    "fehler": []
   },
   "bagljae": {
    "zustand": "ok",
    "hinweis": "unauffällig – 37 Treffer",
-   "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "seit": "2026-11-21T21:21:38.649Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1053,15 +1057,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37],
+   "trefferVerlauf": [37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, null, 37],
    "fehler": []
   },
   "dksb": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1075,21 +1079,21 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "dkhw": {
    "zustand": "ok",
    "hinweis": "unauffällig – 5 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 5,
    "brauchbar": 5,
-   "neu": 1,
+   "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -1097,15 +1101,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+   "trefferVerlauf": [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
    "fehler": []
   },
   "liga-kind": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1119,15 +1123,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "kinderschutz-zentren": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1141,15 +1145,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+   "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "fehler": []
   },
   "isa": {
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1163,15 +1167,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
+   "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
    "fehler": []
   },
   "paritaet": {
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T18:38:46.227Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1185,15 +1189,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, 30, 30, 30, null, 30, 30, 30, 30, 30, 30, 30],
+   "trefferVerlauf": [30, 30, 30, 30, null, 30, 30, 30, 30, 30, 30, 30, 30, 30],
    "fehler": []
   },
   "bertelsmann": {
    "zustand": "ok",
    "hinweis": "unauffällig – 18 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1218,15 +1222,15 @@
      "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/junge-menschen-und-gesellschaft/empowerment"
     }
    ],
-   "trefferVerlauf": [20, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18],
+   "trefferVerlauf": [20, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18],
    "fehler": []
   },
   "baj": {
    "zustand": "ok",
    "hinweis": "unauffällig – 18 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1240,15 +1244,15 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18],
+   "trefferVerlauf": [18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18],
    "fehler": []
   },
   "bag-ssg": {
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-21T15:28:12.445Z",
-   "letzterErfolg": "2026-11-21T15:28:12.445Z",
+   "letzterLauf": "2026-11-21T21:21:38.649Z",
+   "letzterErfolg": "2026-11-21T21:21:38.649Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1268,7 +1272,7 @@
      "url": "https://www.bagsozialestadtentwicklung.de/sachsen-0"
     }
    ],
-   "trefferVerlauf": [10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+   "trefferVerlauf": [10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
    "fehler": []
   }
  }
