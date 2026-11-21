@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-20T21:30:16.988Z",
+ "stand": "2026-11-21T03:33:52.449Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -197,9 +197,9 @@
    "kurz": "Bundesrat",
    "ebene": "bund",
    "ok": true,
-   "treffer": 28,
+   "treffer": 30,
    "zustand": "ok",
-   "hinweis": "unauffällig – 28 Treffer"
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "spiegel",
@@ -416,10 +416,10 @@
    "name": "sozial.de",
    "kurz": "sozial.de",
    "ebene": "fach",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.sozial.de: HTTP 503"
+   "ok": true,
+   "treffer": 20,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 20 Treffer"
   },
   {
    "id": "startchancen",
