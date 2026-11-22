@@ -317,5 +317,8 @@
     new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=19"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });
   const h = location.hash.slice(1);
+  // Solange das Startbild seinen Auftakt spielt, wartet der Aufbau der Kacheln: Beides zugleich ließ die Bewegung auf langsamen Geräten stottern.
+  const intro = document.getElementById("intro");
+  if (intro && !intro.hidden && scrollY < 40) await Promise.race([new Promise(r => setTimeout(r, 3600)), ...["scroll", "pointerdown", "keydown", "wheel", "touchstart"].map(n => new Promise(r => addEventListener(n, r, { once: true, passive: true })))]);
   wechsel(BEREICHE.some(b => b.id === h) ? h : BEREICHE[0].id);
 })();

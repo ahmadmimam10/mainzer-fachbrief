@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Baut das Intro „Morgen über Mainz“ in docs/index.html ein: Papierlagen-Szene (Hügel, Stadt, Ufer, Rhein) hinter den
-// Logo-Teilen aus docs/bilder/intro/*.svg (Dom, Zeitung links/rechts – gleiche 128×128-Fläche wie die Sonne).
+// Logo-Teilen aus docs/bilder/intro/*.svg (Kirche, Boniturm mit Fenstern, Zeitung links/rechts – gleiche 128×128-Fläche wie die Sonne).
 // Aufbau läuft von selbst (rund 3 s); der Weggang ist an das Scrollen gekoppelt (Bühne bleibt stehen, Ausgabe schiebt
 // sich darüber, Logo dockt in der Kopfzeile an). Wiederholbar: ersetzt die markierten Blöcke INTRO-START … INTRO-ENDE.
 //   node werkzeuge/intro-einbauen.mjs
@@ -17,7 +17,9 @@ const teil = n => {
   const svg = readFileSync(`${DOCS}/bilder/intro/${n}.svg`, "utf8");
   return [...svg.matchAll(/<path [^>]*\/>/g)].map(m => m[0].replace(/ fill="[^"]*"/, "")).join("");
 };
-const DOM = teil("02-Dom"), LINKS = teil("03-Zeitung-links"), RECHTS = teil("04-Zeitung-rechts");
+const DOM = teil("02-Kirche"), TURM = teil("05-Boniturm"), LINKS = teil("03-Zeitung-links"), RECHTS = teil("04-Zeitung-rechts");
+// Fenster des Boniturms einzeln: 11 Reihen zu 3 Scheiben; --n zählt die Reihen von unten, damit sie nacheinander aufleuchten
+const FENSTER = [...readFileSync(`${DOCS}/bilder/intro/06-Fenster.svg`, "utf8").matchAll(/<path [^>]*\/>/g)].map((m, i) => m[0].replace(/ fill="[^"]*"/, "").replace("<path ", `<path style="--n:${10 - Math.floor(i / 3)}" `)).join("");
 
 // ---------- Szene (Einheiten wie im Logo: 128 = Logobreite; Bandmitte = 640; H = Horizont) ----------
 const B = 1280, H = 60;
@@ -339,12 +341,20 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-wolke svg{display:block;width:100%;height:auto;opacity:var(--wod,.92);animation:i-wolke 2.2s var(--weich) calc(.5s + var(--v)) both,i-zieh 46s ease-in-out calc(2.8s + var(--v) * 9) infinite alternate}
 .i-l{position:absolute;inset:0;transform-origin:0 0;transform:translate(var(--dx,0px),var(--dy,0px)) scale(var(--ds,1))}
 .i-l svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.i-sonne svg,.i-dom svg{transform-origin:50% 60.55%;--z:2.15;animation:i-zoom 2.5s var(--fahrt) both}
-.i-dom svg{fill:#181716;transform-origin:50% 63%;animation:i-zoom 2.5s var(--fahrt) both,i-dom 1.15s cubic-bezier(.3,.9,.3,1) .22s both}
-.i-sonne path{fill:#cb0838;transform-box:view-box;animation:i-sonne 1.5s cubic-bezier(.2,.75,.25,1) .75s both}
-.i-zl svg,.i-zr svg{fill:#181716;transform-origin:50% 75%}
-.i-zl svg{animation:i-blatt-l .95s cubic-bezier(.2,.9,.24,1.06) 1.05s both}
-.i-zr svg{animation:i-blatt-r .95s cubic-bezier(.2,.9,.24,1.06) 1.13s both}
+/* Auftakt des Logos – ruhig und ohne schnelle Würfe, damit auch ein langsames Gerät nicht sichtbar stottert: Die Sonne geht auf, die Kirche
+   taucht auf, der Boniturm wächst nach oben, seine Fenster gehen Reihe für Reihe an, zuletzt legen sich die Zeitungsseiten hin. Bewegt werden
+   nur Lage und Deckkraft; alles zusammen fährt die Kamera ein kleines Stück heran. */
+.i-sonne svg,.i-dom svg,.i-turm svg,.i-fenster svg{transform-origin:50% 60.55%;--z:1.16;animation:i-zoom 3.4s cubic-bezier(.2,.7,.2,1) both}
+.i-dom svg,.i-turm svg{fill:#151414}
+.i-dom g{transform-box:view-box;animation:i-dom 1.8s cubic-bezier(.2,.8,.25,1) .7s both}
+.i-turm g{transform-box:view-box;transform-origin:50% 55.5%;animation:i-turm 1.9s cubic-bezier(.2,.8,.25,1) 1.1s both}
+.i-fenster path{fill:#ffc1c2;animation:i-fenster .6s ease-out calc(2.5s + var(--n) * 80ms) both}
+.i-sonne path{fill:#cf073d;transform-box:view-box;animation:i-sonne 2.6s cubic-bezier(.2,.7,.25,1) .25s both}
+.i-zl svg,.i-zr svg{fill:#151414;transform-origin:50% 75%}
+.i-zl svg{animation:i-blatt-l 1.6s cubic-bezier(.2,.8,.25,1) 1.7s both}
+.i-zr svg{animation:i-blatt-r 1.6s cubic-bezier(.2,.8,.25,1) 1.85s both}
+/* Bis Schriften und Bilder geladen sind, steht alles still (Klasse „wartet“ setzt das Skript) – so beginnt die Bewegung erst, wenn nichts mehr nachlädt */
+.intro.wartet *,.intro.wartet *::before,.intro.wartet *::after{animation-play-state:paused!important}
 .i-band{position:absolute;left:50%;bottom:39.45%;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);transform-origin:50% 100%;
   translate:0 calc(var(--ie,0) * var(--hub,-26vh));scale:calc(var(--nah,1) * (1 + var(--ie,0) * var(--k) * .12));will-change:transform}
 /* Die Lagen steigen langsamer als das Blatt (ferne etwas weniger als nahe): Das Blatt holt die Stadt erst kurz vor dem Ziel ein und deckt sie von unten zu */
@@ -401,10 +411,12 @@ ${FEST_CSS}
 @keyframes i-wasser{from{transform:translateX(-6px)}to{transform:translateX(6px)}}
 @keyframes i-schein{from{transform:scale(.25);opacity:0}}
 @keyframes i-drehen{to{transform:rotate(360deg)}}
-@keyframes i-sonne{from{transform:translateY(64px)}}
-@keyframes i-dom{from{transform:perspective(520px) rotateX(-90deg)}55%{transform:perspective(520px) rotateX(10deg)}78%{transform:perspective(520px) rotateX(-4deg)}to{transform:perspective(520px) rotateX(0)}}
-@keyframes i-blatt-l{from{transform:perspective(900px) translate3d(-175%,120%,0) rotateY(78deg) rotateZ(-34deg) scale(5.2);opacity:0}18%{opacity:1}to{transform:perspective(900px)}}
-@keyframes i-blatt-r{from{transform:perspective(900px) translate3d(175%,120%,0) rotateY(-78deg) rotateZ(34deg) scale(5.2);opacity:0}18%{opacity:1}to{transform:perspective(900px)}}
+@keyframes i-sonne{from{transform:translateY(44px)}}
+@keyframes i-turm{from{transform:scaleY(0)}}
+@keyframes i-fenster{from{opacity:0}}
+@keyframes i-dom{from{transform:translateY(10px);opacity:0}}
+@keyframes i-blatt-l{from{transform:translate(-9%,11%) rotate(-8deg);opacity:0}}
+@keyframes i-blatt-r{from{transform:translate(9%,11%) rotate(8deg);opacity:0}}
 @keyframes i-flug{0%{transform:translate(calc(var(--L) * var(--x0)),calc(var(--L) * var(--y0))) scale(1);opacity:0}7%{opacity:1}86%{opacity:1}100%{transform:translate(0,0) scale(.3);opacity:0}}
 @keyframes i-schlag{from{transform:scaleY(1.08)}to{transform:scaleY(.42)}}
 @keyframes i-buchstabe{from{transform:translateY(118%) rotate(7deg)}}
@@ -430,7 +442,7 @@ const html = `<!-- INTRO-START -->
       ${WOLKEN_DEFS}
       <div class="i-himmel"></div>
       <div class="i-licht"><div class="i-schein"></div><div class="i-strahlen"></div></div>
-      <div class="i-l i-sonne"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont"><rect width="128" height="76.7"/></clipPath></defs><g clip-path="url(#i-horizont)"><path d="M5.5 77.5a58.5 58.5 0 0 1 117 0Z"/></g></svg></div>
+      <div class="i-l i-sonne"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont"><rect width="128" height="76.7"/></clipPath></defs><g clip-path="url(#i-horizont)"><path d="M9.6 77.5a54.4 54.4 0 0 1 108.8 0Z"/></g></svg></div>
       ${WOLKEN.map((w, i) => `<div class="i-wolke${w.mehr ? " i-mehr" : ""}" style="left:${w.l}%;top:${w.t}%;--g:${w.g};--fx:${w.fx};--v:${w.v}s">${WOLKE(i % 3)}</div>`).join("\n      ")}
       <div class="i-flocken"></div>
       ${FEST_HIMMEL}
@@ -455,7 +467,9 @@ const html = `<!-- INTRO-START -->
   <button type="button" class="i-weiter">Zur Ausgabe<i aria-hidden="true">↓</i></button>
  </div>
  <div class="i-traeger" aria-hidden="true"><div class="i-platz">
-      <div class="i-l i-sonne i-vorn"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont2"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont2)"><path d="M5.5 77.5a58.5 58.5 0 0 1 117 0Z"/></g></svg></div>
+      <div class="i-l i-sonne i-vorn"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont2"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont2)"><path d="M9.6 77.5a54.4 54.4 0 0 1 108.8 0Z"/></g></svg></div>
+      <div class="i-l i-turm"><svg viewBox="0 0 128 128"><g>${TURM}</g></svg></div>
+      <div class="i-l i-fenster"><svg viewBox="0 0 128 128">${FENSTER}</svg></div>
       <div class="i-l i-dom"><svg viewBox="0 0 128 128"><g>${DOM}</g></svg></div>
       <div class="i-l i-zl"><svg viewBox="0 0 128 128">${LINKS}</svg></div>
       <div class="i-l i-zr"><svg viewBox="0 0 128 128">${RECHTS}</svg></div>
@@ -505,6 +519,10 @@ const html = `<!-- INTRO-START -->
   // Für Standbilder (?zeit, ?p) wird die Datei sofort mitgeladen, damit das Bild verlässlich alles enthält.
   if (q.get("fund") === "aus" && !q.has("spruch") && !(window.BONIBLATT_FLIEGER || {})[heute]) ; else if (q.has("zeit") || q.has("p")) document.write('<script src="' + fundSkript.src + '"><' + '/script>'); else document.head.appendChild(fundSkript);
   intro.hidden = false;
+  // Erst bewegen, wenn alles da ist: Bis Schriften und Bilder geladen sind (höchstens 2,5 Sekunden), ruhen alle Animationen des Startbilds.
+  if (!q.has("zeit") && !q.has("p")) { intro.classList.add("wartet");
+    const fertig = Promise.all([document.fonts && document.fonts.ready, new Promise(r => document.readyState === "complete" ? r() : addEventListener("load", r, { once: true }))]);
+    Promise.race([fertig, new Promise(r => setTimeout(r, 2500))]).then(() => requestAnimationFrame(() => requestAnimationFrame(() => intro.classList.remove("wartet")))); }
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo"), platzEl = intro.querySelector(".i-platz"), traeger = intro.querySelector(".i-traeger"), titel = intro.querySelector(".i-titel"), sonneHinten = intro.querySelector(".i-welt .i-sonne");
   let bild, geo = null, fertig = false, ruhe = 0, offen = false, fahrt = 0;
