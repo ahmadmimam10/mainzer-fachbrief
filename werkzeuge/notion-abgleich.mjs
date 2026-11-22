@@ -3,21 +3,24 @@
  * Notion-Abgleich für die Übergangszeit (bis 6.12.2026): Kommt alles, was die alte Make.com-Automatisierung in die
  * Notion-Datenbank „AZ“ schreibt, auch beim eigenen Abruf (werkzeuge/sammeln.mjs) an?
  *
- * Läuft täglich um 12 Uhr (.github/workflows/notion-abgleich.yml). Nimmt alle Notion-Einträge des Vortags (Berliner Zeit),
- * sucht jeden Artikel im Pool (daten/pool, zehn Tage) und unter den bekannten Links (daten/gesehen.json) und schreibt das
- * Ergebnis nach daten/notion-abgleich.json. Angezeigt wird es in docs/verwaltung.html („Notion-Abgleich“).
+ * Läuft jeden Morgen kurz nach 5 Uhr (.github/workflows/notion-abgleich.yml) und prüft die letzten 24 Stunden bis 5 Uhr:
+ * Jeder Artikel, den Make.com in dieser Zeit nach Notion schrieb, wird im Pool (daten/pool, zehn Tage) und unter den
+ * bekannten Links (daten/gesehen.json) gesucht. Ergebnis: daten/notion-abgleich.json, Anzeige in docs/verwaltung.html.
  *
  * Fehlt ein Artikel, steht ein Grund dabei:
+ *   offen    GitHub hat seit dem Eintrag in Notion noch nicht wieder abgerufen (nachts zwischen 3:47 und 5 Uhr).
+ *            Solche Fenster sind „vorläufig“ und werden am nächsten Morgen noch einmal geprüft – dann gibt es kein „offen“ mehr.
  *   rubrik   Die Quelle ruft GitHub ab, diese Rubrik aber nicht (z. B. AZ Rheinhessen). Mit vermuteter Feed-Adresse.
  *   alt      Der Artikel war beim Eintrag in Notion älter als drei Tage. Der Abruf übernimmt bewusst nichts Älteres.
  *   quelle   Diese Quelle gibt es beim Abruf nicht oder sie ist pausiert.
  *   unklar   Hätte der Abruf sehen müssen. Genauer ansehen.
  *
- *   node werkzeuge/notion-abgleich.mjs                   Vortag abgleichen, verpasste Tage nachholen (braucht NOTION_TOKEN)
- *   node werkzeuge/notion-abgleich.mjs --tag=2026-11-21  einen bestimmten Tag (neu) abgleichen
- *   node werkzeuge/notion-abgleich.mjs --datei=<json>    Notion-Einträge aus einer Datei statt aus Notion (Test, Nachtrag)
- *                                                        Format: [[Zeit, Quelle, URL, Titel, Datum, Anzahl], …]
- *   node werkzeuge/notion-abgleich.mjs --ist-beendet     Ende mit 0, wenn die zwei Wochen vorbei sind (der Ablauf schaltet sich ab)
+ *   node werkzeuge/notion-abgleich.mjs                    neues Fenster prüfen, das vom Vortag nachprüfen, Verpasstes nachholen
+ *                                                         (braucht NOTION_TOKEN)
+ *   node werkzeuge/notion-abgleich.mjs --bis=2026-11-25   die 24 Stunden bis zu diesem Tag 5 Uhr (neu) prüfen
+ *   node werkzeuge/notion-abgleich.mjs --datei=<json>     Notion-Einträge aus einer Datei statt aus Notion (Test)
+ *                                                         Format: [[Zeit, Quelle, URL, Titel, Datum, Anzahl], …]
+ *   node werkzeuge/notion-abgleich.mjs --ist-beendet      Ende mit 0, wenn die zwei Wochen vorbei sind (der Ablauf schaltet sich ab)
  *
  * Scheitert nie: Fehlt der Zugang oder antwortet Notion nicht, steht das in der Datei, und der Lauf endet normal.
  */
@@ -27,16 +30,17 @@ import { ROOT, berlinDay, berlinTime, dayOffset, readJson, writeJson, cut, clean
 
 const DATENQUELLE = "1c59c874-32ff-8043-98df-000b538e2fdc";   // Notion: Seite „News“ → Datenbank „AZ“
 const NOTION_VERSION = "2026-03-11";
-const ERSTER_TAG = "2026-11-21";                // erster abgeglichener Tag (von Hand nachgetragen)
-const LETZTER_LAUF = "2026-12-06";              // letzter Lauf; er gleicht den 5. Dezember ab
-const LETZTER_TAG = dayOffset(LETZTER_LAUF, -1);
-const NACHHOLEN = 4;                            // so viele verpasste Tage holt ein Lauf höchstens nach
+const GRENZE = "05:00";                         // jedes Fenster endet morgens um 5 Uhr (Berliner Zeit)
+const LETZTER_LAUF = "2026-12-06";              // letztes neues Fenster endet am 6.12. um 5 Uhr; am 7.12. wird nur noch nachgeprüft
+const NACHHOLEN = 4;                            // so viele verpasste Fenster holt ein Lauf höchstens nach
 const ALT_TAGE = 3;                             // wie ALTER_MAX in sammeln.mjs
 const DATEI = "daten/notion-abgleich.json";
+const H = 3600e3;
 
 const argv = process.argv.slice(2);
 const opt = n => (argv.find(a => a.startsWith(`--${n}=`)) || "").slice(n.length + 3);
-const HEUTE = berlinDay();
+const JETZT = opt("jetzt") ? new Date(opt("jetzt")) : new Date();   // --jetzt=… nur für Tests
+const HEUTE = berlinDay(JETZT);
 
 if (argv.includes("--ist-beendet")) process.exit(HEUTE > LETZTER_LAUF ? 0 : 1);
 
@@ -48,6 +52,7 @@ const NAME_ZU_QUELLE = {
   "bundesratkompakt": "bundesrat", "jugendgerecht.de": "jugendgerecht", "jadigital": "jadigital", "bildungsminsterium": "bm-rlp",
   "bildungsministerium": "bm-rlp", "deutscher verein veranstaltungen": "dv", "deutscher verein": "dv",
 };
+const REIHE = ["unklar", "rubrik", "alt", "quelle", "offen"];
 
 const host = u => { try { return new URL(u).hostname.toLowerCase().replace(/^www\./, ""); } catch { return ""; } };
 const pfad = u => { try { return decodeURIComponent(new URL(u).pathname).toLowerCase(); } catch { return ""; } };
@@ -63,11 +68,14 @@ function schluessel(url) {
   return [...new Set(k)];
 }
 
-/** Berliner Mitternacht eines Tages als UTC-Zeitpunkt (Winter- und Sommerzeit). */
-function mitternacht(tag) {
-  for (const h of [1, 2]) { const d = new Date(Date.parse(tag + "T00:00:00Z") - h * 3600e3); if (berlinDay(d) === tag && berlinTime(d) === "00:00") return d; }
-  return new Date(Date.parse(tag + "T00:00:00Z") - 3600e3);
+/** Berliner Uhrzeit eines Tages als Zeitpunkt (Winter- und Sommerzeit). */
+function zeitpunkt(tag, uhr) {
+  for (const h of [1, 2]) { const d = new Date(Date.parse(`${tag}T${uhr}:00Z`) - h * H); if (berlinDay(d) === tag && berlinTime(d) === uhr) return d; }
+  return new Date(Date.parse(`${tag}T${uhr}:00Z`) - H);
 }
+// Ältere Einträge (ganzer Kalendertag) haben noch kein von/bis
+const fensterVon = r => new Date(r.von || zeitpunkt(r.tag, "00:00"));
+const fensterBis = r => new Date(r.bis || zeitpunkt(dayOffset(r.tag, 1), "00:00"));
 
 // ---------- Notion lesen ----------
 const text = x => !x ? "" : (x.type === "title" || x.type === "rich_text") ? (x[x.type] || []).map(t => t.plain_text || "").join("") : x.type === "url" ? (x.url || "") : "";
@@ -120,12 +128,15 @@ async function abrufLesen() {
     for (const k of p.kandidaten || []) if (k.url) pool.push({ url: k.url, titel: k.titel || "", quelle: k.quelle, zeit });
   }
   const gesehen = (await readJson("daten/gesehen.json", { links: {} })).links || {};
+  // Wann lief der letzte volle Abruf? Was danach in Notion kam, konnte GitHub noch gar nicht sehen.
+  const status = await readJson("docs/daten/status.json", {}).catch(() => ({}));
+  const letzterAbruf = Date.parse(status.stand || "") || 0;
   const nachSchluessel = new Map(), nachTitel = new Map();
   for (const p of pool) {
     for (const k of schluessel(p.url)) if (!nachSchluessel.has(k)) nachSchluessel.set(k, p);
     const t = p.quelle + "|" + titelNorm(p.titel); if (titelNorm(p.titel).length >= 12 && !nachTitel.has(t)) nachTitel.set(t, p);
   }
-  return { pool, gesehen, nachSchluessel, nachTitel };
+  return { pool, gesehen, letzterAbruf, nachSchluessel, nachTitel };
 }
 
 // ---------- Rubriken: welche Teile einer Quelle der Abruf abdeckt ----------
@@ -155,14 +166,16 @@ function rubrikPruefen(rubriken, url) {
   return { rubrik, name, feed: vorlage.feed.replace(new RegExp(vorlage.praefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "i"), rubrik) };
 }
 
-// ---------- Abgleich eines Tages ----------
-function tagAbgleichen(tag, notion, abruf, quellen) {
+// ---------- Abgleich eines Zeitfensters ----------
+function fensterAbgleichen(f, notion, abruf, quellen, jetzt) {
   const qMap = new Map(quellen.map(q => [q.id, q]));
   const hostZuQuelle = new Map();
   for (const p of abruf.pool) { const h = host(p.url); if (h && !hostZuQuelle.has(h)) hostZuQuelle.set(h, p.quelle); }
   for (const q of quellen) for (const u of [...(q.urls || []), ...(q.stuendlich || [])]) { const h = host(u.replace(/\{[^}]*\}/g, "x")); if (h && !hostZuQuelle.has(h)) hostZuQuelle.set(h, q.id); }
   const quelleVon = n => hostZuQuelle.get(host(n.url)) || NAME_ZU_QUELLE[n.quelle.toLowerCase()] || "";
   const rubriken = new Map(quellen.map(q => [q.id, rubrikenVon(q, abruf.pool)]));
+  // Vorläufig, solange das Fenster frisch ist: Am nächsten Morgen wird es noch einmal geprüft, dann gilt es.
+  const vorlaeufig = jetzt - f.bis < 20 * H;
 
   const finden = n => {
     for (const k of schluessel(n.url)) { const p = abruf.nachSchluessel.get(k); if (p) return { p }; }
@@ -173,26 +186,29 @@ function tagAbgleichen(tag, notion, abruf, quellen) {
     return null;
   };
 
-  // Einträge des Tages, je Adresse nur einmal (Make.com schreibt manche Artikel doppelt)
-  const desTages = notion.filter(n => berlinDay(new Date(n.zeit)) === tag);
+  // Einträge des Fensters, je Adresse nur einmal (Make.com schreibt manche Artikel doppelt)
+  const drin = n => { const z = Date.parse(n.zeit); return z >= f.von.getTime() && z < f.bis.getTime(); };
+  const imFenster = notion.filter(drin);
   const artikel = new Map();
   let ohneLink = 0;
-  for (const n of desTages) {
+  for (const n of imFenster) {
     if (!n.url) { ohneLink++; continue; }
     const k = schluessel(n.url)[0] || n.url;
     if (!artikel.has(k)) artikel.set(k, n);
   }
 
   const jeQuelle = new Map(), fehlend = [], vorsprung = [];
-  const zeile = (name, id) => { const k = id || "?" + name; if (!jeQuelle.has(k)) jeQuelle.set(k, { name, id: id || "", notion: 0, erfasst: 0, fehlt: 0, zusaetzlich: 0 }); return jeQuelle.get(k); };
+  const zeile = (name, id) => { const k = id || "?" + name; if (!jeQuelle.has(k)) jeQuelle.set(k, { name, id: id || "", notion: 0, erfasst: 0, fehlt: 0, offen: 0, zusaetzlich: 0 }); return jeQuelle.get(k); };
   for (const n of artikel.values()) {
-    const id = quelleVon(n), z = zeile(n.quelle || host(n.url), id), f = finden(n);
+    const id = quelleVon(n), z = zeile(n.quelle || host(n.url), id), fund = finden(n);
     z.notion++;
-    if (f) {
+    if (fund) {
       z.erfasst++;
-      if (f.p) vorsprung.push((Date.parse(n.zeit) - Date.parse(f.p.zeit)) / 60000);
+      if (fund.p) vorsprung.push((Date.parse(n.zeit) - Date.parse(fund.p.zeit)) / 60000);
       continue;
     }
+    const eintrag = { titel: cut(n.titel, 160), url: n.url, quelle: n.quelle, id, zeit: n.zeit };
+    if (vorlaeufig && Date.parse(n.zeit) >= abruf.letzterAbruf) { z.offen++; fehlend.push({ ...eintrag, grund: "offen" }); continue; }
     z.fehlt++;
     const q = qMap.get(id);
     let grund = "unklar", extra = {};
@@ -202,18 +218,19 @@ function tagAbgleichen(tag, notion, abruf, quellen) {
       if (r) { grund = "rubrik"; extra = { rubrik: r.rubrik, rubrikName: r.name, feed: r.feed }; }
       else if (n.datum && n.datum.slice(0, 10) < dayOffset(berlinDay(new Date(n.zeit)), -ALT_TAGE)) { grund = "alt"; extra = { datum: n.datum.slice(0, 10) }; }
     }
-    fehlend.push({ titel: cut(n.titel, 160), url: n.url, quelle: n.quelle, id, zeit: n.zeit, grund, ...extra });
+    fehlend.push({ ...eintrag, grund, ...extra });
   }
 
-  // Nur bei GitHub: Meldungen derselben Quellen, die der Abruf an diesem Tag fand und die in Notion (Vortag bis Folgetag) fehlen
+  // Nur bei GitHub: Meldungen derselben Quellen, die der Abruf im Fenster fand und die in Notion (± 24 Stunden) fehlen
   const notionSchluessel = new Set(), notionTitel = new Set();
-  for (const n of notion.filter(n => { const t = berlinDay(new Date(n.zeit)); return t >= dayOffset(tag, -1) && t <= dayOffset(tag, 1); })) {
+  for (const n of notion.filter(n => { const z = Date.parse(n.zeit); return z >= f.von.getTime() - 24 * H && z < f.bis.getTime() + 24 * H; })) {
     for (const k of schluessel(n.url)) notionSchluessel.add(k);
     notionTitel.add(quelleVon(n) + "|" + titelNorm(n.titel));
   }
   const notionQuellen = new Set(notion.map(quelleVon).filter(Boolean));
   for (const p of abruf.pool) {
-    if (berlinDay(new Date(p.zeit)) !== tag || !notionQuellen.has(p.quelle)) continue;
+    const z = Date.parse(p.zeit);
+    if (z < f.von.getTime() || z >= f.bis.getTime() || !notionQuellen.has(p.quelle)) continue;
     if (schluessel(p.url).some(k => notionSchluessel.has(k)) || notionTitel.has(p.quelle + "|" + titelNorm(p.titel))) continue;
     zeile((qMap.get(p.quelle) || {}).name || p.quelle, p.quelle).zusaetzlich++;
   }
@@ -222,42 +239,55 @@ function tagAbgleichen(tag, notion, abruf, quellen) {
   const summe = k => quellenZeilen.reduce((s, z) => s + z[k], 0);
   const v = median(vorsprung);
   return {
-    tag, eintraege: desTages.length, notion: artikel.size, erfasst: summe("erfasst"), fehlt: summe("fehlt"), zusaetzlich: summe("zusaetzlich"),
+    tag: berlinDay(new Date(f.bis.getTime() - 1)), von: f.von.toISOString(), bis: f.bis.toISOString(), vorlaeufig,
+    eintraege: imFenster.length, notion: artikel.size, erfasst: summe("erfasst"), fehlt: summe("fehlt"), offen: summe("offen"), zusaetzlich: summe("zusaetzlich"),
     ...(ohneLink ? { ohneLink } : {}), vorsprungMinuten: v == null ? null : Math.round(v), quellen: quellenZeilen,
-    fehlend: fehlend.sort((a, b) => ["unklar", "rubrik", "alt", "quelle"].indexOf(a.grund) - ["unklar", "rubrik", "alt", "quelle"].indexOf(b.grund) || a.zeit.localeCompare(b.zeit)),
+    fehlend: fehlend.sort((a, b) => REIHE.indexOf(a.grund) - REIHE.indexOf(b.grund) || a.zeit.localeCompare(b.zeit)),
   };
 }
 
-/** Über alle Tage: Wo liegen die Lücken? (je Quelle und Grund, Rubriken einzeln) */
+/** Über alle Fenster: Wo liegen die Lücken? (je Quelle und Grund, Rubriken einzeln; „offen“ zählt nicht) */
 function luecken(tage) {
   const g = new Map();
-  for (const t of tage) for (const f of t.fehlend) {
+  for (const t of [...tage].reverse()) for (const f of t.fehlend.filter(f => f.grund !== "offen")) {
     const k = [f.id || f.quelle, f.grund, f.rubrik || ""].join("|");
     const e = g.get(k) || { quelle: f.quelle, id: f.id, grund: f.grund, ...(f.rubrik ? { rubrik: f.rubrik, rubrikName: f.rubrikName, feed: f.feed } : {}), ...(f.hinweis ? { hinweis: f.hinweis } : {}), anzahl: 0, tage: [], beispiele: [] };
-    e.anzahl++; if (!e.tage.includes(t.tag)) e.tage.push(t.tag); if (e.beispiele.length < 3) e.beispiele.push(f.titel);
+    e.anzahl++; if (!e.tage.includes(t.tag)) e.tage.push(t.tag); e.beispiele = [...e.beispiele, f.titel].slice(-3);
     g.set(k, e);
   }
   return [...g.values()].sort((a, b) => (a.grund === "unklar" ? -1 : 0) - (b.grund === "unklar" ? -1 : 0) || b.anzahl - a.anzahl);
 }
 
+/** Welche Fenster dieser Lauf prüft: vorläufige vom Vortag noch einmal, dann neue bis zur letzten 5-Uhr-Grenze. */
+function fensterPlanen(tage, jetzt) {
+  if (opt("bis")) { const b = zeitpunkt(opt("bis"), GRENZE); return [{ von: new Date(b - 24 * H), bis: b }]; }
+  const plan = tage.filter(r => r.vorlaeufig).map(r => ({ von: fensterVon(r), bis: fensterBis(r) }));
+  const letzte = jetzt >= zeitpunkt(HEUTE, GRENZE) ? HEUTE : dayOffset(HEUTE, -1);
+  const ende = letzte < LETZTER_LAUF ? letzte : LETZTER_LAUF;
+  let von = tage.length ? new Date(Math.max(...tage.map(r => fensterBis(r).getTime()))) : null;
+  for (let t = dayOffset(ende, -(NACHHOLEN - 1)); t <= ende; t = dayOffset(t, 1)) {
+    const g = zeitpunkt(t, GRENZE);
+    if (von && g <= von) continue;
+    if (!von) { if (t === ende) plan.push({ von: new Date(g - 24 * H), bis: g }); continue; }
+    if (g - von < 12 * H) continue;                     // kurze Lücke: mit dem nächsten Fenster zusammenlegen
+    plan.push({ von: g - von <= 48 * H ? von : new Date(g - 24 * H), bis: g });
+    von = g;
+  }
+  return [...new Map(plan.map(f => [f.bis.getTime(), f])).values()].sort((a, b) => a.bis - b.bis);
+}
+
 // ---------- Ablauf ----------
 async function main() {
+  const jetzt = JETZT;
   const alt = await readJson(DATEI, null);
   const stand = alt || { tage: [] };
-  const fertig = new Set(stand.tage.map(t => t.tag));
-  const gestern = dayOffset(HEUTE, -1);
-  let tage = [];
-  if (opt("tag")) tage = [opt("tag")];
-  else {
-    const ab = [ERSTER_TAG, dayOffset(gestern, -(NACHHOLEN - 1))].sort().at(-1);
-    for (let t = ab; t <= gestern && t <= LETZTER_TAG; t = dayOffset(t, 1)) if (!fertig.has(t)) tage.push(t);
-  }
-  if (!tage.length) { console.log(HEUTE > LETZTER_LAUF ? "Der Notion-Abgleich ist abgeschlossen." : "Nichts abzugleichen – alle Tage sind schon geprüft."); return; }
+  const plan = fensterPlanen(stand.tage, jetzt);
+  if (!plan.length) { console.log(HEUTE > LETZTER_LAUF ? "Der Notion-Abgleich ist abgeschlossen." : "Nichts abzugleichen – die letzten 24 Stunden sind schon geprüft."); return; }
 
   let notion, zugang = "ok", hinweis = "";
   try {
     if (opt("datei")) notion = await dateiLesen(opt("datei"));
-    else notion = await notionLesen(mitternacht(dayOffset(tage[0], -1)), new Date(Math.min(Date.now(), mitternacht(dayOffset(tage.at(-1), 2)).getTime())));
+    else notion = await notionLesen(new Date(Math.min(...plan.map(f => f.von.getTime())) - 24 * H), new Date(Math.min(jetzt.getTime(), Math.max(...plan.map(f => f.bis.getTime())) + 24 * H)));
   } catch (e) {
     zugang = e.zugang || "fehler"; hinweis = e.message;
     console.log("Kein Abgleich: " + e.message);
@@ -266,21 +296,21 @@ async function main() {
   const neu = { ...stand };
   if (notion) {
     const [abruf, quellen] = await Promise.all([abrufLesen(), readJson("quellen.json")]);
-    for (const tag of tage) {
-      const t = tagAbgleichen(tag, notion, abruf, quellen);
-      if (!t.notion && !opt("datei")) { console.log(`${tag}: keine Einträge in Notion – Tag bleibt offen.`); continue; }
-      neu.tage = [...neu.tage.filter(x => x.tag !== tag), t].sort((a, b) => b.tag.localeCompare(a.tag));
-      console.log(`${tag}: ${t.notion} Artikel in Notion, ${t.erfasst} erfasst, ${t.fehlt} fehlen${t.fehlt ? " (" + [...new Set(t.fehlend.map(f => f.grund))].join(", ") + ")" : ""}, ${t.zusaetzlich} nur bei GitHub.`);
-      for (const f of t.fehlend.slice(0, 12)) console.log(`   ✗ [${f.grund}${f.rubrikName ? ": " + f.rubrikName : ""}] ${f.quelle}: ${cut(f.titel, 80)}`);
+    for (const f of plan) {
+      const t = fensterAbgleichen(f, notion, abruf, quellen, jetzt);
+      neu.tage = [...neu.tage.filter(x => fensterBis(x).getTime() !== f.bis.getTime()), t].sort((a, b) => fensterBis(b) - fensterBis(a));
+      const wann = d => `${d.toLocaleDateString("de-DE", { timeZone: "Europe/Berlin", weekday: "short", day: "numeric", month: "numeric" })} ${berlinTime(d)}`;
+      console.log(`${wann(f.von)} bis ${wann(f.bis)}${t.vorlaeufig ? " (vorläufig)" : ""}: ${t.notion} Artikel in Notion, ${t.erfasst} erfasst, ${t.fehlt} fehlen${t.fehlt ? " (" + [...new Set(t.fehlend.filter(x => x.grund !== "offen").map(x => x.grund))].join(", ") + ")" : ""}${t.offen ? `, ${t.offen} noch offen` : ""}, ${t.zusaetzlich} nur bei GitHub.`);
+      for (const x of t.fehlend.slice(0, 12)) console.log(`   ✗ [${x.grund}${x.rubrikName ? ": " + x.rubrikName : ""}] ${x.quelle}: ${cut(x.titel, 80)}`);
     }
   }
-  const tageAlle = neu.tage || [];
-  const sum = k => tageAlle.reduce((s, t) => s + (t[k] || 0), 0);
+  const alle = neu.tage || [];
+  const sum = k => alle.reduce((s, t) => s + (t[k] || 0), 0);
   const ergebnis = {
-    info: "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Tag: Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: rubrik / alt / quelle / unklar.",
-    stand: new Date().toISOString(), zugang, ...(hinweis ? { hinweis } : {}), ersterTag: ERSTER_TAG, letzterTag: LETZTER_TAG, letzterLauf: LETZTER_LAUF,
-    gesamt: { tage: tageAlle.length, notion: sum("notion"), erfasst: sum("erfasst"), fehlt: sum("fehlt"), zusaetzlich: sum("zusaetzlich") },
-    luecken: luecken(tageAlle), tage: tageAlle,
+    info: "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis 5 Uhr): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
+    stand: new Date().toISOString(), zugang, ...(hinweis ? { hinweis } : {}), grenze: GRENZE, letzterLauf: LETZTER_LAUF,
+    gesamt: { tage: alle.length, notion: sum("notion"), erfasst: sum("erfasst"), fehlt: sum("fehlt"), offen: sum("offen"), zusaetzlich: sum("zusaetzlich") },
+    luecken: luecken(alle), tage: alle,
   };
   const ohneStand = x => JSON.stringify({ ...x, stand: "" });
   if (!alt || ohneStand(alt) !== ohneStand(ergebnis)) { await writeJson(DATEI, ergebnis); console.log("Gespeichert: " + DATEI); }

@@ -1,16 +1,18 @@
 name: Notion-Abgleich
 # Übergangszeit: Kommt alles, was Make.com in die Notion-Datenbank „AZ“ schreibt, auch beim eigenen Abruf an?
-# Täglich um 12 Uhr (Winterzeit) wird der Vortag abgeglichen (werkzeuge/notion-abgleich.mjs). Das Ergebnis liegt in
-# daten/notion-abgleich.json und steht in docs/verwaltung.html unter „Notion-Abgleich“.
+# Jeden Morgen kurz nach 5 Uhr (Winterzeit) werden die letzten 24 Stunden bis 5 Uhr abgeglichen, das Fenster vom Vortag
+# wird dabei noch einmal nachgeprüft (werkzeuge/notion-abgleich.mjs). Das Ergebnis liegt in daten/notion-abgleich.json und
+# steht in docs/verwaltung.html unter „Notion-Abgleich“.
 # Braucht das Repository-Secret NOTION_TOKEN (Notion-Verbindung mit Lesezugriff auf die Datenbank „AZ“).
-# Nach dem 6. Dezember 2026 schaltet sich dieser Ablauf selbst ab.
+# Am 7. Dezember 2026 prüft er nur noch das letzte Fenster nach und schaltet sich dann selbst ab.
 on:
   schedule:
-    - cron: "0 11 * * *"
+    # 04:05 UTC = 5:05 Uhr Winterzeit (nicht genau zur vollen Stunde, da sind GitHubs Zeitpläne oft überlastet)
+    - cron: "5 4 * * *"
   workflow_dispatch:
     inputs:
-      tag:
-        description: "Tag, der (neu) abgeglichen werden soll (JJJJ-MM-TT); leer = Vortag"
+      bis:
+        description: "Die 24 Stunden bis zu diesem Tag 5 Uhr (neu) prüfen (JJJJ-MM-TT); leer = wie geplant"
         required: false
 
 permissions:
@@ -35,7 +37,7 @@ jobs:
       - name: Notion mit dem Abruf vergleichen
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
-        run: node werkzeuge/notion-abgleich.mjs ${{ github.event.inputs.tag && format('--tag={0}', github.event.inputs.tag) || '' }} || true
+        run: node werkzeuge/notion-abgleich.mjs ${{ github.event.inputs.bis && format('--bis={0}', github.event.inputs.bis) || '' }} || true
       - name: Ergebnis speichern
         run: |
           git config user.name "Boniblatt-Abgleich"
