@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-22T15:27:47.331Z",
+ "stand": "2026-11-22T18:23:08.626Z",
  "termine": [
   {
    "url": "https://bi.mainz.de/si0057.php?__ksinr=4961",
@@ -7,6 +7,7 @@
    "datum": "2026-11-25",
    "zeit": "15:00",
    "ort": "Frankfurter Hof Mainz, Augustinerstraße 55, 55116 Mainz",
+   "adr": "https://bi.mainz.de/si0046.php",
    "quelle": "ratsinfo"
   }
  ]
