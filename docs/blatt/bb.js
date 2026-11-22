@@ -54,12 +54,14 @@
   const losKachel = () => { const neu = E.daten.ausgaben[0] || {}, iso = n => new Date(mittag(heute).getTime() + n * 864e5).toLocaleDateString("sv-SE"), bis = iso(7);
     // Fußball: nur FC Barcelona, Real Madrid, Spanien und Ägypten – und je Mannschaft nur das nächste Spiel
     const MANNSCHAFTEN = [/Real Madrid/i, /Barcelona|Barça/i, /Spanien/i, /Ägypten/i], gezeigt = new Set();
-    const echt = (Array.isArray(neu.termine) ? neu.termine : []).filter(x => x.tag >= heute && x.tag <= bis).sort((x, y) => x.tag.localeCompare(y.tag)).filter(x => { if (x.art !== "fussball") return true;
+    // Tipps (Restaurant, Ausflug) haben keinen festen Tag: Sie bleiben eine Woche stehen und kommen nach den Terminen
+    const TIPP = new Set(["restaurant", "ausflug"]), vor7 = iso(-7);
+    const echt = (Array.isArray(neu.termine) ? neu.termine : []).filter(x => x.tag <= bis && x.tag >= (TIPP.has(x.art) ? vor7 : heute)).sort((x, y) => TIPP.has(x.art) - TIPP.has(y.art) || x.tag.localeCompare(y.tag)).filter(x => { if (x.art !== "fussball") return true;
       const wer = MANNSCHAFTEN.map((m, i) => m.test(x.titel) ? i : -1).filter(i => i >= 0); if (!wer.length || wer.every(i => gezeigt.has(i))) return false; wer.forEach(i => gezeigt.add(i)); return true; });
-    const liste = echt.length ? echt.map(x => [LOS_BILD[x.art] || "riesenrad", x.tag, x.wann, x.titel, x.ort, x.url]) : q.has("beispiele") ? BEISPIELE.map((x, i) => [x[0], iso(i), x[1], x[2], x[3]]) : null; if (!liste) return "";
+    const liste = echt.length ? echt.map(x => [LOS_BILD[x.art] || "riesenrad", TIPP.has(x.art) ? "" : x.tag, x.wann, x.titel, x.ort, x.url]) : q.has("beispiele") ? BEISPIELE.map((x, i) => [x[0], iso(i), x[1], x[2], x[3]]) : null; if (!liste) return "";
     const tagWort = d => { const z = tageBis(d); return z === 0 ? "Heute" : z === 1 ? "Morgen" : mittag(d).toLocaleDateString("de-DE", { weekday: "short" }).replace(".", "") + " " + mittag(d).getDate() + "."; };
     return `<div class="k los" data-ein><div class="los-kopf"><h3>Was <i>geht?</i></h3><span class="etikett">Die nächsten 7 Tage · Fußball, Spiele, Mainz &amp; Rhein-Main${echt.length ? "" : " · Beispiele"}</span></div>
-    <div class="los-reihe">${liste.map(([m, tag, wann, was, wo, url], i) => { const innen = `${motiv(m)}<b>${esc(tagWort(tag))}${wann ? " · " + esc(wann) : ""}</b><strong${/\S{16,}/.test(was) ? ' class="eng"' : ""}>${esc(was)}</strong><small>${esc(wo)}</small>`;
+    <div class="los-reihe">${liste.map(([m, tag, wann, was, wo, url], i) => { const innen = `${motiv(m)}<b>${tag ? esc(tagWort(tag)) : "Tipp"}${wann ? " · " + esc(wann) : ""}</b><strong${/\S{16,}/.test(was) ? ' class="eng"' : ""}>${esc(was)}</strong><small>${esc(wo)}</small>`;
       return /^https?:/.test(url || "") ? `<a class="los-karte f${i % 5}" href="${esc(url)}">${innen}</a>` : `<div class="los-karte f${i % 5}">${innen}</div>`; }).join("")}</div></div>`; };
 
   // ---- Bild des Tages: ein Mainzer Motiv, jeden Tag ein anderes ----

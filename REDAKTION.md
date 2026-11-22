@@ -306,7 +306,7 @@ Woran er anknüpfen kann, in dieser Reihenfolge der Vorliebe:
 | Advent | `Noch drei Sitzungen bis Weihnachten` |
 | Fastnacht | `Helau! Auch im Jugendhilfeausschuss` |
 
-## „Was geht ab?“ – Termine der nächsten 7 Tage
+## „Was geht?“ – Termine der nächsten 7 Tage
 
 Unten auf der Seite steht eine Reihe kleiner Karten mit dem, was vom Erscheinungstag an in den nächsten 7 Tagen los ist –
 ausdrücklich auch für Feierabend und Wochenende gedacht. Das Feld `termine` der Ausgabe ist eine Liste mit 8 bis 14
@@ -323,12 +323,23 @@ Champions-League-Spiele. Der Mannschaftsname muss im `titel` genau so stehen: �
 Konzerte, Kino- und Theaterabende mit breitem Publikum, Neueröffnungen, Angebote
 für Familien. Nichts Nischiges, keine abseitigen Kunst-Veranstaltungen, keine Werbung, keine Dauerangebote ohne Anlass.
 
+**Spiele-Neuheiten** (`art: "spiel"`): große Videospiel-Veröffentlichungen der 7 Tage – nur Titel, über die breit berichtet
+wird (große Reihen, viel erwartete Neuheiten), höchstens zwei je Ausgabe. `tag` ist der Erscheinungstag, `titel` der Name
+des Spiels, `ort` die Plattformen („PC, PS5, Xbox“), `url` die Seite des Herstellers oder ein seriöser Bericht. Keine
+Erweiterungen, Betas, Mobilspiele oder Nischentitel.
+
+**Tipps, wenn wenig los ist** (`art: "restaurant"` oder `"ausflug"`): Kommen weniger als acht belegte Termine zusammen,
+füllen ein bis drei Tipps aus der Region auf – Restaurants mit besonderem Konzept, außergewöhnlicher Küche oder Aussicht,
+oder eine besondere Unternehmung. Nur Orte, die es nachweislich gibt und die geöffnet haben (Quelle: eigene Seite des
+Hauses oder ein seriöser Bericht), keine Ketten, keine Werbung. `tag` ist der Erscheinungstag, `wann` bleibt leer,
+`ort` nennt Stadt und Lage; die Seite schreibt statt des Tages „Tipp“ und zeigt den Tipp eine Woche lang.
+
 Nur Termine mit verlässlicher Quelle (Veranstalter, Stadt, Verein, Verband, seriöse Medien) – nichts erfinden und nichts
 aus dem Gedächtnis schreiben. Lässt sich ein Termin nicht belegen, bleibt er weg.
 
 | Feld | Inhalt |
 | --- | --- |
-| `art` | bestimmt das Bild: `fussball`, `sport`, `markt`, `flohmarkt`, `fest`, `musik`, `party`, `kino`, `theater`, `ausstellung`, `neu` (Neueröffnung), `familie`, `wein`, `essen`, `fastnacht` |
+| `art` | bestimmt das Bild: `fussball`, `sport`, `markt`, `flohmarkt`, `fest`, `musik`, `party`, `kino`, `theater`, `ausstellung`, `neu` (Neueröffnung), `familie`, `wein`, `essen`, `fastnacht`, `spiel` (Videospiel-Neuheit), `restaurant` und `ausflug` (Tipps) |
 | `tag` | Datum des Termins, `JJJJ-MM-TT`, vom Erscheinungstag bis 7 Tage danach |
 | `wann` | kurz, höchstens 16 Zeichen: „21 Uhr“, „ab 16 Uhr“; ganztägig: leer |
 | `titel` | 4–52 Zeichen: „Real Madrid – FC Barcelona“, „Weihnachtsmarkt eröffnet“ |
@@ -339,9 +350,9 @@ aus dem Gedächtnis schreiben. Lässt sich ein Termin nicht belegen, bleibt er w
 
 `docs/daten/gremien.json` enthält die Sitzungen der Mainzer Gremien (letzte 14 Tage, nächste 60 Tage) mit
 Tagesordnungspunkten (`tops`: `titel`, `ergebnis`, `art`). Daraus entsteht in `daten/gremien-notizen.json` je Sitzung
-eine Notiz **je Ressort**. Die Seite zeigt im Kasten „Gremien“ nur die **nächste Sitzung** von Jugendhilfeausschuss,
-Sozialausschuss oder Stadtrat mit einer Zeile für das gewählte Ressort und unter „Zuletzt“ nur Sitzungen (aller
-Gremien), die für dieses Ressort etwas Relevantes hatten.
+eine Notiz **je Ressort**. Die Seite zeigt im Kasten „Gremien“ unter „Das kommt“ alle Sitzungen der nächsten 7 Tage mit einem
+Thema für das gewählte Ressort und unter „Das war“ alle der letzten Woche (Jugendhilfeausschuss, Sozialausschuss und
+Stadtrat 14 Tage) – ohne Obergrenze, die drei Kern-Gremien zuerst.
 
 ```json
 { "notizen": {
@@ -362,6 +373,11 @@ Gremien), die für dieses Ressort etwas Relevantes hatten.
 - Text je Ressort **eine kurze Zeile** (Richtwert 60–120 Zeichen, höchstens 160): die relevanten Punkte als Stichworte
   und, falls vorhanden, das Ergebnis („beschlossen“, „zurückgestellt“, „zur Kenntnis genommen“). Nur aus Titeln und
   Ergebnissen, nichts erfinden. Formalien, Personalien und Punkte ohne Ressortbezug weglassen.
+- `ergebnis` (nur bei vergangenen Sitzungen mit veröffentlichtem Ergebnis, nie bei `vorschau`): je Ressort eine Liste mit
+  ein bis zwei festen Wörtern – `beschlossen`, `einstimmig`, `mehrheitlich`, `abgelehnt`, `vertagt`, `zurückgestellt`,
+  `zur Kenntnis`. Beispiel: `"ergebnis": { "jugendhilfeplanung": ["beschlossen", "zurückgestellt"] }`. Die Seite zeigt
+  daraus die Marken am Eintrag. Nur setzen, wenn das Ergebnis in `gremien.json` (`tops[].ergebnis`) eindeutig so steht;
+  im Zweifel weglassen – dann liest die Seite es vorsichtig aus dem Text oder zeigt nichts.
 - Maßstab: **Jugendhilfeplanung** – Jugendhilfeausschuss, Haushalt der Jugendhilfe, Kita-Bedarfsplanung und
   Kita-Plätze, Schule und Bildung, Sozialraumanalyse, Integration und anderes mit städtischer Tragweite.
   **Frühe Hilfen** – Kinderschutz, Schutzkonzepte, Frühe Hilfen, Familienbildung und Familienzentren.

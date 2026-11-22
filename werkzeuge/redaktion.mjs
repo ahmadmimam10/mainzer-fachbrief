@@ -42,8 +42,9 @@ const LINK = /https?:\/\/|www\./i;
 // Werbeflieger im Intro: Spruch des Tages (Feld „flieger“ der Ausgabe, Regeln in REDAKTION.md)
 const FLIEGER_MIN = 4, FLIEGER_MAX = 34;   // Zeichen – das Banner muss auch auf dem Handy lesbar bleiben
 const FLIEGER_TAGE = 30;                   // so viele Tage stehen die Sprüche in docs/daten/flieger.js
-// „Was geht ab?“: Termine der nächsten 7 Tage (Feld „termine“ der Ausgabe, Regeln in REDAKTION.md)
-const HEUTE_ARTEN = ["fussball", "sport", "markt", "flohmarkt", "fest", "musik", "party", "kino", "theater", "ausstellung", "neu", "familie", "wein", "essen", "fastnacht"];
+// „Was geht?“: Termine der nächsten 7 Tage (Feld „termine“ der Ausgabe, Regeln in REDAKTION.md)
+const HEUTE_ARTEN = ["fussball", "sport", "markt", "flohmarkt", "fest", "musik", "party", "kino", "theater", "ausstellung", "neu", "familie", "wein", "essen", "fastnacht", "spiel", "restaurant", "ausflug"];
+const ERGEBNISSE = ["beschlossen", "einstimmig", "mehrheitlich", "abgelehnt", "vertagt", "zurückgestellt", "zur Kenntnis"];
 const HEUTE_MAX = 14, HEUTE_TAGE = 7;
 const heuteListe = a => Array.isArray(a?.termine) ? a.termine.filter(x => x && typeof x === "object").map(x => Object.fromEntries(["art", "tag", "wann", "titel", "ort", "url"].map(f => [f, String(x[f] ?? "").replace(/\s+/g, " ").trim()]))) : [];
 const fliegerText = a => typeof a?.flieger === "string" ? a.flieger.replace(/\s+/g, " ").trim() : "";
@@ -102,7 +103,7 @@ async function vorbereiten() {
   const titel = { mainz: "Mainz", land: "Rheinland-Pfalz", bund: "Bund und überregionale Medien", fach: "Fachwelt (Portale, Institute, Verbände)" };
   let md = `# Kandidaten für die Ausgabe vom ${DATUM}\n\n${offen.length} noch nicht gesichtete Meldungen. Format: [id] Titel (Datum) — Kurzbeschreibung der Quelle\n`;
   const fl = await fliegerLage(ausgaben), namen = { sonne: "sonnig", bewoelkt: "bewölkt", regen: "Regen", schnee: "Schnee", fruehling: "Frühling", sommer: "Sommer", herbst: "Herbst", winter: "Winter" };
-  md += `\n## Was geht ab? – Termine vom ${DATUM} bis ${dayOffset(DATUM, HEUTE_TAGE)} (Regeln: REDAKTION.md, Abschnitt „Was geht ab?“)\n`
+  md += `\n## Was geht? – Termine vom ${DATUM} bis ${dayOffset(DATUM, HEUTE_TAGE)} (Regeln: REDAKTION.md, Abschnitt „Was geht?“)\n`
     + `- Feld „termine“ der Ausgabe: 8–${HEUTE_MAX} belegte Termine der nächsten ${HEUTE_TAGE} Tage, jeder mit „tag“ (JJJJ-MM-TT).\n`
     + `- Fußball nur von FC Barcelona, Real Madrid, Spanien und Ägypten (Nationalmannschaften): deren Spiele der ${HEUTE_TAGE} Tage eintragen – die Seite zeigt je Mannschaft nur das nächste. Keine anderen Vereine.\n`
     + `- Dazu Rhein-Main (Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim): Feste, Märkte, Konzerte, Sport, Neueröffnungen – nichts Nischiges. Nur mit Quelle; sonst das Feld weglassen.\n`;
@@ -130,7 +131,7 @@ async function vorbereiten() {
 function pruefen(ausgabe, bekannte, ausgaben = []) {
   const fehler = [];
   if (ausgabe.datum !== DATUM) fehler.push(`„datum“ muss ${DATUM} sein.`);
-  // „Was geht ab?“ (optional): höchstens 14 Termine der nächsten 7 Tage, jeder mit Art, Tag, Titel, Ort und Quelle
+  // „Was geht?“ (optional): höchstens 14 Termine der nächsten 7 Tage, jeder mit Art, Tag, Titel, Ort und Quelle
   if (ausgabe.termine !== undefined && ausgabe.termine !== null) {
     if (!Array.isArray(ausgabe.termine)) fehler.push("„termine“ muss eine Liste sein (oder fehlen).");
     else {
@@ -223,6 +224,15 @@ function notizenPruefen(datei) {
       if (!RESSORTS[r]) fehler.push(`${wo}: unbekanntes Ressort „${r}“.`);
       if (typeof t !== "string" || !t.trim() || t.length > NOTIZ_MAX) fehler.push(`${wo}.${r}: Text fehlt oder ist länger als ${NOTIZ_MAX} Zeichen.`);
     }
+    // „ergebnis“ (optional): je Ressort eine Liste aus den festen Wörtern – nur bei vergangenen Sitzungen mit veröffentlichtem Ergebnis
+    if (n.ergebnis !== undefined) {
+      if (!n.ergebnis || typeof n.ergebnis !== "object" || Array.isArray(n.ergebnis)) fehler.push(`${wo}: „ergebnis“ muss ein Objekt je Ressort sein (oder fehlen).`);
+      else for (const [r, l] of Object.entries(n.ergebnis)) {
+        if (!n.ressorts[r]) fehler.push(`${wo}: „ergebnis“ für „${r}“, aber keine Notiz für dieses Ressort.`);
+        if (!Array.isArray(l) || !l.length || l.length > 2 || l.some(x => !ERGEBNISSE.includes(x))) fehler.push(`${wo}.${r}: „ergebnis“ ist eine Liste mit ein bis zwei Wörtern aus: ${ERGEBNISSE.join(", ")}.`);
+      }
+      if (n.vorschau) fehler.push(`${wo}: Eine Vorschau hat noch kein „ergebnis“.`);
+    }
   }
   return fehler;
 }
@@ -309,7 +319,7 @@ async function bauen() {
       ...(text(a.hoerfassung) ? { hoerfassung: text(a.hoerfassung) } : {}),   // früheres Feld (alte Ausgaben)
       ressorts: Object.fromEntries(Object.entries(a.ressorts).map(([id, r]) => [id, r.meldungen.map(({ originaltitel, ...m }) => m)])),
       ...(Object.keys(hoerfassungen).length ? { hoerfassungen } : {}),
-      ...(heuteListe(a).length ? { termine: heuteListe(a) } : {}),   // „Was geht ab?“
+      ...(heuteListe(a).length ? { termine: heuteListe(a) } : {}),   // „Was geht?“
     };
   };
   // Gremien-Notizen (von der Redaktion geschrieben) für die Webseite: vergangene Sitzungen der letzten 21 Tage mit
@@ -321,7 +331,8 @@ async function bauen() {
     if (!n || typeof n.ressorts !== "object" || !n.ressorts || !/^\d{4}-\d{2}-\d{2}$/.test(n.datum || "") || n.datum < notizGrenze) continue;
     const ressorts = Object.fromEntries(Object.entries(n.ressorts).filter(([r, t]) => RESSORTS[r] && typeof t === "string" && t.trim()));
     if (n.datum < heute && !Object.keys(ressorts).length) continue;
-    seitenNotizen[id] = { gremium: n.gremium, datum: n.datum, url: n.url, ...(n.vorschau ? { vorschau: true } : {}), ressorts };
+    const ergebnis = n.ergebnis && typeof n.ergebnis === "object" ? Object.fromEntries(Object.entries(n.ergebnis).filter(([r, l]) => ressorts[r] && Array.isArray(l))) : {};
+    seitenNotizen[id] = { gremium: n.gremium, datum: n.datum, url: n.url, ...(n.vorschau ? { vorschau: true } : {}), ressorts, ...(Object.keys(ergebnis).length ? { ergebnis } : {}) };
   }
   await writeJson("docs/daten/gremien-notizen.json", { notizen: seitenNotizen }, false);
   await writeJson("docs/daten/ausgaben.json", {
