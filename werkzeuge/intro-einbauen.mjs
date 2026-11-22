@@ -18,8 +18,16 @@ const teil = n => {
   return [...svg.matchAll(/<path [^>]*\/>/g)].map(m => m[0].replace(/ fill="[^"]*"/, "")).join("");
 };
 const DOM = teil("02-Kirche"), TURM = teil("05-Boniturm"), LINKS = teil("03-Zeitung-links"), RECHTS = teil("04-Zeitung-rechts");
-// Fenster des Boniturms einzeln: 11 Reihen zu 3 Scheiben; --n zählt die Reihen von unten, damit sie nacheinander aufleuchten
-const FENSTER = [...readFileSync(`${DOCS}/bilder/intro/06-Fenster.svg`, "utf8").matchAll(/<path [^>]*\/>/g)].map((m, i) => m[0].replace(/ fill="[^"]*"/, "").replace("<path ", `<path style="--n:${10 - Math.floor(i / 3)}" `)).join("");
+// Fenster des Boniturms einzeln (11 Reihen zu 3 Scheiben). Sie gehen nicht reihenweise an, sondern einzeln und in gemischter, aber fester
+// Reihenfolge – wie in einem Haus am Morgen: erst zwei, drei Lichter mit Abstand, dann immer mehr, zum Schluss ein paar Nachzügler. --v ist der Zeitpunkt.
+const FENSTER = (() => {
+  const pfade = [...readFileSync(`${DOCS}/bilder/intro/06-Fenster.svg`, "utf8").matchAll(/<path [^>]*\/>/g)].map(m => m[0].replace(/ fill="[^"]*"/, ""));
+  let s = 20261122; const z = () => (s = s * 16807 % 2147483647) / 2147483647;
+  const folge = pfade.map((_, i) => i); for (let i = folge.length - 1; i > 0; i--) { const j = Math.floor(z() * (i + 1)); [folge[i], folge[j]] = [folge[j], folge[i]]; }
+  const wann = []; let ms = 0;
+  folge.forEach((f, k) => { wann[f] = Math.round(ms); ms += k < 3 ? 210 + z() * 90 : k >= folge.length - 4 ? 240 + z() * 200 : 34 + z() * 62; });
+  return pfade.map((pfad, i) => pfad.replace("<path ", `<path style="--v:${wann[i]}ms" `)).join("");
+})();
 
 // ---------- Szene (Einheiten wie im Logo: 128 = Logobreite; Bandmitte = 640; H = Horizont) ----------
 const B = 1280, H = 60;
@@ -341,18 +349,19 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-wolke svg{display:block;width:100%;height:auto;opacity:var(--wod,.92);animation:i-wolke 2.2s var(--weich) calc(.5s + var(--v)) both,i-zieh 46s ease-in-out calc(2.8s + var(--v) * 9) infinite alternate}
 .i-l{position:absolute;inset:0;transform-origin:0 0;transform:translate(var(--dx,0px),var(--dy,0px)) scale(var(--ds,1))}
 .i-l svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-/* Auftakt des Logos – ruhig und ohne schnelle Würfe, damit auch ein langsames Gerät nicht sichtbar stottert: Die Sonne geht auf, die Kirche
-   taucht auf, der Boniturm wächst nach oben, seine Fenster gehen Reihe für Reihe an, zuletzt legen sich die Zeitungsseiten hin. Bewegt werden
-   nur Lage und Deckkraft; alles zusammen fährt die Kamera ein kleines Stück heran. */
+/* Auftakt des Logos – ruhig: Nichts wächst, dreht oder springt. Zeitung, Kirche und Boniturm stehen von Anfang an an ihrem Platz und treten
+   nur aus dem Morgendunst hervor (Deckkraft, wenige Pixel Weg). Dahinter geht langsam die Sonne auf, und im Turm geht nach und nach das Licht
+   an – jedes Fenster einzeln, kurz hell, dann im Ton des Logos. Alles zusammen fährt die Kamera ein kleines Stück heran. */
 .i-sonne svg,.i-dom svg,.i-turm svg,.i-fenster svg{transform-origin:50% 60.55%;--z:1.16;animation:i-zoom 3.4s cubic-bezier(.2,.7,.2,1) both}
 .i-dom svg,.i-turm svg{fill:#151414}
-.i-dom g{transform-box:view-box;animation:i-dom 1.8s cubic-bezier(.2,.8,.25,1) .7s both}
-.i-turm g{transform-box:view-box;transform-origin:50% 55.5%;animation:i-turm 1.9s cubic-bezier(.2,.8,.25,1) 1.1s both}
-.i-fenster path{fill:#ffc1c2;animation:i-fenster .6s ease-out calc(2.5s + var(--n) * 80ms) both}
-.i-sonne path{fill:#cf073d;transform-box:view-box;animation:i-sonne 2.6s cubic-bezier(.2,.7,.25,1) .25s both}
+.i-dom g{transform-box:view-box;animation:i-dom 1.7s cubic-bezier(.22,.61,.36,1) .45s both}
+.i-turm g{transform-box:view-box;animation:i-dom 1.7s cubic-bezier(.22,.61,.36,1) .65s both}
+.i-turm .i-dunkel{fill:#2f2b2b}
+.i-fenster path{fill:#ffc1c2;animation:i-fenster .9s cubic-bezier(.3,.6,.3,1) calc(1.75s + var(--v)) both}
+.i-sonne path{fill:#cf073d;transform-box:view-box;animation:i-sonne 3.4s cubic-bezier(.22,.61,.36,1) .3s both}
 .i-zl svg,.i-zr svg{fill:#151414;transform-origin:50% 75%}
-.i-zl svg{animation:i-blatt-l 1.6s cubic-bezier(.2,.8,.25,1) 1.7s both}
-.i-zr svg{animation:i-blatt-r 1.6s cubic-bezier(.2,.8,.25,1) 1.85s both}
+.i-zl svg{animation:i-blatt 1.6s cubic-bezier(.22,.61,.36,1) .15s both}
+.i-zr svg{animation:i-blatt 1.6s cubic-bezier(.22,.61,.36,1) .28s both}
 /* Bis Schriften und Bilder geladen sind, steht alles still (Klasse „wartet“ setzt das Skript) – so beginnt die Bewegung erst, wenn nichts mehr nachlädt */
 .intro.wartet *,.intro.wartet *::before,.intro.wartet *::after{animation-play-state:paused!important}
 .i-band{position:absolute;left:50%;bottom:39.45%;width:calc(var(--L) * 10);margin-left:calc(var(--L) * -5);transform-origin:50% 100%;
@@ -382,8 +391,8 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-titel{margin:0;font:760 clamp(46px,13.6vw,100px)/1 var(--serif);letter-spacing:-.025em;text-align:center;
   transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--ts,1));opacity:var(--to,1);will-change:transform,opacity}
 .i-w{display:inline-block;overflow:hidden;padding:.1em .06em .14em;margin:-.1em -.06em -.14em;vertical-align:bottom}
-.i-w i{display:inline-block;font-style:normal;animation:i-buchstabe .75s cubic-bezier(.16,1,.3,1) calc(1.8s + var(--i) * 28ms) both}
-.i-titel b{display:inline-block;color:#c8102e;transform-origin:50% 85%;animation:i-punkt .55s cubic-bezier(.3,1.7,.5,1) 2.5s both}
+.i-w i{display:inline-block;font-style:normal;animation:i-buchstabe 1s cubic-bezier(.2,.75,.2,1) calc(1.5s + var(--i) * 24ms) both}
+.i-titel b{display:inline-block;color:#c8102e;transform-origin:50% 85%;animation:i-punkt .7s cubic-bezier(.22,.61,.36,1) 2.35s both}
 @media (min-width:700px){.i-titel{white-space:nowrap}.i-titel br{display:none}}
 .i-unter{position:relative;z-index:2;margin:0;display:flex;align-items:center;gap:12px;color:#57524a;font:600 clamp(13px,3.5vw,17px)/1.3 var(--sans);text-align:center;
   opacity:calc(1 - var(--ip,0) * 5);translate:0 calc(var(--ip,0) * -60px)}
@@ -412,15 +421,13 @@ ${FEST_CSS}
 @keyframes i-schein{from{transform:scale(.25);opacity:0}}
 @keyframes i-drehen{to{transform:rotate(360deg)}}
 @keyframes i-sonne{from{transform:translateY(44px)}}
-@keyframes i-turm{from{transform:scaleY(0)}}
-@keyframes i-fenster{from{opacity:0}}
-@keyframes i-dom{from{transform:translateY(10px);opacity:0}}
-@keyframes i-blatt-l{from{transform:translate(-9%,11%) rotate(-8deg);opacity:0}}
-@keyframes i-blatt-r{from{transform:translate(9%,11%) rotate(8deg);opacity:0}}
+@keyframes i-fenster{0%{opacity:0;fill:#fff3e6}35%{opacity:1;fill:#ffeadd}100%{opacity:1;fill:#ffc1c2}}
+@keyframes i-dom{from{transform:translateY(3px);opacity:0}}
+@keyframes i-blatt{from{transform:translateY(3.5%);opacity:0}}
 @keyframes i-flug{0%{transform:translate(calc(var(--L) * var(--x0)),calc(var(--L) * var(--y0))) scale(1);opacity:0}7%{opacity:1}86%{opacity:1}100%{transform:translate(0,0) scale(.3);opacity:0}}
 @keyframes i-schlag{from{transform:scaleY(1.08)}to{transform:scaleY(.42)}}
-@keyframes i-buchstabe{from{transform:translateY(118%) rotate(7deg)}}
-@keyframes i-punkt{from{transform:scale(0)}}
+@keyframes i-buchstabe{from{transform:translateY(112%)}}
+@keyframes i-punkt{from{transform:scale(.5);opacity:0}}
 @keyframes i-unter{from{opacity:0;transform:translateY(6px) scaleX(1.1)}}
 @keyframes i-strich{from{transform:scaleX(0)}}
 @keyframes i-wippen{0%,100%{transform:none}50%{transform:translateY(5px)}}
@@ -468,7 +475,7 @@ const html = `<!-- INTRO-START -->
  </div>
  <div class="i-traeger" aria-hidden="true"><div class="i-platz">
       <div class="i-l i-sonne i-vorn"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont2"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont2)"><path d="M9.6 77.5a54.4 54.4 0 0 1 108.8 0Z"/></g></svg></div>
-      <div class="i-l i-turm"><svg viewBox="0 0 128 128"><g>${TURM}</g></svg></div>
+      <div class="i-l i-turm"><svg viewBox="0 0 128 128"><g><rect class="i-dunkel" x="80.5" y="3" width="15.8" height="66.5"/>${TURM}</g></svg></div>
       <div class="i-l i-fenster"><svg viewBox="0 0 128 128">${FENSTER}</svg></div>
       <div class="i-l i-dom"><svg viewBox="0 0 128 128"><g>${DOM}</g></svg></div>
       <div class="i-l i-zl"><svg viewBox="0 0 128 128">${LINKS}</svg></div>

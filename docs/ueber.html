@@ -232,7 +232,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .br-leise{max-width:24em;font:320 clamp(20px,2.6vw,36px)/1.25 "Fraunces",serif;letter-spacing:-.02em;opacity:.85}
 .br-schluss{margin-top:clamp(18px,3vw,36px)!important;max-width:13em;font:460 clamp(42px,7.4vw,118px)/.96 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.04em}
 .br-schluss em{font-weight:320;color:var(--f2);transition:color 1.2s}
-.bruch.kino{height:430vh}
+.bruch.kino{height:460vh}
 .bruch.kino .br-fest{position:sticky;top:0;display:block;height:100vh;height:100svh;padding:0;overflow:hidden}
 .bruch.kino #br-staub{display:block;position:absolute;inset:0;width:100%;height:100%}
 .bruch.kino .br-s{position:absolute;z-index:1;inset:0;align-content:center;display:grid;opacity:0;filter:blur(16px);scale:.95;transition:opacity .8s ease,filter .8s ease,scale 1.3s cubic-bezier(.2,1,.3,1)}
@@ -449,35 +449,58 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   { const br = $("#bruch"), wort = $("#br-wort"), DY = [0, .03, .06, .01, .07, .03, .08, .04, 0], DR = [-1, 1.5, -2.5, 1, -1.5, 3, -2, 2.5, 0];
     wort.innerHTML = [...wort.textContent].map((b, i) => `<span style="--i:${i};--dy:${DY[i % 9]}em;--dr:${DR[i % 9]}deg" aria-hidden="true">${b}</span>`).join("");
     if (!matchMedia("(prefers-reduced-motion:reduce)").matches) { br.classList.add("kino");
-      const cv = $("#br-staub"), cx = cv.getContext("2d"), s3 = br.querySelector(".br-s3"), zf = zufall(41); let W = 0, H = 0, P = [], K = [], FARBEN = [], LICHT = [241, 234, 220], stand = 0, schub = 0, letztY = scrollY, sichtbar = false, laeuft = false, wartet = false;
+      const cv = $("#br-staub"), cx = cv.getContext("2d"), s3 = br.querySelector(".br-s3"), zf = zufall(41);
+      let W = 0, H = 0, P = [], K = [], FARBEN = [], LICHT = [241, 234, 220], ziel = 0, stand = 0, flut = 0, oben = true, schub = 0, letztY = scrollY, letztT = 0, sichtbar = false, laeuft = false, wartet = false, ringe = [], ringZeit = 0, drinAlt = 0;
       const stufe = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
-      const farben = () => { const stil = getComputedStyle(document.documentElement); FARBEN = ["--f1", "--f2", "--f3", "--f4"].map(n => stil.getPropertyValue(n).trim()).concat("#f6f1e6");
-        const probe = document.createElement("i"); probe.style.color = "var(--hell)"; br.appendChild(probe); const m = getComputedStyle(probe).color.match(/[0-9.]+/g); probe.remove(); if (m) LICHT = m.slice(0, 3).map(Number); };
+      const sanft = t => t * t * t * (t * (t * 6 - 15) + 10);   // sehr weicher Anlauf und Auslauf
+      const rgb = wert => { const probe = document.createElement("i"); probe.style.color = wert; br.appendChild(probe); const m = getComputedStyle(probe).color.match(/[0-9.]+/g); probe.remove(); return m ? m.slice(0, 3).map(Number) : [246, 241, 230]; };
+      const farben = () => { const stil = getComputedStyle(document.documentElement); FARBEN = ["--f1", "--f2", "--f3", "--f4"].map(n => rgb(stil.getPropertyValue(n).trim() || "#f6f1e6")).concat([[246, 241, 230]]); LICHT = rgb("var(--hell)"); };
       const bauen = () => { const d = Math.min(2, devicePixelRatio || 1), b = cv.getBoundingClientRect(); W = b.width; H = b.height; cv.width = W * d; cv.height = H * d; cx.setTransform(d, 0, 0, d, 0, 0); farben();
         const klein = W < 700, ab = klein ? 22 : 30, zeilen = Math.max(5, Math.round(H / (klein ? 104 : 92))), weite = Math.hypot(W, H) / 2; P = []; K = [];
         for (let z = 0; z < zeilen; z++) { const y0 = (z + .5) * H / zeilen; let x = -60 + zf() * 110 - (z % 2 ? 70 : 0);
           while (x < W + 20) { const n = 4 + Math.floor(zf() * 4), kp = zf() * 6.283, w = (zf() - .5) * .1;
             for (let i = 0; i < n; i++) { const hx = x + Math.cos(w) * ab * i, hy = y0 + Math.sin(w) * ab * i, wi = zf() * 6.283, weit = 60 + zf() * 170;
-              P.push({ hx, hy, dx: Math.cos(wi) * weit, dy: Math.sin(wi) * weit - 40, ph: zf() * 6.283, r: (klein ? 5 : 7.5) * (.8 + zf() * .45), f: Math.floor(zf() * 5), dreh: (zf() - .5) * 2.2, kp, tief: .25 + zf() * .75, start: Math.hypot(hx - W / 2, hy - H / 2) / weite * .4 }); if (i) K.push([P.length - 2, P.length - 1]); }
+              P.push({ hx, hy, dx: Math.cos(wi) * weit, dy: Math.sin(wi) * weit - 40, ph: zf() * 6.283, r: (klein ? 5 : 7.5) * (.8 + zf() * .45), f: Math.floor(zf() * 5), dreh: (zf() - .5) * 2.2, kp, tief: .25 + zf() * .75, start: Math.hypot(hx - W / 2, hy - H / 2) / weite * .4, px: NaN, py: NaN }); if (i) K.push([P.length - 2, P.length - 1]); }
             x += ab * n + (klein ? 60 : 100) + zf() * 70; } } };
-      const bild = t => { if (!sichtbar) { laeuft = false; return; } const a = stufe(.24, .5, stand), b = stufe(.56, .84, stand), c = stufe(.9, .995, stand), zx = W / 2, zy = H / 2, s = t / 1000, [lr, lg, lb] = LICHT; schub *= .9; cx.clearRect(0, 0, W, H); let drin = 0;
+      const bild = t => { if (!sichtbar) { laeuft = false; return; }
+        const dt = Math.min(.1, Math.max(.001, (t - letztT) / 1000)); letztT = t;
+        // Der Scrollstand ist nur das Ziel. Das Bild folgt ihm weich, und sobald die Verschmelzung beginnt, mit begrenztem Tempo: Auch nach einem
+        // kräftigen Dreh am Mausrad spielt sich alles in Ruhe ab, statt zu springen.
+        const grenze = (stand > .44 ? .17 : .8) * dt; stand += Math.max(-grenze, Math.min(grenze, (ziel - stand) * (1 - Math.exp(-dt / .22))));
+        // Die Lichtflut läuft nach der Uhr, nicht nach dem Scrollstand: Einmal ausgelöst, breitet sie sich in gut zwei Sekunden aus – und zieht sich beim Zurückscrollen wieder zusammen.
+        flut = Math.max(0, Math.min(1, flut + (stand > .835 ? dt / 2.6 : -dt / 1.3)));
+        const st = oben ? 0 : stand < .18 ? 1 : stand < .5 ? 2 : 3; if (br.dataset.st !== String(st)) br.dataset.st = st;
+        s3.style.opacity = flut > 0 ? Math.max(0, 1 - flut * 2.6).toFixed(3) : "";
+        const a = stufe(.2, .42, stand), b = stufe(.48, .8, stand), c = sanft(flut), zx = W / 2, zy = H / 2, s = t / 1000, [lr, lg, lb] = LICHT, licht = al => `rgba(${lr},${lg},${lb},${Math.max(0, Math.min(1, al)).toFixed(3)})`; schub *= .9; cx.clearRect(0, 0, W, H); let drin = 0;
         // Ruhebewegung: jede Kette wiegt sich als Ganzes, jeder Punkt atmet dazu; aufgelöst treiben die Punkte freier. Scrollen schiebt sie je nach Tiefe mit (schub).
         const pos = P.map(q => { let x = q.hx + Math.sin(s * .3 + q.kp) * 13 + Math.sin(s * .52 + q.ph) * (3 + a * 15) + q.dx * a, y = q.hy + Math.cos(s * .24 + q.kp * 1.7) * 10 + Math.cos(s * .43 + q.ph) * (3 + a * 13) + q.dy * a - schub * q.tief, e = 0;
-          if (b > 0) { const roh = Math.max(0, Math.min(1, (b - q.start) / .6)); e = roh * roh * (3 - 2 * roh); const vx = x - zx, vy = y - zy, w = q.dreh * e * (1 - e) * 2.4, co = Math.cos(w), si = Math.sin(w), k = 1 - e; x = zx + (vx * co - vy * si) * k; y = zy + (vx * si + vy * co) * k; if (e > .98) drin++; }
+          // Verschmelzen: jeder Punkt zieht auf einer Spirale zur Mitte – erst zögernd, dann schneller, die nahen zuerst
+          if (b > 0) { const roh = Math.max(0, Math.min(1, (b - q.start) / .6)); e = roh * roh * (3 - 2 * roh); const vx = x - zx, vy = y - zy, w = q.dreh * Math.pow(e, 1.4) * 1.5, co = Math.cos(w), si = Math.sin(w), k = Math.pow(1 - e, 1.25); x = zx + (vx * co - vy * si) * k; y = zy + (vx * si + vy * co) * k; if (e > .985) drin++; }
           return [x, y, e]; });
         if (a < 1) { cx.lineWidth = 2; cx.strokeStyle = `rgba(246,241,230,${(.24 * (1 - a)).toFixed(3)})`; cx.beginPath(); for (const [i, j] of K) { cx.moveTo(pos[i][0], pos[i][1]); cx.lineTo(pos[j][0], pos[j][1]); } cx.stroke(); }
-        P.forEach((q, i) => { const e = pos[i][2]; if (e > .995) return; cx.globalAlpha = (.48 - a * .08 + e * .4) * (e > .9 ? (1 - e) * 10 : 1); cx.fillStyle = FARBEN[q.f]; cx.beginPath(); cx.arc(pos[i][0], pos[i][1], q.r * (1 - e * .45), 0, 7); cx.fill(); }); cx.globalAlpha = 1;
-        if (b > 0) { const anteil = drin / P.length, kern = 4 + anteil * 34 + Math.sin(s * 2.4) * 2 * anteil, hof = cx.createRadialGradient(zx, zy, 0, zx, zy, kern * 7 + 10);
-          hof.addColorStop(0, `rgba(${lr},${lg},${lb},${(.6 * anteil + .12 * b).toFixed(3)})`); hof.addColorStop(1, `rgba(${lr},${lg},${lb},0)`); cx.fillStyle = hof; cx.beginPath(); cx.arc(zx, zy, kern * 7 + 10, 0, 7); cx.fill();
-          const rad = kern + c * c * Math.hypot(W, H) * .7, voll = `rgba(${lr},${lg},${lb},${Math.min(1, anteil * 1.5 + .15).toFixed(3)})`; let fuell = voll;
-          if (c > 0) { fuell = cx.createRadialGradient(zx, zy, 0, zx, zy, rad); fuell.addColorStop(0, voll); fuell.addColorStop(.78, voll); fuell.addColorStop(1, `rgba(${lr},${lg},${lb},0)`); }   // weiche Lichtkante
-          cx.fillStyle = fuell; cx.beginPath(); cx.arc(zx, zy, rad, 0, 7); cx.fill(); }
+        // Punkte: Auf dem Weg zur Mitte werden sie kleiner, nehmen die Farbe des Lichts an und ziehen einen kurzen Schweif hinter sich her
+                P.forEach((q, i) => { const x = pos[i][0], y = pos[i][1], e = pos[i][2]; if (e > .995) { q.px = x; q.py = y; return; }
+          const f = FARBEN[q.f], m = e * e, farbe = `rgb(${Math.round(f[0] + (lr - f[0]) * m)},${Math.round(f[1] + (lg - f[1]) * m)},${Math.round(f[2] + (lb - f[2]) * m)})`, al = (.48 - a * .08 + e * .42) * (e > .9 ? (1 - e) * 10 : 1), rad = q.r * (1 - e * .62);
+          if (e > .02 && q.px === q.px) { const dx = x - q.px, dy = y - q.py, v = Math.hypot(dx, dy); if (v > .5 && v < 90) { const l = Math.min(2.6, 34 / v), nx = -dy / v * rad * .72, ny = dx / v * rad * .72; cx.globalAlpha = al * .3; cx.fillStyle = farbe; cx.beginPath(); cx.moveTo(x - dx * l, y - dy * l); cx.lineTo(x + nx, y + ny); cx.lineTo(x - nx, y - ny); cx.fill(); } }   // Schweif: läuft nach hinten spitz zu
+          cx.globalAlpha = al; cx.fillStyle = farbe; cx.beginPath(); cx.arc(x, y, rad, 0, 7); cx.fill(); q.px = x; q.py = y; });
+        cx.globalAlpha = 1;
+        if (b > 0) { const anteil = drin / P.length, kern = 3 + Math.pow(anteil, .8) * 30 + Math.sin(s * 2.1) * 1.6 * anteil, hofR = kern * 6.5 + 14, ha = .5 * anteil + .1 * b, hof = cx.createRadialGradient(zx, zy, 0, zx, zy, hofR);
+          hof.addColorStop(0, licht(ha)); hof.addColorStop(.3, licht(ha * .38)); hof.addColorStop(1, licht(0)); cx.fillStyle = hof; cx.beginPath(); cx.arc(zx, zy, hofR, 0, 7); cx.fill();
+          // Kommt etwas im Kern an, läuft ein feiner Ring nach außen
+          if (drin > drinAlt && t - ringZeit > 280 && ringe.length < 5) { ringe.push(t); ringZeit = t; } ringe = ringe.filter(r0 => t - r0 < 1500);
+          for (const r0 of ringe) { const al = (t - r0) / 1500, weg = 1 - (1 - al) * (1 - al); cx.strokeStyle = licht(.2 * (1 - al) * (1 - c)); cx.lineWidth = 1.2; cx.beginPath(); cx.arc(zx, zy, kern + 5 + weg * (56 + kern * 2), 0, 7); cx.stroke(); }
+          // Lichtflut: ein weicher Schein, der wächst – erst ein Hauch im ganzen Raum, dann füllt er das Bild in der Farbe des nächsten Kapitels
+          if (c > 0) { const rad = kern + c * Math.hypot(W, H) * .75, weich = .5 - .22 * c, flaeche = cx.createRadialGradient(zx, zy, 0, zx, zy, rad); cx.fillStyle = licht(c * c * .16); cx.fillRect(0, 0, W, H);
+            flaeche.addColorStop(0, licht(1)); flaeche.addColorStop(1 - weich, licht(1)); flaeche.addColorStop(1, licht(0)); cx.fillStyle = flaeche; cx.beginPath(); cx.arc(zx, zy, rad, 0, 7); cx.fill(); }
+          // Kern: innen fast weiß, zum Rand hin die Farbe des Lichts, mit weicher Kante
+          const kr = kern * 1.35, ka = Math.min(1, anteil * 1.6 + .12), kg = cx.createRadialGradient(zx, zy, 0, zx, zy, kr);
+          kg.addColorStop(0, `rgba(255,255,255,${(ka * (1 - c)).toFixed(3)})`); kg.addColorStop(.5, licht(ka)); kg.addColorStop(.72, licht(ka)); kg.addColorStop(1, licht(0)); cx.fillStyle = kg; cx.beginPath(); cx.arc(zx, zy, kr, 0, 7); cx.fill();
+          if (c > .999) { cx.fillStyle = licht(1); cx.fillRect(0, 0, W, H); } }   // am Ende restlos die Farbe des nächsten Kapitels
+        drinAlt = drin;
         requestAnimationFrame(bild); };
-      const messen = () => { wartet = false; const r = br.getBoundingClientRect(); stand = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - innerHeight))); schub = Math.max(-140, Math.min(140, schub + (scrollY - letztY) * .4)); letztY = scrollY;
-        const st = r.top > innerHeight * .45 ? 0 : stand < .2 ? 1 : stand < .56 ? 2 : 3; if (br.dataset.st !== String(st)) br.dataset.st = st;
-        const c = stufe(.9, .995, stand); s3.style.opacity = c > 0 ? Math.max(0, 1 - c * 2.8).toFixed(3) : ""; };
+      const messen = () => { wartet = false; const r = br.getBoundingClientRect(); ziel = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - innerHeight))); oben = r.top > innerHeight * .45; schub = Math.max(-140, Math.min(140, schub + (scrollY - letztY) * .4)); letztY = scrollY; };
       addEventListener("scroll", () => { if (sichtbar && !wartet) { wartet = true; requestAnimationFrame(messen); } }, { passive: true });
-      new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar) { if (!W) bauen(); messen(); if (!laeuft) { laeuft = true; requestAnimationFrame(bild); } } }).observe(br);
+      new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar) { if (!W) bauen(); messen(); if (!laeuft) { laeuft = true; stand = ziel; flut = stand > .835 ? 1 : 0; letztT = performance.now(); requestAnimationFrame(bild); } } }).observe(br);
       addEventListener("resize", () => { if (sichtbar) { bauen(); messen(); } });
       new MutationObserver(() => setTimeout(farben, 1300)).observe(document.documentElement, { attributes: true, attributeFilter: ["data-zeit"] }); } }
   // Laufbänder: die Quellen, die der alte Newsletter in seiner Fußzeile nannte
