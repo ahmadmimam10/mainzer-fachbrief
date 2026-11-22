@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-21T21:21:38.649Z",
+ "stand": "2026-11-22T12:27:54.144Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -79,7 +79,7 @@
    "ok": true,
    "treffer": 45,
    "zustand": "ok",
-   "hinweis": "unauffällig – 40 Treffer"
+   "hinweis": "unauffällig – 39 Treffer, 1 neuer Kandidat verworfen (Link auf fremden Host (www.sportschau.de))"
   },
   {
    "id": "landtag",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "gestoert",
-   "hinweis": "Abruf seit 4 Läufen fehlerhaft: www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "ok": true,
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "spiegel",
@@ -409,7 +409,7 @@
    "ok": true,
    "treffer": 13,
    "zustand": "ok",
-   "hinweis": "unauffällig – 13 Treffer, 1 neuer Kandidat verworfen (Zeitüberschreitung (10 s))"
+   "hinweis": "unauffällig – 13 Treffer"
   },
   {
    "id": "sozial-de",
