@@ -204,7 +204,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 
 /* ---- Zäsur zwischen Kapitel 1 und 2 als kleine Kinoszene. Ohne Skript (oder bei „weniger Bewegung“) stehen die drei Bilder einfach
    untereinander. Mit Skript (.kino) ist der Abschnitt mehrere Bildschirme hoch, sein Inhalt bleibt stehen, und der Scrollstand schaltet
-   die Bilder weiter (data-st 1–4: „Doch.“, der Satz, ein nüchterner Zwischensatz, der Schluss). Dahinter lösen sich Baustein-Ketten auf und ziehen sich am Ende zu einem Punkt zusammen. ---- */
+   die Bilder weiter (data-st 1–3: „Doch.“, der Satz, der Schluss). Dahinter lösen sich Baustein-Ketten auf und ziehen sich am Ende zu einem Punkt zusammen. ---- */
 .bruch{position:relative;background:var(--tinte);color:#f6f1e6}
 .bruch::before{content:"";position:absolute;z-index:2;left:0;right:0;top:0;height:clamp(110px,22vh,240px);background:linear-gradient(180deg,var(--pap),transparent);pointer-events:none}
 .br-fest{display:grid;gap:16vh;padding:34vh 0 14vh}
@@ -217,15 +217,14 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .br-wort{margin:.06em 0 .02em -.03em!important;font:340 clamp(84px,18.5vw,290px)/.9 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 0,"opsz" 144;letter-spacing:-.055em;white-space:nowrap}
 .br-wort span{display:inline-block;translate:0 var(--dy);rotate:var(--dr);color:#b5ac9d}
 .br-nach{font:460 clamp(24px,3.5vw,52px)/1 "Fraunces",serif;letter-spacing:-.03em}
-.br-stimmen{max-width:15em;font:460 clamp(30px,4.8vw,72px)/1.1 "Fraunces",serif;letter-spacing:-.035em}.br-stimmen em{font-weight:320}
 .br-leise{max-width:24em;font:320 clamp(20px,2.6vw,36px)/1.25 "Fraunces",serif;letter-spacing:-.02em;opacity:.85}
 .br-schluss{margin-top:clamp(18px,3vw,36px)!important;max-width:13em;font:460 clamp(42px,7.4vw,118px)/.96 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.04em}
 .br-schluss em{font-weight:320;color:var(--f2);transition:color 1.2s}
-.bruch.kino{height:440vh}
+.bruch.kino{height:350vh}
 .bruch.kino .br-fest{position:sticky;top:0;display:block;height:100vh;height:100svh;padding:0;overflow:hidden}
 .bruch.kino #br-staub{display:block;position:absolute;inset:0;width:100%;height:100%}
 .bruch.kino .br-s{position:absolute;z-index:1;inset:0;align-content:center;display:grid;opacity:0;filter:blur(16px);scale:.95;transition:opacity .8s ease,filter .8s ease,scale 1.3s cubic-bezier(.2,1,.3,1)}
-.bruch.kino[data-st="1"] .br-s0,.bruch.kino[data-st="2"] .br-s1,.bruch.kino[data-st="3"] .br-s2,.bruch.kino[data-st="4"] .br-s3{opacity:1;filter:blur(0);scale:1}
+.bruch.kino[data-st="1"] .br-s0,.bruch.kino[data-st="2"] .br-s1,.bruch.kino[data-st="3"] .br-s3{opacity:1;filter:blur(0);scale:1}
 .bruch.kino .br-wort span{opacity:0;translate:0 .32em;rotate:0deg;color:#f6f1e6;filter:blur(12px);transition:opacity .8s ease,translate 1s cubic-bezier(.2,1,.3,1),filter .8s ease,rotate 3s ease,color 3s ease}
 .bruch.kino[data-st="2"] .br-wort span{opacity:1;translate:0 var(--dy);rotate:var(--dr);color:#b5ac9d;filter:blur(0);transition-delay:calc(.45s + var(--i) * 70ms),calc(.45s + var(--i) * 70ms),calc(.45s + var(--i) * 70ms),2.2s,2.2s}
 
@@ -356,7 +355,6 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
     <canvas id="br-staub" aria-hidden="true"></canvas>
     <div class="br-s br-s0"><p class="br-doch">Doch<em>.</em></p></div>
     <div class="br-s br-s1"><p class="br-vor">Was sich vor drei Jahren wie eine <em>große Innovation</em> anfühlte, fühlt sich heute auf einmal</p><p class="br-wort" id="br-wort" aria-label="veraltet">veraltet</p><p class="br-nach">an.</p></div>
-    <div class="br-s br-s2"><p class="br-stimmen">Manche finden das <em>traurig</em>, andere <em>spannend</em>.</p></div>
     <div class="br-s br-s3"><p class="br-leise">Man muss nicht einmal mehr überlegen, wie die Automation laufen soll und welche Bausteine sie braucht.</p><p class="br-schluss">Die KI baut ihre Automatisierung selbst – <em>per Auftrag.</em></p></div>
   </div>
 </section>
@@ -446,7 +444,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
         const stil = getComputedStyle(document.documentElement), farben = ["--f1", "--f2", "--f3", "--f4"].map(n => stil.getPropertyValue(n).trim()).concat("#f6f1e6"), klein = W < 700, ketten = klein ? 11 : 22, ab = klein ? 19 : 26; P = []; K = [];
         for (let k = 0; k < ketten; k++) { const kp = zf() * 6.283, n = 4 + Math.floor(zf() * 3), x0 = zf() * Math.max(10, W - ab * n), y0 = 40 + zf() * (H - 80), w = (zf() - .5) * .5;
           for (let i = 0; i < n; i++) { const wi = zf() * 6.283, weit = 70 + zf() * 190; P.push({ hx: x0 + Math.cos(w) * ab * i, hy: y0 + Math.sin(w) * ab * i, dx: Math.cos(wi) * weit, dy: Math.sin(wi) * weit - 60, ph: zf() * 6.283, r: (klein ? 4.5 : 6.5) * (.8 + zf() * .5), f: farben[Math.floor(zf() * 5)], dreh: (zf() - .5) * 3, kp, tief: .25 + zf() * .75, kreis: 12 + zf() * 26, um: (zf() < .5 ? -1 : 1) * (.45 + zf() * .7) }); if (i) K.push([P.length - 2, P.length - 1]); } } };
-      const bild = t => { if (!sichtbar) { laeuft = false; return; } const a = stufe(.3, .6, stand), b = stufe(.7, .9, stand), zx = W / 2, zy = H / 2, s = t / 1000; schub *= .9; cx.clearRect(0, 0, W, H);
+      const bild = t => { if (!sichtbar) { laeuft = false; return; } const a = stufe(.3, .58, stand), b = stufe(.62, .88, stand), zx = W / 2, zy = H / 2, s = t / 1000; schub *= .9; cx.clearRect(0, 0, W, H);
         // Ruhebewegung: jede Kette wiegt sich als Ganzes, jeder Punkt atmet dazu; aufgelöst treiben die Punkte freier. Scrollen schiebt sie je nach Tiefe mit (schub).
         const pos = P.map(q => { let x = q.hx + Math.sin(s * .3 + q.kp) * 13 + Math.sin(s * .52 + q.ph) * (3 + a * 15) + q.dx * a, y = q.hy + Math.cos(s * .24 + q.kp * 1.7) * 10 + Math.cos(s * .43 + q.ph) * (3 + a * 13) + q.dy * a - schub * q.tief;
           if (b > 0) { const vx = x - zx, vy = y - zy, w = q.dreh * b * (1 - b) * 2, c = Math.cos(w), d = Math.sin(w), k = 1 - b, um = s * q.um + q.ph; x = zx + (vx * c - vy * d) * k + Math.cos(um) * q.kreis * b; y = zy + (vx * d + vy * c) * k + Math.sin(um) * q.kreis * b; } return [x, y]; });
@@ -454,7 +452,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
         P.forEach((q, i) => { cx.globalAlpha = .42 - a * .08 + b * .4; cx.fillStyle = q.f; cx.beginPath(); cx.arc(pos[i][0], pos[i][1], q.r * (1 - b * .5), 0, 7); cx.fill(); }); cx.globalAlpha = 1;
         if (b > .5) { const g = (b - .5) * 2, r = 46 + Math.sin(s * 2) * 5, licht = cx.createRadialGradient(zx, zy, 0, zx, zy, r * 5); licht.addColorStop(0, `rgba(219,166,63,${(.5 * g).toFixed(3)})`); licht.addColorStop(1, "rgba(219,166,63,0)"); cx.fillStyle = licht; cx.fillRect(zx - r * 5, zy - r * 5, r * 10, r * 10); }
         requestAnimationFrame(bild); };
-      const messen = () => { wartet = false; const r = br.getBoundingClientRect(); stand = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - innerHeight))); schub = Math.max(-140, Math.min(140, schub + (scrollY - letztY) * .4)); letztY = scrollY; const st = r.top > innerHeight * .45 ? 0 : stand < .2 ? 1 : stand < .48 ? 2 : stand < .72 ? 3 : 4; if (br.dataset.st !== String(st)) br.dataset.st = st; };
+      const messen = () => { wartet = false; const r = br.getBoundingClientRect(); stand = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - innerHeight))); schub = Math.max(-140, Math.min(140, schub + (scrollY - letztY) * .4)); letztY = scrollY; const st = r.top > innerHeight * .45 ? 0 : stand < .22 ? 1 : stand < .62 ? 2 : 3; if (br.dataset.st !== String(st)) br.dataset.st = st; };
       addEventListener("scroll", () => { if (sichtbar && !wartet) { wartet = true; requestAnimationFrame(messen); } }, { passive: true });
       new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar) { if (!W) bauen(); messen(); if (!laeuft) { laeuft = true; requestAnimationFrame(bild); } } }).observe(br);
       addEventListener("resize", () => { if (sichtbar) { bauen(); messen(); } }); } }
