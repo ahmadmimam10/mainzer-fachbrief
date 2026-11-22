@@ -130,5 +130,14 @@
    "✗ bundesrat                0 gefunden,   0 neu  ⚠ www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
    "10 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-22T09:32:10.115Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "9 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 0 Quellen mit Fehlern. Zustand: 56 ok, 0 auffällig, 0 gestört.",
+  "auffaellig": [
+   "9 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 0 Quellen mit Fehlern. Zustand: 56 ok, 0 auffällig, 0 gestört."
+  ]
  }
 ]
