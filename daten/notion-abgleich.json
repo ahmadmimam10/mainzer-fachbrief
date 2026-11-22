@@ -1,16 +1,16 @@
 {
  "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Tag: Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: rubrik / alt / quelle / unklar.",
- "stand": "2026-11-22T18:55:39.497Z",
+ "stand": "2026-11-22T20:07:10.049Z",
  "zugang": "ok",
  "ersterTag": "2026-11-21",
  "letzterTag": "2026-12-05",
  "letzterLauf": "2026-12-06",
  "gesamt": {
   "tage": 1,
-  "notion": 42,
-  "erfasst": 39,
+  "notion": 44,
+  "erfasst": 41,
   "fehlt": 3,
-  "zusaetzlich": 1
+  "zusaetzlich": 0
  },
  "luecken": [
   {
@@ -63,10 +63,10 @@
   {
    "tag": "2026-11-21",
    "eintraege": 52,
-   "notion": 42,
-   "erfasst": 39,
+   "notion": 44,
+   "erfasst": 41,
    "fehlt": 3,
-   "zusaetzlich": 1,
+   "zusaetzlich": 0,
    "vorsprungMinuten": 213,
    "quellen": [
     {
@@ -91,7 +91,15 @@
      "notion": 5,
      "erfasst": 4,
      "fehlt": 1,
-     "zusaetzlich": 1
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Jugendhilfeportal.de",
+     "id": "jugendhilfeportal",
+     "notion": 2,
+     "erfasst": 2,
+     "fehlt": 0,
+     "zusaetzlich": 0
     }
    ],
    "fehlend": [
@@ -100,7 +108,7 @@
      "url": "https://www.spiegel.de/wirtschaft/soziales/deutsch-ukrainisches-wirtschaftsforum-fuer-friedrich-merz-geht-es-in-der-ukraine-auch-ums-geschaeft-a-2848de43-1eaa-4c1a-9657-61708a4cd52c#ref=rss",
      "quelle": "SPIEGEL",
      "id": "spiegel",
-     "zeit": "2026-11-21T05:00:05.000Z",
+     "zeit": "2026-11-21T05:00:00.000Z",
      "grund": "rubrik",
      "rubrik": "/wirtschaft/soziales/",
      "rubrikName": "Wirtschaft · Soziales",
@@ -111,7 +119,7 @@
      "url": "https://www.allgemeine-zeitung.de/lokales/rhein-main/stau-autobahn-s-bahn-sperrung-verkehr-wiesbaden-mainz-ruesselsheim-darmstadt-rhein-main-aktuell-unfall-live-5319719",
      "quelle": "Allgemeine Zeitung",
      "id": "az",
-     "zeit": "2026-11-21T05:00:08.000Z",
+     "zeit": "2026-11-21T05:00:00.000Z",
      "grund": "rubrik",
      "rubrik": "/lokales/rhein-main/",
      "rubrikName": "Rhein-Main",
@@ -122,7 +130,7 @@
      "url": "https://www.allgemeine-zeitung.de/lokales/rheinhessen/wertstoffhof-warum-gewerbebetriebe-abgewiesen-werden-6871046",
      "quelle": "Allgemeine Zeitung",
      "id": "az",
-     "zeit": "2026-11-21T11:51:37.000Z",
+     "zeit": "2026-11-21T11:51:00.000Z",
      "grund": "rubrik",
      "rubrik": "/lokales/rheinhessen/",
      "rubrikName": "Rheinhessen",
