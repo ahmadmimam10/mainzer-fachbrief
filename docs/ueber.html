@@ -204,7 +204,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 
 /* ---- Zäsur zwischen Kapitel 1 und 2 als kleine Kinoszene. Ohne Skript (oder bei „weniger Bewegung“) stehen die drei Bilder einfach
    untereinander. Mit Skript (.kino) ist der Abschnitt mehrere Bildschirme hoch, sein Inhalt bleibt stehen, und der Scrollstand schaltet
-   die Bilder weiter (data-st 1–4: „Doch.“, der Satz, die zwei Stimmen, der Schluss). Dahinter lösen sich Baustein-Ketten auf und ziehen sich am Ende zu einem Punkt zusammen. ---- */
+   die Bilder weiter (data-st 1–4: „Doch.“, der Satz, ein nüchterner Zwischensatz, der Schluss). Dahinter lösen sich Baustein-Ketten auf und ziehen sich am Ende zu einem Punkt zusammen. ---- */
 .bruch{position:relative;background:var(--tinte);color:#f6f1e6}
 .bruch::before{content:"";position:absolute;z-index:2;left:0;right:0;top:0;height:clamp(110px,22vh,240px);background:linear-gradient(180deg,var(--pap),transparent);pointer-events:none}
 .br-fest{display:grid;gap:16vh;padding:34vh 0 14vh}
@@ -217,10 +217,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .br-wort{margin:.06em 0 .02em -.03em!important;font:340 clamp(84px,18.5vw,290px)/.9 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 0,"opsz" 144;letter-spacing:-.055em;white-space:nowrap}
 .br-wort span{display:inline-block;translate:0 var(--dy);rotate:var(--dr);color:#b5ac9d}
 .br-nach{font:460 clamp(24px,3.5vw,52px)/1 "Fraunces",serif;letter-spacing:-.03em}
-.br-s2{display:grid;gap:clamp(18px,5vh,60px)}.br-s2 div{display:grid}.br-s2 div+div{justify-items:end;text-align:right}
-.br-s2 b{font:300 italic clamp(60px,12vw,190px)/.9 "Fraunces",serif;letter-spacing:-.05em}
-.br-s2 .trau{color:#93a6b6}.br-s2 .span{font-style:normal;font-weight:560;color:var(--f2);text-shadow:0 0 70px color-mix(in srgb,var(--f2) 55%,transparent);transition:color 1.2s}
-.br-s2 span{margin-top:.5em;font-size:clamp(16px,1.8vw,22px);opacity:.75}
+.br-stimmen{max-width:15em;font:460 clamp(30px,4.8vw,72px)/1.1 "Fraunces",serif;letter-spacing:-.035em}.br-stimmen em{font-weight:320}
 .br-leise{max-width:24em;font:320 clamp(20px,2.6vw,36px)/1.25 "Fraunces",serif;letter-spacing:-.02em;opacity:.85}
 .br-schluss{margin-top:clamp(18px,3vw,36px)!important;max-width:13em;font:460 clamp(42px,7.4vw,118px)/.96 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.04em}
 .br-schluss em{font-weight:320;color:var(--f2);transition:color 1.2s}
@@ -231,9 +228,6 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .bruch.kino[data-st="1"] .br-s0,.bruch.kino[data-st="2"] .br-s1,.bruch.kino[data-st="3"] .br-s2,.bruch.kino[data-st="4"] .br-s3{opacity:1;filter:blur(0);scale:1}
 .bruch.kino .br-wort span{opacity:0;translate:0 .32em;rotate:0deg;color:#f6f1e6;filter:blur(12px);transition:opacity .8s ease,translate 1s cubic-bezier(.2,1,.3,1),filter .8s ease,rotate 3s ease,color 3s ease}
 .bruch.kino[data-st="2"] .br-wort span{opacity:1;translate:0 var(--dy);rotate:var(--dr);color:#b5ac9d;filter:blur(0);transition-delay:calc(.45s + var(--i) * 70ms),calc(.45s + var(--i) * 70ms),calc(.45s + var(--i) * 70ms),2.2s,2.2s}
-.bruch.kino .br-s2 b{transition:translate 1.6s cubic-bezier(.2,1,.3,1) .15s}
-.bruch.kino .br-s2 .trau{translate:-7vw 0}.bruch.kino .br-s2 .span{translate:7vw 0}
-.bruch.kino[data-st="3"] .br-s2 b{translate:0 0}
 
 /* ---- Kapitel 2: ein Auftrag statt vieler Blasen – der Auftrag tippt sich, die Arbeit hakt sich von selbst ab ---- */
 .auftrag{display:grid;gap:16px;padding:clamp(16px,2.4vw,26px);border-radius:30px;background:rgba(255,255,255,.06)}
@@ -362,7 +356,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
     <canvas id="br-staub" aria-hidden="true"></canvas>
     <div class="br-s br-s0"><p class="br-doch">Doch<em>.</em></p></div>
     <div class="br-s br-s1"><p class="br-vor">Was sich vor drei Jahren wie eine <em>große Innovation</em> anfühlte, fühlt sich heute auf einmal</p><p class="br-wort" id="br-wort" aria-label="veraltet">veraltet</p><p class="br-nach">an.</p></div>
-    <div class="br-s br-s2"><div><b class="trau">Traurig,</b><span>sagen die einen.</span></div><div><b class="span">Spannend,</b><span>sagen die anderen.</span></div></div>
+    <div class="br-s br-s2"><p class="br-stimmen">Manche finden das <em>traurig</em>, andere <em>spannend</em>.</p></div>
     <div class="br-s br-s3"><p class="br-leise">Man muss nicht einmal mehr überlegen, wie die Automation laufen soll und welche Bausteine sie braucht.</p><p class="br-schluss">Die KI baut ihre Automatisierung selbst – <em>per Auftrag.</em></p></div>
   </div>
 </section>
