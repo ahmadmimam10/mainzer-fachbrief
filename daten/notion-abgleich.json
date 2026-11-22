@@ -1,8 +1,8 @@
 {
- "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis 5 Uhr): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
+ "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
  "stand": "2026-11-22T20:07:10.049Z",
  "zugang": "ok",
- "grenze": "05:00",
+ "grenze": "nächtlicher Abruf",
  "letzterLauf": "2026-12-06",
  "gesamt": {
   "tage": 1,

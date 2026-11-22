@@ -1,18 +1,20 @@
 name: Notion-Abgleich
 # Übergangszeit: Kommt alles, was Make.com in die Notion-Datenbank „AZ“ schreibt, auch beim eigenen Abruf an?
-# Jeden Morgen kurz nach 5 Uhr (Winterzeit) werden die letzten 24 Stunden bis 5 Uhr abgeglichen, das Fenster vom Vortag
-# wird dabei noch einmal nachgeprüft (werkzeuge/notion-abgleich.mjs). Das Ergebnis liegt in daten/notion-abgleich.json und
+# Jeden Morgen gegen 5 Uhr (Winterzeit) werden die 24 Stunden bis zum nächtlichen vollen Abruf abgeglichen (geplant 3:47 Uhr,
+# wegen GitHubs Verspätungen meist gegen 4:35 Uhr); das Fenster vom Vortag wird dabei noch einmal nachgeprüft
+# (werkzeuge/notion-abgleich.mjs). Das Ergebnis liegt in daten/notion-abgleich.json und
 # steht in docs/verwaltung.html unter „Notion-Abgleich“.
 # Braucht das Repository-Secret NOTION_TOKEN (Notion-Verbindung mit Lesezugriff auf die Datenbank „AZ“).
 # Am 7. Dezember 2026 prüft er nur noch das letzte Fenster nach und schaltet sich dann selbst ab.
 on:
   schedule:
-    # 04:05 UTC = 5:05 Uhr Winterzeit (nicht genau zur vollen Stunde, da sind GitHubs Zeitpläne oft überlastet)
+    # 04:05 UTC = 5:05 Uhr Winterzeit – mit GitHubs üblicher Verspätung sicher nach dem nächtlichen Abruf. Früher wäre
+    # schlechter: Läuft der Abgleich vor dem nächtlichen Abruf, ist der jüngste Zeitraum noch gar nicht abrufbar.
     - cron: "5 4 * * *"
   workflow_dispatch:
     inputs:
       bis:
-        description: "Die 24 Stunden bis zu diesem Tag 5 Uhr (neu) prüfen (JJJJ-MM-TT); leer = wie geplant"
+        description: "Die 24 Stunden bis zum nächtlichen Abruf dieses Tages (neu) prüfen (JJJJ-MM-TT); leer = wie geplant"
         required: false
 
 permissions:

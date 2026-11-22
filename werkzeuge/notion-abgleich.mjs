@@ -3,13 +3,15 @@
  * Notion-Abgleich für die Übergangszeit (bis 6.12.2026): Kommt alles, was die alte Make.com-Automatisierung in die
  * Notion-Datenbank „AZ“ schreibt, auch beim eigenen Abruf (werkzeuge/sammeln.mjs) an?
  *
- * Läuft jeden Morgen kurz nach 5 Uhr (.github/workflows/notion-abgleich.yml) und prüft die letzten 24 Stunden bis 5 Uhr:
- * Jeder Artikel, den Make.com in dieser Zeit nach Notion schrieb, wird im Pool (daten/pool, zehn Tage) und unter den
- * bekannten Links (daten/gesehen.json) gesucht. Ergebnis: daten/notion-abgleich.json, Anzeige in docs/verwaltung.html.
+ * Läuft jeden Morgen gegen 5 Uhr (.github/workflows/notion-abgleich.yml), nach dem nächtlichen vollen Abruf von GitHub
+ * (geplant 3:47 Uhr, wegen GitHubs Verspätungen meist gegen 4:35 Uhr). Geprüft werden die 24 Stunden bis zu genau diesem
+ * Abruf – so kann nichts „offen“ bleiben, weil GitHub noch gar nicht nachsehen konnte. Jeder Artikel, den Make.com in dieser
+ * Zeit nach Notion schrieb, wird im Pool (daten/pool, zehn Tage) und unter den bekannten Links (daten/gesehen.json) gesucht.
+ * Ergebnis: daten/notion-abgleich.json, Anzeige in docs/verwaltung.html.
  *
  * Fehlt ein Artikel, steht ein Grund dabei:
- *   offen    GitHub hat seit dem Eintrag in Notion noch nicht wieder abgerufen (nachts zwischen 3:47 und 5 Uhr).
- *            Solche Fenster sind „vorläufig“ und werden am nächsten Morgen noch einmal geprüft – dann gibt es kein „offen“ mehr.
+ *   offen    GitHub hat seit dem Eintrag in Notion noch nicht wieder abgerufen (nur in der Minute, in der der Abruf lief).
+ *            Jedes Fenster ist zunächst „vorläufig“ und wird am nächsten Morgen noch einmal geprüft – dann gibt es kein „offen“ mehr.
  *   rubrik   Die Quelle ruft GitHub ab, diese Rubrik aber nicht (z. B. AZ Rheinhessen). Mit vermuteter Feed-Adresse.
  *   alt      Der Artikel war beim Eintrag in Notion älter als drei Tage. Der Abruf übernimmt bewusst nichts Älteres.
  *   quelle   Diese Quelle gibt es beim Abruf nicht oder sie ist pausiert.
@@ -17,7 +19,7 @@
  *
  *   node werkzeuge/notion-abgleich.mjs                    neues Fenster prüfen, das vom Vortag nachprüfen, Verpasstes nachholen
  *                                                         (braucht NOTION_TOKEN)
- *   node werkzeuge/notion-abgleich.mjs --bis=2026-11-25   die 24 Stunden bis zu diesem Tag 5 Uhr (neu) prüfen
+ *   node werkzeuge/notion-abgleich.mjs --bis=2026-11-25   die 24 Stunden bis zum nächtlichen Abruf dieses Tages (neu) prüfen
  *   node werkzeuge/notion-abgleich.mjs --datei=<json>     Notion-Einträge aus einer Datei statt aus Notion (Test)
  *                                                         Format: [[Zeit, Quelle, URL, Titel, Datum, Anzahl], …]
  *   node werkzeuge/notion-abgleich.mjs --ist-beendet      Ende mit 0, wenn die zwei Wochen vorbei sind (der Ablauf schaltet sich ab)
@@ -30,8 +32,9 @@ import { ROOT, berlinDay, berlinTime, dayOffset, readJson, writeJson, cut, clean
 
 const DATENQUELLE = "1c59c874-32ff-8043-98df-000b538e2fdc";   // Notion: Seite „News“ → Datenbank „AZ“
 const NOTION_VERSION = "2026-03-11";
-const GRENZE = "05:00";                         // jedes Fenster endet morgens um 5 Uhr (Berliner Zeit)
-const LETZTER_LAUF = "2026-12-06";              // letztes neues Fenster endet am 6.12. um 5 Uhr; am 7.12. wird nur noch nachgeprüft
+const NACHT = ["03:00", "10:00"];               // das Fenster endet mit dem ersten vollen Abruf des Tages in dieser Zeit
+const ERSATZ = "05:00";                         // falls es keinen gab (nur für --bis)
+const LETZTER_LAUF = "2026-12-06";              // letztes neues Fenster endet am 6.12. früh; am 7.12. wird nur noch nachgeprüft
 const NACHHOLEN = 4;                            // so viele verpasste Fenster holt ein Lauf höchstens nach
 const ALT_TAGE = 3;                             // wie ALTER_MAX in sammeln.mjs
 const DATEI = "daten/notion-abgleich.json";
@@ -72,6 +75,16 @@ function schluessel(url) {
 function zeitpunkt(tag, uhr) {
   for (const h of [1, 2]) { const d = new Date(Date.parse(`${tag}T${uhr}:00Z`) - h * H); if (berlinDay(d) === tag && berlinTime(d) === uhr) return d; }
   return new Date(Date.parse(`${tag}T${uhr}:00Z`) - H);
+}
+/** Ende der vollen Abrufläufe (daten/laufprotokoll.json, nur volle Läufe) */
+async function abrufZeiten() {
+  const l = await readJson("daten/laufprotokoll.json", []).catch(() => []);
+  return (Array.isArray(l) ? l : []).map(x => Date.parse(x.zeit)).filter(Boolean).sort((a, b) => a - b);
+}
+/** Grenze eines Tages: der erste volle Abruf zwischen 3 und 10 Uhr (Berliner Zeit) – oder null, wenn es noch keinen gab */
+function grenzeFuer(tag, zeiten) {
+  const a = zeitpunkt(tag, NACHT[0]).getTime(), b = zeitpunkt(tag, NACHT[1]).getTime(), z = zeiten.find(x => x >= a && x < b);
+  return z ? new Date(z) : null;
 }
 // Ältere Einträge (ganzer Kalendertag) haben noch kein von/bis
 const fensterVon = r => new Date(r.von || zeitpunkt(r.tag, "00:00"));
@@ -258,16 +271,15 @@ function luecken(tage) {
   return [...g.values()].sort((a, b) => (a.grund === "unklar" ? -1 : 0) - (b.grund === "unklar" ? -1 : 0) || b.anzahl - a.anzahl);
 }
 
-/** Welche Fenster dieser Lauf prüft: vorläufige vom Vortag noch einmal, dann neue bis zur letzten 5-Uhr-Grenze. */
-function fensterPlanen(tage, jetzt) {
-  if (opt("bis")) { const b = zeitpunkt(opt("bis"), GRENZE); return [{ von: new Date(b - 24 * H), bis: b }]; }
+/** Welche Fenster dieser Lauf prüft: vorläufige vom Vortag noch einmal, dann neue bis zum jüngsten nächtlichen Abruf. */
+function fensterPlanen(tage, jetzt, zeiten) {
+  if (opt("bis")) { const b = grenzeFuer(opt("bis"), zeiten) || zeitpunkt(opt("bis"), ERSATZ); return [{ von: new Date(b - 24 * H), bis: b }]; }
   const plan = tage.filter(r => r.vorlaeufig).map(r => ({ von: fensterVon(r), bis: fensterBis(r) }));
-  const letzte = jetzt >= zeitpunkt(HEUTE, GRENZE) ? HEUTE : dayOffset(HEUTE, -1);
-  const ende = letzte < LETZTER_LAUF ? letzte : LETZTER_LAUF;
+  const ende = HEUTE < LETZTER_LAUF ? HEUTE : LETZTER_LAUF;
   let von = tage.length ? new Date(Math.max(...tage.map(r => fensterBis(r).getTime()))) : null;
   for (let t = dayOffset(ende, -(NACHHOLEN - 1)); t <= ende; t = dayOffset(t, 1)) {
-    const g = zeitpunkt(t, GRENZE);
-    if (von && g <= von) continue;
+    const g = grenzeFuer(t, zeiten);
+    if (!g || g > jetzt || (von && g <= von)) continue;
     if (!von) { if (t === ende) plan.push({ von: new Date(g - 24 * H), bis: g }); continue; }
     if (g - von < 12 * H) continue;                     // kurze Lücke: mit dem nächsten Fenster zusammenlegen
     plan.push({ von: g - von <= 48 * H ? von : new Date(g - 24 * H), bis: g });
@@ -281,8 +293,8 @@ async function main() {
   const jetzt = JETZT;
   const alt = await readJson(DATEI, null);
   const stand = alt || { tage: [] };
-  const plan = fensterPlanen(stand.tage, jetzt);
-  if (!plan.length) { console.log(HEUTE > LETZTER_LAUF ? "Der Notion-Abgleich ist abgeschlossen." : "Nichts abzugleichen – die letzten 24 Stunden sind schon geprüft."); return; }
+  const plan = fensterPlanen(stand.tage, jetzt, await abrufZeiten());
+  if (!plan.length) { console.log(HEUTE > LETZTER_LAUF ? "Der Notion-Abgleich ist abgeschlossen." : "Nichts abzugleichen – bis zum letzten nächtlichen Abruf ist alles geprüft."); return; }
 
   let notion, zugang = "ok", hinweis = "";
   try {
@@ -307,8 +319,8 @@ async function main() {
   const alle = neu.tage || [];
   const sum = k => alle.reduce((s, t) => s + (t[k] || 0), 0);
   const ergebnis = {
-    info: "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis 5 Uhr): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
-    stand: new Date().toISOString(), zugang, ...(hinweis ? { hinweis } : {}), grenze: GRENZE, letzterLauf: LETZTER_LAUF,
+    info: "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
+    stand: new Date().toISOString(), zugang, ...(hinweis ? { hinweis } : {}), grenze: "nächtlicher Abruf", letzterLauf: LETZTER_LAUF,
     gesamt: { tage: alle.length, notion: sum("notion"), erfasst: sum("erfasst"), fehlt: sum("fehlt"), offen: sum("offen"), zusaetzlich: sum("zusaetzlich") },
     luecken: luecken(alle), tage: alle,
   };

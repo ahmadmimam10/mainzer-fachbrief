@@ -62,10 +62,10 @@ die letzte Ausgabe.
   mit eigener Websuche; veröffentlicht wird davon nichts. Braucht das
   Repository-Secret `DEEPSEEK_API_KEY`
 - Notion-Abgleich (Übergangszeit bis 6.12.2026): `werkzeuge/notion-abgleich.mjs` über `.github/workflows/notion-abgleich.yml`,
-  täglich kurz nach 5 Uhr (Winterzeit). Prüft, ob jeder Artikel, den die alte Make.com-Automatisierung in den letzten 24 Stunden
-  bis 5 Uhr in die Notion-Datenbank „AZ“ schrieb, auch im Pool oder unter den bekannten Links steht; fehlt einer, wird der Grund
-  bestimmt (Rubrik nicht abgerufen, älter als drei Tage, Quelle fehlt, unklar). Was nach dem letzten vollen Abruf in Notion kam,
-  gilt als „offen“; jedes Fenster wird am nächsten Morgen noch einmal geprüft und ist dann endgültig. Ergebnis in `daten/notion-abgleich.json`, Anzeige in der Verwaltung. Braucht das
+  täglich gegen 5 Uhr (Winterzeit). Prüft, ob jeder Artikel, den die alte Make.com-Automatisierung in den 24 Stunden bis zum
+  nächtlichen vollen Abruf (Zeit aus `daten/laufprotokoll.json`, meist gegen 4:35 Uhr) in die Notion-Datenbank „AZ“ schrieb,
+  auch im Pool oder unter den bekannten Links steht; fehlt einer, wird der Grund bestimmt (Rubrik nicht abgerufen, älter als
+  drei Tage, Quelle fehlt, unklar). Jedes Fenster wird am nächsten Morgen noch einmal geprüft und ist dann endgültig. Ergebnis in `daten/notion-abgleich.json`, Anzeige in der Verwaltung. Braucht das
   Repository-Secret `NOTION_TOKEN` (Notion-Verbindung mit Lesezugriff auf „AZ“); prüft am 7.12. ein letztes Mal nach und schaltet sich dann selbst ab
 - Werkstatt: `docs/ueber.html` erzählt, wie das Boniblatt entstanden ist (JHP-Newsletter mit Make.com, Notion, DeepSeek, Outlook) und zeigt das Startbild mit Umschaltern
 - `werkzeuge/intro-einbauen.mjs` – baut das Intro („Morgen über Mainz“) in `docs/index.html`; dazu

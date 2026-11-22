@@ -265,7 +265,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 
 <section id="notion">
   <h2>Notion-Abgleich</h2>
-  <p class="unter">Kommt alles, was Make.com in die Notion-Datenbank „AZ“ schreibt, auch bei GitHub an? Jeden Morgen um 5 Uhr werden die letzten 24 Stunden geprüft, bis zum 6. Dezember.</p>
+  <p class="unter">Kommt alles, was Make.com in die Notion-Datenbank „AZ“ schreibt, auch bei GitHub an? Jeden Morgen werden die 24 Stunden bis zum nächtlichen Abruf von GitHub geprüft, bis zum 6. Dezember.</p>
   <div id="n-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
 </section>
 
@@ -283,7 +283,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 
 <section id="ablauf">
   <h2>Was im Hintergrund läuft</h2>
-  <p class="unter">Ein Tag im Überblick, Zeiten in Winterzeit (im Sommer eine Stunde später). Nichts davon läuft auf einem eigenen Rechner.</p>
+  <p class="unter">Ein Tag im Überblick, Zeiten in Winterzeit (im Sommer eine Stunde später). GitHub startet geplante Läufe oft 30 bis 60 Minuten später als eingetragen. Nichts davon läuft auf einem eigenen Rechner.</p>
   <div class="raster" id="a-stand" style="margin-bottom:12px"></div>
   <div class="karte"><div class="uhr" id="a-uhr"></div></div>
 </section>
@@ -359,7 +359,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
       <li><b>Jeder Abruf führt Buch.</b> Je Quelle: Wie viele Einträge kamen? Gab es Fehler? Drei Fehlläufe in Folge oder vier Abrufe ohne brauchbaren Treffer heißen „gestört“.</li>
       <li><b>Frische wird gemessen.</b> Je Quelle hält der Abruf fest, von wann der jüngste Eintrag ist, den sie zeigt, und wann zuletzt etwas Neues bei uns ankam. Zeigt eine Quelle 45 Tage lang nichts Neues, wird sie als „still“ gemeldet – auch wenn technisch alles klappt. Genau das ist der Fall, der sonst monatelang unbemerkt bliebe.</li>
       <li><b>Gegenprobe von Hand.</b> Jeden Montag öffnet der Qualitätsmanager acht Quellen so, wie ein Mensch sie sieht, sucht den neuesten Artikel und prüft, ob unser Abruf ihn kennt. Nach rund sieben Wochen war jede Quelle einmal dran, dann beginnt es von vorn.</li>
-      <li><b>Gegenprobe mit Make.com</b> (bis 6. Dezember). Jeden Morgen um 5 Uhr wird geprüft, ob alles, was die alte Automatisierung in den 24 Stunden davor nach Notion geschrieben hat, auch beim Abruf ankam. Was fehlt, steht oben unter „Notion-Abgleich“ – mit Grund.</li>
+      <li><b>Gegenprobe mit Make.com</b> (bis 6. Dezember). Jeden Morgen, nach dem nächtlichen Abruf, wird geprüft, ob alles, was die alte Automatisierung in den 24 Stunden davor nach Notion geschrieben hat, auch bei GitHub ankam. Was fehlt, steht oben unter „Notion-Abgleich“ – mit Grund.</li>
     </ul>
     <p>Was das nicht leistet: Es beweist nicht für jede Quelle an jedem Tag, dass keine einzelne Meldung fehlt. Es stellt sicher, dass eine Quelle nicht unbemerkt einschläft.</p>
   </div></details>
@@ -583,13 +583,13 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
   /* ---------- Notion-Abgleich ---------- */
   const GRUND = { rubrik: "Diese Rubrik ruft GitHub nicht ab.", alt: "War beim Eintrag in Notion älter als drei Tage – so etwas übernimmt der Abruf bewusst nicht.", unklar: "Hätte GitHub sehen müssen – genauer ansehen." };
   const GRUND_KURZ = { rubrik: "Rubrik wird nicht abgerufen", alt: "älter als drei Tage", quelle: "Quelle nicht im Abruf", unklar: "unerklärt", offen: "noch offen – kam nach dem letzten Abruf, wird morgen nachgeprüft" };
-  const stunde = z => Number(new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", hour: "numeric", hourCycle: "h23" }).formatToParts(new Date(z)).find(x => x.type === "hour").value);
-  const fensterText = t => { if (!t.von || !t.bis) return "ganzer Tag"; const s = Math.round((Date.parse(t.bis) - Date.parse(t.von)) / 36e5), u = stunde(t.bis); return u === 0 && s === 24 ? "ganzer Tag" : `${s} Std. bis ${u} Uhr`; };
+  const uhrzeit = z => new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(z)).replace(/^0(?=\d)/, "");
+  const fensterText = t => { if (!t.von || !t.bis) return "ganzer Tag"; const s = Math.round((Date.parse(t.bis) - Date.parse(t.von)) / 36e5), u = uhrzeit(t.bis); return u === "0:00" && s === 24 ? "ganzer Tag" : `${s} Std. bis ${u} Uhr`; };
   const mitte = a => { const s = a.filter(x => x != null).sort((x, y) => x - y), m = s.length >> 1; return s.length ? (s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2) : null; };
   const dauer = m => { const a = Math.abs(m); return a < 90 ? zahl(a) + " Min." : (a / 60).toLocaleString("de-DE", { maximumFractionDigits: 1 }) + " Std."; };
   async function notionZeigen() {
     const d = await json(ROH + "daten/notion-abgleich.json").catch(() => null);
-    if (!d || !(d.tage || []).length) { kachel("notion", "Noch kein Ergebnis", "erster Abgleich morgens um 5 Uhr", ""); return void ($("#n-inhalt").innerHTML = `<div class="karte"><p class="leer">Noch kein Abgleich. Der erste läuft morgens um 5 Uhr.</p></div>`); }
+    if (!d || !(d.tage || []).length) { kachel("notion", "Noch kein Ergebnis", "erster Abgleich morgen früh", ""); return void ($("#n-inhalt").innerHTML = `<div class="karte"><p class="leer">Noch kein Abgleich. Der erste läuft morgen früh.</p></div>`); }
     const g = d.gesamt, basis = g.erfasst + g.fehlt, anteil = basis ? g.erfasst / basis : 1, vorbei = HEUTE > d.letzterLauf, wartet = d.zugang !== "ok" && !vorbei;
     const unklar = d.luecken.filter(l => l.grund === "unklar").reduce((n, l) => n + l.anzahl, 0), vors = mitte(d.tage.map(t => t.vorsprungMinuten));
     kachel("notion", zahl(anteil * 100) + " % erfasst", wartet ? "wartet auf den Notion-Zugang" : g.fehlt ? `${g.fehlt} fehlen, ${unklar ? unklar + " davon unerklärt" : "alle erklärbar"}` : "nichts fehlt", unklar || wartet ? "achtung" : "gut");
@@ -607,7 +607,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
       <div class="karte zahl"><b>${vors == null ? "–" : dauer(vors)}</b><span>${vors != null && vors < 0 ? "später als Notion" : "früher als Notion"}</span><i>So viel ${vors != null && vors < 0 ? "später" : "früher"} hatte GitHub die Artikel, im Mittel.</i></div>
       <div class="karte breit"><h3>Was fehlt und warum</h3>${luecken}</div></div>
       <div class="vgl">${tage}</div>
-      <p class="leer" style="font-size:13px;margin-top:10px">${vorbei ? "Abgeschlossen." : "Läuft bis zum 6. Dezember. Was nach dem letzten Abruf von GitHub in Notion kam, gilt als „noch offen“; jeder Zeitraum wird am nächsten Morgen noch einmal geprüft."}${g.zusaetzlich ? ` Dazu fand GitHub ${zahl(g.zusaetzlich)} Meldungen derselben Quellen, die nicht in Notion stehen.` : ""} Stand: ${esc(new Date(d.stand).toLocaleString("de-DE", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))} Uhr.</p>`;
+      <p class="leer" style="font-size:13px;margin-top:10px">${vorbei ? "Abgeschlossen." : "Läuft bis zum 6. Dezember. Jeder Zeitraum endet mit dem nächtlichen Abruf von GitHub (meist gegen 4:35 Uhr) und wird am nächsten Morgen noch einmal geprüft."}${g.zusaetzlich ? ` Dazu fand GitHub ${zahl(g.zusaetzlich)} Meldungen derselben Quellen, die nicht in Notion stehen.` : ""} Stand: ${esc(new Date(d.stand).toLocaleString("de-DE", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))} Uhr.</p>`;
   }
 
   /* ---------- Leiste: zeigt, wo man gerade ist ---------- */
@@ -648,7 +648,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
       ["Vertonen und veröffentlichen", "nach jeder Ausgabe – Hörfassungen, Seite neu", "GitHub · Azure", [5.6], "var(--gruen)"],
       ["Qualitätssicherung", "montags – Quellen reparieren, Abruftakt und Webseite prüfen", "Claude", [6.5], "var(--gold)"],
       ["DeepSeek-Schattenlauf", "Mo–Fr direkt nach der Morgenausgabe, zehn Ausgaben lang – nur zum Vergleich", "GitHub · DeepSeek", [5.75], "var(--blau)"],
-      ...(HEUTE <= "2026-12-06" ? [["Notion-Abgleich", "täglich bis 6. Dezember – kam in den letzten 24 Stunden alles aus Notion auch bei GitHub an?", "GitHub · Notion", [5 + 5 / 60], "var(--blau)"]] : []),
+      ...(HEUTE <= "2026-12-06" ? [["Notion-Abgleich", "täglich bis 6. Dezember, nach dem nächtlichen Abruf – kam alles aus Notion auch bei GitHub an?", "GitHub · Notion", [5 + 5 / 60], "var(--blau)"]] : []),
       ["Zählung und Bestenliste", "durchgehend – antwortet nur, wenn jemand die Seite nutzt", "Cloudflare", null, "var(--rot)"],
     ];
     $("#a-uhr").innerHTML = `<div class="kopf"><span>0 Uhr</span><span>6</span><span>12</span><span>18</span><span>24</span></div>` + zeilen.map(([n, t, wo, punkte, f]) =>
