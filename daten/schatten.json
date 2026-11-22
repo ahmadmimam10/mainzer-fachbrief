@@ -1,0 +1,608 @@
+{
+ "laeufe": [
+  {
+   "datum": "2026-11-20",
+   "erstellt": "2026-11-22T17:11:42.669Z",
+   "kandidaten": 175,
+   "claude": {
+    "jugendhilfeplanung": [
+     {
+      "id": "045f39dc49",
+      "stufe": "aufmacher",
+      "titel": "31,7 Millionen Euro für Mainzer Schulen: Startchancen-Programm nimmt Fahrt auf"
+     },
+     {
+      "id": "4b8006a55f",
+      "stufe": "wichtig",
+      "titel": "Bundeshaushalt 2027: Deutliches Minus im Familienetat"
+     },
+     {
+      "id": "641aadaace",
+      "stufe": "wichtig",
+      "titel": "Kabinett beschließt Reform des Unterhaltsvorschusses"
+     },
+     {
+      "id": "b61e6cfa39",
+      "stufe": "wichtig",
+      "titel": "Gemeindenahe Psychiatrie: In Mainz fehlen Angebote"
+     },
+     {
+      "id": "3b3218afae",
+      "stufe": "kurz",
+      "titel": "KomDat: Erste Ergebnisse zu Angebotsstrukturen der stationären Kinder- und Jugendhilfe"
+     },
+     {
+      "id": "31f66fc2ac",
+      "stufe": "kurz",
+      "titel": "Land plant rund drei Milliarden Euro neue Schulden – auch zur Unterstützung der Kommunen"
+     },
+     {
+      "id": "9d13b7ab8e",
+      "stufe": "kurz",
+      "titel": "Bundestag: Anfrage zu den Folgen der Jugendhilfe-Strukturreform für straffällige Jugendliche"
+     },
+     {
+      "id": "4c0d5c2cb1",
+      "stufe": "kurz",
+      "titel": "OECD-Studie: Was Kita-Fachkräfte stärkt – und was sie herausfordert"
+     },
+     {
+      "id": "fbf5c7daf9",
+      "stufe": "kurz",
+      "titel": "Bundesrat heute: Startchancen, Notfallreform und Frühstartrente auf der Tagesordnung"
+     },
+     {
+      "id": "b7b0625b68",
+      "stufe": "kurz",
+      "titel": "Bundesjugendkuratorium: Anliegen junger Menschen gehören ins Zentrum politischen Handelns"
+     },
+     {
+      "id": "67751477f6",
+      "stufe": "kurz",
+      "titel": "Kinderhilfswerk fordert mehr politische Mitbestimmung für Kinder und Jugendliche"
+     },
+     {
+      "id": "a3e269dcad",
+      "stufe": "kurz",
+      "titel": "Kreuznacher Diakonie: Studie deckt 242 Fälle sexualisierter Gewalt in Heimen auf"
+     }
+    ],
+    "fruehe-hilfen": [
+     {
+      "id": "0aa0ec169a",
+      "stufe": "aufmacher",
+      "titel": "Fachtag in Rheinland-Pfalz: Wie aus Kinderschutzkonzepten gelebter Schutz in Kitas wird"
+     },
+     {
+      "id": "dbfbff2218",
+      "stufe": "wichtig",
+      "titel": "Bundeskampagne gegen sexuelle Übergriffe im Netz nimmt Eltern in die Pflicht"
+     },
+     {
+      "id": "a3e269dcad",
+      "stufe": "wichtig",
+      "titel": "Kreuznacher Diakonie: Studie deckt 242 Fälle sexualisierter Gewalt in Heimen auf"
+     },
+     {
+      "id": "883477e153",
+      "stufe": "kurz",
+      "titel": "NZFH-Kurznachricht: Frühe Hilfen aktuell – die Marke „Frühe Hilfen“"
+     },
+     {
+      "id": "641aadaace",
+      "stufe": "kurz",
+      "titel": "Kabinett beschließt Reform des Unterhaltsvorschusses"
+     },
+     {
+      "id": "fcf3610217",
+      "stufe": "kurz",
+      "titel": "Bundesministerin Prien wirbt in der EU für gemeinsame Regeln zum Schutz junger Menschen im Netz"
+     },
+     {
+      "id": "4c0d5c2cb1",
+      "stufe": "kurz",
+      "titel": "OECD-Studie: Was Kita-Fachkräfte stärkt – und was sie herausfordert"
+     },
+     {
+      "id": "da9b14cf79",
+      "stufe": "kurz",
+      "titel": "20 Jahre Siebter Familienbericht: Familienpolitik auf dem Prüfstand"
+     },
+     {
+      "id": "fb65e7bc93",
+      "stufe": "kurz",
+      "titel": "Gemeinsame Standards für die Weiterbildung zur FASD-Fachkraft veröffentlicht"
+     }
+    ],
+    "quartiersmanagement": [
+     {
+      "id": "46b82bee31",
+      "stufe": "aufmacher",
+      "titel": "Abriss der Mombacher Hochbrücke: Der Zeitplan steht"
+     },
+     {
+      "id": "fb3765dab6",
+      "stufe": "wichtig",
+      "titel": "NeustART: Ausstellung „Inneres Gasthaus“ im Quartier Neustadt"
+     },
+     {
+      "id": "6b9e9482b6",
+      "stufe": "wichtig",
+      "titel": "Kunst am Bau: Neues Kunstwerk am Bürgerhaus und an der Kita Lerchenberg"
+     },
+     {
+      "id": "385f2b32e5",
+      "stufe": "kurz",
+      "titel": "Stadt stellt Umleitungen für den Rückbau der Hochbrücke vor"
+     },
+     {
+      "id": "045f39dc49",
+      "stufe": "kurz",
+      "titel": "31,7 Millionen Euro für Mainzer Schulen aus dem Startchancen-Programm"
+     },
+     {
+      "id": "083f34ccd8",
+      "stufe": "kurz",
+      "titel": "„MainzBaum – Dein Lebensraum“: Mitmachprojekt zu Stadtbäumen geht in den Endspurt"
+     },
+     {
+      "id": "dbfe93ae9a",
+      "stufe": "kurz",
+      "titel": "Große Bleiche: Stadt stellt Ergebnisse der Verkehrserhebungen vor"
+     },
+     {
+      "id": "64252aa00e",
+      "stufe": "kurz",
+      "titel": "Städtebauförderung: Über 10 Millionen Euro für das Lahnquartier in Bad Ems"
+     },
+     {
+      "id": "4273ca655c",
+      "stufe": "kurz",
+      "titel": "Neuer Wirt im Weinhaus „Kurfürst“ in der Neustadt setzt auf bewährte Küche"
+     },
+     {
+      "id": "206d30e67a",
+      "stufe": "kurz",
+      "titel": "Ortsvorsteher fordert Klimaanlagen für Gonsenheimer Kitas"
+     }
+    ]
+   },
+   "claudeHoer": {
+    "jugendhilfeplanung": "Guten Morgen, hier ist der Mainzer Fachbrief für die Jugendhilfeplanung am Freitag, 20. November.\n\nWir starten gleich mit einer großen Zahl: 31,7 Millionen Euro. So viel Geld fließt aus dem Startchancen-Programm von Bund und Ländern an Mainzer Schulen. Das Ziel: sozial benachteiligte Kinder und Jugendliche gezielt fördern. Die Stadt Mainz hat dazu den aktuellen Stand vorgelegt.\n\nWeniger erfreulich klingt es aus Berlin. Im Bundeshaushalt 2027 steht beim Familienetat ein deutliches Minus. Das Bundesfamilienministerium plant für 2027 mit Ausgaben von 15,93 Milliarden Euro. Das ist wichtig für alle Programme der Kinder- und Jugendhilfe, die der Bund finanziert.\n\nEbenfalls aus Berlin: Das Bundeskabinett hat eine Reform des Unterhaltsvorschusses beschlossen. Der Gesetzentwurf nimmt säumige Unterhaltsschuldner stärker in die Pflicht und führt eine neue Einkommensgrenze ein. Das betrifft direkt die Unterhaltsvorschussstellen der Jugendämter.\n\nZurück nach Mainz. Ein neuer Bericht der Stadt zur gemeindenahen Psychiatrie zeigt: Es fehlen Angebote. Er benennt Wartelisten und Lücken bei Hilfen, beim Wohnen und bei Übergängen, und zwar ausdrücklich auch für junge Erwachsene.\n\nKurz notiert: Aus der Kinder- und Jugendhilfestatistik liegen erste Ergebnisse zu den Angebotsstrukturen der stationären Kinder- und Jugendhilfe vor. Rheinland-Pfalz plant rund drei Milliarden Euro neue Schulden, auch zur Unterstützung der Kommunen. Und der Bundesrat hat heute unter anderem die Startchancen, die Notfallreform und die Frühstartrente auf der Tagesordnung.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Schönes Wochenende, bis Montag.",
+    "fruehe-hilfen": "Guten Morgen, hier ist der Mainzer Fachbrief für Frühe Hilfen und Kinderschutz am Freitag, 20. November.\n\nUnser Aufmacher führt nach Rheinland-Pfalz, und dort wird es am Samstag ganz praktisch: Zum Tag der Kinderrechte beraten rund 300 Fachkräfte, Träger und Elternvertretungen bei einem Fachtag, wie aus Kinderschutzkonzepten gelebter Schutz in Kitas wird. Es geht also darum, dass Schutzkonzepte im Kita-Alltag wirksam werden. Staatssekretärin Jenny Groß fasst es so zusammen: Aus Konzepten wird Handlungssicherheit.\n\nAußerdem nimmt eine Kampagne des Bundes Eltern in die Pflicht. Unter dem Motto „Schieb deine Verantwortung nicht weg!“ rückt sie sexuelle Gewalt im Netz in den Fokus und appelliert an Eltern und Erwachsene, Kinder aktiv zu schützen. Passend dazu wirbt Bundesministerin Karin Prien in der Europäischen Union für gemeinsame Regeln zum Schutz junger Menschen im Netz.\n\nEine ernste Nachricht aus Rheinland-Pfalz: Eine Studie der Kreuznacher Diakonie deckt 242 Fälle sexualisierter Gewalt in Heimen auf. Angestoßen hat die Aufarbeitung ein ehemaliger Heimbewohner, der kurz vor seinem Tod über den erlebten Missbrauch sprach.\n\nKurz notiert: Für die Weiterbildung zur Fachkraft für Fetale Alkoholspektrumstörungen gibt es jetzt gemeinsame Standards. Und der Deutsche Verein stellt 20 Jahre nach dem Siebten Familienbericht die Familienpolitik auf den Prüfstand.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Schönes Wochenende, bis Montag.",
+    "quartiersmanagement": "Guten Morgen, hier ist der Mainzer Fachbrief für das Quartiersmanagement am Freitag, 20. November.\n\nHeute dreht sich vieles um eine Brücke, die bald keine mehr ist: Der Zeitplan für den Abriss der Mombacher Hochbrücke steht. Der Rückbau beginnt im Januar und bringt Einschränkungen für Anlieger mit sich. Der Ortsbeirat Hartenberg-Münchfeld befasst sich mit dem Zeitplan der Arbeiten. Passend dazu hat die Stadt die Umleitungen für den Rückbau vorgestellt.\n\nIn der Neustadt wird es nachdenklich: Die Ausstellung „Inneres Gasthaus“ im Projekt NeustART des Quartiermanagements Mainz-Neustadt lädt ein, sich mit den eigenen Gefühlen auseinanderzusetzen. Die Stadt kündigt sie unter der Überschrift an: Den eigenen Gefühlen begegnen.\n\nAuf dem Lerchenberg gibt es neue Kunst am Bau, und zwar am Bürgerhaus und an der Kita Lerchenberg. Vorgestellt wird das neue Kunstwerk von Kulturdezernent Ata Delbasteh und Thomas A. Schmidt.\n\nKurz notiert, zuerst mit einem Blick über die Stadtgrenze: Das Lahnquartier in Bad Ems erhält 10,27 Millionen Euro aus der Städtebauförderung. Zurück in Mainz geht das Mitmachprojekt „MainzBaum – Dein Lebensraum“ zu den Stadtbäumen in den Endspurt. Und für die Große Bleiche hat die Stadt die Ergebnisse ihrer Verkehrserhebungen vorgestellt.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Schönes Wochenende, bis Montag."
+   },
+   "claudeTermine": [
+    {
+     "art": "fussball",
+     "tag": "2026-11-21",
+     "wann": "21 Uhr",
+     "titel": "Real Madrid – Celta Vigo",
+     "ort": "La Liga",
+     "url": "https://www.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-real-madrid-rc-celta-13"
+    },
+    {
+     "art": "fussball",
+     "tag": "2026-11-22",
+     "wann": "14 Uhr",
+     "titel": "FC Barcelona – Villarreal",
+     "ort": "La Liga",
+     "url": "https://www.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-fc-barcelona-villarreal-cf-13"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-11-22",
+     "wann": "20 Uhr",
+     "titel": "Bob Dylan in der Festhalle",
+     "ort": "Frankfurt, Festhalle",
+     "url": "https://festhalle.messefrankfurt.com/frankfurt/en/event-calendar/bob-dylan.html"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-23",
+     "wann": "17 Uhr",
+     "titel": "Frankfurter Weihnachtsmarkt eröffnet",
+     "ort": "Frankfurt, Römerberg",
+     "url": "https://www.visitfrankfurt.travel/en/experience/festival-and-events/frankfurt-christmas-market"
+    },
+    {
+     "art": "fussball",
+     "tag": "2026-11-24",
+     "wann": "21 Uhr",
+     "titel": "Real Madrid – PSV Eindhoven",
+     "ort": "Champions League",
+     "url": "https://www.uefa.com/uefachampionsleague/news/02a8-2174c9e9019d-f909a77bd77a-1000--2026-27-champions-league-all-the-league-phase-fixtures-a/"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-24",
+     "wann": "18 Uhr",
+     "titel": "Sternschnuppenmarkt Wiesbaden eröffnet",
+     "ort": "Wiesbaden, Schlossplatz",
+     "url": "https://www.wiesbaden.de/en/microsite/sternschnuppenmarkt/ueberblick"
+    },
+    {
+     "art": "fussball",
+     "tag": "2026-11-25",
+     "wann": "18:45 Uhr",
+     "titel": "Sabah FK – FC Barcelona",
+     "ort": "Champions League",
+     "url": "https://www.uefa.com/uefachampionsleague/news/02a8-2174c9e9019d-f909a77bd77a-1000--2026-27-champions-league-all-the-league-phase-fixtures-a/"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-26",
+     "wann": "",
+     "titel": "Mainzer Weihnachtsmarkt beginnt",
+     "ort": "Mainz, Domplätze",
+     "url": "https://www.mainz.de/angebote-entdecken/freizeit/feste-und-veranstaltungen/weihnachtsmarkt"
+    },
+    {
+     "art": "fussball",
+     "tag": "2026-11-28",
+     "wann": "21 Uhr",
+     "titel": "Real Madrid – Alavés",
+     "ort": "La Liga",
+     "url": "https://www.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-real-madrid-deportivo-alaves-14"
+    }
+   ],
+   "modelle": {
+    "deepseek-flash": {
+     "denken": "max (Suche: high)",
+     "tarif": "Nebenzeit",
+     "sekunden": 220,
+     "usd": 0.05268,
+     "tokens": {
+      "eingabe": 55794,
+      "cache": 252288,
+      "ausgabe": 42594
+     },
+     "erfunden": 0,
+     "verstoesse": [],
+     "ressorts": {
+      "jugendhilfeplanung": [
+       {
+        "id": "045f39dc49",
+        "stufe": "aufmacher",
+        "titel": "Startchancen-Programm: 31,7 Millionen Euro für Mainzer Schulen",
+        "kurz": "Die Stadt Mainz beschreibt den aktuellen Sachstand zum bundesweiten Förderprogramm; die soziale Herkunft soll nicht über die Bildungschancen eines Kindes entscheiden."
+       },
+       {
+        "id": "3b3218afae",
+        "stufe": "wichtig",
+        "titel": "Deutsches Jugendinstitut legt erste Ergebnisse zu stationären Angebotsstrukturen vor",
+        "kurz": "Die KomDat-Ausgabe des Deutschen Jugendinstituts beschreibt stationäre Gruppenstrukturen und die breit gefächerte Trägerlandschaft der Kindertagesbetreuung."
+       },
+       {
+        "id": "641aadaace",
+        "stufe": "wichtig",
+        "titel": "Kabinett beschließt Reform des Unterhaltsvorschussgesetzes",
+        "kurz": "Unterhaltsschuldner werden stärker in die Verantwortung genommen; eine neue Einkommensgrenze soll die Leistung zielgerichteter machen."
+       },
+       {
+        "id": "4c0d5c2cb1",
+        "stufe": "wichtig",
+        "titel": "OECD-Studie: Kita-Fachkräfte in Deutschland überwiegend zufrieden",
+        "kurz": "Die Auswertung von TALIS Starting Strong zeigt hohe Zufriedenheit und benennt Qualifikation, Arbeitsbedingungen und Leitung als wichtige Voraussetzungen für gute pädagogische Arbeit."
+       },
+       {
+        "id": "c27f66a598",
+        "stufe": "kurz",
+        "titel": "Dialogforum fragt nach dem richtigen Maß an Regulierung in der Jugendhilfe"
+       },
+       {
+        "id": "b7b0625b68",
+        "stufe": "kurz",
+        "titel": "Bundesjugendkuratorium fordert verlässliche Absicherung und Teilhaberäume"
+       },
+       {
+        "id": "4b8006a55f",
+        "stufe": "kurz",
+        "titel": "Bundeshaushalt 2027: Deutliches Minus im Familienetat"
+       },
+       {
+        "id": "d77b55fe0f",
+        "stufe": "kurz",
+        "titel": "Praxishandbuch zu Kindern von Inhaftierten erschienen"
+       },
+       {
+        "id": "206d30e67a",
+        "stufe": "kurz",
+        "titel": "Gonsenheimer Ortsbeirat berät über Klimaanlagen in Kitas"
+       }
+      ],
+      "fruehe-hilfen": [
+       {
+        "id": "a3e269dcad",
+        "stufe": "aufmacher",
+        "titel": "Studie der Kreuznacher Diakonie deckt 242 Fälle sexualisierter Gewalt in Heimen auf",
+        "kurz": "Jahrelang schwieg ein ehemaliger Heimbewohner über den Missbrauch, den er als Kind erlebte; erst kurz vor seinem Tod vertraute er sich an und brachte die Studie ins Rollen."
+       },
+       {
+        "id": "0aa0ec169a",
+        "stufe": "wichtig",
+        "titel": "Fachtag Kinderschutz stärkt Kita-Teams in Rheinland-Pfalz",
+        "kurz": "Rund 300 Fachkräfte, Träger und Elternvertretungen suchen am Samstag Antworten auf die Frage, wie aus einem Kinderschutzkonzept gelebter Kinderschutz wird."
+       },
+       {
+        "id": "dbfbff2218",
+        "stufe": "wichtig",
+        "titel": "Kampagne will Kinder und Jugendliche vor sexuellen Übergriffen im Netz schützen",
+        "kurz": "Die Kampagne „Schieb deine Verantwortung nicht weg!“ setzt den Fokus auf sexuelle Gewalt im Netz und appelliert an Eltern und Erwachsene."
+       },
+       {
+        "id": "da9b14cf79",
+        "stufe": "kurz",
+        "titel": "20 Jahre Siebter Familienbericht: Familienpolitik auf dem Prüfstand"
+       },
+       {
+        "id": "883477e153",
+        "stufe": "kurz",
+        "titel": "Frühe Hilfen aktuell: Marke Frühe Hilfen"
+       },
+       {
+        "id": "8b7b468ed4",
+        "stufe": "kurz",
+        "titel": "Fachveranstaltung zum grenzüberschreitenden Kinderschutz im Januar"
+       },
+       {
+        "id": "90bc64255e",
+        "stufe": "kurz",
+        "titel": "Initiative macht Gewalt gegen Jungen und Männer zum Thema"
+       },
+       {
+        "id": "fb65e7bc93",
+        "stufe": "kurz",
+        "titel": "Gemeinsame Standards für die Weiterbildung zur FASD-Fachkraft"
+       }
+      ],
+      "quartiersmanagement": [
+       {
+        "id": "52298394d9",
+        "stufe": "aufmacher",
+        "titel": "Hochbrücke: Stadt erklärt den ersten Bauabschnitt des Rückbaus",
+        "kurz": "Die Vorarbeiten laufen bereits, im Januar beginnt der Rückbau der Mombacher Hochbrücke; die Stadt Mainz erläutert, was im ersten Bauabschnitt passiert."
+       },
+       {
+        "id": "64252aa00e",
+        "stufe": "wichtig",
+        "titel": "Städtebauförderung: 10,27 Millionen Euro für das Lahnquartier in Bad Ems",
+        "kurz": "Das Land übergibt einen Förderbescheid aus dem Bund-Länder-Programm „Wachstum und nachhaltige Entwicklung“ für die Quartiersentwicklung in Bad Ems."
+       },
+       {
+        "id": "fb3765dab6",
+        "stufe": "wichtig",
+        "titel": "Ausstellung NeustART „Inneres Gasthaus“ in der Mainzer Neustadt",
+        "kurz": "Die Kunstausstellung im Rahmen des Projekts NeustART des Quartiersmanagements Mainz-Neustadt lädt dazu ein, den eigenen Gefühlen zu begegnen."
+       },
+       {
+        "id": "6b9e9482b6",
+        "stufe": "wichtig",
+        "titel": "Neues Kunstwerk am Bürgerhaus und an der Kita Lerchenberg",
+        "kurz": "Kulturdezernent Ata Delbasteh und Thomas A. Schmidt stellen die Kunst am Bau am Bürgerhaus und der Kita Lerchenberg vor."
+       },
+       {
+        "id": "8b63daea9e",
+        "stufe": "kurz",
+        "titel": "Ortsbeirat fordert größere Mülleimer für den Willy-Brandt-Platz"
+       },
+       {
+        "id": "dbfe93ae9a",
+        "stufe": "kurz",
+        "titel": "Große Bleiche: Stadt stellt Ergebnisse der Verkehrserhebungen vor"
+       }
+      ]
+     },
+     "hoer": {
+      "jugendhilfeplanung": "Guten Morgen, hier ist das Mainzer Boniblatt für die Jugendhilfeplanung am Freitag, 20. November.\n\nIm Mittelpunkt steht heute das Startchancen-Programm. 31,7 Millionen Euro fließen an Mainzer Schulen. Die Stadt Mainz beschreibt den aktuellen Sachstand zum bundesweiten Förderprogramm und betont, dass die soziale Herkunft nicht über die Bildungschancen eines Kindes entscheiden darf.\n\nNeue Daten liefert die Kinder- und Jugendhilfestatistik. Das Deutsche Jugendinstitut hat erste Ergebnisse zu stationären Gruppenstrukturen und zur breit gefächerten Trägerlandschaft der Kindertagesbetreuung vorgelegt. Die aktuelle Ausgabe der KomDat fasst die Angebotsstrukturen zusammen.\n\nDas Bundeskabinett hat eine Reform des Unterhaltsvorschussgesetzes beschlossen. Unterhaltsschuldner sollen stärker in die Verantwortung genommen werden. Eine neue Einkommensgrenze soll die Leistung zielgerichteter machen. Der Gesetzentwurf soll den Unterhaltsrückgriff nach dem Unterhaltsvorschussgesetz verbessern.\n\nDie OECD-Studie TALIS Starting Strong zeigt, dass Kita-Fachkräfte in Deutschland überwiegend zufrieden mit ihrem Beruf sind. Hohe Qualifikation, gute Arbeitsbedingungen und starke Leitungen gelten als wichtige Voraussetzungen für gute pädagogische Arbeit. Die Auswertung vergleicht Deutschland international.\n\nKurz notiert: Das Deutsche Institut für Urbanistik fragt in einem Dialogforum, wie viel Regulierung die Jugendhilfe verträgt und wie viel sie braucht. Das Bundesjugendkuratorium fordert eine verlässliche materielle Absicherung, eine bedarfsgerechte soziale Infrastruktur und zugängliche Räume für demokratische Teilhabe. Und der Bundeshaushalt 2027 sieht ein deutliches Minus im Familienetat vor; geplant sind 15,93 Milliarden Euro.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis Montag.",
+      "fruehe-hilfen": "Guten Morgen, hier ist das Mainzer Boniblatt für Frühe Hilfen, Kinderschutz und Familienbildung am Freitag, 20. November.\n\nEine Studie der Kreuznacher Diakonie deckt 242 Fälle sexualisierter Gewalt in Heimen auf. Jahrelang schwieg ein ehemaliger Heimbewohner über den Missbrauch, den er als Kind erlebt hatte. Erst kurz vor seinem Tod vertraute er sich an und brachte die Studie ins Rollen.\n\nRund 300 Fachkräfte, Träger und Elternvertretungen suchen am Samstag beim Fachtag Kinderschutz in Rheinland-Pfalz nach Antworten auf die Frage, wie aus einem Kinderschutzkonzept gelebter Kinderschutz in Kitas wird. Der Fachtag fällt mit dem Internationalen Tag der Kinderrechte am 20. November zusammen.\n\nDas Bundesfamilienministerium setzt mit der Kampagne „Schieb deine Verantwortung nicht weg!“ auf sexuelle Gewalt im Netz. Sie richtet sich an Eltern und Erwachsene und will Kinder und Jugendliche vor sexuellen Übergriffen schützen.\n\nKurz notiert: Der Deutsche Verein blickt auf 20 Jahre Siebter Familienbericht und stellt die Familienpolitik auf den Prüfstand. Das Nationale Zentrum Frühe Hilfen hat eine Kurznachricht zur Marke Frühe Hilfen veröffentlicht. Und der Deutsche Verein lädt zu einer Fachveranstaltung zum grenzüberschreitenden Kinderschutz im Januar ein.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis Montag.",
+      "quartiersmanagement": "Guten Morgen, hier ist das Mainzer Boniblatt für das Quartiersmanagement am Freitag, 20. November.\n\nDie Vorarbeiten laufen bereits, im Januar beginnt der eigentliche Rückbau der Mombacher Hochbrücke. Die Stadt Mainz erklärt jetzt, was im ersten Bauabschnitt passiert. Das Bauprojekt betrifft den Stadtteil Mombach.\n\nÜberregional kommt Geld aus der Städtebauförderung: Die Stadt Bad Ems erhält 10,27 Millionen Euro für die Entwicklung des Lahnquartiers. Die Mittel stammen aus dem Bund-Länder-Programm „Wachstum und nachhaltige Entwicklung“.\n\nIn der Mainzer Neustadt zeigt die Ausstellung „Inneres Gasthaus“ im Rahmen des Projekts NeustART, wie man den eigenen Gefühlen begegnen kann. NeustART ist ein Projekt des Quartiersmanagements Mainz-Neustadt.\n\nAm Lerchenberg stellen Kulturdezernent Ata Delbasteh und Thomas A. Schmidt ein neues Kunstwerk am Bürgerhaus und an der Kita vor.\n\nKurz notiert: Der Ortsbeirat fordert größere Abfalleimer für den Willy-Brandt-Platz, weil sie vor allem am Wochenende nicht ausreichen. Außerdem stellt die Stadt Mainz die Ergebnisse der Verkehrserhebungen an der Großen Bleiche vor. Die Regelverstöße am Modalfilter gehen zurück, die Verkehrsmengen auf den Hauptachsen bleiben weitgehend stabil.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis Montag."
+     },
+     "gremien": {
+      "tokens": {
+       "eingabe": 3914,
+       "cache": 0,
+       "ausgabe": 6999
+      },
+      "usd": 0.00479,
+      "sekunden": 37.9,
+      "verstoesse": [],
+      "sitzungen": {
+       "5022": {
+        "gremium": "Werkausschuss der Gebäudewirtschaft Mainz",
+        "datum": "2026-11-19",
+        "punkte": 4,
+        "claude": {
+         "ressorts": {}
+        },
+        "deepseek": {
+         "ressorts": {}
+        }
+       },
+       "5084": {
+        "gremium": "Wirtschaftsausschuss",
+        "datum": "2026-11-19",
+        "punkte": 2,
+        "claude": {
+         "ressorts": {}
+        },
+        "deepseek": {
+         "ressorts": {}
+        }
+       },
+       "5146": {
+        "gremium": "Schulträgerausschuss",
+        "datum": "2026-11-19",
+        "punkte": 4,
+        "claude": {
+         "ressorts": {
+          "jugendhilfeplanung": "Sachstand Startchancen-Programm und Schulbezirksgrenzen vorgestellt.",
+          "quartiersmanagement": "RS+ Mombach – Auslagerung Brucknerstraße: 5,45 Mio. € Bereitstellung einstimmig zugestimmt."
+         }
+        },
+        "deepseek": {
+         "ressorts": {
+          "jugendhilfeplanung": "Schulbezirksgrenzen und Startchancen-Programm berichtet; 5,45 Mio. € Verpflichtungsermächtigung für RS+ Mombach einstimmig zugestimmt.",
+          "quartiersmanagement": "RS+ Mombach: Auslagerung Brucknerstraße, 5,45 Mio. € Verpflichtungsermächtigung einstimmig zugestimmt."
+         },
+         "ergebnis": {
+          "jugendhilfeplanung": [
+           "einstimmig"
+          ],
+          "quartiersmanagement": [
+           "einstimmig"
+          ]
+         }
+        }
+       },
+       "5176": {
+        "gremium": "Ausschuss für Mobilität",
+        "datum": "2026-11-19",
+        "punkte": 8,
+        "claude": {
+         "ressorts": {
+          "quartiersmanagement": "Sachstand Hochbrücken-Abriss; Leitbild Mobilität 2035+ mit Ergänzung zugestimmt."
+         }
+        },
+        "deepseek": {
+         "ressorts": {
+          "quartiersmanagement": "Verkehrsentwicklung Große Bleiche und Mobilitätsplan 2035+ beraten; Parkgebühren Zonen 1/2 mehrheitlich, Seilergasse einstimmig zugestimmt."
+         },
+         "ergebnis": {
+          "quartiersmanagement": [
+           "mehrheitlich",
+           "einstimmig"
+          ]
+         }
+        }
+       },
+       "5203": {
+        "gremium": "Zweckverband zur Erhaltung des Lennebergwaldes",
+        "datum": "2026-11-19",
+        "punkte": 4,
+        "claude": {
+         "vorschau": true,
+         "ressorts": {}
+        },
+        "deepseek": {
+         "ressorts": {}
+        }
+       }
+      }
+     },
+     "termine": {
+      "tokens": {
+       "eingabe": 31720,
+       "cache": 252288,
+       "ausgabe": 9529
+      },
+      "usd": 0.02923,
+      "sekunden": 60.2,
+      "suchen": 18,
+      "abrufe": 6,
+      "verstoesse": [],
+      "termine": [
+       {
+        "art": "theater",
+        "tag": "2026-11-20",
+        "wann": "19.30 Uhr",
+        "titel": "Die Zauberflöte",
+        "ort": "Mainz, Staatstheater",
+        "url": "https://www.staatstheater-mainz.com/veranstaltungen/oper-26-27/die-zauberflote"
+       },
+       {
+        "art": "fussball",
+        "tag": "2026-11-21",
+        "wann": "21 Uhr",
+        "titel": "Real Madrid – Celta Vigo",
+        "ort": "La Liga",
+        "url": "https://www.mundodeportivo.com/guia-tv/equipo/real-madrid"
+       },
+       {
+        "art": "familie",
+        "tag": "2026-11-21",
+        "wann": "15.30 Uhr",
+        "titel": "Picobello, ahoi!",
+        "ort": "Mainz, Weißliliengasse 8",
+        "url": "https://www.staatstheater-mainz.com/veranstaltungen/oper-26-27/picobello-ahoi"
+       },
+       {
+        "art": "musik",
+        "tag": "2026-11-21",
+        "wann": "20 Uhr",
+        "titel": "BigMainzelBand feat. Jakob Manz",
+        "ort": "Mainz, Frankfurter Hof",
+        "url": "https://www.kulturpur.de/buehnen/frankfurter-hof-mainz/spielplan/2026-07"
+       },
+       {
+        "art": "theater",
+        "tag": "2026-11-21",
+        "wann": "20 Uhr",
+        "titel": "Poetry Slam in der kING",
+        "ort": "Ingelheim, kING",
+        "url": "https://kulturland.rlp.de/datenbanken/veranstaltungen/veranstaltung/martin-walker-bredouille-9-10-9"
+       },
+       {
+        "art": "fussball",
+        "tag": "2026-11-22",
+        "wann": "14 Uhr",
+        "titel": "FC Barcelona – Villarreal",
+        "ort": "La Liga",
+        "url": "https://eurosport.tvn24.pl/pilka-nozna/la-liga/2026-2027/barcelone-czeka-maraton-meczow-przed-swietami-bozego-narodzenia.-dziewiec-meczow-w-28-dni_sto23356351/story.shtml"
+       },
+       {
+        "art": "markt",
+        "tag": "2026-11-23",
+        "wann": "ab 16.30 Uhr",
+        "titel": "Frankfurter Weihnachtsmarkt öffnet",
+        "ort": "Frankfurt, Römerberg",
+        "url": "https://frankfurt.de/de-de/aktuelle-meldung/meldungen/frankfurter-weihnachtsmarkt-eroeffnet-am-23november/"
+       },
+       {
+        "art": "markt",
+        "tag": "2026-11-24",
+        "wann": "18 Uhr",
+        "titel": "Sternschnuppenmarkt eröffnet",
+        "ort": "Wiesbaden, Schlossplatz",
+        "url": "https://www.faz.net/aktuell/rhein-main/region-und-hessen/wiesbaden-am-24-november-eroeffnet-der-sternschnuppenmarkt-accg-201672586.html"
+       },
+       {
+        "art": "markt",
+        "tag": "2026-11-26",
+        "wann": "ab 11 Uhr",
+        "titel": "Mainzer Weihnachtsmarkt öffnet",
+        "ort": "Mainz, Domplätze",
+        "url": "https://www.mainz.de/angebote-entdecken/freizeit/feste-und-veranstaltungen/weihnachtsmarkt"
+       },
+       {
+        "art": "markt",
+        "tag": "2026-11-26",
+        "wann": "ab 13 Uhr",
+        "titel": "WinterZeit-Markt im Schloss",
+        "ort": "Mainz, Kurfürstl. Schloss",
+        "url": "https://www.weihnachtsstadt-mainz.de/events/mainzer-winterzeit-markt-im-schloss-innenhof-5/"
+       },
+       {
+        "art": "theater",
+        "tag": "2026-11-26",
+        "wann": "20 Uhr",
+        "titel": "Poetry Slam im Frankfurter Hof",
+        "ort": "Mainz, Frankfurter Hof",
+        "url": "https://www.kulturpur.de/buehnen/frankfurter-hof-mainz/spielplan/2026-07"
+       },
+       {
+        "art": "theater",
+        "tag": "2026-11-27",
+        "wann": "20 Uhr",
+        "titel": "Christoph Sonntag – AZNZ 2.0",
+        "ort": "Mainz, Frankfurter Hof",
+        "url": "https://www.kulturpur.de/buehnen/frankfurter-hof-mainz/spielplan/2026-07"
+       }
+      ]
+     }
+    }
+   }
+  }
+ ],
+ "info": "DeepSeek-Schattenlauf, geschrieben von werkzeuge/schatten.mjs. Je Ausgabe: Claudes Arbeit und die von DeepSeek aus denselben Vorgaben – Auswahl mit Hörfassung, Gremien-Notizen, „Was geht?“ – mit Tokens und Kosten in US-Dollar."
+}
