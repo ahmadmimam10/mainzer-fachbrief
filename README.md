@@ -23,10 +23,17 @@ Keine amtliche Veröffentlichung der Stadt Mainz.
 | Schritt | Wer | Wann | Was |
 |---|---|---|---|
 | 1. Quellen abrufen | GitHub Actions (`.github/workflows/sammeln.yml`) | mehrmals täglich | `werkzeuge/sammeln.mjs` liest alle Quellen aus `quellen.json`, legt neue Meldungen im Pool ab (`daten/pool/`), aktualisiert Ratstermine und Quellenstatus |
+| 1b. Zwischenabruf | GitHub Actions (`sammeln.yml`, Lauf `zwischen`) | stündlich von 5 bis 23 Uhr | nur die Feed-Adressen, die sich schneller drehen als der volle Abruf (`"stuendlich"` in `quellen.json`, derzeit der Rheinland-Pfalz-Feed der Allgemeinen Zeitung); speichert nur, wenn es Neues gibt |
 | 2. Redaktion | Claude-Routine in der Cloud | werktags (Mo–Fr) 04:00 UTC (5 Uhr Winter-, 6 Uhr Sommerzeit); montags mit allen Meldungen seit Freitag | sichtet die offenen Kandidaten nach `REDAKTION.md`, wählt je Ressort höchstens 12 Meldungen, schreibt `daten/ausgaben/JJJJ-MM-TT.json` |
 | 3. Veröffentlichen | GitHub Actions (`seite.yml`) → GitHub Pages | nach jeder Änderung | veröffentlicht den Ordner `docs/` |
+| 4. Qualitätssicherung | Claude-Routine in der Cloud | montags | arbeitet `QUALITAET.md` ab: repariert Quellen, prüft den Abruftakt (`werkzeuge/abruf-takt.mjs`) und die Webseite (`werkzeuge/seite-pruefen.mjs`), protokolliert in `daten/wartung.md` |
 
 Nichts davon läuft auf einem privaten Rechner.
+
+**Warum nicht alles stündlich?** Der Abruf wurde am 22.11.2026 vermessen: Von 38 Feeds tauschte nur einer (Allgemeine
+Zeitung, Rheinland-Pfalz) seine zehn Einträge in weniger als sechs Stunden aus; die Stadtteil-Feeds brauchen dafür Wochen.
+Deshalb läuft der volle Abruf alle drei Stunden und nur dieser eine Feed stündlich. Der Abruf schreibt bei jedem Lauf mit,
+wie viel je Feed neu war (`daten/abruf-takt.json`); die Qualitätssicherung stuft Feeds danach hoch oder zurück.
 
 **Voraussetzung für Schritt 2:** Die Claude-GitHub-App braucht Zugriff auf dieses Repository
 (https://github.com/apps/claude/installations/select_target → Konto wählen → Repository `mainzer-fachbrief`
@@ -42,6 +49,17 @@ die letzte Ausgabe.
 - `docs/blatt/` – die Kachel-Ansicht der Hauptseite (`bb.js`, `bb.css`, `gemeinsam.js`, `schrift.css`; Motive in `docs/bilder/motive/`)
 - Fundstück-Kalender: 261 Fundstücke, an jedem Werktag 2027 genau eines (Jahresplan in `werkzeuge/intro-funde.mjs`, `KALENDERJAHR`); `docs/kalender.html` zeigt das Jahr und deckt jeden Tag auf, sobald er da ist
 - Altpapier-Wurf: Spiel unter der Fußleiste (nur am PC), `docs/blatt/spiel.js`, wird erst geladen, wenn der Fuß in Sicht kommt; die gemeinsame Bestenliste ist ein Cloudflare Worker mit KV-Speicher (`cloudflare/bestenliste/`, Adresse in `LISTE_URL` in spiel.js)
+- Dienst bei Cloudflare (`cloudflare/bestenliste/`): Bestenliste, **anonyme Zählung** (`docs/blatt/zaehlung.js` meldet Aufrufe und Klicks;
+  gespeichert wird nur „Tag, Art, Ziel, Anzahl“ in der D1-Datenbank `boniblatt-zaehlung` – keine Adresse, keine Kennung, kein Cookie)
+  und die Schnittstelle der **Verwaltung**
+- Verwaltung: `docs/verwaltung.html` (nicht verlinkt, mit Passwort) zeigt Besuche und meistgeklickte Meldungen nach Zeitraum,
+  den Tokenverbrauch je Claude-Lauf (`daten/verbrauch.json`, geschrieben von `werkzeuge/verbrauch.mjs`), den
+  DeepSeek-Vergleich (`daten/schatten.json`) und die Abläufe im Hintergrund. Das Passwort liegt nur als Secret
+  `ADMIN_PASSWORT` im Cloudflare-Dienst. Geschützt sind damit die Besuchszahlen; Verbrauch und Vergleich liegen als
+  Dateien in diesem Repository
+- DeepSeek-Schattenlauf: `werkzeuge/schatten.mjs` über `.github/workflows/schatten.yml` (werktags 11:20 Uhr, zehn Ausgaben
+  lang): DeepSeek wählt aus denselben Kandidaten wie die Morgenredaktion; veröffentlicht wird davon nichts. Braucht das
+  Repository-Secret `DEEPSEEK_API_KEY`
 - Werkstatt: `docs/ueber.html` erzählt, wie das Boniblatt entstanden ist (JHP-Newsletter mit Make.com, Notion, DeepSeek, Outlook) und zeigt das Startbild mit Umschaltern
 - `werkzeuge/intro-einbauen.mjs` – baut das Intro („Morgen über Mainz“) in `docs/index.html`; dazu
   `intro-feste.mjs` (besondere Tage, Ferien- und Festtermine), `intro-boni.mjs` (Bonifaziustürme mit Balkon),

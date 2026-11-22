@@ -314,7 +314,7 @@
     const weg = document.createElement("div"); weg.className = "sp-weg"; weg.setAttribute("aria-hidden", "true"); weg.innerHTML = '<i></i><span>pst …</span><i></i><span>Hey, ist dir ein bisschen langweilig?</span><i></i>';
     wurzel.querySelector(".bb-fuss").after(weg, sp);
     const zeig = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("da"); zeig.unobserve(e.target); } }), { rootMargin: "0px 0px -3% 0px" }); [...weg.children].forEach(x => zeig.observe(x));
-    new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=19"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
+    new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=20"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });
   const h = location.hash.slice(1);
   // Solange das Startbild seinen Auftakt spielt, wartet der Aufbau der Kacheln: Beides zugleich ließ die Bewegung auf langsamen Geräten stottern.

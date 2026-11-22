@@ -1,6 +1,9 @@
-# Bestenliste für den Altpapier-Wurf – läuft unter https://boniblatt-bestenliste.ahmadmimam10.workers.dev/
+# Dienst des Boniblatts (Bestenliste, anonyme Zählung, Verwaltung) – läuft unter https://boniblatt-bestenliste.ahmadmimam10.workers.dev/
 # Nach Änderungen an worker.js (im Ordner cloudflare/bestenliste):  npx wrangler deploy
-# Liste leeren:  npx wrangler kv key delete bestenliste --namespace-id <id unten> --remote
+# Liste leeren:        npx wrangler kv key delete bestenliste --namespace-id <id unten> --remote
+# Passwort setzen:     npx wrangler secret put ADMIN_PASSWORT      (für docs/verwaltung.html; wird verdeckt abgefragt)
+# Zähl-Tabellen:       npx wrangler d1 execute boniblatt-zaehlung --remote --file schema.sql
+# In der PowerShell „npx.cmd“ statt „npx“ schreiben.
 name = "boniblatt-bestenliste"
 main = "worker.js"
 compatibility_date = "2026-11-01"
@@ -9,3 +12,8 @@ workers_dev = true
 [[kv_namespaces]]
 binding = "LISTE"
 id = "bed9b94007244f5eb0134c2d2891c95b"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "boniblatt-zaehlung"
+database_id = "6f1f91b1-3422-440e-ae46-a6fdef19360c"

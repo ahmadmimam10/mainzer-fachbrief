@@ -2,11 +2,15 @@ name: Quellen abrufen
 
 # Dokumentiert nur – schlägt nie „rot“ fehl und verschickt daher keine Mails.
 # Fehler landen in daten/laufprotokoll.json und daten/quellen-zustand.json; die Qualitätssicherungs-Routine
-# (alle 3 Tage, siehe QUALITAET.md) wertet sie aus und repariert.
+# (wöchentlich, siehe QUALITAET.md) wertet sie aus und repariert.
 on:
   schedule:
     # mehrmals täglich (Zeiten in UTC): 03:47, 06:47, 09:47, 12:47, 15:47, 18:47, 21:47 Uhr Winterzeit
     - cron: "47 2,5,8,11,14,17,20 * * *"
+    # stündlicher Zwischenabruf (05:17 bis 23:17 Uhr Winterzeit): nur die wenigen Feeds, die sich schneller drehen, als der
+    # volle Abruf kommt – in quellen.json unter "stuendlich" eingetragen. Welche das sind, prüft die Qualitätssicherung
+    # einmal pro Woche mit werkzeuge/abruf-takt.mjs und passt die Liste selbst an (QUALITAET.md, Punkt 9).
+    - cron: "17 4-22 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -14,7 +18,31 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  zwischen:
+    if: github.event.schedule == '17 4-22 * * *'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Schnelle Feeds abrufen
+        run: node werkzeuge/sammeln.mjs --zwischen || true
+      - name: Neues speichern (nur wenn es etwas gibt – ohne die Webseite neu zu veröffentlichen)
+        run: |
+          git config user.name "Boniblatt-Abruf"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add daten/pool daten/gesehen.json daten/abruf-takt.json
+          if git diff --cached --quiet; then echo "Nichts Neues."; exit 0; fi
+          git commit -q -m "Zwischenabruf $(date -u +'%Y-%m-%d %H:%M') UTC"
+          git push -q origin HEAD:main || { git pull -q --rebase origin main && git push -q origin HEAD:main; } || echo "::warning::Speichern nicht möglich – der nächste Lauf holt es nach."
+
   abrufen:
+    if: github.event.schedule != '17 4-22 * * *'
     runs-on: ubuntu-latest
     permissions:
       contents: write

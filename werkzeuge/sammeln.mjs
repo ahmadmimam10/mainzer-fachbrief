@@ -15,6 +15,8 @@
  *   node werkzeuge/sammeln.mjs                normaler Lauf
  *   node werkzeuge/sammeln.mjs --probe        nur testen und anzeigen, nichts speichern
  *   node werkzeuge/sammeln.mjs --nur=az,dji   nur bestimmte Quellen (mit --probe kombinierbar)
+ *   node werkzeuge/sammeln.mjs --zwischen     stündlicher Zwischenabruf: nur die Feed-Adressen, die in quellen.json unter
+ *                                             "stuendlich" stehen; speichert nur, wenn es Neues gibt (siehe werkzeuge/abruf-takt.mjs)
  *   node werkzeuge/sammeln.mjs --probe --nur=ism --datei=daten/diagnose/ism.html
  *                                             gespeicherte Seite statt Abruf parsen (offline, ohne Linkprüfung)
  *   node werkzeuge/sammeln.mjs --zustand      Zustand der Quellen anzeigen; mit --streng Exit-Code 1, wenn eine
@@ -34,6 +36,7 @@ const ONLY = (argv.find(a => a.startsWith("--nur=")) || "").slice(6).split(",").
 const DATEI = (argv.find(a => a.startsWith("--datei=")) || "").slice(8);   // offline: gespeicherte Seite statt Abruf
 const ZUSTAND = argv.includes("--zustand");
 const STRENG = argv.includes("--streng");
+const ZWISCHEN = argv.includes("--zwischen");   // nur die schnell drehenden Feeds ("stuendlich" in quellen.json)
 const HEUTE = berlinDay();
 const ALTER_MAX = 3;            // datierte Meldungen älter als 3 Tage werden ignoriert
 const POOL_TAGE = 10;           // Poolabrufe älter als 10 Tage werden gelöscht
@@ -278,7 +281,7 @@ async function quelleAbrufen(quelle) {
       for (const n of seitenNamen(r.body)) namen.add(n);
       if (!LESER[quelle.typ]) throw new Error(`unbekannter typ „${quelle.typ}“`);
       const items = LESER[quelle.typ](r.body, quelle, basis);
-      ergebnisse.push(...items);
+      ergebnisse.push(...items.map(it => ({ ...it, adr: url })));   // adr: aus welcher Adresse der Eintrag stammt (für den Abruftakt)
     } catch (error) {
       // Netzfehler genauer benennen (fetch meldet sonst nur „fetch failed“)
       r.fehler = error.name === "TimeoutError" ? "Zeitüberschreitung" : error.cause?.code ? `${error.message} (${error.cause.code})` : error.message;
@@ -739,7 +742,11 @@ async function main() {
   }
   const alleQuellen = await readJson("quellen.json");
   // mit --probe lassen sich über --nur auch abgeschaltete Quellen testen (z. B. vor dem Wiedereinschalten)
-  const quellen = alleQuellen.filter(q => (q.aktiv !== false || (PROBE && ONLY.includes(q.id))) && (!ONLY.length || ONLY.includes(q.id)));
+  const quellen = ZWISCHEN
+    ? alleQuellen.filter(q => q.aktiv !== false && Array.isArray(q.stuendlich) && q.stuendlich.length).map(q => ({ ...q, urls: q.stuendlich }))
+    : alleQuellen.filter(q => (q.aktiv !== false || (PROBE && ONLY.includes(q.id))) && (!ONLY.length || ONLY.includes(q.id)));
+  if (ZWISCHEN && !quellen.length) { console.log("Zwischenabruf: Keine Quelle hat „stuendlich“-Adressen – nichts zu tun."); return; }
+  const takt = {};                 // je Feed-Adresse: gezeigte und noch unbekannte Einträge dieses Laufs
   const unbekannt = ONLY.filter(id => !alleQuellen.some(q => q.id === id));
   if (unbekannt.length) console.log(`Unbekannte Quelle(n) in --nur: ${unbekannt.join(", ")}`);
   if (DATEI && !quellen.length) { console.error(`Keine Quelle „${ONLY[0]}“ in quellen.json.`); process.exit(1); }
@@ -777,6 +784,7 @@ async function main() {
       const zukunft = it.datum && it.datum > dayOffset(HEUTE, 1);
       const zuAlt = it.datum && !zukunft && it.datum < dayOffset(HEUTE, -ALTER_MAX);
       const bekannt = Boolean(id && gesehen.links[id]);
+      if (q.typ === "rss" && it.adr) { const m = takt[it.adr] ||= { quelle: q.id, gezeigt: 0, unbekannt: 0 }; m.gezeigt++; if (id && !bekannt && !zuAlt) m.unbekannt++; }
       if (DATEI) p.eintraege.push({ titel, url: it.url || "", datum: it.datum || "", grund, bekannt, zuAlt });
       if (!id || zuAlt || bekannt || vergeben.has(id)) continue;
       if (q.filter && !new RegExp(q.filter, "i").test(it.titel + " " + it.teaser + " " + it.url)) continue;
@@ -870,6 +878,24 @@ async function main() {
     await writeJson(`daten/pool/${stempel}.json`, { abgerufen: jetzt.toISOString(), kandidaten });
   }
   for (const k of kandidaten) gesehen.links[k.id] = HEUTE;
+  // Abruftakt: je Feed-Adresse festhalten, wie viele Einträge der Feed zeigte und wie viele davon noch unbekannt waren. Waren (fast) alle
+  // unbekannt, gab es keine Überlappung mit dem vorigen Abruf – dann können Meldungen durchgerutscht sein. Wertet werkzeuge/abruf-takt.mjs aus.
+  if (!ONLY.length && (!ZWISCHEN || kandidaten.length)) {
+    const messung = await readJson("daten/abruf-takt.json", { adressen: {} });
+    messung.info = "Vom Quellenabruf geschrieben. Je Feed-Adresse: [Zeit (UTC), gezeigte Einträge, davon unbekannt, v = voller Abruf / z = Zwischenabruf]. Auswertung: node werkzeuge/abruf-takt.mjs";
+    for (const [adr, m] of Object.entries(takt)) {
+      const e = messung.adressen[adr] ||= { quelle: m.quelle, beobachtungen: [] };
+      e.quelle = m.quelle; e.beobachtungen.push([jetzt.toISOString().slice(0, 16), m.gezeigt, m.unbekannt, ZWISCHEN ? "z" : "v"]);
+      e.beobachtungen = e.beobachtungen.slice(-200);
+    }
+    await writeJson("daten/abruf-takt.json", messung, false);
+  }
+  if (ZWISCHEN) {
+    // Zwischenabruf: nur speichern, wenn es etwas Neues gibt – sonst entsteht kein Commit; Status, Zustand und Webseite bleiben unberührt
+    if (kandidaten.length) { gesehen.stand = jetzt.toISOString(); await writeJson("daten/gesehen.json", gesehen, false); }
+    console.log(`Zwischenabruf: ${kandidaten.length} neue Kandidaten aus ${quellen.map(q => q.id).join(", ")}.`);
+    return;
+  }
   const grenze = dayOffset(HEUTE, -GESEHEN_TAGE);
   for (const [id, tag] of Object.entries(gesehen.links)) if (tag < grenze) delete gesehen.links[id];
   gesehen.stand = jetzt.toISOString();

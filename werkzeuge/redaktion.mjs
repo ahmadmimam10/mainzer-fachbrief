@@ -288,6 +288,8 @@ async function veroeffentlichen() {
   await abschliessen();                       // bricht bei Prüffehlern mit Exit-Code 2 ab – dann wird nichts hochgeladen
   const identitaet = (() => { try { return git(["config", "user.email"], true).trim(); } catch { return ""; } })()
     ? [] : ["-c", "user.name=Boniblatt-Redaktion", "-c", "user.email=41898282+github-actions[bot]@users.noreply.github.com"];
+  // Tokenverbrauch dieses Laufs festhalten (daten/verbrauch.json, Anzeige in docs/verwaltung.html) – darf nie stören
+  try { const { verbrauchErfassen } = await import("./verbrauch.mjs"); const v = await verbrauchErfassen("ausgabe", DATUM); console.log(v.fehlt ? `Verbrauch nicht erfasst: ${v.fehlt}.` : `Verbrauch erfasst: ${v.eingabe + v.cache_schreiben} Tokens neu gelesen, ${v.ausgabe} geschrieben.`); } catch (e) { console.log("Verbrauch nicht erfasst: " + e.message); }
   git(["add", "daten", "docs/daten", "quellen.json"]);
   const geaendert = (() => { try { git(["diff", "--cached", "--quiet"], true); return false; } catch { return true; } })();
   if (!geaendert) { console.log("Nichts Neues zu veröffentlichen."); return; }
