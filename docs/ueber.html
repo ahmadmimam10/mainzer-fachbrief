@@ -178,22 +178,6 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .tab.voll div:first-child u{color:#fff;font-size:7.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 @keyframes frisch{0%,12%{translate:-110% 0;opacity:0}26%,86%{translate:0 0;opacity:1}100%{translate:0 0;opacity:0}}
 
-/* ---- Kapitel 1: das Ganze als Plan ---- */
-.plan-rahmen{margin-top:28px;border-radius:30px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06);overflow-x:auto;-webkit-overflow-scrolling:touch}
-.plan{display:block;width:100%;min-width:940px;height:auto;padding:22px}
-.plan text{font:600 13px var(--sans);fill:var(--tinte)}
-.plan .pille rect{fill:var(--hell);transition:fill 1.2s}.plan .pille circle{fill:var(--f1)}
-.plan .weg{fill:none;stroke:color-mix(in srgb,var(--tinte) 16%,transparent);stroke-width:1.4}
-.plan .puls{fill:none;stroke:var(--f1);stroke-width:2.6;stroke-linecap:round;stroke-dasharray:7 93;animation:puls var(--d,3s) linear var(--w,0s) infinite}
-.plan .puls.b{stroke:var(--f2)}.plan .puls.c{stroke:var(--f3)}
-.plan .dick{stroke-width:2}.plan .viel{stroke-dasharray:3 9;--d:1.6s}.plan .wenig{stroke-dasharray:4 46;--d:2.6s}
-@keyframes puls{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
-.plan .kasten rect{fill:var(--pap);stroke:var(--tinte);stroke-width:1.6}
-.plan .kasten .klein{font:700 10.5px var(--sans);letter-spacing:.14em;fill:var(--f1)}
-.plan .kasten .gross{font:460 25px "Fraunces",serif;letter-spacing:-.03em}
-.plan .kasten .sub{font:500 12px var(--sans);opacity:.66}
-.plan .brief{transform-box:fill-box;transform-origin:50% 50%;animation:brief 3s ease-in-out infinite}
-@keyframes brief{0%,100%{translate:0 0;rotate:-4deg}50%{translate:6px -10px;rotate:6deg}}
 /* Jeden Morgen: Der Rahmen (DeepSeek) wandert durch die Tabelle, Passendes wandert in die Mail-Vorlage */
 .frueh{--zh:38px;display:grid;grid-template-columns:minmax(0,7fr) 64px minmax(0,5fr);gap:12px;align-items:center;margin-top:26px;padding:clamp(16px,2.4vw,30px);border-radius:30px;background:#fff;box-shadow:0 1px 0 rgba(0,0,0,.06)}
 .frueh small{display:block;margin-bottom:10px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--f1)}
@@ -217,6 +201,19 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .fr-mail em{position:absolute;right:10px;top:9px;padding:4px 12px;border-radius:99px;background:#3d9a55;color:#fff;font:700 12px/1.5 var(--sans);font-style:normal;scale:0;rotate:-6deg;transition:scale .5s var(--feder)}
 .fr-mail.raus em{scale:1}
 .wisch{display:none;margin:8px 0 0!important;font-size:13px;opacity:.6}
+
+/* ---- Zäsur zwischen Kapitel 1 und 2: das Papier wird dunkel, der Satz erscheint Wort für Wort, „veraltet“ verblasst und wird durchgestrichen ---- */
+.bruch{padding:clamp(150px,30vh,320px) 0 clamp(50px,9vw,120px);background:linear-gradient(180deg,var(--pap) 0,var(--tinte) clamp(120px,24vh,260px));color:#f6f1e6}
+.br-gross{max-width:15em!important;margin:0!important;font:460 clamp(36px,6.6vw,104px)/1.02 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.04em;opacity:1!important;translate:none!important}
+.br-gross span{display:inline-block;opacity:0;filter:blur(10px);translate:0 .35em;transition:opacity .9s ease calc(var(--w) * 95ms),filter .9s ease calc(var(--w) * 95ms),translate 1s cubic-bezier(.2,1,.3,1) calc(var(--w) * 95ms)}
+.br-gross.da span{opacity:1;filter:blur(0);translate:0 0}
+.br-gross em{font-weight:320;color:var(--f2);transition:color 1.2s}
+.br-gross s{position:relative;text-decoration:none;font-style:italic;font-weight:320}
+.br-gross s span{transition:opacity .9s ease calc(var(--w) * 95ms),filter .9s ease calc(var(--w) * 95ms),translate 1s cubic-bezier(.2,1,.3,1) calc(var(--w) * 95ms),color 1.4s ease 3s}
+.br-gross.da s span{color:rgba(246,241,230,.38)}
+.br-gross s::after{content:"";position:absolute;left:-.04em;right:-.04em;top:56%;height:.055em;border-radius:99px;background:var(--f1);scale:0 1;transform-origin:0 50%;transition:scale .9s cubic-bezier(.6,0,.2,1) 3.1s,background 1.2s}
+.br-gross.da s::after{scale:1 1}
+.br-klein{max-width:31em!important;margin:clamp(26px,4vw,48px) 0 0!important;font-size:clamp(17px,1.8vw,22px);line-height:1.45;color:rgba(246,241,230,.82);transition-delay:1.6s!important}
 
 /* ---- Kapitel 2: ein Auftrag statt vieler Blasen – der Auftrag tippt sich, die Arbeit hakt sich von selbst ab ---- */
 .auftrag{display:grid;gap:16px;padding:clamp(16px,2.4vw,26px);border-radius:30px;background:rgba(255,255,255,.06)}
@@ -318,7 +315,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 @media (max-width:980px){.schritte{grid-template-columns:repeat(2,minmax(0,1fr))}.schritte li:nth-child(3){border-left:0}.schritte li:nth-child(n+3){border-top:1px solid rgba(0,0,0,.08)}}
 @media (max-width:860px){.frueh{grid-template-columns:minmax(0,1fr);--zh:36px}.fr-pfeil{display:none}.fr-tab li{grid-template-columns:84px minmax(0,1fr) 20px;font-size:13.5px}.vgl{grid-template-columns:minmax(0,1fr)}.szen-buehne{grid-template-columns:minmax(0,1fr)}.sb .bild{zoom:1.25}.szen-bild{min-height:213px}.vierzig{min-height:213px;padding:14px;gap:12px}.sk{flex:0 0 92px}.tuftel{grid-template-columns:minmax(0,1fr)}.zwei{grid-template-columns:minmax(0,1fr)}.zahlen{grid-template-columns:repeat(2,minmax(0,1fr))}.wer{grid-template-columns:minmax(0,1fr)}.wer .ring{width:170px}.wisch{display:block}.buehne{aspect-ratio:3/4}.post{rotate:1deg}}
 @media (max-width:560px){.af-liste{grid-template-columns:repeat(2,minmax(0,1fr))}.notiz{font-size:23px;margin-left:2px}.notiz svg{width:34px}.schalter button{padding:9px 13px;font-size:14px}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt span,.notiz span{clip-path:none}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.af-blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt span,.notiz span{clip-path:none}.br-gross span{opacity:1;filter:none;translate:none}.br-gross s::after{scale:1 1}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.af-blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
 </style>
 </head>
 <body>
@@ -362,9 +359,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   </div>
 
   <h3 data-ein>… und das <i>rund vierzigmal</i></h3>
-  <p data-ein>Vom Bundestag über den Bundesrat bis zur Allgemeinen Zeitung: jede Quelle mit eigenem Ablauf, alle in dieselbe große Tabelle. Jeden Morgen wachte dann eine weitere Automation auf, sah an die hundert neue Artikel durch – und verschickte den Newsletter.</p>
-  <div class="plan-rahmen" data-ein><svg class="plan" id="plan" viewBox="0 0 1180 400" role="img" aria-label="Der ganze Weg: rund vierzig Quellen, je ein Ablauf in Make.com, eine große Tabelle in Notion, DeepSeek filtert, Outlook verschickt den Newsletter"></svg></div>
-  <p class="wisch">← zur Seite wischen →</p>
+  <p data-ein>Vom Bundestag über den Bundesrat bis zur Allgemeinen Zeitung: jede Quelle mit eigenem Ablauf, alle in dieselbe große Tabelle. So kamen jeden Tag an die hundert neue Artikel zusammen.</p>
   <h3 data-ein>Jeden Morgen: <i>auswählen, einfüllen, verschicken</i></h3>
   <p data-ein>DeepSeek sieht die neuen Zeilen der Tabelle durch und pickt heraus, was mit Jugendhilfeplanung zu tun hat. Outlook gießt die Auswahl in die immer gleiche Form – und schickt sie los.</p>
   <div class="frueh" id="frueh" data-ein aria-hidden="true">
@@ -373,6 +368,11 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
     <div class="fr-mail"><small>Outlook · feste Vorlage</small><p>🌞 Guten Morgen liebe:r Kolleg:in ☕</p><div class="fr-platz"></div><div class="fr-platz"></div><div class="fr-platz"></div><em>verschickt an drei ✓</em></div>
   </div>
   <div class="tuftel" data-ein><strong>Echte <i>Tüftelarbeit.</i></strong><p>Dutzende Bausteine, Quelle für Quelle einzeln zusammengesteckt und am Laufen gehalten. Ohne den JHP-Newsletter gäbe es das Boniblatt nicht.</p></div>
+</div></section>
+
+<section class="bruch" id="bruch"><div class="innen">
+  <p class="br-gross" id="br-gross" data-ein>Was sich vor drei Jahren wie eine <em>große Innovation</em> anfühlte, fühlt sich heute auf einmal <s>veraltet</s> an.</p>
+  <p class="br-klein" data-ein>Die KI entwickelt sich so schnell, dass man sich die Bausteine nicht einmal mehr ausdenken muss. Sie überlegt selbst – und baut die Automation, in der sie steckt, gleich mit.</p>
 </div></section>
 
 <section class="kap dunkel" id="warum"><div class="innen">
@@ -464,6 +464,9 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   held.addEventListener("pointermove", e => { const b = held.getBoundingClientRect(); held.style.setProperty("--mx", (e.clientX - b.left) + "px"); held.style.setProperty("--my", (e.clientY - b.top) + "px");
     if (e.pointerType === "mouse") { zeigt = { x: e.clientX, y: e.clientY }; if (!wartet) { wartet = true; requestAnimationFrame(buchstaben); } } });
   held.addEventListener("pointerleave", () => { zeigt = null; buchstaben(); });
+  // Zäsur: den großen Satz in Wörter zerlegen, damit er Wort für Wort erscheint (Hervorhebungen bleiben erhalten)
+  { let w = 0; const teile = knoten => [...knoten.childNodes].map(k => k.nodeType === 3 ? k.textContent.split(/(\s+)/).map(x => /^\s*$/.test(x) ? x : `<span style="--w:${w++}">${esc(x)}</span>`).join("") : `<${k.localName}>${teile(k)}</${k.localName}>`).join("");
+    const satz = $("#br-gross"); satz.innerHTML = teile(satz); }
   // Laufbänder: die Quellen, die der alte Newsletter in seiner Fußzeile nannte
   const worte = w => { const s = w.map(x => esc(x) + "<b>✺</b>").join(""); return s + s; };
   $("#s1").innerHTML = worte(["Bundestag", "Allgemeine Zeitung", "ISM", "Landtag", "DIJuF", "Deutscher Verein", "Jugendhilfeportal", "Merkurist Mainz", "Bildungsserver", "SPIEGEL"]);
@@ -514,18 +517,6 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
         b.textContent = ""; b.style.width = l + r + "px"; b.style.height = o + u + "px"; b.style.marginBottom = -(u - 2) + "px"; b.style.setProperty("--m", `url(${cv.toDataURL()})`); b.classList.add("maske"); } };
     let warten = 0; const neuZeichnen = () => { clearTimeout(warten); warten = setTimeout(zeichnen, 200); };
     document.fonts.load('italic 300 100px Fraunces', "12345").then(zeichnen).catch(() => {}); addEventListener("resize", neuZeichnen); }
-
-  // Kapitel 1: der ganze Weg als Plan – jede Quelle eine Leitung, auf der Pakete laufen
-  { const namen = ["Bundestag", "Bundesrat", "Landtag", "Allgemeine Zeitung", "ISM", "DIJuF", "Deutscher Verein", "SPIEGEL", "… und rund 30 weitere"], kl = ["", " b", " c"]; let s = "";
-    namen.forEach((n, i) => { const y = 22 + i * 44.5, z = 200 + (i - 4) * 9, d = `M190 ${y}C262 ${y} 250 ${z} 322 ${z}`;
-      s += `<path class="weg" d="${d}"/><path class="puls${kl[i % 3]}" pathLength="100" d="${d}" style="--d:${(2.4 + r() * 2).toFixed(1)}s;--w:${(-r() * 4).toFixed(1)}s"/><g class="pille"><rect x="0" y="${y - 16}" width="190" height="32" rx="16"/><circle cx="16" cy="${y}" r="4.5"/><text x="30" y="${y + 4.5}">${esc(n)}</text></g>`; });
-    const kasten = (x, w, klein, gross, sub) => `<g class="kasten"><rect x="${x}" y="140" width="${w}" height="120" rx="22"/><text class="klein" x="${x + 20}" y="172">${klein}</text><text class="gross" x="${x + 20}" y="207">${gross}</text><text class="sub" x="${x + 20}" y="233">${sub}</text></g>`;
-    const leitung = (x1, x2, art) => `<path class="weg dick" d="M${x1} 200H${x2}"/><path class="puls dick ${art}" pathLength="100" d="M${x1} 200H${x2}"/>`;
-    s += leitung(492, 548, "viel") + leitung(738, 794, "viel b") + leitung(974, 1030, "wenig c")
-      + kasten(322, 170, "AUTOMATION", "Make.com", "je Quelle ein Ablauf") + kasten(548, 190, "SAMMELSTELLE", "Große Tabelle", "Notion · alles an einem Ort")
-      + kasten(794, 180, "JEDEN MORGEN", "DeepSeek", "wählt aus, was rausgeht") + kasten(1030, 146, "VERSAND", "Outlook", "feste Vorlage, Mail an drei")
-      + `<path class="weg" d="M1103 140C1103 112 1112 96 1126 82"/><g class="brief"><rect x="1108" y="34" width="60" height="42" rx="7" fill="#fff" stroke="#1b1917" stroke-width="1.8"/><path d="M1108 39L1138 60L1168 39" fill="none" stroke="#1b1917" stroke-width="1.8"/></g>`;
-    $("#plan").innerHTML = s; }
 
   // Kapitel 2: ein Auftrag statt vieler Blasen – der Auftrag tippt sich, die Arbeit hakt sich nacheinander ab, am Ende steht das Blatt.
   // Läuft nur, solange der Kasten zu sehen ist, und beginnt dann wieder von vorn.
