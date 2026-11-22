@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Webseite prüfen – für die wöchentliche Qualitätssicherung (QUALITAET.md, Punkt 10).
+ * Webseite prüfen – für die wöchentliche Qualitätssicherung (QUALITAET.md, Schritt 9).
  *
  * Prüft ohne Browser, was sich sicher prüfen lässt:
  *  1. Skripte in docs/blatt/ haben keinen Syntaxfehler

@@ -1,0 +1,24 @@
+{
+ "info": "Notizen des Qualitätsmanagers für die Verwaltung (docs/verwaltung.html). Format und Regeln: QUALITAET.md, Abschnitt „Notizen“. Prüfen: node werkzeuge/qm-notiz.mjs pruefen",
+ "lauf": {
+  "datum": "2026-11-22",
+  "kurz": "Einrichtung: Ab Montag, 23. November, arbeitet der Qualitätsmanager nach den neuen Regeln – Quellen prüfen, reparieren, was sicher geht, und Größeres hier als Notiz ablegen.",
+  "geprueft": "57 Quellen: 54 in Ordnung, 2 mit kurzem Netzaussetzer, 1 pausiert",
+  "erledigt": []
+ },
+ "laeufe": [],
+ "notizen": [
+  {
+   "id": "quelle-afet-javascript",
+   "seit": "2026-11-22",
+   "zuletzt": "2026-11-22",
+   "bereich": "quelle",
+   "titel": "AFET (Bundesverband für Erziehungshilfe) ist pausiert",
+   "lage": "Die Seite des AFET lädt ihre Meldungen erst nachträglich per JavaScript. Der Abruf sieht deshalb nur eine leere Liste und die Quelle ist abgeschaltet. Dem Blatt fehlen damit die Meldungen dieses Fachverbands.",
+   "versucht": "Noch nichts – der Qualitätsmanager sucht ab dem nächsten Lauf nach einem Feed oder einer anderen Liste des Verbands.",
+   "vorschlag": "Abwarten, ob sich ein anderer Zugang findet. Wenn nicht: entscheiden, ob AFET wichtig genug ist, um einen eigenen Leser dafür zu bauen, oder ob die Quelle gestrichen wird.",
+   "aufwand": "mittel",
+   "dringend": false
+  }
+ ]
+}

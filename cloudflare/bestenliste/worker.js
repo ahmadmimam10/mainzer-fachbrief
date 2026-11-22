@@ -13,6 +13,7 @@
 //
 // Verwaltung (docs/verwaltung.html) – nur mit dem Passwort aus dem Secret ADMIN_PASSWORT (Kopfzeile „Authorization: Bearer …“)
 //   GET /admin/statistik?von=JJJJ-MM-TT&bis=JJJJ-MM-TT → Aufrufe und Klicks je Tag, Seiten, Geräte, Aktionen, meistgeklickte Links
+//   GET /admin/merk → { aus: [Kennungen] } · POST /admin/merk { id, aus: true|false } – welche Notizen des Qualitätsmanagers ausgeblendet sind
 //   Nach acht falschen Versuchen ist die Anmeldung für 15 Minuten gesperrt.
 const ERLAUBT = ["https://boniblatt-mainz.de", "https://www.boniblatt-mainz.de", "http://localhost:8766", "http://127.0.0.1:8766"];
 const SCHLUESSEL = "bestenliste", BEHALTEN = 50, ZEIGEN = 20, MAX_PUNKTE = 400;
@@ -62,7 +63,7 @@ async function zaehlen(anfrage, env, herkunft, text) {
 }
 
 async function verwaltung(anfrage, env, url, kopf) {
-  if (anfrage.method !== "GET") return antwort({ fehler: "Nicht erlaubt." }, 405, kopf);
+  if (anfrage.method !== "GET" && !(anfrage.method === "POST" && url.pathname === "/admin/merk")) return antwort({ fehler: "Nicht erlaubt." }, 405, kopf);
   if (!env.ADMIN_PASSWORT) return antwort({ fehler: "Es ist noch kein Passwort hinterlegt (Secret ADMIN_PASSWORT)." }, 503, kopf);
   const fehl = Number(await env.LISTE.get("adminfehl")) || 0;
   if (fehl >= FEHL_MAX) return antwort({ fehler: "Zu viele falsche Versuche. In 15 Minuten geht es wieder." }, 429, kopf);
@@ -71,6 +72,17 @@ async function verwaltung(anfrage, env, url, kopf) {
   if (!angabe || !(await gleich(angabe, env.ADMIN_PASSWORT))) {
     await env.LISTE.put("adminfehl", String(fehl + 1), { expirationTtl: FEHL_SPERRE });
     return antwort({ fehler: "Das Passwort stimmt nicht." }, 401, kopf);
+  }
+  if (url.pathname === "/admin/merk") {
+    let aus = []; try { const l = JSON.parse((await env.LISTE.get("merk")) || "[]"); if (Array.isArray(l)) aus = l; } catch { /* leer */ }
+    if (anfrage.method === "POST") {
+      let d; try { d = await anfrage.json(); } catch { return antwort({ fehler: "Die Angaben waren nicht lesbar." }, 400, kopf); }
+      const id = String(d.id ?? "");
+      if (!/^[a-z0-9][a-z0-9-]{3,59}$/.test(id)) return antwort({ fehler: "Unbekannte Notiz." }, 400, kopf);
+      aus = aus.filter(x => x !== id); if (d.aus) aus.push(id);
+      aus = aus.slice(-200); await env.LISTE.put("merk", JSON.stringify(aus));
+    }
+    return antwort({ aus }, 200, kopf);
   }
   if (url.pathname !== "/admin/statistik") return antwort({ fehler: "Unbekannt." }, 404, kopf);
 

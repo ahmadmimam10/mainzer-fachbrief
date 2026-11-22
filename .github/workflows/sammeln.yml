@@ -9,7 +9,7 @@ on:
     - cron: "47 2,5,8,11,14,17,20 * * *"
     # stündlicher Zwischenabruf (05:17 bis 23:17 Uhr Winterzeit): nur die wenigen Feeds, die sich schneller drehen, als der
     # volle Abruf kommt – in quellen.json unter "stuendlich" eingetragen. Welche das sind, prüft die Qualitätssicherung
-    # einmal pro Woche mit werkzeuge/abruf-takt.mjs und passt die Liste selbst an (QUALITAET.md, Punkt 9).
+    # einmal pro Woche mit werkzeuge/abruf-takt.mjs und passt die Liste selbst an (QUALITAET.md, Schritt 6).
     - cron: "17 4-22 * * *"
   workflow_dispatch:
 
@@ -63,6 +63,8 @@ jobs:
           code=${PIPESTATUS[0]}
           node werkzeuge/protokoll.mjs "$code" abruf.log
           node werkzeuge/sammeln.mjs --zustand
+          node werkzeuge/schnappschuss.mjs || true                          # vom Qualitätsmanager bestellte Seiten holen (daten/diagnose/)
+          node werkzeuge/quellen-kontrolle.mjs --nur-auffaellige || true   # Ampel je Quelle für die Verwaltung (daten/quellen-kontrolle.json)
           node werkzeuge/wetter.mjs          # Wetterlage für Mainz (wählt die Intro-Variante), scheitert nie
           rm -f abruf.log
           exit 0

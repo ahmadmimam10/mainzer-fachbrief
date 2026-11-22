@@ -106,6 +106,43 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
 .uhr .spur i{position:absolute;top:50%;left:calc(var(--t)/24*100%);width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--f,var(--tinte))}
 .uhr .spur i.band{left:0;right:0;width:auto;height:5px;margin:-2.5px 0 0;border-radius:9px;opacity:.55}
 .wo{display:inline-block;font-size:12px;padding:1px 8px 2px;border-radius:99px;border:1px solid var(--linie);margin-left:4px;color:var(--leise);vertical-align:1px}
+/* Sprungleiste */
+.sprung{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0}
+.sprung a{padding:6px 13px 7px;border-radius:99px;border:1px solid var(--linie);font-size:14px;text-decoration:none;background:var(--karte)}
+.sprung a:hover{border-color:var(--tinte)}
+/* Qualitätsmanager */
+.marke{display:inline-block;font-size:12.5px;padding:2px 9px 3px;border-radius:99px;border:1px solid var(--linie);color:var(--leise);margin:0 5px 0 0}
+.marke.rot{border-color:var(--rot);color:var(--rot)}
+.notiz{display:grid;gap:8px}
+.notiz h3{font:400 24px/1.15 var(--serif);margin:2px 0 0}
+.notiz dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 14px;margin:0;font-size:14.5px}
+.notiz dt{color:var(--leise)}.notiz dd{margin:0}
+.notiz.aus{opacity:.55}
+.notiz .fuss{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--leise)}
+.haken{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:5px;font-size:14.5px}.haken li{padding-left:22px;position:relative}.haken li::before{content:"✓";position:absolute;left:0;color:var(--gruen);font-weight:700}
+/* Quellen */
+.ampel{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;background:var(--gruen);vertical-align:0}
+.ampel.auffaellig{background:var(--gold)}.ampel.gestoert{background:var(--rot)}.ampel.still{background:var(--blau)}.ampel.pausiert{background:transparent;box-shadow:inset 0 0 0 2px var(--leise)}
+.qtab td,.qtab th{text-align:left!important;white-space:normal;vertical-align:top}
+.qtab td small{display:block;color:var(--leise);font-size:12.5px;line-height:1.35}
+.qtab td.z{text-align:right!important;white-space:nowrap}.qtab th.z{text-align:right!important}
+.qtab tr.gruppe td{border-top:0;padding-top:20px;font-weight:600}
+/* Erklärungen */
+.erkl{background:var(--karte);border:1px solid var(--linie);border-radius:18px;padding:0 22px;margin-top:10px}
+.erkl>summary{cursor:pointer;padding:16px 0;font:400 25px/1.15 var(--serif);list-style:none;display:flex;justify-content:space-between;gap:14px}
+.erkl>summary::-webkit-details-marker{display:none}.erkl>summary::after{content:"+";font-family:var(--sans);font-size:22px;color:var(--leise)}.erkl[open]>summary::after{content:"–"}
+.erkl>div{padding:0 0 20px;display:grid;gap:14px;max-width:78ch}
+.erkl p{margin:0}.erkl ul{margin:0;padding-left:20px;display:grid;gap:5px}
+.erkl h3{margin:6px 0 -6px}
+.weg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;counter-reset:w;max-width:none!important}
+.weg div{border:1px solid var(--linie);border-radius:14px;padding:12px 14px;font-size:14px;counter-increment:w;background:#fff}
+.weg div::before{content:counter(w);display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--tinte);color:#f6f1e6;font-weight:600;font-size:13px;margin-bottom:8px}
+.weg b{display:block;font-size:15px;margin-bottom:2px}.weg span{color:var(--leise)}
+.beispiel:empty{display:none}.beispiel{border-left:3px solid var(--gold);padding:4px 0 4px 14px;font-size:14.5px}.beispiel i{font-style:normal;color:var(--leise)}
+.drei{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;max-width:none!important}
+.drei div{border:1px solid var(--linie);border-radius:14px;padding:13px 15px;font-size:14px;background:#fff;display:grid;gap:6px;align-content:start}
+.drei b{font-size:15.5px}.drei i{font-style:normal;color:var(--leise);font-size:12.5px;display:block}
+.termine{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 24px;font-size:13.5px}.termine ul{margin:4px 0 0;padding-left:16px;color:var(--leise)}.termine li.gleich{color:var(--gruen)}
 @media (max-width:640px){.uhr{grid-template-columns:1fr}.uhr .kopf{grid-column:1}.uhr .name{padding-bottom:2px}.uhr .spur{border-top:0;min-height:26px}}
 </style>
 </head>
@@ -122,6 +159,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
 </form>
 
 <div id="innen" hidden>
+<nav class="sprung" aria-label="Bereiche"><a href="#besuche">Besuche</a><a href="#qm">Qualitätsmanager</a><a href="#quellen">Quellen</a><a href="#verbrauch">Verbrauch</a><a href="#vergleich">DeepSeek</a><a href="#system">So funktioniert es</a></nav>
 
 <section id="besuche">
   <h2>Besuche</h2>
@@ -134,6 +172,18 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
   <div class="raster" id="b-inhalt"></div>
 </section>
 
+<section id="qm">
+  <h2>Qualitätsmanager</h2>
+  <p class="unter">Prüft jeden Montag alle Quellen, repariert selbst, was sicher geht, und legt Größeres hier als Notiz ab. Ob aus einer Notiz etwas wird, entscheidest du.</p>
+  <div id="q-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
+</section>
+
+<section id="quellen">
+  <h2>Quellen</h2>
+  <p class="unter">Klappt der Abruf – und kommt wirklich Aktuelles an? Die Ampel wird nach jedem Abruf neu berechnet; „still“ heißt: technisch in Ordnung, aber die Quelle zeigt seit langem nichts Neues.</p>
+  <div id="k-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
+</section>
+
 <section id="verbrauch">
   <h2>Verbrauch</h2>
   <p class="unter">Tokens je Claude-Lauf. Den Anteil am 5-Stunden-Kontingent gibt Anthropic einem Lauf nicht heraus – die Tokenzahlen zeigen aber, welcher Lauf wie schwer wiegt.</p>
@@ -142,8 +192,104 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
 
 <section id="vergleich">
   <h2>DeepSeek im Vergleich</h2>
-  <p class="unter">Zwei Wochen lang bekommt DeepSeek jeden Morgen direkt nach Claude dieselben Kandidaten und dieselben Regeln: auswählen, den Fachbereichen zuordnen, gewichten, Überschriften und Hörfassung schreiben. Veröffentlicht wird davon nichts.</p>
+  <p class="unter">Zwei Wochen lang bekommt DeepSeek jeden Morgen direkt nach Claude dieselben Vorgaben und macht dieselbe Arbeit: Meldungen auswählen und den Fachbereichen zuordnen, Überschriften und Hörfassungen schreiben, Gremien-Notizen, „Was geht?“ mit eigener Websuche. Nur der Qualitätsmanager bleibt bei Claude. Veröffentlicht wird davon nichts.</p>
   <div id="d-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
+</section>
+
+<section id="system">
+  <h2>So funktioniert es</h2>
+  <p class="unter">Das ganze System in Ruhe erklärt – vom Auftauchen einer Meldung bis zur fertigen Seite. Maßgeblich sind die Regeln im Quellcode (<a href="https://github.com/ahmadmimam10/mainzer-fachbrief/blob/main/REDAKTION.md" target="_blank" rel="noopener">Redaktionsregeln</a>, <a href="https://github.com/ahmadmimam10/mainzer-fachbrief/blob/main/QUALITAET.md" target="_blank" rel="noopener">Anleitung des Qualitätsmanagers</a>); hier steht, was sie bedeuten.</p>
+
+  <details class="erkl" open><summary>Der Weg einer Meldung</summary><div>
+    <div class="weg">
+      <div><b>Quelle veröffentlicht</b><span>Stadt, Ministerium, Zeitung oder Fachverband stellt etwas online.</span></div>
+      <div><b>GitHub sammelt ein</b><span>Alle drei Stunden werden alle Quellen abgefragt. Was neu ist, kommt auf den Stapel.</span></div>
+      <div><b>Claude wählt aus</b><span>Werktags um 5 Uhr: lesen, den Fachbereichen zuordnen, gewichten, schreiben.</span></div>
+      <div><b>Die Seite erscheint</b><span>Die Hörfassungen werden vertont, die Seite neu veröffentlicht.</span></div>
+      <div><b>Der Qualitätsmanager wacht</b><span>Montags: Liefern alle Quellen noch? Reparieren oder Notiz schreiben.</span></div>
+    </div>
+    <p class="beispiel" id="s-beispiel"></p>
+  </div></details>
+
+  <details class="erkl"><summary>Sammeln: Was GitHub genau macht</summary><div>
+    <p>GitHub ist zweierlei. Erstens der Aktenschrank: Dort liegen alle Dateien des Boniblatts, und jede Änderung bleibt nachvollziehbar. Zweitens ein Rechner auf Abruf: GitHub startet nach Zeitplan kleine Programme, die in diesem Aktenschrank liegen. Auf deinem eigenen Rechner läuft nichts.</p>
+    <p>Alle drei Stunden startet dort der Abruf und geht <b data-z="aktiv">alle</b> Quellen der Reihe nach durch – auf eine von drei Arten:</p>
+    <div class="drei">
+      <div><b>Feed</b><i data-z="rss"></i>Viele Anbieter stellen eine maschinenlesbare Liste ihrer neuesten Meldungen bereit. Darin stehen Titel, Link, Datum und ein Anriss. Der Abruf liest die Liste – das ist der zuverlässigste Weg.</div>
+      <div><b>Übersichtsseite</b><i data-z="html"></i>Ohne Feed liest der Abruf die Seite „Aktuelles“ oder „Presse“ so, wie sie im Browser ankommt, und sucht die Links zu Artikeln. Woran er einen Artikel-Link erkennt, ist je Quelle hinterlegt. Baut der Anbieter seine Seite um, passt das nicht mehr – der häufigste Grund für Ausfälle.</div>
+      <div><b>Sonderwege</b><i data-z="sonder"></i>Das Ratsinformationssystem der Stadt (Sitzungen und Tagesordnungen), die Schnittstelle des Landtags und einzelne Angebote, die eine eigene Leseweise brauchen.</div>
+    </div>
+    <h3>Was gilt als neu?</h3>
+    <ul>
+      <li>Jeden Link, den der Abruf einmal gesehen hat, merkt er sich. Neu ist, was er noch nicht kennt.</li>
+      <li>Meldungen, die älter als drei Tage sind, werden übergangen – das Blatt ist tagesaktuell.</li>
+      <li>Jede neue Meldung wird einmal angeklickt: Gibt es die Seite wirklich? Tote Links und offensichtlicher Müll (Menüpunkte, „Weiterlesen“) fliegen raus.</li>
+      <li>Was übrig bleibt, landet auf dem Stapel, aus dem Claude morgens auswählt. Der Abruf selbst bewertet nichts inhaltlich; nur bei wenigen sehr breiten Quellen sortiert er grob nach Stichwörtern vor.</li>
+    </ul>
+    <p>Zusätzlich jede Stunde: nur die Feeds, die sich schneller drehen als alle drei Stunden (<span data-z="stuendlich">derzeit einer</span>). Welche das sind, misst der Abruf selbst mit.</p>
+  </div></details>
+
+  <details class="erkl"><summary>Auswählen: Wonach Claude entscheidet</summary><div>
+    <p>Werktags um 5:07 Uhr startet Claude (Sonnet 5.5) in der Cloud von Anthropic, liest die Redaktionsregeln und alle neuen Meldungen seit der letzten Ausgabe – montags alles seit Freitag. Für jede entscheidet er: Gehört sie in einen der drei Fachbereiche? In welchen? Wie wichtig ist sie?</p>
+    <div class="drei">
+      <div><b>Jugendhilfeplanung</b><span><i>Rein</i>Steuerung und Planung der Kinder- und Jugendhilfe, große Maßnahmen und Konzepte, Zahlen und Studien, Gesetze, Haushalt und Förderung, Kita, Hilfen zur Erziehung, Fachkräfte.</span><span><i>Raus</i>Einzelfälle, Erziehungstipps, Parteienstreit, Politik ohne Bezug zur Jugendhilfe.</span></div>
+      <div><b>Frühe Hilfen und Kinderschutz</b><span><i>Rein</i>Familien mit Kindern von 0 bis 3, Netzwerke, Familienhebammen, Schutzkonzepte, Kindeswohl, Familienbildung – besonders aus Mainz und Rheinland-Pfalz.</span><span><i>Raus</i>Allgemeine Jugendhilfe ohne diesen Fokus, Einzelfälle ohne strukturelle Bedeutung.</span></div>
+      <div><b>Quartiersmanagement</b><span><i>Rein</i>Alles aus Lerchenberg, Neustadt, Mombach und Hartenberg-Münchfeld; Städtebauförderung und Sozialer Zusammenhalt; Bauprojekte, Stadtrat, Ortsbeiräte, Beteiligung, Spielplätze, Grün, Verkehr.</span><span><i>Raus</i>Reine Gastronomie- und Ladenmeldungen; Überregionales ohne Bezug zur Sozialen Stadt.</span></div>
+    </div>
+    <h3>Die wichtigsten Regeln</h3>
+    <ul>
+      <li>Höchstens 12 Meldungen je Fachbereich – lieber fünf starke als zwölf mittelmäßige. Nichts erzwingen.</li>
+      <li>Genau ein Aufmacher je Fachbereich. Vorrang haben Mainz-Bezug, Beschlüsse, Geld, Gesetze, neue Daten. Dazu höchstens drei „wichtig“, der Rest steht unter „Kurz notiert“.</li>
+      <li>Dieselbe Nachricht aus mehreren Quellen erscheint nur einmal – bevorzugt von der Originalquelle.</li>
+      <li>Allgemeine Zeitung, Spiegel und SWR nur bei echtem fachlichen Bezug. Keine Stellenanzeigen, Werbung, Sport- oder Promi-Meldungen.</li>
+      <li>Nichts erfinden: Jede Aussage muss aus Titel und Anriss der Meldung hervorgehen.</li>
+    </ul>
+    <p>Je Fachbereich schreibt Claude außerdem eine Hörfassung von höchstens drei Minuten. Bevor irgendetwas online geht, prüft ein Programm die Ausgabe formal (Anzahl, Längen, Pflichtangaben, ob jede Meldung wirklich vom Stapel stammt). Besteht sie nicht, wird nichts veröffentlicht.</p>
+  </div></details>
+
+  <details class="erkl"><summary>„Was geht?“ und Gremien</summary><div>
+    <h3>Was geht?</h3>
+    <p>Dafür sucht Claude im Netz – höchstens 18 Suchen je Ausgabe – nach Terminen der nächsten sieben Tage:</p>
+    <ul>
+      <li>Fußball nur von FC Barcelona, Real Madrid, Spanien und Ägypten.</li>
+      <li>Rhein-Main, Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim: Feste, Märkte, Konzerte, Kino und Theater mit breitem Publikum, Neueröffnungen, Angebote für Familien. Nichts Nischiges, keine Werbung.</li>
+      <li>Höchstens zwei große Videospiel-Neuheiten.</li>
+      <li>Ist wenig los: ein bis drei Tipps – ein besonderes Restaurant oder ein Ausflug.</li>
+    </ul>
+    <p>Aufgenommen wird nur, was eine verlässliche Quelle belegt. Insgesamt 6 bis 14 Einträge; findet sich nichts Belegtes, bleibt die Rubrik weg.</p>
+    <h3>Gremien</h3>
+    <p>Das Ratsinformationssystem der Stadt liefert Sitzungen und Tagesordnungen. Claude schreibt je Sitzung eine Zeile je Fachbereich – nur bei echtem Bezug – und trägt das Ergebnis nach, sobald es veröffentlicht ist („beschlossen“, „vertagt“ …). Grundlage sind allein Titel und Ergebnis der Tagesordnungspunkte.</p>
+  </div></details>
+
+  <details class="erkl"><summary>Kontrolle: Woher wissen wir, dass die Quellen wirklich liefern?</summary><div>
+    <p>Es ist keine Black Box. Drei Sicherungen greifen ineinander – die Ergebnisse stehen oben unter „Quellen“:</p>
+    <ul>
+      <li><b>Jeder Abruf führt Buch.</b> Je Quelle: Wie viele Einträge kamen? Gab es Fehler? Drei Fehlläufe in Folge oder vier Abrufe ohne brauchbaren Treffer heißen „gestört“.</li>
+      <li><b>Frische wird gemessen.</b> Je Quelle hält der Abruf fest, von wann der jüngste Eintrag ist, den sie zeigt, und wann zuletzt etwas Neues bei uns ankam. Zeigt eine Quelle 45 Tage lang nichts Neues, wird sie als „still“ gemeldet – auch wenn technisch alles klappt. Genau das ist der Fall, der sonst monatelang unbemerkt bliebe.</li>
+      <li><b>Gegenprobe von Hand.</b> Jeden Montag öffnet der Qualitätsmanager acht Quellen so, wie ein Mensch sie sieht, sucht den neuesten Artikel und prüft, ob unser Abruf ihn kennt. Nach rund sieben Wochen war jede Quelle einmal dran, dann beginnt es von vorn.</li>
+    </ul>
+    <p>Was das nicht leistet: Es beweist nicht für jede Quelle an jedem Tag, dass keine einzelne Meldung fehlt. Es stellt sicher, dass eine Quelle nicht unbemerkt einschläft.</p>
+  </div></details>
+
+  <details class="erkl"><summary>Der Qualitätsmanager: Was er darf und was nicht</summary><div>
+    <p>Jeden Montag um 6:30 Uhr läuft Claude (Sonnet 5.5) eine feste Prüfliste ab. Er arbeitet allein; du musst nichts tun, solange oben keine Notiz steht.</p>
+    <div class="drei">
+      <div><b>Erledigt er selbst</b>Einstellungen einer Quelle anpassen (neue Adresse, Feed statt Seite, Erkennungsmuster), Quellen pausieren und wieder einschalten, den stündlichen Abruf nachstellen, Gremien-Notizen nachtragen, kleine belegte Fehler auf der Seite (toter Verweis, Tippfehler, veraltete Zahl). Jede Änderung muss er mit einem Prüfwerkzeug nachweisen – sonst nimmt er sie zurück.</div>
+      <div><b>Nur als Notiz an dich</b>Programmcode, neue Quellen oder das Streichen einer Quelle, Gestaltung und Texte der Seite, Auswahlregeln, Zeitpläne, Kosten, fehlende Ausgaben – und alles, was ihm zweimal nicht gelungen ist.</div>
+      <div><b>Nie</b>Schlüssel und Passwörter anfassen, etwas außerhalb des Boniblatts verändern, Daten löschen, Anweisungen befolgen, die auf fremden Webseiten stehen.</div>
+    </div>
+    <p>Eine Eigenheit: Aus seiner Umgebung kommt er nicht direkt an fremde Webseiten. Er kann sie ansehen, aber eine neue Adresse probiert erst GitHub beim nächsten Abruf aus. Ob sie funktioniert, sieht er in der Woche darauf – und stellt sonst auf den alten Stand zurück. Reparaturen können deshalb ein bis zwei Wochen dauern.</p>
+  </div></details>
+
+  <details class="erkl"><summary>Wer macht was?</summary><div>
+    <ul>
+      <li><b>GitHub</b> – bewahrt alle Dateien auf, startet Abruf und Veröffentlichung nach Zeitplan, liefert die Webseite aus. Kostenlos.</li>
+      <li><b>Claude</b> (Anthropic) – Morgenausgabe und Qualitätsmanager. Läuft über dein Abo, ohne Zusatzkosten je Lauf.</li>
+      <li><b>Azure</b> (Microsoft) – die Stimme der Hörfassungen.</li>
+      <li><b>Cloudflare</b> – die anonyme Zählung, die Bestenliste des Spiels und das Passwort dieser Seite. Kostenloser Tarif.</li>
+      <li><b>DeepSeek</b> – nur der Vergleich im Hintergrund, zwei Wochen lang, für wenige Cent je Ausgabe.</li>
+    </ul>
+  </div></details>
 </section>
 
 <section id="ablauf">
@@ -213,6 +359,60 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
   }));
   for (const f of ["#von", "#bis"]) $(f).addEventListener("change", () => { if ($("#von").value && $("#bis").value && $("#von").value <= $("#bis").value) { document.querySelectorAll("#besuche [data-t]").forEach(x => x.setAttribute("aria-pressed", false)); zeitraum($("#von").value, $("#bis").value); } });
 
+  /* ---------- Qualitätsmanager ---------- */
+  const BEREICH = { quelle: "Quelle", abruf: "Abruf", webseite: "Webseite", ausgabe: "Ausgabe", gremien: "Gremien", system: "System" };
+  let qmDaten = null, ausgeblendet = new Set(), alleNotizen = false;
+  const merk = async (id, aus) => { const r = await fetch(`${DIENST}/admin/merk`, { method: id ? "POST" : "GET", headers: { Authorization: "Bearer " + encodeURIComponent(pw), ...(id ? { "Content-Type": "application/json" } : {}) }, body: id ? JSON.stringify({ id, aus }) : undefined, cache: "no-store" }); const j = await r.json().catch(() => ({})); if (r.ok && Array.isArray(j.aus)) ausgeblendet = new Set(j.aus); };
+  function qmMalen() {
+    const d = qmDaten;
+    if (!d || !d.lauf) return void ($("#q-inhalt").innerHTML = `<div class="karte"><p class="leer">Noch kein Bericht. Der Qualitätsmanager läuft montags um 6:30 Uhr.</p></div>`);
+    const alle = d.notizen || [], offen = alle.filter(n => !ausgeblendet.has(n.id)), zeigen = alleNotizen ? alle : offen, versteckt = alle.length - offen.length;
+    $("#q-inhalt").innerHTML = `<div class="raster">
+      <div class="karte breit"><h3>Letzter Lauf · ${esc(tagText(d.lauf.datum, { weekday: "long", day: "numeric", month: "long" }))}</h3><p style="margin:0;font-size:17px;max-width:70ch">${esc(d.lauf.kurz)}</p>${d.lauf.geprueft ? `<p class="leer" style="margin-top:8px;font-size:14px">Geprüft: ${esc(d.lauf.geprueft)}</p>` : ""}
+        ${(d.lauf.erledigt || []).length ? `<ul class="haken">${d.lauf.erledigt.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : `<p class="leer" style="margin-top:8px;font-size:14px">Selbst erledigt: nichts nötig.</p>`}</div>
+      <div class="karte zahl"><b>${offen.length}</b><span>${offen.length === 1 ? "offene Notiz" : "offene Notizen"}</span><i>${offen.some(n => n.dringend) ? "davon dringend: " + offen.filter(n => n.dringend).length : offen.length ? "nichts Dringendes" : "Du musst nichts tun."}</i>${versteckt ? `<button type="button" class="leicht" id="q-alle" style="margin-top:10px">${alleNotizen ? "Ausgeblendete verbergen" : versteckt + " ausgeblendete zeigen"}</button>` : ""}</div>
+      ${zeigen.map(n => `<div class="karte notiz breit${ausgeblendet.has(n.id) ? " aus" : ""}"><p style="margin:0">${n.dringend ? `<span class="marke rot">dringend</span>` : ""}<span class="marke">${esc(BEREICH[n.bereich] || n.bereich)}</span><span class="marke">Aufwand: ${esc(n.aufwand)}</span></p>
+        <h3>${esc(n.titel)}</h3><dl><dt>Lage</dt><dd>${esc(n.lage)}</dd>${n.versucht ? `<dt>Versucht</dt><dd>${esc(n.versucht)}</dd>` : ""}<dt>Vorschlag</dt><dd>${esc(n.vorschlag)}</dd></dl>
+        <p class="fuss"><span>seit ${esc(tagText(n.seit))}${n.zuletzt !== n.seit ? ", zuletzt bestätigt " + esc(tagText(n.zuletzt)) : ""}</span><button type="button" class="leicht" data-merk="${esc(n.id)}" data-aus="${ausgeblendet.has(n.id) ? "" : "1"}">${ausgeblendet.has(n.id) ? "Wieder zeigen" : "Erledigt – ausblenden"}</button></p></div>`).join("")}
+      ${(d.laeufe || []).length > 1 ? `<div class="karte breit"><h3>Frühere Läufe</h3><ul class="balken">${d.laeufe.slice(1, 9).map(l => `<li><span>${esc(tagText(l.datum))} – ${esc(l.kurz || "")}</span><b>${l.erledigt || 0} erledigt · ${l.notizen || 0} Notizen</b></li>`).join("")}</ul></div>` : ""}
+    </div>`;
+  }
+  $("#q-inhalt").addEventListener("click", async e => {
+    const k = e.target.closest("[data-merk]"); if (k) { k.disabled = true; await merk(k.dataset.merk, Boolean(k.dataset.aus)).catch(() => {}); return qmMalen(); }
+    if (e.target.closest("#q-alle")) { alleNotizen = !alleNotizen; qmMalen(); }
+  });
+  async function qmZeigen() { [qmDaten] = await Promise.all([json(ROH + "daten/qm-notizen.json").catch(() => null), merk().catch(() => {})]); qmMalen(); }
+
+  /* ---------- Quellen ---------- */
+  const AMPEL = { gestoert: "gestört", still: "still", auffaellig: "auffällig", pausiert: "pausiert", ok: "in Ordnung" }, PROBE = { aktuell: "aktuell", luecke: "Lücke gefunden", "nicht pruefbar": "nicht prüfbar" };
+  async function quellenZeigen() {
+    const [k, probe] = await Promise.all([json(ROH + "daten/quellen-kontrolle.json").catch(() => null), json(ROH + "daten/quellen-stichprobe.json").catch(() => ({}))]);
+    if (!k || !k.quellen) return void ($("#k-inhalt").innerHTML = `<div class="karte"><p class="leer">Die Ampel wird mit dem nächsten Abruf zum ersten Mal berechnet (alle drei Stunden).</p></div>`);
+    const z = k.zusammen, reihen = Object.keys(AMPEL).flatMap(a => { const l = k.quellen.filter(q => q.ampel === a).sort((x, y) => x.name.localeCompare(y.name, "de")); return l.length ? [`<tr class="gruppe"><td colspan="6"><span class="ampel ${a}"></span>${esc(AMPEL[a])} · ${l.length}</td></tr>`, ...l.map(q => { const s = probe[q.id];
+      return `<tr><td>${esc(q.name)}<small>${esc(q.art)}${q.adressen > 1 ? " · " + q.adressen + " Adressen" : ""}${q.stuendlich ? " · stündlich" : ""}${q.ampel !== "ok" ? " – " + esc(q.grund) : ""}</small></td>
+        <td>${q.juengstes ? esc(tagText(q.juengstes)) : "–"}<small>${q.treffer == null ? "" : q.treffer + " Einträge beim letzten Abruf"}</small></td>
+        <td>${q.letzteNeu ? esc(tagText(q.letzteNeu.am.slice(0, 10))) : "–"}<small>${q.letzteNeu ? esc(q.letzteNeu.titel) : "seit Beobachtungsbeginn nichts Neues"}</small></td>
+        <td class="z">${q.neu7}</td><td class="z">${q.neu30}</td><td>${s ? esc(PROBE[s.ergebnis] || s.ergebnis) + `<small>${esc(tagText(s.am))}${s.notiz ? " – " + esc(s.notiz) : ""}</small>` : `<small>noch nicht dran</small>`}</td></tr>`; })] : []; }).join("");
+    $("#k-inhalt").innerHTML = `<div class="raster" style="margin-bottom:14px">
+      <div class="karte zahl"><b>${z.ok}</b><span><span class="ampel"></span>in Ordnung</span></div>
+      <div class="karte zahl"><b>${z.auffaellig}</b><span><span class="ampel auffaellig"></span>auffällig</span><i>Fehler oder ungewöhnlich wenig beim letzten Abruf</i></div>
+      <div class="karte zahl"><b>${z.gestoert}</b><span><span class="ampel gestoert"></span>gestört</span><i>scheitert seit mehreren Abrufen</i></div>
+      <div class="karte zahl"><b>${z.still}</b><span><span class="ampel still"></span>still</span><i>klappt, zeigt aber lange nichts Neues</i></div></div>
+      <div class="karte rollen"><table class="tab qtab"><thead><tr><th>Quelle</th><th>Jüngster Eintrag dort</th><th>Zuletzt Neues bei uns</th><th class="z">7 Tage</th><th class="z">30 Tage</th><th>Gegenprobe von Hand</th></tr></thead><tbody>${reihen}</tbody></table>
+      <p class="leer" style="font-size:13px;margin-top:12px">Stand: ${esc(new Date(k.stand).toLocaleString("de-DE", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))} Uhr · „7 Tage / 30 Tage“: neue Meldungen, die von dieser Quelle auf den Stapel kamen.</p></div>`;
+  }
+
+  /* ---------- So funktioniert es: ein paar echte Zahlen und ein echtes Beispiel ---------- */
+  async function systemZeigen() {
+    const [quellen, ausgaben] = await Promise.all([json(ROH + "quellen.json").catch(() => null), json("daten/ausgaben.json").catch(() => null)]);
+    const setze = (k, text) => document.querySelectorAll(`[data-z="${k}"]`).forEach(x => { x.textContent = text; });
+    if (quellen) { const a = quellen.filter(q => q.aktiv !== false), n = t => a.filter(q => t.includes(q.typ)).length, st = a.flatMap(q => q.stuendlich || []).length;
+      setze("aktiv", a.length); setze("rss", n(["rss"]) + " Quellen"); setze("html", n(["html"]) + " Quellen"); setze("sonder", (a.length - n(["rss", "html"])) + " Quellen"); setze("stuendlich", st === 1 ? "derzeit einer" : "derzeit " + st); }
+    const a0 = ausgaben && ausgaben.ausgaben[0], voll = a0 && await json(ROH + "daten/ausgaben/" + a0.datum + ".json").catch(() => null);
+    const m = voll && Object.values(voll.ressorts || {}).flatMap(r => r.meldungen || []).find(x => x.stufe === "aufmacher" && x.originaltitel && x.originaltitel !== x.titel);
+    if (m) $("#s-beispiel").innerHTML = `<i>Ein echtes Beispiel aus der Ausgabe vom ${esc(tagText(a0.datum, { day: "numeric", month: "long" }))}:</i><br>Die Quelle „${esc((ausgaben.quellen[m.quelle] || {}).name || m.quelle)}“ meldete am ${esc(tagText(m.datum))}: „${esc(m.originaltitel)}“.<br>Im Blatt wurde daraus der Aufmacher: „${esc(m.titel)}“.`;
+  }
+
   /* ---------- Verbrauch ---------- */
   const ART = { ausgabe: "Morgenausgabe", qualitaet: "Qualitätssicherung" };
   async function verbrauchZeigen() {
@@ -227,6 +427,19 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
 
   /* ---------- DeepSeek ---------- */
   const NAMEN = { "deepseek-flash": "DeepSeek Flash", "deepseek-v4-pro": "DeepSeek V4 Pro" };
+  const alleVerstoesse = m => [...(m.verstoesse || []), ...((m.gremien || {}).verstoesse || []), ...((m.termine || {}).verstoesse || [])];
+  const wort = s => String(s).toLowerCase().replace(/[^a-zäöüß0-9 ]/g, " ").split(" ").filter(w => w.length > 4);
+  const gleicherTermin = (a, b) => a.tag === b.tag && wort(a.titel).some(w => wort(b.titel).includes(w));
+  function gremienTeil(g, name) {
+    if (!g) return ""; if (g.fehler) return `<div class="ress"><h3>Gremien</h3><p class="leer">${esc(g.fehler)}</p></div>`; if (!g.sitzungen) return `<div class="ress"><h3>Gremien</h3><p class="leer">${esc(g.hinweis || "nichts zu vergleichen")}</p></div>`;
+    const zeile = n => n ? (Object.keys(n.ressorts || {}).length ? Object.entries(n.ressorts).map(([r, x]) => `<li><strong>${esc(RESSORT[r] || r)}:</strong> ${esc(x)}${(n.ergebnis || {})[r] ? ` <em>(${esc(n.ergebnis[r].join(", "))})</em>` : ""}</li>`).join("") : "<li>kein Bezug zu einem Fachbereich</li>") : "<li>keine Notiz</li>";
+    return `<div class="ress"><h3>Gremien · ${Object.keys(g.sitzungen).length} Sitzungen</h3>${Object.values(g.sitzungen).map(s => `<p style="margin:12px 0 0;font-weight:600">${esc(s.gremium)} · ${esc(tagText(s.datum))} <span style="font-weight:400;color:var(--leise)">(${s.punkte} Punkte)</span></p><div class="termine"><div><strong>Claude</strong><ul>${zeile(s.claude)}</ul></div><div><strong>${esc(name)}</strong><ul>${zeile(s.deepseek)}</ul></div></div>`).join("")}</div>`;
+  }
+  function termineTeil(tm, claude, name) {
+    if (!tm) return ""; if (tm.fehler) return `<div class="ress"><h3>Was geht?</h3><p class="leer">${esc(tm.fehler)}</p></div>`;
+    const cl = claude || [], ds = tm.termine || [], li = (x, andere) => `<li${andere.some(y => gleicherTermin(x, y)) ? ' class="gleich"' : ""}>${esc(tagText(x.tag, { weekday: "short", day: "numeric", month: "numeric" }))}${x.wann ? ", " + esc(x.wann) : ""} – ${esc(x.titel)} <span>(${esc(x.ort)})</span></li>`;
+    return `<div class="ress"><h3>Was geht? · ${tm.suchen} Suchen, ${tm.abrufe} Seiten gelesen · ${cl.filter(x => ds.some(y => gleicherTermin(x, y))).length} gemeinsame Termine (grün)</h3><div class="termine"><div><strong>Claude · ${cl.length}</strong><ul>${cl.map(x => li(x, ds)).join("") || "<li>keine</li>"}</ul></div><div><strong>${esc(name)} · ${ds.length}</strong><ul>${ds.map(x => li(x, cl)).join("") || "<li>keine</li>"}</ul></div></div></div>`;
+  }
   function messen(lauf, m) {
     let beide = 0, claude = 0, modell = 0, gleichAuf = 0, ress = [];
     for (const [r, cl] of Object.entries(lauf.claude)) {
@@ -246,18 +459,18 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
       const gut = laeufe.filter(l => l.modelle[mo] && !l.modelle[mo].fehler), w = gut.map(l => messen(l, l.modelle[mo]));
       if (!gut.length) return `<div class="karte"><h3>${esc(NAMEN[mo] || mo)}</h3><p class="leer">Bisher nur Fehler.</p></div>`;
       const usd = gut.reduce((n, l) => n + (l.modelle[mo].usd || 0), 0) / gut.length, sek = gut.reduce((n, l) => n + (l.modelle[mo].sekunden || 0), 0) / gut.length;
-      const anteil = w.reduce((n, x) => n + x.beide, 0) / Math.max(1, w.reduce((n, x) => n + x.claude, 0)), auf = w.reduce((n, x) => n + x.gleichAuf, 0), vst = gut.reduce((n, l) => n + (l.modelle[mo].verstoesse || []).length, 0);
+      const anteil = w.reduce((n, x) => n + x.beide, 0) / Math.max(1, w.reduce((n, x) => n + x.claude, 0)), auf = w.reduce((n, x) => n + x.gleichAuf, 0), vst = gut.reduce((n, l) => n + alleVerstoesse(l.modelle[mo]).length, 0);
       return `<div class="karte zahl"><h3>${esc(NAMEN[mo] || mo)}</h3><b>${zahl(anteil * 100)} %</b><span>von Claudes Auswahl ebenfalls gewählt</span>
         <i>gleicher Aufmacher: ${auf} von ${gut.length * 3}</i><i>Regelverstöße: ${vst ? vst + " in " + gut.length + (gut.length === 1 ? " Ausgabe" : " Ausgaben") : "keine"}</i><i>Kosten je Ausgabe: ${(usd * 100).toLocaleString("de-DE", { maximumFractionDigits: 2 })} US-Cent · im Monat etwa ${(usd * 21).toLocaleString("de-DE", { style: "currency", currency: "USD" })}</i><i>Antwortzeit: ${zahl(sek)} Sekunden</i></div>`;
     }).join("");
     const tage = laeufe.map(l => {
       const teile = modelle.filter(mo => l.modelle[mo]).map(mo => { const m = l.modelle[mo]; return m.fehler ? { mo, fehler: m.fehler } : { mo, m, w: messen(l, m) }; });
       return `<details><summary><b>${esc(tagText(l.datum, { weekday: "short", day: "numeric", month: "short" }))}</b><span>${l.kandidaten} Kandidaten</span>${teile.map(t => `<span>${esc(NAMEN[t.mo] || t.mo)}: ${t.fehler ? "Fehler" : zahl(t.w.anteil * 100) + " % gleich"}</span>`).join("")}</summary>
-        ${teile.map(t => t.fehler ? `<div class="ress"><h3>${esc(NAMEN[t.mo] || t.mo)}</h3><p class="leer">${esc(t.fehler)}</p></div>` : `<div class="ress"><h3>${esc(NAMEN[t.mo] || t.mo)} · ${zahl(t.m.tokens.eingabe + t.m.tokens.cache)} Tokens gelesen, ${zahl(t.m.tokens.ausgabe)} geschrieben · ${(t.m.usd * 100).toLocaleString("de-DE", { maximumFractionDigits: 2 })} US-Cent (${esc(t.m.tarif)})</h3>${(t.m.verstoesse || []).length ? `<p class="verstoss">Regelverstöße: ${t.m.verstoesse.map(esc).join(" · ")}</p>` : ""}
+        ${teile.map(t => t.fehler ? `<div class="ress"><h3>${esc(NAMEN[t.mo] || t.mo)}</h3><p class="leer">${esc(t.fehler)}</p></div>` : `<div class="ress"><h3>${esc(NAMEN[t.mo] || t.mo)} · ${zahl(t.m.tokens.eingabe + t.m.tokens.cache)} Tokens gelesen, ${zahl(t.m.tokens.ausgabe)} geschrieben · ${(t.m.usd * 100).toLocaleString("de-DE", { maximumFractionDigits: 2 })} US-Cent (${esc(t.m.tarif)})</h3>${alleVerstoesse(t.m).length ? `<p class="verstoss">Regelverstöße: ${alleVerstoesse(t.m).map(esc).join(" · ")}</p>` : ""}
           ${t.w.ress.map(x => `<p style="margin:12px 0 0;font-weight:600">${esc(RESSORT[x.r] || x.r)}</p>
             <div class="streifen" title="gemeinsam ${x.gem.length}, nur Claude ${x.nurC.length}, nur DeepSeek ${x.nurD.length}"><i style="--n:${x.gem.length};background:var(--gruen)"></i><i style="--n:${x.nurC.length};background:var(--gold)"></i><i style="--n:${x.nurD.length};background:var(--blau)"></i></div>
             <div class="auf"><i>Aufmacher Claude</i><span>${esc(x.aC ? x.aC.titel : "–")}</span><i>Aufmacher DeepSeek</i><span>${esc(x.aD ? x.aD.titel : "–")}${x.aC && x.aD && x.aC.id === x.aD.id ? " (dieselbe Meldung)" : ""}</span></div>
-            <div class="spalten"><div><strong style="color:var(--gruen)">gemeinsam · ${x.gem.length}</strong></div><div><strong style="color:var(--gold)">nur Claude · ${x.nurC.length}</strong><ul>${x.nurC.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div><div><strong style="color:var(--blau)">nur DeepSeek · ${x.nurD.length}</strong><ul>${x.nurD.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div></div>${(t.m.hoer || {})[x.r] ? `<details class="hoer"><summary>Hörfassungen nebeneinander lesen</summary><div><p><strong>Claude</strong>${esc((l.claudeHoer || {})[x.r] || "–")}</p><p><strong>${esc(NAMEN[t.mo] || t.mo)}</strong>${esc(t.m.hoer[x.r])}</p></div></details>` : ""}`).join("")}</div>`).join("")}</details>`;
+            <div class="spalten"><div><strong style="color:var(--gruen)">gemeinsam · ${x.gem.length}</strong></div><div><strong style="color:var(--gold)">nur Claude · ${x.nurC.length}</strong><ul>${x.nurC.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div><div><strong style="color:var(--blau)">nur DeepSeek · ${x.nurD.length}</strong><ul>${x.nurD.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div></div>${(t.m.hoer || {})[x.r] ? `<details class="hoer"><summary>Hörfassungen nebeneinander lesen</summary><div><p><strong>Claude</strong>${esc((l.claudeHoer || {})[x.r] || "–")}</p><p><strong>${esc(NAMEN[t.mo] || t.mo)}</strong>${esc(t.m.hoer[x.r])}</p></div></details>` : ""}`).join("")}</div>${gremienTeil(t.m.gremien, NAMEN[t.mo] || t.mo)}${termineTeil(t.m.termine, l.claudeTermine, NAMEN[t.mo] || t.mo)}`).join("")}</details>`;
     }).join("");
     $("#d-inhalt").innerHTML = `<div class="raster"><div class="karte zahl"><b>${laeufe.length}<span style="font:inherit;color:var(--leise)"> / 10</span></b><span>Ausgaben verglichen</span><i>Claude läuft im Abo – ohne Zusatzkosten je Ausgabe.</i></div>${kacheln}</div><div class="vgl">${tage}</div>`;
   }
@@ -293,7 +506,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
     try {
       const s = await statistik(vorTagen(29), iso(new Date()));
       $("#tor").hidden = true; $("#innen").hidden = false;
-      besucheZeigen(s); verbrauchZeigen(); vergleichZeigen(); ablaufZeigen();
+      besucheZeigen(s); qmZeigen(); quellenZeigen(); verbrauchZeigen(); vergleichZeigen(); systemZeigen(); ablaufZeigen();
     } catch (err) { pw = ""; $("#tor-meldung").textContent = err.message === "Failed to fetch" ? "Der Dienst ist nicht erreichbar." : err.message; }
   });
 })();

@@ -1,5 +1,6 @@
 name: DeepSeek-Schattenlauf
-# Vergleich im Hintergrund: DeepSeek wählt aus denselben Kandidaten wie die Morgenredaktion (Claude). Nichts davon erscheint
+# Vergleich im Hintergrund: DeepSeek (Flash) macht dieselbe Arbeit wie die Morgenredaktion (Claude) – Auswahl mit Hörfassung,
+# Gremien-Notizen und „Was geht?“ mit eigener Websuche. Nichts davon erscheint
 # auf der Webseite; das Ergebnis liegt in daten/schatten.json und wird in docs/verwaltung.html gezeigt. Hört nach zehn Ausgaben
 # von selbst auf (LAEUFE in werkzeuge/schatten.mjs). Braucht das Repository-Secret DEEPSEEK_API_KEY.
 on:
@@ -16,6 +17,10 @@ on:
     # letzter Versuch am späten Vormittag (wieder Nebenzeit), falls die Morgenausgabe einmal sehr spät kam
     - cron: "30 10 * * 1-5"
   workflow_dispatch:
+    inputs:
+      datum:
+        description: "Ausgabe, die verglichen werden soll (JJJJ-MM-TT); leer = heute"
+        required: false
 
 permissions:
   contents: write
@@ -27,7 +32,7 @@ concurrency:
 jobs:
   vergleichen:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
         with:
@@ -38,7 +43,7 @@ jobs:
       - name: DeepSeek auswählen lassen
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-        run: node werkzeuge/schatten.mjs || true
+        run: node werkzeuge/schatten.mjs ${{ github.event.inputs.datum && format('--datum={0}', github.event.inputs.datum) || '' }} || true
       - name: Ergebnis speichern
         run: |
           git config user.name "Boniblatt-Schattenlauf"

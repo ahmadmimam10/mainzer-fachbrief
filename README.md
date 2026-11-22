@@ -26,7 +26,7 @@ Keine amtliche Veröffentlichung der Stadt Mainz.
 | 1b. Zwischenabruf | GitHub Actions (`sammeln.yml`, Lauf `zwischen`) | stündlich von 5 bis 23 Uhr | nur die Feed-Adressen, die sich schneller drehen als der volle Abruf (`"stuendlich"` in `quellen.json`, derzeit der Rheinland-Pfalz-Feed der Allgemeinen Zeitung); speichert nur, wenn es Neues gibt |
 | 2. Redaktion | Claude-Routine in der Cloud | werktags (Mo–Fr) 04:00 UTC (5 Uhr Winter-, 6 Uhr Sommerzeit); montags mit allen Meldungen seit Freitag | sichtet die offenen Kandidaten nach `REDAKTION.md`, wählt je Ressort höchstens 12 Meldungen, schreibt `daten/ausgaben/JJJJ-MM-TT.json` |
 | 3. Veröffentlichen | GitHub Actions (`seite.yml`) → GitHub Pages | nach jeder Änderung | veröffentlicht den Ordner `docs/` |
-| 4. Qualitätssicherung | Claude-Routine in der Cloud | montags | arbeitet `QUALITAET.md` ab: repariert Quellen, prüft den Abruftakt (`werkzeuge/abruf-takt.mjs`) und die Webseite (`werkzeuge/seite-pruefen.mjs`), protokolliert in `daten/wartung.md` |
+| 4. Qualitätsmanager | Claude-Routine in der Cloud | montags | arbeitet `QUALITAET.md` ab: prüft jede Quelle (Ampel aus `werkzeuge/quellen-kontrolle.mjs`, dazu acht Quellen von Hand gegen die echte Seite), repariert, was sicher geht, und legt Größeres als Notiz in `daten/qm-notizen.json` ab (Anzeige in der Verwaltung); Protokoll in `daten/wartung.md` |
 
 Nichts davon läuft auf einem privaten Rechner.
 
@@ -58,8 +58,8 @@ die letzte Ausgabe.
   `ADMIN_PASSWORT` im Cloudflare-Dienst. Geschützt sind damit die Besuchszahlen; Verbrauch und Vergleich liegen als
   Dateien in diesem Repository
 - DeepSeek-Schattenlauf: `werkzeuge/schatten.mjs` über `.github/workflows/schatten.yml` (direkt nach jeder Morgenausgabe, zehn Ausgaben
-  lang): DeepSeek bekommt dieselben Kandidaten und Regeln wie die Morgenredaktion – auswählen, Ressorts zuordnen, gewichten,
-  Überschriften und Hörfassung schreiben; veröffentlicht wird davon nichts. Braucht das
+  lang): DeepSeek Flash macht dieselbe Arbeit wie die Morgenredaktion – Auswahl mit Hörfassung, Gremien-Notizen und „Was geht?“
+  mit eigener Websuche; veröffentlicht wird davon nichts. Braucht das
   Repository-Secret `DEEPSEEK_API_KEY`
 - Werkstatt: `docs/ueber.html` erzählt, wie das Boniblatt entstanden ist (JHP-Newsletter mit Make.com, Notion, DeepSeek, Outlook) und zeigt das Startbild mit Umschaltern
 - `werkzeuge/intro-einbauen.mjs` – baut das Intro („Morgen über Mainz“) in `docs/index.html`; dazu
@@ -68,6 +68,9 @@ die letzte Ausgabe.
   je Tag), `termine-pruefen.mjs` (Jahresplan und fehlende Termine)
 - `routinen/` – Aufträge und Einstellungen der beiden Cloud-Routinen · `NEUE-STADT.md` – Übernahme für eine andere Stadt
 - `docs/bilder/` – Logo (`logo-hell.svg`, `logo-dunkel.svg`), Favicon und die Icons (`icons/hell`, `icons/dunkel`)
+- `daten/quellen-kontrolle.json` – Ampel je Quelle (liefert sie wirklich Aktuelles?), nach jedem Abruf neu berechnet;
+  `daten/quellen-stichprobe.json` – Gegenproben des Qualitätsmanagers; `daten/diagnose/anfragen.json` – Seiten, die er
+  sich von GitHub holen lässt (`werkzeuge/schnappschuss.mjs`)
 - `daten/quellen-zustand.json` – Zustand je Quelle (`ok` / `auffaellig` / `gestoert`, Verlauf), `daten/diagnose/` –
   Rohmaterial auffälliger Quellen, `daten/wartung.md` – Protokoll der Reparaturen
 
@@ -161,7 +164,7 @@ Brückentag. Regeln in `werkzeuge/intro-feste.mjs`, Jahresplan mit `node werkzeu
 | Weihnachten | an den letzten zwei Arbeitstagen vor Heiligabend bis 30.12. |
 
 Schulferien und die Termine von Johannisnacht und Weinmarkt trägt die Qualitätssicherung einmal im Jahr für das
-Folgejahr nach (QUALITAET.md, Punkt 8).
+Folgejahr nach (QUALITAET.md, Schritt 10).
 
 ## Lizenzen
 

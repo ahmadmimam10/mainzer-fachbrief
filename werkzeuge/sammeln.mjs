@@ -486,6 +486,11 @@ function zustandBerechnen(quelle, alt, abruf, p, jetzt) {
     gefunden: p.gefunden, brauchbar, neu: p.neu, verworfen, verworfenNach: { ...p.verworfen },
     beispiele: p.beispiele.slice(0, 3),
     trefferVerlauf: [...(alt.trefferVerlauf || []), nichtsGeladen ? null : brauchbar].slice(-VERLAUF_LAEUFE),
+    // Quellen-Kontrolle (werkzeuge/quellen-kontrolle.mjs): Wie frisch ist, was die Quelle zeigt – und wann kam zuletzt etwas Neues bei uns an?
+    seitBeobachtung: alt.seitBeobachtung || alt.seit || jetzt,
+    juengstes: nichtsGeladen ? (alt.juengstes || "") : (p.juengstes || ""),
+    letzteNeu: p.neu ? { am: jetzt, titel: cut(p.neuTitel, 120) } : (alt.letzteNeu || null),
+    neuTage: (() => { const t = { ...(alt.neuTage || {}) }, tag = jetzt.slice(0, 10); if (p.neu) t[tag] = (t[tag] || 0) + p.neu; for (const k of Object.keys(t)) if (k < dayOffset(tag, -60)) delete t[k]; return t; })(),
     fehler: abruf.fehler.slice(0, 3),
   };
   const gestoert = [], auffaellig = [];
@@ -767,6 +772,7 @@ async function main() {
     const p = pruefung[q.id] = {
       gefunden: abruf.ergebnisse.length, unbrauchbar: 0, neu: 0, verworfen: { titel: 0, link: 0, linkpruefung: 0 },
       linkGeprueft: 0, linkHart: 0, linkWeich: 0, gruende: [], verworfenGruende: [], linkGruende: [], beispiele: [], verworfenListe: [], eintraege: [],
+      juengstes: "", neuTitel: "",   // für die Quellen-Kontrolle: jüngstes Datum, das die Quelle zeigt, und der Titel der letzten neuen Meldung
     };
     if (q.typ === "ratsinfo") {
       for (const t of abruf.ergebnisse) {
@@ -783,6 +789,7 @@ async function main() {
       try { id = it.url ? idOf(it.url) : ""; } catch { /* ungültiger Link – schon als unbrauchbar gezählt */ }
       const zukunft = it.datum && it.datum > dayOffset(HEUTE, 1);
       const zuAlt = it.datum && !zukunft && it.datum < dayOffset(HEUTE, -ALTER_MAX);
+      if (it.datum && !zukunft && it.datum > p.juengstes) p.juengstes = it.datum;
       const bekannt = Boolean(id && gesehen.links[id]);
       if (q.typ === "rss" && it.adr) { const m = takt[it.adr] ||= { quelle: q.id, gezeigt: 0, unbekannt: 0 }; m.gezeigt++; if (id && !bekannt && !zuAlt) m.unbekannt++; }
       if (DATEI) p.eintraege.push({ titel, url: it.url || "", datum: it.datum || "", grund, bekannt, zuAlt });
@@ -823,7 +830,7 @@ async function main() {
       }
     }
     kandidaten.push(k);
-    p.neu++;
+    p.neu++; p.neuTitel = k.titel;
   }
   for (const [q, { ergebnisse: items, fehler }] of ergebnisse) {
     status[q.id] = { ok: items.length > 0 || !fehler.length, treffer: items.length, neu: q.typ === "ratsinfo" ? undefined : pruefung[q.id].neu, fehler: fehler.length ? fehler : undefined };
