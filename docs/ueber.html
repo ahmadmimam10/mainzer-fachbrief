@@ -235,8 +235,13 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .af-prompt p{margin:0!important;max-width:none!important;min-height:3.9em;font:460 clamp(19px,1.95vw,24px)/1.3 "Fraunces",serif;letter-spacing:-.015em}
 .af-strich{display:inline-block;width:2px;height:1.05em;margin-left:2px;vertical-align:-.16em;background:var(--f1);animation:af-blink 1s steps(1) infinite}
 @keyframes af-blink{50%{opacity:0}}
-.af-kern{display:flex;align-items:center;gap:12px;padding-left:6px;font-size:15px;font-weight:700}
-.af-kern i{flex:none;width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--f2),var(--f1),var(--f4),var(--f3),var(--f2));-webkit-mask:radial-gradient(circle,#0000 9px,#000 10px);mask:radial-gradient(circle,#0000 9px,#000 10px);animation:drehe 1.8s linear infinite paused}
+.af-kern{display:flex;align-items:center;gap:16px;padding:15px 18px;border-radius:20px;background:rgba(255,255,255,.09);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);transition:background .6s,box-shadow .6s}
+.auftrag.laeuft .af-kern{background:color-mix(in srgb,var(--f2) 15%,transparent);box-shadow:inset 0 0 0 1.5px var(--f2)}
+.af-kern i{flex:none;width:46px;height:46px;border-radius:50%;background:conic-gradient(var(--f2),var(--f1),var(--f4),var(--f3),var(--f2));-webkit-mask:radial-gradient(circle,#0000 13px,#000 14px);mask:radial-gradient(circle,#0000 13px,#000 14px);animation:drehe 1.8s linear infinite paused}
+.af-kern p{display:grid;gap:4px;min-width:0;margin:0!important;max-width:none!important}
+.af-kern small{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--f2);transition:color 1.2s}
+.af-kern span{min-height:2.3em;font:460 clamp(20px,2.05vw,26px)/1.15 "Fraunces",serif;letter-spacing:-.02em}
+.af-kern span b{display:inline-block;font-weight:inherit;animation:sz-ein .5s ease both}
 .auftrag.laeuft .af-kern i{animation-play-state:running}
 .af-liste{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .af-liste li{position:relative;padding:10px 10px 10px 31px;border-radius:12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);font-size:13.5px;font-weight:600;line-height:1.2;color:rgba(246,241,230,.42);transition:background .45s,color .45s,box-shadow .45s,translate .45s var(--feder)}
@@ -247,15 +252,6 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .af-blatt{justify-self:start;display:flex;align-items:center;gap:12px;padding:10px 20px 10px 12px;border-radius:99px;background:var(--f2);color:var(--tinte);font:640 clamp(20px,2.2vw,27px)/1 "Fraunces",serif;letter-spacing:-.04em;scale:.5;opacity:0;rotate:-8deg;transform-origin:0 50%;transition:scale .8s var(--feder),opacity .4s,rotate .8s var(--feder),background 1.2s}
 .af-blatt img{width:44px;height:44px}
 .auftrag.fertig .af-blatt{scale:1;opacity:1;rotate:-2deg}
-.vgl{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
-.vgl>div{padding:16px 16px 14px;border-radius:20px;background:rgba(255,255,255,.07)}
-.vgl small{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--f2)}
-.vgl b{display:block;margin:3px 0 13px;font:460 clamp(19px,1.9vw,23px)/1.1 "Fraunces",serif;letter-spacing:-.02em}
-.vg-feld{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
-.vg-feld i{aspect-ratio:1;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.26);transition:background .3s,box-shadow .3s,scale .4s var(--feder)}
-.vg-feld i.an{background:#f6f1e6;box-shadow:none}.vgl .neu .vg-feld i.an{background:var(--f2)}
-.vg-feld i.dran{scale:1.3;box-shadow:inset 0 0 0 2px var(--f2)}
-.vgl em{display:block;margin-top:11px;font-size:13px;font-style:normal;opacity:.7}
 
 /* ---- Kapitel 3: das Startbild ---- *//* ---- Kapitel 4: das Startbild ---- */
 .farbig{background:var(--hell);transition:background 1.2s}
@@ -295,7 +291,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .links a:hover{background:var(--f2);color:var(--tinte);translate:0 -3px}
 .klein{margin-top:26px!important;font-size:14px;opacity:.65;max-width:44em}
 
-@media (max-width:860px){.frueh{grid-template-columns:minmax(0,1fr);--zh:36px}.fr-pfeil{display:none}.fr-tab li{grid-template-columns:84px minmax(0,1fr) 20px;font-size:13.5px}.vgl{grid-template-columns:minmax(0,1fr)}.szen-buehne{grid-template-columns:minmax(0,1fr)}.sb .bild{zoom:1.25}.szen-bild{min-height:213px}.vierzig{min-height:213px;padding:14px;gap:12px}.sk{flex:0 0 92px}.tuftel{grid-template-columns:minmax(0,1fr)}.zwei{grid-template-columns:minmax(0,1fr)}.zahlen{grid-template-columns:repeat(2,minmax(0,1fr))}.wer{grid-template-columns:minmax(0,1fr)}.wer .ring{width:170px}.wisch{display:block}.buehne{aspect-ratio:3/4}.post{rotate:1deg}}
+@media (max-width:860px){.frueh{grid-template-columns:minmax(0,1fr);--zh:36px}.fr-pfeil{display:none}.fr-tab li{grid-template-columns:84px minmax(0,1fr) 20px;font-size:13.5px}.szen-buehne{grid-template-columns:minmax(0,1fr)}.sb .bild{zoom:1.25}.szen-bild{min-height:213px}.vierzig{min-height:213px;padding:14px;gap:12px}.sk{flex:0 0 92px}.tuftel{grid-template-columns:minmax(0,1fr)}.zwei{grid-template-columns:minmax(0,1fr)}.zahlen{grid-template-columns:repeat(2,minmax(0,1fr))}.wer{grid-template-columns:minmax(0,1fr)}.wer .ring{width:170px}.wisch{display:block}.buehne{aspect-ratio:3/4}.post{rotate:1deg}}
 @media (max-width:560px){.af-liste{grid-template-columns:repeat(2,minmax(0,1fr))}.notiz{font-size:23px;margin-left:2px}.notiz svg{width:34px}.schalter button{padding:9px 13px;font-size:14px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt span,.notiz span{clip-path:none}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.af-blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
 </style>
@@ -364,17 +360,13 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   <div class="zwei">
     <div class="auftrag" id="auftrag" data-ein aria-hidden="true">
       <div class="af-prompt"><small>Der Auftrag, sinngemäß</small><p><span id="af-text"></span><i class="af-strich"></i></p></div>
-      <div class="af-kern"><i></i><span id="af-status">wartet auf den Auftrag</span></div>
+      <div class="af-kern"><i></i><p><small>Was die KI gerade tut</small><span id="af-status">Wartet auf den Auftrag</span></p></div>
       <ul class="af-liste" id="af-liste"></ul>
       <div class="af-blatt"><img src="bilder/zeichen.svg" alt="" width="44" height="44"><b>Mainzer Boniblatt.</b></div>
     </div>
     <div>
       <h2 data-ein>Aus Bausteinen wird <i>ein Auftrag</i></h2>
       <p data-ein style="--v:1">Seit dem 20. November 2026 ersetzt das Boniblatt den JHP-Newsletter. Agentische KI ist so stark geworden, dass man die ganze Aufgabe in Auftrag geben kann: Claude Fable 5.2 baut, testet und pflegt die Automationen selbst.</p>
-      <div class="vgl" id="vgl" data-ein style="--v:2" aria-hidden="true">
-        <div><small>Früher</small><b>Ein Mensch steckt jeden Baustein</b><div class="vg-feld"></div><em>Quelle für Quelle, von Hand</em></div>
-        <div class="neu"><small>Heute</small><b>Ein Mensch gibt den Auftrag</b><div class="vg-feld"></div><em>den Rest erledigt die KI</em></div>
-      </div>
     </div>
   </div>
 </div></section>
@@ -509,19 +501,19 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 
   // Kapitel 2: ein Auftrag statt vieler Blasen – der Auftrag tippt sich, die Arbeit hakt sich nacheinander ab, am Ende steht das Blatt.
   // Läuft nur, solange der Kasten zu sehen ist, und beginnt dann wieder von vorn.
-  { const af = $("#auftrag"), txt = $("#af-text"), status = $("#af-status"), liste = $("#af-liste"), SCHLUSS = "Fertig – und läuft seitdem von selbst";
+  { const af = $("#auftrag"), txt = $("#af-text"), status = $("#af-status"), liste = $("#af-liste"), SCHLUSS = "Fertig – und läuft seitdem von selbst", sag = x => { status.innerHTML = `<b>${esc(x)}</b>`; };
     const AUFTRAG = "Mach aus dem JHP-Newsletter eine Seite, die sich jeden Morgen selbst füllt. Nimm dir alle Quellen vor.";
-    const AUFGABEN = [["Bundestag", "bindet die Quellen an"], ["Landtag", "bindet die Quellen an"], ["Allgemeine Zeitung", "bindet die Quellen an"], ["ISM", "bindet die Quellen an"], ["Ratsinfo Mainz", "bindet die Quellen an"], ["… rund 50 weitere", "bindet die Quellen an"],
+    const AUFGABEN = [["Bundestag", "bindet den Bundestag an"], ["Landtag", "bindet den Landtag an"], ["Allgemeine Zeitung", "bindet die Allgemeine Zeitung an"], ["ISM", "bindet das ISM an"], ["Ratsinfo Mainz", "bindet das Ratsinformationssystem an"], ["… rund 50 weitere", "bindet rund 50 weitere Quellen an"],
       ["Abruf geschrieben", "schreibt den Abruf"], ["Getestet", "testet"], ["Fehler behoben", "repariert, was hakt"], ["Redaktionsregeln", "übernimmt die Redaktionsregeln"], ["Seite gebaut", "baut die Seite"], ["Startbild gezeichnet", "zeichnet das Startbild"]];
     liste.innerHTML = AUFGABEN.map(a => `<li>${esc(a[0])}</li>`).join(""); const punkte = [...liste.children], pause = ms => new Promise(r => setTimeout(r, ms)); let sichtbar = false, aktiv = false;
     const ablauf = async () => { if (aktiv) return; aktiv = true;
-      while (sichtbar) { af.classList.remove("laeuft", "fertig"); punkte.forEach(x => { x.className = ""; }); txt.textContent = ""; status.textContent = "Wartet auf den Auftrag"; await pause(800);
+      while (sichtbar) { af.classList.remove("laeuft", "fertig"); punkte.forEach(x => { x.className = ""; }); txt.textContent = ""; sag("Wartet auf den Auftrag"); await pause(800);
         for (let i = 1; i <= AUFTRAG.length && sichtbar; i++) { txt.textContent = AUFTRAG.slice(0, i); await pause(28); }
         await pause(600); af.classList.add("laeuft");
-        for (let i = 0; i < punkte.length && sichtbar; i++) { status.textContent = "Claude " + AUFGABEN[i][1] + " …"; punkte[i].className = "dran"; await pause(i < 6 ? 360 : 680); punkte[i].className = "fertig"; }
-        if (!sichtbar) break; af.classList.remove("laeuft"); af.classList.add("fertig"); status.textContent = SCHLUSS; await pause(7000); }
+        for (let i = 0; i < punkte.length && sichtbar; i++) { sag("Claude " + AUFGABEN[i][1] + " …"); punkte[i].className = "dran"; await pause(i < 6 ? 1150 : 1750); punkte[i].className = "fertig"; }
+        if (!sichtbar) break; af.classList.remove("laeuft"); af.classList.add("fertig"); sag(SCHLUSS); await pause(7000); }
       aktiv = false; };
-    if (matchMedia("(prefers-reduced-motion:reduce)").matches) { txt.textContent = AUFTRAG; punkte.forEach(x => { x.className = "fertig"; }); af.classList.add("fertig"); status.textContent = SCHLUSS; }
+    if (matchMedia("(prefers-reduced-motion:reduce)").matches) { txt.textContent = AUFTRAG; punkte.forEach(x => { x.className = "fertig"; }); af.classList.add("fertig"); sag(SCHLUSS); }
     else new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar) ablauf(); }, { rootMargin: "-8% 0px" }).observe(af); }
   // Kapitel 1, jeden Morgen: Der DeepSeek-Rahmen wandert durch die Tabelle; was zur Jugendhilfeplanung gehört, landet in der Mail-Vorlage.
   { const fr = $("#frueh"), ol = $("#fr-zeilen"), mail = fr.querySelector(".fr-mail"), plaetze = [...fr.querySelectorAll(".fr-platz")], pause = ms => new Promise(r => setTimeout(r, ms));
@@ -537,18 +529,6 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
       aktiv = false; };
     if (matchMedia("(prefers-reduced-motion:reduce)").matches) { let n = 0; ZEILEN.forEach((z, i) => { zeilen[i].className = z[2] ? "ja" : "nein"; if (z[2]) fuelle(plaetze[n++], z); }); mail.classList.add("raus"); }
     else new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar) ablauf(); }, { rootMargin: "-8% 0px" }).observe(fr); }
-
-  // Kapitel 2, Schaubild: früher füllt ein Mensch die vierzig Abläufe einen nach dem anderen – heute füllen sie sich nach dem Auftrag in einem Zug
-  { const vgl = $("#vgl"), felder = [...vgl.querySelectorAll(".vg-feld")], pause = ms => new Promise(r => setTimeout(r, ms)); felder.forEach(f => { f.innerHTML = "<i></i>".repeat(40); });
-    const alt = [...felder[0].children], neu = [...felder[1].children]; let sichtbar = false, aktiv = false;
-    const ablauf = async () => { if (aktiv) return; aktiv = true;
-      while (sichtbar) { [...alt, ...neu].forEach(x => { x.className = ""; }); await pause(900);
-        (async () => { await pause(700); for (const x of neu) { if (!sichtbar) return; x.className = "an"; await pause(38); } })();
-        for (const x of alt) { if (!sichtbar) break; x.className = "dran"; await pause(330); x.className = "an"; }
-        await pause(3500); }
-      aktiv = false; };
-    if (matchMedia("(prefers-reduced-motion:reduce)").matches) [...alt, ...neu].forEach(x => { x.className = "an"; });
-    else new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar) ablauf(); }, { rootMargin: "-8% 0px" }).observe(vgl); }
 
   // Kapitel 3: Startbild umschalten  // Kapitel 4: Startbild umschalten (lädt die echte Startseite mit Testangaben), Seite färbt sich mit
   const schau = $("#schaubild"), buehne = schau.parentElement, jetzt = document.documentElement.dataset.zeit = (m => m >= 3 && m <= 5 ? "fruehling" : m >= 6 && m <= 8 ? "sommer" : m >= 9 && m <= 11 ? "herbst" : "winter")(new Date().getMonth() + 1);
