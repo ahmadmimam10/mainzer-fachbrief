@@ -202,18 +202,36 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .fr-mail.raus em{scale:1}
 .wisch{display:none;margin:8px 0 0!important;font-size:13px;opacity:.6}
 
-/* ---- Zäsur zwischen Kapitel 1 und 2: das Papier wird dunkel, der Satz erscheint Wort für Wort, „veraltet“ verblasst und wird durchgestrichen ---- */
-.bruch{padding:clamp(150px,30vh,320px) 0 clamp(50px,9vw,120px);background:linear-gradient(180deg,var(--pap) 0,var(--tinte) clamp(120px,24vh,260px));color:#f6f1e6}
-.br-gross{max-width:15em!important;margin:0!important;font:460 clamp(36px,6.6vw,104px)/1.02 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.04em;opacity:1!important;translate:none!important}
-.br-gross span{display:inline-block;opacity:0;filter:blur(10px);translate:0 .35em;transition:opacity .9s ease calc(var(--w) * 95ms),filter .9s ease calc(var(--w) * 95ms),translate 1s cubic-bezier(.2,1,.3,1) calc(var(--w) * 95ms)}
-.br-gross.da span{opacity:1;filter:blur(0);translate:0 0}
-.br-gross em{font-weight:320;color:var(--f2);transition:color 1.2s}
-.br-gross s{position:relative;text-decoration:none;font-style:italic;font-weight:320}
-.br-gross s span{transition:opacity .9s ease calc(var(--w) * 95ms),filter .9s ease calc(var(--w) * 95ms),translate 1s cubic-bezier(.2,1,.3,1) calc(var(--w) * 95ms),color 1.4s ease 3s}
-.br-gross.da s span{color:rgba(246,241,230,.38)}
-.br-gross s::after{content:"";position:absolute;left:-.04em;right:-.04em;top:56%;height:.055em;border-radius:99px;background:var(--f1);scale:0 1;transform-origin:0 50%;transition:scale .9s cubic-bezier(.6,0,.2,1) 3.1s,background 1.2s}
-.br-gross.da s::after{scale:1 1}
-.br-klein{max-width:31em!important;margin:clamp(26px,4vw,48px) 0 0!important;font-size:clamp(17px,1.8vw,22px);line-height:1.45;color:rgba(246,241,230,.82);transition-delay:1.6s!important}
+/* ---- Zäsur zwischen Kapitel 1 und 2 als kleine Kinoszene. Ohne Skript (oder bei „weniger Bewegung“) stehen die drei Bilder einfach
+   untereinander. Mit Skript (.kino) ist der Abschnitt mehrere Bildschirme hoch, sein Inhalt bleibt stehen, und der Scrollstand schaltet
+   die Bilder weiter (data-st 1–3). Dahinter lösen sich Baustein-Ketten auf und ziehen sich am Ende zu einem Punkt zusammen. ---- */
+.bruch{position:relative;background:var(--tinte);color:#f6f1e6}
+.bruch::before{content:"";position:absolute;z-index:2;left:0;right:0;top:0;height:clamp(110px,22vh,240px);background:linear-gradient(180deg,var(--pap),transparent);pointer-events:none}
+.br-fest{display:grid;gap:16vh;padding:34vh 0 14vh}
+.br-s{width:100%;max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.br-s p{margin:0}
+#br-staub{display:none}
+.br-vor{max-width:21em;font:460 clamp(24px,3.5vw,52px)/1.12 "Fraunces",serif;letter-spacing:-.03em}.br-vor em{font-weight:320;color:var(--f2);transition:color 1.2s}
+.br-wort{margin:.06em 0 .02em -.03em!important;font:340 clamp(84px,18.5vw,290px)/.9 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 0,"opsz" 144;letter-spacing:-.055em;white-space:nowrap}
+.br-wort span{display:inline-block;translate:0 var(--dy);rotate:var(--dr);color:#b5ac9d}
+.br-nach{font:460 clamp(24px,3.5vw,52px)/1 "Fraunces",serif;letter-spacing:-.03em}
+.br-s2{display:grid;gap:clamp(18px,5vh,60px)}.br-s2 div{display:grid}.br-s2 div+div{justify-items:end;text-align:right}
+.br-s2 b{font:300 italic clamp(60px,12vw,190px)/.9 "Fraunces",serif;letter-spacing:-.05em}
+.br-s2 .trau{color:#93a6b6}.br-s2 .span{font-style:normal;font-weight:560;color:var(--f2);text-shadow:0 0 70px color-mix(in srgb,var(--f2) 55%,transparent);transition:color 1.2s}
+.br-s2 span{margin-top:.5em;font-size:clamp(16px,1.8vw,22px);opacity:.75}
+.br-leise{max-width:24em;font:320 clamp(20px,2.6vw,36px)/1.25 "Fraunces",serif;letter-spacing:-.02em;opacity:.85}
+.br-schluss{margin-top:clamp(18px,3vw,36px)!important;max-width:13em;font:460 clamp(42px,7.4vw,118px)/.96 "Fraunces",serif;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.04em}
+.br-schluss em{font-weight:320;color:var(--f2);transition:color 1.2s}
+.bruch.kino{height:340vh}
+.bruch.kino .br-fest{position:sticky;top:0;display:block;height:100vh;height:100svh;padding:0;overflow:hidden}
+.bruch.kino #br-staub{display:block;position:absolute;inset:0;width:100%;height:100%}
+.bruch.kino .br-s{position:absolute;z-index:1;inset:0;align-content:center;display:grid;opacity:0;filter:blur(16px);scale:.95;transition:opacity .8s ease,filter .8s ease,scale 1.3s cubic-bezier(.2,1,.3,1)}
+.bruch.kino[data-st="1"] .br-s1,.bruch.kino[data-st="2"] .br-s2,.bruch.kino[data-st="3"] .br-s3{opacity:1;filter:blur(0);scale:1}
+.bruch.kino .br-wort span{opacity:0;translate:0 .32em;rotate:0deg;color:#f6f1e6;filter:blur(12px);transition:opacity .8s ease,translate 1s cubic-bezier(.2,1,.3,1),filter .8s ease,rotate 3s ease,color 3s ease}
+.bruch.kino[data-st="1"] .br-wort span{opacity:1;translate:0 var(--dy);rotate:var(--dr);color:#b5ac9d;filter:blur(0);transition-delay:calc(.45s + var(--i) * 70ms),calc(.45s + var(--i) * 70ms),calc(.45s + var(--i) * 70ms),2.2s,2.2s}
+.bruch.kino .br-s2 b{transition:translate 1.6s cubic-bezier(.2,1,.3,1) .15s}
+.bruch.kino .br-s2 .trau{translate:-7vw 0}.bruch.kino .br-s2 .span{translate:7vw 0}
+.bruch.kino[data-st="2"] .br-s2 b{translate:0 0}
 
 /* ---- Kapitel 2: ein Auftrag statt vieler Blasen – der Auftrag tippt sich, die Arbeit hakt sich von selbst ab ---- */
 .auftrag{display:grid;gap:16px;padding:clamp(16px,2.4vw,26px);border-radius:30px;background:rgba(255,255,255,.06)}
@@ -284,7 +302,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 
 @media (max-width:860px){.frueh{grid-template-columns:minmax(0,1fr);--zh:36px}.fr-pfeil{display:none}.fr-tab li{grid-template-columns:84px minmax(0,1fr) 20px;font-size:13.5px}.vgl{grid-template-columns:minmax(0,1fr)}.szen-buehne{grid-template-columns:minmax(0,1fr)}.sb .bild{zoom:1.25}.szen-bild{min-height:213px}.vierzig{min-height:213px;padding:14px;gap:12px}.sk{flex:0 0 92px}.tuftel{grid-template-columns:minmax(0,1fr)}.zwei{grid-template-columns:minmax(0,1fr)}.zahlen{grid-template-columns:repeat(2,minmax(0,1fr))}.wer{grid-template-columns:minmax(0,1fr)}.wer .ring{width:170px}.wisch{display:block}.buehne{aspect-ratio:3/4}.post{rotate:1deg}}
 @media (max-width:560px){.af-liste{grid-template-columns:repeat(2,minmax(0,1fr))}.notiz{font-size:23px;margin-left:2px}.notiz svg{width:34px}.schalter button{padding:9px 13px;font-size:14px}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt span,.notiz span{clip-path:none}.br-gross span{opacity:1;filter:none;translate:none}.br-gross s::after{scale:1 1}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.af-blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt span,.notiz span{clip-path:none}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.af-blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
 </style>
 </head>
 <body>
@@ -337,10 +355,14 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   <div class="tuftel" data-ein><strong>Echte <i>Tüftelarbeit.</i></strong><p>Dutzende Bausteine, Quelle für Quelle einzeln zusammengesteckt und am Laufen gehalten. Ohne den JHP-Newsletter gäbe es das Boniblatt nicht.</p></div>
 </div></section>
 
-<section class="bruch" id="bruch"><div class="innen">
-  <p class="br-gross" id="br-gross" data-ein>Was sich vor drei Jahren wie eine <em>große Innovation</em> anfühlte, fühlt sich heute auf einmal <s>veraltet</s> an.</p>
-  <p class="br-klein" data-ein>Die KI entwickelt sich so schnell, dass man sich die Bausteine nicht einmal mehr ausdenken muss. Sie überlegt selbst – und baut die Automation, in der sie steckt, gleich mit.</p>
-</div></section>
+<section class="bruch" id="bruch" data-st="0">
+  <div class="br-fest">
+    <canvas id="br-staub" aria-hidden="true"></canvas>
+    <div class="br-s br-s1"><p class="br-vor">Was sich vor drei Jahren wie eine <em>große Innovation</em> anfühlte, fühlt sich heute auf einmal</p><p class="br-wort" id="br-wort" aria-label="veraltet">veraltet</p><p class="br-nach">an.</p></div>
+    <div class="br-s br-s2"><div><b class="trau">Traurig,</b><span>sagen die einen.</span></div><div><b class="span">Spannend,</b><span>sagen die anderen.</span></div></div>
+    <div class="br-s br-s3"><p class="br-leise">Man muss nicht einmal mehr überlegen, wie die Automation laufen soll und welche Bausteine sie braucht.</p><p class="br-schluss">Die KI baut ihre Automatisierung selbst – <em>per Auftrag.</em></p></div>
+  </div>
+</section>
 
 <section class="kap dunkel" id="warum"><div class="innen">
   <div class="akt" data-ein><b aria-hidden="true">2</b><span>Der Wechsel</span><i></i></div>
@@ -416,9 +438,27 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   held.addEventListener("pointermove", e => { const b = held.getBoundingClientRect(); held.style.setProperty("--mx", (e.clientX - b.left) + "px"); held.style.setProperty("--my", (e.clientY - b.top) + "px");
     if (e.pointerType === "mouse") { zeigt = { x: e.clientX, y: e.clientY }; if (!wartet) { wartet = true; requestAnimationFrame(buchstaben); } } });
   held.addEventListener("pointerleave", () => { zeigt = null; buchstaben(); });
-  // Zäsur: den großen Satz in Wörter zerlegen, damit er Wort für Wort erscheint (Hervorhebungen bleiben erhalten)
-  { let w = 0; const teile = knoten => [...knoten.childNodes].map(k => k.nodeType === 3 ? k.textContent.split(/(\s+)/).map(x => /^\s*$/.test(x) ? x : `<span style="--w:${w++}">${esc(x)}</span>`).join("") : `<${k.localName}>${teile(k)}</${k.localName}>`).join("");
-    const satz = $("#br-gross"); satz.innerHTML = teile(satz); }
+  // Zäsur als kleine Kinoszene: Der Abschnitt ist mehrere Bildschirme hoch, sein Inhalt bleibt stehen; der Scrollstand schaltet drei Bilder
+  // weiter. Dahinter lösen sich Baustein-Ketten auf, treiben davon und ziehen sich am Ende zu einem einzigen leuchtenden Punkt zusammen.
+  { const br = $("#bruch"), wort = $("#br-wort"), DY = [0, .03, .06, .01, .07, .03, .08, .04], DR = [-1, 1.5, -2.5, 1, -1.5, 3, -2, 2.5];
+    wort.innerHTML = [...wort.textContent].map((b, i) => `<span style="--i:${i};--dy:${DY[i % 8]}em;--dr:${DR[i % 8]}deg" aria-hidden="true">${b}</span>`).join("");
+    if (!matchMedia("(prefers-reduced-motion:reduce)").matches) { br.classList.add("kino");
+      const cv = $("#br-staub"), cx = cv.getContext("2d"), zf = zufall(41); let W = 0, H = 0, P = [], K = [], stand = 0, sichtbar = false, laeuft = false, wartet = false;
+      const stufe = (a, b, x) => { const t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+      const bauen = () => { const d = Math.min(2, devicePixelRatio || 1), b = cv.getBoundingClientRect(); W = b.width; H = b.height; cv.width = W * d; cv.height = H * d; cx.setTransform(d, 0, 0, d, 0, 0);
+        const stil = getComputedStyle(document.documentElement), farben = ["--f1", "--f2", "--f3", "--f4"].map(n => stil.getPropertyValue(n).trim()).concat("#f6f1e6"), klein = W < 700, ketten = klein ? 11 : 22, ab = klein ? 19 : 26; P = []; K = [];
+        for (let k = 0; k < ketten; k++) { const n = 4 + Math.floor(zf() * 3), x0 = zf() * Math.max(10, W - ab * n), y0 = 40 + zf() * (H - 80), w = (zf() - .5) * .5;
+          for (let i = 0; i < n; i++) { const wi = zf() * 6.283, weit = 70 + zf() * 190; P.push({ hx: x0 + Math.cos(w) * ab * i, hy: y0 + Math.sin(w) * ab * i, dx: Math.cos(wi) * weit, dy: Math.sin(wi) * weit - 60, ph: zf() * 6.283, r: (klein ? 4.5 : 6.5) * (.8 + zf() * .5), f: farben[Math.floor(zf() * 5)], dreh: (zf() - .5) * 3 }); if (i) K.push([P.length - 2, P.length - 1]); } } };
+      const bild = t => { if (!sichtbar) { laeuft = false; return; } const a = stufe(.12, .5, stand), b = stufe(.6, .86, stand), zx = W / 2, zy = H / 2, s = t / 1000; cx.clearRect(0, 0, W, H);
+        const pos = P.map(q => { let x = q.hx + Math.sin(s * .5 + q.ph) * 4 + q.dx * a, y = q.hy + Math.cos(s * .4 + q.ph) * 4 + q.dy * a; if (b > 0) { const vx = x - zx, vy = y - zy, w = q.dreh * b * (1 - b) * 2, c = Math.cos(w), d = Math.sin(w), k = 1 - b; x = zx + (vx * c - vy * d) * k; y = zy + (vx * d + vy * c) * k; } return [x, y]; });
+        if (a < 1) { cx.lineWidth = 1.5; cx.strokeStyle = `rgba(246,241,230,${(.2 * (1 - a)).toFixed(3)})`; cx.beginPath(); for (const [i, j] of K) { cx.moveTo(pos[i][0], pos[i][1]); cx.lineTo(pos[j][0], pos[j][1]); } cx.stroke(); }
+        P.forEach((q, i) => { cx.globalAlpha = .42 - a * .08 + b * .4; cx.fillStyle = q.f; cx.beginPath(); cx.arc(pos[i][0], pos[i][1], q.r * (1 - b * .55), 0, 7); cx.fill(); }); cx.globalAlpha = 1;
+        if (b > .5) { const g = (b - .5) * 2, r = 46 + Math.sin(s * 2) * 5, licht = cx.createRadialGradient(zx, zy, 0, zx, zy, r * 5); licht.addColorStop(0, `rgba(219,166,63,${(.5 * g).toFixed(3)})`); licht.addColorStop(1, "rgba(219,166,63,0)"); cx.fillStyle = licht; cx.fillRect(zx - r * 5, zy - r * 5, r * 10, r * 10); }
+        requestAnimationFrame(bild); };
+      const messen = () => { wartet = false; const r = br.getBoundingClientRect(); stand = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - innerHeight))); const st = r.top > innerHeight * .45 ? 0 : stand < .36 ? 1 : stand < .64 ? 2 : 3; if (br.dataset.st !== String(st)) br.dataset.st = st; };
+      addEventListener("scroll", () => { if (sichtbar && !wartet) { wartet = true; requestAnimationFrame(messen); } }, { passive: true });
+      new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar) { if (!W) bauen(); messen(); if (!laeuft) { laeuft = true; requestAnimationFrame(bild); } } }).observe(br);
+      addEventListener("resize", () => { if (sichtbar) { bauen(); messen(); } }); } }
   // Laufbänder: die Quellen, die der alte Newsletter in seiner Fußzeile nannte
   const worte = w => { const s = w.map(x => esc(x) + "<b>✺</b>").join(""); return s + s; };
   $("#s1").innerHTML = worte(["Bundestag", "Allgemeine Zeitung", "ISM", "Landtag", "DIJuF", "Deutscher Verein", "Jugendhilfeportal", "Merkurist Mainz", "Bildungsserver", "SPIEGEL"]);
