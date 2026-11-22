@@ -36,10 +36,12 @@ jobs:
         run: |
           git config user.name "Boniblatt-Abruf"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add daten/pool daten/gesehen.json daten/abruf-takt.json
+          set +e                      # dokumentiert nur – dieser Lauf schlägt nie „rot“ fehl und verschickt keine Mails
+          git add daten               # der Zwischenabruf ändert nur Pool, bekannte Links und Abruftakt (alles unter daten/)
           if git diff --cached --quiet; then echo "Nichts Neues."; exit 0; fi
           git commit -q -m "Zwischenabruf $(date -u +'%Y-%m-%d %H:%M') UTC"
           git push -q origin HEAD:main || { git pull -q --rebase origin main && git push -q origin HEAD:main; } || echo "::warning::Speichern nicht möglich – der nächste Lauf holt es nach."
+          exit 0
 
   abrufen:
     if: github.event.schedule != '17 4-22 * * *'
