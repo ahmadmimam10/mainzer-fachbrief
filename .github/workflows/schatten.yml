@@ -3,9 +3,18 @@ name: DeepSeek-Schattenlauf
 # auf der Webseite; das Ergebnis liegt in daten/schatten.json und wird in docs/verwaltung.html gezeigt. Hört nach zehn Ausgaben
 # von selbst auf (LAEUFE in werkzeuge/schatten.mjs). Braucht das Repository-Secret DEEPSEEK_API_KEY.
 on:
+  # sobald die Morgenausgabe (Claude, werktags gegen 05:30 Uhr Winterzeit) im Repository liegt – also unmittelbar danach,
+  # mit denselben Kandidaten
+  push:
+    branches: [main]
+    paths: ["daten/ausgaben/**"]
   schedule:
-    # werktags 11:20 Uhr (Winterzeit) – nach der Morgenausgabe und außerhalb der teureren DeepSeek-Hauptzeit (06–10 Uhr UTC)
-    - cron: "20 10 * * 1-5"
+    # Auffangnetz, falls der Anstoß ausbleibt: 05:50 und 06:40 Uhr Winterzeit (beides DeepSeek-Nebenzeit). Liegt der
+    # Vergleich des Tages schon vor, endet der Lauf sofort.
+    - cron: "50 4 * * 1-5"
+    - cron: "40 5 * * 1-5"
+    # letzter Versuch am späten Vormittag (wieder Nebenzeit), falls die Morgenausgabe einmal sehr spät kam
+    - cron: "30 10 * * 1-5"
   workflow_dispatch:
 
 permissions:

@@ -56,6 +56,12 @@ dokumentiert. GitHub schreibt nur Protokolle; die Läufe schlagen nie „rot“ 
       `node werkzeuge/redaktion.mjs bauen` neu erzeugen).
     - Nach jeder Änderung an `docs/blatt/*.js` oder `docs/blatt/*.css` den Versionsanhang `?v=…` in `docs/index.html`
       (und `blatt/spiel.js?v=…` in `docs/blatt/bb.js`) um eins hochzählen und die Prüfung erneut laufen lassen.
+    - **Sicherung, damit die Seite nicht kaputtgeht:** Je Lauf höchstens **eine** Korrektur an `docs/*.html` oder
+      `docs/blatt/*`, und nur, wenn sie höchstens etwa 15 Zeilen ändert. Vor der Änderung den Ausgangsbefund der Prüfung
+      notieren; danach `node werkzeuge/seite-pruefen.mjs` erneut ausführen. Meldet sie etwas, das vorher nicht da war,
+      oder bist du nicht sicher, dass die Seite danach noch genauso aussieht und funktioniert: die Änderung mit
+      `git checkout -- docs/index.html docs/ueber.html docs/kalender.html docs/verwaltung.html docs/blatt` zurücknehmen
+      und den Fall als offenen Punkt protokollieren. Größere Eingriffe nie selbst – nur als „Vorschlag“.
     - **Nicht** eigenständig: Gestaltung, Texte, neue Funktionen, Umbauten. Solche Ideen als „Vorschlag“ in
       `daten/wartung.md` notieren – entschieden wird später von Hand.
 

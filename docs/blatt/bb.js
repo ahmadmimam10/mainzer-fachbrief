@@ -82,7 +82,7 @@
         <img src="bilder/ahmed-imam.jpg" alt="Ahmed Imam" width="120" height="120" loading="lazy"></a>
       <div class="f-wer"><p class="f-klein">Ein Projekt von</p><p class="f-name">Ahmed <i>Imam</i></p>
         <p class="f-links"><a href="https://www.linkedin.com/in/ahmadmimam10/" target="_blank" rel="author noopener">LinkedIn</a><a href="https://github.com/ahmadmimam10" target="_blank" rel="author noopener">GitHub-Profil</a><a href="https://github.com/ahmadmimam10/mainzer-fachbrief" target="_blank" rel="noopener">Quellcode</a><a href="mailto:ahmadmimam10@gmail.com">ahmadmimam10@gmail.com</a></p></div>
-      <div class="f-ueber"><strong>Über das <i>Boniblatt</i></strong><span>Testphase · automatisch zusammengestellt, redaktionell gewichtet</span><span class="f-modell">Aufbau: Claude Fable 5.2 (high) · Redaktion: Claude Sonnet 5.5</span><a class="f-mehr" href="ueber.html">Werkstatt und Geschichte <span aria-hidden="true">→</span></a><a class="f-mehr" href="kalender.html">Fundstück-Kalender 2027 <span aria-hidden="true">→</span></a></div>
+      <div class="f-ueber"><strong>Über das <i>Boniblatt</i></strong><span>Testphase · automatisch zusammengestellt, redaktionell gewichtet</span><span class="f-modell">Aufbau: Claude Fable 5.2 (high) · Redaktion: Claude Sonnet 5.5</span><a class="f-mehr" href="ueber.html">Werkstatt und Geschichte <span aria-hidden="true">→</span></a><a class="f-mehr" href="kalender.html">Fundstück-Kalender 2027 <span aria-hidden="true">→</span></a><a class="f-mehr" href="verwaltung.html">Verwaltung <span aria-hidden="true">→</span></a></div>
     </footer></div>`;
   const raster = wurzel.querySelector("#kacheln");
 
@@ -314,7 +314,7 @@
     const weg = document.createElement("div"); weg.className = "sp-weg"; weg.setAttribute("aria-hidden", "true"); weg.innerHTML = '<i></i><span>pst …</span><i></i><span>Hey, ist dir ein bisschen langweilig?</span><i></i>';
     wurzel.querySelector(".bb-fuss").after(weg, sp);
     const zeig = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("da"); zeig.unobserve(e.target); } }), { rootMargin: "0px 0px -3% 0px" }); [...weg.children].forEach(x => zeig.observe(x));
-    new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=20"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
+    new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=21"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });
   const h = location.hash.slice(1);
   // Solange das Startbild seinen Auftakt spielt, wartet der Aufbau der Kacheln: Beides zugleich ließ die Bewegung auf langsamen Geräten stottern.

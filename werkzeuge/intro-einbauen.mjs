@@ -19,14 +19,16 @@ const teil = n => {
 };
 const DOM = teil("02-Kirche"), TURM = teil("05-Boniturm"), LINKS = teil("03-Zeitung-links"), RECHTS = teil("04-Zeitung-rechts");
 // Fenster des Boniturms einzeln (11 Reihen zu 3 Scheiben). Sie gehen nicht reihenweise an, sondern einzeln und in gemischter, aber fester
-// Reihenfolge – wie in einem Haus am Morgen: erst zwei, drei Lichter mit Abstand, dann immer mehr, zum Schluss ein paar Nachzügler. --v ist der Zeitpunkt.
+// Reihenfolge – wie in einem Haus am Morgen: erst zwei, drei Lichter mit Abstand, dann immer mehr, zum Schluss ein paar Nachzügler. --v ist der Zeitpunkt,
+// --f der Ton: Alle Fenster sind am Ende an, aber nicht gleich hell (helles Warmweiß, Beige, gedämpftes Beige).
 const FENSTER = (() => {
   const pfade = [...readFileSync(`${DOCS}/bilder/intro/06-Fenster.svg`, "utf8").matchAll(/<path [^>]*\/>/g)].map(m => m[0].replace(/ fill="[^"]*"/, ""));
   let s = 20261122; const z = () => (s = s * 16807 % 2147483647) / 2147483647;
   const folge = pfade.map((_, i) => i); for (let i = folge.length - 1; i > 0; i--) { const j = Math.floor(z() * (i + 1)); [folge[i], folge[j]] = [folge[j], folge[i]]; }
   const wann = []; let ms = 0;
   folge.forEach((f, k) => { wann[f] = Math.round(ms); ms += k < 3 ? 210 + z() * 90 : k >= folge.length - 4 ? 240 + z() * 200 : 34 + z() * 62; });
-  return pfade.map((pfad, i) => pfad.replace("<path ", `<path style="--v:${wann[i]}ms" `)).join("");
+  const ton = pfade.map(() => { const w = z(); return w < .38 ? "#fffaf0" : w < .8 ? "#f1e6d0" : "#dccdb2"; });
+  return pfade.map((pfad, i) => pfad.replace("<path ", `<path style="--v:${wann[i]}ms;--f:${ton[i]}" `)).join("");
 })();
 
 // ---------- Szene (Einheiten wie im Logo: 128 = Logobreite; Bandmitte = 640; H = Horizont) ----------
@@ -351,13 +353,13 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-l svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 /* Auftakt des Logos – ruhig: Nichts wächst, dreht oder springt. Zeitung, Kirche und Boniturm stehen von Anfang an an ihrem Platz und treten
    nur aus dem Morgendunst hervor (Deckkraft, wenige Pixel Weg). Dahinter geht langsam die Sonne auf, und im Turm geht nach und nach das Licht
-   an – jedes Fenster einzeln, kurz hell, dann im Ton des Logos. Alles zusammen fährt die Kamera ein kleines Stück heran. */
+   an – jedes Fenster einzeln, kurz ganz hell, dann in seinem eigenen Ton zwischen Warmweiß und Beige. Alles zusammen fährt die Kamera ein kleines Stück heran. */
 .i-sonne svg,.i-dom svg,.i-turm svg,.i-fenster svg{transform-origin:50% 60.55%;--z:1.16;animation:i-zoom 3.4s cubic-bezier(.2,.7,.2,1) both}
 .i-dom svg,.i-turm svg{fill:#151414}
 .i-dom g{transform-box:view-box;animation:i-dom 1.7s cubic-bezier(.22,.61,.36,1) .45s both}
 .i-turm g{transform-box:view-box;animation:i-dom 1.7s cubic-bezier(.22,.61,.36,1) .65s both}
 .i-turm .i-dunkel{fill:#2f2b2b}
-.i-fenster path{fill:#ffc1c2;animation:i-fenster .9s cubic-bezier(.3,.6,.3,1) calc(1.75s + var(--v)) both}
+.i-fenster path{fill:var(--f,#f6eedd);animation:i-fenster .9s cubic-bezier(.3,.6,.3,1) calc(1.75s + var(--v)) both}
 .i-sonne path{fill:#cf073d;transform-box:view-box;animation:i-sonne 3.4s cubic-bezier(.22,.61,.36,1) .3s both}
 .i-zl svg,.i-zr svg{fill:#151414;transform-origin:50% 75%}
 .i-zl svg{animation:i-blatt 1.6s cubic-bezier(.22,.61,.36,1) .15s both}
@@ -421,7 +423,7 @@ ${FEST_CSS}
 @keyframes i-schein{from{transform:scale(.25);opacity:0}}
 @keyframes i-drehen{to{transform:rotate(360deg)}}
 @keyframes i-sonne{from{transform:translateY(44px)}}
-@keyframes i-fenster{0%{opacity:0;fill:#fff3e6}35%{opacity:1;fill:#ffeadd}100%{opacity:1;fill:#ffc1c2}}
+@keyframes i-fenster{0%{opacity:0;fill:#fffdf8}35%{opacity:1;fill:#fffdf8}100%{opacity:1}}
 @keyframes i-dom{from{transform:translateY(3px);opacity:0}}
 @keyframes i-blatt{from{transform:translateY(3.5%);opacity:0}}
 @keyframes i-flug{0%{transform:translate(calc(var(--L) * var(--x0)),calc(var(--L) * var(--y0))) scale(1);opacity:0}7%{opacity:1}86%{opacity:1}100%{transform:translate(0,0) scale(.3);opacity:0}}

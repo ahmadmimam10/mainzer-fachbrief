@@ -92,6 +92,9 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
 .spalten{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 22px;font-size:13.5px;margin-top:8px}
 .spalten ul{margin:4px 0 0;padding-left:16px;color:var(--leise)}
 .spalten strong{font-weight:600}
+.verstoss{margin:0 0 6px;color:var(--rot);font-size:14px}
+.vgl details.hoer{border:0;background:none;padding:0;margin-top:10px}.vgl details.hoer summary{padding:4px 0;font-size:14px;color:var(--blau);text-decoration:underline;text-underline-offset:3px}
+.hoer div{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 26px}.hoer p{margin:6px 0 0;font-size:14.5px;line-height:1.5;white-space:pre-line}.hoer strong{display:block;margin-bottom:4px}
 
 /* Abläufe */
 .uhr{display:grid;grid-template-columns:minmax(150px,220px) minmax(0,1fr);gap:0 16px;align-items:center}
@@ -139,7 +142,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
 
 <section id="vergleich">
   <h2>DeepSeek im Vergleich</h2>
-  <p class="unter">Zwei Wochen lang wählt DeepSeek im Hintergrund aus denselben Kandidaten wie Claude. Veröffentlicht wird davon nichts.</p>
+  <p class="unter">Zwei Wochen lang bekommt DeepSeek jeden Morgen direkt nach Claude dieselben Kandidaten und dieselben Regeln: auswählen, den Fachbereichen zuordnen, gewichten, Überschriften und Hörfassung schreiben. Veröffentlicht wird davon nichts.</p>
   <div id="d-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
 </section>
 
@@ -237,24 +240,24 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
   async function vergleichZeigen() {
     let d; try { d = await json(ROH + "daten/schatten.json"); } catch { d = null; }
     const laeufe = (d && d.laeufe || []).slice().sort((a, b) => b.datum.localeCompare(a.datum));
-    if (!laeufe.length) return void ($("#d-inhalt").innerHTML = `<div class="karte"><p class="leer">Noch kein Vergleich. Der Schattenlauf startet werktags um 11:20 Uhr, sobald der DeepSeek-Schlüssel hinterlegt ist.</p></div>`);
+    if (!laeufe.length) return void ($("#d-inhalt").innerHTML = `<div class="karte"><p class="leer">Noch kein Vergleich. Der erste Vergleich kommt mit der nächsten Morgenausgabe (werktags gegen 5:30 Uhr).</p></div>`);
     const modelle = [...new Set(laeufe.flatMap(l => Object.keys(l.modelle)))];
     const kacheln = modelle.map(mo => {
       const gut = laeufe.filter(l => l.modelle[mo] && !l.modelle[mo].fehler), w = gut.map(l => messen(l, l.modelle[mo]));
       if (!gut.length) return `<div class="karte"><h3>${esc(NAMEN[mo] || mo)}</h3><p class="leer">Bisher nur Fehler.</p></div>`;
       const usd = gut.reduce((n, l) => n + (l.modelle[mo].usd || 0), 0) / gut.length, sek = gut.reduce((n, l) => n + (l.modelle[mo].sekunden || 0), 0) / gut.length;
-      const anteil = w.reduce((n, x) => n + x.beide, 0) / Math.max(1, w.reduce((n, x) => n + x.claude, 0)), auf = w.reduce((n, x) => n + x.gleichAuf, 0);
+      const anteil = w.reduce((n, x) => n + x.beide, 0) / Math.max(1, w.reduce((n, x) => n + x.claude, 0)), auf = w.reduce((n, x) => n + x.gleichAuf, 0), vst = gut.reduce((n, l) => n + (l.modelle[mo].verstoesse || []).length, 0);
       return `<div class="karte zahl"><h3>${esc(NAMEN[mo] || mo)}</h3><b>${zahl(anteil * 100)} %</b><span>von Claudes Auswahl ebenfalls gewählt</span>
-        <i>gleicher Aufmacher: ${auf} von ${gut.length * 3}</i><i>Kosten je Ausgabe: ${(usd * 100).toLocaleString("de-DE", { maximumFractionDigits: 2 })} US-Cent · im Monat etwa ${(usd * 21).toLocaleString("de-DE", { style: "currency", currency: "USD" })}</i><i>Antwortzeit: ${zahl(sek)} Sekunden</i></div>`;
+        <i>gleicher Aufmacher: ${auf} von ${gut.length * 3}</i><i>Regelverstöße: ${vst ? vst + " in " + gut.length + (gut.length === 1 ? " Ausgabe" : " Ausgaben") : "keine"}</i><i>Kosten je Ausgabe: ${(usd * 100).toLocaleString("de-DE", { maximumFractionDigits: 2 })} US-Cent · im Monat etwa ${(usd * 21).toLocaleString("de-DE", { style: "currency", currency: "USD" })}</i><i>Antwortzeit: ${zahl(sek)} Sekunden</i></div>`;
     }).join("");
     const tage = laeufe.map(l => {
       const teile = modelle.filter(mo => l.modelle[mo]).map(mo => { const m = l.modelle[mo]; return m.fehler ? { mo, fehler: m.fehler } : { mo, m, w: messen(l, m) }; });
       return `<details><summary><b>${esc(tagText(l.datum, { weekday: "short", day: "numeric", month: "short" }))}</b><span>${l.kandidaten} Kandidaten</span>${teile.map(t => `<span>${esc(NAMEN[t.mo] || t.mo)}: ${t.fehler ? "Fehler" : zahl(t.w.anteil * 100) + " % gleich"}</span>`).join("")}</summary>
-        ${teile.map(t => t.fehler ? `<div class="ress"><h3>${esc(NAMEN[t.mo] || t.mo)}</h3><p class="leer">${esc(t.fehler)}</p></div>` : `<div class="ress"><h3>${esc(NAMEN[t.mo] || t.mo)} · ${zahl(t.m.tokens.eingabe + t.m.tokens.cache)} Tokens gelesen, ${zahl(t.m.tokens.ausgabe)} geschrieben · ${(t.m.usd * 100).toLocaleString("de-DE", { maximumFractionDigits: 2 })} US-Cent (${esc(t.m.tarif)})${t.m.erfunden ? ` · ${t.m.erfunden} erfundene Kennungen` : ""}</h3>
+        ${teile.map(t => t.fehler ? `<div class="ress"><h3>${esc(NAMEN[t.mo] || t.mo)}</h3><p class="leer">${esc(t.fehler)}</p></div>` : `<div class="ress"><h3>${esc(NAMEN[t.mo] || t.mo)} · ${zahl(t.m.tokens.eingabe + t.m.tokens.cache)} Tokens gelesen, ${zahl(t.m.tokens.ausgabe)} geschrieben · ${(t.m.usd * 100).toLocaleString("de-DE", { maximumFractionDigits: 2 })} US-Cent (${esc(t.m.tarif)})</h3>${(t.m.verstoesse || []).length ? `<p class="verstoss">Regelverstöße: ${t.m.verstoesse.map(esc).join(" · ")}</p>` : ""}
           ${t.w.ress.map(x => `<p style="margin:12px 0 0;font-weight:600">${esc(RESSORT[x.r] || x.r)}</p>
             <div class="streifen" title="gemeinsam ${x.gem.length}, nur Claude ${x.nurC.length}, nur DeepSeek ${x.nurD.length}"><i style="--n:${x.gem.length};background:var(--gruen)"></i><i style="--n:${x.nurC.length};background:var(--gold)"></i><i style="--n:${x.nurD.length};background:var(--blau)"></i></div>
             <div class="auf"><i>Aufmacher Claude</i><span>${esc(x.aC ? x.aC.titel : "–")}</span><i>Aufmacher DeepSeek</i><span>${esc(x.aD ? x.aD.titel : "–")}${x.aC && x.aD && x.aC.id === x.aD.id ? " (dieselbe Meldung)" : ""}</span></div>
-            <div class="spalten"><div><strong style="color:var(--gruen)">gemeinsam · ${x.gem.length}</strong></div><div><strong style="color:var(--gold)">nur Claude · ${x.nurC.length}</strong><ul>${x.nurC.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div><div><strong style="color:var(--blau)">nur DeepSeek · ${x.nurD.length}</strong><ul>${x.nurD.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div></div>`).join("")}</div>`).join("")}</details>`;
+            <div class="spalten"><div><strong style="color:var(--gruen)">gemeinsam · ${x.gem.length}</strong></div><div><strong style="color:var(--gold)">nur Claude · ${x.nurC.length}</strong><ul>${x.nurC.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div><div><strong style="color:var(--blau)">nur DeepSeek · ${x.nurD.length}</strong><ul>${x.nurD.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div></div>${(t.m.hoer || {})[x.r] ? `<details class="hoer"><summary>Hörfassungen nebeneinander lesen</summary><div><p><strong>Claude</strong>${esc((l.claudeHoer || {})[x.r] || "–")}</p><p><strong>${esc(NAMEN[t.mo] || t.mo)}</strong>${esc(t.m.hoer[x.r])}</p></div></details>` : ""}`).join("")}</div>`).join("")}</details>`;
     }).join("");
     $("#d-inhalt").innerHTML = `<div class="raster"><div class="karte zahl"><b>${laeufe.length}<span style="font:inherit;color:var(--leise)"> / 10</span></b><span>Ausgaben verglichen</span><i>Claude läuft im Abo – ohne Zusatzkosten je Ausgabe.</i></div>${kacheln}</div><div class="vgl">${tage}</div>`;
   }
@@ -277,7 +280,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
       ["Morgenausgabe", "Mo–Fr – sichten, auswählen, schreiben, „Was geht?“", "Claude", [5 + 7 / 60], "var(--gold)"],
       ["Vertonen und veröffentlichen", "nach jeder Ausgabe – Hörfassungen, Seite neu", "GitHub · Azure", [5.6], "var(--gruen)"],
       ["Qualitätssicherung", "montags – Quellen reparieren, Abruftakt und Webseite prüfen", "Claude", [6.5], "var(--gold)"],
-      ["DeepSeek-Schattenlauf", "Mo–Fr, zehn Ausgaben lang – nur zum Vergleich", "GitHub · DeepSeek", [11 + 20 / 60], "var(--blau)"],
+      ["DeepSeek-Schattenlauf", "Mo–Fr direkt nach der Morgenausgabe, zehn Ausgaben lang – nur zum Vergleich", "GitHub · DeepSeek", [5.75], "var(--blau)"],
       ["Zählung und Bestenliste", "durchgehend – antwortet nur, wenn jemand die Seite nutzt", "Cloudflare", null, "var(--rot)"],
     ];
     $("#a-uhr").innerHTML = `<div class="kopf"><span>0 Uhr</span><span>6</span><span>12</span><span>18</span><span>24</span></div>` + zeilen.map(([n, t, wo, punkte, f]) =>

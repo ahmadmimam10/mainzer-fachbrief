@@ -57,8 +57,9 @@ die letzte Ausgabe.
   DeepSeek-Vergleich (`daten/schatten.json`) und die Abläufe im Hintergrund. Das Passwort liegt nur als Secret
   `ADMIN_PASSWORT` im Cloudflare-Dienst. Geschützt sind damit die Besuchszahlen; Verbrauch und Vergleich liegen als
   Dateien in diesem Repository
-- DeepSeek-Schattenlauf: `werkzeuge/schatten.mjs` über `.github/workflows/schatten.yml` (werktags 11:20 Uhr, zehn Ausgaben
-  lang): DeepSeek wählt aus denselben Kandidaten wie die Morgenredaktion; veröffentlicht wird davon nichts. Braucht das
+- DeepSeek-Schattenlauf: `werkzeuge/schatten.mjs` über `.github/workflows/schatten.yml` (direkt nach jeder Morgenausgabe, zehn Ausgaben
+  lang): DeepSeek bekommt dieselben Kandidaten und Regeln wie die Morgenredaktion – auswählen, Ressorts zuordnen, gewichten,
+  Überschriften und Hörfassung schreiben; veröffentlicht wird davon nichts. Braucht das
   Repository-Secret `DEEPSEEK_API_KEY`
 - Werkstatt: `docs/ueber.html` erzählt, wie das Boniblatt entstanden ist (JHP-Newsletter mit Make.com, Notion, DeepSeek, Outlook) und zeigt das Startbild mit Umschaltern
 - `werkzeuge/intro-einbauen.mjs` – baut das Intro („Morgen über Mainz“) in `docs/index.html`; dazu
