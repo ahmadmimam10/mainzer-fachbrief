@@ -148,5 +148,16 @@
   "auffaellig": [
    "15 neue Kandidaten (1 verworfen), 1 Sitzungstermine, 0 Quellen mit Fehlern. Zustand: 56 ok, 0 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-22T15:28:31.341Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "14 neue Kandidaten (2 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört.",
+  "auffaellig": [
+   "✗ bundesrat                0 gefunden,   0 neu  ⚠ www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "✗ bildungsserver           0 gefunden,   0 neu  ⚠ www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "14 neue Kandidaten (2 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört."
+  ]
  }
 ]
