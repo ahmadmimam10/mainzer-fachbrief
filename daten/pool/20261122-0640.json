@@ -1,0 +1,85 @@
+{
+ "abgerufen": "2026-11-22T06:40:00.921Z",
+ "kandidaten": [
+  {
+   "id": "d5f62f9082",
+   "url": "https://www.allgemeine-zeitung.de/lokales/rheinland-pfalz/ist-wieder-genug-wasser-im-rhein-6972825",
+   "quelle": "az",
+   "titel": "Ist wieder genug Wasser im Rhein?",
+   "teaser": "Auf dem Rhein bei Kaub ging wegen des niedrigen Wasserstands zeitweise kaum noch etwas. Nun lassen Regenfälle die Pegel wieder steigen – doch aufatmen können nicht alle.",
+   "datum": "2026-11-22"
+  },
+  {
+   "id": "5efcbfeaca",
+   "url": "https://www.allgemeine-zeitung.de/lokales/rheinland-pfalz/wie-viel-arbeitszeit-in-rheinland-pfalz-fuer-die-miete-reicht-6972806",
+   "quelle": "az",
+   "titel": "Wie viel Arbeitszeit in Rheinland-Pfalz für die Miete reicht",
+   "teaser": "Forschende haben ausgerechnet, wie viel ein Quadratmeter Wohnfläche kostet - und zwar in Arbeitszeit. Je nach Region zeigen sich deutliche Unterschiede.",
+   "datum": "2026-11-22"
+  },
+  {
+   "id": "c710c54609",
+   "url": "https://www.swr.de/swraktuell/rheinland-pfalz/kaiserslautern/letzte-hilfe-kurs-pflege-der-eigenen-frau-interview-100.html",
+   "quelle": "swr",
+   "titel": "\"Ich konnte meine Frau auf dem letzten Weg begleiten\" - was ein Letzte-Hilfe-Kurs vermittelt",
+   "teaser": "Was können Menschen tun, wenn ihre Familienangehörigen im Sterben liegen? Durch den Letzte-Hilfe-Kurs hat Volker Conrad aus Kaiserslautern gelernt, wie er seine Frau am Lebensende begleiten kann.",
+   "datum": "2026-11-22"
+  },
+  {
+   "id": "cf8443d75a",
+   "url": "https://www.tagesschau.de/wirtschaft/unternehmen/ig-metall-warnstreik-102.html",
+   "quelle": "swr",
+   "titel": "IG Metall weitet Warnstreiks im Norden aus",
+   "teaser": "Bundesweit hatten am Freitag Beschäftigte der Metall- und Elektroindustrie ihre Arbeit niedergelegt. Im Norden will die IG Metall Küste jetzt nachlegen: Nochmal soll für 24 Stunde…",
+   "datum": "2026-11-22"
+  },
+  {
+   "id": "55af864937",
+   "url": "https://www.tagesschau.de/inland/gesellschaft/antisemitismusbeauftragte-102.html",
+   "quelle": "swr",
+   "titel": "Judenhass so \"schamlos wie seit der Schoah nicht mehr\"",
+   "teaser": "Antisemitismus so offen wie seit dem Holocaust nicht mehr: Bundesbeauftragte Schnurbein warnt vor wachsendem Judenhass in Deutschland. Die AfD-Ideologie sei ein gefährlicher Angri…",
+   "datum": "2026-11-22"
+  },
+  {
+   "id": "9f5443f847",
+   "url": "https://www.tagesschau.de/inland/spritpreis-autobahntankstellen-ausnahme-100.html",
+   "quelle": "swr",
+   "titel": "Kein Spritpreisdeckel für die Autobahn?",
+   "teaser": "Ab Januar soll der Preisdeckel für Benzin und Diesel gelten. Wirtschaftsministerin Reiche plant offenbar, Autobahntankstellen davon ausnehmen. Ihr neuer Gesetzentwurf ist noch in …",
+   "datum": "2026-11-21"
+  },
+  {
+   "id": "8e115336c4",
+   "url": "https://www.spiegel.de/politik/deutschland/protest-gegen-aufruestung-der-schwierige-kampf-der-kriegsgegner-a-fa580f9b-43db-465a-8817-79de0219b0ae",
+   "quelle": "spiegel",
+   "titel": "Protest gegen Aufrüstung: Der schwierige Kampf der Kriegsgegner",
+   "teaser": "Gegen den Bau von Rüstungsfabriken formiert sich oftmals lokaler Widerstand. Die Motive sind höchst unterschiedlich: Friedensbewegte treffen auf Israelhasser und Unternehmen, die die Konkurrenz fürchten.",
+   "datum": "2026-11-22"
+  },
+  {
+   "id": "9d35449a6a",
+   "url": "https://www.spiegel.de/panorama/gesellschaft/telemedizin-hamburgerin-laesst-sich-in-apotheke-per-videosprechstunde-behandeln-a-a2fd7fba-6f83-4383-b9e0-f66eb8de1e8a",
+   "quelle": "spiegel",
+   "titel": "Telemedizin: Hamburgerin lässt sich in Apotheke per Videosprechstunde behandeln",
+   "teaser": "Bildschirm statt Praxis: Die Hamburgerin Gudrun Hunger hat sich in einer Apotheke per Telemedizin behandeln lassen. Hier sagt sie, wie es war – und wo eine Live-Untersuchung nicht mithalten kann.",
+   "datum": "2026-11-22"
+  },
+  {
+   "id": "2b21afeb70",
+   "url": "https://www.spiegel.de/panorama/gesellschaft/viele-menschen-haben-sex-den-sie-eigentlich-gar-nicht-wollen-a-fce99fbd-414f-4da2-8afc-a2d3de35b1e0",
+   "quelle": "spiegel",
+   "titel": "Viele Menschen haben Sex, den sie eigentlich gar nicht wollen",
+   "teaser": "Manchmal sagen wir Ja, obwohl wir Nein meinen – etwa, um den anderen nicht zu enttäuschen. Autorin Lou Zucker erklärt, wie man beim Sex die eigenen Grenzen verteidigt. Und herausfindet, worauf man wirklich Lust hat.",
+   "datum": "2026-11-22"
+  },
+  {
+   "id": "4da01fdd69",
+   "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2661",
+   "quelle": "bildungsserver",
+   "titel": "Klimabildung und Digitale Bildung verbinden",
+   "teaser": "Digitale Bildung und Klimabildung werden zunehmend als verbundene Transformationsaufgaben für die Gestaltung einer nachhaltigen Zukunft verstanden. Auf EU-Ebene orientiert man sich dabei an den Kompetenzmodellen DigComp sowie DigCompEdu und GreenComp, die Fähigkeiten für das Leben in einer digitalen und durch Klimaveränderungen geprägten Welt beschreiben. Durch die Verbindung digitaler Kompetenzen und Kompetenzen …",
+   "datum": "2026-11-21"
+  }
+ ]
+}
