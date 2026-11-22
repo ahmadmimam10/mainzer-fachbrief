@@ -43,7 +43,9 @@ Im Mittelpunkt stehen die **Quellen**: Funktioniert jede? Wenn nein: warum – u
 1. `git pull --rebase origin main`
 2. **Lage holen:** `node werkzeuge/quellen-kontrolle.mjs --nur-auffaellige`, dazu `daten/laufprotokoll.json` der letzten
    7 Tage (Läufe mit `"ergebnis": "fehler"`? Lücken über 6 Stunden am Tag? wiederkehrende Zeilen unter `auffaellig`?) und
-   `node werkzeuge/schnappschuss.mjs --liste` (liegt etwas aus der Vorwoche bereit?).
+   `node werkzeuge/schnappschuss.mjs --liste` (liegt etwas aus der Vorwoche bereit?). Bis zum 6.12.2026 zusätzlich
+   `daten/notion-abgleich.json`: Lücken mit `"grund": "unklar"` gehören zur Lage der betroffenen Quelle (Schritt 4).
+   Lücken mit `"grund": "rubrik"` nicht selbst schließen – ob eine Rubrik dazukommt, entscheidet der Nutzer.
 3. **Offene Versuche abschließen:** Jede Quelle in `quellen.json` mit dem Feld `"versuch"` (siehe „Quellen reparieren“):
    Ist sie jetzt `ok` und brachte Treffer → `versuch` entfernen, in `daten/wartung.md` als gelungen vermerken. Ist sie
    `gestoert`/`auffaellig` oder brachte 0 Treffer → die Werte aus `versuch.vorher` zurückschreiben, `versuch` entfernen,

@@ -1,0 +1,134 @@
+{
+ "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Tag: Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: rubrik / alt / quelle / unklar.",
+ "stand": "2026-11-22T18:55:39.497Z",
+ "zugang": "ok",
+ "ersterTag": "2026-11-21",
+ "letzterTag": "2026-12-05",
+ "letzterLauf": "2026-12-06",
+ "gesamt": {
+  "tage": 1,
+  "notion": 42,
+  "erfasst": 39,
+  "fehlt": 3,
+  "zusaetzlich": 1
+ },
+ "luecken": [
+  {
+   "quelle": "SPIEGEL",
+   "id": "spiegel",
+   "grund": "rubrik",
+   "rubrik": "/wirtschaft/soziales/",
+   "rubrikName": "Wirtschaft · Soziales",
+   "feed": "https://www.spiegel.de/wirtschaft/soziales/index.rss",
+   "anzahl": 1,
+   "tage": [
+    "2026-11-21"
+   ],
+   "beispiele": [
+    "Für Friedrich Merz geht es in der Ukraine auch ums Geschäft"
+   ]
+  },
+  {
+   "quelle": "Allgemeine Zeitung",
+   "id": "az",
+   "grund": "rubrik",
+   "rubrik": "/lokales/rhein-main/",
+   "rubrikName": "Rhein-Main",
+   "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rhein-main/",
+   "anzahl": 1,
+   "tage": [
+    "2026-11-21"
+   ],
+   "beispiele": [
+    "Live-Verkehrsticker: Hier staut es sich am Freitagmorgen"
+   ]
+  },
+  {
+   "quelle": "Allgemeine Zeitung",
+   "id": "az",
+   "grund": "rubrik",
+   "rubrik": "/lokales/rheinhessen/",
+   "rubrikName": "Rheinhessen",
+   "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/",
+   "anzahl": 1,
+   "tage": [
+    "2026-11-21"
+   ],
+   "beispiele": [
+    "Wertstoffhof: Warum Gewerbebetriebe abgewiesen werden"
+   ]
+  }
+ ],
+ "tage": [
+  {
+   "tag": "2026-11-21",
+   "eintraege": 52,
+   "notion": 42,
+   "erfasst": 39,
+   "fehlt": 3,
+   "zusaetzlich": 1,
+   "vorsprungMinuten": 213,
+   "quellen": [
+    {
+     "name": "Allgemeine Zeitung",
+     "id": "az",
+     "notion": 27,
+     "erfasst": 25,
+     "fehlt": 2,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Mainz Pressemeldungen",
+     "id": "stadt-mainz",
+     "notion": 10,
+     "erfasst": 10,
+     "fehlt": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "SPIEGEL",
+     "id": "spiegel",
+     "notion": 5,
+     "erfasst": 4,
+     "fehlt": 1,
+     "zusaetzlich": 1
+    }
+   ],
+   "fehlend": [
+    {
+     "titel": "Für Friedrich Merz geht es in der Ukraine auch ums Geschäft",
+     "url": "https://www.spiegel.de/wirtschaft/soziales/deutsch-ukrainisches-wirtschaftsforum-fuer-friedrich-merz-geht-es-in-der-ukraine-auch-ums-geschaeft-a-2848de43-1eaa-4c1a-9657-61708a4cd52c#ref=rss",
+     "quelle": "SPIEGEL",
+     "id": "spiegel",
+     "zeit": "2026-11-21T05:00:05.000Z",
+     "grund": "rubrik",
+     "rubrik": "/wirtschaft/soziales/",
+     "rubrikName": "Wirtschaft · Soziales",
+     "feed": "https://www.spiegel.de/wirtschaft/soziales/index.rss"
+    },
+    {
+     "titel": "Live-Verkehrsticker: Hier staut es sich am Freitagmorgen",
+     "url": "https://www.allgemeine-zeitung.de/lokales/rhein-main/stau-autobahn-s-bahn-sperrung-verkehr-wiesbaden-mainz-ruesselsheim-darmstadt-rhein-main-aktuell-unfall-live-5319719",
+     "quelle": "Allgemeine Zeitung",
+     "id": "az",
+     "zeit": "2026-11-21T05:00:08.000Z",
+     "grund": "rubrik",
+     "rubrik": "/lokales/rhein-main/",
+     "rubrikName": "Rhein-Main",
+     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rhein-main/"
+    },
+    {
+     "titel": "Wertstoffhof: Warum Gewerbebetriebe abgewiesen werden",
+     "url": "https://www.allgemeine-zeitung.de/lokales/rheinhessen/wertstoffhof-warum-gewerbebetriebe-abgewiesen-werden-6871046",
+     "quelle": "Allgemeine Zeitung",
+     "id": "az",
+     "zeit": "2026-11-21T11:51:37.000Z",
+     "grund": "rubrik",
+     "rubrik": "/lokales/rheinhessen/",
+     "rubrikName": "Rheinhessen",
+     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/"
+    }
+   ]
+  }
+ ]
+}

@@ -7,151 +7,221 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="bilder/favicon.ico" sizes="32x32">
 <link rel="icon" href="bilder/favicon-hell.svg" type="image/svg+xml">
-<link rel="stylesheet" href="blatt/schrift.css">
 <style>
-/* Verwaltung: Besuche (anonyme Zählung), Verbrauch der Claude-Läufe, DeepSeek-Vergleich, Abläufe im Hintergrund.
-   Die Besuchszahlen kommen vom Dienst (cloudflare/bestenliste) und nur mit Passwort. Verbrauch und Vergleich liegen als
-   Dateien im Repository (daten/verbrauch.json, daten/schatten.json). */
+/* Verwaltung – ruhig und übersichtlich: eine Schrift (Schibsted Grotesk wie auf der Startseite), helle Flächen, Farbe nur für
+   Zustände. Links die Leiste mit allen Bereichen, oben der Überblick. Die Besuchszahlen kommen vom Dienst (cloudflare/bestenliste)
+   und nur mit Passwort; alles andere liegt als Datei im Repository (daten/*.json). */
+@font-face{font-family:"Schibsted Grotesk";src:url(schriften/schibsted-grotesk.woff2) format("woff2");font-weight:400 800;font-display:swap}
 *{box-sizing:border-box}
-:root{--tinte:#1f1c18;--pap:#f6f4ef;--karte:#fffdf8;--linie:rgba(31,28,24,.13);--leise:rgba(31,28,24,.62);--gold:#c47a12;--blau:#3d6d8f;--gruen:#4c7a58;--rot:#b3402e;
-  --sans:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;--serif:"Instrument Serif",Georgia,serif}
-html{background:var(--pap);color:var(--tinte);font-family:var(--sans);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
+:root{--tinte:#23211d;--leise:#6d685f;--zart:#aaa499;--grund:#f6f5f1;--karte:#fff;--flaeche:#f6f5f1;--linie:rgba(35,33,29,.08);--linie2:rgba(35,33,29,.17);
+  --gruen:#4d8760;--gold:#c08a2f;--rot:#b9533f;--blau:#5a7c97;--sans:"Schibsted Grotesk","Segoe UI",system-ui,-apple-system,sans-serif}
+html{background:var(--grund);color:var(--tinte);font:400 15px/1.55 var(--sans);-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
 body{margin:0}
-main{max-width:1060px;margin:0 auto;padding:76px clamp(16px,4vw,36px) 90px}
-a{color:inherit}
-.heim{position:absolute;left:clamp(10px,2vw,22px);top:14px;z-index:5;padding:8px 15px 9px;border-radius:99px;background:rgba(27,25,23,.84);color:#f6f1e6;font-weight:600;font-size:14px;text-decoration:none}
-h1{font:400 clamp(44px,7vw,76px)/1 var(--serif);margin:0 0 6px;letter-spacing:-.01em}
-h2{font:400 clamp(30px,4vw,42px)/1.05 var(--serif);margin:0 0 4px}
-h3{font:600 15px/1.3 var(--sans);margin:0 0 10px}
-.unter{color:var(--leise);margin:0 0 22px;max-width:60ch}
-section{margin-top:64px}
-.karte{background:var(--karte);border:1px solid var(--linie);border-radius:18px;padding:20px 22px}
-.raster{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+a{color:inherit;text-decoration-color:var(--linie2);text-underline-offset:3px}a:hover{text-decoration-color:currentColor}
+:focus-visible{outline:2px solid var(--blau);outline-offset:2px;border-radius:6px}
+h1{font:650 26px/1.2 var(--sans);letter-spacing:-.015em;margin:0}
+h2{font:650 19px/1.3 var(--sans);letter-spacing:-.01em;margin:0}
+h3{font:600 14.5px/1.4 var(--sans);margin:0 0 10px}
+.unter{color:var(--leise);margin:3px 0 16px;max-width:68ch;font-size:14.5px}
+.leer{color:var(--leise);margin:0}
+
+/* Rahmen: links die Leiste, rechts der Inhalt */
+.rahmen{display:grid;grid-template-columns:224px minmax(0,1fr);max-width:1220px;margin:0 auto}
+.leiste{position:sticky;top:0;align-self:start;height:100vh;padding:28px 12px 24px 18px;display:flex;flex-direction:column;gap:18px;overflow:auto}
+.heim{font-size:14px;color:var(--leise);text-decoration:none;padding:0 10px}.heim:hover{color:var(--tinte)}
+.sprung{display:flex;flex-direction:column;gap:1px}
+.sprung a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 10px;border-radius:9px;font-size:14.5px;color:var(--leise);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+.sprung a:hover{color:var(--tinte);background:rgba(35,33,29,.04)}
+.sprung a[aria-current=true]{color:var(--tinte);background:var(--karte);box-shadow:0 0 0 1px var(--linie);font-weight:600}
+main{min-width:0;padding:30px clamp(16px,4vw,48px) 96px;max-width:980px}
+.seitenkopf{display:flex;align-items:baseline;justify-content:space-between;gap:4px 18px;flex-wrap:wrap}
+.seitenkopf p{margin:0;color:var(--leise);font-size:13.5px}
+section{margin-top:56px;scroll-margin-top:22px}
+#ueberblick{margin-top:22px}
+
+/* vor der Anmeldung: nur das Feld für das Passwort */
+.zu .leiste{display:none}.zu .rahmen{display:block}.zu main{max-width:420px;margin:14vh auto 0}.zu .seitenkopf p{display:none}
+
+/* Zustände */
+.punkt{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--linie2);flex:none;transition:background .4s}
+.punkt.gut{background:var(--gruen)}.punkt.achtung{background:var(--gold)}.punkt.stoerung{background:var(--rot)}
+.sprung .punkt:not(.achtung):not(.stoerung){opacity:0}
+
+/* Überblick */
+.ueber{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.kachel{display:grid;gap:2px;align-content:start;padding:15px 18px 16px;border-radius:14px;background:var(--karte);box-shadow:0 0 0 1px var(--linie);color:inherit;text-decoration:none;transition:box-shadow .25s}
+.kachel:hover{box-shadow:0 0 0 1px var(--linie2),0 12px 26px -20px rgba(0,0,0,.4)}
+.kachel>span{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--leise)}
+.kachel b{font:600 22px/1.25 var(--sans);letter-spacing:-.01em;margin-top:7px}
+.kachel small{font-size:13px;color:var(--leise)}
+
+/* Karten */
+.karte{background:var(--karte);border-radius:14px;padding:18px 20px;box-shadow:0 0 0 1px var(--linie)}
+.raster{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 .breit{grid-column:1/-1}
+.zahl b{display:block;font:600 28px/1.15 var(--sans);letter-spacing:-.015em}
+.zahl span{display:block;margin-top:4px;font-size:14px}
+.zahl i{font-style:normal;display:block;margin-top:2px;font-size:13px;color:var(--leise)}
+.zahl h3{font-weight:500;color:var(--leise);margin-bottom:6px}
+.hinweis{background:#fcf8ee;box-shadow:0 0 0 1px rgba(192,138,47,.28)}
+.hinweis p{margin:0}.hinweis p+p{margin-top:6px}
 
-/* Anmeldung */
-#tor{max-width:400px;margin-top:34px}
-#tor label{display:block;font-weight:600;margin-bottom:8px}
-.zeile{display:flex;gap:8px;flex-wrap:wrap}
+/* Anmeldung und Bedienelemente */
+#tor{margin-top:22px}
+#tor label{display:block;font-size:14px;font-weight:600;margin-bottom:8px}
+.zeile{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 input,button{font:inherit;color:inherit}
-input[type=password],input[type=date]{flex:1;min-width:0;padding:10px 13px;border-radius:12px;border:1px solid rgba(31,28,24,.3);background:#fff}
-button{cursor:pointer;padding:10px 16px;border-radius:12px;border:1px solid var(--tinte);background:var(--tinte);color:#f6f1e6;font-weight:600}
-button.leicht{background:transparent;color:var(--tinte);border-color:var(--linie);font-weight:500;padding:8px 13px}
-button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-color:var(--tinte)}
-:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.meldung{min-height:1.5em;margin:10px 0 0;color:var(--rot);font-weight:500}
-
-/* Kennzahlen */
-.zahl b{display:block;font:400 clamp(40px,5vw,56px)/1 var(--serif);font-variant-numeric:tabular-nums}
-.zahl span{color:var(--leise);font-size:14.5px}
-.zahl i{font-style:normal;display:block;margin-top:6px;font-size:13.5px;color:var(--leise)}
+input[type=password],input[type=date]{flex:1;min-width:0;padding:9px 12px;border-radius:10px;border:1px solid var(--linie2);background:var(--karte)}
+button{cursor:pointer;padding:9px 16px;border-radius:10px;border:1px solid var(--tinte);background:var(--tinte);color:#fbfaf7;font-weight:600}
+button.leicht{background:var(--karte);color:var(--tinte);border-color:var(--linie2);font-weight:500;padding:6px 12px;font-size:14px}
+button.leicht:hover{border-color:var(--tinte)}
+button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-color:var(--tinte)}
+.meldung{margin:10px 0 0;color:var(--rot);font-size:14px}.meldung:empty{display:none}
 
 /* Tagesverlauf */
-.verlauf{display:flex;align-items:flex-end;gap:2px;height:170px;margin-top:6px}
-.verlauf div{flex:1;min-width:0;height:100%;display:flex;align-items:flex-end;gap:1px;position:relative}
-.verlauf u{flex:1;border-radius:3px 3px 0 0;background:var(--tinte);min-height:1px;text-decoration:none}
+.verlauf{display:flex;align-items:flex-end;gap:2px;height:150px;margin-top:4px}
+.verlauf div{flex:1;min-width:0;height:100%;display:flex;align-items:flex-end;gap:1px;border-radius:3px}
+.verlauf u{flex:1;border-radius:2px 2px 0 0;background:var(--tinte);min-height:1px;text-decoration:none;opacity:.85}
 .verlauf u+u{background:var(--gold)}
-.verlauf div:hover{background:rgba(31,28,24,.06)}
-.achse{display:flex;justify-content:space-between;font-size:12.5px;color:var(--leise);margin-top:6px;border-top:1px solid var(--linie);padding-top:5px}
-.legende{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--leise);margin:0 0 10px}
-.legende i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--f,var(--tinte))}
+.verlauf div:hover{background:rgba(35,33,29,.05)}
+.achse{display:flex;justify-content:space-between;font-size:12.5px;color:var(--leise);margin-top:6px;padding-top:6px;border-top:1px solid var(--linie)}
+.legende{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--leise);margin:0 0 10px}
+.legende i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--f,var(--tinte))}
 
 /* Balkenlisten */
-.balken{list-style:none;margin:0;padding:0;display:grid;gap:9px}
-.balken li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:baseline;font-size:14.5px}
+.balken{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.balken li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;align-items:baseline;font-size:14px}
 .balken li>span,.balken li>a{overflow-wrap:anywhere}
-.balken li>a{text-decoration-color:var(--linie);text-underline-offset:3px}
 .balken small{display:block;color:var(--leise);font-size:12.5px}
 .balken b{font-variant-numeric:tabular-nums;font-weight:600}
-.balken em{grid-column:1/-1;height:5px;border-radius:9px;background:var(--f,var(--tinte));width:calc(var(--w)*1%);min-width:3px;opacity:.85}
-.top li>a{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.teiler{display:flex;height:12px;border-radius:9px;overflow:hidden;background:var(--linie);margin:4px 0 8px}
+.balken em{grid-column:1/-1;height:4px;border-radius:9px;background:var(--f,var(--tinte));width:calc(var(--w)*1%);min-width:3px;opacity:.7}
+.top li>a{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-decoration:none}.top li>a:hover{text-decoration:underline}
+.teiler{display:flex;height:8px;border-radius:9px;overflow:hidden;background:var(--linie);margin:6px 0 10px}
 .teiler i{background:var(--tinte)}.teiler i+i{background:var(--gold)}
 
 /* Tabellen */
-.tab{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums}
-.tab th{text-align:right;font-weight:500;color:var(--leise);font-size:13px;padding:0 0 8px 14px;white-space:nowrap}
+.tab{width:100%;border-collapse:collapse;font-size:14px}
+.tab th{text-align:right;font-weight:500;color:var(--leise);font-size:12.5px;padding:0 0 8px 14px;white-space:nowrap}
 .tab td{padding:9px 0 9px 14px;border-top:1px solid var(--linie);text-align:right;white-space:nowrap}
 .tab th:first-child,.tab td:first-child{text-align:left;padding-left:0}
-.tab td.last{width:28%}.tab td.last em{display:block;height:7px;border-radius:9px;background:var(--gold);width:calc(var(--w)*1%);min-width:3px;margin-left:auto}
+.tab td.last{width:26%}.tab td.last em{display:block;height:5px;border-radius:9px;background:var(--gold);width:calc(var(--w)*1%);min-width:3px;margin-left:auto;opacity:.8}
 .rollen{overflow-x:auto}
-.leer{color:var(--leise);margin:0}
 
-/* Vergleich */
-.vgl{display:grid;gap:10px;margin-top:14px}
-.vgl details{background:var(--karte);border:1px solid var(--linie);border-radius:14px;padding:0 18px}
-.vgl summary{cursor:pointer;padding:13px 0;display:flex;gap:10px 18px;flex-wrap:wrap;align-items:baseline;list-style:none}
+/* Aufklappbare Tage (DeepSeek, Notion) */
+.vgl{display:grid;gap:8px;margin-top:12px}
+.vgl details{background:var(--karte);border-radius:12px;padding:0 18px;box-shadow:0 0 0 1px var(--linie)}
+.vgl summary{cursor:pointer;padding:12px 0;display:flex;gap:4px 18px;flex-wrap:wrap;align-items:center;list-style:none;font-size:14px}
 .vgl summary::-webkit-details-marker{display:none}
-.vgl summary b{min-width:11ch}
-.vgl summary span{color:var(--leise);font-size:14.5px}
+.vgl summary b{min-width:10ch;font-weight:600}
+.vgl summary span{color:var(--leise)}
+.vgl summary::after{content:"+";margin-left:auto;color:var(--zart);font-size:18px;line-height:1}.vgl details[open]>summary::after{content:"–"}
 .vgl .ress{border-top:1px solid var(--linie);padding:14px 0}
-.vgl .auf{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 12px;font-size:14.5px;margin:6px 0 10px}
+.vgl .auf{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 12px;font-size:14px;margin:6px 0 10px}
 .vgl .auf i{font-style:normal;color:var(--leise)}
-.streifen{display:flex;height:10px;border-radius:9px;overflow:hidden;margin:6px 0 4px}
+.streifen{display:flex;height:8px;border-radius:9px;overflow:hidden;margin:6px 0 4px}
 .streifen i{flex:var(--n) 0 0}
 .spalten{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 22px;font-size:13.5px;margin-top:8px}
 .spalten ul{margin:4px 0 0;padding-left:16px;color:var(--leise)}
 .spalten strong{font-weight:600}
 .verstoss{margin:0 0 6px;color:var(--rot);font-size:14px}
-.vgl details.hoer{border:0;background:none;padding:0;margin-top:10px}.vgl details.hoer summary{padding:4px 0;font-size:14px;color:var(--blau);text-decoration:underline;text-underline-offset:3px}
-.hoer div{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 26px}.hoer p{margin:6px 0 0;font-size:14.5px;line-height:1.5;white-space:pre-line}.hoer strong{display:block;margin-bottom:4px}
+.vgl details.hoer{box-shadow:none;padding:0;margin-top:10px}.vgl details.hoer summary{padding:4px 0;font-size:14px;color:var(--blau)}.vgl details.hoer summary::after{content:none}
+.hoer div{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 26px}.hoer p{margin:6px 0 0;font-size:14px;line-height:1.55;white-space:pre-line}.hoer strong{display:block;margin-bottom:4px}
+.termine{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 24px;font-size:13.5px}.termine ul{margin:4px 0 0;padding-left:16px;color:var(--leise)}.termine li.gleich{color:var(--gruen)}
+
+/* Notion-Abgleich */
+.luecke{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1px 16px;padding:12px 0;border-top:1px solid var(--linie);font-size:14px}
+.luecke:first-of-type{border-top:0;padding-top:2px}
+.luecke>b{font-variant-numeric:tabular-nums;font-weight:600}
+.luecke small{grid-column:1/-1;color:var(--leise);font-size:13px;overflow-wrap:anywhere}
+.anteil{display:flex;height:6px;width:96px;border-radius:9px;overflow:hidden;background:var(--linie)}
+.anteil i{background:var(--gruen)}.anteil i+i{background:var(--gold)}
+.fehlt{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:9px;font-size:14px}
+.fehlt li{display:grid;grid-template-columns:8px minmax(0,1fr);gap:0 10px;align-items:baseline}
+.fehlt li .punkt{transform:translateY(-1px)}
+.fehlt small{grid-column:2;display:block;color:var(--leise);font-size:12.5px}
 
 /* Abläufe */
-.uhr{display:grid;grid-template-columns:minmax(150px,220px) minmax(0,1fr);gap:0 16px;align-items:center}
+.uhr{display:grid;grid-template-columns:minmax(150px,230px) minmax(0,1fr);gap:0 16px;align-items:center}
 .uhr .kopf{grid-column:2;display:flex;justify-content:space-between;font-size:12.5px;color:var(--leise);padding-bottom:6px}
-.uhr .name{padding:12px 0;border-top:1px solid var(--linie)}
-.uhr .name b{display:block;font-weight:600;font-size:15px}
+.uhr .name{padding:11px 0;border-top:1px solid var(--linie)}
+.uhr .name b{display:block;font-weight:600;font-size:14.5px}
 .uhr .name span{font-size:13px;color:var(--leise)}
-.uhr .spur{position:relative;height:100%;min-height:54px;border-top:1px solid var(--linie);background:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),var(--linie) calc(12.5% - 1px) 12.5%)}
-.uhr .spur i{position:absolute;top:50%;left:calc(var(--t)/24*100%);width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--f,var(--tinte))}
-.uhr .spur i.band{left:0;right:0;width:auto;height:5px;margin:-2.5px 0 0;border-radius:9px;opacity:.55}
-.wo{display:inline-block;font-size:12px;padding:1px 8px 2px;border-radius:99px;border:1px solid var(--linie);margin-left:4px;color:var(--leise);vertical-align:1px}
-/* Sprungleiste */
-.sprung{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 0}
-.sprung a{padding:6px 13px 7px;border-radius:99px;border:1px solid var(--linie);font-size:14px;text-decoration:none;background:var(--karte)}
-.sprung a:hover{border-color:var(--tinte)}
+.uhr .spur{position:relative;height:100%;min-height:52px;border-top:1px solid var(--linie);background:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),var(--linie) calc(12.5% - 1px) 12.5%)}
+.uhr .spur i{position:absolute;top:50%;left:calc(var(--t)/24*100%);width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--f,var(--tinte))}
+.uhr .spur i.band{left:0;right:0;width:auto;height:4px;margin:-2px 0 0;border-radius:9px;opacity:.5}
+.wo{display:inline-block;font-size:12px;font-weight:500;padding:0 8px 1px;border-radius:99px;box-shadow:inset 0 0 0 1px var(--linie2);margin-left:6px;color:var(--leise);vertical-align:1px}
+
 /* Qualitätsmanager */
-.marke{display:inline-block;font-size:12.5px;padding:2px 9px 3px;border-radius:99px;border:1px solid var(--linie);color:var(--leise);margin:0 5px 0 0}
-.marke.rot{border-color:var(--rot);color:var(--rot)}
+.marke{display:inline-block;font-size:12.5px;padding:1px 9px 2px;border-radius:99px;box-shadow:inset 0 0 0 1px var(--linie2);color:var(--leise);margin:0 5px 0 0}
+.marke.rot{box-shadow:inset 0 0 0 1px var(--rot);color:var(--rot)}
 .notiz{display:grid;gap:8px}
-.notiz h3{font:400 24px/1.15 var(--serif);margin:2px 0 0}
-.notiz dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 14px;margin:0;font-size:14.5px}
+.notiz h3{font:600 17px/1.3 var(--sans);margin:2px 0 0}
+.notiz dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 14px;margin:0;font-size:14px}
 .notiz dt{color:var(--leise)}.notiz dd{margin:0}
 .notiz.aus{opacity:.55}
-.notiz .fuss{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--leise)}
-.haken{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:5px;font-size:14.5px}.haken li{padding-left:22px;position:relative}.haken li::before{content:"✓";position:absolute;left:0;color:var(--gruen);font-weight:700}
+.notiz .fuss{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--leise);margin:4px 0 0}
+.haken{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:5px;font-size:14px}.haken li{padding-left:22px;position:relative}.haken li::before{content:"✓";position:absolute;left:0;color:var(--gruen);font-weight:700}
+
 /* Quellen */
-.ampel{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;background:var(--gruen);vertical-align:0}
-.ampel.auffaellig{background:var(--gold)}.ampel.gestoert{background:var(--rot)}.ampel.still{background:var(--blau)}.ampel.pausiert{background:transparent;box-shadow:inset 0 0 0 2px var(--leise)}
+.ampel{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--gruen);vertical-align:1px}
+.ampel.auffaellig{background:var(--gold)}.ampel.gestoert{background:var(--rot)}.ampel.still{background:var(--blau)}.ampel.pausiert{background:transparent;box-shadow:inset 0 0 0 1.5px var(--zart)}
 .qtab td,.qtab th{text-align:left!important;white-space:normal;vertical-align:top}
-.qtab td small{display:block;color:var(--leise);font-size:12.5px;line-height:1.35}
-.qtab td.z{text-align:right!important;white-space:nowrap}.qtab th.z{text-align:right!important}
+.qtab td small{display:block;color:var(--leise);font-size:12.5px;line-height:1.4}
+.qtab td.z{text-align:right!important;white-space:nowrap;font-variant-numeric:tabular-nums}.qtab th.z{text-align:right!important}
 .qtab tr.gruppe td{border-top:0;padding-top:20px;font-weight:600}
-/* Erklärungen */
-.erkl{background:var(--karte);border:1px solid var(--linie);border-radius:18px;padding:0 22px;margin-top:10px}
-.erkl>summary{cursor:pointer;padding:16px 0;font:400 25px/1.15 var(--serif);list-style:none;display:flex;justify-content:space-between;gap:14px}
-.erkl>summary::-webkit-details-marker{display:none}.erkl>summary::after{content:"+";font-family:var(--sans);font-size:22px;color:var(--leise)}.erkl[open]>summary::after{content:"–"}
-.erkl>div{padding:0 0 20px;display:grid;gap:14px;max-width:78ch}
+
+/* So funktioniert es */
+.erkl{background:var(--karte);border-radius:14px;padding:0 20px;margin-top:8px;box-shadow:0 0 0 1px var(--linie)}
+.erkl>summary{cursor:pointer;padding:14px 0;font:600 15.5px/1.35 var(--sans);list-style:none;display:flex;justify-content:space-between;gap:14px}
+.erkl>summary::-webkit-details-marker{display:none}.erkl>summary::after{content:"+";color:var(--zart);font-size:18px;font-weight:400}.erkl[open]>summary::after{content:"–"}
+.erkl>div{padding:0 0 20px;display:grid;gap:12px;max-width:76ch;font-size:14.5px}
 .erkl p{margin:0}.erkl ul{margin:0;padding-left:20px;display:grid;gap:5px}
-.erkl h3{margin:6px 0 -6px}
-.weg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;counter-reset:w;max-width:none!important}
-.weg div{border:1px solid var(--linie);border-radius:14px;padding:12px 14px;font-size:14px;counter-increment:w;background:#fff}
-.weg div::before{content:counter(w);display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--tinte);color:#f6f1e6;font-weight:600;font-size:13px;margin-bottom:8px}
-.weg b{display:block;font-size:15px;margin-bottom:2px}.weg span{color:var(--leise)}
-.beispiel:empty{display:none}.beispiel{border-left:3px solid var(--gold);padding:4px 0 4px 14px;font-size:14.5px}.beispiel i{font-style:normal;color:var(--leise)}
-.drei{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;max-width:none!important}
-.drei div{border:1px solid var(--linie);border-radius:14px;padding:13px 15px;font-size:14px;background:#fff;display:grid;gap:6px;align-content:start}
-.drei b{font-size:15.5px}.drei i{font-style:normal;color:var(--leise);font-size:12.5px;display:block}
-.termine{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 24px;font-size:13.5px}.termine ul{margin:4px 0 0;padding-left:16px;color:var(--leise)}.termine li.gleich{color:var(--gruen)}
-@media (max-width:640px){.uhr{grid-template-columns:1fr}.uhr .kopf{grid-column:1}.uhr .name{padding-bottom:2px}.uhr .spur{border-top:0;min-height:26px}}
+.erkl h3{margin:8px 0 -4px}
+.weg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;counter-reset:w;max-width:none!important}
+.weg div{border-radius:12px;padding:12px 14px;font-size:13.5px;counter-increment:w;background:var(--flaeche)}
+.weg div::before{content:counter(w);display:block;font-weight:600;font-size:12.5px;color:var(--zart);margin-bottom:4px}
+.weg b{display:block;font-size:14.5px;margin-bottom:2px}.weg span{color:var(--leise)}
+.beispiel:empty{display:none}.beispiel{border-left:2px solid var(--linie2);padding:3px 0 3px 14px;font-size:14px}.beispiel i{font-style:normal;color:var(--leise)}
+.drei{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;max-width:none!important}
+.drei div{border-radius:12px;padding:13px 15px;font-size:13.5px;background:var(--flaeche);display:grid;gap:6px;align-content:start}
+.drei b{font-size:14.5px}.drei i{font-style:normal;color:var(--leise);font-size:12.5px;display:block}
+
+@media (max-width:900px){
+  .rahmen{display:block}
+  .leiste{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;gap:4px;padding:8px 10px;background:rgba(246,245,241,.93);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--linie);overflow-x:auto;scrollbar-width:none}
+  .leiste::-webkit-scrollbar{display:none}
+  .heim{flex:none;padding:0 8px 0 4px}
+  .sprung{flex-direction:row;gap:2px}
+  .sprung a{padding:6px 10px;font-size:14px}
+  .sprung .punkt{display:none}
+  main{padding-top:22px}
+  section{scroll-margin-top:66px}
+}
+@media (max-width:640px){.uhr{grid-template-columns:1fr}.uhr .kopf{grid-column:1}.uhr .name{padding-bottom:2px}.uhr .spur{border-top:0;min-height:26px}.karte{padding:16px}
+  .ueber{grid-template-columns:1fr 1fr;gap:8px}.kachel{padding:11px 13px 12px;border-radius:12px}.kachel>span{font-size:12.5px;gap:6px}.kachel b{font-size:16.5px;margin-top:4px}.kachel small{font-size:12px;line-height:1.35}
+  .seitenkopf p{font-size:12.5px}h1{font-size:23px}}
 </style>
 </head>
-<body>
-<a class="heim" href="./">← Boniblatt</a>
+<body class="zu">
+<div class="rahmen">
+<aside class="leiste">
+  <a class="heim" href="./">← Boniblatt</a>
+  <nav class="sprung" aria-label="Bereiche">
+    <a href="#ueberblick">Überblick</a>
+    <a href="#besuche">Besuche</a>
+    <a href="#qm">Qualitätsmanager<i class="punkt" data-punkt="qm"></i></a>
+    <a href="#quellen">Quellen<i class="punkt" data-punkt="quellen"></i></a>
+    <a href="#notion">Notion-Abgleich<i class="punkt" data-punkt="notion"></i></a>
+    <a href="#vergleich">DeepSeek</a>
+    <a href="#verbrauch">Verbrauch</a>
+    <a href="#ablauf">Abläufe<i class="punkt" data-punkt="ablauf"></i></a>
+    <a href="#system">So funktioniert es</a>
+  </nav>
+</aside>
 <main>
-<h1>Verwaltung</h1>
+<header class="seitenkopf"><h1>Verwaltung</h1><p id="kopf-stand"></p></header>
 
-<form id="tor" autocomplete="on">
+<form id="tor" class="karte" autocomplete="on">
   <input type="text" name="username" value="boniblatt" autocomplete="username" hidden>
   <label for="pw">Passwort</label>
   <div class="zeile"><input id="pw" type="password" name="password" autocomplete="current-password" required autofocus><button>Anmelden</button></div>
@@ -159,14 +229,23 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
 </form>
 
 <div id="innen" hidden>
-<nav class="sprung" aria-label="Bereiche"><a href="#besuche">Besuche</a><a href="#qm">Qualitätsmanager</a><a href="#quellen">Quellen</a><a href="#verbrauch">Verbrauch</a><a href="#vergleich">DeepSeek</a><a href="#system">So funktioniert es</a></nav>
+<section id="ueberblick" aria-label="Überblick">
+  <div class="ueber">
+    <a class="kachel" href="#besuche" data-k="besuche"><span><i class="punkt"></i>Besuche</span><b>…</b><small>&nbsp;</small></a>
+    <a class="kachel" href="#qm" data-k="qm"><span><i class="punkt"></i>Qualitätsmanager</span><b>…</b><small>&nbsp;</small></a>
+    <a class="kachel" href="#quellen" data-k="quellen"><span><i class="punkt"></i>Quellen</span><b>…</b><small>&nbsp;</small></a>
+    <a class="kachel" href="#notion" data-k="notion"><span><i class="punkt"></i>Notion-Abgleich</span><b>…</b><small>&nbsp;</small></a>
+    <a class="kachel" href="#vergleich" data-k="vergleich"><span><i class="punkt"></i>DeepSeek-Vergleich</span><b>…</b><small>&nbsp;</small></a>
+    <a class="kachel" href="#ablauf" data-k="ablauf"><span><i class="punkt"></i>Abruf</span><b>…</b><small>&nbsp;</small></a>
+  </div>
+</section>
 
 <section id="besuche">
   <h2>Besuche</h2>
-  <p class="unter" id="b-unter">Anonym gezählt: Aufrufe und Klicks je Tag, ohne Adresse und ohne Kennung.</p>
-  <div class="zeile" style="margin-bottom:14px;align-items:center">
+  <p class="unter" id="b-unter">Anonym gezählt, ohne Adresse und ohne Kennung.</p>
+  <div class="zeile" style="margin-bottom:14px">
     <button type="button" class="leicht" data-t="7">7 Tage</button><button type="button" class="leicht" data-t="30" aria-pressed="true">30 Tage</button><button type="button" class="leicht" data-t="90">90 Tage</button><button type="button" class="leicht" data-t="alles">Alles</button>
-    <input type="date" id="von" aria-label="von" style="flex:0 1 160px"><span>bis</span><input type="date" id="bis" aria-label="bis" style="flex:0 1 160px">
+    <input type="date" id="von" aria-label="von" style="flex:0 1 150px;padding:5px 10px;font-size:14px"><span style="color:var(--leise);font-size:14px">bis</span><input type="date" id="bis" aria-label="bis" style="flex:0 1 150px;padding:5px 10px;font-size:14px">
   </div>
   <p class="meldung" id="b-meldung" role="alert"></p>
   <div class="raster" id="b-inhalt"></div>
@@ -174,26 +253,39 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
 
 <section id="qm">
   <h2>Qualitätsmanager</h2>
-  <p class="unter">Prüft jeden Montag alle Quellen, repariert selbst, was sicher geht, und legt Größeres hier als Notiz ab. Ob aus einer Notiz etwas wird, entscheidest du.</p>
+  <p class="unter">Prüft jeden Montag die Quellen, repariert selbst, was sicher geht, und legt Größeres hier als Notiz ab. Ob daraus etwas wird, entscheidest du.</p>
   <div id="q-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
 </section>
 
 <section id="quellen">
   <h2>Quellen</h2>
-  <p class="unter">Klappt der Abruf – und kommt wirklich Aktuelles an? Die Ampel wird nach jedem Abruf neu berechnet; „still“ heißt: technisch in Ordnung, aber die Quelle zeigt seit langem nichts Neues.</p>
+  <p class="unter">Klappt der Abruf, und kommt wirklich Aktuelles an? „Still“ heißt: technisch in Ordnung, aber die Quelle zeigt seit langem nichts Neues.</p>
   <div id="k-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
 </section>
 
-<section id="verbrauch">
-  <h2>Verbrauch</h2>
-  <p class="unter">Tokens je Claude-Lauf. Den Anteil am 5-Stunden-Kontingent gibt Anthropic einem Lauf nicht heraus – die Tokenzahlen zeigen aber, welcher Lauf wie schwer wiegt.</p>
-  <div class="karte rollen" id="v-inhalt"><p class="leer">Lädt …</p></div>
+<section id="notion">
+  <h2>Notion-Abgleich</h2>
+  <p class="unter">Kommt alles, was Make.com in die Notion-Datenbank „AZ“ schreibt, auch bei GitHub an? Jeden Mittag um 12 Uhr wird der Vortag geprüft, bis zum 6. Dezember.</p>
+  <div id="n-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
 </section>
 
 <section id="vergleich">
   <h2>DeepSeek im Vergleich</h2>
-  <p class="unter">Zwei Wochen lang bekommt DeepSeek jeden Morgen direkt nach Claude dieselben Vorgaben und macht dieselbe Arbeit: Meldungen auswählen und den Fachbereichen zuordnen, Überschriften und Hörfassungen schreiben, Gremien-Notizen, „Was geht?“ mit eigener Websuche. Nur der Qualitätsmanager bleibt bei Claude. Veröffentlicht wird davon nichts.</p>
+  <p class="unter">Zehn Ausgaben lang macht DeepSeek direkt nach Claude dieselbe Arbeit: auswählen, zuordnen, Hörfassungen, Gremien, „Was geht?“ mit eigener Websuche. Veröffentlicht wird davon nichts.</p>
   <div id="d-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
+</section>
+
+<section id="verbrauch">
+  <h2>Verbrauch</h2>
+  <p class="unter">Tokens je Claude-Lauf. Den Anteil am Kontingent gibt Anthropic nicht heraus; die Zahlen zeigen aber, welcher Lauf wie schwer wiegt.</p>
+  <div class="karte rollen" id="v-inhalt"><p class="leer">Lädt …</p></div>
+</section>
+
+<section id="ablauf">
+  <h2>Was im Hintergrund läuft</h2>
+  <p class="unter">Ein Tag im Überblick, Zeiten in Winterzeit (im Sommer eine Stunde später). Nichts davon läuft auf einem eigenen Rechner.</p>
+  <div class="raster" id="a-stand" style="margin-bottom:12px"></div>
+  <div class="karte"><div class="uhr" id="a-uhr"></div></div>
 </section>
 
 <section id="system">
@@ -267,6 +359,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
       <li><b>Jeder Abruf führt Buch.</b> Je Quelle: Wie viele Einträge kamen? Gab es Fehler? Drei Fehlläufe in Folge oder vier Abrufe ohne brauchbaren Treffer heißen „gestört“.</li>
       <li><b>Frische wird gemessen.</b> Je Quelle hält der Abruf fest, von wann der jüngste Eintrag ist, den sie zeigt, und wann zuletzt etwas Neues bei uns ankam. Zeigt eine Quelle 45 Tage lang nichts Neues, wird sie als „still“ gemeldet – auch wenn technisch alles klappt. Genau das ist der Fall, der sonst monatelang unbemerkt bliebe.</li>
       <li><b>Gegenprobe von Hand.</b> Jeden Montag öffnet der Qualitätsmanager acht Quellen so, wie ein Mensch sie sieht, sucht den neuesten Artikel und prüft, ob unser Abruf ihn kennt. Nach rund sieben Wochen war jede Quelle einmal dran, dann beginnt es von vorn.</li>
+      <li><b>Gegenprobe mit Make.com</b> (bis 6. Dezember). Jeden Mittag wird geprüft, ob alles, was die alte Automatisierung am Vortag nach Notion geschrieben hat, auch beim Abruf ankam. Was fehlt, steht oben unter „Notion-Abgleich“ – mit Grund.</li>
     </ul>
     <p>Was das nicht leistet: Es beweist nicht für jede Quelle an jedem Tag, dass keine einzelne Meldung fehlt. Es stellt sicher, dass eine Quelle nicht unbemerkt einschläft.</p>
   </div></details>
@@ -288,19 +381,15 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
       <li><b>Azure</b> (Microsoft) – die Stimme der Hörfassungen.</li>
       <li><b>Cloudflare</b> – die anonyme Zählung, die Bestenliste des Spiels und das Passwort dieser Seite. Kostenloser Tarif.</li>
       <li><b>DeepSeek</b> – nur der Vergleich im Hintergrund, zwei Wochen lang, für wenige Cent je Ausgabe.</li>
+      <li><b>Notion und Make.com</b> – die alte Sammlung, nur noch bis 6. Dezember zur Gegenprobe. GitHub liest dort nur, schreibt nichts.</li>
     </ul>
   </div></details>
 </section>
 
-<section id="ablauf">
-  <h2>Was im Hintergrund läuft</h2>
-  <p class="unter">Ein Tag im Überblick, Zeiten in Winterzeit (im Sommer eine Stunde später). Nichts davon läuft auf einem eigenen Rechner.</p>
-  <div class="raster" id="a-stand" style="margin-bottom:14px"></div>
-  <div class="karte"><div class="uhr" id="a-uhr"></div></div>
-</section>
 
 </div>
 </main>
+</div>
 <script>
 (() => {
   const DIENST = "https://boniblatt-bestenliste.ahmadmimam10.workers.dev", ROH = "https://raw.githubusercontent.com/ahmadmimam10/mainzer-fachbrief/main/";
@@ -311,7 +400,14 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
   const iso = d => d.toLocaleDateString("sv-SE");
   const vorTagen = n => { const d = new Date(); d.setDate(d.getDate() - n); return iso(d); };
   const json = async adresse => { const r = await fetch(adresse, { cache: "no-store" }); if (!r.ok) throw new Error(r.status); return r.json(); };
-  let pw = "", seit = null;
+  let pw = "", seit = null, besucheGesetzt = false;
+  const HEUTE = iso(new Date());
+  /* Überblick: Kachel und Punkt in der Leiste setzen (zustand: gut / achtung / stoerung / leer) */
+  function kachel(k, wert, text, zustand) {
+    const e = document.querySelector(`.kachel[data-k="${k}"]`);
+    if (e) { e.querySelector("b").textContent = wert; e.querySelector("small").textContent = text || " "; e.querySelector(".punkt").className = "punkt " + (zustand || ""); }
+    const p = document.querySelector(`[data-punkt="${k}"]`); if (p) p.className = "punkt " + (zustand || "");
+  }
 
   async function statistik(von, bis) {
     const r = await fetch(`${DIENST}/admin/statistik?von=${von}&bis=${bis}`, { headers: { Authorization: "Bearer " + encodeURIComponent(pw) }, cache: "no-store" });
@@ -337,7 +433,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
     const akt = Object.entries(s.aktionen).map(([k, n]) => [esc(AKTIONEN[k] || (k.startsWith("ressort-") ? "Ressort gewechselt: " + (RESSORT[k.slice(8)] || k.slice(8)) : k)), n]);
     const host = u => { try { return new URL(u).host.replace(/^www\./, ""); } catch { return ""; } };
     const topMax = Math.max(1, ...s.top.map(t => t.n));
-    $("#b-unter").textContent = `Anonym gezählt: Aufrufe und Klicks je Tag, ohne Adresse und ohne Kennung.${seit ? " Gezählt wird seit " + tagText(seit, { day: "numeric", month: "long", year: "numeric" }) + "." : ""}`;
+    $("#b-unter").textContent = `Anonym gezählt, ohne Adresse und ohne Kennung${seit ? " – seit " + tagText(seit, { day: "numeric", month: "long", year: "numeric" }) : ""}.`;
     $("#b-inhalt").innerHTML = `
       <div class="karte zahl"><b>${zahl(aufrufe)}</b><span>Aufrufe</span><i>${aktiv ? "im Schnitt " + zahl(aufrufe / aktiv) + " an Tagen mit Besuch" : "noch keine"}</i></div>
       <div class="karte zahl"><b>${zahl(klicks)}</b><span>Klicks auf Meldungen und Links</span><i>${aufrufe ? zahl(klicks / aufrufe * 100) + " je 100 Aufrufe" : "–"}</i></div>
@@ -348,6 +444,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
       <div class="karte breit"><h3>Meistgeklickt</h3>${s.top.length ? `<ul class="balken top">${s.top.map(t => `<li><a href="${esc(t.ziel)}" target="_blank" rel="noopener noreferrer">${esc(t.titel || t.ziel)}<small>${esc(host(t.ziel))}</small></a><b>${zahl(t.n)}</b><em style="--w:${t.n / topMax * 100};--f:var(--gold)"></em></li>`).join("")}</ul>` : `<p class="leer">In diesem Zeitraum wurde noch nichts angeklickt.</p>`}</div>
       <div class="karte"><h3>Seiten</h3>${liste(Object.entries(s.seiten).map(([k, n]) => [esc(SEITEN[k] || k), n]))}</div>
       <div class="karte"><h3>Was genutzt wird</h3>${liste(akt)}<p class="leer" style="font-size:13px;margin-top:10px">Je Aufruf höchstens einmal gezählt.</p></div>`;
+    if (!besucheGesetzt) { besucheGesetzt = true; kachel("besuche", zahl(aufrufe) + " Aufrufe", zahl(klicks) + " Klicks in den letzten 30 Tagen", ""); }
   }
   async function zeitraum(von, bis) {
     $("#b-meldung").textContent = "";
@@ -365,10 +462,12 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
   const merk = async (id, aus) => { const r = await fetch(`${DIENST}/admin/merk`, { method: id ? "POST" : "GET", headers: { Authorization: "Bearer " + encodeURIComponent(pw), ...(id ? { "Content-Type": "application/json" } : {}) }, body: id ? JSON.stringify({ id, aus }) : undefined, cache: "no-store" }); const j = await r.json().catch(() => ({})); if (r.ok && Array.isArray(j.aus)) ausgeblendet = new Set(j.aus); };
   function qmMalen() {
     const d = qmDaten;
+    if (!d || !d.lauf) kachel("qm", "Noch kein Bericht", "läuft montags um 6:30 Uhr", "");
     if (!d || !d.lauf) return void ($("#q-inhalt").innerHTML = `<div class="karte"><p class="leer">Noch kein Bericht. Der Qualitätsmanager läuft montags um 6:30 Uhr.</p></div>`);
     const alle = d.notizen || [], offen = alle.filter(n => !ausgeblendet.has(n.id)), zeigen = alleNotizen ? alle : offen, versteckt = alle.length - offen.length;
+    kachel("qm", offen.length ? offen.length + (offen.length === 1 ? " offene Notiz" : " offene Notizen") : "Nichts zu tun", "letzter Lauf " + tagText(d.lauf.datum, { weekday: "short", day: "numeric", month: "short" }), offen.some(n => n.dringend) ? "stoerung" : offen.length ? "achtung" : "gut");
     $("#q-inhalt").innerHTML = `<div class="raster">
-      <div class="karte breit"><h3>Letzter Lauf · ${esc(tagText(d.lauf.datum, { weekday: "long", day: "numeric", month: "long" }))}</h3><p style="margin:0;font-size:17px;max-width:70ch">${esc(d.lauf.kurz)}</p>${d.lauf.geprueft ? `<p class="leer" style="margin-top:8px;font-size:14px">Geprüft: ${esc(d.lauf.geprueft)}</p>` : ""}
+      <div class="karte breit"><h3>Letzter Lauf · ${esc(tagText(d.lauf.datum, { weekday: "long", day: "numeric", month: "long" }))}</h3><p style="margin:0;font-size:15.5px;max-width:70ch">${esc(d.lauf.kurz)}</p>${d.lauf.geprueft ? `<p class="leer" style="margin-top:8px;font-size:14px">Geprüft: ${esc(d.lauf.geprueft)}</p>` : ""}
         ${(d.lauf.erledigt || []).length ? `<ul class="haken">${d.lauf.erledigt.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : `<p class="leer" style="margin-top:8px;font-size:14px">Selbst erledigt: nichts nötig.</p>`}</div>
       <div class="karte zahl"><b>${offen.length}</b><span>${offen.length === 1 ? "offene Notiz" : "offene Notizen"}</span><i>${offen.some(n => n.dringend) ? "davon dringend: " + offen.filter(n => n.dringend).length : offen.length ? "nichts Dringendes" : "Du musst nichts tun."}</i>${versteckt ? `<button type="button" class="leicht" id="q-alle" style="margin-top:10px">${alleNotizen ? "Ausgeblendete verbergen" : versteckt + " ausgeblendete zeigen"}</button>` : ""}</div>
       ${zeigen.map(n => `<div class="karte notiz breit${ausgeblendet.has(n.id) ? " aus" : ""}"><p style="margin:0">${n.dringend ? `<span class="marke rot">dringend</span>` : ""}<span class="marke">${esc(BEREICH[n.bereich] || n.bereich)}</span><span class="marke">Aufwand: ${esc(n.aufwand)}</span></p>
@@ -387,13 +486,16 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
   const AMPEL = { gestoert: "gestört", still: "still", auffaellig: "auffällig", pausiert: "pausiert", ok: "in Ordnung" }, PROBE = { aktuell: "aktuell", luecke: "Lücke gefunden", "nicht pruefbar": "nicht prüfbar" };
   async function quellenZeigen() {
     const [k, probe] = await Promise.all([json(ROH + "daten/quellen-kontrolle.json").catch(() => null), json(ROH + "daten/quellen-stichprobe.json").catch(() => ({}))]);
+    if (!k || !k.quellen) kachel("quellen", "–", "wird mit dem nächsten Abruf berechnet", "");
     if (!k || !k.quellen) return void ($("#k-inhalt").innerHTML = `<div class="karte"><p class="leer">Die Ampel wird mit dem nächsten Abruf zum ersten Mal berechnet (alle drei Stunden).</p></div>`);
     const z = k.zusammen, reihen = Object.keys(AMPEL).flatMap(a => { const l = k.quellen.filter(q => q.ampel === a).sort((x, y) => x.name.localeCompare(y.name, "de")); return l.length ? [`<tr class="gruppe"><td colspan="6"><span class="ampel ${a}"></span>${esc(AMPEL[a])} · ${l.length}</td></tr>`, ...l.map(q => { const s = probe[q.id];
       return `<tr><td>${esc(q.name)}<small>${esc(q.art)}${q.adressen > 1 ? " · " + q.adressen + " Adressen" : ""}${q.stuendlich ? " · stündlich" : ""}${q.ampel !== "ok" ? " – " + esc(q.grund) : ""}</small></td>
         <td>${q.juengstes ? esc(tagText(q.juengstes)) : "–"}<small>${q.treffer == null ? "" : q.treffer + " Einträge beim letzten Abruf"}</small></td>
         <td>${q.letzteNeu ? esc(tagText(q.letzteNeu.am.slice(0, 10))) : "–"}<small>${q.letzteNeu ? esc(q.letzteNeu.titel) : "seit Beobachtungsbeginn nichts Neues"}</small></td>
         <td class="z">${q.neu7}</td><td class="z">${q.neu30}</td><td>${s ? esc(PROBE[s.ergebnis] || s.ergebnis) + `<small>${esc(tagText(s.am))}${s.notiz ? " – " + esc(s.notiz) : ""}</small>` : `<small>noch nicht dran</small>`}</td></tr>`; })] : []; }).join("");
-    $("#k-inhalt").innerHTML = `<div class="raster" style="margin-bottom:14px">
+    const rest = [z.auffaellig && z.auffaellig + " auffällig", z.gestoert && z.gestoert + " gestört", z.still && z.still + " still"].filter(Boolean);
+    kachel("quellen", `${z.ok} von ${z.ok + z.auffaellig + z.gestoert + z.still} in Ordnung`, rest.length ? rest.join(" · ") : "alle liefern", z.gestoert ? "stoerung" : rest.length ? "achtung" : "gut");
+    $("#k-inhalt").innerHTML = `<div class="raster" style="margin-bottom:12px">
       <div class="karte zahl"><b>${z.ok}</b><span><span class="ampel"></span>in Ordnung</span></div>
       <div class="karte zahl"><b>${z.auffaellig}</b><span><span class="ampel auffaellig"></span>auffällig</span><i>Fehler oder ungewöhnlich wenig beim letzten Abruf</i></div>
       <div class="karte zahl"><b>${z.gestoert}</b><span><span class="ampel gestoert"></span>gestört</span><i>scheitert seit mehreren Abrufen</i></div>
@@ -453,6 +555,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
   async function vergleichZeigen() {
     let d; try { d = await json(ROH + "daten/schatten.json"); } catch { d = null; }
     const laeufe = (d && d.laeufe || []).slice().sort((a, b) => b.datum.localeCompare(a.datum));
+    if (!laeufe.length) kachel("vergleich", "0 von 10 Ausgaben", "erster Vergleich nach der nächsten Morgenausgabe", "");
     if (!laeufe.length) return void ($("#d-inhalt").innerHTML = `<div class="karte"><p class="leer">Noch kein Vergleich. Der erste Vergleich kommt mit der nächsten Morgenausgabe (werktags gegen 5:30 Uhr).</p></div>`);
     const modelle = [...new Set(laeufe.flatMap(l => Object.keys(l.modelle)))];
     const kacheln = modelle.map(mo => {
@@ -472,7 +575,53 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
             <div class="auf"><i>Aufmacher Claude</i><span>${esc(x.aC ? x.aC.titel : "–")}</span><i>Aufmacher DeepSeek</i><span>${esc(x.aD ? x.aD.titel : "–")}${x.aC && x.aD && x.aC.id === x.aD.id ? " (dieselbe Meldung)" : ""}</span></div>
             <div class="spalten"><div><strong style="color:var(--gruen)">gemeinsam · ${x.gem.length}</strong></div><div><strong style="color:var(--gold)">nur Claude · ${x.nurC.length}</strong><ul>${x.nurC.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div><div><strong style="color:var(--blau)">nur DeepSeek · ${x.nurD.length}</strong><ul>${x.nurD.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div></div>${(t.m.hoer || {})[x.r] ? `<details class="hoer"><summary>Hörfassungen nebeneinander lesen</summary><div><p><strong>Claude</strong>${esc((l.claudeHoer || {})[x.r] || "–")}</p><p><strong>${esc(NAMEN[t.mo] || t.mo)}</strong>${esc(t.m.hoer[x.r])}</p></div></details>` : ""}`).join("")}</div>${gremienTeil(t.m.gremien, NAMEN[t.mo] || t.mo)}${termineTeil(t.m.termine, l.claudeTermine, NAMEN[t.mo] || t.mo)}`).join("")}</details>`;
     }).join("");
+    { const mo = modelle[0], gut = laeufe.filter(l => l.modelle[mo] && !l.modelle[mo].fehler), w = gut.map(l => messen(l, l.modelle[mo]));
+      kachel("vergleich", `${laeufe.length} von 10 Ausgaben`, gut.length ? zahl(w.reduce((n, x) => n + x.beide, 0) / Math.max(1, w.reduce((n, x) => n + x.claude, 0)) * 100) + " % gleiche Auswahl wie Claude" : "bisher nur Fehler", ""); }
     $("#d-inhalt").innerHTML = `<div class="raster"><div class="karte zahl"><b>${laeufe.length}<span style="font:inherit;color:var(--leise)"> / 10</span></b><span>Ausgaben verglichen</span><i>Claude läuft im Abo – ohne Zusatzkosten je Ausgabe.</i></div>${kacheln}</div><div class="vgl">${tage}</div>`;
+  }
+
+  /* ---------- Notion-Abgleich ---------- */
+  const GRUND = { rubrik: "Diese Rubrik ruft GitHub nicht ab.", alt: "War beim Eintrag in Notion älter als drei Tage – so etwas übernimmt der Abruf bewusst nicht.", unklar: "Hätte GitHub sehen müssen – genauer ansehen." };
+  const GRUND_KURZ = { rubrik: "Rubrik wird nicht abgerufen", alt: "älter als drei Tage", quelle: "Quelle nicht im Abruf", unklar: "unerklärt" };
+  const mitte = a => { const s = a.filter(x => x != null).sort((x, y) => x - y), m = s.length >> 1; return s.length ? (s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2) : null; };
+  const dauer = m => { const a = Math.abs(m); return a < 90 ? zahl(a) + " Min." : (a / 60).toLocaleString("de-DE", { maximumFractionDigits: 1 }) + " Std."; };
+  async function notionZeigen() {
+    const d = await json(ROH + "daten/notion-abgleich.json").catch(() => null);
+    if (!d || !(d.tage || []).length) { kachel("notion", "Noch kein Ergebnis", "erster Abgleich mittags um 12 Uhr", ""); return void ($("#n-inhalt").innerHTML = `<div class="karte"><p class="leer">Noch kein Abgleich. Der erste läuft mittags um 12 Uhr.</p></div>`); }
+    const g = d.gesamt, anteil = g.notion ? g.erfasst / g.notion : 1, vorbei = HEUTE > d.letzterLauf, wartet = d.zugang !== "ok" && !vorbei;
+    const unklar = d.luecken.filter(l => l.grund === "unklar").reduce((n, l) => n + l.anzahl, 0), vors = mitte(d.tage.map(t => t.vorsprungMinuten));
+    kachel("notion", zahl(anteil * 100) + " % erfasst", wartet ? "wartet auf den Notion-Zugang" : g.fehlt ? `${g.fehlt} fehlen, ${unklar ? unklar + " davon unerklärt" : "alle erklärbar"}` : "nichts fehlt", unklar || wartet ? "achtung" : "gut");
+    const luecken = d.luecken.length ? d.luecken.map(l => `<div class="luecke"><span><b>${esc(l.quelle)}${l.rubrikName ? " · " + esc(l.rubrikName) : ""}</b> – ${esc(GRUND_KURZ[l.grund] || l.grund)}</span><b>${l.anzahl}</b>
+        <small>${esc(l.grund === "quelle" ? l.hinweis || "" : GRUND[l.grund] || "")} Zuletzt: „${esc(l.beispiele[l.beispiele.length - 1] || "")}“${l.feed ? ` · Feed dafür vermutlich <a href="${esc(l.feed)}" target="_blank" rel="noopener noreferrer">${esc(l.feed.replace(/^https?:\/\/(www\.)?/, ""))}</a>` : ""}</small></div>`).join("")
+      : `<p class="leer">Keine Lücken: Alles, was in Notion steht, hat auch GitHub.</p>`;
+    const uhr = z => new Date(z).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) + " Uhr";
+    const tage = d.tage.map(t => `<details><summary><b>${esc(tagText(t.tag, { weekday: "short", day: "numeric", month: "short" }))}</b><span>${t.notion} in Notion</span><span>${t.erfasst} erfasst</span><span${t.fehlt ? ' style="color:var(--tinte)"' : ""}>${t.fehlt} ${t.fehlt === 1 ? "fehlt" : "fehlen"}</span><span class="anteil" aria-hidden="true"><i style="flex:${t.erfasst}"></i><i style="flex:${t.fehlt}"></i></span></summary>
+      <div class="ress"><div class="rollen"><table class="tab"><thead><tr><th>Quelle</th><th>in Notion</th><th>erfasst</th><th>fehlt</th><th title="Meldungen derselben Quellen, die nur GitHub hat">nur bei GitHub</th></tr></thead>
+        <tbody>${t.quellen.map(q => `<tr><td>${esc(q.name)}</td><td>${q.notion || "–"}</td><td>${q.erfasst || "–"}</td><td>${q.fehlt || "–"}</td><td>${q.zusaetzlich || "–"}</td></tr>`).join("")}</tbody></table></div>
+        ${t.fehlend.length ? `<ul class="fehlt">${t.fehlend.map(f => `<li><i class="punkt ${f.grund === "unklar" ? "stoerung" : "achtung"}"></i><a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.titel)}</a><small>${esc(f.quelle)} · ${esc(GRUND_KURZ[f.grund] || f.grund)}${f.rubrikName ? " (" + esc(f.rubrikName) + ")" : ""} · in Notion seit ${esc(uhr(f.zeit))}</small></li>`).join("")}</ul>` : ""}</div></details>`).join("");
+    $("#n-inhalt").innerHTML = `<div class="raster">${wartet ? `<div class="karte hinweis breit"><p><b>Der tägliche Abgleich wartet auf den Notion-Zugang.</b></p><p class="leer">${esc(d.hinweis || "")} Bis dahin steht hier der von Hand geprüfte Stand.</p></div>` : ""}
+      <div class="karte zahl"><b>${zahl(anteil * 100)} %</b><span>von GitHub erfasst</span><i>${zahl(g.erfasst)} von ${zahl(g.notion)} Artikeln · ${g.tage} ${g.tage === 1 ? "Tag" : "Tage"} geprüft</i></div>
+      <div class="karte zahl"><b>${zahl(g.fehlt)}</b><span>${g.fehlt === 1 ? "Artikel fehlt" : "Artikel fehlen"} bei GitHub</span><i>${g.fehlt ? (unklar ? unklar + " davon unerklärt" : "alle erklärbar, siehe unten") : "nichts"}</i></div>
+      <div class="karte zahl"><b>${vors == null ? "–" : dauer(vors)}</b><span>${vors != null && vors < 0 ? "später als Notion" : "früher als Notion"}</span><i>So viel ${vors != null && vors < 0 ? "später" : "früher"} hatte GitHub die Artikel, im Mittel.</i></div>
+      <div class="karte breit"><h3>Was fehlt und warum</h3>${luecken}</div></div>
+      <div class="vgl">${tage}</div>
+      <p class="leer" style="font-size:13px;margin-top:10px">${vorbei ? "Abgeschlossen." : "Läuft bis zum 6. Dezember, danach schaltet sich der Abgleich ab."}${g.zusaetzlich ? ` Dazu fand GitHub ${zahl(g.zusaetzlich)} Meldungen derselben Quellen, die nicht in Notion stehen.` : ""} Stand: ${esc(new Date(d.stand).toLocaleString("de-DE", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))} Uhr.</p>`;
+  }
+
+  /* ---------- Leiste: zeigt, wo man gerade ist ---------- */
+  function leisteBeobachten() {
+    const links = [...document.querySelectorAll(".sprung a")], leiste = $(".leiste"), oben = new Map();
+    const ob = new IntersectionObserver(es => {
+      for (const e of es) oben.set(e.target.id, e.isIntersecting);
+      const aktiv = [...document.querySelectorAll("#innen section")].find(s => oben.get(s.id));
+      if (!aktiv) return;
+      for (const a of links) {
+        const an = a.getAttribute("href") === "#" + aktiv.id;
+        a.setAttribute("aria-current", String(an));
+        if (an && leiste.scrollWidth > leiste.clientWidth) leiste.scrollTo({ left: a.offsetLeft - leiste.clientWidth / 2 + a.clientWidth / 2, behavior: "smooth" });
+      }
+    }, { rootMargin: "-12% 0px -70% 0px" });
+    document.querySelectorAll("#innen section").forEach(s => ob.observe(s));
   }
 
   /* ---------- Abläufe ---------- */
@@ -482,10 +631,13 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
     const aktiv = (quellen || []).filter(q => q.aktiv !== false).length;
     const ql = status && (status.quellen || status.liste) || [], gestoert = Array.isArray(ql) ? ql.filter(q => q.ok === false).length : 0;
     const wann = t => t ? new Date(t).toLocaleString("de-DE", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) + " Uhr" : "unbekannt";
+    const alter = status && status.stand ? (Date.now() - Date.parse(status.stand)) / 36e5 : null;
+    kachel("ablauf", status && status.stand ? new Date(status.stand).toLocaleString("de-DE", { weekday: "short", hour: "2-digit", minute: "2-digit" }) + " Uhr" : "unbekannt",
+      "jüngste Ausgabe: " + (ausgaben && ausgaben.ausgaben[0] ? tagText(ausgaben.ausgaben[0].datum, { weekday: "short", day: "numeric", month: "short" }) : "unbekannt"), alter == null || alter > 7 ? "achtung" : "gut");
     $("#a-stand").innerHTML = `
-      <div class="karte zahl"><span>Letzter Quellenabruf</span><b style="font-size:30px;margin-top:6px">${esc(wann(status && status.stand))}</b></div>
-      <div class="karte zahl"><span>Jüngste Ausgabe</span><b style="font-size:30px;margin-top:6px">${esc(ausgaben && ausgaben.ausgaben[0] ? tagText(ausgaben.ausgaben[0].datum, { weekday: "long", day: "numeric", month: "long" }) : "unbekannt")}</b></div>
-      <div class="karte zahl"><span>Quellen</span><b style="font-size:30px;margin-top:6px">${aktiv || (Array.isArray(ql) ? ql.length : "?")} aktiv${gestoert ? ` · ${gestoert} gestört` : ""}</b><i>${schnell.length ? "stündlich: " + esc(schnell.map(s => s.name + " (" + s.u.replace(/^https?:\/\/[^/]+/, "").replace(/\/$/, "") + ")").join(", ")) : "kein Feed im stündlichen Abruf"}</i></div>`;
+      <div class="karte zahl"><span>Letzter Quellenabruf</span><b style="font-size:19px;margin-top:2px">${esc(wann(status && status.stand))}</b></div>
+      <div class="karte zahl"><span>Jüngste Ausgabe</span><b style="font-size:19px;margin-top:2px">${esc(ausgaben && ausgaben.ausgaben[0] ? tagText(ausgaben.ausgaben[0].datum, { weekday: "long", day: "numeric", month: "long" }) : "unbekannt")}</b></div>
+      <div class="karte zahl"><span>Quellen</span><b style="font-size:19px;margin-top:2px">${aktiv || (Array.isArray(ql) ? ql.length : "?")} aktiv${gestoert ? ` · ${gestoert} gestört` : ""}</b><i>${schnell.length ? "stündlich: " + esc(schnell.map(s => s.name + " (" + s.u.replace(/^https?:\/\/[^/]+/, "").replace(/\/$/, "") + ")").join(", ")) : "kein Feed im stündlichen Abruf"}</i></div>`;
     const dreier = [2, 5, 8, 11, 14, 17, 20].map(h => h + 1 + 47 / 60), stuendlich = Array.from({ length: 19 }, (_, i) => i + 5 + 17 / 60);
     const zeilen = [
       ["Quellen abrufen", `alle drei Stunden, täglich – ${aktiv || "alle"} Quellen, Neues kommt in den Pool`, "GitHub", dreier, "var(--tinte)"],
@@ -494,6 +646,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
       ["Vertonen und veröffentlichen", "nach jeder Ausgabe – Hörfassungen, Seite neu", "GitHub · Azure", [5.6], "var(--gruen)"],
       ["Qualitätssicherung", "montags – Quellen reparieren, Abruftakt und Webseite prüfen", "Claude", [6.5], "var(--gold)"],
       ["DeepSeek-Schattenlauf", "Mo–Fr direkt nach der Morgenausgabe, zehn Ausgaben lang – nur zum Vergleich", "GitHub · DeepSeek", [5.75], "var(--blau)"],
+      ...(HEUTE <= "2026-12-06" ? [["Notion-Abgleich", "täglich bis 6. Dezember – kam alles aus Notion auch bei GitHub an?", "GitHub · Notion", [12], "var(--blau)"]] : []),
       ["Zählung und Bestenliste", "durchgehend – antwortet nur, wenn jemand die Seite nutzt", "Cloudflare", null, "var(--rot)"],
     ];
     $("#a-uhr").innerHTML = `<div class="kopf"><span>0 Uhr</span><span>6</span><span>12</span><span>18</span><span>24</span></div>` + zeilen.map(([n, t, wo, punkte, f]) =>
@@ -505,8 +658,9 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#f6f1e6;border-co
     e.preventDefault(); pw = $("#pw").value; $("#tor-meldung").textContent = "";
     try {
       const s = await statistik(vorTagen(29), iso(new Date()));
-      $("#tor").hidden = true; $("#innen").hidden = false;
-      besucheZeigen(s); qmZeigen(); quellenZeigen(); verbrauchZeigen(); vergleichZeigen(); systemZeigen(); ablaufZeigen();
+      $("#tor").hidden = true; $("#innen").hidden = false; document.body.classList.remove("zu");
+      $("#kopf-stand").textContent = "Stand: " + new Date().toLocaleString("de-DE", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }) + " Uhr";
+      besucheZeigen(s); qmZeigen(); quellenZeigen(); notionZeigen(); verbrauchZeigen(); vergleichZeigen(); systemZeigen(); ablaufZeigen(); leisteBeobachten();
     } catch (err) { pw = ""; $("#tor-meldung").textContent = err.message === "Failed to fetch" ? "Der Dienst ist nicht erreichbar." : err.message; }
   });
 })();

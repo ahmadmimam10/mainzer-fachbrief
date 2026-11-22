@@ -61,6 +61,11 @@ die letzte Ausgabe.
   lang): DeepSeek Flash macht dieselbe Arbeit wie die Morgenredaktion – Auswahl mit Hörfassung, Gremien-Notizen und „Was geht?“
   mit eigener Websuche; veröffentlicht wird davon nichts. Braucht das
   Repository-Secret `DEEPSEEK_API_KEY`
+- Notion-Abgleich (Übergangszeit bis 6.12.2026): `werkzeuge/notion-abgleich.mjs` über `.github/workflows/notion-abgleich.yml`,
+  täglich 12 Uhr (Winterzeit). Prüft, ob jeder Artikel, den die alte Make.com-Automatisierung am Vortag in die Notion-Datenbank
+  „AZ“ schrieb, auch im Pool oder unter den bekannten Links steht; fehlt einer, wird der Grund bestimmt (Rubrik nicht abgerufen,
+  älter als drei Tage, Quelle fehlt, unklar). Ergebnis in `daten/notion-abgleich.json`, Anzeige in der Verwaltung. Braucht das
+  Repository-Secret `NOTION_TOKEN` (Notion-Verbindung mit Lesezugriff auf „AZ“); schaltet sich nach dem 6.12. selbst ab
 - Werkstatt: `docs/ueber.html` erzählt, wie das Boniblatt entstanden ist (JHP-Newsletter mit Make.com, Notion, DeepSeek, Outlook) und zeigt das Startbild mit Umschaltern
 - `werkzeuge/intro-einbauen.mjs` – baut das Intro („Morgen über Mainz“) in `docs/index.html`; dazu
   `intro-feste.mjs` (besondere Tage, Ferien- und Festtermine), `intro-boni.mjs` (Bonifaziustürme mit Balkon),
