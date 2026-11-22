@@ -10,7 +10,7 @@
     <div class="sp-kopf"><div><strong>Altpapier-<i>Wurf</i></strong><span>Der alte Newsletter muss weg: zielen, klicken, treffen. Vier Fehlwürfe, dann ist Feierabend.</span></div>
       <div class="sp-stand"><span class="sp-wind"></span><span class="sp-leben" aria-label="Verbleibende Fehlwürfe"></span><b class="sp-punkte" aria-label="Treffer">0</b></div></div>
     <div class="sp-feld"><canvas aria-label="Spielfeld: Boniturm mit Balkon, Windsack und Papierkorb"></canvas><div class="sp-tafel"></div></div>
-    <aside class="sp-liste"><strong>Bestenliste</strong><ol></ol><p></p></aside>`;
+    <aside class="sp-liste"><strong><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 4h9v5a4.5 4.5 0 0 1-9 0zM7.5 5.5H4.5c0 3 1.2 4.6 3.4 4.9M16.5 5.5h3c0 3-1.2 4.6-3.4 4.9M12 13.5v4M8.5 20.5h7M9.5 17.5h5"/></svg>Bestenliste</strong><ol></ol><p></p></aside>`;
   const $ = s => wurzel.querySelector(s), cv = $("canvas"), cx = cv.getContext("2d"), tafel = $(".sp-tafel");
   const elWind = $(".sp-wind"), elLeben = $(".sp-leben"), elPunkte = $(".sp-punkte"), elListe = $(".sp-liste ol"), elHinweis = $(".sp-liste p");
   const stil = getComputedStyle(wurzel), farbe = (n, ers) => (stil.getPropertyValue(n) || "").trim() || ers;
@@ -113,7 +113,7 @@
     cx.fillStyle = HAUT; cx.beginPath(); cx.arc(kx, ky, 11.5, 0, 7); cx.fill();
     // kurzer, weicher Bart über Kinn und Wangen – das breite Lächeln bleibt frei
     cx.fillStyle = HAAR; cx.beginPath(); cx.arc(kx, ky, 11.6, .05 * Math.PI, .95 * Math.PI); cx.quadraticCurveTo(kx - 8.2, ky + 2.2, kx - 4.2, ky + 3.3); cx.quadraticCurveTo(kx + 3, ky + 1.5, kx + 9.4, ky + 3); cx.closePath(); cx.fill();
-    cx.fillStyle = "#fffdf8"; cx.beginPath(); cx.moveTo(kx - 1.4, ky + 4.7); cx.quadraticCurveTo(kx + 3.4, ky + 11, kx + 8.2, ky + 4.5); cx.quadraticCurveTo(kx + 3.4, ky + 6.5, kx - 1.4, ky + 4.7); cx.fill();
+    cx.fillStyle = "#fffdf8"; cx.beginPath(); cx.moveTo(kx + .6, ky + 5.3); cx.quadraticCurveTo(kx + 3.7, ky + 8.5, kx + 6.8, ky + 5.2); cx.quadraticCurveTo(kx + 3.7, ky + 6.7, kx + .6, ky + 5.3); cx.fill();
     // Wangen, Nase, Augen mit Glanzpunkt, hochgezogene Brauen
     cx.fillStyle = "rgba(222,112,86,.32)"; cx.beginPath(); cx.arc(kx - 4.8, ky + 1.3, 2.1, 0, 7); cx.arc(kx + 9.4, ky + 1.2, 1.5, 0, 7); cx.fill();
     cx.strokeStyle = "#bd8a63"; cx.lineWidth = 1.2; cx.beginPath(); cx.moveTo(kx + 4.2, ky - .2); cx.quadraticCurveTo(kx + 5.8, ky + 2.2, kx + 3.8, ky + 2.5); cx.stroke();

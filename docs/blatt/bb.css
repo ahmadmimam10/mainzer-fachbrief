@@ -636,7 +636,8 @@ body{background:#f6f4ef}
 .sp-form{display:flex;gap:6px}.sp-form input{width:170px;padding:9px 14px;border:2px solid var(--tinte);border-radius:99px;background:#fff;color:var(--tinte);font:inherit;font-size:15px}
 .sp-meld{min-height:1.2em;font-size:13.5px}
 .sp-liste{padding:16px 18px;border-radius:20px;background:#f5f0e6;color:var(--tinte);box-shadow:inset 0 0 0 1px rgba(31,28,24,.07)}
-.sp-liste strong{font:460 24px/1 "Fraunces",serif;letter-spacing:-.03em}
+.sp-liste strong{display:flex;align-items:center;gap:8px;font:460 24px/1 "Fraunces",serif;letter-spacing:-.03em}
+.sp-liste strong svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
 .sp-liste ol{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:3px}
 .sp-liste li{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:6px;align-items:baseline;padding:5px 9px;border-radius:9px;font-size:14.5px}
 .sp-liste li span{opacity:.5;font-size:12.5px}.sp-liste li b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sp-liste li em{font:460 18px/1 "Fraunces",serif;font-style:normal}
@@ -645,10 +646,9 @@ body{background:#f6f4ef}
 .los-karte strong.eng{font-size:14.5px;letter-spacing:-.055em}   /* sehr lange Wörter (Sternschnuppenmarkt) kleiner statt mitten im Wort getrennt */
 /* Weg zum Spiel: dünne Linie von der Fußzeile hinab, zwei Zurufe, erst dann das Spiel */
 .sp-weg{display:flex;flex-direction:column;align-items:center;gap:20px;padding-top:4px;color:var(--tinte);text-align:center}
-.sp-weg i{width:1.5px;height:46vh;background:currentColor;opacity:.5;transform-origin:50% 0;scale:1 0;transition:scale 1.8s cubic-bezier(.4,0,.2,1)}
+.sp-weg i{width:1px;height:46vh;background:currentColor;opacity:.38;transform-origin:50% 0;scale:1 0;transition:scale 1.8s cubic-bezier(.4,0,.2,1)}
 .sp-weg i:first-child{height:40vh;scale:1 1}.sp-weg i.da{scale:1 1}.sp-weg i:last-child{height:30vh}
 .sp-weg span{font:320 italic 23px/1.2 "Fraunces",serif;opacity:0;translate:0 16px;transition:opacity .9s ease .15s,translate 1s cubic-bezier(.2,1,.3,1) .15s}
-.sp-weg span.gross{font:460 clamp(26px,3vw,42px)/1.1 "Fraunces",serif;letter-spacing:-.03em}
 .sp-weg span.da{opacity:1;translate:0 0}
 .sp-weg+.bb-spiel{margin-top:20px}
 /* Gremien-Kachel: ein Hauch eigene Farbe, damit sie sich von „Kurz notiert“ abhebt */
