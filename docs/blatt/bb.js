@@ -22,7 +22,7 @@
   const zeit = ZEITEN.includes(q.get("farbe")) ? q.get("farbe") : ausWetter ? ausWetter : monat >= 3 && monat <= 5 ? "fruehling" : monat >= 6 && monat <= 8 ? "sommer" : monat >= 9 && monat <= 11 ? "herbst" : "winter";
   wurzel.dataset.zeit = zeit;
 
-  const motiv = (name, kl = "") => `<span class="st ${kl}" style="-webkit-mask-image:url(bilder/motive/${name}.webp);mask-image:url(bilder/motive/${name}.webp)" aria-hidden="true"></span>`;
+  const motiv = (name, kl = "") => { const u = "bilder/motive/" + (name.includes(".") ? name : name + ".webp"); return `<span class="st ${kl}" style="-webkit-mask-image:url(${u});mask-image:url(${u})" aria-hidden="true"></span>`; };
   const tagNr = Math.floor(E.tag() / 864e5);
 
   // ---- Wetter: sieben Tage, gezeichnet und bewegt ----
@@ -50,7 +50,7 @@
   // ---- „Was geht heute ab?“ – vorerst mit Beispielen; später sucht die Redaktion echte Termine ----
   const BEISPIELE = [["marktstand", "ab 16 Uhr", "Feierabendmarkt", "Mainz, Altstadt"], ["musik", "20 Uhr", "Offene Bühne", "Mainz, Neustadt"], ["ausstellung", "bis 18 Uhr", "Neue Ausstellung eröffnet", "Wiesbaden"],
     ["wein", "ab 17 Uhr", "Weinstand am Rheinufer", "Mainz"], ["flohmarkt", "Samstag", "Flohmarkt am Fluss", "Frankfurt"], ["film", "21 Uhr", "Kurzfilmabend", "Ingelheim"]];
-  const LOS_BILD = { fussball: "fussball", sport: "laufschuh", markt: "marktstand", flohmarkt: "flohmarkt", fest: "riesenrad", musik: "musik", party: "disko", kino: "film", theater: "theater", ausstellung: "ausstellung", neu: "luftballons", familie: "spielplatz", wein: "wein", essen: "brezel", fastnacht: "narrenkappe" };
+  const LOS_BILD = { fussball: "fussball", sport: "laufschuh", markt: "marktstand", flohmarkt: "flohmarkt", fest: "riesenrad", musik: "musik", party: "disko", kino: "film", theater: "theater", ausstellung: "ausstellung", neu: "luftballons", familie: "spielplatz", wein: "wein", essen: "brezel", fastnacht: "narrenkappe", spiel: "gamepad.svg", restaurant: "besteck.svg", ausflug: "weinberg" };
   const losKachel = () => { const neu = E.daten.ausgaben[0] || {}, iso = n => new Date(mittag(heute).getTime() + n * 864e5).toLocaleDateString("sv-SE"), bis = iso(7);
     // Fußball: nur FC Barcelona, Real Madrid, Spanien und Ägypten – und je Mannschaft nur das nächste Spiel
     const MANNSCHAFTEN = [/Real Madrid/i, /Barcelona|Barça/i, /Spanien/i, /Ägypten/i], gezeigt = new Set();
@@ -58,7 +58,7 @@
       const wer = MANNSCHAFTEN.map((m, i) => m.test(x.titel) ? i : -1).filter(i => i >= 0); if (!wer.length || wer.every(i => gezeigt.has(i))) return false; wer.forEach(i => gezeigt.add(i)); return true; });
     const liste = echt.length ? echt.map(x => [LOS_BILD[x.art] || "riesenrad", x.tag, x.wann, x.titel, x.ort, x.url]) : q.has("beispiele") ? BEISPIELE.map((x, i) => [x[0], iso(i), x[1], x[2], x[3]]) : null; if (!liste) return "";
     const tagWort = d => { const z = tageBis(d); return z === 0 ? "Heute" : z === 1 ? "Morgen" : mittag(d).toLocaleDateString("de-DE", { weekday: "short" }).replace(".", "") + " " + mittag(d).getDate() + "."; };
-    return `<div class="k los" data-ein><div class="los-kopf"><h3>Was geht <i>ab?</i></h3><span class="etikett">Die nächsten 7 Tage · Fußball, Mainz &amp; Rhein-Main${echt.length ? "" : " · Beispiele"}</span></div>
+    return `<div class="k los" data-ein><div class="los-kopf"><h3>Was <i>geht?</i></h3><span class="etikett">Die nächsten 7 Tage · Fußball, Spiele, Mainz &amp; Rhein-Main${echt.length ? "" : " · Beispiele"}</span></div>
     <div class="los-reihe">${liste.map(([m, tag, wann, was, wo, url], i) => { const innen = `${motiv(m)}<b>${esc(tagWort(tag))}${wann ? " · " + esc(wann) : ""}</b><strong${/\S{16,}/.test(was) ? ' class="eng"' : ""}>${esc(was)}</strong><small>${esc(wo)}</small>`;
       return /^https?:/.test(url || "") ? `<a class="los-karte f${i % 5}" href="${esc(url)}">${innen}</a>` : `<div class="los-karte f${i % 5}">${innen}</div>`; }).join("")}</div></div>`; };
 
@@ -80,7 +80,7 @@
         <img src="bilder/ahmed-imam.jpg" alt="Ahmed Imam" width="120" height="120" loading="lazy"></a>
       <div class="f-wer"><p class="f-klein">Ein Projekt von</p><p class="f-name">Ahmed <i>Imam</i></p>
         <p class="f-links"><a href="https://www.linkedin.com/in/ahmadmimam10/" target="_blank" rel="author noopener">LinkedIn</a><a href="https://github.com/ahmadmimam10" target="_blank" rel="author noopener">GitHub-Profil</a><a href="https://github.com/ahmadmimam10/mainzer-fachbrief" target="_blank" rel="noopener">Quellcode</a><a href="mailto:ahmadmimam10@gmail.com">ahmadmimam10@gmail.com</a></p></div>
-      <div class="f-ueber"><strong>Über das <i>Boniblatt</i></strong><span>Testphase · automatisch zusammengestellt, redaktionell gewichtet</span><a class="f-mehr" href="ueber.html">So entsteht das Boniblatt <span aria-hidden="true">→</span></a><a class="f-mehr" href="kalender.html">Fundstück-Kalender 2027 <span aria-hidden="true">→</span></a></div>
+      <div class="f-ueber"><strong>Über das <i>Boniblatt</i></strong><span>Testphase · automatisch zusammengestellt, redaktionell gewichtet</span><span class="f-modell">Aufbau: Claude Fable 5.2 (high) · Redaktion: Claude Sonnet 5.5</span><a class="f-mehr" href="ueber.html">Werkstatt und Geschichte <span aria-hidden="true">→</span></a><a class="f-mehr" href="kalender.html">Fundstück-Kalender 2027 <span aria-hidden="true">→</span></a></div>
     </footer></div>`;
   const raster = wurzel.querySelector("#kacheln");
 
@@ -107,21 +107,29 @@
         return `<i class="bb-lieg ${art}" style="left:${regen ? 5 + z * .88 : j ? 54 + z % 22 : 72 + z % 22}%;top:${regen ? 8 + z * 53 % 82 : j ? 91 + z % 4 : 2 + z % 7}%;--r:${z * 7 % 360}deg;--g:${regen ? 5 + z % 6 : art === "bluete" ? 13 + z % 7 : 20 + z % 11}">${teilchen(i + j)}</i>`; }).join(""));
     });
   }
-  const unten = m => `<span class="unten"><span>${esc(E.quelle(m))}</span><span class="pfeil">→</span></span>`;
+  const TEIL_BILD = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
+  const teilen = m => `<span class="teil" role="button" tabindex="0" aria-label="Meldung teilen" title="Teilen" data-t="${esc(m.titel)}" data-u="${esc(m.url)}">${TEIL_BILD}</span>`;
+  const unten = m => `<span class="unten"><span>${esc(E.quelle(m))}</span>${teilen(m)}<span class="pfeil">→</span></span>`;
 
   function zeichne(id) {
     const b = bereich(id), t = E.teile(b.daten), nr = BEREICHE.indexOf(b), k = [];
     const text = ((E.ausgabe.hoerfassungen || {})[b.daten] || "").trim();
-    if (t.auf) k.push(`<a class="k auf" data-ein href="${esc(t.auf.url)}">${motiv(b.motive[0], "gross")}<span class="etikett">Aufmacher · ${esc(t.auf.thema)}</span><h2>${esc(t.auf.titel)}</h2><p>${esc(t.auf.kurz || "")}</p>${unten(t.auf)}</a>`);
-    k.push(`<div class="k ohr" data-ein data-zustand="aus"><div class="h-glut" aria-hidden="true"></div><span class="etikett">Anhören · ${esc(b.reiter)}</span>
+    // Leerfälle und Überfülle: Ohne Aufmacher rückt die erste wichtige Meldung nach oben. Mehr als vier wichtige wandern in „Kurz notiert“,
+    // dort klappen sich Meldungen ab der elften ein. Gibt es gar nichts Wichtiges oder gar nichts, sagt das eine ruhige Kachel an gleicher Stelle.
+    const auf = t.auf || t.wichtig[0] || null, wichtig = t.wichtig.filter(m => m !== auf), kurz = [...wichtig.splice(4), ...t.kurz];
+    if (auf) k.push(`<a class="k auf" data-ein href="${esc(auf.url)}">${motiv(b.motive[0], "gross")}<span class="etikett">Aufmacher · ${esc(auf.thema)}</span><h2>${esc(auf.titel)}</h2><p>${esc(auf.kurz || "")}</p>${unten(auf)}</a>`);
+    else k.push(`<div class="k auf leer" data-ein>${motiv(b.motive[1] || b.motive[0], "gross")}<span class="etikett">${esc(b.reiter)}</span><h2>${kurz.length ? "Heute nichts Dringendes" : "Heute nichts Neues"}</h2>
+      <p>${kurz.length ? `Für diesen Bereich gab es keine Meldung, die nach oben gehört – weiter unten ${kurz.length === 1 ? "steht eine kurze Meldung" : "stehen " + kurz.length + " kurze Meldungen"}.` : "Alle Quellen wurden abgerufen, für diesen Bereich war nichts Passendes dabei. Frühere Ausgaben findest du im Archiv."}</p>
+      <span class="unten"><button type="button" class="leer-archiv">Archiv &amp; Suche öffnen</button></span></div>`);
+    k.push(`<div class="k ohr" data-ein data-zustand="aus"><div class="h-glut" aria-hidden="true"></div><span class="h-kopf"><span class="etikett">Anhören · ${esc(b.reiter)}</span><span class="h-ki" title="Die Stimme ist künstlich erzeugt">KI-generiert</span></span>
       <div class="h-buehne"><div class="h-scheibe" aria-hidden="true"><i></i>${motiv("kopfhoerer")}</div>
         <button type="button" class="h-knopf" aria-label="Abspielen"><svg class="h-ring" viewBox="0 0 120 120" aria-hidden="true"><circle class="spur" cx="60" cy="60" r="54"/><circle class="gang" cx="60" cy="60" r="54" pathLength="100"/></svg><span class="h-symbol"></span></button>
         <div class="h-wellen" aria-hidden="true">${Array.from({ length: 26 }, (_, i) => `<i style="--w:${(.2 + .8 * Math.abs(Math.sin(i * 1.9 + nr))).toFixed(2)};--i:${i}"></i>`).join("")}</div></div>
       <p class="h-satz">${text ? "Drei Minuten für die Ohren: die Ausgabe zum Hören." : "Für diese Ausgabe gibt es noch keine Hörfassung."}</p>
-      <div class="h-leiste"><span class="h-zeit">0:00</span><span class="h-spur" role="slider" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i></i></span><span class="h-dauer">–:––</span></div></div>`);
+      <div class="h-leiste"><span class="h-zeit">0:00</span><span class="h-spur" role="slider" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i></i></span><span class="h-dauer">–:––</span><button type="button" class="h-tempo" aria-label="Wiedergabetempo ändern" title="Wiedergabetempo">1×</button></div></div>`);
     k.push(wetterKachel());
-    t.wichtig.forEach((m, i) => k.push(`<a class="k wichtig n${t.wichtig.length}${i === 1 ? " farbe" : ""}" data-ein href="${esc(m.url)}"><span class="etikett">${esc(m.thema)}</span><h2>${esc(m.titel)}</h2><p>${esc(m.kurz || "")}</p>${unten(m)}</a>`));
-    if (t.kurz.length) k.push(`<div class="k liste" data-ein>${motiv(ORTE[(tagNr + nr * 4 + 5) % ORTE.length][0], "wz")}<h3>Kurz <i>notiert</i></h3>${t.kurz.map(m => `<a href="${esc(m.url)}"><b>${esc(m.thema)}</b><span>${esc(m.titel)}</span><span>${esc(E.quelle(m))}</span></a>`).join("")}</div>`);
+    wichtig.forEach((m, i) => k.push(`<a class="k wichtig n${wichtig.length === 4 ? 2 : wichtig.length}${i === 1 ? " farbe" : ""}" data-ein href="${esc(m.url)}"><span class="etikett">${esc(m.thema)}</span><h2>${esc(m.titel)}</h2><p>${esc(m.kurz || "")}</p>${unten(m)}</a>`));
+    if (kurz.length) k.push(`<div class="k liste" data-ein>${motiv(ORTE[(tagNr + nr * 4 + 5) % ORTE.length][0], "wz")}<h3>Kurz <i>notiert</i></h3>${kurz.map((m, i) => `<a href="${esc(m.url)}"${i >= 10 ? ' class="spaeter"' : ""}><b>${esc(m.thema)}</b><span>${esc(m.titel)}</span><span class="qu">${esc(E.quelle(m))}</span>${teilen(m)}</a>`).join("")}${kurz.length > 10 ? `<button type="button" class="liste-mehr">Alle ${kurz.length} Meldungen zeigen</button>` : ""}</div>`);
     const gk = gremienKachel(b); if (gk) k.push(gk);
     const lk = losKachel(); if (lk) k.push(lk);
     raster.innerHTML = k.join("");
@@ -136,35 +144,45 @@
   const KERN_G = /^(Jugendhilfeausschuss|Sozialausschuss|Stadtrat)$/i, mittag = d => new Date(d + "T12:00:00"), tageBis = d => Math.round((mittag(d) - mittag(heute)) / 864e5);
   function gremienKachel(b) {
     const alle = (gremien && gremien.sitzungen) || [], roh = (gNotizen && gNotizen.notizen) || {};
-    const notiz = Object.entries(roh).map(([id, n]) => ({ id, ...n, zeit: (alle.find(s => s.id === id) || {}).zeit, text: (n.ressorts || {})[b.daten] })).filter(n => n.text && n.datum);
+    const notiz = Object.entries(roh).map(([id, n]) => ({ id, ...n, zeit: (alle.find(s => s.id === id) || {}).zeit, text: (n.ressorts || {})[b.daten], erg: (n.ergebnis || {})[b.daten] })).filter(n => n.text && n.datum);
     if (!alle.length && !notiz.length) return "";
-    const kommt = notiz.filter(n => n.datum >= heute && tageBis(n.datum) <= 7).sort((x, y) => x.datum.localeCompare(y.datum));
+    // Rang: Jugendhilfeausschuss, Sozialausschuss und Stadtrat zuerst, danach nach Datum – alles wird gezeigt, ohne Obergrenze
+    const rang = n => KERN_G.test(n.gremium || "") ? 0 : 1;
+    const kommt = notiz.filter(n => n.datum >= heute && tageBis(n.datum) <= 7).sort((x, y) => rang(x) - rang(y) || x.datum.localeCompare(y.datum));
     // „war“: die letzten 7 Tage, Jugendhilfeausschuss, Sozialausschuss und Stadtrat bis 14 Tage zurück
-    const war = notiz.filter(n => n.datum < heute && tageBis(n.datum) >= (KERN_G.test(n.gremium || "") ? -14 : -7)).sort((x, y) => y.datum.localeCompare(x.datum));
+    const war = notiz.filter(n => n.datum < heute && tageBis(n.datum) >= (KERN_G.test(n.gremium || "") ? -14 : -7)).sort((x, y) => rang(x) - rang(y) || y.datum.localeCompare(x.datum));
     const naechste = alle.filter(s => s.datum >= heute && s.status !== "vergangen" && KERN_G.test(s.gremium || "") && !kommt.some(n => n.id === s.id)).sort((x, y) => (x.datum + (x.zeit || "")).localeCompare(y.datum + (y.zeit || "")))[0];
     const wann = d => { const z = tageBis(d); return z === 0 ? "heute" : z === 1 ? "morgen" : z > 0 ? `in ${z} Tagen` : z === -1 ? "gestern" : `vor ${-z} Tagen`; };
     const eintrag = (n, kl) => { const d = mittag(n.datum); return `<a class="g-eintrag${kl ? " " + kl : ""}" href="${esc(n.url)}" target="_blank" rel="noopener"><span class="g-text"><em>${esc(d.toLocaleDateString("de-DE", { weekday: "long", day: "numeric", month: "long" }))} · ${wann(n.datum)}${n.zeit && n.datum >= heute ? " · " + esc(n.zeit) + " Uhr" : ""}</em><strong>${esc(n.gremium)}</strong><span>${esc(n.text)}</span></span><span class="g-pfeil" aria-hidden="true">↗</span></a>`; };
-    const STEMPEL = [[/abgelehnt/i, "abgelehnt", "nein"], [/zurückgestellt|vertagt|verschoben/i, "zurückgestellt", "halt"], [/einstimmig/i, "einstimmig", "ja"], [/mehrheitlich/i, "mehrheitlich", "ja"], [/beschlossen|zugestimmt|angenommen/i, "beschlossen", "ja"], [/zur Kenntnis/i, "zur Kenntnis", "info"]];
-    // Ein Stempel gilt nur, wenn das Wort nicht verneint ist („nicht beschlossen“, „kein Beschluss“): geprüft wird der Satzteil vor dem Treffer
-    const bejaht = (s, r) => { const m = r.exec(s); if (!m) return false; const davor = s.slice(0, m.index).split(/[;,.:–]/).pop(); return !/(^|[^a-zäöüß])(nicht|kein|keine|keinen|keiner|keinem|weder)([^a-zäöüß]|$)/i.test(davor); };
-    const stempel = s => { const l = STEMPEL.filter(x => bejaht(s, x[0])).slice(0, 2); return l.length ? `<span class="g-stempelzeile">${l.map(x => `<i class="g-stempel ${x[2]}">${x[1]}</i>`).join("")}</span>` : ""; };
-    const zeile = (n, j, kl) => eintrag(n, kl).replace('class="g-eintrag', `style="--j:${j}" class="g-eintrag`).replace("</span><span class=\"g-pfeil\"", (n.datum < heute ? stempel(n.text) : "") + "</span><span class=\"g-pfeil\"");
-    const leer = s => `<p class="g-leer">${s}</p>`, mehr = l => l.length > 4 ? leer(`und ${l.length - 4} weitere im Ratsinfo`) : "";
+    // Ergebnis einer Sitzung: Steht es ausdrücklich in der Notiz (Feld „ergebnis“ je Bereich), gilt das. Sonst wird es vorsichtig aus dem Wortlaut gelesen:
+    // satzweise, nie bei Verneinung („nicht beschlossen“, „kein Beschluss“) und nie, wenn der Satz nur etwas ankündigt („soll“, „geplant“, „Tagesordnung“).
+    const MARKEN = { beschlossen: "ja", einstimmig: "ja", mehrheitlich: "ja", abgelehnt: "nein", vertagt: "halt", "zurückgestellt": "halt", "zur Kenntnis": "info" };
+    const STEMPEL = [[/abgelehnt/i, "abgelehnt"], [/zurückgestellt/i, "zurückgestellt"], [/vertagt|verschoben/i, "vertagt"], [/einstimmig/i, "einstimmig"], [/mehrheitlich/i, "mehrheitlich"], [/beschlossen|zugestimmt|angenommen/i, "beschlossen"], [/zur Kenntnis/i, "zur Kenntnis"]];
+    const NEIN = /(^|[^a-zäöüß])(nicht|kein|keine|keinen|keiner|keinem|weder|noch nicht)([^a-zäöüß]|$)/i, OFFEN = /(^|[^a-zäöüß])(soll|sollen|sollte|geplant|vorgesehen|voraussichtlich|Tagesordnung|beantragt|Entwurf)([^a-zäöüß]|$)/i;
+    const lesen = s => { const gefunden = []; for (const satz of String(s).split(/[.;!?]+/)) for (const [r, wort] of STEMPEL) { const m = r.exec(satz); if (!m || gefunden.includes(wort) || OFFEN.test(satz)) continue;
+        if (!NEIN.test(satz.slice(0, m.index).split(/[,:–]/).pop())) gefunden.push(wort); } return gefunden; };
+    const stempel = n => { const l = (Array.isArray(n.erg) ? n.erg.filter(x => MARKEN[x]) : lesen(n.text)).filter((x, i, alle) => !(x === "beschlossen" && alle.some(y => y === "einstimmig" || y === "mehrheitlich"))).slice(0, 2);
+      return l.length ? `<span class="g-stempelzeile">${l.map(x => `<i class="g-stempel ${MARKEN[x]}">${x}</i>`).join("")}</span>` : ""; };
+    const zeile = (n, j, kl) => eintrag(n, kl).replace('class="g-eintrag', `style="--j:${j}" class="g-eintrag`).replace("</span><span class=\"g-pfeil\"", (n.datum < heute ? stempel(n) : "") + "</span><span class=\"g-pfeil\"");
+    const leer = s => `<p class="g-leer">${s}</p>`;
+    const links = kommt.length ? kommt.map((n, j) => zeile(n, j)).join("") : leer("In den nächsten 7 Tagen steht kein Thema für den Bereich an.") + (naechste ? zeile({ ...naechste, text: roh[naechste.id] ? "Bisher kein Thema für den Bereich vermerkt." : "Die Tagesordnung ist noch nicht ausgewertet." }, 1, "blass") : "");
+    const rechts = war.length ? war.map((n, j) => zeile(n, j + 1)).join("") : leer("In der letzten Woche gab es kein Thema für den Bereich.");
+    // Sind die beiden Seiten sehr ungleich lang, stehen sie untereinander und die längere läuft zweispaltig – so bleibt keine halbe Kachel leer
+    const nl = Math.max(1, kommt.length), nr = Math.max(1, war.length), stapel = Math.max(nl, nr) >= 3 && Math.abs(nl - nr) >= 2;
     return `<div class="k rat" data-ein><div class="rat-kopf"><span class="rat-zeichen"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 5 4 16.5V20h40v-3.5L24 5Z"/><path d="M8 23h5.5v13H8zM17 23h5.5v13H17zM25.5 23H31v13h-5.5zM34.5 23H40v13h-5.5z"/><path d="M5 38.5h38V43H5z"/></svg></span><div><h3>Mainzer <i>Gremien</i></h3><p>Aus dem Ratsinformationssystem der Stadt · ${esc(b.reiter)}</p></div><a class="rat-info" href="https://bi.mainz.de/si0046.php" target="_blank" rel="noopener">Ratsinfo öffnen ↗</a></div>
-      <div class="rat-spalten"><section class="rat-kommt"><h4>Das <i>kommt</i><small>nächste 7 Tage</small></h4>
-        ${kommt.length ? kommt.slice(0, 4).map((n, j) => zeile(n, j)).join("") + mehr(kommt) : leer("In den nächsten 7 Tagen steht kein Thema für den Bereich an.")}
-        ${!kommt.length && naechste ? zeile({ ...naechste, text: roh[naechste.id] ? "Bisher kein Thema für den Bereich vermerkt." : "Die Tagesordnung ist noch nicht ausgewertet." }, 1, "blass") : ""}</section>
-      <section class="rat-war"><h4>Das <i>war</i><small>letzte Woche</small></h4>
-        ${war.length ? war.slice(0, 4).map((n, j) => zeile(n, j + 1)).join("") + mehr(war) : leer("In der letzten Woche gab es kein Thema für den Bereich.")}</section></div></div>`;
+      <div class="rat-spalten${stapel ? " gestapelt" : ""}"><section class="rat-kommt${stapel && nl > nr ? " lang" : ""}"><h4>Das <i>kommt</i><small>nächste 7 Tage</small></h4><div class="rat-liste">${links}</div></section>
+      <section class="rat-war${stapel && nr > nl ? " lang" : ""}"><h4>Das <i>war</i><small>letzte Woche</small></h4><div class="rat-liste">${rechts}</div></section></div></div>`;
   }
 
   const AUDIO_BASIS = /^(localhost|127\.)/.test(location.hostname) ? "https://boniblatt-mainz.de/" : "";
-  let hoerIndex = null, audio = null, hoerCtx = null;
+  let hoerIndex = null, audio = null, hoerCtx = null, tempo = 1;
   const hoerDaten = fetch(AUDIO_BASIS + "daten/audio.json").then(r => r.json()).then(d => { hoerIndex = d.ausgaben || {}; }).catch(() => { hoerIndex = {}; });
   const uhr = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
   function hoerenBinden(b, text) {
     if (audio) { audio.pause(); audio = null; }
     const k = raster.querySelector(".ohr"), knopf = k.querySelector(".h-knopf"), gang = k.querySelector(".gang"), spur = k.querySelector(".h-spur"), satz = k.querySelector(".h-satz");
+    const tKnopf = k.querySelector(".h-tempo"), tZeig = () => { tKnopf.textContent = String(tempo).replace(".", ",") + "×"; tKnopf.classList.toggle("an", tempo !== 1); if (audio) audio.defaultPlaybackRate = audio.playbackRate = tempo; };
+    tZeig(); tKnopf.addEventListener("click", () => { tempo = tempo === 1 ? 1.25 : tempo === 1.25 ? 1.5 : 1; tZeig(); });
     // Sätze mit ihrem Anteil am Text: daraus wird geschätzt, welcher gerade gesprochen wird
     const saetze = text.split(/(?<=[.!?…])\s+/).filter(Boolean); let summe = 0; const grenzen = saetze.map(s => (summe += s.length + 1)); let gezeigt = -1;
     const stand = () => { if (!audio || !audio.duration) return; const p = audio.currentTime / audio.duration;
@@ -189,8 +207,8 @@
     hoerDaten.then(() => {
       const info = (hoerIndex[E.ausgabe.datum] || {})[b.daten]; if (!info || !k.isConnected) { k.dataset.zustand = "fehlt"; return; }
       k.querySelector(".h-dauer").textContent = uhr(info.sekunden);
-      const starten = () => { if (!audio) { audio = new Audio(); audio.crossOrigin = "anonymous"; audio.src = AUDIO_BASIS + info.datei; k.dataset.zustand = "laedt";
-          audio.addEventListener("timeupdate", stand); audio.addEventListener("playing", () => { k.dataset.zustand = "spielt"; knopf.setAttribute("aria-label", "Pause"); if (!versucht) { versucht = true; messen(); } if (!bild) bild = requestAnimationFrame(lauf); });
+      const starten = () => { if (!audio) { audio = new Audio(); audio.crossOrigin = "anonymous"; audio.src = AUDIO_BASIS + info.datei; audio.defaultPlaybackRate = audio.playbackRate = tempo; k.dataset.zustand = "laedt";
+          audio.addEventListener("timeupdate", stand); audio.addEventListener("playing", () => { audio.playbackRate = tempo; k.dataset.zustand = "spielt"; knopf.setAttribute("aria-label", "Pause"); if (!versucht) { versucht = true; messen(); } if (!bild) bild = requestAnimationFrame(lauf); });
           audio.addEventListener("error", () => { k.dataset.zustand = "aus"; satz.textContent = "Die Hörfassung lädt gerade nicht."; });
           audio.addEventListener("pause", () => { if (k.dataset.zustand !== "aus") k.dataset.zustand = "pause"; knopf.setAttribute("aria-label", "Weiter"); });
           audio.addEventListener("ended", () => { k.dataset.zustand = "aus"; gang.style.strokeDashoffset = 100; spur.firstElementChild.style.width = "0"; gezeigt = -1; satz.textContent = "Das war’s für heute. Bis morgen."; knopf.setAttribute("aria-label", "Abspielen"); }); }
@@ -274,13 +292,27 @@
   wurzel.querySelector(".bb-ausgaben").addEventListener("click", e => { const x = e.target.closest(".au-pfeil"); if (x) { if (x.dataset.d) ausgabeWechseln(x.dataset.d); return; } if (e.target.closest("button.au-archiv")) archivOeffnen(); });
   addEventListener("pageshow", e => { if (e.persisted) document.querySelectorAll("dialog[open]").forEach(d => d.close()); });   // zurück aus dem Browser-Verlauf: kein Fenster offen lassen
   ausgabenZeigen();
+  // Teilen: ein kleines Menü am Knopf – Link kopieren, per Mail weiterleiten, und wo es das gibt, das Teilen-Fenster des Geräts
+  const tm = document.createElement("div"); tm.className = "teil-menue"; tm.hidden = true; tm.setAttribute("role", "menu"); wurzel.appendChild(tm); let tmVon = null;
+  const tmZu = () => { tm.hidden = true; tmVon = null; };
+  const tmAuf = el => { if (tmVon === el) return tmZu(); tmVon = el; const titel = el.dataset.t, url = el.dataset.u, mail = "mailto:?subject=" + encodeURIComponent(titel) + "&body=" + encodeURIComponent(titel + "\n" + url + "\n\nGefunden im Mainzer Boniblatt – https://boniblatt-mainz.de/");
+    tm.innerHTML = `<button type="button" data-a="kopie" role="menuitem">Link kopieren</button><a href="${esc(mail)}" role="menuitem">Per Mail weiterleiten</a>${navigator.share ? '<button type="button" data-a="mehr" role="menuitem">Weitere Wege …</button>' : ""}`;
+    tm.hidden = false; const r = el.getBoundingClientRect(), b = tm.offsetWidth, h = tm.offsetHeight; tm.style.left = Math.max(8, Math.min(innerWidth - b - 8, r.right - b)) + "px"; tm.style.top = (r.top - h - 8 < 8 ? r.bottom + 8 : r.top - h - 8) + "px"; };
+  tm.addEventListener("click", async e => { const x = e.target.closest("[data-a]"); if (!x || !tmVon) { if (e.target.closest("a")) tmZu(); return; } const titel = tmVon.dataset.t, url = tmVon.dataset.u;
+    if (x.dataset.a === "kopie") { try { await navigator.clipboard.writeText(url); x.textContent = "Kopiert ✓"; } catch (f) { x.textContent = "Kopieren ging nicht"; } setTimeout(tmZu, 900); }
+    else { tmZu(); navigator.share({ title: titel, text: titel, url }).catch(() => {}); } });
+  wurzel.addEventListener("click", e => { const x = e.target.closest(".teil"); if (x) { e.preventDefault(); e.stopPropagation(); return tmAuf(x); } if (!e.target.closest(".teil-menue")) tmZu();
+    if (e.target.closest(".leer-archiv")) return archivOeffnen();
+    const m = e.target.closest(".liste-mehr"); if (m) { m.closest(".liste").classList.add("offen"); m.remove(); } });
+  wurzel.addEventListener("keydown", e => { const x = e.target.closest && e.target.closest(".teil"); if (x && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); tmAuf(x); } if (e.key === "Escape") tmZu(); });
+  addEventListener("scroll", () => { if (!tm.hidden) tmZu(); }, { passive: true });
   // Altpapier-Wurf unter der Fußleiste – nur am PC; das Skript lädt erst, wenn der Fuß in Sicht kommt
   if (matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches) { const sp = document.createElement("section"); sp.id = "spiel"; sp.className = "bb-spiel"; sp.setAttribute("aria-label", "Spiel: Altpapier-Wurf");
     // Das Spiel liegt versteckt weiter unten: Von der Fußzeile führt eine dünne Linie hinab, unterwegs meldet sich jemand.
     const weg = document.createElement("div"); weg.className = "sp-weg"; weg.setAttribute("aria-hidden", "true"); weg.innerHTML = '<i></i><span>pst …</span><i></i><span>Hey, ist dir ein bisschen langweilig?</span><i></i>';
     wurzel.querySelector(".bb-fuss").after(weg, sp);
-    const zeig = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("da"); zeig.unobserve(e.target); } }), { rootMargin: "0px 0px -16% 0px" }); [...weg.children].forEach(x => zeig.observe(x));
-    new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=18"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
+    const zeig = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("da"); zeig.unobserve(e.target); } }), { rootMargin: "0px 0px -3% 0px" }); [...weg.children].forEach(x => zeig.observe(x));
+    new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=19"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });
   const h = location.hash.slice(1);
   wechsel(BEREICHE.some(b => b.id === h) ? h : BEREICHE[0].id);
