@@ -1,0 +1,17 @@
+{
+ "laeufe": [
+  {
+   "datum": "2026-11-23",
+   "art": "ausgabe",
+   "erfasst": "2026-11-23T04:10:06.047Z",
+   "modell": "claude-sonnet-5-5",
+   "anfragen": 12,
+   "eingabe": 22,
+   "cache_schreiben": 94131,
+   "cache_lesen": 961130,
+   "ausgabe": 10060,
+   "minuten": 1.5
+  }
+ ],
+ "info": "Tokenverbrauch der Claude-Läufe, geschrieben von werkzeuge/verbrauch.mjs. eingabe = neu gelesene Tokens, cache_schreiben/cache_lesen = Zwischenspeicher, ausgabe = geschriebene Tokens."
+}
