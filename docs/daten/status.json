@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-23T06:50:34.333Z",
+ "stand": "2026-11-23T09:57:58.364Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -37,9 +37,9 @@
    "kurz": "Merkurist",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 5,
+   "treffer": 6,
    "zustand": "ok",
-   "hinweis": "unauffällig – 5 Treffer"
+   "hinweis": "unauffällig – 6 Treffer"
   },
   {
    "id": "sensor",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 48,
+   "treffer": 50,
    "zustand": "ok",
-   "hinweis": "unauffällig – 42 Treffer, 1 neuer Kandidat verworfen (Link auf fremden Host (www.sportschau.de))"
+   "hinweis": "unauffällig – 44 Treffer, 1 neuer Kandidat verworfen (Link auf fremden Host (www.sportschau.de))"
   },
   {
    "id": "landtag",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": true,
-   "treffer": 30,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
@@ -407,9 +407,9 @@
    "kurz": "Bildungsserver",
    "ebene": "fach",
    "ok": true,
-   "treffer": 13,
+   "treffer": 14,
    "zustand": "ok",
-   "hinweis": "unauffällig – 13 Treffer"
+   "hinweis": "unauffällig – 14 Treffer, 1 neuer Kandidat verworfen (Zeitüberschreitung (10 s))"
   },
   {
    "id": "sozial-de",
