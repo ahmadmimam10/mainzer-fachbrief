@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-23T12:45:45.766Z",
+ "stand": "2026-11-23T15:45:08.843Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -79,7 +79,7 @@
    "ok": true,
    "treffer": 51,
    "zustand": "ok",
-   "hinweis": "unauffällig – 45 Treffer, 1 neuer Kandidat verworfen (Link auf fremden Host (www.sportschau.de))"
+   "hinweis": "unauffällig – 46 Treffer"
   },
   {
    "id": "landtag",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (2. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "ok": true,
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "spiegel",
@@ -357,9 +357,9 @@
    "kurz": "Deutscher Verein",
    "ebene": "fach",
    "ok": true,
-   "treffer": 12,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.deutscher-verein.de: Zeitüberschreitung; nur 12 brauchbare Treffer statt üblicherweise 52"
+   "treffer": 52,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 52 Treffer"
   },
   {
    "id": "dbjr",
