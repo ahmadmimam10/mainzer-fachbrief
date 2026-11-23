@@ -6,7 +6,8 @@
  *   - die Häkchen aus dem Vergleich Claude ↔ DeepSeek (Verwaltung, „Was gehört in die Zeitung?“) – je Ausgabe,
  *   - die Leserstimmen „relevant ja/nein“ von der Startseite – je Monat und Meldung zwei Zahlen.
  *
- *   node werkzeuge/stimmen.mjs holen                 holt beides ins Repository: daten/abgleich-stimmen.json, daten/leser-daumen.json
+ *   node werkzeuge/stimmen.mjs holen                 holt beides ins Repository: daten/abgleich-stimmen.json, daten/leser-daumen.json,
+ *                                                    dazu deine Antworten auf Vorschläge des Qualitätsmanagers: daten/qm-antworten.json
  *   node werkzeuge/stimmen.mjs abgleich [--runde=N]  wertet den Abgleich aus (je Runde, siehe ABGLEICH.md); mit --json maschinenlesbar
  *   node werkzeuge/stimmen.mjs leser [--monat=JJJJ-MM]  Leserstimmen eines Monats mit Titeln (für die Monatsauswertung, QUALITAET.md)
  *
@@ -54,6 +55,12 @@ async function holen() {
     await writeJson("daten/leser-daumen.json", { info: "Leserstimmen „relevant ja/nein“ von der Startseite: je Monat und Meldung die Zahl der Daumen hoch und runter (anonym). Geholt von werkzeuge/stimmen.mjs; Auswertung: node werkzeuge/stimmen.mjs leser", stand: d.stand, monate });
     console.log(`daten/leser-daumen.json: ${Object.values(monate).reduce((n, l) => n + l.length, 0)} Meldungen mit Stimmen.`);
   } else console.log("Leserstimmen unverändert.");
+  const antworten = Object.fromEntries(Object.entries(d.antworten || {}).sort(([a], [b]) => a.localeCompare(b)));
+  const alt3 = await readJson("daten/qm-antworten.json", {});
+  if (JSON.stringify(alt3.antworten || {}) !== JSON.stringify(antworten)) {
+    await writeJson("daten/qm-antworten.json", { info: "Antworten aus der Verwaltung auf die Vorschläge des Qualitätsmanagers (daten/leser-vorschlag.json): je Vorschlag ja / nein / hinweis und ein freier Kommentar. Der Qualitätsmanager liest sie im nächsten Monatslauf (QUALITAET.md, Schritt 10a). Geholt von werkzeuge/stimmen.mjs.", stand: d.stand, antworten });
+    console.log(`daten/qm-antworten.json: ${Object.keys(antworten).length} Antworten.`);
+  } else console.log("Antworten unverändert.");
 }
 
 /* ---------- abgleich ---------- */

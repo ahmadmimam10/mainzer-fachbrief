@@ -65,7 +65,10 @@ die letzte Ausgabe.
   einmaliger Cloud-Lauf, der die Prompts anpasst; Ablauf, Rundenberichte und Abschlussbericht in `ABGLEICH.md`.
 - Stimmen: `werkzeuge/stimmen.mjs` über `.github/workflows/stimmen.yml` (nachts und mittags) holt die Häkchen aus dem Vergleich
   und die Leserstimmen „relevant ja/nein“ der Startseite vom Cloudflare-Dienst nach `daten/abgleich-stimmen.json` und
-  `daten/leser-daumen.json`. Die Leserstimmen wertet der Qualitätsmanager monatlich aus (ab Januar 2027, `QUALITAET.md`).
+  `daten/leser-daumen.json`, dazu die Antworten auf Vorschläge des Qualitätsmanagers (`daten/qm-antworten.json`).
+  Die Leserstimmen wertet der Qualitätsmanager monatlich aus (ab Januar 2027, `QUALITAET.md` Schritt 10a): Er schlägt in der
+  Verwaltung („Leserstimmen“) Änderungen vor (`daten/leser-vorschlag.json`) und setzt im Folgemonat nur um, was dort mit „Ja“
+  oder per Kommentar freigegeben wurde.
 - Notion-Abgleich (Übergangszeit bis 6.12.2026): `werkzeuge/notion-abgleich.mjs` über `.github/workflows/notion-abgleich.yml`,
   täglich gegen 5 Uhr (Winterzeit). Prüft, ob jeder Artikel, den die alte Make.com-Automatisierung in den 24 Stunden bis zum
   nächtlichen vollen Abruf (Zeit aus `daten/laufprotokoll.json`, meist gegen 4:35 Uhr) in die Notion-Datenbank „AZ“ schrieb,

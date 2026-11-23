@@ -1,0 +1,4 @@
+{
+  "info": "Monatsvorschläge des Qualitätsmanagers aus den Leserstimmen „relevant ja/nein“ (QUALITAET.md, Schritt 10a). Neueste zuerst. Er schlägt nur vor; geändert wird erst nach deiner Antwort in der Verwaltung (daten/qm-antworten.json). status: offen / umgesetzt / teilweise / abgelehnt / verfallen. Prüfen: node werkzeuge/qm-notiz.mjs pruefen",
+  "vorschlaege": []
+}

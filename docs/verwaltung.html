@@ -176,6 +176,17 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 .notiz dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 14px;margin:0;font-size:14px}
 .notiz dt{color:var(--leise)}.notiz dd{margin:0}
 .notiz.aus{opacity:.55}
+.stimmen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 28px;margin-top:8px}
+.stimmen h4{margin:0;font-size:13px;font-weight:600;color:var(--leise)}
+.stimmen ol{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:7px;font-size:14px;line-height:1.35}
+.stimmen li{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:10px;align-items:baseline}
+.stimmen li b{font-weight:600;font-variant-numeric:tabular-nums;color:var(--leise);font-size:13px;white-space:nowrap}
+.vorschlag .aend{display:grid;gap:5px;padding:12px 14px;border-radius:10px;background:rgba(0,0,0,.025);box-shadow:inset 0 0 0 1px var(--linie);font-size:14px}
+.vorschlag .aend p{margin:0}.vorschlag .aend .alt{color:var(--leise);text-decoration:line-through;text-decoration-color:rgba(0,0,0,.25)}
+.vorschlag .entscheid{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.vorschlag textarea{width:100%;min-height:86px;margin-top:8px;padding:10px 12px;border-radius:10px;border:1px solid var(--linie2);background:var(--karte);font:inherit;font-size:14.5px;line-height:1.45;resize:vertical;box-sizing:border-box}
+.vorschlag .stand{font-size:13px;color:var(--leise)}.vorschlag .stand.ok{color:var(--gruen)}
+.vorschlag .klein{margin:0;font-size:12.5px;color:var(--zart)}
 .notiz .fuss{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--leise);margin:4px 0 0}
 .haken{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:5px;font-size:14px}.haken li{padding-left:22px;position:relative}.haken li::before{content:"✓";position:absolute;left:0;color:var(--gruen);font-weight:700}
 
@@ -227,6 +238,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     <a href="#ueberblick">Überblick</a>
     <a href="#besuche">Besuche</a>
     <a href="#qm">Qualitätsmanager<i class="punkt" data-punkt="qm"></i></a>
+    <a href="#leser">Leserstimmen<i class="punkt" data-punkt="leser"></i></a>
     <a href="#quellen">Quellen<i class="punkt" data-punkt="quellen"></i></a>
     <a href="#notion">Notion-Abgleich<i class="punkt" data-punkt="notion"></i></a>
     <a href="#vergleich">DeepSeek</a>
@@ -250,6 +262,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
   <div class="ueber">
     <a class="kachel" href="#besuche" data-k="besuche"><span><i class="punkt"></i>Besuche</span><b>…</b><small>&nbsp;</small></a>
     <a class="kachel" href="#qm" data-k="qm"><span><i class="punkt"></i>Qualitätsmanager</span><b>…</b><small>&nbsp;</small></a>
+    <a class="kachel" href="#leser" data-k="leser"><span><i class="punkt"></i>Leserstimmen</span><b>…</b><small>&nbsp;</small></a>
     <a class="kachel" href="#quellen" data-k="quellen"><span><i class="punkt"></i>Quellen</span><b>…</b><small>&nbsp;</small></a>
     <a class="kachel" href="#notion" data-k="notion"><span><i class="punkt"></i>Notion-Abgleich</span><b>…</b><small>&nbsp;</small></a>
     <a class="kachel" href="#vergleich" data-k="vergleich"><span><i class="punkt"></i>DeepSeek-Vergleich</span><b>…</b><small>&nbsp;</small></a>
@@ -272,6 +285,12 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
   <h2>Qualitätsmanager</h2>
   <p class="unter">Prüft jeden Montag die Quellen, repariert selbst, was sicher geht, und legt Größeres hier als Notiz ab. Ob daraus etwas wird, entscheidest du.</p>
   <div id="q-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
+</section>
+
+<section id="leser">
+  <h2>Leserstimmen</h2>
+  <p class="unter">Auf der Startseite kann jede und jeder eine Meldung als „relevant“ oder „nicht relevant“ markieren. Einmal im Monat wertet der Qualitätsmanager das aus und schlägt hier vor, was er an der Auswahl ändern würde. Geändert wird nur, was du freigibst.</p>
+  <div id="l-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
 </section>
 
 <section id="quellen">
@@ -497,6 +516,60 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     const k = e.target.closest("[data-merk]"); if (k) { k.disabled = true; await merk(k.dataset.merk, Boolean(k.dataset.aus)).catch(() => {}); return qmMalen(); }
     if (e.target.closest("#q-alle")) { alleNotizen = !alleNotizen; qmMalen(); }
   });
+  /* ---------- Leserstimmen und Monatsvorschlag des Qualitätsmanagers ---------- */
+  let ANTWORTEN = {}, LESER = null;
+  const mitPw = () => ({ headers: { Authorization: "Bearer " + encodeURIComponent(pw) }, cache: "no-store" });
+  const STATUS_V = { offen: "wartet auf deine Antwort", umgesetzt: "umgesetzt", teilweise: "teilweise umgesetzt", abgelehnt: "nicht umgesetzt", verfallen: "ohne Antwort verfallen" };
+  const monatText = m => new Date(m + "-15T12:00:00").toLocaleDateString("de-DE", { month: "long", year: "numeric" });
+  function leserMalen() {
+    const { vor, daumen, titel } = LESER, monate = (daumen && daumen.monate) || {}, jetzt = HEUTE.slice(0, 7);
+    const monat = (monate[jetzt] || []).length ? jetzt : Object.keys(monate).sort().pop() || jetzt, l = monate[monat] || [];
+    const hoch = l.reduce((n, x) => n + x.hoch, 0), runter = l.reduce((n, x) => n + x.runter, 0);
+    const zeile = x => `<li><b>${x.hoch}↑ ${x.runter}↓</b><span>${esc(titel.get(x.id) || "Meldung " + x.id)}</span></li>`;
+    const schlecht = l.filter(x => x.runter > x.hoch).sort((a, b) => (b.runter - b.hoch) - (a.runter - a.hoch)).slice(0, 6), gut = l.filter(x => x.hoch > x.runter).sort((a, b) => (b.hoch - b.runter) - (a.hoch - a.runter)).slice(0, 6);
+    const stimmenKarte = `<div class="karte breit"><h3>${esc(monatText(monat))}</h3>${l.length ? `<p style="margin:0;font-size:15px">${hoch + runter} Stimmen zu ${l.length} Meldungen · ${hoch}× relevant · ${runter}× nicht relevant</p>
+      <div class="stimmen"><div><h4>Eher nicht relevant</h4><ol>${schlecht.map(zeile).join("") || '<li><b></b><span class="leer">–</span></li>'}</ol></div><div><h4>Besonders relevant</h4><ol>${gut.map(zeile).join("") || '<li><b></b><span class="leer">–</span></li>'}</ol></div></div>`
+      : `<p class="leer">Noch keine Stimmen in diesem Monat.</p>`}</div>`;
+    const alle = (vor && vor.vorschlaege) || [], v = alle[0], a = v && ANTWORTEN[v.id];
+    let vorschlag;
+    if (!v) vorschlag = `<div class="karte breit"><h3>Vorschlag des Qualitätsmanagers</h3><p class="leer">Noch kein Vorschlag. Ab Januar 2027 wertet er jeden Monat die Stimmen des Vormonats aus und schlägt hier vor, was er an der Auswahl ändern würde. Du sagst Ja oder Nein und kannst einen Kommentar schreiben; im nächsten Monat setzt er um, was du freigegeben hast.</p></div>`;
+    else {
+      const aend = (v.aenderungen || []).map((x, i) => `<div class="aend"><p><b>${i + 1}. ${esc(x.abschnitt)}</b></p>${x.vorher ? `<p class="alt">${esc(x.vorher)}</p>` : ""}<p>${esc(x.nachher)}</p><p class="klein">Warum: ${esc(x.warum)}</p></div>`).join("");
+      const form = v.status !== "offen" ? `<p style="margin:0;font-size:14.5px"><b>Umsetzung:</b> ${esc(v.umsetzung || "–")}</p>` : `<form class="antwort" data-id="${esc(v.id)}">
+        ${(v.aenderungen || []).length ? `<div class="entscheid" role="group" aria-label="Deine Entscheidung"><button type="button" class="leicht" data-e="ja" aria-pressed="${a && a.entscheidung === "ja"}">Ja, so umsetzen</button><button type="button" class="leicht" data-e="nein" aria-pressed="${a && a.entscheidung === "nein"}">Nein</button></div>` : ""}
+        <textarea name="kommentar" placeholder="${(v.aenderungen || []).length ? "Kommentar (freiwillig) – z. B. „Ja, aber nur Punkt 1“ oder „Nein, mach eher …“" : "Hinweis an den Qualitätsmanager (freiwillig)"}">${esc((a && a.kommentar) || "")}</textarea>
+        <div class="fuss"><button type="submit">Antwort senden</button><span class="stand${a ? " ok" : ""}">${a ? "Gesendet am " + esc(uhrUndTag(a.am)) + " – du kannst sie bis zur nächsten Auswertung ändern" : "Noch keine Antwort"}</span></div>
+        <p class="klein">Der Kommentar wird im Repository gespeichert und ist dort öffentlich lesbar. Der Qualitätsmanager liest deine Antwort bei seiner nächsten Monatsauswertung.</p></form>`;
+      vorschlag = `<div class="karte breit notiz vorschlag"><p style="margin:0"><span class="marke">Auswertung ${esc(monatText(v.monat))}</span>${v.stimmen ? `<span class="marke">${(v.stimmen.hoch || 0) + (v.stimmen.runter || 0)} Stimmen</span>` : ""}<span class="marke">${esc(STATUS_V[v.status] || v.status)}</span></p>
+        <h3>Vorschlag des Qualitätsmanagers</h3><p style="margin:0;font-size:15px;max-width:72ch">${esc(v.lage)}</p>${aend || `<p class="leer" style="margin:0">Kein Änderungsvorschlag in diesem Monat.</p>`}${form}</div>`;
+    }
+    const frueher = alle.slice(1, 13);
+    const verlauf = frueher.length ? `<div class="karte breit"><h3>Frühere Vorschläge</h3><ul class="balken">${frueher.map(x => `<li><span>${esc(monatText(x.monat))} – ${esc(x.umsetzung || x.lage)}</span><b>${esc(STATUS_V[x.status] || x.status)}</b></li>`).join("")}</ul></div>` : "";
+    const wartet = v && v.status === "offen" && !a;
+    kachel("leser", wartet ? "Vorschlag wartet" : `${hoch + runter} Stimmen`, wartet ? "Ja oder Nein – du entscheidest" : l.length ? `${esc(monatText(monat))}: ${hoch}× relevant, ${runter}× nicht` : "noch keine Stimmen", wartet ? "achtung" : "");
+    $("#l-inhalt").innerHTML = `<div class="raster">${vorschlag}${stimmenKarte}${verlauf}</div>`;
+  }
+  $("#l-inhalt").addEventListener("click", e => { const b = e.target.closest(".entscheid button"); if (!b) return; b.parentElement.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x === b && x.getAttribute("aria-pressed") !== "true"))); });
+  $("#l-inhalt").addEventListener("submit", async e => {
+    const f = e.target.closest("form.antwort"); if (!f) return; e.preventDefault();
+    const stand = f.querySelector(".stand"), knopf = f.querySelector("button[type=submit]"), gewaehlt = f.querySelector('.entscheid button[aria-pressed="true"]'), kommentar = f.querySelector("textarea").value.trim();
+    const entscheidung = gewaehlt ? gewaehlt.dataset.e : f.querySelector(".entscheid") ? "" : "hinweis";
+    stand.style.color = ""; if (!entscheidung) { stand.className = "stand"; stand.style.color = "var(--rot)"; stand.textContent = "Bitte zuerst „Ja“ oder „Nein“ wählen."; return; }
+    if (entscheidung === "hinweis" && !kommentar) { stand.className = "stand"; stand.textContent = "Ohne Text gibt es nichts zu senden."; return; }
+    knopf.disabled = true; stand.className = "stand"; stand.textContent = "Wird gesendet …";
+    try {
+      const r = await fetch(`${DIENST}/admin/antwort`, { method: "POST", headers: { Authorization: "Bearer " + encodeURIComponent(pw), "Content-Type": "application/json" }, body: JSON.stringify({ id: f.dataset.id, entscheidung, kommentar }) });
+      const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.fehler || "Senden hat nicht geklappt.");
+      ANTWORTEN[f.dataset.id] = d.antwort; leserMalen();   // zeigt danach „Gesendet am …“
+    } catch (x) { stand.className = "stand"; stand.style.color = "var(--rot)"; stand.textContent = x.message || "Senden hat nicht geklappt."; knopf.disabled = false; }
+  });
+  async function leserZeigen() {
+    const [vor, daumen, ausg] = await Promise.all([json(ROH + "daten/leser-vorschlag.json").catch(() => null), fetch(`${DIENST}/admin/daumen`, mitPw()).then(r => r.ok ? r.json() : null).catch(() => null), json("daten/ausgaben.json").catch(() => null),
+      fetch(`${DIENST}/admin/antwort`, mitPw()).then(r => r.ok ? r.json() : null).then(d => { ANTWORTEN = (d && d.antworten) || {}; }).catch(() => {})]);
+    const titel = new Map(); for (const x of (ausg && ausg.ausgaben) || []) for (const l of Object.values(x.ressorts || {})) for (const m of (Array.isArray(l) ? l : (l && l.meldungen) || [])) if (m && m.id) titel.set(m.id, m.titel);
+    LESER = { vor, daumen, titel }; leserMalen();
+  }
+
   async function qmZeigen() { [qmDaten] = await Promise.all([json(ROH + "daten/qm-notizen.json").catch(() => null), merk().catch(() => {})]); qmMalen(); }
 
   /* ---------- Quellen ---------- */
@@ -723,7 +796,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
       const s = await statistik(vorTagen(29), iso(new Date()));
       $("#tor").hidden = true; $("#innen").hidden = false; document.body.classList.remove("zu");
       $("#kopf-stand").textContent = "Stand: " + new Date().toLocaleString("de-DE", { weekday: "long", day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" }) + " Uhr";
-      besucheZeigen(s); qmZeigen(); quellenZeigen(); notionZeigen(); verbrauchZeigen(); vergleichZeigen(); systemZeigen(); ablaufZeigen(); leisteBeobachten();
+      besucheZeigen(s); qmZeigen(); leserZeigen(); quellenZeigen(); notionZeigen(); verbrauchZeigen(); vergleichZeigen(); systemZeigen(); ablaufZeigen(); leisteBeobachten();
     } catch (err) { pw = ""; $("#tor-meldung").textContent = err.message === "Failed to fetch" ? "Der Dienst ist nicht erreichbar." : err.message; }
   });
 })();

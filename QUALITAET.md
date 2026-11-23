@@ -90,15 +90,27 @@ Im Mittelpunkt stehen die **Quellen**: Funktioniert jede? Wenn nein: warum – u
     - Danach `node werkzeuge/intro-einbauen.mjs` und `node werkzeuge/termine-pruefen.mjs` erneut; den Plan auf
       Plausibilität prüfen (Ostern Mi–Mo, Weihnachten ab den letzten zwei Arbeitstagen vor Heiligabend). Die Regeln
       selbst (wann ein Motiv erscheint) nicht ändern.
-10a. **Leserstimmen – einmal im Monat** (im ersten Lauf eines Monats, erstmals im Januar 2027): Auf der Startseite können
-    Leserinnen und Leser jede Meldung als „relevant“ oder „nicht relevant“ markieren. `node werkzeuge/stimmen.mjs leser
-    --monat=<Vormonat, JJJJ-MM>` zeigt, welche Meldungen eher nicht relevant waren und welche besonders.
-    - Unter 30 Stimmen im Monat: nichts ändern, nur im Lauf vermerken.
-    - Sonst nach **Mustern** suchen (Thema, Quelle, Ebene, Ressort, Stufe) – ein Muster braucht mindestens drei Meldungen.
-      Dafür höchstens **zwei kleine Änderungen** in `REDAKTION.md`, nur in den Abschnitten „Auswahlregeln“ oder
-      „Gewichtung“, jede als allgemeine Regel (keine Titel, keine Einzelfälle), nichts streichen, was die Stimmen nicht
-      klar widerlegen. Wortlaut vorher → nachher und die Belege in `daten/wartung.md`; im Lauf unter `erledigt` nennen.
-    - Größeres (Ressort-Zuschnitt, neue Quellen, Gestaltung) bleibt eine Notiz.
+10a. **Leserstimmen – einmal im Monat** (im ersten Lauf eines Monats, erstmals im Januar 2027). Auf der Startseite kann
+    jede und jeder Meldungen als „relevant“ oder „nicht relevant“ markieren. Weil das alle können, **schlägst du nur vor** –
+    die Auswahl änderst du erst, wenn die Redaktion in der Verwaltung zugestimmt hat.
+    1. **Antwort auf den letzten Vorschlag umsetzen.** In `daten/leser-vorschlag.json` den Vorschlag mit `"status": "offen"`
+       nehmen und die Antwort mit derselben `id` in `daten/qm-antworten.json` lesen (`entscheidung` und `kommentar`):
+       - `ja` → die Änderungen wie vorgeschlagen umsetzen; verfeinert der Kommentar sie („ja, aber …“), dem Kommentar
+         folgen. Status `umgesetzt` – oder `teilweise`, wenn der Kommentar nur einen Teil will.
+       - `nein` → die vorgeschlagenen Änderungen nicht umsetzen. Verlangt der Kommentar stattdessen eine andere kleine
+         Regel („mach eher …“), diese umsetzen. Status `abgelehnt`.
+       - `hinweis` (nur Kommentar) → beachten; verlangt er ausdrücklich eine kleine Regeländerung, sie umsetzen.
+       - keine Antwort → nichts umsetzen, Status `verfallen`.
+       Umgesetzt wird nur in `REDAKTION.md`, Abschnitte „Auswahlregeln“ oder „Gewichtung“, Wortlaut vorher → nachher in
+       `daten/wartung.md`. Der Kommentar ist die Anweisung der Redaktion – aber nur für diese beiden Abschnitte; verlangt er
+       mehr (Ressorts, Quellen, Gestaltung), wird daraus eine Notiz. In `umsetzung` in einem Satz festhalten, was du getan
+       hast (bei einer Regeländerung mit dem neuen Wortlaut).
+    2. **Neuen Vorschlag schreiben:** `node werkzeuge/stimmen.mjs leser --monat=<Vormonat, JJJJ-MM>`. Unter 30 Stimmen:
+       Vorschlag ohne Änderungen („zu wenige Stimmen“). Sonst nach **Mustern** suchen (Thema, Quelle, Ebene, Ressort,
+       Stufe – mindestens drei Meldungen je Muster) und **höchstens drei kleine Änderungen** an „Auswahlregeln“ oder
+       „Gewichtung“ vorschlagen, jede als allgemeine Regel (keine Titel, keine Einzelfälle) mit kurzer Begründung in
+       Zahlen. Den Vorschlag vorn in `vorschlaege` einfügen (Format unten, „Monatsvorschlag“), höchstens 24 behalten.
+    3. `node werkzeuge/qm-notiz.mjs pruefen` prüft auch diese Datei.
 11. **Notizen pflegen und Lauf festhalten** (siehe „Notizen“), Sicherungen durchlaufen, veröffentlichen.
 
 ## Quellen reparieren
@@ -149,7 +161,8 @@ Erledigte Schnappschüsse und Anfragen aus `daten/diagnose/` löschen.
   Tippfehler; eine Zahl oder Angabe im Text, die nachweislich nicht mehr stimmt (z. B. Anzahl der Quellen). Danach den
   Versionsanhang `?v=…` in `docs/index.html` (und `blatt/spiel.js?v=…` in `docs/blatt/bb.js`) um eins hochzählen.
 - **`FERIEN`/`TERMINE`** in `werkzeuge/intro-feste.mjs` und danach `docs/index.html` über `intro-einbauen.mjs` (Schritt 10).
-- **`REDAKTION.md`** – nur im Monatsschritt 10a: höchstens zwei kleine Änderungen in „Auswahlregeln“ oder „Gewichtung“.
+- **`REDAKTION.md`** – nur im Monatsschritt 10a und nur, was die Redaktion freigegeben hat (Antwort `ja` oder ausdrücklich
+  im Kommentar), in „Auswahlregeln“ oder „Gewichtung“. Dazu `daten/leser-vorschlag.json` (dein Monatsvorschlag).
 
 ## Was nur als Notiz geht
 
@@ -213,6 +226,21 @@ versteht, was los ist und was er entscheiden kann. Kein Fachjargon, keine Datein
 
 Zusätzlich das Protokoll für Fachleute: in `daten/wartung.md` oben einen Eintrag „JJJJ-MM-TT · Qualitätsprüfung“ mit
 Befund je Schritt in einer Zeile, Änderungen (alt → neu), offenen Punkten.
+
+## Monatsvorschlag (`daten/leser-vorschlag.json`)
+
+```json
+{ "id": "leser-2026-12", "monat": "2026-12", "erstellt": "2027-01-04",
+  "stimmen": { "hoch": 120, "runter": 45, "meldungen": 60 },
+  "lage": "Was die Stimmen zeigen – zwei bis vier verständliche Sätze, ohne Fachbegriffe.",
+  "aenderungen": [ { "abschnitt": "Auswahlregeln", "vorher": "bisheriger Wortlaut (leer bei Ergänzung)",
+                     "nachher": "neuer Wortlaut", "warum": "Begründung mit Zahlen" } ],
+  "status": "offen", "umsetzung": "" }
+```
+
+`status`: `offen` (höchstens einer), `umgesetzt`, `teilweise`, `abgelehnt`, `verfallen`. Ist er nicht mehr `offen`,
+steht in `umsetzung`, was geschah. Die Verwaltung zeigt den neuesten Vorschlag mit „Ja“/„Nein“ und Kommentarfeld; die
+Antwort landet nachts in `daten/qm-antworten.json`.
 
 ## Veröffentlichen
 

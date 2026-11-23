@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Notizen des Qualitätsmanagers prüfen (daten/qm-notizen.json) – die Datei wird in docs/verwaltung.html angezeigt.
+ * Notizen des Qualitätsmanagers prüfen (daten/qm-notizen.json) und seinen Monatsvorschlag aus den Leserstimmen
+ * (daten/leser-vorschlag.json) – beides wird in docs/verwaltung.html angezeigt.
  *   node werkzeuge/qm-notiz.mjs pruefen     meldet Formatfehler; Exit-Code 2, wenn etwas nicht stimmt
  * Format und Regeln: QUALITAET.md, Abschnitt „Notizen“.
  */
@@ -25,5 +26,23 @@ else {
     text(n.titel, 12, 110, wo + ".titel"); text(n.lage, 40, 700, wo + ".lage"); text(n.vorschlag, 20, 700, wo + ".vorschlag"); if (n.versucht) text(n.versucht, 5, 500, wo + ".versucht");
     if (LINK.test(n.titel || "")) f.push(wo + ": kein Link im Titel"); });
 }
-if (f.length) { console.error(`daten/qm-notizen.json – ${f.length} Fehler:\n- ` + f.join("\n- ")); process.exit(2); }
-console.log(`daten/qm-notizen.json in Ordnung: Lauf vom ${d.lauf.datum}, ${d.notizen.length} Notiz${d.notizen.length === 1 ? "" : "en"}.`);
+// Monatsvorschlag aus den Leserstimmen (QUALITAET.md, Schritt 10a und „Monatsvorschlag“)
+const v = await readJson("daten/leser-vorschlag.json", { vorschlaege: [] }), STATUS = ["offen", "umgesetzt", "teilweise", "abgelehnt", "verfallen"];
+if (!v || !Array.isArray(v.vorschlaege) || v.vorschlaege.length > 24) f.push("leser-vorschlag.json: vorschlaege als Liste mit höchstens 24 Einträgen erwartet");
+else {
+  if (v.vorschlaege.filter(x => x && x.status === "offen").length > 1) f.push("leser-vorschlag.json: höchstens ein Vorschlag darf offen sein");
+  v.vorschlaege.forEach((x, i) => { const wo = `leser-vorschlag.json vorschlaege[${i}]${x && x.id ? " (" + x.id + ")" : ""}`;
+    if (!x || typeof x !== "object") return f.push(wo + ": Objekt erwartet");
+    if (!/^leser-\d{4}-\d{2}$/.test(x.id || "") || !/^\d{4}-\d{2}$/.test(x.monat || "") || x.id !== "leser-" + x.monat) f.push(wo + ": id muss leser-JJJJ-MM sein und zu monat passen");
+    if (x.erstellt != null && !TAG.test(x.erstellt)) f.push(wo + ": erstellt als JJJJ-MM-TT");
+    if (!STATUS.includes(x.status)) f.push(wo + ": status muss einer von " + STATUS.join(", ") + " sein");
+    text(x.lage, 20, 900, wo + ".lage");
+    if (x.status !== "offen") text(x.umsetzung, 8, 600, wo + ".umsetzung");
+    if (!Array.isArray(x.aenderungen) || x.aenderungen.length > 3) f.push(wo + ": aenderungen als Liste mit höchstens drei Einträgen");
+    else x.aenderungen.forEach((a, k) => { const w2 = `${wo}.aenderungen[${k}]`;
+      if (!a || !["Auswahlregeln", "Gewichtung"].includes(a.abschnitt)) f.push(w2 + ": abschnitt muss Auswahlregeln oder Gewichtung sein");
+      text(a && a.nachher, 10, 600, w2 + ".nachher"); text(a && a.warum, 10, 400, w2 + ".warum"); if (a && a.vorher && a.vorher.length > 600) f.push(w2 + ".vorher: höchstens 600 Zeichen"); });
+  });
+}
+if (f.length) { console.error(`daten/qm-notizen.json / daten/leser-vorschlag.json – ${f.length} Fehler:\n- ` + f.join("\n- ")); process.exit(2); }
+console.log(`daten/qm-notizen.json in Ordnung: Lauf vom ${d.lauf.datum}, ${d.notizen.length} Notiz${d.notizen.length === 1 ? "" : "en"}. daten/leser-vorschlag.json in Ordnung: ${v.vorschlaege.length} Vorschläge.`);
