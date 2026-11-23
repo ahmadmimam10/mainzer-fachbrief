@@ -4,6 +4,14 @@ Protokoll der Quellenreparaturen durch die Morgenroutine (REDAKTION.md, Abschnit
 Neueste Einträge oben, eine Zeile je Quelle und Eingriff:
 `- JJJJ-MM-TT · <id> · was geändert wurde (alt → neu) · Ergebnis`
 
+## 2026-11-23 · Qualitätsprüfung
+
+- Lage: 48 ok, 1 auffällig (paritaet, Timeout 1. Lauf), 1 gestört (bundesrat, Timeout seit 4 Läufen), 6 still (wohnbau-mainz, igfh, kommune360, startchancen, bagljae, bag-ssg), afet pausiert. Keine offenen Versuche, keine Schnappschüsse, Laufprotokoll ohne Fehler.
+- Quellen: WebFetch scheitert an allen Quellhosts (ENOTFOUND, nicht freigegeben) – keine Ursachenprüfung, keine Änderungen an quellen.json.
+- Stichprobe: acht Quellen eingetragen, alle „nicht pruefbar“.
+- Abruftakt: keine Empfehlungen. Ausgaben 16.–20. und 23.11. vorhanden; `redaktion.mjs bauen` ok. Webseite: keine Befunde. Gremien: keine fehler-Felder, Notizen nicht vertieft geprüft. Termine 2027: Plan plausibel.
+- Offen: Notizen afet, qm-seiten-nicht-erreichbar.
+
 ## 2026-11-22 · Qualitätsprüfung
 
 - Punkt 1: Pull ohne Konflikte.
