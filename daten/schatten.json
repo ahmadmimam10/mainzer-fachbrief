@@ -602,6 +602,486 @@
      }
     }
    }
+  },
+  {
+   "datum": "2026-11-23",
+   "erstellt": "2026-11-23T04:16:10.547Z",
+   "kandidaten": 194,
+   "claude": {
+    "jugendhilfeplanung": [
+     {
+      "id": "3a4358571c",
+      "stufe": "aufmacher",
+      "titel": "Jugendhilfeausschuss: „GlobalKids“ übernehmen Trägerschaft der Krippe „Pusteblume“"
+     },
+     {
+      "id": "1106f96d68",
+      "stufe": "wichtig",
+      "titel": "Mainzer Haushalt: Krach in der Koalition und mit OB Haase"
+     },
+     {
+      "id": "bc03822256",
+      "stufe": "wichtig",
+      "titel": "Bundesregierung nimmt Unterhaltsschuldner stärker in die Verantwortung"
+     },
+     {
+      "id": "e6b8b0d08f",
+      "stufe": "wichtig",
+      "titel": "Wie Armut in Deutschland krank macht"
+     },
+     {
+      "id": "055b889c78",
+      "stufe": "kurz",
+      "titel": "Jung sein bedeutet für viele Dauerkrise"
+     },
+     {
+      "id": "d53f4003f6",
+      "stufe": "kurz",
+      "titel": "Wie Kinder bei Online-Befragungen selbst zu Wort kommen"
+     },
+     {
+      "id": "98999d701c",
+      "stufe": "kurz",
+      "titel": "Mehr Geld für Kommunen geplant: Warum das im Westen der Pfalz nicht ausreicht"
+     },
+     {
+      "id": "2c5da82e6f",
+      "stufe": "kurz",
+      "titel": "Cyberangriffe: Schulleitungen werden für den Ernstfall vorbereitet"
+     },
+     {
+      "id": "29f8d55c74",
+      "stufe": "kurz",
+      "titel": "Austausch zur Inklusion junger Menschen in der Jugendverbandsarbeit"
+     }
+    ],
+    "fruehe-hilfen": [
+     {
+      "id": "b80d6e0b4a",
+      "stufe": "aufmacher",
+      "titel": "Schulen entwickeln Schutzkonzepte gegen sexuelle Gewalt"
+     },
+     {
+      "id": "3a4358571c",
+      "stufe": "wichtig",
+      "titel": "Jugendhilfeausschuss: „GlobalKids“ übernehmen Trägerschaft der Krippe „Pusteblume“"
+     },
+     {
+      "id": "e6b8b0d08f",
+      "stufe": "wichtig",
+      "titel": "Wie Armut in Deutschland krank macht"
+     },
+     {
+      "id": "bc03822256",
+      "stufe": "kurz",
+      "titel": "Bundesregierung nimmt Unterhaltsschuldner stärker in die Verantwortung"
+     },
+     {
+      "id": "7d178fa51b",
+      "stufe": "kurz",
+      "titel": "Sternenkinder: Wie Fotos Eltern in ihrer Trauer helfen"
+     }
+    ],
+    "quartiersmanagement": [
+     {
+      "id": "1106f96d68",
+      "stufe": "aufmacher",
+      "titel": "Mainzer Haushalt: Krach in der Koalition und mit OB Haase"
+     },
+     {
+      "id": "3557a05804",
+      "stufe": "wichtig",
+      "titel": "Modalfilter: Verkehrszählung der Stadt überrascht"
+     },
+     {
+      "id": "018f3d4ad5",
+      "stufe": "wichtig",
+      "titel": "Mainzer Straßenbahnen fahren wieder nach Hechtsheim"
+     },
+     {
+      "id": "b17adf691f",
+      "stufe": "wichtig",
+      "titel": "156.000 Euro Kosten: Kritik an neuem Kunstwerk in Mainz"
+     },
+     {
+      "id": "565dfd0b3d",
+      "stufe": "kurz",
+      "titel": "Innenstadtmonitoring 2026: Innenstadt bleibt vielfältig, lebendig und attraktiv"
+     },
+     {
+      "id": "ccd5ff9f63",
+      "stufe": "kurz",
+      "titel": "Denkmalgeschützt und trotzdem ganz neu: So wird das Rathaus in Mainz"
+     },
+     {
+      "id": "97642fc16e",
+      "stufe": "kurz",
+      "titel": "Ersatzbusse: Einschränkungen bei Mainzer Straßenbahnen"
+     },
+     {
+      "id": "65d7756235",
+      "stufe": "kurz",
+      "titel": "Verlegung des Wochenmarktes in der Adventszeit"
+     }
+    ]
+   },
+   "claudeHoer": {
+    "jugendhilfeplanung": "Guten Morgen, hier ist das Mainzer Boniblatt für die Jugendhilfeplanung am Montag, dem 23. November. Die Ausgabe enthält auch die Meldungen vom Wochenende.\n\nAufmacher ist die Mainzer Krippe Pusteblume. Der Jugendhilfeausschuss hat sich mit einer Lösung befasst: Der Träger GlobalKids soll die private Krippe übernehmen. Familien mit kleinen Kindern sollen dadurch dauerhaft abgesicherte Plätze bekommen.\n\nAm Mittwoch berät der Stadtrat den Haushaltsentwurf für 2027. Er ist hoch defizitär. Zwei Konfliktlinien prägen die Debatte: Es kracht in der Koalition und mit Oberbürgermeister Haase.\n\nAuf Bundesebene sollen Unterhaltsschuldner stärker in die Verantwortung genommen werden. Eltern, die ihren Kindern Unterhalt schulden, müssen sich auf neue Regeln einstellen.\n\nEin Bericht beschreibt, wie Armut krank macht. Kinder aus armutsgefährdeten Familien erkranken häufiger, körperlich wie psychisch. Die vorhandenen Hilfen kommen oft nicht bei ihnen an.\n\nKurz notiert: Eine Studie zeigt, dass sich viele junge Menschen von Dauerkrisen bedroht fühlen. Außerdem werden Schulleitungen in Rheinland-Pfalz in einem Online-Training auf Cyberangriffe vorbereitet.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+    "fruehe-hilfen": "Guten Morgen, hier ist das Mainzer Boniblatt für die Frühen Hilfen, den Kinderschutz und die Familienbildung am Montag, dem 23. November. Die Ausgabe enthält auch die Meldungen vom Wochenende.\n\nAufmacher sind Schutzkonzepte an Schulen. Die Schulen entwickeln Konzepte gegen sexuelle Gewalt. Die Dunkelziffer bei sexualisierter Gewalt ist hoch. Deshalb sollen die Schulen vorbereitet sein, um bei Verdachtsfällen reagieren zu können.\n\nIn Mainz zeichnet sich eine Lösung für die private Krippe Pusteblume ab. Der Träger GlobalKids soll sie übernehmen. Für Familien mit kleinen Kindern sollen die Plätze dadurch dauerhaft abgesichert sein. Das hat der Jugendhilfeausschuss besprochen.\n\nEin weiterer Bericht widmet sich dem Zusammenhang von Armut und Gesundheit. Kinder aus armutsgefährdeten Familien haben ein höheres Risiko, körperlich und psychisch zu erkranken. Dabei gibt es in Deutschland viele Hilfen. Sie kommen aber oft nicht bei den Familien an.\n\nKurz notiert: Die Bundesregierung will Unterhaltsschuldner stärker in die Verantwortung nehmen. Außerdem erzählt ein Beitrag, wie Fotos von ehrenamtlichen Sternenkind-Fotografen Eltern in ihrer Trauer helfen.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+    "quartiersmanagement": "Guten Morgen, hier ist das Mainzer Boniblatt für das Quartiersmanagement am Montag, dem 23. November. Die Ausgabe enthält auch die Meldungen vom Wochenende.\n\nAufmacher ist der Mainzer Haushalt. Am Mittwoch diskutiert der Stadtrat den hoch defizitären Entwurf für 2027. Zwei Konfliktlinien prägen das Geschehen: der Streit in der Koalition und der Streit mit Oberbürgermeister Haase.\n\nBeim Thema Verkehr hat das Stadtplanungsamt neue Zahlen vorgelegt. Die Verkehrszählung zum Modalfilter überrascht. Autofahrer und Einzelhändler hatten einen Mega-Stau und eine abgeriegelte Innenstadt beklagt. Die Stadt hält mit Zahlen dagegen.\n\nDie Straßenbahnen fahren nach monatelangen Bauarbeiten wieder nach Hechtsheim. In Richtung Bretzenheim heißt es ab Ende November noch einmal Bus statt Bahn.\n\nIn Lerchenberg steht seit kurzem das Kunstwerk Kling und Klonk vor dem Bürgerhaus. Es wurde für 156.000 Euro ausgeschrieben. Nicht jedem gefällt es.\n\nKurz notiert: Das Innenstadtmonitoring 2026 zeigt eine vielfältige Innenstadt mit stabiler Leerstandsquote. Die Sanierung des Rathauses soll 2027 fertig sein, mit Aussichtsterrasse und Café. Die Linie 52 fährt tagsüber mit Ersatzbussen. Und der Wochenmarkt am Dom zieht in der Adventszeit erneut um.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen."
+   },
+   "claudeTermine": [
+    {
+     "art": "markt",
+     "tag": "2026-11-23",
+     "wann": "17 Uhr",
+     "titel": "Frankfurter Weihnachtsmarkt eröffnet",
+     "ort": "Frankfurt, Römerberg",
+     "url": "https://www.visitfrankfurt.travel/en/experience/festival-and-events/frankfurt-christmas-market"
+    },
+    {
+     "art": "fussball",
+     "tag": "2026-11-24",
+     "wann": "21 Uhr",
+     "titel": "Real Madrid – PSV Eindhoven",
+     "ort": "Champions League",
+     "url": "https://www.realmadrid.com/de-DE/news/fussball/erste-mannshaft/latest-news/el-calendario-del-real-madrid-hasta-navidad-11-11-2026"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-24",
+     "wann": "18 Uhr",
+     "titel": "Sternschnuppenmarkt Wiesbaden eröffnet",
+     "ort": "Wiesbaden, Schlossplatz",
+     "url": "https://www.wiesbaden.de/microsite/sternschnuppenmarkt/ueberblick"
+    },
+    {
+     "art": "fussball",
+     "tag": "2026-11-25",
+     "wann": "18:45 Uhr",
+     "titel": "Sabah FK – FC Barcelona",
+     "ort": "Champions League",
+     "url": "https://www.vavel.com/en/data/fc-barcelona/fixtures/"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-26",
+     "wann": "",
+     "titel": "Mainzer Weihnachtsmarkt beginnt",
+     "ort": "Mainz, Domplätze",
+     "url": "https://www.mainz.de/en/angebote-entdecken/freizeit/feste-und-veranstaltungen/weihnachtsmarkt"
+    },
+    {
+     "art": "fussball",
+     "tag": "2026-11-28",
+     "wann": "21 Uhr",
+     "titel": "Real Madrid – Alavés",
+     "ort": "La Liga",
+     "url": "https://www.realmadrid.com/de-DE/news/fussball/erste-mannshaft/latest-news/el-calendario-del-real-madrid-hasta-navidad-11-11-2026"
+    },
+    {
+     "art": "ausflug",
+     "tag": "2026-11-23",
+     "wann": "",
+     "titel": "Taubertsberg Spa im Taubertsbergbad",
+     "ort": "Mainz, Taubertsberg",
+     "url": "https://www.mainz.de/en/angebote-entdecken/zu-gast-in-mainz/einkaufen-essen-erholen/wellness-taubertsbergbad"
+    }
+   ],
+   "modelle": {
+    "deepseek-flash": {
+     "denken": "max (Suche: high)",
+     "tarif": "Nebenzeit",
+     "sekunden": 325,
+     "usd": 0.06682,
+     "tokens": {
+      "eingabe": 51653,
+      "cache": 217600,
+      "ausgabe": 68617
+     },
+     "erfunden": 0,
+     "verstoesse": [
+      "quartiersmanagement: Hörfassung hat 842 Zeichen (erlaubt 900–2800)"
+     ],
+     "ressorts": {
+      "jugendhilfeplanung": [
+       {
+        "id": "1106f96d68",
+        "stufe": "aufmacher",
+        "titel": "Mainzer Stadtrat berät hoch defizitären Haushalt 2027",
+        "kurz": "Am Mittwoch geht es im Stadtrat um den Haushaltsentwurf 2027; zwei Konfliktlinien prägen die Debatte in der Koalition und mit Oberbürgermeister Haase."
+       },
+       {
+        "id": "3a4358571c",
+        "stufe": "wichtig",
+        "titel": "GlobalKids übernimmt Trägerschaft der Krippe Pusteblume",
+        "kurz": "Die private Krippe Pusteblume soll durch die Trägerschaft von GlobalKids dauerhaft abgesicherte Plätze für Familien mit kleinen Kindern anbieten."
+       },
+       {
+        "id": "bc03822256",
+        "stufe": "wichtig",
+        "titel": "Bund nimmt Unterhaltsschuldner stärker in die Pflicht",
+        "kurz": "Eltern, die ihren Kindern Unterhalt schulden, müssen sich auf eine stärkere Inanspruchnahme durch den Bund einstellen."
+       },
+       {
+        "id": "055b889c78",
+        "stufe": "wichtig",
+        "titel": "Jugendliche sehen sich von einem Mix aus Dauerkrisen bedroht",
+        "kurz": "Jugendliche sehen sich stärker als frühere Generationen von einem Mix aus Dauerkrisen bedroht und fühlen sich von der Politik im Stich gelassen."
+       },
+       {
+        "id": "98999d701c",
+        "stufe": "kurz",
+        "titel": "Mehr Geld für Kommunen reicht im Westen der Pfalz nicht aus"
+       },
+       {
+        "id": "29f8d55c74",
+        "stufe": "kurz",
+        "titel": "Runder Tisch zur Inklusion in der Jugendverbandsarbeit"
+       },
+       {
+        "id": "d53f4003f6",
+        "stufe": "kurz",
+        "titel": "Pilotstudie: Kinder bei Online-Befragungen altersgerecht beteiligen"
+       }
+      ],
+      "fruehe-hilfen": [
+       {
+        "id": "b80d6e0b4a",
+        "stufe": "aufmacher",
+        "titel": "Schulen entwickeln Schutzkonzepte gegen sexuelle Gewalt",
+        "kurz": "Die Dunkelziffer bei sexualisierter Gewalt ist hoch; die Schulen sollen vorbereitet sein, um bei Verdachtsfällen reagieren zu können."
+       },
+       {
+        "id": "e6b8b0d08f",
+        "stufe": "wichtig",
+        "titel": "Armut erhöht das Krankheitsrisiko von Kindern",
+        "kurz": "Kinder aus armutsgefährdeten Familien haben ein höheres Risiko, körperlich und psychisch zu erkranken; die vorhandenen Hilfen erreichen sie oft nicht."
+       },
+       {
+        "id": "3a4358571c",
+        "stufe": "kurz",
+        "titel": "Krippe Pusteblume: GlobalKids übernimmt Trägerschaft"
+       },
+       {
+        "id": "b958c7a39c",
+        "stufe": "kurz",
+        "titel": "Orange Days machen auf Gewalt gegen Frauen aufmerksam"
+       }
+      ],
+      "quartiersmanagement": [
+       {
+        "id": "b17adf691f",
+        "stufe": "aufmacher",
+        "titel": "Kritik an 156.000-Euro-Kunstwerk in Lerchenberg",
+        "kurz": "Das Kunstwerk „Kling und Klonk“ vor dem Bürgerhaus in Lerchenberg wurde für 156.000 Euro ausgeschrieben und stößt nicht bei allen auf Zustimmung."
+       },
+       {
+        "id": "565dfd0b3d",
+        "stufe": "wichtig",
+        "titel": "Innenstadtmonitoring 2026: stabiler Branchenmix und Leerstandsquote",
+        "kurz": "Das Innenstadtmonitoring 2026 zeigt einen breiten Branchenmix und eine stabile Leerstandsquote in der Mainzer Innenstadt."
+       },
+       {
+        "id": "3557a05804",
+        "stufe": "wichtig",
+        "titel": "Verkehrszählung der Stadt überrascht beim Modalfilter",
+        "kurz": "Das Mainzer Stadtplanungsamt begegnet den Vorwürfen von Autofahrern und Einzelhändlern zum Modalfilter mit neuen Verkehrszahlen."
+       },
+       {
+        "id": "63734e9744",
+        "stufe": "kurz",
+        "titel": "Beliebter Neustädter Treffpunkt „Anything but coffee“ macht zu"
+       }
+      ]
+     },
+     "hoer": {
+      "jugendhilfeplanung": "Guten Morgen, hier ist das Mainzer Boniblatt für die Jugendhilfeplanung am Montag, 23. November. Die Ausgabe umfasst auch das Wochenende.\n\nIm Mittelpunkt steht der Haushalt 2027. Am Mittwoch berät der Stadtrat über den hoch defizitären Entwurf. Zwei Konfliktlinien prägen die Debatte, in der Koalition und mit Oberbürgermeister Haase.\n\nDer Jugendhilfeausschuss befasst sich mit der Trägerschaft der privaten Krippe Pusteblume. GlobalKids soll übernehmen und damit dauerhaft abgesicherte Plätze für Familien mit kleinen Kindern schaffen.\n\nAuf Bundesebene sollen Eltern, die ihren Kindern Unterhalt schulden, stärker in die Verantwortung genommen werden.\n\nEine Meldung aus Rheinland-Pfalz beschreibt, dass sich Jugendliche stärker als frühere Generationen von einem Mix aus Dauerkrisen bedroht sehen. Von der Politik fühlen sie sich im Stich gelassen.\n\nKurz notiert: Mehr Geld für Kommunen reicht nach Einschätzung aus der Westpfalz nicht aus. Der Runde Tisch Inklusion in der Jugendverbandsarbeit hat Möglichkeiten und Herausforderungen inklusiver Gestaltung besprochen. Das Deutsche Jugendinstitut zeigt in einer Pilotstudie, wie Kinder im Alter von fünf bis elf Jahren bei Online-Befragungen altersgerecht zu Wort kommen.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+      "fruehe-hilfen": "Guten Morgen, hier ist das Mainzer Boniblatt für Frühe Hilfen, Kinderschutz und Familienbildung am Montag, 23. November. Die Ausgabe umfasst auch das Wochenende.\n\nSchulen entwickeln Schutzkonzepte gegen sexuelle Gewalt. Die Dunkelziffer bei sexualisierter Gewalt ist hoch. Die Schulen sollen vorbereitet sein, um bei Verdachtsfällen reagieren zu können.\n\nKinder aus armutsgefährdeten Familien haben ein höheres Risiko, körperlich und psychisch zu erkranken. In Deutschland gibt es viele Hilfen. Die Meldung fragt, warum sie oft nicht ankommen.\n\nFür Familien mit kleinen Kindern zeichnet sich in Mainz eine Lösung ab. Die private Krippe Pusteblume soll dank eines neuen Trägers dauerhaft abgesicherte Plätze anbieten. GlobalKids übernimmt die Trägerschaft.\n\nDie Orange Days machen in Mainz auf Gewalt gegen Frauen aufmerksam. Geplant sind Aktionen, die Hilfsangebote aufzeigen und zu Zivilcourage ermuntern.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+      "quartiersmanagement": "Guten Morgen, hier ist das Mainzer Boniblatt für das Quartiersmanagement am Montag, 23. November. Die Ausgabe umfasst auch das Wochenende.\n\nIn Lerchenberg sorgt ein neues Kunstwerk für Kritik. „Kling und Klonk“ steht vor dem Bürgerhaus und wurde für 156.000 Euro ausgeschrieben. Nicht jeder findet Gefallen daran.\n\nDas Innenstadtmonitoring 2026 zeigt einen breiten Branchenmix und eine stabile Leerstandsquote in der Mainzer Innenstadt.\n\nBeim Modalfilter begegnet das Mainzer Stadtplanungsamt den Vorwürfen von Autofahrern und Einzelhändlern mit neuen Verkehrszahlen. Die Rede ist von Mega-Stau stadtauswärts und einer abgeriegelten Innenstadt.\n\nIn der Neustadt macht der beliebte Treffpunkt „Anything but coffee“ nach mehr als acht Jahren zu. Es soll aber etwas Neues kommen.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen."
+     },
+     "gremien": {
+      "tokens": {
+       "eingabe": 5589,
+       "cache": 2944,
+       "ausgabe": 29613
+      },
+      "usd": 0.01861,
+      "sekunden": 134.4,
+      "verstoesse": [],
+      "sitzungen": {
+       "4961": {
+        "gremium": "Stadtrat",
+        "datum": "2026-11-25",
+        "punkte": 113,
+        "claude": {
+         "vorschau": true,
+         "ressorts": {
+          "jugendhilfeplanung": "Haushalt 2027, 2,4 Mio. € Mehrbedarf HzE/§ 35a, Krippe Pusteblume, Sozialraumanalyse.",
+          "quartiersmanagement": "Kulturbäckerei Neustadt (Anfragen), RS+ Mombach (5,45 Mio. €), Sozialraumanalyse."
+         }
+        },
+        "deepseek": {
+         "vorschau": true,
+         "ressorts": {
+          "jugendhilfeplanung": "Auf der Tagesordnung: Haushalt 2027, 1,4 Mio. € HzE/1 Mio. € § 35a, Kita-Bedarfsplan Pusteblume, Kita-/Schulsozialarbeit, Schulentwicklung, Sozialraumanalyse.",
+          "quartiersmanagement": "Auf der Tagesordnung: Sozialraumanalyse, RS+ Mombach (5,45 Mio. €), Kulturbäckerei/Bleichenviertel Neustadt, Mainzelbahn/Lerchenberg."
+         }
+        }
+       },
+       "4975": {
+        "gremium": "Haupt- und Personalausschuss",
+        "datum": "2026-11-18",
+        "punkte": 9,
+        "claude": {
+         "ressorts": {}
+        },
+        "deepseek": {
+         "ressorts": {}
+        }
+       },
+       "5002": {
+        "gremium": "Beirat für Migration und Integration der Stadt Mainz",
+        "datum": "2026-11-19",
+        "punkte": 7,
+        "claude": {
+         "vorschau": true,
+         "ressorts": {
+          "jugendhilfeplanung": "Kick-off Kommunales Integrationskonzept auf der Tagesordnung."
+         }
+        },
+        "deepseek": {
+         "vorschau": true,
+         "ressorts": {}
+        }
+       },
+       "5072": {
+        "gremium": "Ortsbeirat Mainz-Mombach",
+        "datum": "2026-11-19",
+        "punkte": 22,
+        "claude": {
+         "ressorts": {
+          "jugendhilfeplanung": "Antwort der Verwaltung zu fehlenden Kita-Plätzen in Mombach zur Kenntnis genommen.",
+          "quartiersmanagement": "Bericht zu Hochbrücken-Rückbau und Verkehrsführung; Baustelle Suderstraße, Schulbau; Stadtteilmittel beschlossen."
+         }
+        },
+        "deepseek": {
+         "ressorts": {
+          "jugendhilfeplanung": "Kita-Plätze zur Kenntnis; Anfragen zu Schulbau/Schulzentrum Lemmchen, Sporthallen und Hitzeschutz an Schulen.",
+          "quartiersmanagement": "Mombach: Verkehr/Hochbrücke und Suderstraße; Sitzbank Westring, Beschilderung und Stadtteilmittel einstimmig; Schulbau, Müll, Entsiegelung."
+         },
+         "ergebnis": {
+          "jugendhilfeplanung": [
+           "zur Kenntnis"
+          ],
+          "quartiersmanagement": [
+           "einstimmig",
+           "zur Kenntnis"
+          ]
+         }
+        }
+       },
+       "5127": {
+        "gremium": "Ortsbeirat Mainz-Ebersheim",
+        "datum": "2026-11-19",
+        "punkte": 19,
+        "claude": {
+         "ressorts": {}
+        },
+        "deepseek": {
+         "ressorts": {}
+        }
+       }
+      }
+     },
+     "termine": {
+      "tokens": {
+       "eingabe": 28536,
+       "cache": 210560,
+       "ausgabe": 7657
+      },
+      "usd": 0.02676,
+      "sekunden": 49.8,
+      "suchen": 18,
+      "abrufe": 5,
+      "verstoesse": [],
+      "termine": [
+       {
+        "art": "markt",
+        "tag": "2026-11-23",
+        "wann": "ab 16.30 Uhr",
+        "titel": "Frankfurter Weihnachtsmarkt eröffnet",
+        "ort": "Frankfurt, Römerberg",
+        "url": "https://frankfurt.de/de-de/aktuelle-meldung/meldungen/frankfurter-weihnachtsmarkt-eroeffnet-am-23november/"
+       },
+       {
+        "art": "markt",
+        "tag": "2026-11-24",
+        "wann": "18 Uhr",
+        "titel": "Sternschnuppenmarkt Wiesbaden eröffnet",
+        "ort": "Wiesbaden, Schlossplatz",
+        "url": "https://www.faz.net/aktuell/rhein-main/region-und-hessen/wiesbaden-am-24-november-eroeffnet-der-sternschnuppenmarkt-accg-201672586.html"
+       },
+       {
+        "art": "fussball",
+        "tag": "2026-11-24",
+        "wann": "21 Uhr",
+        "titel": "Real Madrid – PSV Eindhoven",
+        "ort": "Champions League",
+        "url": "https://www.mundodeportivo.com/guia-tv/equipo/real-madrid"
+       },
+       {
+        "art": "fussball",
+        "tag": "2026-11-25",
+        "wann": "18.45 Uhr",
+        "titel": "Sabah – FC Barcelona",
+        "ort": "Champions League",
+        "url": "https://eurosport.tvn24.pl/pilka-nozna/la-liga/2026-2027/barcelone-czeka-maraton-meczow-przed-swietami-bozego-narodzenia.-dziewiec-meczow-w-28-dni_sto23356351/story.shtml"
+       },
+       {
+        "art": "markt",
+        "tag": "2026-11-26",
+        "wann": "",
+        "titel": "Mainzer Weihnachtsmarkt eröffnet",
+        "ort": "Mainz, Domplätze",
+        "url": "https://www.mainz.de/angebote-entdecken/freizeit/feste-und-veranstaltungen/weihnachtsmarkt"
+       },
+       {
+        "art": "theater",
+        "tag": "2026-11-27",
+        "wann": "19.30 Uhr",
+        "titel": "Barfuß im Weltall (Uraufführung)",
+        "ort": "Mainz, Staatstheater",
+        "url": "https://www.rheinhessen.de/veranstaltungskalender/e-barfuss-im-weltall-ua"
+       },
+       {
+        "art": "familie",
+        "tag": "2026-11-27",
+        "wann": "",
+        "titel": "Mombacher Adventsmarkt",
+        "ort": "Mainz-Mombach",
+        "url": "https://www.mainz.de/info-networking-event?id=169515"
+       },
+       {
+        "art": "wein",
+        "tag": "2026-11-28",
+        "wann": "ab 14 Uhr",
+        "titel": "Weihnachtsmarkt im Weingut Menk",
+        "ort": "Ingelheim am Rhein, Weingut Menk",
+        "url": "https://www.ingelheim-erleben.de/e-herbst-weinprobiertage-im-weingut-menk"
+       },
+       {
+        "art": "theater",
+        "tag": "2026-11-28",
+        "wann": "20 Uhr",
+        "titel": "Ingrid Kühne: Ja, aber ohne mich!",
+        "ort": "Mainz, Frankfurter Hof",
+        "url": "https://www.regioactive.de/kleinkunst/ingrid-kuehne-ja-aber-ohne-mich-mainz-frankfurter-hof-2026-11-28-tickets-br0DYzS45h"
+       }
+      ]
+     }
+    }
+   }
   }
  ],
  "info": "DeepSeek-Schattenlauf, geschrieben von werkzeuge/schatten.mjs. Je Ausgabe: Claudes Arbeit und die von DeepSeek aus denselben Vorgaben – Auswahl mit Hörfassung, Gremien-Notizen, „Was geht?“ – mit Tokens und Kosten in US-Dollar."

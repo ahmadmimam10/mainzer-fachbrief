@@ -1,18 +1,36 @@
 {
  "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
- "stand": "2026-11-22T20:07:10.049Z",
+ "stand": "2026-11-23T05:17:53.361Z",
  "zugang": "ok",
  "grenze": "nächtlicher Abruf",
  "letzterLauf": "2026-12-06",
  "gesamt": {
-  "tage": 1,
-  "notion": 44,
-  "erfasst": 41,
-  "fehlt": 3,
-  "zusaetzlich": 0,
-  "offen": 0
+  "tage": 2,
+  "notion": 97,
+  "erfasst": 91,
+  "fehlt": 6,
+  "offen": 0,
+  "zusaetzlich": 5
  },
  "luecken": [
+  {
+   "quelle": "Allgemeine Zeitung",
+   "id": "az",
+   "grund": "rubrik",
+   "rubrik": "/lokales/rheinhessen/",
+   "rubrikName": "Rheinhessen",
+   "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/",
+   "anzahl": 4,
+   "tage": [
+    "2026-11-21",
+    "2026-11-23"
+   ],
+   "beispiele": [
+    "Bodenheimer Schoppengarde bereitet Jubiläumsfeier vor",
+    "Uelversheimerin forscht ohne Abschluss auf Elite-Uni-Niveau",
+    "Weinprämierung für Rheinhessen: Es geht um die Zukunft"
+   ]
+  },
   {
    "quelle": "SPIEGEL",
    "id": "spiegel",
@@ -42,24 +60,113 @@
    "beispiele": [
     "Live-Verkehrsticker: Hier staut es sich am Freitagmorgen"
    ]
-  },
-  {
-   "quelle": "Allgemeine Zeitung",
-   "id": "az",
-   "grund": "rubrik",
-   "rubrik": "/lokales/rheinhessen/",
-   "rubrikName": "Rheinhessen",
-   "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/",
-   "anzahl": 1,
-   "tage": [
-    "2026-11-21"
-   ],
-   "beispiele": [
-    "Wertstoffhof: Warum Gewerbebetriebe abgewiesen werden"
-   ]
   }
  ],
  "tage": [
+  {
+   "tag": "2026-11-23",
+   "von": "2026-11-21T23:00:00.000Z",
+   "bis": "2026-11-23T03:42:02.312Z",
+   "vorlaeufig": true,
+   "eintraege": 64,
+   "notion": 53,
+   "erfasst": 50,
+   "fehlt": 3,
+   "offen": 0,
+   "zusaetzlich": 5,
+   "vorsprungMinuten": 99,
+   "quellen": [
+    {
+     "name": "Allgemeine Zeitung",
+     "id": "az",
+     "notion": 28,
+     "erfasst": 25,
+     "fehlt": 3,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "SPIEGEL",
+     "id": "spiegel",
+     "notion": 8,
+     "erfasst": 8,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 5
+    },
+    {
+     "name": "Bildungsserver",
+     "id": "bildungsserver",
+     "notion": 8,
+     "erfasst": 8,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Bundesministerium für Bildung, Familie, Senioren, Frauen und Jugend",
+     "id": "bmbfsfj",
+     "notion": 5,
+     "erfasst": 5,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Difu",
+     "id": "difu",
+     "notion": 2,
+     "erfasst": 2,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Bildungsminsterium",
+     "id": "bm-rlp",
+     "notion": 2,
+     "erfasst": 2,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    }
+   ],
+   "fehlend": [
+    {
+     "titel": "Bodenheimer Schoppengarde bereitet Jubiläumsfeier vor",
+     "url": "https://www.allgemeine-zeitung.de/lokales/rheinhessen/bodenheimer-schoppengarde-bereitet-jubilaeumsfeier-vor-6712297",
+     "quelle": "Allgemeine Zeitung",
+     "id": "az",
+     "zeit": "2026-11-22T11:51:00.000Z",
+     "grund": "rubrik",
+     "rubrik": "/lokales/rheinhessen/",
+     "rubrikName": "Rheinhessen",
+     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/"
+    },
+    {
+     "titel": "Uelversheimerin forscht ohne Abschluss auf Elite-Uni-Niveau",
+     "url": "https://www.allgemeine-zeitung.de/lokales/rheinhessen/uelversheimerin-forscht-ohne-abschluss-auf-elite-uni-niveau-6727490",
+     "quelle": "Allgemeine Zeitung",
+     "id": "az",
+     "zeit": "2026-11-22T11:51:00.000Z",
+     "grund": "rubrik",
+     "rubrik": "/lokales/rheinhessen/",
+     "rubrikName": "Rheinhessen",
+     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/"
+    },
+    {
+     "titel": "Weinprämierung für Rheinhessen: Es geht um die Zukunft",
+     "url": "https://www.allgemeine-zeitung.de/lokales/rheinhessen/weinpraemierung-fuer-rheinhessen-es-geht-um-die-zukunft-6780206",
+     "quelle": "Allgemeine Zeitung",
+     "id": "az",
+     "zeit": "2026-11-22T11:51:00.000Z",
+     "grund": "rubrik",
+     "rubrik": "/lokales/rheinhessen/",
+     "rubrikName": "Rheinhessen",
+     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/"
+    }
+   ]
+  },
   {
    "tag": "2026-11-21",
    "von": "2026-11-20T23:00:00.000Z",
