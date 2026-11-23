@@ -315,32 +315,34 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 /* ---- Der Kreislauf: eigene, randlose Szene zwischen Kapitel 2 und 3. Sie bleibt beim Scrollen einen Moment stehen (wie die Zäsur davor).
    In der Mitte der Bahn schläft Claude Opus, darüber wacht der Qualitätsmanager, rechts sammeln sich die Notizen bei mir.
    Der erklärende Satz (.kl-wort) steht dort, wo gerade etwas geschieht; was ein Agent überlegt, zeigt .kl-denk Schritt für Schritt. ---- */
-.kreis{position:relative;background:linear-gradient(var(--hell) 50%,var(--pap) 0)}
-.kreis-raum{position:relative;height:185vh;height:185svh;border-radius:50%/clamp(24px,5vw,70px);overflow:clip;isolation:isolate}
-.kreis-fest{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-rows:auto minmax(0,1fr);gap:clamp(4px,1.2vh,14px);padding:clamp(58px,8vh,84px) clamp(12px,3vw,44px) clamp(12px,2.6vh,28px);overflow:hidden;isolation:isolate}
-.kreis-fest::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 72% 64% at 42% 58%,rgba(27,25,23,.2),rgba(27,25,23,.86))}
-.kl-klecks{position:absolute;z-index:-2;width:46vmax;aspect-ratio:1;border-radius:50%;filter:blur(72px);opacity:.42;animation:klecks 26s ease-in-out infinite alternate}
-.kl-klecks:nth-child(1){left:-14vmax;top:-12vmax;background:var(--f1)}
-.kl-klecks:nth-child(2){right:-16vmax;top:16vmax;background:var(--f4);animation-duration:33s;animation-delay:-9s}
-.kl-klecks:nth-child(3){left:22vmax;bottom:-28vmax;background:var(--f2);opacity:.26;animation-duration:38s;animation-delay:-15s}
+.kreis{position:relative;z-index:1;margin:calc(-.55 * clamp(60px,9vw,130px)) 0;background:linear-gradient(var(--hell) 50%,var(--pap) 0)}
+.kreis .kreis-raum{position:relative;height:200vh;height:200svh;background:none}
+.kreis-fest{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate;background:var(--tinte)}
+.kreis-lid{position:absolute;inset:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse 56% var(--lid,200%) at 50% 50%,transparent calc(100% - 2px),var(--lidfarbe,var(--hell)) 100%)}.kreis-lid.weg{display:none}
+.kreis-innen{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr);gap:clamp(4px,1.2vh,14px);padding:clamp(58px,8vh,84px) clamp(12px,3vw,44px) clamp(12px,2.6vh,28px);opacity:var(--klar,1);scale:var(--nah,1);transform-origin:50% 55%;will-change:opacity,scale}
+.kreis-fest::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 74% 66% at 42% 58%,rgba(27,25,23,.1),rgba(27,25,23,.8))}
+.kl-klecks{position:absolute;z-index:-2;width:70vmax;aspect-ratio:1;border-radius:50%;opacity:.64;will-change:transform;animation:kl-drift 46s ease-in-out infinite alternate}
+.kl-klecks:nth-child(1){left:-26vmax;top:-30vmax;background:radial-gradient(closest-side,var(--f1),transparent)}
+.kl-klecks:nth-child(2){right:-30vmax;bottom:-34vmax;background:radial-gradient(closest-side,var(--f4),transparent);animation-duration:58s;animation-delay:-20s}
+@keyframes kl-drift{to{transform:translate(5vmax,3vmax)}}
 .kreis h2{font-size:clamp(30px,4.6vw,66px)}
 .kl-rahmen{container-type:size;min-height:0;display:grid;place-items:center}
-.kl{position:relative;width:min(100cqw,100cqh * 1600 / 900);aspect-ratio:1600/900;container-type:inline-size;color:#f6f1e6}
+.kl{position:relative;width:min(100cqw,100cqh * 1600 / 900);aspect-ratio:1600/900;container-type:inline-size;color:#f6f1e6;--feder:cubic-bezier(.22,.8,.3,1)}
 .kl.schmal{width:min(100cqw,100cqh * 620 / 1250);aspect-ratio:620/1250}
 .kl svg{display:block;width:100%;height:100%;overflow:visible}
-.kl-wort{position:absolute;left:var(--x,50%);top:var(--y,50%);width:var(--b,30%);margin:0;translate:-50% -50%;text-align:center;text-wrap:balance;font:460 clamp(15px,1.72cqw,25px)/1.17 "Fraunces",serif;letter-spacing:-.02em;opacity:0;scale:.97;transition:opacity .4s ease,scale .6s ease;pointer-events:none}
+.kl-wort{position:absolute;left:var(--x,50%);top:var(--y,50%);width:var(--b,30%);margin:0;translate:-50% -50%;text-align:center;text-wrap:balance;font:460 clamp(15px,1.72cqw,25px)/1.17 "Fraunces",serif;letter-spacing:-.02em;opacity:0;scale:.97;transition:opacity .4s ease,scale .6s ease;pointer-events:none;will-change:opacity,scale}
 .kl-wort.da{opacity:1;scale:1}
 .kl-wort i{font-style:italic;font-weight:400;color:var(--f2)}
 .kl.schmal .kl-wort{font-size:clamp(14px,4.35cqw,22px)}
 /* Was ein Agent überlegt: Schritt für Schritt, jeder Schritt wird abgehakt */
-.kl-denk{position:absolute;left:var(--x,50%);top:var(--y,50%);width:var(--b,26%);padding:.78em 1em .85em;border-radius:1.05em;background:rgba(34,31,28,.62);box-shadow:inset 0 0 0 1px rgba(255,255,255,.17),0 22px 46px -22px rgba(0,0,0,.85);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);font:500 clamp(12.5px,1.2cqw,17px)/1.3 var(--sans);opacity:0;translate:0 10px;transition:opacity .45s ease,translate .7s cubic-bezier(.2,1,.3,1);pointer-events:none}
+.kl-denk{position:absolute;left:var(--x,50%);top:var(--y,50%);width:var(--b,26%);padding:.78em 1em .85em;border-radius:1.05em;background:rgba(33,30,27,.93);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);will-change:opacity,translate;font:500 clamp(12.5px,1.2cqw,17px)/1.3 var(--sans);opacity:0;translate:0 10px;transition:opacity .45s ease,translate .7s cubic-bezier(.2,1,.3,1);pointer-events:none}
 .kl-denk.da{opacity:1;translate:0 0}
 .kl-denk em{display:block;margin-bottom:.55em;font:italic 400 1.04em/1.1 "Fraunces",serif;color:var(--f2)}
 .kl-denk ol{list-style:none;margin:0;padding:0;display:grid;gap:.5em}
 .kl-denk li{position:relative;display:grid;grid-template-columns:1.25em minmax(0,1fr);gap:.6em;align-items:start;opacity:0;translate:0 7px;transition:opacity .55s ease,translate .55s ease,color .5s}
 .kl-denk li.an,.kl-denk li.fertig{opacity:1;translate:0 0}.kl-denk li.fertig{color:rgba(246,241,230,.66)}
-.kl-denk li i{position:relative;width:1.25em;height:1.25em;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.34)}
-.kl-denk li.an i{box-shadow:none;background:conic-gradient(var(--f2),rgba(255,255,255,.08) 82%);-webkit-mask:radial-gradient(circle,#0000 50%,#000 54%);mask:radial-gradient(circle,#0000 50%,#000 54%);animation:drehe 1.1s linear infinite}
+.kl-denk li i{position:relative;box-sizing:border-box;width:1.25em;height:1.25em;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.34)}
+.kl-denk li.an i{box-shadow:none;border:2px solid rgba(255,255,255,.2);border-top-color:var(--f2);animation:drehe 1s linear infinite}
 .kl-denk li.fertig i{background:#9fd4a8;box-shadow:none}
 .kl-denk li.fertig i::after{content:"";position:absolute;left:36%;top:19%;width:24%;height:46%;border:solid var(--tinte);border-width:0 2px 2px 0;rotate:42deg}
 .kl-denk li+li::before{content:"";position:absolute;left:.58em;top:-.5em;width:1.5px;height:.5em;background:rgba(255,255,255,.22)}
@@ -349,33 +351,23 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .kl .k-name{font:600 27px/1 "Fraunces",serif;letter-spacing:-.02em;transition:fill .5s}
 .kl .k-sub{font-size:20.5px;fill:#bdb5a7}
 .k-etikett{transition:opacity .4s}.kl.denkt-oben .k-etikett{opacity:0}
-.k-stern{fill:#f6f1e6;animation:k-funkel 4.6s ease-in-out infinite}
-@keyframes k-funkel{0%,100%{opacity:.05}50%{opacity:.42}}
-.k-ferne{fill:none;stroke:rgba(255,255,255,.055);stroke-width:1.5}
-.k-schein{fill:none;stroke:var(--f2);stroke-width:30;opacity:.08;filter:blur(7px)}
-.k-bahn{fill:none;stroke:url(#k-farbe);stroke-width:3.4;opacity:.6}
-.k-strom{fill:none;stroke:rgba(255,255,255,.42);stroke-width:2.6;stroke-dasharray:2 20;stroke-linecap:round;animation:k-strom 2.6s linear infinite}
-@keyframes k-strom{to{stroke-dashoffset:-22}}
-.k-frisch{fill:none;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;transition:opacity 2s}
-.k-frisch.kern{stroke:url(#k-farbe);stroke-width:6}.k-frisch.glut{stroke:var(--f2);stroke-width:20}
-.k-speiche{fill:none;stroke-linecap:round;opacity:0;transition:opacity .8s}
-.k-speiche.spur{stroke:var(--f2);stroke-width:1.6}.k-speiche.spur.an{opacity:.3}
-.k-speiche.licht{stroke:#fff;stroke-width:3.4;stroke-dasharray:.2 .8;stroke-dashoffset:.2}.k-speiche.glut{stroke:var(--f2);stroke-width:13;stroke-dasharray:.2 .8;stroke-dashoffset:.2}
-.k-speiche.licht.an,.k-speiche.glut.an{opacity:1;animation:k-impuls 1.25s linear infinite}.k-speiche.glut.an{opacity:.75}
-@keyframes k-impuls{to{stroke-dashoffset:-.8}}
-.k-komet circle{fill:#fff}.k-komet .k-glut{fill:var(--f2);opacity:.75}
-.k-pruef{opacity:0}.k-pruef circle{fill:#d8f3dc}.k-pruef .k-glut{fill:#8fd19e;opacity:.9}
-.k-kopf{opacity:0}.k-kopf circle{fill:#fff}.k-kopf .k-glut{fill:var(--f2);opacity:.95}
-.k-funke{opacity:0}.k-funke circle{fill:#eafbee}.k-funke .k-glut{fill:#8fd19e}
+.k-stern{fill:#f6f1e6;opacity:.16}
+.k-ferne{fill:none;stroke:rgba(255,255,255,.05);stroke-width:1.5}
+.k-bahn{fill:none;stroke:url(#k-farbe);stroke-width:3;opacity:.62}
+.k-frisch{fill:none;stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
+.k-frisch.kern{stroke:url(#k-farbe);stroke-width:5.5}.k-frisch.glut{stroke:var(--f2);stroke-width:15}
+.k-speiche{fill:none;stroke:var(--f2);stroke-width:1.7;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;transition:opacity 1.4s ease,stroke-dashoffset 0s 1.4s}
+.k-speiche.an{opacity:.55;stroke-dashoffset:0;transition:stroke-dashoffset 1.5s cubic-bezier(.3,0,.2,1),opacity .4s}
+.k-spur{fill:none;stroke:#fff}.k-licht circle{fill:#fff}.k-licht .k-glut{fill:url(#k-punkt);opacity:.5}
+.k-pruef{opacity:0}.k-pruef .k-spur{stroke:#bfe8c8}.k-pruef circle{fill:#dff5e3}.k-pruef .k-glut{display:none}
+.k-kopf{opacity:0}
+.k-funke{opacity:0}.k-funke circle{fill:#dff5e3}
 .k-kern,.k-marke,.k-ding,.k-n,.k-zahl,.k-offen,.k-st .k-rand,.k-welle,.k-gedanke,.k-hand{transform-box:fill-box;transform-origin:center}
 .k-st .k-scheibe{fill:#f6f1e6;transition:fill .6s}
 .k-st .k-rand{fill:none;stroke:var(--f2);stroke-width:3;opacity:0;transition:opacity .5s,transform .8s var(--feder)}
 .k-st .k-kern{transition:transform .7s var(--feder)}
-.k-st.dran .k-kern{transform:scale(1.17)}.k-st.dran .k-rand{opacity:1;transform:scale(1.22)}.kl .k-st.dran .k-name{fill:var(--f2)}
-@keyframes k-blitz{35%{transform:scale(1.3)}}.k-st.blitz .k-kern{animation:k-blitz .9s ease}.k-st.blitz .k-scheibe{fill:color-mix(in srgb,var(--f2) 45%,#f6f1e6)}
-@keyframes k-ruettel{20%{transform:translate(-3px,0) rotate(-4deg)}45%{transform:translate(3px,0) rotate(4deg)}70%{transform:translate(-2px,0) rotate(-2deg)}}.k-st.stoert .k-kern{animation:k-ruettel .55s ease 2}
-.k-welle{fill:none;stroke:#8fd19e;stroke-width:3;opacity:0}
-@keyframes k-welle{from{opacity:.95;transform:scale(1)}to{opacity:0;transform:scale(2.2)}}.k-st.heil .k-welle{animation:k-welle 1.1s ease-out}
+.k-st.dran .k-kern{transform:scale(1.1)}.k-st.dran .k-rand{opacity:.9;transform:scale(1.13)}.kl .k-st.dran .k-name{fill:var(--f2)}
+.k-welle{fill:none;stroke:#8fd19e;stroke-width:2;opacity:0}
 .k-bild *{fill:none;stroke:var(--tinte);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 .k-bild .voll{fill:var(--tinte);stroke:none}.k-bild .gelb{fill:#e2a93b;stroke:none}
 .k-marke{transform:scale(0);transition:transform .5s var(--feder)}.k-marke.an{transform:scale(1)}.k-marke.gross.an{transform:scale(1.28)}
@@ -383,11 +375,10 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .k-marke path{fill:none;stroke:var(--tinte);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;transition:opacity .3s}
 .k-marke .wa,.k-marke.klein .ok,.k-marke.gross .ok{opacity:0}.k-marke.klein .wa,.k-marke.gross .wa{opacity:1}
 /* Augen */
-.k-hof{fill:var(--f2);opacity:.18;transition:opacity 1.2s,transform 1.6s ease;transform-box:fill-box;transform-origin:center}.k-opus .k-hof{opacity:0}.k-auge.dran .k-hof{opacity:.5}.k-opus.dran .k-hof{opacity:.42;transform:scale(1.7)}
+.k-hof{fill:url(#k-hof);opacity:.45;transition:opacity 1.4s ease,transform 1.8s ease;transform-box:fill-box;transform-origin:center}.k-opus .k-hof{opacity:0}.k-auge.dran .k-hof{opacity:.95}.k-opus.dran .k-hof{opacity:.85;transform:scale(1.45)}
 .k-pupille{fill:var(--tinte)}.k-limbus{fill:none;stroke:rgba(27,25,23,.5);stroke-width:2.2}.k-strahl{fill:none;stroke:rgba(255,255,255,.26);stroke-width:1.1;stroke-linecap:round}
 .k-lidvoll{fill:#f6f1e6}.k-lidfein{fill:none;stroke:#f6f1e6;stroke-width:2.2;stroke-linecap:round;opacity:.8}.k-falte{fill:none;stroke:#f6f1e6;stroke-width:1.8;stroke-linecap:round;opacity:.3}
 .k-wimper{fill:none;stroke:#f6f1e6;stroke-width:2.8;stroke-linecap:round}
-.k-blickt{transition:transform .5s ease-out}
 .k-offen{transition:transform .13s ease-in}
 .k-auge.blinzelt .k-offen{transform:scaleY(.05)}
 .k-auge.schlaeft .k-offen{transform:scaleY(.02);opacity:0;transition:transform .7s ease,opacity .25s .5s}
@@ -409,7 +400,7 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 @keyframes k-punkt{0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-4px);opacity:1}}
 .k-hand{opacity:0;transform:scale(.5);transition:opacity .35s,transform .5s var(--feder)}.k-ich.liest .k-hand{opacity:1;transform:scale(1)}
 .k-hand rect{stroke:rgba(27,25,23,.28);stroke-width:1}
-.k-flug{opacity:0;transition:opacity .3s}.k-flug.an{opacity:1}.k-flug .k-glut{fill:var(--f2);opacity:.6}
+.k-flug{opacity:0;transition:opacity .45s}.k-flug.an{opacity:1}
 @media (max-width:860px){.frueh{grid-template-columns:minmax(0,1fr);--zh:36px}.fr-pfeil{display:none}.fr-tab li{grid-template-columns:84px minmax(0,1fr) 20px;font-size:13.5px}.mk-innen{grid-template-columns:minmax(0,1fr)}.sb .bild{zoom:1.25}.mk-bild{min-height:213px}.mk-kette{justify-content:flex-start}.mb{flex-basis:112px}.mb i{width:74px;height:74px}.mb svg{width:32px;height:32px}.mb::before{top:32px}.mb .uhr{top:46px;left:calc(50% - 48px)}.mb em{left:calc(50% + 18px)}.vz-feld{grid-template-columns:minmax(0,1fr)}.vz-minis{grid-template-columns:repeat(2,minmax(0,1fr))}.vm:nth-child(n+17){display:none}.vz-kopf{align-items:flex-start;flex-direction:column;gap:6px}.tuftel{grid-template-columns:minmax(0,1fr)}.zwei{grid-template-columns:minmax(0,1fr)}.zahlen{grid-template-columns:repeat(2,minmax(0,1fr))}.wer{grid-template-columns:minmax(0,1fr)}.wer .ring{width:170px}.wisch{display:block}.buehne{aspect-ratio:3/4}.post{rotate:1deg}}
 @media (max-width:560px){.af-liste{grid-template-columns:repeat(2,minmax(0,1fr))}.notiz{font-size:23px;margin-left:2px}.notiz svg{width:34px}.schalter button{padding:9px 13px;font-size:14px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt span,.notiz span{clip-path:none}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.af-blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
@@ -494,9 +485,9 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 </div></section>
 
 <section class="kreis" id="kreis" aria-label="Der Kreislauf"><div class="kreis-raum dunkel">
-  <div class="kreis-fest"><i class="kl-klecks"></i><i class="kl-klecks"></i><i class="kl-klecks"></i>
-    <h2 data-ein>Ein Kreislauf, <i>der von allein läuft</i></h2>
-    <div class="kl-rahmen"><div class="kl" id="kl"><div id="kl-bild" aria-hidden="true"></div><p class="kl-wort" id="kl-wort"></p><div class="kl-denk" id="kl-denk"></div></div></div>
+  <div class="kreis-fest" id="kreis-fest"><i class="kl-klecks"></i><i class="kl-klecks"></i><i class="kreis-lid" id="kreis-lid"></i>
+    <div class="kreis-innen"><h2>Ein Kreislauf, <i>der von allein läuft</i></h2>
+    <div class="kl-rahmen"><div class="kl" id="kl"><div id="kl-bild" aria-hidden="true"></div><p class="kl-wort" id="kl-wort"></p><div class="kl-denk" id="kl-denk"></div></div></div></div>
   </div>
 </div></section>
 
@@ -723,19 +714,23 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
     const P = (g, f = 1) => [L.cx + L.rx * f * Math.cos(bogen(g)), L.cy + L.ry * f * Math.sin(bogen(g))], SP = i => P(-90 + i * 60);
     const ring = (g, f = 1) => { const a = P(g, f), b = P(g + 180, f); return `M${N(a[0])} ${N(a[1])} A${N(L.rx * f)} ${N(L.ry * f)} 0 1 1 ${N(b[0])} ${N(b[1])} A${N(L.rx * f)} ${N(L.ry * f)} 0 1 1 ${N(a[0])} ${N(a[1])}`; };
     const schrift = (x, y, anker, name, sub) => `<text class="k-name" x="${N(x)}" y="${N(y)}" text-anchor="${anker}">${name}</text>` + (sub ? sub.split("|").map((z, n) => `<text class="k-sub" x="${N(x)}" y="${N(y + 27 + n * 25)}" text-anchor="${anker}">${z}</text>`).join("") : "");
-    const schweif = (art, n, r) => `<g class="${art}"><circle class="k-glut" r="${r * 2.8}" filter="url(#k-glut)"/>${Array.from({ length: n }, (_, i) => `<circle r="${(r - i * (r - 1) / n).toFixed(2)}" opacity="${(i ? .34 * (1 - i / n) ** 1.5 : 1).toFixed(3)}"/>`).join("")}</g>`;
-    const auge = ([x, y], g, art, zzz) => `<g transform="translate(${x} ${y}) scale(${g})"><g class="k-auge ${art}"><circle class="k-hof" r="82" filter="url(#k-weich)"/>
+    // Ein Licht auf der Bahn: heller Punkt mit einer Spur aus vier Strichen, die nach hinten dünner und blasser werden (je Bild nur fünf Werte)
+    const SPUR = [[.1, 2, .1], [.06, 3, .14], [.034, 4.4, .22], [.014, 6, .5]];
+    const licht = (art, glut) => `<g class="k-licht ${art}">${SPUR.map(([l, b, d]) => `<path class="k-spur" pathLength="1" d="${ring(-90)}" stroke-width="${b}" stroke-opacity="${d}" stroke-dasharray="${l} ${1 - l}"/>`).join("")}${glut ? `<circle class="k-glut" r="17"/>` : ""}<circle r="6.2"/></g>`;
+    const ziehe = (teile, f) => { const [x, y] = P(-90 + f * 360); teile.forEach((e, i) => { if (i < SPUR.length) e.style.strokeDashoffset = (SPUR[i][0] - f).toFixed(4); else { e.setAttribute("cx", N(x)); e.setAttribute("cy", N(y)); } }); };
+    const punkte = (art, n, r) => `<g class="${art}">${Array.from({ length: n }, (_, i) => `<circle r="${(r - i * (r - 1) / n).toFixed(2)}" opacity="${(i ? .5 * (1 - i / n) : 1).toFixed(2)}"/>`).join("")}</g>`;
+    const auge = ([x, y], g, art, zzz) => `<g transform="translate(${x} ${y}) scale(${g})"><g class="k-auge ${art}"><circle class="k-hof" r="104"/>
       <g class="k-zu"><path class="k-lidvoll" d="M-70 3 C-40 35 40 35 70 3 C40 45 -40 45 -70 3 Z"/><path class="k-wimper" d="M-51 24 L-59 37 M-27 35 L-31 50 M0 39 V55 M27 35 L31 50 M51 24 L59 37"/></g>
       <g class="k-offen"><path d="${MANDEL}" fill="url(#k-weiss)"/><g clip-path="url(#k-mandel)"><g transform="translate(0 -2)"><g class="k-blickt"><circle r="27" fill="url(#k-iris-${zzz ? "opus" : "wach"})"/><path class="k-strahl" d="${STRAHLEN}"/><circle class="k-limbus" r="27"/><circle class="k-pupille" r="11.5"/><circle cx="-9" cy="-10" r="6" fill="#fff"/><circle cx="8.5" cy="9" r="2.6" fill="#fff" opacity=".7"/></g></g>
         <path d="M-70 3 C-40 -47 40 -47 70 3 C40 -30 -40 -30 -70 3 Z" fill="rgba(27,25,23,.2)"/></g>
         <path class="k-lidvoll" d="M-75 5 C-43 -53 43 -53 75 5 C41 -44 -41 -44 -75 5 Z"/><path class="k-lidfein" d="M70 3 C38 40 -38 40 -70 3"/><path class="k-falte" d="M-54 -32 C-25 -59 25 -59 54 -32"/></g>
       ${zzz ? `<text class="k-z" x="54" y="-26">z</text><text class="k-z" x="66" y="-40">z</text><text class="k-z" x="78" y="-56">Z</text>` : ""}</g></g>`;
-    const karte = (art, innen) => `<g class="k-flug ${art}"><g class="k-karte" transform="scale(${L.g})"><circle class="k-glut" r="26" filter="url(#k-glut)"/><rect x="-17" y="-12.5" width="34" height="25" rx="5"/>${innen}</g></g>`;
+    const karte = (art, innen) => `<g class="k-flug ${art}"><g class="k-karte" transform="scale(${L.g})"><rect x="-17" y="-12.5" width="34" height="25" rx="5"/>${innen}</g></g>`;
     const NOTIZ = `<path d="M-10 -4 H4 M-10 3.5 H10"/><circle cx="10" cy="-6" r="3.4" fill="#e8694c"/>`;
     function bauen() {
       hoch = schmal.matches; L = ORT[hoch ? "hoch" : "breit"]; kl.classList.toggle("schmal", hoch);
       const [ax, ay] = L.auge, [zx, zy] = L.zettel, [ix, iy] = L.ich, [ox, oy] = L.opus, g = L.g, mix = n => `color-mix(in srgb,var(--f${n}) `;
-      const sterne = Array.from({ length: hoch ? 30 : 46 }, () => `<circle class="k-stern" cx="${N(rz() * L.w)}" cy="${N(rz() * L.h)}" r="${N(.7 + rz() * 1.4)}" style="animation-delay:${N(-rz() * 5)}s"/>`).join("");
+      const sterne = Array.from({ length: hoch ? 18 : 28 }, () => `<circle class="k-stern" cx="${N(rz() * L.w)}" cy="${N(rz() * L.h)}" r="${N(.7 + rz() * 1.2)}"/>`).join("");
       const wege = hoch
         ? { notiz: `M${ax - 50} ${ay + 36} C8 250 -6 520 20 780 S90 1040 ${zx - 14} ${zy - 58}`, lesen: `M${zx + 58} ${zy} L${ix - 68} ${iy}`, auftrag: `M${ix - 36} ${iy - 58} C${ix - 20} 940 430 700 ${ox + 66} ${oy + 36}` }
         : { notiz: `M1198 112 C1290 66 1356 122 ${zx - 42} ${zy - 58}`, notiz2: `M${ax + 74} ${ay - 36} C960 -34 1262 26 ${zx - 32} ${zy - 62}`, lesen: `M${zx} ${zy + 62} L${ix} ${iy - 84}`, auftrag: `M${ix - 76} ${iy - 4} C1210 524 1010 470 ${ox + 132} ${oy - 4}` };
@@ -745,25 +740,25 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
         return `<g class="k-st"><g transform="translate(${N(x)} ${N(y)}) scale(${g})"><circle class="k-welle" r="31"/><g class="k-kern"><circle class="k-rand" r="34"/><circle class="k-scheibe" r="30"/><g class="k-bild">${s[3]}</g></g>
           <g transform="translate(23 -23)"><g class="k-marke"><circle r="11.5"/><path class="ok" d="M-5 .3 L-1.6 3.7 L5 -3.4"/><path class="wa" d="M0 -5.2 V1 M0 5 V5.2"/></g></g></g>${schrift(tx, ty, anker, s[hoch ? 1 : 0], L.sub ? s[2] : "")}</g>`; }).join("");
       const speichen = ST.map((_, i) => { const [x, y] = SP(i), dx = x - ox, dy = y - oy, a = hoch ? (i === 3 ? .52 : .42) : i === 3 ? .66 : i === 0 ? .1 : .36, b = hoch ? (i === 3 ? .72 : .64) : .86, d = `M${N(ox + dx * a)} ${N(oy + dy * a)} L${N(ox + dx * b)} ${N(oy + dy * b)}`;
-        return i === 0 && !hoch ? "" : `<path class="k-speiche spur" d="${d}"/><path class="k-speiche glut" pathLength="1" d="${d}" filter="url(#k-saum)"/><path class="k-speiche licht" pathLength="1" d="${d}"/>`; }).join("");
+        return i === 0 && !hoch ? "" : `<path class="k-speiche" pathLength="1" d="${d}"/>`; }).join("");
       bild.innerHTML = `<svg class="${hoch ? "hoch" : "breit"}" viewBox="0 0 ${L.w} ${L.h}" role="img">
-        <defs><filter id="k-weich" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="15"/></filter><filter id="k-glut" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="7"/></filter>
-          <filter id="k-saum" filterUnits="userSpaceOnUse" x="-40" y="-40" width="${L.w + 80}" height="${L.h + 80}"><feGaussianBlur stdDeviation="7"/></filter>
+        <defs><radialGradient id="k-hof"><stop offset="0" style="stop-color:var(--f2)" stop-opacity=".42"/><stop offset=".55" style="stop-color:var(--f2)" stop-opacity=".13"/><stop offset="1" style="stop-color:var(--f2)" stop-opacity="0"/></radialGradient>
+          <radialGradient id="k-punkt"><stop offset="0" style="stop-color:var(--f2)" stop-opacity=".9"/><stop offset="1" style="stop-color:var(--f2)" stop-opacity="0"/></radialGradient>
           <linearGradient id="k-farbe" gradientUnits="userSpaceOnUse" x1="${L.cx - L.rx}" y1="${L.cy - L.ry}" x2="${L.cx + L.rx}" y2="${L.cy + L.ry}"><stop offset="0" style="stop-color:var(--f1)"/><stop offset=".35" style="stop-color:var(--f2)"/><stop offset=".7" style="stop-color:var(--f3)"/><stop offset="1" style="stop-color:var(--f4)"/></linearGradient>
           <radialGradient id="k-strahl" gradientUnits="userSpaceOnUse" cx="${ox}" cy="${oy}" r="${Math.max(L.rx, L.ry)}"><stop offset=".25" stop-color="#fff"/><stop offset="1" style="stop-color:var(--f2)"/></radialGradient>
           <radialGradient id="k-weiss" cx=".5" cy=".42" r=".62"><stop offset=".45" stop-color="#fffdf8"/><stop offset="1" stop-color="#ddd3c0"/></radialGradient>
           <radialGradient id="k-iris-wach"><stop offset=".2" style="stop-color:${mix(2)}62%,#fff)"/><stop offset=".68" style="stop-color:var(--f2)"/><stop offset="1" style="stop-color:${mix(2)}62%,#000)"/></radialGradient>
           <radialGradient id="k-iris-opus"><stop offset=".2" style="stop-color:${mix(1)}66%,#fff)"/><stop offset=".68" style="stop-color:var(--f1)"/><stop offset="1" style="stop-color:${mix(1)}60%,#000)"/></radialGradient>
           <clipPath id="k-mandel"><path d="${MANDEL}"/></clipPath><clipPath id="k-rund"><circle r="52"/></clipPath></defs>
-        ${sterne}<path class="k-ferne" d="${ring(-90, 1.2)}"/><path class="k-ferne" d="${ring(-90, 1.42)}"/>
+        ${sterne}<path class="k-ferne" d="${ring(-90, 1.22)}"/>
         <path id="k-w-notiz" d="${wege.notiz}" fill="none"/><path id="k-w-notiz2" d="${wege.notiz2 || wege.notiz}" fill="none"/><path id="k-w-lesen" d="${wege.lesen}" fill="none"/><path id="k-w-auftrag" d="${wege.auftrag}" fill="none"/>
-        <path class="k-schein" d="${ring(-90)}"/><path class="k-bahn" d="${ring(-90)}"/><path class="k-strom" d="${ring(-90)}"/>
-        <path class="k-frisch glut" pathLength="1" d="${ring(-90)}" filter="url(#k-saum)"/><path class="k-frisch kern" pathLength="1" d="${ring(-90)}"/>
+        <path class="k-bahn" d="${ring(-90)}"/>
+        <path class="k-frisch glut" pathLength="1" d="${ring(-90)}"/><path class="k-frisch kern" pathLength="1" d="${ring(-90)}"/>
         <g class="k-glied ruht" data-g="opus">${speichen}${auge(L.opus, L.og, "k-opus schlaeft", true)}${schrift(ox, oy + 50 * L.og + 34, "middle", "Claude Opus", hoch ? "für große Umbauten" : "sehr leistungsstarker KI-Agent|für die großen Umbauten")}</g>
-        ${schweif("k-komet", 80, 7)}${schweif("k-pruef", 46, 6.4)}${schweif("k-kopf", 26, 6.6)}
+        ${licht("k-komet", true)}${licht("k-pruef", false)}<g class="k-licht k-kopf"><circle class="k-glut" r="17"/><circle r="6.2"/></g>
         ${stationen}
         ${auge(L.auge, L.ag, "k-wach")}<g class="k-etikett">${hoch ? schrift(ax + 96, ay - 2, "start", "Qualitätsmanager", "KI-Agent · Claude Sonnet") : schrift(ax - 108, ay - 4, "end", "Qualitätsmanager", "KI-Agent · Claude Sonnet")}</g>
-        ${schweif("k-funke", 14, 5)}
+        ${punkte("k-funke", 9, 4.6)}
         <g class="k-glied ruht" data-g="zettel"><g transform="translate(${zx} ${zy}) scale(${g})"><g class="k-ding k-zettel k-karte"><rect class="k-fach" x="-37" y="-27" width="74" height="54" rx="8"/>
           <g class="k-n"><rect x="-34" y="-23" width="68" height="48" rx="7" transform="rotate(-10)" opacity=".55"/></g><g class="k-n"><rect x="-34" y="-23" width="68" height="48" rx="7" transform="rotate(7)" opacity=".75"/></g>
           <g class="k-n"><rect x="-35" y="-26" width="70" height="52" rx="7"/><path d="M-23 -11 H8 M-23 0 H23 M-23 11 H2"/><circle cx="23" cy="-14" r="5.5" fill="#e8694c"/></g>
@@ -779,10 +774,10 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
             <g transform="rotate(-5)"><rect x="-18" y="-13.5" width="36" height="27" rx="5"/><path d="M-10 -4 H5 M-10 3.5 H10"/><circle cx="10.5" cy="-6.5" r="3.4" fill="#e8694c"/></g></g></g></g></g>${schrift(ix, iy + 52 * g + 34, "middle", "Ich", "")}</g>
         ${karte("k-notiz", NOTIZ)}${karte("k-auftrag", `<path d="M-17 -12.5 H17 V-4 H-17 Z" style="fill:var(--f2);stroke:none"/><path d="M-8 4.5 H7 M3 .5 L7.5 4.5 L3 8.5" style="stroke:var(--tinte);stroke-width:2.6;stroke-linejoin:round"/>`)}</svg>`;
       const q = s => bild.querySelector(s), qa = s => [...bild.querySelectorAll(s)], lang = id => { const p = q(id); return [p, p.getTotalLength()]; };
-      T = { st: qa(".k-st"), marken: qa(".k-marke"), komet: qa(".k-komet circle"), pruef: q(".k-pruef"), pruefK: qa(".k-pruef circle"), kopf: q(".k-kopf"), kopfK: qa(".k-kopf circle"), funke: q(".k-funke"), funkeK: qa(".k-funke circle"),
+      T = { st: qa(".k-st"), kerne: qa(".k-st .k-kern"), wellen: qa(".k-welle"), marken: qa(".k-marke"), komet: qa(".k-komet > *"), pruef: q(".k-pruef"), pruefK: qa(".k-pruef > *"), kopf: q(".k-kopf"), kopfK: qa(".k-kopf circle"), funke: q(".k-funke"), funkeK: qa(".k-funke circle"),
         wach: q(".k-wach"), opus: q(".k-opus"), frisch: qa(".k-frisch"), speichen: qa(".k-speiche"), zettel: q(".k-zettel"), blatt: qa(".k-n"), zahl: q(".k-zahl"), ich: q(".k-ich"),
         notiz: q(".k-notiz"), auftrag: q(".k-auftrag"), wNotiz: lang("#k-w-notiz"), wNotiz2: lang("#k-w-notiz2"), wLesen: lang("#k-w-lesen"), wAuftrag: lang("#k-w-auftrag"), glied: Object.fromEntries(qa(".k-glied").map(e => [e.dataset.g, e])) };
-      dranAlt = -2;
+      dranAlt = -2; ziehe(T.komet, 0); ziehe(T.pruefK, 0);
     }
     const lege = (el, o) => { el.style.setProperty("--x", N(o.x / L.w * 100) + "%"); el.style.setProperty("--y", N(o.y / L.h * 100) + "%"); el.style.setProperty("--b", N(o.b / L.w * 100) + "%"); };
     // Wo der Satz steht: über Opus in der Bahn, bei den Notizen oder bei mir (am Handy: zwischen Bahn und unterer Reihe)
@@ -795,15 +790,17 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
     const stufe = n => [...blase.querySelectorAll("li")].forEach((li, i) => { li.className = i < n ? "fertig" : i === n ? "an" : ""; });
     const denktNicht = () => { blase.classList.remove("da"); kl.classList.remove("denkt-oben"); };
     const kette = (wer, titel, schritte, zeiten) => [[zeiten[0], () => { denke(wer, titel, schritte); stufe(0); }], ...zeiten.slice(1).map((z, i) => [z, () => stufe(i + 1)])];
-    const stoss = (el, art, ms) => { el.classList.remove(art); void el.getBoundingClientRect(); el.classList.add(art); setTimeout(() => el.classList.remove(art), ms); };
-    const haken = i => { T.marken[i].className.baseVal = "k-marke an"; stoss(T.st[i], "heil", 1150); };
-    const melde = (i, art) => { T.marken[i].className.baseVal = "k-marke an " + art; stoss(T.st[i], "stoert", 1200); };
+    const puls = (el, bilder, ms, kurve = "ease-out") => el.animate(bilder, { duration: ms, easing: kurve });
+    const welle = i => puls(T.wellen[i], [{ opacity: .8, transform: "scale(1)" }, { opacity: 0, transform: "scale(1.8)" }], 1100);
+    const wachse = (el, f = 1.09) => puls(el, [{ transform: "scale(1)" }, { transform: `scale(${f})`, offset: .4 }, { transform: "scale(1)" }], 1000, "ease");
+    const haken = i => { T.marken[i].className.baseVal = "k-marke an"; welle(i); };
+    const melde = (i, art) => { T.marken[i].className.baseVal = "k-marke an " + art; puls(T.kerne[i], [{ transform: "translate(0,0)" }, { transform: "translate(-2.5px,0)", offset: .3 }, { transform: "translate(2.5px,0)", offset: .65 }, { transform: "translate(0,0)" }], 600, "ease"); };
     const glied = (g, an) => T.glied[g].classList.toggle("ruht", !an);
-    const anzahl = n => { T.blatt.forEach((b, i) => b.classList.toggle("an", i >= 3 - n)); T.zahl.classList.toggle("an", n > 0); if (n) { T.zahl.querySelector("text").textContent = n; stoss(T.zettel, "dran", 800); } };
-    const setze = (kreise, punkt) => kreise.forEach((c, i) => { const [x, y] = punkt(Math.max(0, i - 1)); c.setAttribute("cx", N(x)); c.setAttribute("cy", N(y)); });
-    const leeren = () => { T.marken.forEach(m => { m.className.baseVal = "k-marke"; }); T.st.forEach(s => s.classList.remove("blitz", "heil", "stoert")); T.wach.classList.remove("dran"); T.opus.classList.add("schlaeft"); T.opus.classList.remove("dran");
-      T.frisch.forEach(f => { f.style.transition = "none"; f.style.opacity = 0; f.style.strokeDashoffset = 1; }); T.speichen.forEach(s => s.classList.remove("an")); anzahl(0); T.ich.classList.remove("denkt", "liest", "dran");
-      [T.notiz, T.auftrag].forEach(k => k.classList.remove("an")); [T.pruef, T.kopf, T.funke].forEach(e => { e.style.opacity = 0; }); Object.keys(T.glied).forEach(g => glied(g, false)); denktNicht(); neuStufe = 0; };
+    const anzahl = n => { T.blatt.forEach((b, i) => b.classList.toggle("an", i >= 3 - n)); T.zahl.classList.toggle("an", n > 0); if (n) { T.zahl.querySelector("text").textContent = n; wachse(T.zettel, 1.08); } };
+    const setze = (kreise, punkt) => kreise.forEach((c, i) => { const [x, y] = punkt(i); c.setAttribute("cx", N(x)); c.setAttribute("cy", N(y)); });
+    const leeren = () => { T.marken.forEach(m => { m.className.baseVal = "k-marke"; }); T.wach.classList.remove("dran"); T.opus.classList.add("schlaeft"); T.opus.classList.remove("dran");
+      T.frisch.forEach(f => { f.style.opacity = 0; f.style.strokeDashoffset = 1; }); T.speichen.forEach(s => s.classList.remove("an")); anzahl(0); T.ich.classList.remove("denkt", "liest", "dran");
+      [T.notiz, T.auftrag].forEach(k => k.classList.remove("an")); [T.pruef, T.kopf, T.funke].forEach(e => { e.style.opacity = 0; e._k = "0.00"; }); Object.keys(T.glied).forEach(g => glied(g, false)); denktNicht(); neuStufe = 0; };
     // Drehbuch: [Sekunde, Handlung]
     const BUCH = [
       ...ST.map((s, i) => [Math.max(0, i * RUNDE / 6 - .35), () => sag(s[4])]),
@@ -830,48 +827,64 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
       [74.8, () => { T.auftrag.classList.remove("an"); T.opus.classList.remove("schlaeft"); T.opus.classList.add("dran"); sag("<i>Claude Opus</i> wacht auf: ein sehr leistungsstarker KI-Agent."); }],
       [78.4, schweig],
       ...kette("opus", "Claude Opus überlegt", UMBAU, [78.6, 81, 83.4, 88.6, 90.6]),
-      [83.5, () => { T.speichen.forEach(s => s.classList.add("an")); T.frisch.forEach(f => { f.style.transition = ""; }); }],
-      [88.6, () => { T.speichen.forEach(s => s.classList.remove("an")); T.frisch.forEach(f => { f.style.opacity = 0; }); T.st.forEach((s, i) => setTimeout(() => stoss(s, "heil", 1150), i * 130)); }],
+      [83.5, () => T.speichen.forEach(s => s.classList.add("an"))],
+      [88.6, () => { T.speichen.forEach(s => s.classList.remove("an")); T.st.forEach((s, i) => setTimeout(() => welle(i), i * 130)); }],
       [91.6, denktNicht],
       [92, () => { T.opus.classList.add("schlaeft"); T.opus.classList.remove("dran"); sag("Dann schläft er wieder ein."); }],
       [94, () => { sag("Und der Kreislauf läuft weiter. <i>Von allein.</i>"); Object.keys(T.glied).forEach(g => glied(g, false)); }]].sort((a, b) => a[0] - b[0]);
     const PRUEF = [[28, 0], [30, 1 / 6], [42.6, 1 / 6], [46.6, 5 / 6], [58.8, 5 / 6], [59.8, 1]];
     const FLUG = [[55.3, 57, "wNotiz"], [60.4, 61.9, "wNotiz2"], [62.6, 64.1, "wNotiz2"], [66.1, 67.3, "wLesen"]];
     const teil = (t, a, b) => Math.min(1, Math.max(0, (t - a) / (b - a))), sanft = f => f * f * (3 - 2 * f), aufWeg = ([p, l], f) => p.getPointAtLength(f * l);
-    const schaue = (a, ort, ziel, g) => { const d = Math.hypot(ziel[0] - ort[0], ziel[1] - ort[1]) || 1; a.querySelector(".k-blickt").style.transform = `translate(${N((ziel[0] - ort[0]) / d * 14)}px,${N((ziel[1] - ort[1]) / d * 7)}px)`; };
+    const schaue = (a, ort, ziel) => { const d = Math.hypot(ziel[0] - ort[0], ziel[1] - ort[1]) || 1, b = a._b || (a._b = { x: 0, y: 0, e: a.querySelector(".k-blickt"), alt: "" }); b.x += ((ziel[0] - ort[0]) / d * 14 - b.x) * .09; b.y += ((ziel[1] - ort[1]) / d * 7 - b.y) * .09;
+      const w = `translate(${b.x.toFixed(1)}px,${b.y.toFixed(1)}px)`; if (w !== b.alt) b.e.style.transform = b.alt = w; };
+    const klar = (e, w) => { w = w.toFixed(2); if (e._k !== w) e.style.opacity = e._k = w; };
     const bild1 = jetzt => {
       let t = (jetzt - start) / 1000; if (t >= GANZ) { start += GANZ * 1000; t -= GANZ; leeren(); marke = 0; }
       while (marke < BUCH.length && BUCH[marke][0] <= t) BUCH[marke++][1]();
-      const p = (t / RUNDE) % 1, kopf = P(-90 + p * 360); setze(T.komet, i => P(-90 + (p - i * .0017) * 360));
+      const p = (t / RUNDE) % 1, kopf = P(-90 + p * 360); ziehe(T.komet, p);
       const nah = Math.round(p * 6) % 6, dran = t < RUNDE && Math.abs(p * 6 - Math.round(p * 6)) < .26 ? nah : -1;
       if (dran !== dranAlt) { T.st.forEach((s, i) => s.classList.toggle("dran", i === dran)); dranAlt = dran; }
       let blick = kopf;
       // Prüflicht des Qualitätsmanagers
       if (t > 27.6 && t < 60.4) { let f = 1; for (let k = 1; k < PRUEF.length; k++) if (t < PRUEF[k][0]) { f = PRUEF[k - 1][1] + (PRUEF[k][1] - PRUEF[k - 1][1]) * sanft(teil(t, PRUEF[k - 1][0], PRUEF[k][0])); break; }
-        if (t < 28) f = 0; T.pruef.style.opacity = Math.min(teil(t, 27.6, 28.1), 1 - teil(t, 59.8, 60.4)).toFixed(2); setze(T.pruefK, i => P(-90 + (f - i * .0017) * 360)); if (t < 59.8) blick = P(-90 + f * 360); }
-      else T.pruef.style.opacity = 0;
+        if (t < 28) f = 0; klar(T.pruef, Math.min(teil(t, 27.6, 28.1), 1 - teil(t, 59.8, 60.4))); ziehe(T.pruefK, f); if (t < 59.8) blick = P(-90 + f * 360); }
+      else klar(T.pruef, 0);
       // der Funke, mit dem er das kleine Problem behebt
-      if (t > 38.5 && t < 40.1) { const f = sanft(teil(t, 38.6, 39.7)), z = SP(1), a = [L.auge[0] + 14 * L.ag, L.auge[1] + 40 * L.ag]; T.funke.style.opacity = Math.min(teil(t, 38.5, 38.7), 1 - teil(t, 39.8, 40.1)).toFixed(2);
-        setze(T.funkeK, i => { const s = Math.max(0, f - i * .012); return [a[0] + (z[0] - a[0]) * s, a[1] + (z[1] - a[1]) * s]; }); blick = z; }
-      else T.funke.style.opacity = 0;
+      if (t > 38.5 && t < 40.1) { const f = sanft(teil(t, 38.6, 39.7)), z = SP(1), a = [L.auge[0] + 14 * L.ag, L.auge[1] + 40 * L.ag]; klar(T.funke, Math.min(teil(t, 38.5, 38.7), 1 - teil(t, 39.8, 40.1)));
+        setze(T.funkeK, i => { const s = Math.max(0, f - i * .016); return [a[0] + (z[0] - a[0]) * s, a[1] + (z[1] - a[1]) * s]; }); blick = z; }
+      else klar(T.funke, 0);
       // Notizen zum Stapel, der Stapel zu mir, der Auftrag zu Opus
       for (const [a, b, weg] of FLUG) if (t > a - .1 && t < b + .05) { const e = sanft(teil(t, a, b)), pt = aufWeg(T[weg], e); T.notiz.setAttribute("transform", `translate(${N(pt.x)} ${N(pt.y)}) rotate(${N(-12 + e * 16)})`); if (weg !== "wLesen") blick = [pt.x, pt.y]; }
       if (t > 72 && t < 74.85) { const pt = aufWeg(T.wAuftrag, sanft(teil(t, 72.4, 74.7))); T.auftrag.setAttribute("transform", `translate(${N(pt.x)} ${N(pt.y)}) rotate(-5)`); }
       // Opus erneuert die ganze Bahn: ein heller Kopf zieht einmal herum, hinter ihm leuchtet sie auf
-      if (t > 83.6 && t < 88.9) { const f = sanft(teil(t, 83.6, 88.6)); T.frisch.forEach(x => { x.style.strokeDashoffset = (1 - f).toFixed(4); if (t < 88.6) x.style.opacity = f > .002 ? (x.classList.contains("glut") ? .55 : 1) : 0; });
-        T.kopf.style.opacity = Math.min(teil(t, 83.6, 83.9), 1 - teil(t, 88.5, 88.9)).toFixed(2); setze(T.kopfK, i => P(-90 + (f - i * .0016) * 360));
-        while (neuStufe < 6 && f >= (neuStufe + 1) / 6 - .004) { const s = (neuStufe + 1) % 6; neuStufe++; stoss(T.st[s], "blitz", 950); if (s === 5) haken(5); } }
-      else T.kopf.style.opacity = 0;
+      if (t > 83.6 && t < 91) { const f = sanft(teil(t, 83.6, 88.6)), d = f > .002 ? 1 - sanft(teil(t, 88.6, 90.8)) : 0; T.frisch.forEach((x, i) => { x.style.strokeDashoffset = (1 - f).toFixed(4); x.style.opacity = (d * (i ? 1 : .16)).toFixed(3); });
+        klar(T.kopf, Math.min(teil(t, 83.6, 83.9), 1 - teil(t, 88.5, 88.9))); setze(T.kopfK, () => P(-90 + f * 360));
+        while (neuStufe < 6 && f >= (neuStufe + 1) / 6 - .004) { const s = (neuStufe + 1) % 6; neuStufe++; wachse(T.kerne[s]); if (s === 5) haken(5); } }
+      else klar(T.kopf, 0);
       schaue(T.wach, L.auge, blick);
       if (!T.opus.classList.contains("schlaeft")) schaue(T.opus, L.opus, t > 83.6 && t < 88.9 ? P(-90 + sanft(teil(t, 83.6, 88.6)) * 360) : t < 78 ? L.ich : [L.opus[0], L.opus[1] - 200]);
       if (jetzt > blinzeln) { blinzeln = jetzt + 2800 + rz() * 4000; for (const a of [T.wach, T.opus]) { a.classList.add("blinzelt"); setTimeout(() => a.classList.remove("blinzelt"), 150); } }
     };
     const schleife = jetzt => { if (!sichtbar) { lauf = null; angehalten = jetzt; return; } bild1(jetzt); lauf = requestAnimationFrame(schleife); };
-    bauen(); leeren();
-    if (still) { T.marken.forEach(m => { m.className.baseVal = "k-marke an"; }); setze(T.komet, () => P(-60)); Object.keys(T.glied).forEach(g => glied(g, true)); anzahl(3); sag("Der Kreislauf läuft <i>von allein</i>. Kleines behebt der Qualitätsmanager selbst, für Großes wecke ich Claude Opus."); }
+    bauen(); leeren(); kl._zeit = () => start ? (performance.now() - start) / 1000 : -1;   // nur zum Nachmessen
+    if (still) { T.marken.forEach(m => { m.className.baseVal = "k-marke an"; }); ziehe(T.komet, .08); Object.keys(T.glied).forEach(g => glied(g, true)); anzahl(3); sag("Der Kreislauf läuft <i>von allein</i>. Kleines behebt der Qualitätsmanager selbst, für Großes wecke ich Claude Opus."); }
     else {
       schmal.addEventListener("change", () => { bauen(); leeren(); schweig(); wort.textContent = ""; start = performance.now(); marke = 0; });
-      new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar && !lauf) { if (!start) start = performance.now(); else if (angehalten) start += performance.now() - angehalten; angehalten = 0; lauf = requestAnimationFrame(schleife); } }, { threshold: .35 }).observe(kl); }
+      let imBild = false, offen = false; const laufe = () => { sichtbar = imBild && offen; if (sichtbar && !lauf) { if (!start) start = performance.now(); else if (angehalten) start += performance.now() - angehalten; angehalten = 0; lauf = requestAnimationFrame(schleife); } };
+      new IntersectionObserver(es => { imBild = es[0].isIntersecting; laufe(); }, { threshold: .35 }).observe(kl);
+      // Die Szene öffnet sich beim Hereinscrollen wie ein Augenlid und schließt sich beim Hinausscrollen: erst eine Linse (0 bis 1), dann – sobald
+      // die Szene steht – öffnen sich die Ecken (1 bis 2). Der Scrollstand gibt das Ziel vor, die Öffnung folgt ihm weich (Zeitkonstante .16 s),
+      // so ruckt auch das Mausrad nicht. Gezeichnet wird nur die Blende über der Szene, nicht die Szene selbst.
+      const fest = $("#kreis-fest"), blende = $("#kreis-lid"), raum = fest.parentElement; let auf = 0, farbe = "", lidLauf = null, lidNah = false, lidT = 0;
+      const lidZiel = () => { const r = raum.getBoundingClientRect(), h = innerHeight, f = r.top > -h * .5 ? "var(--hell)" : "var(--pap)"; if (f !== farbe) blende.style.setProperty("--lidfarbe", farbe = f);
+        return Math.min(teil(h * .9 - r.top, 0, h * .84) + teil(-r.top, 0, h * .24), teil(r.bottom - h * .1, 0, h * .84) + teil(r.bottom - h, 0, h * .24)); };
+      const lid = jetzt => { const z = lidNah ? lidZiel() : auf, dt = Math.min(.1, (jetzt - lidT) / 1000); lidT = jetzt; auf += (z - auf) * (1 - Math.exp(-dt / .16)); if (Math.abs(z - auf) < .0008) auf = z;
+        blende.classList.toggle("weg", auf >= 2); if (auf < 2) blende.style.setProperty("--lid", (auf <= 1 ? 1.5 + 50.5 * sanft(auf) : 52 + 150 * sanft(auf - 1) ** 1.6).toFixed(2) + "%");
+        const k = teil(auf, .35, 1.5).toFixed(3); if (k !== fest._k) { fest.style.setProperty("--klar", fest._k = k); fest.style.setProperty("--nah", (.95 + .05 * k).toFixed(4)); }
+        if (offen !== auf > 1.7) { offen = auf > 1.7; laufe(); }
+        lidLauf = lidNah || auf !== z ? requestAnimationFrame(lid) : null; };
+      blende.style.setProperty("--lid", "1.5%"); fest.style.setProperty("--klar", "0");
+      new IntersectionObserver(es => { lidNah = es[0].isIntersecting; if (lidNah && !lidLauf) { lidT = performance.now(); lidLauf = requestAnimationFrame(lid); } }, { rootMargin: "25% 0px" }).observe(raum); }
   }
   // Kapitel 1, jeden Morgen: Der DeepSeek-Rahmen wandert durch die Tabelle; was zur Jugendhilfeplanung gehört, landet in der Mail-Vorlage.
   { const fr = $("#frueh"), ol = $("#fr-zeilen"), mail = fr.querySelector(".fr-mail"), plaetze = [...fr.querySelectorAll(".fr-platz")], pause = ms => new Promise(r => setTimeout(r, ms));
