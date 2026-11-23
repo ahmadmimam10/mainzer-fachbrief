@@ -328,18 +328,41 @@ wird (große Reihen, viel erwartete Neuheiten), höchstens zwei je Ausgabe. `tag
 des Spiels, `ort` die Plattformen („PC, PS5, Xbox“), `url` die Seite des Herstellers oder ein seriöser Bericht. Keine
 Erweiterungen, Betas, Mobilspiele oder Nischentitel.
 
-**Tipps, wenn wenig los ist** (`art: "restaurant"` oder `"ausflug"`): Kommen weniger als acht belegte Termine zusammen,
-füllen ein bis drei Tipps aus der Region auf – Restaurants mit besonderem Konzept, außergewöhnlicher Küche oder Aussicht,
-oder eine besondere Unternehmung. Nur Orte, die es nachweislich gibt und die geöffnet haben (Quelle: eigene Seite des
-Hauses oder ein seriöser Bericht), keine Ketten, keine Werbung. `tag` ist der Erscheinungstag, `wann` bleibt leer,
-`ort` nennt Stadt und Lage; die Seite schreibt statt des Tages „Tipp“ und zeigt den Tipp eine Woche lang.
+**Empfehlungen** (`art: "restaurant"`, `"ausflug"`, `"spielzeug"`, `"verein"` oder `"entdecken"`): **Montags, mittwochs
+und freitags kommt ein Tipp dazu**, reihum aus fünf Bereichen (welcher dran ist, steht in `arbeit/kandidaten.md`):
+- `restaurant` – ein Restaurant oder Café mit besonderem Konzept, besonderer Küche oder Aussicht,
+- `ausflug` – eine Unternehmung: Ausflug, Aktivität, gern auch etwas für Familien und Kinder,
+- `spielzeug` – ein Spielzeug oder Spiel, das richtig Spaß macht (etwa ausgezeichnet als „Spiel des Jahres“ /
+  „Kinderspiel des Jahres“ oder gut getestet); `ort` nennt dann Alter und Art, z. B. „ab 6 Jahren · Brettspiel“,
+- `verein` – ein Verein in Mainz und Umgebung, bei dem man mitmachen kann (Sport, Kultur, Natur, Ehrenamt),
+- `entdecken` – ein besonderer Ort oder eine coole Sache in der Umgebung.
+
+Die Tipps müssen nicht neu sein, aber besonders – und sie sollen Spaß machen. Kommen weniger als acht belegte Termine
+zusammen, füllen an jedem Tag ein bis zwei weitere Tipps auf. Kein Tipp, der in den letzten acht Wochen schon kam (die
+Liste steht in `arbeit/kandidaten.md`). Nur Orte und Angebote, die es nachweislich gibt und die geöffnet haben bzw.
+erhältlich sind (eigene Seite oder ein seriöser Führer, siehe „Fundstellen“), keine Ketten, keine Werbung, keine
+Verkaufslinks zu Großhändlern. `tag` ist der Erscheinungstag, `wann` bleibt leer, `ort` nennt Stadt und Lage; die Seite
+schreibt statt des Tages „Tipp“ und zeigt den Tipp eine Woche lang.
+
+**Fundstellen** – hier wird gut gesammelt (diese Seiten sind auch in der Netzfreigabe der Routine, `daten/netzfreigabe.txt`;
+die Websuche funktioniert immer):
+- Termine Mainz und Region: Veranstaltungskalender der Stadt (mainz.de), mainzplus.com, mvp.de, prinz.de, eventfinder.de,
+  eventim.de, rausgegangen.de, veranstaltungen.meinestadt.de, sensor-magazin.de, merkurist.de, Staatstheater
+  (staatstheater-mainz.com), KUZ (kuz.de); Wiesbaden: wiesbaden.de; Frankfurt: frankfurt.de, journal-frankfurt.de,
+  visitfrankfurt.travel; Rheinhessen und Ingelheim: rheinhessen.de, ingelheim.de.
+- Fußball: kicker.de (Spielpläne, deutsche Anstoßzeiten), realmadrid.com, fcbarcelona.com, laliga.com, uefa.com.
+- Spiele-Neuheiten: Wochenübersichten wie instant-gaming.com („Die Neuerscheinungen der Woche“), news.xbox.com,
+  blog.playstation.com, dazu gamestar.de, gamepro.de, pcgames.de.
+- Tipps: falstaff.com, guide.michelin.com, schlemmer-atlas.de (Restaurants) · freizeitmonster.de, familienausflug.info,
+  freizeitinsider.de, rheinhessen.de, mainzplus.com, rlp-tourismus.com (Unternehmungen, besondere Orte) ·
+  spiel-des-jahres.de, test.de (Spielzeug und Spiele) · Vereinsverzeichnis auf mainz.de, prinz.de (Vereine).
 
 Nur Termine mit verlässlicher Quelle (Veranstalter, Stadt, Verein, Verband, seriöse Medien) – nichts erfinden und nichts
 aus dem Gedächtnis schreiben. Lässt sich ein Termin nicht belegen, bleibt er weg.
 
 | Feld | Inhalt |
 | --- | --- |
-| `art` | bestimmt das Bild: `fussball`, `sport`, `markt`, `flohmarkt`, `fest`, `musik`, `party`, `kino`, `theater`, `ausstellung`, `neu` (Neueröffnung), `familie`, `wein`, `essen`, `fastnacht`, `spiel` (Videospiel-Neuheit), `restaurant` und `ausflug` (Tipps) |
+| `art` | bestimmt das Bild: `fussball`, `sport`, `markt`, `flohmarkt`, `fest`, `musik`, `party`, `kino`, `theater`, `ausstellung`, `neu` (Neueröffnung), `familie`, `wein`, `essen`, `fastnacht`, `spiel` (Videospiel-Neuheit) und die Tipps `restaurant`, `ausflug`, `spielzeug`, `verein`, `entdecken` |
 | `tag` | Datum des Termins, `JJJJ-MM-TT`, vom Erscheinungstag bis 7 Tage danach |
 | `wann` | kurz, höchstens 16 Zeichen: „21 Uhr“, „ab 16 Uhr“; ganztägig: leer |
 | `titel` | 4–52 Zeichen: „Real Madrid – FC Barcelona“, „Weihnachtsmarkt eröffnet“ |

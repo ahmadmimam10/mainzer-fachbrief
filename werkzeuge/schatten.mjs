@@ -29,7 +29,7 @@ const MODELL = "deepseek-flash";
 const PREIS = { treffer: .006, neu: .3, aus: 1.2, anfrage: .00075 };
 const RESSORTS = ["jugendhilfeplanung", "fruehe-hilfen", "quartiersmanagement"];
 // dieselben festen Werte wie in werkzeuge/redaktion.mjs (dort prüft sie das Veröffentlichen)
-const ARTEN = ["fussball", "sport", "markt", "flohmarkt", "fest", "musik", "party", "kino", "theater", "ausstellung", "neu", "familie", "wein", "essen", "fastnacht", "spiel", "restaurant", "ausflug"];
+const ARTEN = ["fussball", "sport", "markt", "flohmarkt", "fest", "musik", "party", "kino", "theater", "ausstellung", "neu", "familie", "wein", "essen", "fastnacht", "spiel", "restaurant", "ausflug", "spielzeug", "verein", "entdecken"];
 const ERGEBNISSE = ["beschlossen", "einstimmig", "mehrheitlich", "abgelehnt", "vertagt", "zurückgestellt", "zur Kenntnis"];
 const SUCHEN_MAX = 18, ABRUFE_MAX = 10, RUNDEN_MAX = 34, LINK = /https?:\/\/|www\./i;
 const arg = n => (process.argv.find(a => a.startsWith(`--${n}=`)) || "").slice(n.length + 3);

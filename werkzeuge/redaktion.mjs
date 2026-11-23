@@ -43,7 +43,10 @@ const LINK = /https?:\/\/|www\./i;
 const FLIEGER_MIN = 4, FLIEGER_MAX = 34;   // Zeichen – das Banner muss auch auf dem Handy lesbar bleiben
 const FLIEGER_TAGE = 30;                   // so viele Tage stehen die Sprüche in docs/daten/flieger.js
 // „Was geht?“: Termine der nächsten 7 Tage (Feld „termine“ der Ausgabe, Regeln in REDAKTION.md)
-const HEUTE_ARTEN = ["fussball", "sport", "markt", "flohmarkt", "fest", "musik", "party", "kino", "theater", "ausstellung", "neu", "familie", "wein", "essen", "fastnacht", "spiel", "restaurant", "ausflug"];
+const HEUTE_ARTEN = ["fussball", "sport", "markt", "flohmarkt", "fest", "musik", "party", "kino", "theater", "ausstellung", "neu", "familie", "wein", "essen", "fastnacht", "spiel", "restaurant", "ausflug", "spielzeug", "verein", "entdecken"];
+// Empfehlungen: montags, mittwochs und freitags ein Tipp, reihum aus diesen Bereichen; keiner doppelt innerhalb von acht Wochen
+const TIPP_ARTEN = ["restaurant", "ausflug", "spielzeug", "verein", "entdecken"], TIPP_TAGE = [1, 3, 5], TIPP_WOCHEN = 8;
+const TIPP_NAMEN = { restaurant: "Restaurant oder Café", ausflug: "Unternehmung", spielzeug: "Spielzeug oder Spiel", verein: "Verein zum Mitmachen", entdecken: "besonderer Ort oder coole Sache" };
 const ERGEBNISSE = ["beschlossen", "einstimmig", "mehrheitlich", "abgelehnt", "vertagt", "zurückgestellt", "zur Kenntnis"];
 const HEUTE_MAX = 14, HEUTE_TAGE = 7;
 const heuteListe = a => Array.isArray(a?.termine) ? a.termine.filter(x => x && typeof x === "object").map(x => Object.fromEntries(["art", "tag", "wann", "titel", "ort", "url"].map(f => [f, String(x[f] ?? "").replace(/\s+/g, " ").trim()]))) : [];
@@ -107,6 +110,13 @@ async function vorbereiten() {
     + `- Feld „termine“ der Ausgabe: 8–${HEUTE_MAX} belegte Termine der nächsten ${HEUTE_TAGE} Tage, jeder mit „tag“ (JJJJ-MM-TT).\n`
     + `- Fußball nur von FC Barcelona, Real Madrid, Spanien und Ägypten (Nationalmannschaften): deren Spiele der ${HEUTE_TAGE} Tage eintragen – die Seite zeigt je Mannschaft nur das nächste. Keine anderen Vereine.\n`
     + `- Dazu Rhein-Main (Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim): Feste, Märkte, Konzerte, Sport, Neueröffnungen – nichts Nischiges. Nur mit Quelle; sonst das Feld weglassen.\n`;
+  { // Empfehlungen: Tipp-Tag? Welcher Bereich ist dran? Was kam in den letzten acht Wochen schon?
+    const frueher = ausgaben.filter(a => a.datum < DATUM && a.datum >= dayOffset(DATUM, -7 * TIPP_WOCHEN)).sort((a, b) => b.datum.localeCompare(a.datum))
+      .flatMap(a => (Array.isArray(a.termine) ? a.termine : []).filter(x => TIPP_ARTEN.includes(x.art)).map(x => ({ ...x, am: a.datum })));
+    const dran = TIPP_ARTEN[(TIPP_ARTEN.indexOf(frueher[0]?.art) + 1) % TIPP_ARTEN.length], tippTag = TIPP_TAGE.includes(new Date(DATUM + "T12:00:00Z").getUTCDay());
+    md += `- Tipp heute: ${tippTag ? `heute ist Tipp-Tag – ein Tipp aus dem Bereich „${TIPP_NAMEN[dran]}“ (art „${dran}“)` : "heute kein fester Tipp"}; bei weniger als 8 Terminen ein bis zwei weitere Tipps zum Auffüllen.\n`
+      + `- Tipps der letzten ${TIPP_WOCHEN} Wochen (nicht wiederholen): ${frueher.length ? frueher.map(x => `${x.am} ${x.art}: ${x.titel} (${x.ort})`).join(" · ") : "noch keine"}\n`;
+  }
   md += `\n## Werbeflieger – Lage für heute (Regeln: REDAKTION.md, Abschnitt „Werbeflieger“)\n`
     + `- Heute: ${fl.wochentag}, ${namen[fl.zeit]}, Wetter in Mainz: ${namen[fl.wetter] || "unbekannt"}\n`
     + `- Besondere Tage im Intro heute: ${fl.anlaesse.length ? fl.anlaesse.join(", ") : "keine"}\n`

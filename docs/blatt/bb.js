@@ -50,12 +50,12 @@
   // ---- „Was geht heute ab?“ – vorerst mit Beispielen; später sucht die Redaktion echte Termine ----
   const BEISPIELE = [["marktstand", "ab 16 Uhr", "Feierabendmarkt", "Mainz, Altstadt"], ["musik", "20 Uhr", "Offene Bühne", "Mainz, Neustadt"], ["ausstellung", "bis 18 Uhr", "Neue Ausstellung eröffnet", "Wiesbaden"],
     ["wein", "ab 17 Uhr", "Weinstand am Rheinufer", "Mainz"], ["flohmarkt", "Samstag", "Flohmarkt am Fluss", "Frankfurt"], ["film", "21 Uhr", "Kurzfilmabend", "Ingelheim"]];
-  const LOS_BILD = { fussball: "fussball", sport: "laufschuh", markt: "marktstand", flohmarkt: "flohmarkt", fest: "riesenrad", musik: "musik", party: "disko", kino: "film", theater: "theater", ausstellung: "ausstellung", neu: "luftballons", familie: "spielplatz", wein: "wein", essen: "brezel", fastnacht: "narrenkappe", spiel: "gamepad.svg", restaurant: "besteck.svg", ausflug: "weinberg" };
+  const LOS_BILD = { fussball: "fussball", sport: "laufschuh", markt: "marktstand", flohmarkt: "flohmarkt", fest: "riesenrad", musik: "musik", party: "disko", kino: "film", theater: "theater", ausstellung: "ausstellung", neu: "luftballons", familie: "spielplatz", wein: "wein", essen: "brezel", fastnacht: "narrenkappe", spiel: "gamepad.svg", restaurant: "besteck.svg", ausflug: "weinberg", spielzeug: "baukloetze", verein: "haende", entdecken: "stadtplan" };
   const losKachel = () => { const neu = E.daten.ausgaben[0] || {}, iso = n => new Date(mittag(heute).getTime() + n * 864e5).toLocaleDateString("sv-SE"), bis = iso(7);
     // Fußball: nur FC Barcelona, Real Madrid, Spanien und Ägypten – und je Mannschaft nur das nächste Spiel
     const MANNSCHAFTEN = [/Real Madrid/i, /Barcelona|Barça/i, /Spanien/i, /Ägypten/i], gezeigt = new Set();
-    // Tipps (Restaurant, Ausflug) haben keinen festen Tag: Sie bleiben eine Woche stehen und kommen nach den Terminen
-    const TIPP = new Set(["restaurant", "ausflug"]), vor7 = iso(-7);
+    // Tipps (Restaurant, Ausflug, Spielzeug, Verein, Entdecken) haben keinen festen Tag: Sie bleiben eine Woche stehen und kommen nach den Terminen
+    const TIPP = new Set(["restaurant", "ausflug", "spielzeug", "verein", "entdecken"]), vor7 = iso(-7);
     const echt = (Array.isArray(neu.termine) ? neu.termine : []).filter(x => x.tag <= bis && x.tag >= (TIPP.has(x.art) ? vor7 : heute)).sort((x, y) => TIPP.has(x.art) - TIPP.has(y.art) || x.tag.localeCompare(y.tag)).filter(x => { if (x.art !== "fussball") return true;
       const wer = MANNSCHAFTEN.map((m, i) => m.test(x.titel) ? i : -1).filter(i => i >= 0); if (!wer.length || wer.every(i => gezeigt.has(i))) return false; wer.forEach(i => gezeigt.add(i)); return true; });
     const liste = echt.length ? echt.map(x => [LOS_BILD[x.art] || "riesenrad", TIPP.has(x.art) ? "" : x.tag, x.wann, x.titel, x.ort, x.url]) : q.has("beispiele") ? BEISPIELE.map((x, i) => [x[0], iso(i), x[1], x[2], x[3]]) : null; if (!liste) return "";
