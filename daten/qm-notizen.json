@@ -1,43 +1,18 @@
 {
- "info": "Notizen des Qualitätsmanagers für die Verwaltung (docs/verwaltung.html). Format und Regeln: QUALITAET.md, Abschnitt „Notizen“. Prüfen: node werkzeuge/qm-notiz.mjs pruefen",
- "lauf": {
-  "datum": "2026-11-23",
-  "kurz": "Alle Quellen laufen technisch, sechs veröffentlichen aber seit Wochen nichts Neues; Bundesrat und Paritätischer hatten Verbindungs-Zeitüberschreitungen. Ich konnte keine Quellseite ansehen.",
-  "geprueft": "57 Quellen (48 in Ordnung, 1 auffällig, 1 gestört, 6 still, 1 pausiert); Stichprobe von Hand nicht möglich",
-  "erledigt": []
- },
- "laeufe": [
-  {
-   "datum": "2026-11-23",
-   "kurz": "Alle Quellen laufen technisch, sechs veröffentlichen aber seit Wochen nichts Neues; Bundesrat und Paritätischer hatten Verbindungs-Zeitüberschreitungen. Ich konnte keine Quellseite ansehen.",
-   "erledigt": 0,
-   "notizen": 2
-  }
- ],
- "notizen": [
-  {
-   "id": "quelle-afet-javascript",
-   "seit": "2026-11-22",
-   "zuletzt": "2026-11-23",
-   "bereich": "quelle",
-   "titel": "AFET (Bundesverband für Erziehungshilfe) ist pausiert",
-   "lage": "Die Seite des AFET lädt ihre Meldungen erst nachträglich per JavaScript. Der Abruf sieht deshalb nur eine leere Liste und die Quelle ist abgeschaltet. Dem Blatt fehlen damit die Meldungen dieses Fachverbands.",
-   "versucht": "Diese Woche nicht: Die Seite des Verbands ließ sich aus der Routine nicht ansehen.",
-   "vorschlag": "Abwarten, ob sich ein anderer Zugang findet. Wenn nicht: entscheiden, ob AFET wichtig genug ist, um einen eigenen Leser dafür zu bauen, oder ob die Quelle gestrichen wird.",
-   "aufwand": "mittel",
-   "dringend": false
+  "info": "Notizen des Qualitätsmanagers für die Verwaltung (docs/verwaltung.html). Format und Regeln: QUALITAET.md, Abschnitt „Notizen“. Prüfen: node werkzeuge/qm-notiz.mjs pruefen",
+  "lauf": {
+    "datum": "2026-11-23",
+    "kurz": "Alle Quellen laufen technisch, sechs veröffentlichen aber seit Wochen nichts Neues; Bundesrat und Paritätischer hatten Verbindungs-Zeitüberschreitungen. Ich konnte keine Quellseite ansehen.",
+    "geprueft": "57 Quellen (48 in Ordnung, 1 auffällig, 1 gestört, 6 still, 1 pausiert); Stichprobe von Hand nicht möglich",
+    "erledigt": []
   },
-  {
-   "id": "qm-seiten-nicht-erreichbar",
-   "seit": "2026-11-23",
-   "zuletzt": "2026-11-23",
-   "bereich": "system",
-   "titel": "Qualitätsmanager kann Quellseiten nicht ansehen – Stichprobe und Reparaturen fallen aus",
-   "lage": "Beim wöchentlichen Lauf sind die Internetadressen der Quellen für das Ansehen gesperrt (nicht freigegeben). Dadurch war keine Stichprobe möglich, und sechs Quellen (Wohnbau Mainz, IGfH, Kommune360, Startchancen, BAG Landesjugendämter, BAG Soziale Stadtentwicklung) mit 64 bis 359 Tagen ohne neue Meldung konnten nicht beurteilt werden. Bundesrat (4 Läufe) und Paritätischer meldeten Verbindungs-Zeitüberschreitungen.",
-   "versucht": "Seiten per WebFetch geöffnet – alle scheiterten an der Netzfreigabe. Nichts an den Quellen geändert.",
-   "vorschlag": "In den Netzeinstellungen der Routine die Adressen der Quellen freigeben. Dann kann der Lauf prüfen, ob die stillen Quellen wirklich selten veröffentlichen (dann bekommen sie einen längeren Erwartungswert) oder defekt sind. Startchancen (fast ein Jahr still) und Bundesrat sind die ersten Kandidaten.",
-   "aufwand": "klein",
-   "dringend": false
-  }
- ]
+  "laeufe": [
+    {
+      "datum": "2026-11-23",
+      "kurz": "Alle Quellen laufen technisch, sechs veröffentlichen aber seit Wochen nichts Neues; Bundesrat und Paritätischer hatten Verbindungs-Zeitüberschreitungen. Ich konnte keine Quellseite ansehen.",
+      "erledigt": 0,
+      "notizen": 2
+    }
+  ],
+  "notizen": []
 }

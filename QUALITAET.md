@@ -104,7 +104,7 @@ Gibt es die Seite noch? Zeigt sie aktuelle Artikel? Unter welcher Adresse?
 | Quelle zeigt wirklich nichts Neues (selten veröffentlichend, Sommerpause) | nichts reparieren. Veröffentlicht sie erkennbar seltener als alle 45 Tage: `"takt_tage": <erwarteter Höchstabstand>` in `quellen.json` setzen (höchstens 200), damit sie nicht jede Woche als „still“ erscheint |
 | Datum wird falsch gelesen (alles „älter als 3 Tage“, obwohl die Seite Neues zeigt) | `datumNach`/`bereich` anpassen, offline nachweisen |
 | Angebot eingestellt, dauerhaft gesperrt, kein anderer Weg gefunden | `"aktiv": false` und `"hinweis": "<Grund in einem Satz>"` – und **immer eine Notiz**, damit entschieden werden kann, ob die Quelle ersetzt wird |
-| Pausierte Quelle (`aktiv: false`) | einmal im Monat mit WebFetch nachsehen, ob sich die Lage geändert hat (neuer Feed?). Wenn ja: als Versuch wieder einschalten |
+| Pausierte Quelle (`aktiv: false`) | einmal im Monat mit WebFetch nachsehen, ob sich die Lage geändert hat (neuer Feed?). Wenn ja: als Versuch wieder einschalten (bei Übersichtsseiten zusätzlich `"grundstand": "<morgen, JJJJ-MM-TT>"`, damit alte undatierte Meldungen nicht als neu gelten) |
 
 **3. Ein Versuch** ist eine Änderung, die du nicht offline nachweisen kannst (neue Adresse, neuer Feed, Wechsel von
 `html` auf `rss`). Trage sie direkt in `quellen.json` ein und hänge an die Quelle

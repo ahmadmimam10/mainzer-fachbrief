@@ -802,7 +802,9 @@ async function main() {
         continue;
       }
       vergeben.add(id);
-      if (GRUNDSTAND && !it.datum) { gesehen.links[id] = HEUTE; continue; }
+      // Grundstand: undatierte Meldungen nur als bekannt merken – per --grundstand oder, für eine neu eingeschaltete Übersichtsseite,
+      // mit "grundstand": "JJJJ-MM-TT" in quellen.json (gilt bis einschließlich diesem Tag, also für den ersten Abruf danach)
+      if ((GRUNDSTAND || (q.grundstand && HEUTE <= q.grundstand)) && !it.datum) { gesehen.links[id] = HEUTE; continue; }
       vorgemerkt.push({ p, k: {
         id, url: it.url, quelle: q.id, titel, teaser: MUELL.test(it.teaser || "") ? "" : cut(it.teaser, 420),
         datum: zukunft ? "" : (it.datum || ""), ...(zukunft ? { termin: it.datum } : {}),

@@ -95,6 +95,9 @@ Bei einer neuen Übersichtsseite einmal den Grundstand setzen, damit alte Meldun
 node werkzeuge/sammeln.mjs --grundstand --nur=quellen-id
 ```
 
+Oder ohne lokalen Lauf: in `quellen.json` bei der Quelle `"grundstand": "JJJJ-MM-TT"` (morgen) setzen – bis zu diesem
+Tag merkt der Abruf auf GitHub undatierte Meldungen der Quelle nur als bekannt.
+
 **Gestörte Quelle:** Der Abruf lässt nur Kandidaten mit plausiblem Titel und erreichbarem Link in den Pool und führt
 je Quelle einen Zustand. Ist eine Quelle seit über 2 Tagen `gestoert`, schlägt der Workflow „Quellen abrufen“ im
 letzten Schritt fehl (GitHub schickt eine E-Mail). Die Morgenroutine repariert bis zu 3 Quellen
