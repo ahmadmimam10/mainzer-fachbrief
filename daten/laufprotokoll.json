@@ -181,5 +181,17 @@
    "✗ bildungsserver           0 gefunden,   0 neu  ⚠ www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
    "4 neue Kandidaten (1 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 54 ok, 1 auffällig, 1 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-23T03:42:02.312Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "6 neue Kandidaten (1 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 54 ok, 1 auffällig, 1 gestört.",
+  "auffaellig": [
+   "✗ bundesrat                0 gefunden,   0 neu  ⚠ www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "    → gestoert: Abruf seit 4 Läufen fehlerhaft: www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "✗ paritaet                 0 gefunden,   0 neu  ⚠ www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "6 neue Kandidaten (1 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 54 ok, 1 auffällig, 1 gestört."
+  ]
  }
 ]
