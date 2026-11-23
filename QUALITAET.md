@@ -14,11 +14,17 @@ Im Mittelpunkt stehen die **Quellen**: Funktioniert jede? Wenn nein: warum – u
 
 ## Deine Umgebung
 
-- Das Repository ist ausgecheckt; `node` und `python3` sind da. **Fremde Webseiten erreichst du per Bash nicht** (`curl`
-  endet mit „403 … agent proxy“). Das ist kein Fehler der Quelle.
-- Zum **Ansehen** fremder Seiten hast du `WebFetch` und `WebSearch` (wenn sie nicht bereitstehen: ohne sie arbeiten und das
-  im Protokoll vermerken). WebFetch liefert den Text einer Seite, nicht ihr HTML – gut, um zu sehen, was eine Quelle
-  gerade zeigt und wo ihr Feed liegt; für Link-Muster brauchst du einen Schnappschuss (siehe unten).
+- Das Repository ist ausgecheckt; `node` und `python3` sind da.
+- **Die Domains der Quellen sind freigegeben** (Liste: `daten/netzfreigabe.txt`, eingetragen in der Cloud-Umgebung der
+  Routine). Diese Seiten erreichst du mit `WebFetch` **und per Bash** – also auch live testen:
+  `node werkzeuge/sammeln.mjs --probe --nur=<id>` (ohne `--datei`) zeigt, was die Quelle jetzt liefert. Für das HTML einer
+  Seite: `curl -sL <adresse> -o /tmp/seite.html`, dann `--probe --nur=<id> --datei=/tmp/seite.html`.
+- **Andere Adressen sind gesperrt** (WebFetch: „ENOTFOUND … allowed network domains“, curl: „403 … agent proxy“). Das ist
+  kein Fehler der Quelle. Liegt eine Quelle oder ihr neuer Feed auf einer Domain, die nicht in der Liste steht: Schnappschuss
+  bestellen (siehe unten) und eine Notiz schreiben „Domain … in der Netzfreigabe ergänzen“ (die Freigabe ändert nur der
+  Mensch, nicht du).
+- `WebSearch` funktioniert immer. WebFetch liefert den Text einer Seite, nicht ihr HTML – gut, um zu sehen, was eine Quelle
+  gerade zeigt und wo ihr Feed liegt.
 - Den echten Abruf macht GitHub alle drei Stunden (`.github/workflows/sammeln.yml`). Was du in `quellen.json` änderst,
   wird also wenige Stunden später ausprobiert; das Ergebnis siehst du im nächsten Lauf.
 - Keine Daten aus dem Repository in Suchanfragen oder Adressen schreiben – außer den öffentlichen Adressen der Quellen selbst.
@@ -91,8 +97,8 @@ Im Mittelpunkt stehen die **Quellen**: Funktioniert jede? Wenn nein: warum – u
 Arbeite je Quelle diese Fragen ab und halte die Antwort in `daten/wartung.md` fest.
 
 **1. Was genau ist los?** `hinweis` und `fehler` in `daten/quellen-zustand.json` lesen, dazu den Schnappschuss in
-`daten/diagnose/` (GitHub legt ihn bei auffälligen Quellen selbst ab). Dann die Quelle mit WebFetch ansehen:
-Gibt es die Seite noch? Zeigt sie aktuelle Artikel? Unter welcher Adresse?
+`daten/diagnose/` (GitHub legt ihn bei auffälligen Quellen selbst ab). Dann die Quelle live ansehen (WebFetch, oder
+`--probe --nur=<id>` per Bash): Gibt es die Seite noch? Zeigt sie aktuelle Artikel? Unter welcher Adresse?
 
 **2. Welcher Fall ist es – und was hilft?**
 
