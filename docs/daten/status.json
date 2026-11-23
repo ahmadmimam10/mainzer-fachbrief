@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-23T09:57:58.364Z",
+ "stand": "2026-11-23T12:45:45.766Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -37,9 +37,9 @@
    "kurz": "Merkurist",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 6,
+   "treffer": 5,
    "zustand": "ok",
-   "hinweis": "unauffällig – 6 Treffer"
+   "hinweis": "unauffällig – 5 Treffer"
   },
   {
    "id": "sensor",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 50,
+   "treffer": 51,
    "zustand": "ok",
-   "hinweis": "unauffällig – 44 Treffer, 1 neuer Kandidat verworfen (Link auf fremden Host (www.sportschau.de))"
+   "hinweis": "unauffällig – 45 Treffer, 1 neuer Kandidat verworfen (Link auf fremden Host (www.sportschau.de))"
   },
   {
    "id": "landtag",
@@ -199,7 +199,7 @@
    "ok": false,
    "treffer": 0,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "hinweis": "Abruffehler (2. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
@@ -357,9 +357,9 @@
    "kurz": "Deutscher Verein",
    "ebene": "fach",
    "ok": true,
-   "treffer": 52,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 52 Treffer"
+   "treffer": 12,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.deutscher-verein.de: Zeitüberschreitung; nur 12 brauchbare Treffer statt üblicherweise 52"
   },
   {
    "id": "dbjr",
@@ -409,7 +409,7 @@
    "ok": true,
    "treffer": 14,
    "zustand": "ok",
-   "hinweis": "unauffällig – 14 Treffer, 1 neuer Kandidat verworfen (Zeitüberschreitung (10 s))"
+   "hinweis": "unauffällig – 14 Treffer"
   },
   {
    "id": "sozial-de",

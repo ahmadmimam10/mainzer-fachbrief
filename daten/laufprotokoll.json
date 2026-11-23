@@ -212,5 +212,16 @@
    "✗ bundesrat                0 gefunden,   0 neu  ⚠ www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
    "16 neue Kandidaten (2 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-23T12:46:46.911Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "20 neue Kandidaten (1 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört.",
+  "auffaellig": [
+   "✗ bundesrat                0 gefunden,   0 neu  ⚠ www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "✓ dv                      12 gefunden,   0 neu  ⚠ www.deutscher-verein.de: Zeitüberschreitung",
+   "20 neue Kandidaten (1 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört."
+  ]
  }
 ]
