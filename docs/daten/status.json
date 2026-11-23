@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-23T15:45:08.843Z",
+ "stand": "2026-11-23T18:36:35.063Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -27,9 +27,9 @@
    "kurz": "Allgemeine Zeitung",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 80,
+   "treffer": 100,
    "zustand": "ok",
-   "hinweis": "unauffällig – 80 Treffer"
+   "hinweis": "unauffällig – 100 Treffer"
   },
   {
    "id": "merkurist",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 51,
+   "treffer": 49,
    "zustand": "ok",
-   "hinweis": "unauffällig – 46 Treffer"
+   "hinweis": "unauffällig – 44 Treffer"
   },
   {
    "id": "landtag",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": true,
-   "treffer": 30,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
@@ -207,9 +207,9 @@
    "kurz": "Spiegel",
    "ebene": "bund",
    "ok": true,
-   "treffer": 40,
+   "treffer": 60,
    "zustand": "ok",
-   "hinweis": "unauffällig – 40 Treffer"
+   "hinweis": "unauffällig – 60 Treffer"
   },
   {
    "id": "destatis",
@@ -352,6 +352,16 @@
    "hinweis": "unauffällig – 4 Treffer"
   },
   {
+   "id": "afet",
+   "name": "AFET – Bundesverband für Erziehungshilfe",
+   "kurz": "AFET",
+   "ebene": "fach",
+   "ok": true,
+   "treffer": 80,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 80 Treffer"
+  },
+  {
    "id": "dv",
    "name": "Deutscher Verein für öffentliche und private Fürsorge",
    "kurz": "Deutscher Verein",
@@ -387,9 +397,9 @@
    "kurz": "Kommune360",
    "ebene": "fach",
    "ok": true,
-   "treffer": 8,
+   "treffer": 9,
    "zustand": "ok",
-   "hinweis": "unauffällig – 8 Treffer"
+   "hinweis": "unauffällig – 9 Treffer"
   },
   {
    "id": "kosmo",
@@ -407,9 +417,9 @@
    "kurz": "Bildungsserver",
    "ebene": "fach",
    "ok": true,
-   "treffer": 14,
+   "treffer": 13,
    "zustand": "ok",
-   "hinweis": "unauffällig – 14 Treffer"
+   "hinweis": "unauffällig – 13 Treffer, 1 neuer Kandidat verworfen (Zeitüberschreitung (10 s))"
   },
   {
    "id": "sozial-de",
@@ -420,16 +430,6 @@
    "treffer": 20,
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer"
-  },
-  {
-   "id": "startchancen",
-   "name": "Startchancen-Programm (Blog)",
-   "kurz": "Startchancen",
-   "ebene": "fach",
-   "ok": true,
-   "treffer": 10,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "jadigital",
