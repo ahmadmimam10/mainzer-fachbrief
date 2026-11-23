@@ -193,5 +193,14 @@
    "✗ paritaet                 0 gefunden,   0 neu  ⚠ www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
    "6 neue Kandidaten (1 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 54 ok, 1 auffällig, 1 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-23T06:50:59.898Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "13 neue Kandidaten (1 verworfen), 1 Sitzungstermine, 0 Quellen mit Fehlern. Zustand: 56 ok, 0 auffällig, 0 gestört.",
+  "auffaellig": [
+   "13 neue Kandidaten (1 verworfen), 1 Sitzungstermine, 0 Quellen mit Fehlern. Zustand: 56 ok, 0 auffällig, 0 gestört."
+  ]
  }
 ]
