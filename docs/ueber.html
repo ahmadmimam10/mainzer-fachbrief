@@ -312,6 +312,64 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
 .links a:hover{background:var(--f2);color:var(--tinte);translate:0 -3px}
 .klein{margin-top:26px!important;font-size:14px;opacity:.65;max-width:44em}
 
+/* ---- Kapitel 2: der Kreislauf – die tägliche Runde, darüber das wache Auge (Qualitätsmanager), daneben Notizen, Mensch und das schlafende Auge (Opus) ---- */
+.kl{position:relative;margin-top:28px;border-radius:30px;background:radial-gradient(110% 85% at 32% 58%,#2b2723,var(--tinte) 72%);color:#f6f1e6;overflow:hidden;isolation:isolate}
+.kl svg{display:block;width:100%;height:auto}
+.kl-fuss{display:grid;gap:12px;padding:0 clamp(12px,2.4vw,26px) clamp(12px,2.4vw,26px)}
+.kl-takt{display:flex;gap:6px;flex-wrap:wrap}
+.kl-takt button{font:600 14.5px/1 var(--sans);padding:9px 15px 10px;border-radius:99px;border:1px solid rgba(255,255,255,.24);background:none;color:#cfc8ba;cursor:pointer;transition:background .5s,color .5s,border-color .5s}
+.kl-takt button:hover{border-color:#f6f1e6;color:#f6f1e6}
+.kl-takt button[aria-pressed=true]{background:#f6f1e6;border-color:#f6f1e6;color:var(--tinte)}
+.kl-sag{display:flex;align-items:center;gap:16px;margin:0!important;max-width:none!important;padding:15px 18px;border-radius:20px;background:color-mix(in srgb,var(--f2) 13%,transparent);box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--f2) 70%,transparent)}
+.kl-sag i{flex:none;width:42px;height:42px;border-radius:50%;background:conic-gradient(var(--f2),var(--f1),var(--f4),var(--f3),var(--f2));-webkit-mask:radial-gradient(circle,#0000 12px,#000 13px);mask:radial-gradient(circle,#0000 12px,#000 13px);animation:drehe 2.6s linear infinite}
+.kl-sag span{display:grid;align-content:center;min-height:2.35em;font:460 clamp(19px,2.05vw,26px)/1.17 "Fraunces",serif;letter-spacing:-.02em}
+.kl-sag span b{display:inline-block;font-weight:inherit;animation:sz-ein .5s ease both}
+.kl text{font-family:var(--sans);fill:#f6f1e6}
+.kl .k-name{font:600 23px/1 "Fraunces",serif;letter-spacing:-.02em;transition:fill .5s}
+.kl .k-sub{font-size:17.5px;fill:#b9b1a3}
+.kl .hoch .k-name{font-size:27px}.kl .hoch .k-sub{font-size:20.5px}
+.kl .k-mitte{font:300 italic 36px/1 "Fraunces",serif;letter-spacing:-.03em;fill:rgba(246,241,230,.42)}
+.k-stern{fill:#f6f1e6;animation:k-funkel 4.6s ease-in-out infinite}
+@keyframes k-funkel{0%,100%{opacity:.06}50%{opacity:.5}}
+.k-bahn{fill:none;stroke:url(#k-farbe);stroke-width:3;opacity:.55}.k-schein{fill:none;stroke:var(--f2);stroke-width:26;opacity:.07;filter:blur(6px)}
+.k-strom{fill:none;stroke:rgba(255,255,255,.4);stroke-width:2.4;stroke-dasharray:2 18;stroke-linecap:round;animation:k-strom 2.2s linear infinite}
+@keyframes k-strom{to{stroke-dashoffset:-20}}
+.k-umbau{fill:none;stroke:var(--f2);stroke-width:6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
+.k-umbau.an{opacity:1;stroke-dashoffset:0;transition:stroke-dashoffset 4.4s cubic-bezier(.4,0,.2,1),opacity .4s}
+.k-umbau.aus{opacity:0;stroke-dashoffset:0;transition:opacity 1.4s}
+.k-komet circle{fill:#fff}.k-komet .k-glut{fill:var(--f2);opacity:.75}
+.k-kern,.k-marke,.k-ding,.k-neu,.k-offen,.k-st .k-rand{transform-box:fill-box;transform-origin:center}
+.k-st .k-scheibe{fill:#f6f1e6}
+.k-st .k-rand{fill:none;stroke:var(--f2);stroke-width:3;opacity:0;transition:opacity .5s,transform .8s var(--feder)}
+.k-st .k-kern{transition:transform .7s var(--feder)}
+@keyframes k-blitz{35%{transform:scale(1.32)}}.k-st.blitz .k-kern{animation:k-blitz .9s ease}.k-st.blitz .k-scheibe{fill:color-mix(in srgb,var(--f2) 45%,#f6f1e6)}.k-st .k-scheibe{transition:fill .6s}
+.k-st.dran .k-kern{transform:scale(1.17)}.k-st.dran .k-rand{opacity:1;transform:scale(1.22)}.kl .k-st.dran .k-name{fill:var(--f2)}
+.k-bild *{fill:none;stroke:var(--tinte);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.k-bild .voll{fill:var(--tinte);stroke:none}.k-bild .gelb{fill:var(--f2);stroke:none}
+.k-marke{transform:scale(0);transition:transform .5s var(--feder)}.k-marke.an{transform:scale(1)}
+.k-marke circle{fill:color-mix(in srgb,var(--f3) 58%,#fff);transition:fill .5s}.k-marke.warn circle{fill:var(--f2)}
+.k-marke path{fill:none;stroke:var(--tinte);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.k-marke .wa,.k-marke.warn .ok{opacity:0}.k-marke.warn .wa{opacity:1}
+.k-hof{fill:var(--f2);opacity:.2;transition:opacity 1s}.k-opus .k-hof{opacity:0}.k-auge.dran .k-hof{opacity:.5}
+.k-weiss{fill:#fbf7ee}.k-iris{fill:var(--f2)}.k-opus .k-iris{fill:var(--f1)}.k-pupille{fill:var(--tinte)}
+.k-auge .k-lid{fill:none;stroke:#f6f1e6;stroke-width:4.5;stroke-linejoin:round;stroke-linecap:round}
+.k-blickt{transition:transform .5s ease-out}
+.k-offen{transition:transform .13s ease-in}
+.k-auge.blinzelt .k-offen{transform:scaleY(.05)}
+.k-auge.schlaeft .k-offen{transform:scaleY(.02);opacity:0;transition:transform .55s ease,opacity .2s .4s}
+.k-zu{opacity:0;transition:opacity .25s}.k-auge.schlaeft .k-zu{opacity:1;transition:opacity .3s .4s}
+.kl .k-z{font:700 36px/1 "Caveat",cursive;fill:#cfc8ba;opacity:0}
+.k-auge.schlaeft .k-z{animation:k-z 3.9s ease-in-out infinite}.k-auge.schlaeft .k-z+.k-z{animation-delay:1.3s}.k-auge.schlaeft .k-z+.k-z+.k-z{animation-delay:2.6s}
+@keyframes k-z{0%{opacity:0;transform:translate(0,0)}22%{opacity:.95}100%{opacity:0;transform:translate(16px,-34px)}}
+.k-ding{transition:transform .7s var(--feder)}.k-ding.dran{transform:scale(1.12)}
+.k-zettel rect{fill:#f6f1e6}.k-zettel .k-neu path{fill:none;stroke:#8d8576;stroke-width:2.4;stroke-linecap:round}
+.k-neu{transform:scale(0);transition:transform .55s var(--feder)}.k-neu.an{transform:scale(1)}
+.k-flug{opacity:0;transition:opacity .25s}.k-flug.an{opacity:1}
+.k-weg{fill:none;stroke:rgba(255,255,255,.22);stroke-width:2;stroke-dasharray:3 9;stroke-linecap:round}
+.k-zug{fill:none;stroke:var(--f2);stroke-width:3.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:0;transition:opacity .8s,stroke-dashoffset 0s .8s}
+.k-zug.an{stroke-dashoffset:0;opacity:1;transition:stroke-dashoffset 1.5s ease,opacity .3s}
+.k-blick{stroke:var(--f2);stroke-width:1.8;stroke-dasharray:2 8;stroke-linecap:round;opacity:0;transition:opacity .45s}.k-blick.an{opacity:.6}
+@media (max-width:560px){.kl{border-radius:24px}.kl-takt button{padding:8px 11px 9px;font-size:13.5px}.kl-sag{gap:12px;padding:13px 14px}.kl-sag i{width:34px;height:34px}}
 @media (max-width:860px){.frueh{grid-template-columns:minmax(0,1fr);--zh:36px}.fr-pfeil{display:none}.fr-tab li{grid-template-columns:84px minmax(0,1fr) 20px;font-size:13.5px}.mk-innen{grid-template-columns:minmax(0,1fr)}.sb .bild{zoom:1.25}.mk-bild{min-height:213px}.mk-kette{justify-content:flex-start}.mb{flex-basis:112px}.mb i{width:74px;height:74px}.mb svg{width:32px;height:32px}.mb::before{top:32px}.mb .uhr{top:46px;left:calc(50% - 48px)}.mb em{left:calc(50% + 18px)}.vz-feld{grid-template-columns:minmax(0,1fr)}.vz-minis{grid-template-columns:repeat(2,minmax(0,1fr))}.vm:nth-child(n+17){display:none}.vz-kopf{align-items:flex-start;flex-direction:column;gap:6px}.tuftel{grid-template-columns:minmax(0,1fr)}.zwei{grid-template-columns:minmax(0,1fr)}.zahlen{grid-template-columns:repeat(2,minmax(0,1fr))}.wer{grid-template-columns:minmax(0,1fr)}.wer .ring{width:170px}.wisch{display:block}.buehne{aspect-ratio:3/4}.post{rotate:1deg}}
 @media (max-width:560px){.af-liste{grid-template-columns:repeat(2,minmax(0,1fr))}.notiz{font-size:23px;margin-left:2px}.notiz svg{width:34px}.schalter button{padding:9px 13px;font-size:14px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-ein],.akt b{opacity:1;translate:none}.akt span,.notiz span{clip-path:none}.akt i{scale:1 1}.notiz path{stroke-dashoffset:0}.af-blatt{scale:1;opacity:1}.quellen span{opacity:1;scale:1}.code.tippt span{clip-path:none}}
@@ -391,6 +449,15 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
     <div>
       <h2 data-ein>Aus Bausteinen wird <i>ein Auftrag</i></h2>
       <p data-ein style="--v:1">Seit dem 20. November 2026 ersetzt das Boniblatt den JHP-Newsletter. Agentische KI ist so stark geworden, dass man die ganze Aufgabe in Auftrag geben kann: Claude Fable 5.2 baut, testet und pflegt die Automationen selbst.</p>
+    </div>
+  </div>
+  <h3 data-ein>Ein Kreislauf, <i>der von allein läuft</i></h3>
+  <p data-ein>Jeden Tag dreht das Boniblatt dieselbe Runde. Darüber wacht ein Auge, das nie schläft. Ein zweites wird nur geweckt, wenn etwas umgebaut werden muss.</p>
+  <div class="kl" id="kl" data-ein>
+    <div id="kl-bild" aria-hidden="true"></div>
+    <div class="kl-fuss">
+      <div class="kl-takt" id="kl-takt"><button type="button" aria-pressed="true">Jeden Tag</button><button type="button" aria-pressed="false">Jede Woche</button><button type="button" aria-pressed="false">Ab und zu</button></div>
+      <p class="kl-sag"><i></i><span id="kl-sag"></span></p>
     </div>
   </div>
 </div></section>
@@ -590,6 +657,110 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
     if (matchMedia("(prefers-reduced-motion:reduce)").matches) { txt.textContent = AUFTRAG; punkte.forEach(x => { x.className = "fertig"; }); af.classList.add("fertig"); sag(SCHLUSS); }
     else if (af.closest(".br-s4")) af._sicht = an => { sichtbar = an; if (an) ablauf(); };   // in der Kinoszene startet ihn die Lichtflut
     else new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar) ablauf(); }, { rootMargin: "-8% 0px" }).observe(af); }
+  // Kapitel 2, der Kreislauf: Ein Lichtpunkt läuft die tägliche Runde ab (Quellen → GitHub → Liste → Claude Sonnet → Azure → Seite). Darüber das
+  // wache Auge (Qualitätsmanager, wöchentlich): hakt ab, repariert Kleines, schreibt für Größeres eine Notiz. Ab und zu liest der Mensch die
+  // Notizen und weckt das schlafende Auge (Claude Opus), das umbaut und wieder einschläft. Drei Runden = eine Erzählung; läuft nur, solange sichtbar.
+  { const kl = $("#kl"), bild = $("#kl-bild"), sagEl = $("#kl-sag"), knoepfe = [...kl.querySelectorAll("#kl-takt button")], still = matchMedia("(prefers-reduced-motion:reduce)").matches, schmal = matchMedia("(max-width:900px)");
+    const RUNDE = 18000, rz = zufall(23), bogen = g => g * Math.PI / 180;
+    const ST = [
+      ["Die Quellen", "Quellen", "Stadt, Land, Bund, Fachwelt", `<circle class="voll" cx="-9" cy="10" r="3.2"/><path d="M-10 -1 A11 11 0 0 1 1 10 M-10 -11 A21 21 0 0 1 11 10"/>`, "Stadt, Land, Bund und Fachwelt: Über 50 Quellen melden Neues."],
+      ["GitHub sammelt", "GitHub", "alle drei Stunden", `<path d="M0 -13 V4 M-7 -3 L0 4 L7 -3 M-13 5 V12 H13 V5"/>`, "GitHub fragt alle drei Stunden jede Quelle ab."],
+      ["Die Liste", "Liste", "Fehler werden vermerkt", `<path d="M-4 -9 H13 M-4 0 H13 M-4 9 H13"/><circle class="voll" cx="-11" cy="-9" r="2.6"/><circle class="voll" cx="-11" cy="0" r="2.6"/><circle class="gelb" cx="-11" cy="9" r="3.6"/>`, "Neues kommt auf die Liste. Hakt eine Quelle, wird das vermerkt."],
+      ["Claude Sonnet", "Sonnet", "wählt aus, sucht Termine", `<path class="voll" d="M0 -15 C1.6 -4.5 4.5 -1.6 15 0 C4.5 1.6 1.6 4.5 0 15 C-1.6 4.5 -4.5 1.6 -15 0 C-4.5 -1.6 -1.6 -4.5 0 -15 Z"/>`, "Morgens wählt Claude Sonnet aus, sucht Termine und den Spruch des Tages."],
+      ["Azure", "Azure", "spricht die Hörfassung", `<path d="M-13 -4 H-8 L-1 -10 V10 L-8 4 H-13 Z M5 -5 A7 7 0 0 1 5 5 M9 -10 A13 13 0 0 1 9 10"/>`, "Azure spricht die Hörfassungen ein."],
+      ["Die Seite", "Seite", "erscheint neu", `<image href="bilder/zeichen.svg" x="-20" y="-20" width="40" height="40"/>`, "Die Seite erscheint neu – und die Runde beginnt von vorn."]];
+    const ORT = {
+      breit: { w: 1300, h: 792, cx: 400, cy: 462, rx: 330, ry: 262, auge: [400, 88], zettel: [960, 172], ich: [960, 418], opus: [960, 660], sub: true },
+      hoch: { w: 620, h: 1070, cx: 310, cy: 500, rx: 238, ry: 262, auge: [310, 72], zettel: [112, 905], ich: [310, 935], opus: [508, 905], sub: false } };
+    const MANDEL = "M-66 0 C-40 -45 40 -45 66 0 C40 45 -40 45 -66 0 Z";
+    let L, T, lauf = null, sichtbar = false, start = 0, angehalten = 0, marke = 0, phase = -1, dranAlt = -1, blinzeln = 0;
+    const P = (g, f = 1) => [L.cx + L.rx * f * Math.cos(bogen(g)), L.cy + L.ry * f * Math.sin(bogen(g))], N = n => n.toFixed(1);
+    const ring = g => { const [a, b] = [P(g), P(g + 180)]; return `M${N(a[0])} ${N(a[1])} A${L.rx} ${L.ry} 0 1 1 ${N(b[0])} ${N(b[1])} A${L.rx} ${L.ry} 0 1 1 ${N(a[0])} ${N(a[1])}`; };
+    const schrift = (x, y, anker, name, sub) => `<text class="k-name" x="${N(x)}" y="${N(y)}" text-anchor="${anker}">${name}</text>` + (sub ? `<text class="k-sub" x="${N(x)}" y="${N(y + (L.sub ? 24 : 27))}" text-anchor="${anker}">${sub}</text>` : "");
+    const auge = ([x, y], art, zzz) => `<g transform="translate(${x} ${y})"><g class="k-auge ${art}"><circle class="k-hof" r="78" filter="url(#k-weich)"/>
+      <g class="k-zu"><path class="k-lid" d="M-62 2 Q0 46 62 2 M-42 21 L-49 33 M-15 31 L-18 45 M15 31 L18 45 M42 21 L49 33"/></g>
+      <g class="k-offen"><path class="k-weiss" d="${MANDEL}"/><g clip-path="url(#k-mandel)"><g class="k-blickt"><circle class="k-iris" r="26"/><circle class="k-pupille" r="11.5"/><circle cx="-8" cy="-9" r="5.2" fill="#fff"/></g></g><path class="k-lid" d="${MANDEL}"/></g>
+      ${zzz ? `<text class="k-z" x="50" y="-20">z</text><text class="k-z" x="64" y="-34">z</text><text class="k-z" x="78" y="-50">Z</text>` : ""}</g></g>`;
+    function bauen() {
+      L = ORT[schmal.matches ? "hoch" : "breit"]; const h = L === ORT.hoch, [ax, ay] = L.auge, [zx, zy] = L.zettel, [ix, iy] = L.ich, [ox, oy] = L.opus, ziel = P(55);
+      const sterne = Array.from({ length: h ? 34 : 54 }, () => `<circle class="k-stern" cx="${N(rz() * L.w)}" cy="${N(rz() * L.h)}" r="${N(.7 + rz() * 1.5)}" style="animation-delay:${N(-rz() * 5)}s"/>`).join("");
+      const wege = h
+        ? { notiz: `M${ax - 76} ${ay + 8} C70 ${ay + 20} 4 300 18 ${L.cy} S46 790 ${zx - 8} ${zy - 50}`, lesen: `M${zx + 52} ${zy + 8} L${ix - 60} ${iy - 6}`, wecken: `M${ix + 60} ${iy - 6} L${ox - 72} ${oy + 6}`, umbau: `M${ox} ${oy - 50} C${ox + 4} ${oy - 110} ${N(ziel[0] + 40)} ${N(ziel[1] + 60)} ${N(ziel[0] + 5)} ${N(ziel[1] + 12)}` }
+        : { notiz: `M${ax + 80} ${ay - 4} C${ax + 330} ${ay - 46} ${zx - 190} ${zy - 90} ${zx - 54} ${zy - 12}`, lesen: `M${zx} ${zy + 50} L${ix} ${iy - 64}`, wecken: `M${ix} ${iy + 64} L${ox} ${oy - 56}`, umbau: `M${ox - 82} ${oy + 4} C${ox - 180} ${oy + 30} ${N(ziel[0] + 150)} ${N(ziel[1] + 50)} ${N(ziel[0] + 13)} ${N(ziel[1] + 7)}` };
+      const stationen = ST.map((s, i) => { const [x, y] = P(-90 + i * 60); let tx = x, ty, anker = "middle";
+        if (i === 0) ty = y + 66; else if (i === 3) ty = y - (L.sub ? 68 : 50); else { tx = x + (i < 3 ? -54 : 54); ty = y + (L.sub ? -3 : 9); anker = i < 3 ? "end" : "start"; }
+        return `<g class="k-st"><g transform="translate(${N(x)} ${N(y)})"><g class="k-kern"><circle class="k-rand" r="34"/><circle class="k-scheibe" r="30"/><g class="k-bild">${s[3]}</g></g>
+          <g transform="translate(23 -23)"><g class="k-marke"><circle r="11.5"/><path class="ok" d="M-5 .3 L-1.6 3.7 L5 -3.4"/><path class="wa" d="M0 -5.2 V1 M0 5 V5.2"/></g></g></g>${schrift(tx, ty, anker, s[h ? 1 : 0], L.sub ? s[2] : "")}</g>`; }).join("");
+      const ding = h ? (x, y, name, sub) => schrift(x, y + 84, "middle", name, sub) : (x, y, name, sub) => schrift(x + 76, y - 2, "start", name, sub);
+      bild.innerHTML = `<svg class="${h ? "hoch" : "breit"}" viewBox="0 0 ${L.w} ${L.h}" role="img">
+        <defs><filter id="k-weich" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="15"/></filter><filter id="k-glut" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="7"/></filter>
+          <linearGradient id="k-farbe" gradientUnits="userSpaceOnUse" x1="${L.cx - L.rx}" y1="${L.cy - L.ry}" x2="${L.cx + L.rx}" y2="${L.cy + L.ry}"><stop offset="0" style="stop-color:var(--f1)"/><stop offset=".35" style="stop-color:var(--f2)"/><stop offset=".7" style="stop-color:var(--f3)"/><stop offset="1" style="stop-color:var(--f4)"/></linearGradient><clipPath id="k-mandel"><path d="${MANDEL}"/></clipPath><clipPath id="k-rund"><circle r="50"/></clipPath></defs>
+        ${sterne}
+        <path class="k-weg" d="${wege.notiz}" id="k-w-notiz"/><path class="k-weg" d="${wege.lesen}"/><path class="k-weg" d="${wege.wecken}"/><path class="k-weg" d="${wege.umbau}"/>
+        <path class="k-zug" data-w="lesen" pathLength="1" d="${wege.lesen}"/><path class="k-zug" data-w="wecken" pathLength="1" d="${wege.wecken}"/><path class="k-zug" data-w="umbau" pathLength="1" d="${wege.umbau}"/>
+        <path class="k-schein" d="${ring(-90)}"/><path class="k-bahn" d="${ring(-90)}"/><path class="k-strom" d="${ring(-90)}"/><path class="k-umbau" pathLength="1" d="${ring(55)}"/>
+        <text class="k-mitte" x="${L.cx}" y="${L.cy + 12}" text-anchor="middle">Tag für Tag</text>
+        <line class="k-blick"/>
+        <g class="k-komet"><circle class="k-glut" r="20" filter="url(#k-glut)"/>${Array.from({ length: 80 }, (_, i) => `<circle r="${(7 - i * .075).toFixed(2)}" opacity="${(i ? .34 * (1 - i / 80) ** 1.5 : 1).toFixed(3)}"/>`).join("")}</g>
+        ${stationen}
+        ${auge(L.auge, "k-wach")}${h ? schrift(ax, ay + 76, "middle", "Der Qualitätsmanager", "Claude Sonnet · immer wach") : schrift(ax - 98, ay - 2, "end", "Der Qualitätsmanager", "Claude Sonnet · immer wach")}
+        <g transform="translate(${zx} ${zy})"><g class="k-ding k-zettel"><rect x="-34" y="-23" width="68" height="48" rx="7" transform="rotate(-10)" opacity=".34"/><rect x="-34" y="-23" width="68" height="48" rx="7" transform="rotate(7)" opacity=".5"/>
+          <g class="k-neu"><rect x="-35" y="-26" width="70" height="52" rx="7"/><path d="M-23 -11 H10 M-23 0 H23 M-23 11 H2"/><circle cx="23" cy="-14" r="5.5" fill="var(--f2)"/></g></g></g>${ding(zx, zy, "Notizen", h ? "" : "was einen Umbau braucht")}
+        <g transform="translate(${ix} ${iy})"><g class="k-ding k-ich"><circle r="50" fill="var(--hell)"/><g clip-path="url(#k-rund)"><path d="M-42 56 Q-42 17 0 17 Q42 17 42 56 Z" fill="#33414d"/><circle cy="-8" r="20" fill="#c9966d"/>
+          <path d="M-20.5 -9 Q-24 -33 0 -32 Q24 -33 20.5 -9 Q13 -21 0 -20 Q-13 -21 -20.5 -9 Z" fill="#1d1a18"/><circle cx="-16" cy="-24" r="6.5" fill="#1d1a18"/><circle cx="-6" cy="-30" r="6.5" fill="#1d1a18"/><circle cx="6" cy="-30" r="6.5" fill="#1d1a18"/><circle cx="16" cy="-24" r="6.5" fill="#1d1a18"/>
+          <path d="M-19.5 -5 Q-18 12 0 12.5 Q18 12 19.5 -5 Q14 4.5 0 5 Q-14 4.5 -19.5 -5 Z" fill="#1d1a18"/><circle cx="-7.5" cy="-10.5" r="2.3" fill="#1d1a18"/><circle cx="7.5" cy="-10.5" r="2.3" fill="#1d1a18"/><path d="M-6 -2.5 Q0 2.5 6 -2.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></g></g></g>${ding(ix, iy, "Ich", h ? "" : "lese sie ab und zu")}
+        ${auge(L.opus, "k-opus schlaeft", true)}${ding(ox, oy, "Claude Opus", h ? "" : "starke KI · schläft meist")}
+        <g class="k-flug"><rect x="-14" y="-10" width="28" height="20" rx="4.5" fill="#f6f1e6"/><circle cx="8" cy="-4" r="3" fill="var(--f2)"/></g></svg>`;
+      const q = s => bild.querySelector(s), qa = s => [...bild.querySelectorAll(s)];
+      T = { st: qa(".k-st"), marken: qa(".k-marke"), komet: qa(".k-komet circle"), wach: q(".k-wach"), opus: q(".k-opus"), blick: q(".k-blick"), umbau: q(".k-umbau"), zettel: q(".k-zettel"), neu: q(".k-neu"), ich: q(".k-ich"),
+        flug: q(".k-flug"), wegNotiz: q("#k-w-notiz"), zug: Object.fromEntries(qa(".k-zug").map(z => [z.dataset.w, z])) };
+      T.wegLang = T.wegNotiz.getTotalLength(); dranAlt = -1;
+    }
+    const sag = x => { sagEl.innerHTML = `<b>${esc(x)}</b>`; };
+    const schaut = (a, ort, [x, y]) => { const dx = x - ort[0], dy = y - ort[1], d = Math.hypot(dx, dy) || 1; a.querySelector(".k-blickt").style.transform = `translate(${N(dx / d * 15)}px,${N(dy / d * 9)}px)`; };
+    const blickAuf = i => { if (i == null) return T.blick.classList.remove("an"); const [x, y] = P(-90 + i * 60), [ax, ay] = L.auge, d = Math.hypot(x - ax, y - ay);
+      T.blick.setAttribute("x1", N(ax + (x - ax) / d * 62)); T.blick.setAttribute("y1", N(ay + (y - ay) / d * 44)); T.blick.setAttribute("x2", N(x - (x - ax) / d * 40)); T.blick.setAttribute("y2", N(y - (y - ay) / d * 40)); T.blick.classList.add("an"); blickZiel = [x, y]; };
+    let blickZiel = null;
+    const leeren = () => { T.marken.forEach(m => { m.className.baseVal = "k-marke"; }); T.wach.classList.remove("dran"); T.opus.classList.add("schlaeft"); T.opus.classList.remove("dran"); T.umbau.className.baseVal = "k-umbau";
+      Object.values(T.zug).forEach(z => z.classList.remove("an")); T.neu.classList.remove("an"); T.zettel.classList.remove("dran"); T.ich.classList.remove("dran"); T.flug.classList.remove("an"); blickAuf(null); blickZiel = null; };
+    // Drehbuch: [Zeitpunkt in Runden, Handlung]
+    const BUCH = [
+      ...ST.map((s, i) => [Math.max(0, i / 6 - .022), () => sag(s[4])]),
+      [1, () => { sag("Über allem wacht der Qualitätsmanager: Claude Sonnet, eine günstige KI."); T.wach.classList.add("dran"); }],
+      [1.13, () => sag("Jede Woche sieht er alles durch – jede Quelle, jeden Schritt.")],
+      ...ST.map((s, i) => [1.15 + i * .055, () => { blickAuf(i); T.marken[i].classList.add("an"); if (i === 0) T.marken[0].classList.add("warn"); }]),
+      [1.5, () => { sag("Liefert eine Quelle nichts mehr, repariert er den Abruf selbst."); blickAuf(0); T.st[0].classList.add("dran"); }],
+      [1.63, () => { T.marken[0].classList.remove("warn"); }],
+      [1.7, () => { T.st[0].classList.remove("dran"); dranAlt = -1; }],
+      [1.75, () => { sag("Braucht etwas einen Umbau, schreibt er eine Notiz."); blickAuf(null); blickZiel = L.zettel; T.flug.classList.add("an"); }],
+      [1.9, () => { T.flug.classList.remove("an"); T.neu.classList.add("an"); T.zettel.classList.add("dran"); blickZiel = null; T.wach.classList.remove("dran"); }],
+      [1.96, () => T.zettel.classList.remove("dran")],
+      [2, () => { sag("Ab und zu lese ich die Notizen und entscheide."); T.zug.lesen.classList.add("an"); T.ich.classList.add("dran"); }],
+      [2.24, () => { sag("Dann wecke ich Claude Opus – die starke KI."); T.ich.classList.remove("dran"); T.zug.wecken.classList.add("an"); }],
+      [2.31, () => { T.opus.classList.remove("schlaeft"); T.opus.classList.add("dran"); }],
+      [2.46, () => { sag("Opus baut das System und die Automatisierungen um."); T.zug.umbau.classList.add("an"); }],
+      [2.53, () => { T.umbau.className.baseVal = "k-umbau an"; [3, 4, 5, 0, 1, 2].forEach((s, n) => setTimeout(() => { T.st[s].classList.add("blitz"); setTimeout(() => T.st[s].classList.remove("blitz"), 950); }, 600 + n * 640)); }],
+      [2.82, () => { sag("Dann schläft er wieder ein. Der Kreislauf läuft von allein weiter."); T.opus.classList.add("schlaeft"); T.opus.classList.remove("dran"); T.umbau.className.baseVal = "k-umbau aus"; Object.values(T.zug).forEach(z => z.classList.remove("an")); T.neu.classList.remove("an"); }]];
+    const springe = u => { leeren(); if (u >= 2) T.neu.classList.add("an"); if (u >= 1) T.marken.forEach(m => u >= 2 && m.classList.add("an")); marke = BUCH.findIndex(b => b[0] >= u); if (marke < 0) marke = BUCH.length; start = performance.now() - u * RUNDE; phase = -1; };
+    const bild1 = jetzt => {
+      let u = (jetzt - start) / RUNDE; if (u >= 3) { start += 3 * RUNDE; u -= 3; leeren(); marke = 0; }
+      while (marke < BUCH.length && BUCH[marke][0] <= u) BUCH[marke++][1]();
+      const p = u % 1, ph = Math.floor(u); if (ph !== phase) { phase = ph; knoepfe.forEach((k, i) => k.setAttribute("aria-pressed", String(i === ph))); }
+      let kopf; T.komet.forEach((c, i) => { const [x, y] = P(-90 + (p - Math.max(0, i - 1) * .0019) * 360); if (i < 2) kopf = [x, y]; c.setAttribute("cx", N(x)); c.setAttribute("cy", N(y)); });
+      const nah = Math.round(p * 6) % 6, dran = Math.abs(p * 6 - Math.round(p * 6)) < .24 ? nah : -1;
+      if (dran !== dranAlt && !(u > 1.5 && u < 1.7)) { T.st.forEach((s, i) => s.classList.toggle("dran", i === dran)); dranAlt = dran; }
+      schaut(T.wach, L.auge, blickZiel || kopf); if (!T.opus.classList.contains("schlaeft")) schaut(T.opus, L.opus, u > 2.46 ? P(55) : L.ich);
+      if (u > 1.75 && u < 1.9) { const f = (u - 1.75) / .15, e = f * f * (3 - 2 * f), pt = T.wegNotiz.getPointAtLength(e * T.wegLang); T.flug.setAttribute("transform", `translate(${N(pt.x)} ${N(pt.y)}) rotate(${N(-12 + e * 18)})`); }
+      if (jetzt > blinzeln) { blinzeln = jetzt + 2600 + rz() * 3800; for (const a of [T.wach, T.opus]) { a.classList.add("blinzelt"); setTimeout(() => a.classList.remove("blinzelt"), 150); } }
+    };
+    const schleife = jetzt => { if (!sichtbar) { lauf = null; angehalten = jetzt; return; } bild1(jetzt); lauf = requestAnimationFrame(schleife); };
+    bauen();
+    if (still) { $("#kl-takt").hidden = true; T.marken.forEach(m => m.classList.add("an")); T.komet.forEach(c => { const [x, y] = P(-60); c.setAttribute("cx", N(x)); c.setAttribute("cy", N(y)); }); sag("Der Kreislauf läuft jeden Tag von allein. Der Qualitätsmanager prüft jede Woche – umgebaut wird nur, wenn ich Claude Opus wecke."); }
+    else { springe(0);
+      knoepfe.forEach((k, i) => k.addEventListener("click", () => springe(i)));
+      schmal.addEventListener("change", () => { const u = ((performance.now() - start) / RUNDE) % 3; bauen(); springe(Math.floor(u)); });
+      new IntersectionObserver(es => { sichtbar = es[0].isIntersecting; if (sichtbar && !lauf) { if (angehalten) start += performance.now() - angehalten; angehalten = 0; lauf = requestAnimationFrame(schleife); } }, { rootMargin: "-5% 0px" }).observe(kl); }
+  }
   // Kapitel 1, jeden Morgen: Der DeepSeek-Rahmen wandert durch die Tabelle; was zur Jugendhilfeplanung gehört, landet in der Mail-Vorlage.
   { const fr = $("#frueh"), ol = $("#fr-zeilen"), mail = fr.querySelector(".fr-mail"), plaetze = [...fr.querySelectorAll(".fr-platz")], pause = ms => new Promise(r => setTimeout(r, ms));
     const ZEILEN = [["Allg. Zeitung", "Ebersheimer Eltern haben Fragen zur Ganztagsbetreuung", "#2c477c"], ["Allg. Zeitung", "Baustelle in der Innenstadt"], ["Bundestag", "Debatte zum Verkehrshaushalt"], ["SPIEGEL", "Kinderarmut: Wenn der Staat Kinder fördert, profitiert er später", "#0f47a0"],
