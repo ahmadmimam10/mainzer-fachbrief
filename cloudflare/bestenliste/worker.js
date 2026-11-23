@@ -14,7 +14,16 @@
 // Verwaltung (docs/verwaltung.html) – nur mit dem Passwort aus dem Secret ADMIN_PASSWORT (Kopfzeile „Authorization: Bearer …“)
 //   GET /admin/statistik?von=JJJJ-MM-TT&bis=JJJJ-MM-TT → Aufrufe und Klicks je Tag, Seiten, Geräte, Aktionen, meistgeklickte Links
 //   GET /admin/merk → { aus: [Kennungen] } · POST /admin/merk { id, aus: true|false } – welche Notizen des Qualitätsmanagers ausgeblendet sind
+//   GET /admin/wahl → { tage: { JJJJ-MM-TT: {…} } } · POST /admin/wahl { tag, stimmen: [...] } – Häkchen im Vergleich Claude ↔ DeepSeek
+//   GET /admin/daumen → { monate: { JJJJ-MM: [{ id, hoch, runter }] } } – Leserstimmen „relevant ja/nein“
 //   Nach acht falschen Versuchen ist die Anmeldung für 15 Minuten gesperrt.
+//
+// Leserstimmen (docs/blatt/daumen.js): POST /d → { id: Meldung, w: 1 | -1 | 0, alt: 1 | -1 | 0 } – zählt je Monat und Meldung hoch
+//   bzw. um (alt → w). Gespeichert werden nur Monat, Meldung und die beiden Zahlen – keine Adresse, keine Kennung.
+//
+// Ausfuhr für GitHub (.github/workflows/stimmen.yml): GET /ausfuhr → { stand, wahl, daumen } – nur lesen. Bewusst ohne Schlüssel:
+//   Dieselben Daten liegen danach ohnehin im öffentlichen Repository (daten/abgleich-stimmen.json, daten/leser-daumen.json);
+//   es steht nichts Persönliches darin (keine Freitexte, keine Adressen).
 const ERLAUBT = ["https://boniblatt-mainz.de", "https://www.boniblatt-mainz.de", "http://localhost:8766", "http://127.0.0.1:8766"];
 const SCHLUESSEL = "bestenliste", BEHALTEN = 50, ZEIGEN = 20, MAX_PUNKTE = 400;
 const NAME = /^[\p{L}\p{N}][\p{L}\p{N} ._-]{1,11}$/u;
@@ -22,6 +31,7 @@ const NAME = /^[\p{L}\p{N}][\p{L}\p{N} ._-]{1,11}$/u;
 const SPERRE = /(hitler|siegheil|fick|fotze|hure|nutte|wichs|schlampe|penis|porn|nigg|kanak|schwuchtel|spast|missgeburt|fuck|bitch|cunt)|^(nazis?|arsch|sex|heil)$/i;
 const SEITEN = ["start", "werkstatt", "kalender"], AKTION = /^[a-z][a-z0-9:-]{1,39}$/, TAG = /^\d{4}-\d{2}-\d{2}$/;
 const FEHL_MAX = 8, FEHL_SPERRE = 900;
+const RESSORTS = ["jugendhilfeplanung", "fruehe-hilfen", "quartiersmanagement"], KENNUNG = /^[A-Za-z0-9_-]{1,40}$/, MELDUNG = /^[0-9a-f]{10}$/;
 
 const antwort = (daten, status, kopf) => new Response(JSON.stringify(daten), { status, headers: kopf });
 const lesen = async env => { try { const l = JSON.parse((await env.LISTE.get(SCHLUESSEL)) || "[]"); return Array.isArray(l) ? l : []; } catch { return []; } };
@@ -62,8 +72,43 @@ async function zaehlen(anfrage, env, herkunft, text) {
   if (sql.length) await env.DB.batch(sql);
 }
 
+async function daumen(anfrage, env, herkunft, text) {
+  let d; try { d = JSON.parse(text); } catch { return; }
+  if (!d || typeof d !== "object" || !MELDUNG.test(String(d.id)) || zuViel(anfrage.headers.get("CF-Connecting-IP") || "?")) return;
+  const w = Number(d.w), alt = Number(d.alt);
+  if (![1, -1, 0].includes(w) || ![1, -1, 0].includes(alt) || w === alt) return;
+  const monat = herkunft.startsWith("http://") ? "test" : heute().slice(0, 7), sql = [];
+  if (alt) sql.push(env.DB.prepare(`UPDATE daumen SET ${alt > 0 ? "hoch = MAX(0, hoch - 1)" : "runter = MAX(0, runter - 1)"} WHERE monat = ?1 AND id = ?2`).bind(monat, d.id));
+  if (w) sql.push(env.DB.prepare(`INSERT INTO daumen (monat, id, hoch, runter) VALUES (?1, ?2, ?3, ?4) ON CONFLICT(monat, id) DO UPDATE SET ${w > 0 ? "hoch = hoch + 1" : "runter = runter + 1"}`).bind(monat, d.id, w > 0 ? 1 : 0, w < 0 ? 1 : 0));
+  if (sql.length) await env.DB.batch(sql);
+}
+
+// Häkchen aus dem Vergleich (KV „wahl:JJJJ-MM-TT“) und Leserstimmen (D1) lesen
+async function wahlLesen(env) {
+  const tage = {}; let cursor;
+  do { const l = await env.LISTE.list({ prefix: "wahl:", cursor }); cursor = l.list_complete ? null : l.cursor;
+    for (const k of l.keys) { try { tage[k.name.slice(5)] = JSON.parse(await env.LISTE.get(k.name)); } catch { /* übergehen */ } } } while (cursor);
+  return tage;
+}
+async function daumenLesen(env, ab) {
+  const r = await env.DB.prepare("SELECT monat, id, hoch, runter FROM daumen WHERE monat != 'test' AND monat >= ?1 ORDER BY monat, id").bind(ab).all();
+  return r.results || [];
+}
+function wahlPruefen(d) {
+  if (!d || typeof d !== "object" || !TAG.test(String(d.tag)) || !Array.isArray(d.stimmen) || d.stimmen.length > 300) return null;
+  const text = (x, n) => String(x ?? "").replace(/\s+/g, " ").trim().slice(0, n), stimmen = [];
+  for (const s of d.stimmen) {
+    if (!s || !["artikel", "gremien"].includes(s.art) || !["claude", "deepseek"].includes(s.von) || !RESSORTS.includes(s.ressort)) return null;
+    const e = { art: s.art, ressort: s.ressort, von: s.von, rein: s.rein === true };
+    if (s.art === "artikel") { if (!MELDUNG.test(String(s.id))) return null; Object.assign(e, { id: s.id, titel: text(s.titel, 300) }); }
+    else { if (!KENNUNG.test(String(s.sitzung))) return null; Object.assign(e, { sitzung: String(s.sitzung), gremium: text(s.gremium, 120), text: text(s.text, 600) }); }
+    stimmen.push(e);
+  }
+  return { tag: d.tag, gesendet: new Date().toISOString(), stimmen };
+}
+
 async function verwaltung(anfrage, env, url, kopf) {
-  if (anfrage.method !== "GET" && !(anfrage.method === "POST" && url.pathname === "/admin/merk")) return antwort({ fehler: "Nicht erlaubt." }, 405, kopf);
+  if (anfrage.method !== "GET" && !(anfrage.method === "POST" && ["/admin/merk", "/admin/wahl"].includes(url.pathname))) return antwort({ fehler: "Nicht erlaubt." }, 405, kopf);
   if (!env.ADMIN_PASSWORT) return antwort({ fehler: "Es ist noch kein Passwort hinterlegt (Secret ADMIN_PASSWORT)." }, 503, kopf);
   const fehl = Number(await env.LISTE.get("adminfehl")) || 0;
   if (fehl >= FEHL_MAX) return antwort({ fehler: "Zu viele falsche Versuche. In 15 Minuten geht es wieder." }, 429, kopf);
@@ -83,6 +128,20 @@ async function verwaltung(anfrage, env, url, kopf) {
       aus = aus.slice(-200); await env.LISTE.put("merk", JSON.stringify(aus));
     }
     return antwort({ aus }, 200, kopf);
+  }
+  if (url.pathname === "/admin/wahl") {
+    if (anfrage.method === "POST") {
+      let d; try { d = await anfrage.json(); } catch { return antwort({ fehler: "Die Angaben waren nicht lesbar." }, 400, kopf); }
+      const w = wahlPruefen(d); if (!w) return antwort({ fehler: "Die Auswahl war unvollständig oder ungültig." }, 400, kopf);
+      await env.LISTE.put("wahl:" + w.tag, JSON.stringify(w));
+      return antwort({ gespeichert: w.gesendet, tag: w.tag, anzahl: w.stimmen.length }, 200, kopf);
+    }
+    return antwort({ tage: await wahlLesen(env) }, 200, kopf);
+  }
+  if (url.pathname === "/admin/daumen") {
+    const ab = new Date(Date.now() - 62 * 864e5).toISOString().slice(0, 7), monate = {};
+    for (const z of await daumenLesen(env, ab)) (monate[z.monat] ||= []).push({ id: z.id, hoch: z.hoch, runter: z.runter });
+    return antwort({ monate }, 200, kopf);
   }
   if (url.pathname !== "/admin/statistik") return antwort({ fehler: "Unbekannt." }, 404, kopf);
 
@@ -115,6 +174,18 @@ export default {
         ctx.waitUntil(zaehlen(anfrage, env, herkunft, text).catch(() => {}));
       }
       return new Response(null, { status: 204, headers: kopf });
+    }
+    if (url.pathname === "/d") {
+      if (anfrage.method === "POST" && ERLAUBT.includes(herkunft)) {
+        const text = (await anfrage.text()).slice(0, 300);
+        ctx.waitUntil(daumen(anfrage, env, herkunft, text).catch(() => {}));
+      }
+      return new Response(null, { status: 204, headers: kopf });
+    }
+    if (url.pathname === "/ausfuhr") {
+      if (anfrage.method !== "GET") return antwort({ fehler: "Nicht erlaubt." }, 405, kopf);
+      if (zuViel(anfrage.headers.get("CF-Connecting-IP") || "?")) return antwort({ fehler: "Zu viele Abrufe." }, 429, kopf);
+      return antwort({ stand: new Date().toISOString(), wahl: await wahlLesen(env), daumen: await daumenLesen(env, "2026-01") }, 200, kopf);
     }
     if (url.pathname.startsWith("/admin/")) return verwaltung(anfrage, env, url, kopf);
     if (url.pathname !== "/") return antwort({ fehler: "Unbekannt." }, 404, kopf);

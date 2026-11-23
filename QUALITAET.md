@@ -90,6 +90,15 @@ Im Mittelpunkt stehen die **Quellen**: Funktioniert jede? Wenn nein: warum – u
     - Danach `node werkzeuge/intro-einbauen.mjs` und `node werkzeuge/termine-pruefen.mjs` erneut; den Plan auf
       Plausibilität prüfen (Ostern Mi–Mo, Weihnachten ab den letzten zwei Arbeitstagen vor Heiligabend). Die Regeln
       selbst (wann ein Motiv erscheint) nicht ändern.
+10a. **Leserstimmen – einmal im Monat** (im ersten Lauf eines Monats, erstmals im Januar 2027): Auf der Startseite können
+    Leserinnen und Leser jede Meldung als „relevant“ oder „nicht relevant“ markieren. `node werkzeuge/stimmen.mjs leser
+    --monat=<Vormonat, JJJJ-MM>` zeigt, welche Meldungen eher nicht relevant waren und welche besonders.
+    - Unter 30 Stimmen im Monat: nichts ändern, nur im Lauf vermerken.
+    - Sonst nach **Mustern** suchen (Thema, Quelle, Ebene, Ressort, Stufe) – ein Muster braucht mindestens drei Meldungen.
+      Dafür höchstens **zwei kleine Änderungen** in `REDAKTION.md`, nur in den Abschnitten „Auswahlregeln“ oder
+      „Gewichtung“, jede als allgemeine Regel (keine Titel, keine Einzelfälle), nichts streichen, was die Stimmen nicht
+      klar widerlegen. Wortlaut vorher → nachher und die Belege in `daten/wartung.md`; im Lauf unter `erledigt` nennen.
+    - Größeres (Ressort-Zuschnitt, neue Quellen, Gestaltung) bleibt eine Notiz.
 11. **Notizen pflegen und Lauf festhalten** (siehe „Notizen“), Sicherungen durchlaufen, veröffentlichen.
 
 ## Quellen reparieren
@@ -140,13 +149,14 @@ Erledigte Schnappschüsse und Anfragen aus `daten/diagnose/` löschen.
   Tippfehler; eine Zahl oder Angabe im Text, die nachweislich nicht mehr stimmt (z. B. Anzahl der Quellen). Danach den
   Versionsanhang `?v=…` in `docs/index.html` (und `blatt/spiel.js?v=…` in `docs/blatt/bb.js`) um eins hochzählen.
 - **`FERIEN`/`TERMINE`** in `werkzeuge/intro-feste.mjs` und danach `docs/index.html` über `intro-einbauen.mjs` (Schritt 10).
+- **`REDAKTION.md`** – nur im Monatsschritt 10a: höchstens zwei kleine Änderungen in „Auswahlregeln“ oder „Gewichtung“.
 
 ## Was nur als Notiz geht
 
 Alles, was über die Liste oben hinausgeht – insbesondere:
 
 - **Programmcode** in `werkzeuge/` (auch bei einem klar erkannten Fehler: beschreibe ihn mit Datei, Stelle und Vorschlag),
-  Abläufe in `.github/`, der Cloudflare-Dienst, diese Anleitung, `REDAKTION.md`, `routinen/`.
+  Abläufe in `.github/`, der Cloudflare-Dienst, diese Anleitung, `REDAKTION.md` (außer Schritt 10a), `routinen/`.
 - **Neue Quellen** aufnehmen, Quellen **streichen** oder durch einen anderen Anbieter ersetzen.
 - **Gestaltung, Texte, Aufbau, neue Funktionen** der Webseite; alles, wofür man die Seite ansehen müsste, um sicher zu sein.
 - Auswahlregeln, Ressort-Zuschnitte, Zeitpläne, Kosten, Modelle.
@@ -208,7 +218,7 @@ Befund je Schritt in einer Zeile, Änderungen (alt → neu), offenen Punkten.
 
 ```bash
 node werkzeuge/verbrauch.mjs --art=qualitaet
-git add quellen.json daten werkzeuge/intro-feste.mjs docs
+git add quellen.json daten werkzeuge/intro-feste.mjs docs REDAKTION.md
 git commit -m "Qualitätsprüfung JJJJ-MM-TT"
 git pull --rebase origin main && git push origin HEAD:main
 ```

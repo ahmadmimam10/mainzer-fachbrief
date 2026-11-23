@@ -1,0 +1,8 @@
+{
+  "info": "Abgleich Claude ↔ DeepSeek (ABGLEICH.md): drei Runden à fünf Ausgaben. In der Nacht nach jeder Runde passt ein einmaliger Cloud-Lauf die Prompts beider Seiten an die Häkchen an; der dritte schreibt den Abschlussbericht. anpassung = Ortszeit Europe/Berlin.",
+  "runden": [
+    { "nr": 1, "ausgaben": ["2026-11-20", "2026-11-23", "2026-11-24", "2026-11-25", "2026-11-26"], "anpassung": "2026-11-27T02:30" },
+    { "nr": 2, "ausgaben": ["2026-11-27", "2026-11-30", "2026-12-01", "2026-12-02", "2026-12-03"], "anpassung": "2026-12-04T02:30" },
+    { "nr": 3, "ausgaben": ["2026-12-04", "2026-12-07", "2026-12-08", "2026-12-09", "2026-12-10"], "anpassung": "2026-12-11T02:30" }
+  ]
+}

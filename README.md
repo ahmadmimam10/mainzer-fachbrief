@@ -57,10 +57,15 @@ die letzte Ausgabe.
   DeepSeek-Vergleich (`daten/schatten.json`) und die Abläufe im Hintergrund. Das Passwort liegt nur als Secret
   `ADMIN_PASSWORT` im Cloudflare-Dienst. Geschützt sind damit die Besuchszahlen; Verbrauch und Vergleich liegen als
   Dateien in diesem Repository
-- DeepSeek-Schattenlauf: `werkzeuge/schatten.mjs` über `.github/workflows/schatten.yml` (direkt nach jeder Morgenausgabe, zehn Ausgaben
+- DeepSeek-Schattenlauf: `werkzeuge/schatten.mjs` über `.github/workflows/schatten.yml` (direkt nach jeder Morgenausgabe, 15 Ausgaben
   lang): DeepSeek Flash macht dieselbe Arbeit wie die Morgenredaktion – Auswahl mit Hörfassung, Gremien-Notizen und „Was geht?“
   mit eigener Websuche; veröffentlicht wird davon nichts. Braucht das
   Repository-Secret `DEEPSEEK_API_KEY`
+- Abgleich Claude ↔ DeepSeek (bis 11.12.2026): drei Runden à fünf Ausgaben, Häkchen in der Verwaltung, nach jeder Runde ein
+  einmaliger Cloud-Lauf, der die Prompts anpasst; Ablauf, Rundenberichte und Abschlussbericht in `ABGLEICH.md`.
+- Stimmen: `werkzeuge/stimmen.mjs` über `.github/workflows/stimmen.yml` (nachts und mittags) holt die Häkchen aus dem Vergleich
+  und die Leserstimmen „relevant ja/nein“ der Startseite vom Cloudflare-Dienst nach `daten/abgleich-stimmen.json` und
+  `daten/leser-daumen.json`. Die Leserstimmen wertet der Qualitätsmanager monatlich aus (ab Januar 2027, `QUALITAET.md`).
 - Notion-Abgleich (Übergangszeit bis 6.12.2026): `werkzeuge/notion-abgleich.mjs` über `.github/workflows/notion-abgleich.yml`,
   täglich gegen 5 Uhr (Winterzeit). Prüft, ob jeder Artikel, den die alte Make.com-Automatisierung in den 24 Stunden bis zum
   nächtlichen vollen Abruf (Zeit aus `daten/laufprotokoll.json`, meist gegen 4:35 Uhr) in die Notion-Datenbank „AZ“ schrieb,

@@ -123,6 +123,23 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 .spalten{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 22px;font-size:13.5px;margin-top:8px}
 .spalten ul{margin:4px 0 0;padding-left:16px;color:var(--leise)}
 .spalten strong{font-weight:600}
+/* Häkchen im Vergleich: Was gehört in die Zeitung? */
+.wahl{border-top:1px solid var(--linie);padding:14px 0 18px}
+.wahl h3{margin:0;font-size:15px;font-weight:600}
+.wahl .wahl-satz{margin:2px 0 4px;font-size:13.5px;color:var(--leise)}
+.wahl fieldset{border:0;margin:12px 0 0;padding:0;min-width:0}
+.wahl legend{padding:0;margin-bottom:3px;font-size:12.5px;font-weight:600;color:var(--leise)}
+.wahl label{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:10px;align-items:start;padding:7px 8px;margin:0 -8px;border-radius:9px;font-size:14px;line-height:1.38;cursor:pointer}
+.wahl label:hover{background:rgba(0,0,0,.035)}
+.wahl input{width:17px;height:17px;margin:1px 0 0;accent-color:var(--tinte);cursor:pointer}
+.wahl .von{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.wahl .von.c{background:color-mix(in srgb,var(--gold) 17%,transparent);color:#83591a}
+.wahl .von.d{background:color-mix(in srgb,var(--blau) 17%,transparent);color:#3d586d}
+.wahl .ohne{margin:2px 0 0 37px;font-size:13px;color:var(--zart)}
+.wahl .fuss{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.wahl .stand{font-size:13px;color:var(--leise)}.wahl .stand.ok{color:var(--gruen)}
+.vgl summary .gewaehlt{color:var(--gruen)}
+.runden{display:flex;gap:6px;margin-top:10px}.runden i{flex:1;height:5px;border-radius:9px;background:var(--linie2)}.runden i.voll{background:var(--tinte)}.runden i.halb{background:var(--gold)}
 .verstoss{margin:0 0 6px;color:var(--rot);font-size:14px}
 .vgl details.hoer{box-shadow:none;padding:0;margin-top:10px}.vgl details.hoer summary{padding:4px 0;font-size:14px;color:var(--blau)}.vgl details.hoer summary::after{content:none}
 .hoer div{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 26px}.hoer p{margin:6px 0 0;font-size:14px;line-height:1.55;white-space:pre-line}.hoer strong{display:block;margin-bottom:4px}
@@ -271,7 +288,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 
 <section id="vergleich">
   <h2>DeepSeek im Vergleich</h2>
-  <p class="unter">Zehn Ausgaben lang macht DeepSeek direkt nach Claude dieselbe Arbeit: auswählen, zuordnen, Hörfassungen, Gremien, „Was geht?“ mit eigener Websuche. Veröffentlicht wird davon nichts.</p>
+  <p class="unter">DeepSeek macht direkt nach Claude dieselbe Arbeit, veröffentlicht wird davon nichts. Drei Runden à fünf Ausgaben: Du kreuzt bei jeder Ausgabe an, was von den Unterschieden in die Zeitung gehört. Nach jeder Runde werden die Prompts beider Seiten danach angepasst (ABGLEICH.md).</p>
   <div id="d-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
 </section>
 
@@ -552,10 +569,50 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     }
     return { beide, claude, modell, gleichAuf, ress, anteil: claude ? beide / claude : 0 };
   }
+  /* ---------- Häkchen: Was gehört in die Zeitung? (gespeichert beim Dienst, nachts ins Repository geholt) ---------- */
+  let WAHL = {}, RUNDEN = null;
+  const wahlLaden = async () => { try { const r = await fetch(`${DIENST}/admin/wahl`, { headers: { Authorization: "Bearer " + encodeURIComponent(pw) }, cache: "no-store" }); WAHL = r.ok ? (await r.json()).tage || {} : {}; } catch { WAHL = {}; } };
+  const gremienUnterschiede = g => { const aus = []; if (!g || !g.sitzungen) return aus;
+    for (const [sid, s] of Object.entries(g.sitzungen)) { const c = (s.claude || {}).ressorts || {}, d = (s.deepseek || {}).ressorts || {};
+      for (const r of Object.keys(RESSORT)) { const tc = String(c[r] || "").trim(), td = String(d[r] || "").trim(); if ((tc || td) && tc !== td) aus.push({ sid, s, r, tc, td }); } }
+    return aus; };
+  const uhrUndTag = z => new Date(z).toLocaleString("de-DE", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) + " Uhr";
+  function wahlTeil(l, t) {
+    if (!t || t.fehler) return "";
+    const alt = WAHL[l.datum], vorher = new Map((alt ? alt.stimmen : []).map(s => [s.art === "artikel" ? `a|${s.ressort}|${s.id}` : `g|${s.sitzung}|${s.ressort}|${s.von}`, s.rein]));
+    const kasten = (schluessel, daten, von, text) => `<label><input type="checkbox" data-k="${esc(schluessel)}" ${daten}${vorher.get(schluessel) ? " checked" : ""}><span class="von ${von === "claude" ? "c" : "d"}">${von === "claude" ? "Claude" : "DeepSeek"}</span><span>${esc(text)}</span></label>`;
+    const artikel = (x, y, von) => kasten(`a|${x.r}|${y.id}`, `data-art="artikel" data-r="${esc(x.r)}" data-id="${esc(y.id)}" data-von="${von}" data-t="${esc(y.titel)}"`, von, y.titel);
+    const teile = t.w.ress.filter(x => x.nurC.length || x.nurD.length).map(x => `<fieldset><legend>${esc(RESSORT[x.r] || x.r)}</legend>${x.nurC.map(y => artikel(x, y, "claude")).join("")}${x.nurD.map(y => artikel(x, y, "deepseek")).join("")}</fieldset>`).join("");
+    const notiz = (u, von, text) => text ? kasten(`g|${u.sid}|${u.r}|${von}`, `data-art="gremien" data-r="${esc(u.r)}" data-s="${esc(u.sid)}" data-g="${esc(u.s.gremium)}" data-von="${von}" data-t="${esc(text)}"`, von, text) : `<p class="ohne">${von === "claude" ? "Claude" : "DeepSeek"}: keine Notiz</p>`;
+    const gremien = gremienUnterschiede(t.m.gremien).map(u => `<fieldset><legend>${esc(u.s.gremium)} · ${esc(tagText(u.s.datum))} · ${esc(RESSORT[u.r] || u.r)}</legend>${notiz(u, "claude", u.tc)}${notiz(u, "deepseek", u.td)}</fieldset>`).join("");
+    if (!teile && !gremien) return `<div class="wahl"><p class="wahl-satz">Keine Unterschiede – hier gibt es nichts anzukreuzen.</p></div>`;
+    return `<form class="wahl" data-tag="${esc(l.datum)}"><h3>Was gehört in die Zeitung?</h3><p class="wahl-satz">Nur die Unterschiede zwischen Claude und DeepSeek. Angekreuzt heißt: soll rein. Nicht angekreuzt: soll nicht rein.</p>${teile}${gremien ? `<p class="wahl-satz" style="margin-top:16px">Gremien: Welche Notiz soll ins Blatt?</p>${gremien}` : ""}
+      <div class="fuss"><button type="submit">Senden</button><span class="stand${alt ? " ok" : ""}">${alt ? "Gesendet am " + esc(uhrUndTag(alt.gesendet)) + " – erneut senden ersetzt die Wahl" : "Noch nicht gesendet"}</span></div></form>`;
+  }
+  // Senden: alle Kästchen des Tages, angekreuzt oder nicht
+  document.addEventListener("submit", async e => {
+    const f = e.target.closest && e.target.closest("form.wahl"); if (!f) return; e.preventDefault();
+    const knopf = f.querySelector("button[type=submit]"), stand = f.querySelector(".stand");
+    const stimmen = [...f.querySelectorAll("input[type=checkbox]")].map(i => i.dataset.art === "artikel"
+      ? { art: "artikel", ressort: i.dataset.r, id: i.dataset.id, von: i.dataset.von, titel: i.dataset.t, rein: i.checked }
+      : { art: "gremien", ressort: i.dataset.r, sitzung: i.dataset.s, gremium: i.dataset.g, von: i.dataset.von, text: i.dataset.t, rein: i.checked });
+    knopf.disabled = true; stand.className = "stand"; stand.textContent = "Wird gesendet …";
+    try {
+      const r = await fetch(`${DIENST}/admin/wahl`, { method: "POST", headers: { Authorization: "Bearer " + encodeURIComponent(pw), "Content-Type": "application/json" }, body: JSON.stringify({ tag: f.dataset.tag, stimmen }) });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.fehler || "Senden hat nicht geklappt.");
+      WAHL[f.dataset.tag] = { tag: f.dataset.tag, gesendet: d.gespeichert, stimmen };
+      stand.className = "stand ok"; stand.textContent = `Gespeichert – ${stimmen.filter(s => s.rein).length} von ${stimmen.length} angekreuzt (${uhrUndTag(d.gespeichert)})`;
+      const m = f.closest("details")?.querySelector("summary .wahlstand"); if (m) { m.className = "wahlstand gewaehlt"; m.textContent = "✓ gewählt"; }
+    } catch (x) { stand.className = "stand"; stand.style.color = "var(--rot)"; stand.textContent = x.message || "Senden hat nicht geklappt."; }
+    knopf.disabled = false;
+  });
+
   async function vergleichZeigen() {
     let d; try { d = await json(ROH + "daten/schatten.json"); } catch { d = null; }
+    await wahlLaden(); RUNDEN = await json(ROH + "daten/abgleich-runden.json").catch(() => null);
     const laeufe = (d && d.laeufe || []).slice().sort((a, b) => b.datum.localeCompare(a.datum));
-    if (!laeufe.length) kachel("vergleich", "0 von 10 Ausgaben", "erster Vergleich nach der nächsten Morgenausgabe", "");
+    if (!laeufe.length) kachel("vergleich", "0 von 15 Ausgaben", "erster Vergleich nach der nächsten Morgenausgabe", "");
     if (!laeufe.length) return void ($("#d-inhalt").innerHTML = `<div class="karte"><p class="leer">Noch kein Vergleich. Der erste Vergleich kommt mit der nächsten Morgenausgabe (werktags gegen 5:30 Uhr).</p></div>`);
     const modelle = [...new Set(laeufe.flatMap(l => Object.keys(l.modelle)))];
     const kacheln = modelle.map(mo => {
@@ -568,7 +625,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     }).join("");
     const tage = laeufe.map(l => {
       const teile = modelle.filter(mo => l.modelle[mo]).map(mo => { const m = l.modelle[mo]; return m.fehler ? { mo, fehler: m.fehler } : { mo, m, w: messen(l, m) }; });
-      return `<details><summary><b>${esc(tagText(l.datum, { weekday: "short", day: "numeric", month: "short" }))}</b><span>${l.kandidaten} Kandidaten</span>${teile.map(t => `<span>${esc(NAMEN[t.mo] || t.mo)}: ${t.fehler ? "Fehler" : zahl(t.w.anteil * 100) + " % gleich"}</span>`).join("")}</summary>
+      return `<details><summary><b>${esc(tagText(l.datum, { weekday: "short", day: "numeric", month: "short" }))}</b><span>${l.kandidaten} Kandidaten</span>${teile.map(t => `<span>${esc(NAMEN[t.mo] || t.mo)}: ${t.fehler ? "Fehler" : zahl(t.w.anteil * 100) + " % gleich"}</span>`).join("")}<span class="wahlstand${WAHL[l.datum] ? " gewaehlt" : ""}">${WAHL[l.datum] ? "✓ gewählt" : "noch nicht gewählt"}</span></summary>${wahlTeil(l, teile.find(t => !t.fehler))}
         ${teile.map(t => t.fehler ? `<div class="ress"><h3>${esc(NAMEN[t.mo] || t.mo)}</h3><p class="leer">${esc(t.fehler)}</p></div>` : `<div class="ress"><h3>${esc(NAMEN[t.mo] || t.mo)} · ${zahl(t.m.tokens.eingabe + t.m.tokens.cache)} Tokens gelesen, ${zahl(t.m.tokens.ausgabe)} geschrieben · ${(t.m.usd * 100).toLocaleString("de-DE", { maximumFractionDigits: 2 })} US-Cent (${esc(t.m.tarif)})</h3>${alleVerstoesse(t.m).length ? `<p class="verstoss">Regelverstöße: ${alleVerstoesse(t.m).map(esc).join(" · ")}</p>` : ""}
           ${t.w.ress.map(x => `<p style="margin:12px 0 0;font-weight:600">${esc(RESSORT[x.r] || x.r)}</p>
             <div class="streifen" title="gemeinsam ${x.gem.length}, nur Claude ${x.nurC.length}, nur DeepSeek ${x.nurD.length}"><i style="--n:${x.gem.length};background:var(--gruen)"></i><i style="--n:${x.nurC.length};background:var(--gold)"></i><i style="--n:${x.nurD.length};background:var(--blau)"></i></div>
@@ -576,8 +633,12 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
             <div class="spalten"><div><strong style="color:var(--gruen)">gemeinsam · ${x.gem.length}</strong></div><div><strong style="color:var(--gold)">nur Claude · ${x.nurC.length}</strong><ul>${x.nurC.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div><div><strong style="color:var(--blau)">nur DeepSeek · ${x.nurD.length}</strong><ul>${x.nurD.map(y => `<li>${esc(y.titel)}</li>`).join("")}</ul></div></div>${(t.m.hoer || {})[x.r] ? `<details class="hoer"><summary>Hörfassungen nebeneinander lesen</summary><div><p><strong>Claude</strong>${esc((l.claudeHoer || {})[x.r] || "–")}</p><p><strong>${esc(NAMEN[t.mo] || t.mo)}</strong>${esc(t.m.hoer[x.r])}</p></div></details>` : ""}`).join("")}</div>${gremienTeil(t.m.gremien, NAMEN[t.mo] || t.mo)}${termineTeil(t.m.termine, l.claudeTermine, NAMEN[t.mo] || t.mo)}`).join("")}</details>`;
     }).join("");
     { const mo = modelle[0], gut = laeufe.filter(l => l.modelle[mo] && !l.modelle[mo].fehler), w = gut.map(l => messen(l, l.modelle[mo]));
-      kachel("vergleich", `${laeufe.length} von 10 Ausgaben`, gut.length ? zahl(w.reduce((n, x) => n + x.beide, 0) / Math.max(1, w.reduce((n, x) => n + x.claude, 0)) * 100) + " % gleiche Auswahl wie Claude" : "bisher nur Fehler", ""); }
-    $("#d-inhalt").innerHTML = `<div class="raster"><div class="karte zahl"><b>${laeufe.length}<span style="font:inherit;color:var(--leise)"> / 10</span></b><span>Ausgaben verglichen</span><i>Claude läuft im Abo – ohne Zusatzkosten je Ausgabe.</i></div>${kacheln}</div><div class="vgl">${tage}</div>`;
+      kachel("vergleich", `${laeufe.length} von 15 Ausgaben`, gut.length ? zahl(w.reduce((n, x) => n + x.beide, 0) / Math.max(1, w.reduce((n, x) => n + x.claude, 0)) * 100) + " % gleiche Auswahl wie Claude" : "bisher nur Fehler", ""); }
+    const nr = Math.min(3, Math.floor(Math.max(0, laeufe.length - 1) / 5) + 1), inRunde = laeufe.length ? (laeufe.length - 1) % 5 + 1 : 0, rd = RUNDEN && (RUNDEN.runden || [])[nr - 1];
+    const rundenText = laeufe.length >= 15 ? "Alle drei Runden verglichen – Abschlussbericht in ABGLEICH.md" : `Runde ${nr} von 3 · Ausgabe ${inRunde} von 5${rd && rd.anpassung ? ` · Anpassung in der Nacht zum ${esc(tagText(rd.anpassung.slice(0, 10), { weekday: "long", day: "numeric", month: "long" }))}` : ""}`;
+    const balken = [1, 2, 3].map(i => `<i class="${i < nr || laeufe.length >= 15 ? "voll" : i === nr ? "halb" : ""}"></i>`).join("");
+    const offen = laeufe.filter(l => !WAHL[l.datum] && l.modelle[modelle[0]] && !l.modelle[modelle[0]].fehler).length;
+    $("#d-inhalt").innerHTML = `<div class="raster"><div class="karte zahl"><b>${laeufe.length}<span style="display:inline;margin:0;font:inherit;color:var(--leise)"> / 15</span></b><span>Ausgaben verglichen</span><i>${rundenText}</i><div class="runden" aria-hidden="true">${balken}</div><i>${offen ? `${offen} ${offen === 1 ? "Ausgabe wartet" : "Ausgaben warten"} auf deine Häkchen` : "Alle Ausgaben angekreuzt"}</i></div>${kacheln}</div><div class="vgl">${tage}</div>`;
   }
 
   /* ---------- Notion-Abgleich ---------- */

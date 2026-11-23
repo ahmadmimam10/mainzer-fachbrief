@@ -23,6 +23,7 @@
 
   const klick = e => {
     const el = e.target instanceof Element ? e.target : null; if (!el) return;
+    if (el.closest(".daumen")) { if (el.closest(".daumen .d")) aktion("daumen"); return; }   // Abstimmen ist kein Klick auf die Meldung
     if (el.closest(".teil, .teil-menue")) { if (el.closest(".teil-menue [data-a]")) aktion("teilen"); return; }
     const a = el.closest("a[href]");
     if (a) {

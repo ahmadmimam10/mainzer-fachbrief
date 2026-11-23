@@ -1,0 +1,41 @@
+name: Stimmen holen
+# Holt die Häkchen aus dem Vergleich Claude ↔ DeepSeek (Verwaltung) und die Leserstimmen „relevant ja/nein“ (Startseite)
+# vom Dienst (cloudflare/bestenliste) ins Repository: daten/abgleich-stimmen.json und daten/leser-daumen.json.
+# Gebraucht von den Anpassungs-Läufen des Abgleichs (ABGLEICH.md, nachts um 2:30 Uhr) und der Monatsauswertung des
+# Qualitätsmanagers (QUALITAET.md). Kein Schlüssel nötig: Der Dienst gibt nur aus, was danach ohnehin hier öffentlich liegt.
+on:
+  schedule:
+    - cron: "10 23 * * *"   # 0:10 Uhr Winterzeit – vor den nächtlichen Anpassungs-Läufen
+    - cron: "10 11 * * *"   # 12:10 Uhr – damit der Stand tagsüber nicht alt wird
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stimmen
+  cancel-in-progress: false
+
+jobs:
+  holen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Stimmen vom Dienst holen
+        run: node werkzeuge/stimmen.mjs holen || true
+      - name: Speichern
+        run: |
+          git config user.name "Boniblatt-Stimmen"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          set +e                      # dieser Lauf schlägt nie „rot“ fehl und verschickt keine Mails
+          git add daten/abgleich-stimmen.json daten/leser-daumen.json 2>/dev/null
+          if git diff --cached --quiet; then echo "Nichts zu speichern."; exit 0; fi
+          git commit -q -m "Stimmen $(date -u +'%Y-%m-%d %H:%M')"
+          git push -q origin HEAD:main || { git pull -q --rebase origin main && git push -q origin HEAD:main; } || echo "::warning::Speichern nicht möglich – der nächste Lauf holt es nach."
+          exit 0

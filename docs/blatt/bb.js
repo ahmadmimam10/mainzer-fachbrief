@@ -111,7 +111,18 @@
   }
   const TEIL_BILD = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
   const teilen = m => `<span class="teil" role="button" tabindex="0" aria-label="Meldung teilen" title="Teilen" data-t="${esc(m.titel)}" data-u="${esc(m.url)}">${TEIL_BILD}</span>`;
-  const unten = m => `<span class="unten"><span>${esc(E.quelle(m))}</span>${teilen(m)}<span class="pfeil">→</span></span>`;
+  // Leserstimmen „relevant ja/nein“: ein Klick zählt anonym je Monat und Meldung (Dienst cloudflare/bestenliste, /d); ein zweiter nimmt sie zurück.
+  // Die eigene Wahl merkt sich nur der Browser. Der Qualitätsmanager wertet die Stimmen monatlich aus (QUALITAET.md).
+  const DAUMEN_URL = "https://boniblatt-bestenliste.ahmadmimam10.workers.dev/d", DAUMEN_KEY = "boniblatt-daumen";
+  const meineDaumen = (() => { try { return JSON.parse(localStorage.getItem(DAUMEN_KEY) || "{}") || {}; } catch { return {}; } })();
+  const DAUMEN_BILD = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10.5V20H4.5a1 1 0 0 1-1-1v-7.5a1 1 0 0 1 1-1zM7 10.5l4-7.2a2 2 0 0 1 3.7 1.4L14 9h5a2 2 0 0 1 2 2.3l-1.2 7A2 2 0 0 1 17.8 20H7"/></svg>';
+  const daumen = (m, frage) => m.id ? `<span class="daumen" data-id="${esc(m.id)}" data-w="${meineDaumen[m.id] || 0}" role="group" aria-label="Ist diese Meldung relevant?">${frage ? '<span class="d-frage">relevant?</span>' : ""}<span class="d" data-d="1" role="button" tabindex="0" aria-label="Relevant" title="Relevant">${DAUMEN_BILD}</span><span class="d runter" data-d="-1" role="button" tabindex="0" aria-label="Nicht relevant" title="Nicht relevant">${DAUMEN_BILD}</span></span>` : "";
+  const stimme = d => { const g = d.closest(".daumen"), id = g.dataset.id, alt = Number(g.dataset.w) || 0, w = alt === Number(d.dataset.d) ? 0 : Number(d.dataset.d);
+    wurzel.querySelectorAll(".daumen").forEach(x => { if (x.dataset.id === id) x.dataset.w = w; });
+    if (w) meineDaumen[id] = w; else delete meineDaumen[id];
+    try { localStorage.setItem(DAUMEN_KEY, JSON.stringify(meineDaumen)); } catch { /* ohne Speicher bleibt es bei diesem Besuch */ }
+    try { const body = JSON.stringify({ id, w, alt }); if (!(navigator.sendBeacon && navigator.sendBeacon(DAUMEN_URL, body))) fetch(DAUMEN_URL, { method: "POST", body, keepalive: true, mode: "no-cors" }).catch(() => {}); } catch { /* Abstimmen darf nie stören */ } };
+  const unten = m => `<span class="unten"><span>${esc(E.quelle(m))}</span>${daumen(m, true)}${teilen(m)}<span class="pfeil">→</span></span>`;
 
   function zeichne(id) {
     const b = bereich(id), t = E.teile(b.daten), nr = BEREICHE.indexOf(b), k = [];
@@ -131,7 +142,7 @@
       <div class="h-leiste"><span class="h-zeit">0:00</span><span class="h-spur" role="slider" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i></i></span><span class="h-dauer">–:––</span><button type="button" class="h-tempo" aria-label="Wiedergabetempo ändern" title="Wiedergabetempo">1×</button></div></div>`);
     k.push(wetterKachel());
     wichtig.forEach((m, i) => k.push(`<a class="k wichtig n${wichtig.length === 4 ? 2 : wichtig.length}${i === 1 ? " farbe" : ""}" data-ein href="${esc(m.url)}"><span class="etikett">${esc(m.thema)}</span><h2>${esc(m.titel)}</h2><p>${esc(m.kurz || "")}</p>${unten(m)}</a>`));
-    if (kurz.length) k.push(`<div class="k liste" data-ein>${motiv(ORTE[(tagNr + nr * 4 + 5) % ORTE.length][0], "wz")}<h3>Kurz <i>notiert</i></h3>${kurz.map((m, i) => `<a href="${esc(m.url)}"${i >= 10 ? ' class="spaeter"' : ""}><b>${esc(m.thema)}</b><span>${esc(m.titel)}</span><span class="qu">${esc(E.quelle(m))}</span>${teilen(m)}</a>`).join("")}${kurz.length > 10 ? `<button type="button" class="liste-mehr">Alle ${kurz.length} Meldungen zeigen</button>` : ""}</div>`);
+    if (kurz.length) k.push(`<div class="k liste" data-ein>${motiv(ORTE[(tagNr + nr * 4 + 5) % ORTE.length][0], "wz")}<h3>Kurz <i>notiert</i></h3>${kurz.map((m, i) => `<a href="${esc(m.url)}"${i >= 10 ? ' class="spaeter"' : ""}><b>${esc(m.thema)}</b><span>${esc(m.titel)}</span><span class="qu">${esc(E.quelle(m))}</span><span class="werkzeug">${daumen(m)}${teilen(m)}</span></a>`).join("")}${kurz.length > 10 ? `<button type="button" class="liste-mehr">Alle ${kurz.length} Meldungen zeigen</button>` : ""}</div>`);
     const gk = gremienKachel(b); if (gk) k.push(gk);
     const lk = losKachel(); if (lk) k.push(lk);
     raster.innerHTML = k.join("");
@@ -303,10 +314,12 @@
   tm.addEventListener("click", async e => { const x = e.target.closest("[data-a]"); if (!x || !tmVon) { if (e.target.closest("a")) tmZu(); return; } const titel = tmVon.dataset.t, url = tmVon.dataset.u;
     if (x.dataset.a === "kopie") { try { await navigator.clipboard.writeText(url); x.textContent = "Kopiert ✓"; } catch (f) { x.textContent = "Kopieren ging nicht"; } setTimeout(tmZu, 900); }
     else { tmZu(); navigator.share({ title: titel, text: titel, url }).catch(() => {}); } });
-  wurzel.addEventListener("click", e => { const x = e.target.closest(".teil"); if (x) { e.preventDefault(); e.stopPropagation(); return tmAuf(x); } if (!e.target.closest(".teil-menue")) tmZu();
+  wurzel.addEventListener("click", e => { const d = e.target.closest(".daumen .d"); if (d) { e.preventDefault(); e.stopPropagation(); return stimme(d); }
+    const x = e.target.closest(".teil"); if (x) { e.preventDefault(); e.stopPropagation(); return tmAuf(x); } if (!e.target.closest(".teil-menue")) tmZu();
     if (e.target.closest(".leer-archiv")) return archivOeffnen();
     const m = e.target.closest(".liste-mehr"); if (m) { m.closest(".liste").classList.add("offen"); m.remove(); } });
-  wurzel.addEventListener("keydown", e => { const x = e.target.closest && e.target.closest(".teil"); if (x && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); tmAuf(x); } if (e.key === "Escape") tmZu(); });
+  wurzel.addEventListener("keydown", e => { const d = e.target.closest && e.target.closest(".daumen .d"); if (d && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); e.stopPropagation(); return stimme(d); }
+    const x = e.target.closest && e.target.closest(".teil"); if (x && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); tmAuf(x); } if (e.key === "Escape") tmZu(); });
   addEventListener("scroll", () => { if (!tm.hidden) tmZu(); }, { passive: true });
   // Altpapier-Wurf unter der Fußleiste – nur am PC; das Skript lädt erst, wenn der Fuß in Sicht kommt
   if (matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches) { const sp = document.createElement("section"); sp.id = "spiel"; sp.className = "bb-spiel"; sp.setAttribute("aria-label", "Spiel: Altpapier-Wurf");
