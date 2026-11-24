@@ -292,5 +292,16 @@
    "✓ dv                      10 gefunden,   0 neu  ⚠ www.deutscher-verein.de: Zeitüberschreitung",
    "26 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-24T15:46:22.047Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "18 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört.",
+  "auffaellig": [
+   "✗ bundesrat                0 gefunden,   0 neu  ⚠ www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "✓ dv                      10 gefunden,   0 neu  ⚠ www.deutscher-verein.de: Zeitüberschreitung",
+   "18 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört."
+  ]
  }
 ]

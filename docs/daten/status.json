@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-24T12:46:20.908Z",
+ "stand": "2026-11-24T15:45:22.418Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 45,
+   "treffer": 44,
    "zustand": "ok",
-   "hinweis": "unauffällig – 40 Treffer"
+   "hinweis": "unauffällig – 39 Treffer"
   },
   {
    "id": "landtag",
@@ -199,7 +199,7 @@
    "ok": false,
    "treffer": 0,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "hinweis": "Abruffehler (2. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
@@ -369,7 +369,7 @@
    "ok": true,
    "treffer": 10,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.deutscher-verein.de: Zeitüberschreitung; nur 10 brauchbare Treffer statt üblicherweise 52"
+   "hinweis": "Abruffehler (2. Lauf in Folge): www.deutscher-verein.de: Zeitüberschreitung; nur 10 brauchbare Treffer statt üblicherweise 52"
   },
   {
    "id": "dbjr",
