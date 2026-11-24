@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-24T18:36:28.117Z",
+ "stand": "2026-11-24T21:38:54.712Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "gestoert",
-   "hinweis": "Abruf seit 3 Läufen fehlerhaft: www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "ok": true,
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "spiegel",
@@ -416,10 +416,10 @@
    "name": "Deutscher Bildungsserver",
    "kurz": "Bildungsserver",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 14,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 14 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "sozial-de",
@@ -526,10 +526,10 @@
    "name": "Der Paritätische Gesamtverband",
    "kurz": "Paritätischer",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 30,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "bertelsmann",
