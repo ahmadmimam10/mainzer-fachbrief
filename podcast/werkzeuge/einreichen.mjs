@@ -41,7 +41,15 @@ if (meta.id !== undefined) {
   if (typeof meta.beschreibung !== 'string' || meta.beschreibung.length < 60 || meta.beschreibung.length > 320) fehler.push('folge.json: „beschreibung“ 60–320 Zeichen.');
   if (typeof meta.stand !== 'string' || !meta.stand.trim()) fehler.push('folge.json: „stand“ fehlt (Faktenstand, z. B. „30.11.2026“).');
   if (typeof meta.stimmen !== 'string' || !/KI/.test(meta.stimmen)) fehler.push('folge.json: „stimmen“ muss die KI-Kennzeichnung enthalten, z. B. „KI-generiert (ElevenLabs Eleven v4)“.');
-  if (!meta.tempo || typeof meta.tempo !== 'object' || !(meta.tempo.MIRA > 0.9 && meta.tempo.MIRA < 1.12) || !(meta.tempo.JONAS > 0.9 && meta.tempo.JONAS < 1.12)) fehler.push('folge.json: „tempo“ wie in der letzten Folge übernehmen, z. B. { "MIRA": 1.02, "JONAS": 1.0 }.');
+}
+// ---------- Besetzung: Jonas ist immer da, dazu genau ein Gast (folge.json → "gast") ----------
+const besetzung = await readFile(join(WERKSTATT, 'besetzung.json'), 'utf8').then(JSON.parse, () => ({ gastgeber: 'JONAS', figuren: { JONAS: { tempo: 1 }, MIRA: { tempo: 1.02 } } }));
+const FIGUREN = besetzung.figuren || {}, GASTGEBER = besetzung.gastgeber || 'JONAS';
+if (meta.id !== undefined) {
+  if (!meta.gast || !FIGUREN[meta.gast] || meta.gast === GASTGEBER) fehler.push(`folge.json: „gast“ muss eine Figur aus podcast/besetzung.json sein: ${Object.keys(FIGUREN).filter((k) => k !== GASTGEBER).join(', ')}.`);
+  const soll = Object.fromEntries([GASTGEBER, meta.gast].filter((k) => FIGUREN[k]).map((k) => [k, FIGUREN[k].tempo || 1]));
+  const ok = meta.tempo && typeof meta.tempo === 'object' && Object.keys(soll).every((k) => meta.tempo[k] > 0.9 && meta.tempo[k] < 1.12);
+  if (!ok) fehler.push(`folge.json: „tempo“ braucht Werte für Gastgeber und Gast, wie in podcast/besetzung.json: ${JSON.stringify(soll)}.`);
 }
 
 // ---------- Themenliste aus der Verwaltung: Dran ist das oberste Thema, das noch keine Folge hat ----------
@@ -59,7 +67,11 @@ if (meta.themaId) {
   else if (benutzt.has(meta.themaId)) fehler.push(`folge.json: Zum Thema „${t.thema}“ gibt es schon eine Folge.`);
   else if (!vorhanden && dran && meta.themaId !== dran.id) fehler.push(`folge.json: Dran ist das oberste offene Thema „${dran.thema}“ – "themaId": "${dran.id}".`);
 } else if (!vorhanden && dran) fehler.push(`In der Themenliste wartet „${dran.thema}“: folge.json braucht "themaId": "${dran.id}", und die Folge muss dieses Thema mit seinen Anweisungen behandeln.`);
-if (meta.themaId) console.log(`Thema aus der Verwaltung: ${(themen.find((x) => x.id === meta.themaId) || {}).thema || meta.themaId}`);
+if (meta.themaId) {
+  const t = themen.find((x) => x.id === meta.themaId) || {};
+  console.log(`Thema aus der Verwaltung: ${t.thema || meta.themaId}${t.gast ? ` · Gast laut Liste: ${t.gast}` : ''}`);
+  if (t.gast && meta.gast !== t.gast) fehler.push(`Für dieses Thema ist in der Verwaltung ${(FIGUREN[t.gast] || {}).name || t.gast} als Gast eingetragen – folge.json: "gast": "${t.gast}".`);
+}
 
 // ---------- skript.txt ----------
 let skript = '';
@@ -72,6 +84,7 @@ if (skript) {
   if (!/^#>\s*musik\s+outro\b/.test(letzte)) fehler.push('Der Abspann fehlt: „#> musik outro“ muss die letzte Zeile sein.');
   if (zeilen.some((z) => /^#>\s*musik\s+(uebergang|intro)\b/.test(z.trim()))) fehler.push('Keine Übergangs- oder Intro-Musik (Wunsch des Nutzers): nur „thema“ am Anfang und „outro“ am Ende.');
   let quellen = 0;
+  const sprecher = new Set();
   zeilen.forEach((roh, i) => {
     const z = roh.trim(), wo = `skript.txt, Zeile ${i + 1}`;
     if (z.startsWith('#@')) {
@@ -82,7 +95,8 @@ if (skript) {
     }
     const m = z.match(/^(\+)?([A-Za-zÄÖÜäöüß]+):\s*(.*)$/);
     if (!m || z.startsWith('#')) return;
-    if (!['MIRA', 'JONAS'].includes(m[2])) { fehler.push(`${wo}: unbekannte Sprecherin/unbekannter Sprecher „${m[2]}“ (nur MIRA und JONAS).`); return; }
+    if (![GASTGEBER, meta.gast].includes(m[2])) { fehler.push(`${wo}: „${m[2]}“ spricht hier nicht mit – in dieser Folge nur ${GASTGEBER} und der Gast ${meta.gast || '(folge.json → gast)'}.`); return; }
+    if (!m[1]) sprecher.add(m[2]);
     const gesprochen = m[3].replace(/\[[^\]]*\]/g, ' ');
     if (/[§%€]/.test(gesprochen)) fehler.push(`${wo}: Zeichen § % € ausschreiben („Paragraf“, „Prozent“, „Euro“).`);
     if (/\b(Abs|Nr|bzw|ca|ggf|usw|vgl|inkl|evtl)\.|\b[zZ]\.\s?[bB]\.|\bd\.\s?h\./.test(gesprochen)) fehler.push(`${wo}: Abkürzung ausschreiben (Absatz, Nummer, beziehungsweise, zum Beispiel …).`);
@@ -90,6 +104,7 @@ if (skript) {
     if (/\[[^\]]*[äöüÄÖÜß][^\]]*\]/.test(m[3])) fehler.push(`${wo}: Regieanweisungen in [ ] auf Englisch schreiben (z. B. [laughs], [thoughtful]).`);
   });
   if (quellen < QUELLEN_MIN) fehler.push(`Nur ${quellen} Quellenangaben – jede Faktenaussage braucht eine „#@“-Zeile (mindestens ${QUELLEN_MIN}).`);
+  if (meta.gast && !(sprecher.has(GASTGEBER) && sprecher.has(meta.gast))) fehler.push(`Im Skript müssen ${GASTGEBER} und der Gast ${meta.gast} sprechen.`);
 
   const probe = spawnSync(process.execPath, [join(WERKSTATT, 'werkzeuge', 'erzeugen.mjs'), FOLGE, '--probe'], { encoding: 'utf8' });
   if (probe.status !== 0) fehler.push(`erzeugen.mjs --probe scheitert: ${(probe.stderr || probe.stdout).trim().slice(-400)}`);

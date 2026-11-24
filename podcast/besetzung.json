@@ -1,0 +1,41 @@
+{
+  "_hinweis": "Besetzung von „Zwischen den Zeilen“: Jonas ist immer da und holt sich je nach Thema einen Gast. Schlüssel = Sprechername im Skript. Beschreibung der Figuren: podcast/LEITFADEN.md, Abschnitt 2. veroeffentlichen.mjs schreibt eine öffentliche Fassung nach docs/daten/podcast-besetzung.json (ohne Stimmen-IDs).",
+  "gastgeber": "JONAS",
+  "figuren": {
+    "JONAS": {
+      "name": "Jonas", "rolle": "Jugendhilfeplanung", "ort": "oben im Turm",
+      "stimme": "z1EhmmPwF0ENGYE8dBE6", "stimmeName": "Christian Plasa – Soft and Mild", "tempo": 1.0,
+      "kurz": "Gastgeber – denkt in Strukturen, Zahlen und Zuständigkeiten"
+    },
+    "MIRA": {
+      "name": "Mira", "rolle": "Allgemeiner Sozialer Dienst", "ort": "drüben im Stadthaus",
+      "stimme": "zKHQdbB8oaQ7roNTiDTK", "stimmeName": "Laura – Sharp and Professional", "tempo": 1.02,
+      "kurz": "will wissen, was das für Familien und das Fachteam heißt",
+      "themen": ["Kinderschutz", "Hilfen zur Erziehung", "Inobhutnahme", "Familien", "Pflegekinder"]
+    },
+    "BEN": {
+      "name": "Ben", "rolle": "Schulsozialarbeit", "ort": "an einer Realschule plus",
+      "stimme": "aTTiK3YzK3dXETpuDE2h", "stimmeName": "Ben (ElevenLabs-Bibliothek)", "tempo": 1.0,
+      "kurz": "kennt Schule von innen: Schülerinnen und Schüler, Eltern, Lehrkräfte",
+      "themen": ["Schule", "Ganztag", "Bildungsassistenz", "Jugendsozialarbeit", "Fehlzeiten", "Startchancen", "psychische Gesundheit Jugendlicher"]
+    },
+    "LEONIE": {
+      "name": "Leonie", "rolle": "Kita-Leitung", "ort": "in einer städtischen Kita",
+      "stimme": "uvysWDLbKpA4XvpD3GI6", "stimmeName": "Leonie – Clear and Engaging", "tempo": 1.0,
+      "kurz": "organisiert eine Kita zwischen Personalmangel, Eltern und Warteliste",
+      "themen": ["Kindertagesbetreuung", "Frühe Hilfen", "Familienbildung", "Kitaplätze", "Fachkräfte", "Sprachförderung", "Infrastruktur"]
+    },
+    "PETRA": {
+      "name": "Petra", "rolle": "Wirtschaftliche Jugendhilfe", "ort": "im Stadthaus",
+      "stimme": "6CS8keYmkwxkspesdyA7", "stimmeName": "Ramona – Professional and Calm", "tempo": 1.0,
+      "kurz": "weiß, was jede Hilfe kostet und wer sie bezahlt",
+      "themen": ["Kosten", "Kostenbeiträge der Eltern", "Kostenerstattung", "Zuständigkeit", "Entgelte", "Haushalt"]
+    },
+    "ELIF": {
+      "name": "Elif", "rolle": "Eingliederungshilfe", "ort": "im Team Eingliederungshilfe des Jugendamts",
+      "stimme": "v3V1d2rk6528UrLKRuy8", "stimmeName": "Susi – Effortless and Confident", "tempo": 1.0,
+      "kurz": "prüft Teilhabe bei seelischer Behinderung und organisiert Hilfen",
+      "themen": ["Paragraf 35a", "Inklusion", "Schulbegleitung", "Teilhabe", "inklusive Lösung", "Verfahrenslotsen", "Autismus", "Lese-Rechtschreib-Schwäche"]
+    }
+  }
+}

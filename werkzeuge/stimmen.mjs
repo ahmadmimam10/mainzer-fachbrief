@@ -66,7 +66,7 @@ async function holen() {
     const roh = Array.isArray(d.podcast) ? d.podcast   // ab 24.11.2026 abends: Liste; davor ein Thema je Montag
       : Object.entries(d.podcast).sort(([a], [b]) => a.localeCompare(b)).map(([m, e]) => ({ id: "t" + m.replace(/-/g, ""), thema: e && e.thema, anweisungen: e && e.hinweise, erstellt: e && e.eingereicht, geaendert: e && e.geaendert }));
     const themen = roh.filter(t => t && /^t[a-z0-9]{6,24}$/.test(String(t.id)) && t.thema)
-      .map(t => ({ id: String(t.id), thema: String(t.thema), anweisungen: String(t.anweisungen || ""), erstellt: t.erstellt || "", geaendert: t.geaendert || "" }));
+      .map(t => ({ id: String(t.id), thema: String(t.thema), anweisungen: String(t.anweisungen || ""), ...(/^[A-Z]{2,12}$/.test(String(t.gast || "")) ? { gast: String(t.gast) } : {}), erstellt: t.erstellt || "", geaendert: t.geaendert || "" }));
     const alt4 = await readJson("daten/podcast-themen.json", {});
     if (JSON.stringify(alt4.themen || []) !== JSON.stringify(themen)) {
       await writeJson("daten/podcast-themen.json", { info: "Themenliste für den Podcast „Zwischen den Zeilen“ aus der Verwaltung, in Reihenfolge. Die Wochenroutine (routinen/podcast.md) nimmt jeden Montag das oberste Thema, das noch keine Folge hat (folge.json → themaId); die Anweisungen sind redaktionelle Vorgaben des Herausgebers. Ist kein Thema offen, wählt sie selbst. Geholt von werkzeuge/stimmen.mjs.", stand: d.stand || new Date().toISOString(), themen });

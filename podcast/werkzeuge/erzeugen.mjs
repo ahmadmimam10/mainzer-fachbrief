@@ -196,6 +196,11 @@ async function main() {
   if (!schluessel) { console.error('\nKein API-Schlüssel (ELEVENLABS_API_KEY) gefunden.\n'); process.exit(1); }
   const stimmenPfad = (await gibt(join(FOLGE, 'stimmen.json'))) ? join(FOLGE, 'stimmen.json') : join(WERKSTATT, 'stimmen.json');
   const stimmen = JSON.parse(await readFile(stimmenPfad, 'utf8'));
+  // Gäste aus der Besetzung (podcast/besetzung.json); Einträge in stimmen.json haben Vorrang
+  if (await gibt(join(WERKSTATT, 'besetzung.json'))) {
+    const besetzung = JSON.parse(await readFile(join(WERKSTATT, 'besetzung.json'), 'utf8'));
+    for (const [k, f] of Object.entries(besetzung.figuren || {})) if (!stimmen[k] && f.stimme) stimmen[k] = f.stimme;
+  }
   for (const s of sprecher) if (!stimmen[s] || /HIER/.test(stimmen[s])) { console.error(`\nIn stimmen.json fehlt die Stimmen-ID für ${s}.\n`); process.exit(1); }
 
   await mkdir(AUDIO, { recursive: true });

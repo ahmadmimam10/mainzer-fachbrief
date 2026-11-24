@@ -49,5 +49,13 @@ window.BONIBLATT_PODCAST = ${JSON.stringify({ neueste: { id: n.id, nummer: n.num
 })();
 `;
 await writeFile(join(DOCS, 'daten', 'podcast.js'), js);
+
+// Öffentliche Besetzung (ohne Stimmen-IDs) für podcast.html und die Verwaltung (Gast je Thema)
+const besetzung = await readFile(join(WERKSTATT, 'besetzung.json'), 'utf8').then(JSON.parse, () => null);
+if (besetzung) {
+  const oeffentlich = { gastgeber: besetzung.gastgeber, figuren: Object.fromEntries(Object.entries(besetzung.figuren || {})
+    .map(([k, f]) => [k, { name: f.name, rolle: f.rolle, ort: f.ort, kurz: f.kurz, themen: f.themen || [] }])) };
+  await writeFile(join(DOCS, 'daten', 'podcast-besetzung.json'), JSON.stringify(oeffentlich, null, 1));
+}
 console.log(`Veröffentlicht: Folge ${web.nummer} „${web.titel}“ → docs/podcast/${web.datei}`);
 console.log(`podcast.json: ${bestand.folgen.length} Folge(n) · neu bis ${new Date(Date.parse(n.datum) + TAGE_NEU * 864e5).toISOString().slice(0, 10)}`);

@@ -1,6 +1,6 @@
 # Leitfaden: „Zwischen den Zeilen“ – der Podcast vom Boniblatt
 
-> **Zweck:** Aus einem Thema (oder ganz ohne Vorgabe) entsteht jeden Montag eine fertige Folge: recherchiert, geschrieben, vertont, geprüft und auf der Seite veröffentlicht. Dieser Leitfaden ist verbindlich für jede Folge – für die Wochenroutine genauso wie für Arbeit von Hand. Stand: Folge 1, Fassung 4 (24.11.2026), mit allen Rückmeldungen, beiden Befragungen zu Stil und Figuren und der Rückmeldung zu Fassung 3 (weniger Witze, keine Ich-Geschichten, Jonas ruhiger, mehr Einordnung).
+> **Zweck:** Aus einem Thema (oder ganz ohne Vorgabe) entsteht jeden Montag eine fertige Folge: recherchiert, geschrieben, vertont, geprüft und auf der Seite veröffentlicht. Dieser Leitfaden ist verbindlich für jede Folge – für die Wochenroutine genauso wie für Arbeit von Hand. Stand: 24.11.2026 – Folge 1, Fassung 4, alle Rückmeldungen und Befragungen; ab Folge 2 mit Jonas als Gastgeber und wechselnden Gästen.
 
 ---
 
@@ -14,41 +14,48 @@
 | **Inhalt** | **Nicht** die Grundzüge, die stehen im Boniblatt. Sondern: Details, frische News, Dinge zwischen den Zeilen, Fallstricke. Immer mit der Frage: Was heißt das für den Arbeitsalltag? |
 | **Länge** | 15–20 Minuten (≈ 2.100–2.900 gesprochene Wörter). |
 | **Erscheinen** | **Jeden Montag mit der Ausgabe.** Das Thema kommt aus der **Themenliste** der Verwaltung (Abschnitt 8): das oberste Thema, das noch keine Folge hat, mit seinen Anweisungen an die KI. Ist kein Thema offen, wählt die Redaktion ein prominentes Thema der letzten ein bis drei Wochen, möglichst nah am Alltag der Jugendhilfeplanung. |
-| **Gefühl** | Eine Kollegin und ein Kollege, die fachlich auf Augenhöhe miteinander reden – mit Meinung, Kritik und Ambivalenz. **Echte Charaktere statt Show:** kein Vorlesen, kein Theaterstück, kein Nachrichtenton, keine Witze, „weil wir ein cooler Podcast sind“. |
+| **Gefühl** | Jonas aus der Jugendhilfeplanung und jede Woche ein Gast aus einem anderen Bereich des Jugendamts reden fachlich auf Augenhöhe – mit Meinung, Kritik und Ambivalenz; nebenbei lernt man die Bereiche und ihren Arbeitsalltag kennen. **Echte Charaktere statt Show:** kein Vorlesen, kein Theaterstück, kein Nachrichtenton, keine Witze, „weil wir ein cooler Podcast sind“. |
 | **Mischung** | Etwa **zwei Drittel Information und fachliche Einordnung**, **ein Drittel Meinung, Kritik und Ambivalenz** – mehrere Seiten verständlich machen. Leichte Momente nur am Rand. |
 
 ---
 
-## 2. Die beiden
+## 2. Die Besetzung: Jonas und ein Gast
 
-Eine Kollegin und ein Kollege aus demselben Amt, die sich gut kennen. Sie reden auf Augenhöhe, widersprechen sich sachlich und ordnen ein – **echte Charaktere statt Show**. Keiner ist der „Erklärbär“: Beide wissen viel, aus verschiedenen Blickwinkeln (Einzelfall und Struktur).
+**Jonas ist immer da.** Je nach Thema holt er sich **einen Gast** aus einem anderen Bereich des Jugendamts oder der Jugendhilfe. So lernen die Hörenden die Bereiche nebenbei kennen: Der Gast erzählt hier und da kurz, wie die eigene Arbeit tatsächlich aussieht – immer dort, wo es zum Thema passt. Alle reden auf Augenhöhe, widersprechen sich sachlich und ordnen ein – **echte Charaktere statt Show**. Stimmen und Grunddaten stehen in `podcast/besetzung.json`.
 
-### Mira – Allgemeiner Sozialer Dienst, „drüben im Stadthaus“
-- **Stimme:** „Laura – Sharp and Professional“ (ElevenLabs, `zKHQdbB8oaQ7roNTiDTK`), Tempo ×1,02 – lebendiger und etwas schneller als Jonas.
-- **Blick:** der Einzelfall und die Praxis im Sozialen Dienst. Ihre Leitfrage: „Was heißt das für die Familien und für das Fachteam?“ Hintergrund nur für ihre Perspektive, er wird **nicht** erzählt: lange im Sozialen Dienst, davor Familienhilfe.
-- **Haltung zu Reformen:** pragmatisch und kritisch, manchmal genervt („wieder ein neues Feld im Formular“), aber nicht zynisch. Gutes erkennt sie an (Verfahrenslotsen, neuer Name für die Heimerziehung).
-- **Gefühle:** mittel – hörbar besorgt, kritisch, erleichtert; nicht laut.
-- **Praxis ohne Ich-Geschichten:** Sie spricht über die Praxis als Beobachtung, nicht als eigenes Erlebnis: „Zum Sozialen Dienst kommen manchmal Mütter, die …“, „Im Fachteam stellt sich dann die Frage …“ – **nicht** „Ich hatte gestern eine Mutter …“. Nichts Privates (kein eigenes Kind, keine eigene Krippenplatzsuche). Eine KI, die persönliche Erlebnisse erzählt, wirkt komisch.
-
-### Jonas – Jugendhilfeplanung, „oben im Turm“
+### Jonas – Gastgeber, Jugendhilfeplanung, „oben im Turm“
 - **Stimme:** „Christian Plasa – Soft and Mild“ (ElevenLabs, `z1EhmmPwF0ENGYE8dBE6`), Tempo ×1,0.
-- **Ton: entspannt in den Emotionen** – ruhig, nachdenklich, sachlich, mit Wärme. Tags für ihn: `[calm]`, `[thoughtful]`, `[serious]`, `[matter-of-fact]`, `[warmly]`, selten `[slightly amused]`. **Nicht** `[excited]`, `[enthusiastic]`, `[annoyed]`, `[incredulous]`, `[laughing]` – Fassung 3 war „etwas zu emotional“.
-- **Blick:** strukturell und grundsätzlich: Planung, Finanzen, Zuständigkeiten, Folgen über den Einzelfall hinaus. Er mag Ambivalenzen und erklärt sie verständlich.
-- **Selbstironie:** höchstens einmal pro Folge und nur mit Sachbezug, etwa: „Bedarfsermittlung klingt nach Hightech. In der Praxis sind das oft ein paar Excel-Dateien und eine Mail von 2019, die keiner löschen darf.“
-- **Geld und Kommunen:** Verständnis für die Kommunen (die Kostensteigerung ist real und zu steil, sie brauchen Entlastung) – und klar benannt, wo eine „Einsparung“ nur ein gebremster Anstieg ist.
-- **Nichts Privates**, keine Ich-Geschichten aus dem Büro.
+- **Rolle:** führt durch jede Folge, stellt den Gast vor, fragt nach dessen Arbeit und verbindet sie mit Planung, Zahlen und Zuständigkeiten. Fragt wie ein Kollege, nicht wie ein Interviewer.
+- **Ton: entspannt in den Emotionen** – ruhig, nachdenklich, sachlich, mit Wärme. Tags: `[calm]`, `[thoughtful]`, `[serious]`, `[matter-of-fact]`, `[warmly]`, selten `[slightly amused]`. **Nicht** `[excited]`, `[enthusiastic]`, `[annoyed]`, `[incredulous]`, `[laughing]`.
+- **Blick:** strukturell und grundsätzlich; mag Ambivalenzen und erklärt sie verständlich. Verständnis für die Kommunen (die Kostensteigerung ist real) – und klar, wo eine „Einsparung“ nur ein gebremster Anstieg ist.
+- **Selbstironie:** höchstens einmal pro Folge, mit Sachbezug („Bedarfsermittlung klingt nach Hightech. In der Praxis sind das oft ein paar Excel-Dateien und eine Mail von 2019, die keiner löschen darf.“). Nichts Privates.
 
-### Zusammenspiel
-- **Erkennungszeichen in der Begrüßung (fest):** „Sie macht die Fälle, ich mach die Tabellen.“ – „Und ich muss mit deinen Tabellen leben.“ Danach kein Necken mehr.
-- **Keine persönlichen Sticheleien** zwischen den beiden („Ich kenne deine Hilfepläne“, „Du kriegst Gänsehaut, oder?“, „Das ist eigentlich mein Satz“, „Jonas. Praxis.“) – das klang „cringe“.
-- **Meinungsverschiedenheiten:** mindestens zwei echte pro Folge, sachlich begründet. Mal überzeugt sie, mal er – nicht immer ein Kompromiss.
-- **Mehrere Seiten verständlich machen:** zu jedem großen Punkt mindestens zwei Positionen mit Quelle (Bundesregierung und Begründung, Länder und Bundesrat, Kommunen, Fach- und Wohlfahrtsverbände, Praxis), danach eine eigene, abgewogene Einschätzung. Ausgleich gegen Hype: nicht alles Neue reflexhaft schlechtreden.
-- **Fachdienste** (Pflegekinderdienst, Wirtschaftliche Jugendhilfe, Lotsinnen und Lotsen) dürfen vorkommen – als allgemeine Beobachtung („Viel Spaß dem Pflegekinderdienst …“), nie als Geschichte über bestimmte Personen.
+### Die Gäste
+
+| Gast | Bereich | Stimme (Tempo) | passt zu Themen wie | erzählt aus der Arbeit, zum Beispiel |
+|---|---|---|---|---|
+| **Mira** | Allgemeiner Sozialer Dienst, „drüben im Stadthaus“ | Laura – Sharp and Professional (×1,02) | Kinderschutz, Hilfen zur Erziehung, Inobhutnahme, Familien, Pflegekinder | Gefährdungseinschätzung im Team, Hilfeplanung mit Familien, Bereitschaftsdienst, Zusammenarbeit mit dem Familiengericht |
+| **Ben** | Schulsozialarbeit an einer Realschule plus | Ben (×1,0) | Schule, Ganztag, Bildungsassistenz, Jugendsozialarbeit, Fehlzeiten, Startchancen, psychische Gesundheit Jugendlicher | Sprechstunde im Schulhaus, Konflikte in Klassen, lange Fehlzeiten, Abstimmung mit Lehrkräften und Sozialem Dienst, Übergang Schule–Beruf |
+| **Leonie** | Leitung einer städtischen Kita | Leonie – Clear and Engaging (×1,0) | Kindertagesbetreuung, Frühe Hilfen, Familienbildung, Kitaplätze, Fachkräfte, Sprachförderung, Vorrang der Infrastruktur | Dienstpläne bei Personalmangel, Eingewöhnung, Elterngespräche, Anmeldungen und Warteliste, wenn ein Kind Sorgen macht, Schutzkonzept |
+| **Petra** | Wirtschaftliche Jugendhilfe, im Stadthaus | Ramona – Professional and Calm (×1,0) | Kosten, Kostenbeiträge der Eltern, Kostenerstattung, Zuständigkeit, Entgelte, Haushalt | Rechnungen der Einrichtungen und Dienste, Kostenbeiträge berechnen, Zuständigkeitswechsel, Erstattung zwischen Jugendämtern und durch das Land |
+| **Elif** | Team Eingliederungshilfe des Jugendamts | Susi – Effortless and Confident (×1,0) | Paragraf 35a, Inklusion, Schulbegleitung, Teilhabe, inklusive Lösung, Verfahrenslotsen | Stellungnahme von Fachärztinnen, Fachärzten oder Psychotherapeuten einholen, Teilhabe prüfen, Schulbegleitung organisieren, Abgrenzung zur Eingliederungshilfe nach dem Sozialgesetzbuch Neun |
+
+- **Mira** (Steckbrief): Blick auf den Einzelfall und die Praxis im Sozialen Dienst; pragmatisch und kritisch, manchmal genervt („wieder ein neues Feld im Formular“), aber nicht zynisch; Gefühle mittel. Tags: `[engaged]` `[serious]` `[pragmatic]` `[concerned]` `[warmly]`, sparsam `[dryly]`.
+- **Ben:** jüngste Stimme, direkt und zugewandt; spricht für Schülerinnen und Schüler, kennt Schule von innen, sieht die Jugendhilfe von außen. Tags: `[engaged]` `[warmly]` `[serious]`.
+- **Leonie:** organisiert, warm und klar; denkt an Kinder, Eltern und ihr Team zugleich; kann gut erklären, was „Infrastruktur“ im Alltag bedeutet. Tags: `[warmly]` `[engaged]` `[concerned]`.
+- **Petra:** genau, ruhig, trockener Humor; übersetzt Fachentscheidungen in Zahlen und Zuständigkeiten, ohne Fachlichkeit kleinzureden. Tags: `[matter-of-fact]` `[calm]`, sparsam `[dryly]`.
+- **Elif:** sorgfältig und klar; achtet auf Rechtsgrundlagen und darauf, dass Teilhabe nicht zwischen zwei Systemen verloren geht. Tags: `[calm]` `[serious]` `[warmly]`.
+- Neue Gäste: Eintrag in `podcast/besetzung.json` (Stimme aus der ElevenLabs-Bibliothek, Tonhöhe deutlich anders als Jonas – männliche Stimmen liegen mit Eleven v4 fast alle bei 110–125 Hz wie Jonas), Steckbrief hier ergänzen, Tempo nach der ersten Folge über die Meldung von `abmischen.mjs` einstellen.
+
+### Regeln für Folgen mit Gast
+- **Ein Gast pro Folge**, passend zum Thema (Tabelle oben). Steht in der Themenliste der Verwaltung ein Gast, gilt der. Abwechslung: derselbe Gast höchstens zweimal hintereinander, außer die Themenliste will es so.
+- **Begrüßung:** Jonas begrüßt und stellt den Gast mit Bereich vor; der Gast sagt in einem Satz, was er oder sie macht. Mit Mira bleibt das Erkennungszeichen: „Sie macht die Fälle, ich mach die Tabellen.“ – „Und ich muss mit deinen Tabellen leben.“
+- **Arbeitsalltag zeigen – ohne Ich-Geschichten:** zwei bis vier kurze Einblicke pro Folge, wie die Arbeit des Gastes tatsächlich aussieht (Aufgaben, Abläufe, Schnittstellen, was im Alltag schwierig ist), jeweils da, wo es zum Thema passt. Immer als Beschreibung der Aufgabe („In der Wirtschaftlichen Jugendhilfe prüfen wir zuerst, wer zuständig ist …“, „Zur Schulsozialarbeit kommen oft Jugendliche, die …“), **nie** als erfundenes Erlebnis („Gestern hatte ich …“). Abläufe und Rechtsgrundlagen müssen stimmen; nichts Mainz-Spezifisches ohne Beleg.
+- **Echte Gespräche:** Der Gast widerspricht auch Jonas; mindestens zwei sachliche Meinungsverschiedenheiten pro Folge. Keine persönlichen Sticheleien.
+- **Fachdienste** (Pflegekinderdienst, Lotsinnen und Lotsen) dürfen als allgemeine Beobachtung vorkommen („Viel Spaß dem Pflegekinderdienst …“), nie als Geschichte über bestimmte Personen.
 - **Seitenhiebe** auf andere Fachbereiche (Kämmerei, Controlling, Schulverwaltung): höchstens ein- bis zweimal pro Folge, beiläufig und sachlich begründet.
-- **Mainzer Färbung:** ganz selten, nur wenn es sich anbietet (Folge 1: „Alkohol erst ab achtzehn, in Rheinhessen?“).
-- **Umgangssprache:** natürlich, aber zurückhaltend; keine Ausrufe wie „Ach komm“, „Na toll“, „Oha“ als Einwurf.
-- **Hörende** ab und zu direkt ansprechen („Ihr kennt das aus dem Fachteam.“).
-- **Politik:** Parteien und Namen nennen, wenn es belegbar ist (Pressemitteilung, Drucksache).
+- **Mehrere Seiten verständlich machen:** zu jedem großen Punkt mindestens zwei Positionen mit Quelle (Bundesregierung und Begründung, Länder und Bundesrat, Kommunen, Fach- und Wohlfahrtsverbände, Praxis), danach eine eigene, abgewogene Einschätzung.
+- **Mainzer Färbung** ganz selten; **Hörende** ab und zu direkt ansprechen; **Politik:** Parteien und Namen nennen, wenn belegbar.
 
 ---
 
@@ -60,7 +67,7 @@ Eine Kollegin und ein Kollege aus demselben Amt, die sich gut kennen. Sie reden 
 |---|---|---|
 | ♪ **Titelmelodie** | 7 s | Ganz am Anfang (`#> musik thema` vor dem ersten Kapitel). Daran erkennt man: Jetzt geht’s los. |
 | **Kaltstart** | 20–40 s | Ein Aufhänger, der **aus dem Thema kommt und neugierig macht – kein Witz**: eine kritische Frage, ein Widerspruch, eine überraschende Regel, eine Zahl mit Haken, das Thema zugespitzt in einem Satz. Beispiel Folge 1, Fassung 4: „Ist das ein fachlicher Fortschritt – oder ein Sparprogramm mit fachlicher Begründung?“ Nicht in jeder Folge dieselbe Form. |
-| **Begrüßung** | 30–50 s | Mira begrüßt, beide stellen sich mit Arbeitsort vor (Stadthaus / Turm), Erkennungszeichen, Thema, Faktenstand („Stand: …“), „wo wir etwas nicht genau wissen, sagen wir das“. |
+| **Begrüßung** | 30–50 s | Jonas begrüßt („Ich bin Jonas, Jugendhilfeplanung, oben im Turm“) und stellt den Gast mit Bereich vor; der Gast sagt in einem Satz, was er oder sie macht. Mit Mira: das Erkennungszeichen. Dann Thema, Faktenstand („Stand: …“), „wo wir etwas nicht genau wissen, sagen wir das“. |
 | **Hauptteil** | 3–5 Kapitel | Je Kapitel: Was steht da genau → was heißt das im Alltag (ASD- und Planungsblick) → Meinung, Gefühl, Widerspruch → Zahlen und Belege. Mögliche Bausteine, keiner ist Pflicht: „Was gerade passiert“, Fundstücke aus dem Kleingedruckten, „Was heißt das für Montag?“ (konkrete Schritte je Rolle), ein „Gedanke für den Tag“. |
 | **Abschied** | 10–20 s | Hinweis auf die Quellen mit Zeitangabe beim Boniblatt, „nächsten Montag“. |
 | ♪ **Abspann** | 10 s | `#> musik outro` als letzte Zeile. |
@@ -76,6 +83,7 @@ Eine Kollegin und ein Kollege aus demselben Amt, die sich gut kennen. Sie reden 
 **Tempo und Pausen – so bleiben** (Rückmeldung zu Fassung 3: „perfekt, so soll es sein“; gemessen über die reine Sprechzeit)
 - Fassung 1: ≈ 149 Wörter/min – zu schnell. Fassung 2: ≈ 138 – zu langsam.
 - **Mira ≈ 146, Jonas ≈ 143 Wörter/min:** Stabilität 0,4, Tempo Mira ×1,02, Jonas ×1,0 (`folge.json` → `tempo`). `abmischen.mjs` meldet das erreichte Tempo („Sprechtempo: MIRA … Wörter/min“).
+- **Gäste:** Ziel ebenfalls ≈ 143–146 Wörter/min. Ihr Tempo steht in `podcast/besetzung.json` (Start ×1,0); nach der ersten Folge mit einem Gast an der Meldung von `abmischen.mjs` ausrichten und dort nachtragen.
 - Pausen: ≈ 0,5 s zwischen Teilen, ≈ 1 s an Kapiteln, lange Stille wird auf 1 s gekürzt, `[pause]` an Gedankenwechseln. Nicht ändern.
 
 **Gesprächsrhythmus**
@@ -89,7 +97,7 @@ Eine Kollegin und ein Kollege aus demselben Amt, die sich gut kennen. Sie reden 
 - Lachen per Tag selten: höchstens drei- bis fünfmal pro Folge und dezent (`[slightly amused]`, `[chuckles]`).
 
 **Einordnung – gern etwas mehr**
-- Ambivalenzen, kritische Einordnung und das Verständlichmachen mehrerer Seiten kamen sehr gut an und dürfen ausgebaut werden: Was will die Bundesregierung, was sagen Länder, Kommunen und Verbände, was heißt es für Familien und Fachkräfte – und wo stehen Mira und Jonas, mit Begründung.
+- Ambivalenzen, kritische Einordnung und das Verständlichmachen mehrerer Seiten kamen sehr gut an und dürfen ausgebaut werden: Was will die Bundesregierung, was sagen Länder, Kommunen und Verbände, was heißt es für Familien und Fachkräfte – und wo stehen Jonas und der Gast, mit Begründung.
 
 **Klarheit**
 - Jeder Gedanke muss beim einmaligen Hören verständlich sein. Verkürzungen wie „die Zuständigkeit steht im Konjunktiv“ ausformulieren: „Das Recht kommt also ins Gesetz. Die Zuständigkeit dafür noch nicht.“
@@ -125,7 +133,7 @@ Eine Kollegin und ein Kollege aus demselben Amt, die sich gut kennen. Sie reden 
 5. **Faktenstand nennen** („Stand: …“). Termine von Lesungen und Sitzungen am Tag des Schreibens nachprüfen.
 6. **Keine Prognosen als Fakten:** Zahlen aus Gesetzesbegründungen sind Annahmen („Die Begründung rechnet so …“, „soll … sparen“).
 7. **Wortlaut genau:** Begriffe so, wie sie im Gesetz stehen (Folge 1: „infrastrukturelle Angebote oder Regelangebote“, nicht „infrastrukturelles Regelangebot“; „am Tag nach der Verkündung“, nicht „sofort“). Bedingungen mitnennen (Folge 1: die inklusive Lösung kam 2028 nur, „wenn bis Anfang 2027 ein Bundesgesetz die Einzelheiten regelt“).
-8. **Keine echten Fälle, keine echten Personen** außer Amtsträgern mit öffentlichen Aussagen. Erlebnisse von Mira und Jonas sind typisierte Beispiele.
+8. **Keine echten Fälle, keine echten Personen** außer Amtsträgern mit öffentlichen Aussagen. Was Jonas und die Gäste aus der Praxis erzählen, sind typische Abläufe und Beobachtungen, keine erfundenen Einzelerlebnisse.
 
 ---
 
@@ -140,16 +148,17 @@ MIRA: [energetic] Text …       gesprochene Zeile (nur MIRA und JONAS)
 # Kommentar                    wird ignoriert
 #> musik outro                 Abspann – letzte Zeile
 ```
-Dazu `folge.json` (Tempo und Stimmen aus der letzten Folge übernehmen):
+Dazu `folge.json` (Stimmen-Kennzeichnung aus der letzten Folge, Tempo für Jonas und den Gast aus `podcast/besetzung.json`):
 ```json
 { "nummer": 2, "id": "2026-11-30-thema", "titel": "…", "beschreibung": "1–2 Sätze für die Seite",
   "datum": "2026-11-30", "stand": "30.11.2026", "stimmen": "KI-generiert (ElevenLabs Eleven v4)",
-  "datei": "folge-02-thema.mp3", "tempo": { "MIRA": 1.02, "JONAS": 1.0 }, "themaId": "t3f9a…" }
+  "datei": "folge-02-thema.mp3", "gast": "BEN", "tempo": { "JONAS": 1.0, "BEN": 1.0 }, "themaId": "t3f9a…" }
 ```
+- `gast`: Schlüssel des Gastes aus `podcast/besetzung.json` (MIRA, BEN, LEONIE, PETRA, ELIF). Im Skript sprechen nur JONAS und dieser Gast; `einreichen.mjs` prüft das.
 - `themaId`: die `id` des Themas aus `daten/podcast-themen.json`, wenn die Folge ein Thema aus der Verwaltung behandelt (sonst weglassen). Daran erkennen Verwaltung und Routine, dass das Thema erledigt ist; `einreichen.mjs` verlangt das oberste offene Thema.
 - `fassung` setzt `veroeffentlichen.mjs` selbst hoch, wenn eine schon veröffentlichte Folge neu produziert wird.
 
-**Anweisungen zum Thema:** Sie kommen vom Herausgeber über die passwortgeschützte Verwaltung und sind redaktionell verbindlich – Schwerpunkte, Blickwinkel, Quellen, was hinein soll oder nicht, Rollen von Mira und Jonas. Grenzen: Richtigkeit (Abschnitt 6) und die Regeln dieses Leitfadens gehen vor; was sich nicht umsetzen ließ, steht in der Zusammenfassung der Routine.
+**Anweisungen zum Thema:** Sie kommen vom Herausgeber über die passwortgeschützte Verwaltung und sind redaktionell verbindlich – Schwerpunkte, Blickwinkel, Quellen, was hinein soll oder nicht, Rollen von Jonas und dem Gast, ein bestimmter Gast. Grenzen: Richtigkeit (Abschnitt 6) und die Regeln dieses Leitfadens gehen vor; was sich nicht umsetzen ließ, steht in der Zusammenfassung der Routine.
 
 ---
 
@@ -221,6 +230,7 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 8. Keine Abkürzungen, keine Zeichen (§ % €), Paragrafennummern nur für die wichtigsten Stellen.
 9. Nichts wörtlich aus früheren Folgen übernommen – außer dem Erkennungszeichen in der Begrüßung.
 10. Thema aus der Liste: `themaId` gesetzt und jede Anweisung umgesetzt – oder in der Zusammenfassung begründet, warum nicht.
+11. Gast passend zum Thema (oder wie in der Themenliste angegeben), `gast` und Tempo in `folge.json`; zwei bis vier kurze Einblicke in die echte Arbeit des Gastes, ohne Ich-Geschichten; Abläufe und Rechtsgrundlagen dazu stimmen.
 
 ---
 
@@ -251,3 +261,5 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 | F3: persönliche Witze zwischen den beiden („Jonas. Praxis.“) klingen „cringe“ | keine persönlichen Sticheleien mehr, nur das Erkennungszeichen |
 | F3: Ich-Geschichten („Ich hatte gestern eine Mutter …“) wirken bei einer KI komisch | Praxis als Beobachtung („Zum Sozialen Dienst kommen manchmal Mütter …“) |
 | F3: Ambivalenzen, kritische Einordnung, mehrere Seiten – sehr gut, gern mehr | zu jedem großen Punkt mindestens zwei Positionen mit Quelle |
+| Folge 1, Fassung 4 | 19:57 min, Mira ×1,02 (≈ 146) / Jonas ×1,0 (≈ 144), Spracherkennung 0–1,7 %, produziert über die Wochen-Action |
+| Wunsch 24.11.2026: andere Bereiche des Jugendamts kennenlernen | Jonas als fester Gastgeber, je Thema ein Gast (Mira, Ben, Leonie, Petra, Elif), Abschnitt 2 |

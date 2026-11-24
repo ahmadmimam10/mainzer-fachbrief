@@ -190,9 +190,9 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 /* Podcast-Thema: nach dem Abgeben ausgegraut, über „Bearbeiten“ wieder offen */
 .pthema label{display:block;margin-top:14px;font-size:13px;font-weight:600;color:var(--leise)}
 .pthema label small{font-weight:400}
-.pthema input,.pthema textarea{display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px 12px;border-radius:10px;border:1px solid var(--linie2);background:var(--karte);font:inherit;font-size:15.5px;line-height:1.45;color:var(--tinte)}
+.pthema input,.pthema textarea,.pthema select{display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px 12px;border-radius:10px;border:1px solid var(--linie2);background:var(--karte);font:inherit;font-size:15.5px;line-height:1.45;color:var(--tinte)}
 .pthema textarea{min-height:92px;resize:vertical;font-size:14.5px}
-.pthema input:focus,.pthema textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
+.pthema input:focus,.pthema textarea:focus,.pthema select:focus{outline:2px solid var(--gold);outline-offset:1px}
 .pthema.abgegeben input,.pthema.abgegeben textarea{background:transparent;color:var(--leise);border-style:dashed;cursor:default;outline:none}
 .pthema .fuss{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
 .pthema .stand{font-size:13px;color:var(--leise)}.pthema .stand.ok{color:var(--gruen)}
@@ -787,7 +787,10 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 
   /* ---------- Podcast-Themen (Cloudflare /admin/podcast → daten/podcast-themen.json → Wochenroutine montags 2 Uhr) ----------
      Liste in Reihenfolge: Jeden Montag nimmt die Redaktion das oberste Thema, das noch keine Folge hat (folge.json → themaId). */
-  let THEMEN = [], PFOLGEN = null, bearbeite = null;
+  let THEMEN = [], PFOLGEN = null, BESETZUNG = null, bearbeite = null;
+  const gaeste = () => Object.entries((BESETZUNG && BESETZUNG.figuren) || {}).filter(([k]) => k !== ((BESETZUNG && BESETZUNG.gastgeber) || "JONAS"));
+  const gastName = k => { const f = ((BESETZUNG && BESETZUNG.figuren) || {})[k]; return f ? `${f.name} · ${f.rolle}` : k; };
+  const gastWahl = wert => `<label>Gast bei Jonas <small>(wer aus dem Jugendamt mitredet)</small><select name="gast"><option value="">passend zum Thema – wählt die Redaktion</option>${gaeste().map(([k, f]) => `<option value="${esc(k)}"${k === wert ? " selected" : ""}>${esc(f.name)} – ${esc(f.rolle)}</option>`).join("")}</select></label>`;
   const naechsterMontag = () => { const d = new Date(HEUTE + "T12:00:00"); d.setDate(d.getDate() + (((8 - d.getDay()) % 7) || 7)); return iso(d); };
   const plusWochen = (tag, n) => { const d = new Date(tag + "T12:00:00"); d.setDate(d.getDate() + 7 * n); return iso(d); };
   const kurzTag = t => tagText(t, { weekday: "short", day: "numeric", month: "short" });
@@ -804,9 +807,10 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
         <p style="margin:0"><span class="marke">${esc(wann)}</span><span class="marke">wird bearbeitet</span></p>
         <label>Thema<input name="thema" maxlength="300" autocomplete="off" value="${esc(t.thema)}"></label>
         <label>Anweisungen an die KI <small>(Blickwinkel, Schwerpunkte, Quellen, was unbedingt hinein soll – oder was nicht)</small><textarea name="anweisungen" maxlength="3000">${esc(t.anweisungen)}</textarea></label>
+        ${gastWahl(t.gast || "")}
         <div class="fuss"><button type="submit">Speichern</button><button type="button" class="leicht" data-p="abbrechen">Abbrechen</button></div></form>`;
       return `<div class="karte breit pthema abgegeben" data-id="${esc(t.id)}">
-        <p style="margin:0"><span class="marke${i === 0 ? " gruen" : ""}">${esc(wann)}${i === 0 ? " · als Nächstes" : ""}</span><span class="marke">gespeichert ${esc(uhrUndTag(t.geaendert || t.erstellt))}</span></p>
+        <p style="margin:0"><span class="marke${i === 0 ? " gruen" : ""}">${esc(wann)}${i === 0 ? " · als Nächstes" : ""}</span><span class="marke">${t.gast ? "mit " + esc(gastName(t.gast)) : "Gast passend zum Thema"}</span><span class="marke">gespeichert ${esc(uhrUndTag(t.geaendert || t.erstellt))}</span></p>
         <h3 class="pt-titel">${esc(t.thema)}</h3>
         ${t.anweisungen ? `<p class="pt-anw">${esc(t.anweisungen)}</p>` : `<p class="pt-anw leer">Keine Anweisungen – die Redaktion folgt dem Leitfaden.</p>`}
         <div class="fuss"><button type="button" class="leicht" data-p="hoch" aria-label="Früher drankommen" title="Früher drankommen"${i === 0 ? " disabled" : ""}>↑</button><button type="button" class="leicht" data-p="runter" aria-label="Später drankommen" title="Später drankommen"${i === offen.length - 1 ? " disabled" : ""}>↓</button><button type="button" class="leicht" data-p="bearbeiten">Bearbeiten</button><button type="button" class="leicht" data-p="loeschen">Löschen</button></div></div>`;
@@ -817,11 +821,12 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
       <form class="karte breit pthema neu" data-id="">
         <p style="margin:0"><span class="marke">Neues Thema</span><span class="marke">kommt ans Ende · ${esc(kurzTag(plusWochen(m, offen.length)))}</span></p>
         <label>Thema<input name="thema" maxlength="300" autocomplete="off" placeholder="z. B. Neue Zahlen zu Inobhutnahmen – was heißt das für die Planung?"></label>
-        <label>Anweisungen an die KI <small>(freiwillig)</small><textarea name="anweisungen" maxlength="3000" placeholder="z. B. Schwerpunkt Rheinland-Pfalz, die Landesstatistik einbeziehen, eher kritisch, Mira erzählt aus der Bereitschaft …"></textarea></label>
+        <label>Anweisungen an die KI <small>(freiwillig)</small><textarea name="anweisungen" maxlength="3000" placeholder="z. B. Schwerpunkt Rheinland-Pfalz, die Landesstatistik einbeziehen, eher kritisch, der Gast soll erklären, wie der Bereitschaftsdienst abläuft …"></textarea></label>
+        ${gastWahl("")}
         <div class="fuss"><button type="submit">Zur Liste hinzufügen</button></div>
         <p class="klein">Jeden Montag um 2 Uhr nimmt die Redaktion das oberste Thema – Änderungen bis Sonntagabend kommen sicher an. Die Anweisungen befolgt sie, soweit sie mit dem Leitfaden vereinbar sind; Richtigkeit geht immer vor. Themen und Anweisungen werden im öffentlichen Repository gespeichert (daten/podcast-themen.json) und sind dort lesbar.</p>
       </form>
-      ${erschienen.length ? `<div class="karte breit"><h3>Schon als Folge erschienen</h3><ul class="balken">${erschienen.map(t => { const f = benutzt.get(t.id); return `<li data-id="${esc(t.id)}"><span>${esc(tagText(f.datum))} · Folge ${esc(f.nummer)} – ${esc(t.thema)}</span><button type="button" class="leicht" data-p="loeschen">Entfernen</button></li>`; }).join("")}</ul></div>` : ""}
+      ${erschienen.length ? `<div class="karte breit"><h3>Schon als Folge erschienen</h3><ul class="balken">${erschienen.map(t => { const f = benutzt.get(t.id); return `<li data-id="${esc(t.id)}"><span>${esc(tagText(f.datum))} · Folge ${esc(f.nummer)}${f.gast ? " mit " + esc(f.gast.name) : ""} – ${esc(t.thema)}</span><button type="button" class="leicht" data-p="loeschen">Entfernen</button></li>`; }).join("")}</ul></div>` : ""}
       ${letzte ? `<div class="karte"><h3>Zuletzt erschienen</h3><p style="margin:0;font-size:15px"><a href="podcast.html" target="_blank" rel="noopener">Folge ${esc(letzte.nummer)}: ${esc(letzte.titel)}</a></p><p class="leer" style="font-size:13px;margin-top:6px">${esc(tagText(letzte.datum, { weekday: "long", day: "numeric", month: "long" }))} · ${Math.round((letzte.dauer || 0) / 60)} Minuten</p></div>` : ""}
     </div>`;
   }
@@ -829,7 +834,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     const knoepfe = $("#p-inhalt").querySelectorAll("button");
     knoepfe.forEach(k => { k.disabled = true; }); $("#p-meldung").textContent = "";
     try {
-      const r = await fetch(`${DIENST}/admin/podcast`, { method: "POST", headers: { Authorization: "Bearer " + encodeURIComponent(pw), "Content-Type": "application/json" }, body: JSON.stringify({ themen: neu.map(t => ({ id: t.id || "", thema: t.thema, anweisungen: t.anweisungen || "" })) }) });
+      const r = await fetch(`${DIENST}/admin/podcast`, { method: "POST", headers: { Authorization: "Bearer " + encodeURIComponent(pw), "Content-Type": "application/json" }, body: JSON.stringify({ themen: neu.map(t => ({ id: t.id || "", thema: t.thema, anweisungen: t.anweisungen || "", gast: t.gast || "" })) }) });
       const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.fehler || "Speichern hat nicht geklappt.");
       THEMEN = d.themen || []; bearbeite = null; podcastMalen();
     } catch (x) { $("#p-meldung").textContent = x.message || "Speichern hat nicht geklappt."; knoepfe.forEach(k => { k.disabled = false; }); }
@@ -845,14 +850,14 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
   });
   $("#p-inhalt").addEventListener("submit", e => {
     const f = e.target.closest("form.pthema"); if (!f) return; e.preventDefault();
-    const thema = f.elements.thema.value.trim(), anweisungen = f.elements.anweisungen.value.trim();
+    const thema = f.elements.thema.value.trim(), anweisungen = f.elements.anweisungen.value.trim(), gast = f.elements.gast ? f.elements.gast.value : "";
     if (!thema) { $("#p-meldung").textContent = "Bitte zuerst ein Thema eintragen."; f.elements.thema.focus(); return; }
     const id = f.dataset.id, { offen, erschienen } = themenTeilen();
-    themenSpeichern(id ? THEMEN.map(t => t.id === id ? { ...t, thema, anweisungen } : t) : [...offen, { id: "", thema, anweisungen }, ...erschienen]);
+    themenSpeichern(id ? THEMEN.map(t => t.id === id ? { ...t, thema, anweisungen, gast } : t) : [...offen, { id: "", thema, anweisungen, gast }, ...erschienen]);
   });
   async function podcastZeigen() {
     const [themen, folgen] = await Promise.all([fetch(`${DIENST}/admin/podcast`, mitPw()).then(r => r.ok ? r.json() : null).catch(() => null), json("daten/podcast.json").catch(() => null)]);
-    PFOLGEN = folgen;
+    PFOLGEN = folgen; BESETZUNG = await json("daten/podcast-besetzung.json").catch(() => null);
     if (!themen || !Array.isArray(themen.themen)) { kachel("podcast", "?", "Themen gerade nicht abrufbar", "achtung"); $("#p-inhalt").innerHTML = `<div class="karte"><p class="leer">Die Themenliste ist gerade nicht abrufbar.</p></div>`; return; }
     THEMEN = themen.themen; podcastMalen();
   }

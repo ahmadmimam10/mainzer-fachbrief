@@ -1,0 +1,85 @@
+{
+ "gastgeber": "JONAS",
+ "figuren": {
+  "JONAS": {
+   "name": "Jonas",
+   "rolle": "Jugendhilfeplanung",
+   "ort": "oben im Turm",
+   "kurz": "Gastgeber – denkt in Strukturen, Zahlen und Zuständigkeiten",
+   "themen": []
+  },
+  "MIRA": {
+   "name": "Mira",
+   "rolle": "Allgemeiner Sozialer Dienst",
+   "ort": "drüben im Stadthaus",
+   "kurz": "will wissen, was das für Familien und das Fachteam heißt",
+   "themen": [
+    "Kinderschutz",
+    "Hilfen zur Erziehung",
+    "Inobhutnahme",
+    "Familien",
+    "Pflegekinder"
+   ]
+  },
+  "BEN": {
+   "name": "Ben",
+   "rolle": "Schulsozialarbeit",
+   "ort": "an einer Realschule plus",
+   "kurz": "kennt Schule von innen: Schülerinnen und Schüler, Eltern, Lehrkräfte",
+   "themen": [
+    "Schule",
+    "Ganztag",
+    "Bildungsassistenz",
+    "Jugendsozialarbeit",
+    "Fehlzeiten",
+    "Startchancen",
+    "psychische Gesundheit Jugendlicher"
+   ]
+  },
+  "LEONIE": {
+   "name": "Leonie",
+   "rolle": "Kita-Leitung",
+   "ort": "in einer städtischen Kita",
+   "kurz": "organisiert eine Kita zwischen Personalmangel, Eltern und Warteliste",
+   "themen": [
+    "Kindertagesbetreuung",
+    "Frühe Hilfen",
+    "Familienbildung",
+    "Kitaplätze",
+    "Fachkräfte",
+    "Sprachförderung",
+    "Infrastruktur"
+   ]
+  },
+  "PETRA": {
+   "name": "Petra",
+   "rolle": "Wirtschaftliche Jugendhilfe",
+   "ort": "im Stadthaus",
+   "kurz": "weiß, was jede Hilfe kostet und wer sie bezahlt",
+   "themen": [
+    "Kosten",
+    "Kostenbeiträge der Eltern",
+    "Kostenerstattung",
+    "Zuständigkeit",
+    "Entgelte",
+    "Haushalt"
+   ]
+  },
+  "ELIF": {
+   "name": "Elif",
+   "rolle": "Eingliederungshilfe",
+   "ort": "im Team Eingliederungshilfe des Jugendamts",
+   "kurz": "prüft Teilhabe bei seelischer Behinderung und organisiert Hilfen",
+   "themen": [
+    "Paragraf 35a",
+    "Inklusion",
+    "Schulbegleitung",
+    "Teilhabe",
+    "inklusive Lösung",
+    "Verfahrenslotsen",
+    "Autismus",
+    "Lese-Rechtschreib-Schwäche"
+   ]
+  }
+ }
+}

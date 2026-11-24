@@ -18,8 +18,9 @@
 //   GET /admin/daumen → { monate: { JJJJ-MM: [{ id, hoch, runter }] } } – Leserstimmen „relevant ja/nein“
 //   GET /admin/antwort → { antworten: { id: {…} } } · POST /admin/antwort { id, entscheidung: "ja" | "nein" | "hinweis", kommentar }
 //     – deine Antwort auf einen Vorschlag des Qualitätsmanagers (daten/leser-vorschlag.json); er liest sie im nächsten Monatslauf
-//   GET /admin/podcast → { themen: [{ id, thema, anweisungen, erstellt, geaendert }] } · POST /admin/podcast { themen: [{ id?, thema,
-//     anweisungen }] } – die ganze Themenliste für den Podcast speichern (Reihenfolge = Warteschlange; neue Themen ohne id).
+//   GET /admin/podcast → { themen: [{ id, thema, anweisungen, gast?, erstellt, geaendert }] } · POST /admin/podcast { themen: [{ id?, thema,
+//     anweisungen, gast? }] } – die ganze Themenliste für den Podcast speichern (Reihenfolge = Warteschlange; neue Themen ohne id;
+//     gast = Schlüssel aus podcast/besetzung.json, leer = passend zum Thema).
 //     Die Wochenroutine nimmt das oberste Thema ohne Folge (folge.json → themaId) und liest es aus dem Repository.
 //     (Die erste Fassung vom 24.11.2026 kannte ein Thema je Montag, „podcast:JJJJ-MM-TT“ – wird beim Lesen übernommen.)
 //   Nach acht falschen Versuchen ist die Anmeldung für 15 Minuten gesperrt.
@@ -183,12 +184,14 @@ async function verwaltung(anfrage, env, url, kopf) {
       for (const x of d.themen) {
         const thema = String((x && x.thema) ?? "").replace(/\s+/g, " ").trim().slice(0, 300);
         const anweisungen = String((x && x.anweisungen) ?? "").replace(/\r/g, "").trim().slice(0, 3000);
+        const gast = String((x && x.gast) ?? "").trim().toUpperCase();
         if (!thema) return antwort({ fehler: "Jedes Thema braucht einen Titel." }, 400, kopf);
+        if (gast && !/^[A-Z]{2,12}$/.test(gast)) return antwort({ fehler: "Unbekannter Gast." }, 400, kopf);
         let id = String((x && x.id) ?? "");
         if (!THEMA_ID.test(id) || gesehen.has(id)) id = "t" + crypto.randomUUID().replace(/-/g, "").slice(0, 12);
         gesehen.add(id);
-        const vorher = alt.get(id), geaendert = !vorher || vorher.thema !== thema || vorher.anweisungen !== anweisungen;
-        neu.push({ id, thema, anweisungen, erstellt: (vorher && vorher.erstellt) || jetzt, geaendert: geaendert ? jetzt : (vorher.geaendert || vorher.erstellt || jetzt) });
+        const vorher = alt.get(id), geaendert = !vorher || vorher.thema !== thema || vorher.anweisungen !== anweisungen || (vorher.gast || "") !== gast;
+        neu.push({ id, thema, anweisungen, ...(gast ? { gast } : {}), erstellt: (vorher && vorher.erstellt) || jetzt, geaendert: geaendert ? jetzt : (vorher.geaendert || vorher.erstellt || jetzt) });
       }
       await env.LISTE.put("podcast:liste", JSON.stringify(neu));
       return antwort({ gespeichert: jetzt, themen: neu }, 200, kopf);

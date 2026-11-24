@@ -300,9 +300,17 @@ async function main() {
   await unlink(kapitelDatei).catch(() => {});
   for (const t of teile) if (t.temp) await unlink(t.mp3).catch(() => {});
 
+  // Gast der Folge (folge.json → "gast", Schlüssel aus podcast/besetzung.json) für die Webseite
+  let gastInfo = null;
+  if (meta.gast) {
+    const besetzung = await readFile(join(WERKSTATT, 'besetzung.json'), 'utf8').then(JSON.parse, () => ({ figuren: {} }));
+    const f = (besetzung.figuren || {})[meta.gast];
+    gastInfo = f ? { key: meta.gast, name: f.name, rolle: f.rolle } : { key: meta.gast, name: meta.gast, rolle: '' };
+  }
   const daten = {
     nummer: meta.nummer, id: meta.id, titel: meta.titel, beschreibung: meta.beschreibung, datum: meta.datum, stand: meta.stand,
-    stimmen: meta.stimmen, datei: meta.datei, fassung: meta.fassung || 1, ...(meta.themaId ? { themaId: meta.themaId } : {}), dauer: Math.round(laengeFertig),
+    stimmen: meta.stimmen, datei: meta.datei, fassung: meta.fassung || 1, ...(meta.themaId ? { themaId: meta.themaId } : {}),
+    ...(gastInfo ? { gast: gastInfo } : {}), dauer: Math.round(laengeFertig),
     kapitel: kapitel.map((k) => ({ t: +k.start.toFixed(1), titel: k.titel })),
     quellen, welle: welle.map((v) => +Math.pow(v / max, 0.7).toFixed(2)),
   };
