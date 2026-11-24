@@ -1,6 +1,18 @@
 {
  "laeufe": [
   {
+   "datum": "2026-11-24",
+   "art": "ausgabe",
+   "erfasst": "2026-11-24T04:03:37.888Z",
+   "modell": "claude-sonnet-5-5",
+   "anfragen": 13,
+   "eingabe": 24,
+   "cache_schreiben": 84832,
+   "cache_lesen": 1021622,
+   "ausgabe": 11185,
+   "minuten": 1.7
+  },
+  {
    "datum": "2026-11-23",
    "art": "qualitaet",
    "erfasst": "2026-11-23T05:36:10.598Z",
