@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-24T06:39:36.777Z",
+ "stand": "2026-11-24T09:49:15.292Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 48,
+   "treffer": 44,
    "zustand": "ok",
-   "hinweis": "unauffällig – 43 Treffer"
+   "hinweis": "unauffällig – 39 Treffer"
   },
   {
    "id": "landtag",
@@ -367,9 +367,9 @@
    "kurz": "Deutscher Verein",
    "ebene": "fach",
    "ok": true,
-   "treffer": 52,
+   "treffer": 50,
    "zustand": "ok",
-   "hinweis": "unauffällig – 52 Treffer"
+   "hinweis": "unauffällig – 50 Treffer"
   },
   {
    "id": "dbjr",
