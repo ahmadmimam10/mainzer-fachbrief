@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-24T09:49:15.292Z",
+ "stand": "2026-11-24T12:46:20.908Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 44,
+   "treffer": 45,
    "zustand": "ok",
-   "hinweis": "unauffällig – 39 Treffer"
+   "hinweis": "unauffällig – 40 Treffer"
   },
   {
    "id": "landtag",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": true,
-   "treffer": 30,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
@@ -297,9 +297,9 @@
    "kurz": "Difu",
    "ebene": "fach",
    "ok": true,
-   "treffer": 123,
+   "treffer": 125,
    "zustand": "ok",
-   "hinweis": "unauffällig – 123 Treffer"
+   "hinweis": "unauffällig – 125 Treffer"
   },
   {
    "id": "nzfh",
@@ -367,9 +367,9 @@
    "kurz": "Deutscher Verein",
    "ebene": "fach",
    "ok": true,
-   "treffer": 50,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 50 Treffer"
+   "treffer": 10,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.deutscher-verein.de: Zeitüberschreitung; nur 10 brauchbare Treffer statt üblicherweise 52"
   },
   {
    "id": "dbjr",
