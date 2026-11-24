@@ -151,8 +151,11 @@ async function elAnfrage(text, stimmeId) {
       if (daten.length > 4000) return { daten, kosten: Number(antwort.headers.get("character-cost")) || 0 };
       letzter = "leere Antwort";
     } else {
-      const inhalt = (await antwort.text().catch(() => "")).slice(0, 300);
-      letzter = `HTTP ${antwort.status}${/quota|credits/i.test(inhalt) ? " (Kontingent aufgebraucht)" : ""}`;
+      const inhalt = (await antwort.text().catch(() => "")).slice(0, 600);
+      // Fehlertext von ElevenLabs mitschreiben (enthält nie den Schlüssel): {"detail":{"status":"…","message":"…"}} oder {"detail":"…"}
+      let grund = ""; try { const d = JSON.parse(inhalt).detail; grund = typeof d === "string" ? d : [d?.status, d?.message].filter(Boolean).join(": ") || JSON.stringify(d); } catch { grund = inhalt; }
+      grund = String(grund).replace(/\s+/g, " ").replace(/sk_[A-Za-z0-9]+/g, "sk_…").slice(0, 240);
+      letzter = `HTTP ${antwort.status}${/quota|credits/i.test(inhalt) ? " (Kontingent aufgebraucht)" : ""}${grund ? ` – ${grund}` : ""}`;
       if ([401, 402, 403].includes(antwort.status) || /quota_exceeded/i.test(inhalt)) { status = 401; break; }
       if ([400, 404, 422].includes(antwort.status)) break;
     }
