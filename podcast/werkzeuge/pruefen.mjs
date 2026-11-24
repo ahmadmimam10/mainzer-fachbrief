@@ -20,7 +20,7 @@ const plan = JSON.parse(await readFile(join(AUDIO, 'plan.json'), 'utf8'));
 const nr2 = (n) => String(n).padStart(2, '0');
 const gibt = (p) => access(p).then(() => true, () => false);
 const norm = (s) => s.toLowerCase().replace(/\[[^\]]*\]/g, ' ').replace(/[„“”"’'.,:;!?…()–—-]/g, ' ').replace(/\s+/g, ' ').trim().split(' ').filter(Boolean);
-const TAGWORT = /^(laugh|laughs|laughing|chuckles?|amused|jumping|pause|skeptical|thoughtful|thoughtfully|dryly|warmly|teasing|deadpan|surprised|grinning|sighs?|curious|cautiously|serious|pleased|quietly|softly|mock|conceding|pushing|under|energetic|animated|annoyed|frustrated|excited|enthusiastic|incredulous|pragmatic|honest|happy|offended|interrupting|breath|whispers?)$/;
+const TAGWORT = /^(laugh|laughs|laughing|chuckles?|amused|jumping|pause|skeptical|thoughtful|thoughtfully|dryly|warmly|teasing|deadpan|surprised|grinning|sighs?|curious|cautiously|serious|pleased|quietly|softly|mock|conceding|pushing|under|energetic|animated|annoyed|frustrated|excited|enthusiastic|incredulous|pragmatic|honest|happy|offended|interrupting|breath|whispers?|calm|engaged|concerned|matter|fact|lightly|slightly|measured|relaxed)$/;
 const FEHLER_MAX = 6;   // Prozent Wortfehler je Teil, ab dem neu aufgenommen wird (übliche Werte: 0–2 %, meist nur Zahlenschreibweise)
 const PRUEFUNG = join(AUDIO, 'pruefung.json');
 const pruefung = (await gibt(PRUEFUNG)) ? JSON.parse(await readFile(PRUEFUNG, 'utf8')) : { teile: {} };

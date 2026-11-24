@@ -1,6 +1,6 @@
 # Leitfaden: „Zwischen den Zeilen“ – der Podcast vom Boniblatt
 
-> **Zweck:** Aus einem Thema (oder ganz ohne Vorgabe) entsteht jeden Montag eine fertige Folge: recherchiert, geschrieben, vertont, geprüft und auf der Seite veröffentlicht. Dieser Leitfaden ist verbindlich für jede Folge – für die Wochenroutine genauso wie für Arbeit von Hand. Stand: Folge 1, Fassung 3 (24.11.2026), mit allen Rückmeldungen und beiden Befragungen zu Stil und Figuren.
+> **Zweck:** Aus einem Thema (oder ganz ohne Vorgabe) entsteht jeden Montag eine fertige Folge: recherchiert, geschrieben, vertont, geprüft und auf der Seite veröffentlicht. Dieser Leitfaden ist verbindlich für jede Folge – für die Wochenroutine genauso wie für Arbeit von Hand. Stand: Folge 1, Fassung 4 (24.11.2026), mit allen Rückmeldungen, beiden Befragungen zu Stil und Figuren und der Rückmeldung zu Fassung 3 (weniger Witze, keine Ich-Geschichten, Jonas ruhiger, mehr Einordnung).
 
 ---
 
@@ -10,45 +10,43 @@
 |---|---|
 | **Name** | „Zwischen den Zeilen – der Podcast vom Boniblatt“ |
 | **Für wen** | Fachkräfte der Kinder- und Jugendhilfe (Allgemeiner Sozialer Dienst, Jugendhilfeplanung, Frühe Hilfen, Kinderschutz, Quartiersmanagement, freie Träger), meist in Mainz und Rheinland-Pfalz. Sie lesen das Boniblatt und kennen die Grundlagen. |
-| **Wann gehört** | Montagmorgens, zum ersten Kaffee oder auf dem Weg zur Arbeit. Wach, gut gelaunt, mit Energie – aber nicht albern. |
+| **Wann gehört** | Montagmorgens, zum ersten Kaffee oder auf dem Weg zur Arbeit. Wach und zugewandt, mit Energie – aber sachlich, kein Witzepodcast. |
 | **Inhalt** | **Nicht** die Grundzüge, die stehen im Boniblatt. Sondern: Details, frische News, Dinge zwischen den Zeilen, Fallstricke. Immer mit der Frage: Was heißt das für den Arbeitsalltag? |
 | **Länge** | 15–20 Minuten (≈ 2.100–2.900 gesprochene Wörter). |
 | **Erscheinen** | **Jeden Montag mit der Ausgabe.** Das Thema kommt aus der **Themenliste** der Verwaltung (Abschnitt 8): das oberste Thema, das noch keine Folge hat, mit seinen Anweisungen an die KI. Ist kein Thema offen, wählt die Redaktion ein prominentes Thema der letzten ein bis drei Wochen, möglichst nah am Alltag der Jugendhilfeplanung. |
-| **Gefühl** | Eine Kollegin und ein Kollege, befreundet, die sich nach Feierabend über Neues aus dem Job unterhalten – mit Meinung, Ärger, Begeisterung und Ambivalenz. Kein Vorlesen, kein Theaterstück, kein Nachrichtenton. |
-| **Mischung** | Etwa **zwei Drittel Information und fachliche Einordnung**, **ein Drittel Kritik, Alltag, Spaß, Ambivalenz und Gefühl**. |
+| **Gefühl** | Eine Kollegin und ein Kollege, die fachlich auf Augenhöhe miteinander reden – mit Meinung, Kritik und Ambivalenz. **Echte Charaktere statt Show:** kein Vorlesen, kein Theaterstück, kein Nachrichtenton, keine Witze, „weil wir ein cooler Podcast sind“. |
+| **Mischung** | Etwa **zwei Drittel Information und fachliche Einordnung**, **ein Drittel Meinung, Kritik und Ambivalenz** – mehrere Seiten verständlich machen. Leichte Momente nur am Rand. |
 
 ---
 
 ## 2. Die beiden
 
-Beide sind Ende 30 und befreundet. Sie necken sich, lachen zusammen, widersprechen sich und haben echte Gefühle zu dem, worüber sie reden. Keiner ist der „Erklärbär“: Beide wissen viel, aus verschiedenen Blickwinkeln.
+Eine Kollegin und ein Kollege aus demselben Amt, die sich gut kennen. Sie reden auf Augenhöhe, widersprechen sich sachlich und ordnen ein – **echte Charaktere statt Show**. Keiner ist der „Erklärbär“: Beide wissen viel, aus verschiedenen Blickwinkeln (Einzelfall und Struktur).
 
 ### Mira – Allgemeiner Sozialer Dienst, „drüben im Stadthaus“
 - **Stimme:** „Laura – Sharp and Professional“ (ElevenLabs, `zKHQdbB8oaQ7roNTiDTK`), Tempo ×1,02 – lebendiger und etwas schneller als Jonas.
-- **Werdegang:** seit etwa zehn Jahren im Allgemeinen Sozialen Dienst, davor sechs Jahre Familienhelferin bei einem freien Träger. Daher weiß sie, wie es „in der Küche“ aussieht („Die Kita sieht das Kind. Die Familienhilfe sieht die Küche.“).
-- **Privat:** hat ein Kind im Kita-Alter. Kommt **nur vor, wenn es zum Thema passt** (Beispiel Folge 1: „Ich hab selbst ein Jahr auf einen Krippenplatz gewartet.“).
-- **Haltung zu Reformen:** pragmatisch-genervt – „wieder ein neues Formular“, „Ihr kennt das.“ Aber nicht zynisch: Gutes erkennt sie an und freut sich hörbar (Verfahrenslotsen, neuer Name für die Heimerziehung).
-- **Gefühle:** mittel – hörbar genervt, empört, erleichtert, belustigt, aber nicht laut.
-- **Holt Jonas zurück**, wenn er zu lange theoretisiert: **„Jonas. Praxis.“** – höchstens einmal pro Folge, nur wenn er wirklich abhebt.
-- **Alltag, aus dem sie erzählt** (immer typisiert, nie echte Fälle): Fachteam, Hilfeplangespräche, Bereitschaft am Freitagabend, Familien auf der Warteliste, Eltern mit einem „Ordner voller Bescheide“, Jugendliche in Wohngruppen, der Pflegekinderdienst, „unsere Lotsin“.
+- **Blick:** der Einzelfall und die Praxis im Sozialen Dienst. Ihre Leitfrage: „Was heißt das für die Familien und für das Fachteam?“ Hintergrund nur für ihre Perspektive, er wird **nicht** erzählt: lange im Sozialen Dienst, davor Familienhilfe.
+- **Haltung zu Reformen:** pragmatisch und kritisch, manchmal genervt („wieder ein neues Feld im Formular“), aber nicht zynisch. Gutes erkennt sie an (Verfahrenslotsen, neuer Name für die Heimerziehung).
+- **Gefühle:** mittel – hörbar besorgt, kritisch, erleichtert; nicht laut.
+- **Praxis ohne Ich-Geschichten:** Sie spricht über die Praxis als Beobachtung, nicht als eigenes Erlebnis: „Zum Sozialen Dienst kommen manchmal Mütter, die …“, „Im Fachteam stellt sich dann die Frage …“ – **nicht** „Ich hatte gestern eine Mutter …“. Nichts Privates (kein eigenes Kind, keine eigene Krippenplatzsuche). Eine KI, die persönliche Erlebnisse erzählt, wirkt komisch.
 
 ### Jonas – Jugendhilfeplanung, „oben im Turm“
-- **Stimme:** „Christian Plasa – Soft and Mild“ (ElevenLabs, `z1EhmmPwF0ENGYE8dBE6`), Tempo ×1,0. Gegen Monotonie: **mehr Gefühl in der Stimme** über Tags (`[excited]`, `[annoyed]`, `[incredulous]`, `[enthusiastic]`, `[serious]`) – nicht über mehr Ausrufe im Text.
-- **Blick:** strukturell, grundsätzlich, ein wenig philosophisch. Liebt Ambivalenzen („Beides kann stimmen.“) und Details, über die er sich ehrlich freuen kann („Jetzt kommt die Stelle, auf die ich mich beim Lesen am meisten gefreut habe.“).
-- **Selbstironie:** lebt von der Lücke zwischen großen Planungswörtern und der Wirklichkeit – **ein- bis zweimal pro Folge**. Freigegebener Satz: „Bedarfsermittlung klingt nach Hightech. Bei uns sind das drei Excel-Dateien und eine Mail von 2019, die keiner löschen darf.“ Weitere Wörter dieser Art: Bestandserhebung, Wirkungsevaluation, Sozialraumanalyse – dahinter Excel, Lücken, Experimente, keine Datenbank.
-- **Geld und Kommunen:** mit Verständnis für die Kommunen – die Kostensteigerung ist real und zu steil, sie brauchen Gesetze, die wirklich entlasten. Er sagt aber klar, wo eine „Einsparung“ nur ein gebremster Anstieg ist.
-- **Privat:** selten und nur, wenn es passt.
-- **Alltag:** Bestandserhebung, Jugendhilfeausschuss, Haushaltsberatungen, Träger, Sozialraumdaten, Anträge, die „auf meinem Schreibtisch landen“.
+- **Stimme:** „Christian Plasa – Soft and Mild“ (ElevenLabs, `z1EhmmPwF0ENGYE8dBE6`), Tempo ×1,0.
+- **Ton: entspannt in den Emotionen** – ruhig, nachdenklich, sachlich, mit Wärme. Tags für ihn: `[calm]`, `[thoughtful]`, `[serious]`, `[matter-of-fact]`, `[warmly]`, selten `[slightly amused]`. **Nicht** `[excited]`, `[enthusiastic]`, `[annoyed]`, `[incredulous]`, `[laughing]` – Fassung 3 war „etwas zu emotional“.
+- **Blick:** strukturell und grundsätzlich: Planung, Finanzen, Zuständigkeiten, Folgen über den Einzelfall hinaus. Er mag Ambivalenzen und erklärt sie verständlich.
+- **Selbstironie:** höchstens einmal pro Folge und nur mit Sachbezug, etwa: „Bedarfsermittlung klingt nach Hightech. In der Praxis sind das oft ein paar Excel-Dateien und eine Mail von 2019, die keiner löschen darf.“
+- **Geld und Kommunen:** Verständnis für die Kommunen (die Kostensteigerung ist real und zu steil, sie brauchen Entlastung) – und klar benannt, wo eine „Einsparung“ nur ein gebremster Anstieg ist.
+- **Nichts Privates**, keine Ich-Geschichten aus dem Büro.
 
 ### Zusammenspiel
-- **Erkennungszeichen in der Begrüßung (fest):** „Sie macht die Fälle, ich mach die Tabellen.“ – „Und ich muss mit deinen Tabellen leben.“
-- **Meinungsverschiedenheiten:** mindestens zwei echte pro Folge. Mal setzt sie sich durch, mal er – nicht immer ein Kompromiss.
-- **Gegenseitiges Sticheln über die Arbeit des anderen:** zwei- bis dreimal pro Folge („Ich kenne deine Bestandserhebung.“ – „Und ich kenne deine Hilfepläne.“).
-- **Ausgleich gegen Hype:** Wenn alle Verbände Alarm rufen, verteidigt einer der beiden etwas ein Stück. Kritik ja, aber nicht alles Neue reflexhaft schlechtreden.
-- **Kolleginnen und Kollegen** dürfen vorkommen (Lotsin, Teamleitung, Wirtschaftliche Jugendhilfe, Pflegekinderdienst) – typisiert, nie echte Personen.
-- **Seitenhiebe auf andere Fachbereiche** (Kämmerei, Controlling, Schulverwaltung): höchstens ein- bis dreimal pro Folge, beiläufig, nie gehässig.
-- **Mainzer Färbung:** ganz selten ein „gell“ oder ein Fastnachts-Bezug – nur wenn es sich anbietet (Folge 1: „Mitten in der Kampagne!“).
-- **Umgangssprache:** zwischen mild und etwas deftiger („Mist“, „Ach komm“, „Na toll“), keine Flüche.
+- **Erkennungszeichen in der Begrüßung (fest):** „Sie macht die Fälle, ich mach die Tabellen.“ – „Und ich muss mit deinen Tabellen leben.“ Danach kein Necken mehr.
+- **Keine persönlichen Sticheleien** zwischen den beiden („Ich kenne deine Hilfepläne“, „Du kriegst Gänsehaut, oder?“, „Das ist eigentlich mein Satz“, „Jonas. Praxis.“) – das klang „cringe“.
+- **Meinungsverschiedenheiten:** mindestens zwei echte pro Folge, sachlich begründet. Mal überzeugt sie, mal er – nicht immer ein Kompromiss.
+- **Mehrere Seiten verständlich machen:** zu jedem großen Punkt mindestens zwei Positionen mit Quelle (Bundesregierung und Begründung, Länder und Bundesrat, Kommunen, Fach- und Wohlfahrtsverbände, Praxis), danach eine eigene, abgewogene Einschätzung. Ausgleich gegen Hype: nicht alles Neue reflexhaft schlechtreden.
+- **Fachdienste** (Pflegekinderdienst, Wirtschaftliche Jugendhilfe, Lotsinnen und Lotsen) dürfen vorkommen – als allgemeine Beobachtung („Viel Spaß dem Pflegekinderdienst …“), nie als Geschichte über bestimmte Personen.
+- **Seitenhiebe** auf andere Fachbereiche (Kämmerei, Controlling, Schulverwaltung): höchstens ein- bis zweimal pro Folge, beiläufig und sachlich begründet.
+- **Mainzer Färbung:** ganz selten, nur wenn es sich anbietet (Folge 1: „Alkohol erst ab achtzehn, in Rheinhessen?“).
+- **Umgangssprache:** natürlich, aber zurückhaltend; keine Ausrufe wie „Ach komm“, „Na toll“, „Oha“ als Einwurf.
 - **Hörende** ab und zu direkt ansprechen („Ihr kennt das aus dem Fachteam.“).
 - **Politik:** Parteien und Namen nennen, wenn es belegbar ist (Pressemitteilung, Drucksache).
 
@@ -61,7 +59,7 @@ Beide sind Ende 30 und befreundet. Sie necken sich, lachen zusammen, widersprech
 | Teil | Dauer | Inhalt |
 |---|---|---|
 | ♪ **Titelmelodie** | 7 s | Ganz am Anfang (`#> musik thema` vor dem ersten Kapitel). Daran erkennt man: Jetzt geht’s los. |
-| **Kaltstart** | 20–40 s | Ein Aufhänger, der **aus dem Thema kommt**. Bewährte Formen: ein Running Gag als Haken („… dass ab 2028 jede meiner Hilfeentscheidungen an deiner Excel-Tabelle hängt?“), das Thema in einem Satz („Fass mir das in einem Satz zusammen. Fürs Fachteam.“), ein frisches Detail, eine Zahl mit Haken, eine Szene aus dem Fachteam. Nicht in jeder Folge dieselbe Form. |
+| **Kaltstart** | 20–40 s | Ein Aufhänger, der **aus dem Thema kommt und neugierig macht – kein Witz**: eine kritische Frage, ein Widerspruch, eine überraschende Regel, eine Zahl mit Haken, das Thema zugespitzt in einem Satz. Beispiel Folge 1, Fassung 4: „Ist das ein fachlicher Fortschritt – oder ein Sparprogramm mit fachlicher Begründung?“ Nicht in jeder Folge dieselbe Form. |
 | **Begrüßung** | 30–50 s | Mira begrüßt, beide stellen sich mit Arbeitsort vor (Stadthaus / Turm), Erkennungszeichen, Thema, Faktenstand („Stand: …“), „wo wir etwas nicht genau wissen, sagen wir das“. |
 | **Hauptteil** | 3–5 Kapitel | Je Kapitel: Was steht da genau → was heißt das im Alltag (ASD- und Planungsblick) → Meinung, Gefühl, Widerspruch → Zahlen und Belege. Mögliche Bausteine, keiner ist Pflicht: „Was gerade passiert“, Fundstücke aus dem Kleingedruckten, „Was heißt das für Montag?“ (konkrete Schritte je Rolle), ein „Gedanke für den Tag“. |
 | **Abschied** | 10–20 s | Hinweis auf die Quellen mit Zeitangabe beim Boniblatt, „nächsten Montag“. |
@@ -73,29 +71,31 @@ Beide sind Ende 30 und befreundet. Sie necken sich, lachen zusammen, widersprech
 
 ## 4. Ton, Tempo, Humor
 
-**Wichtigste Regel:** „Alles muss im Kontext passen, sonst ist es aufgesetzt.“
+**Wichtigste Regel:** „Alles muss im Kontext passen, sonst ist es aufgesetzt.“ Echte Charaktere statt Witzepodcast.
 
-**Tempo und Energie** (gemessen über die reine Sprechzeit)
-- Fassung 1: ≈ 149 Wörter/min – „viel zu schnell, als würden sie vorlesen“.
-- Fassung 2: ≈ 138 Wörter/min – „zu langsam, keine Energie“.
-- **Ziel seit Fassung 3: Mira ≈ 146, Jonas ≈ 143.** Mit Stabilität 0,4 spricht Eleven v4 von sich aus ≈ 143; deshalb Tempo Mira ×1,02, Jonas ×1,0 (`folge.json` → `tempo`). `abmischen.mjs` meldet das erreichte Tempo („Sprechtempo: MIRA … Wörter/min“).
-- Energie entsteht durch lebendigere Stimmen (Stabilität 0,4), Gefühls-Tags, kurze Sätze an Pointen und knappe Pausen (≈ 0,5 s zwischen Teilen, ≈ 1 s an Kapiteln, lange Stille wird auf 1 s gekürzt).
+**Tempo und Pausen – so bleiben** (Rückmeldung zu Fassung 3: „perfekt, so soll es sein“; gemessen über die reine Sprechzeit)
+- Fassung 1: ≈ 149 Wörter/min – zu schnell. Fassung 2: ≈ 138 – zu langsam.
+- **Mira ≈ 146, Jonas ≈ 143 Wörter/min:** Stabilität 0,4, Tempo Mira ×1,02, Jonas ×1,0 (`folge.json` → `tempo`). `abmischen.mjs` meldet das erreichte Tempo („Sprechtempo: MIRA … Wörter/min“).
+- Pausen: ≈ 0,5 s zwischen Teilen, ≈ 1 s an Kapiteln, lange Stille wird auf 1 s gekürzt, `[pause]` an Gedankenwechseln. Nicht ändern.
 
 **Gesprächsrhythmus**
-- Im Schnitt **20–30 Wörter je Beitrag** (`--probe` zeigt „Ø … je Beitrag“). Längere Erklärungen sind erlaubt; die andere Person bleibt mit leisen Einwürfen präsent (`+MIRA: [quietly] Mhm.`), etwa 4–8 pro Folge.
-- Schnelle Wortwechsel nur an Pointen. Dass einer den Satz des anderen beendet: höchstens ein- bis zweimal.
+- Im Schnitt **20–30 Wörter je Beitrag** (`--probe` zeigt „Ø … je Beitrag“). Längere Erklärungen sind erlaubt; die andere Person bleibt mit leisen Einwürfen präsent (`+JONAS: [quietly] Mhm.`), etwa 2–5 pro Folge – nur Zuhör-Laute, keine Kommentare.
+- Dass einer den Satz des anderen beendet: höchstens einmal.
 
-**Humor**
-- Witze nur aus dem Inhalt, nie „weil mal wieder einer fällig ist“.
-- **Gut angekommen:** Ärger mit Ironie aus der Sache („Wir probieren es mal aus. Für die, die Geld haben und gern Doku machen.“), Begeisterung für Details, ehrliche Langeweile („Beim Kapitel Kostenerstattung bin ich kurz weggedöst.“), Ambivalenz, Sticheln über die Arbeit des anderen, Freude über Lichtblicke, Mainz-Bezug („Alkohol erst ab achtzehn – in Rheinhessen?“), „Die Kita sieht das Kind. Die Familienhilfe sieht die Küche.“, „Wer bestellt, bezahlt. Nur eben nicht bei uns.“
-- **Nicht gewollt** (abgelehnt): Selbstironie ohne Sachbezug („Ich hab den Entwurf mit Textmarker gelesen. In drei Farben.“, „Fußnote … gefreut wie ein Kind“, „Wir machen einen Podcast über Kleingedrucktes. Freiwillig.“) und Konstruiertes („… das hat fast schon künstlerischen Wert“, „… schreib ich einen Leserbrief. Mit Füller.“, „Spannend ist das neue schwierig“).
-- Lachen per Tag (`[laughs]`, `[chuckles]`, `[laughing]`) etwa 15–20-mal pro Folge, nicht nach jedem Satz.
+**Humor – sparsam**
+- **Etwa halb so viel wie in Fassung 3:** höchstens 8–10 leichte Momente pro Folge, fast alle als trockene, kritische Bemerkung aus der Sache („Mitplanen ja, mitzahlen nein.“, „Uneingeschränkt. Mit Vorrangprüfung.“, „Wer bestellt, bezahlt. Nur eben nicht bei uns.“). Keine Pointen-Ketten, kein Lachen über eigene Witze.
+- **Gut:** Kritik mit Ironie aus der Sache, Beobachtungen ohne persönliche Note („Viel Spaß dem Pflegekinderdienst.“), „Die Kita sieht das Kind. Die Familienhilfe sieht die Küche.“
+- **Nicht gewollt:** Witze, „weil wir ein cooler Podcast sind“; ein Witz als Einstieg; persönliche Sticheleien; Ich-Geschichten („Ich hatte letzte Woche eine Familie …“, „Ich hab selbst ein Jahr auf einen Krippenplatz gewartet“); Selbstironie ohne Sachbezug („Textmarker in drei Farben“, „Fußnote wie ein Kind gefreut“, „Podcast über Kleingedrucktes“); Konstruiertes („künstlerischer Wert“, „Leserbrief mit Füller“, „Spannend ist das neue schwierig“); Ausrufe als Einwurf („Ach komm“, „Na toll“, „Oha“).
+- Lachen per Tag selten: höchstens drei- bis fünfmal pro Folge und dezent (`[slightly amused]`, `[chuckles]`).
+
+**Einordnung – gern etwas mehr**
+- Ambivalenzen, kritische Einordnung und das Verständlichmachen mehrerer Seiten kamen sehr gut an und dürfen ausgebaut werden: Was will die Bundesregierung, was sagen Länder, Kommunen und Verbände, was heißt es für Familien und Fachkräfte – und wo stehen Mira und Jonas, mit Begründung.
 
 **Klarheit**
 - Jeder Gedanke muss beim einmaligen Hören verständlich sein. Verkürzungen wie „die Zuständigkeit steht im Konjunktiv“ ausformulieren: „Das Recht kommt also ins Gesetz. Die Zuständigkeit dafür noch nicht.“
 - **Paragrafennummern nur für die wichtigsten Stellen** (Folge 1: Paragraf 27, 8a, 1); sonst in Worten („die Regel zum Vorrang“).
 
-**Arbeitsalltag als Brille:** Jedes Thema wird aus Miras und Jonas’ Alltag erzählt – nebenbei, nicht als losgelöstes „Bei mir im Job …“.
+**Arbeitsalltag als Brille:** Jedes Thema wird aus der Sicht von Sozialem Dienst und Jugendhilfeplanung erzählt – als Beobachtung aus der Praxis, nicht als persönliches Erlebnis.
 
 ---
 
@@ -104,7 +104,11 @@ Beide sind Ende 30 und befreundet. Sie necken sich, lachen zusammen, widersprech
 - **Keine Abkürzungen.** `einreichen.mjs` lehnt Kürzel aus Großbuchstaben ab (Ausnahmen: EU, Parteien, Sender). Bekannte Probleme: „KJHSRG“ → „die Strukturreform“, „ISM“ → „das Institut für Sozialpädagogische Forschung in Mainz“, „AGJ“ → „die Arbeitsgemeinschaft für Kinder- und Jugendhilfe“, „BAMF“ → „das Bundesamt für Migration und Flüchtlinge“, „SGB IX“ → „die Eingliederungshilfe“, „ASD“ → „Allgemeiner Sozialer Dienst“ / „Sozialer Dienst“.
 - **Zeichen ausschreiben:** „Paragraf“, „Prozent“, „Euro“, „Absatz“, „zum Beispiel“ (`einreichen.mjs` prüft das).
 - **Zahlen und Daten** als Wörter, wo es auf die Betonung ankommt: „eins Komma drei Milliarden“, „am dreizehnten November“. Jahreszahlen und Paragrafennummern dürfen Ziffern bleiben.
-- **Audio-Tags auf Englisch** in eckigen Klammern, am Zeilenanfang oder vor einem Satz. Bewährt: `[energetic]` `[animated]` `[excited]` `[enthusiastic]` `[annoyed]` `[frustrated]` `[incredulous]` `[pragmatic]` `[honest]` `[happy]` `[thoughtful]` `[amused]` `[chuckles]` `[laughs]` `[laughing]` `[half-laughing]` `[grinning]` `[warmly]` `[softly]` `[serious]` `[skeptical]` `[dryly]` `[teasing]` `[mock-offended]` `[conceding]` `[sighs]` `[pause]` `[quietly]` `[under her breath]`.
+- **Audio-Tags auf Englisch** in eckigen Klammern, am Zeilenanfang oder vor einem Satz. Seit Fassung 4:
+  - **Mira:** `[engaged]` `[serious]` `[pragmatic]` `[concerned]` `[warmly]` `[softly]`, sparsam `[dryly]`, selten `[frustrated]` oder `[lightly amused]`.
+  - **Jonas (ruhig):** `[calm]` `[thoughtful]` `[serious]` `[matter-of-fact]` `[warmly]`, selten `[slightly amused]`.
+  - **Beide:** `[pause]`, für Einwürfe `[quietly]`.
+  - **Nicht mehr** (zu aufgedreht oder zu verspielt): `[excited]` `[enthusiastic]` `[annoyed]` `[incredulous]` `[laughing]` `[laughs]` `[half-laughing]` `[grinning]` `[teasing]` `[mock-offended]` `[under her breath]`.
 - **Kein SSML** (`<break>`) – Eleven v4 ignoriert es.
 - Die Spracherkennung prüft, dass kein Tag vorgelesen wird (bisher nie passiert).
 
@@ -209,10 +213,10 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 
 1. Länge 2.100–2.900 Wörter, Ø 20–30 je Beitrag, kein Teil über 1.900 Zeichen (`--probe`).
 2. Titelmelodie vorn, Abspann hinten, **keine** Übergangsmusik.
-3. Kaltstart kommt aus dem Thema; Begrüßung mit Stadthaus/Turm und dem Fälle-Tabellen-Satz.
-4. Mischung ≈ zwei Drittel Information, ein Drittel Meinung, Alltag, Gefühl, Spaß; mindestens zwei echte Meinungsverschiedenheiten.
-5. Jeder Witz kommt aus dem Inhalt. Sticheln 2–3×, Planungs-Selbstironie 1–2×, Seitenhiebe 1–3×, „Jonas. Praxis.“ höchstens 1×, „gell“/Fastnacht höchstens 1×.
-6. Miras Kind und Jonas’ Privates nur, wenn es passt.
+3. Kaltstart kommt aus dem Thema und ist **kein Witz** (kritische Frage, Widerspruch, Zahl mit Haken); Begrüßung mit Stadthaus/Turm und dem Fälle-Tabellen-Satz, danach kein Necken.
+4. Mischung ≈ zwei Drittel Information, ein Drittel Meinung, Kritik, Ambivalenz; zu jedem großen Punkt mindestens zwei Positionen mit Quelle; mindestens zwei echte, sachliche Meinungsverschiedenheiten.
+5. Höchstens 8–10 leichte Momente, fast alle als trockene Kritik aus der Sache; keine persönlichen Sticheleien; Planungs-Selbstironie höchstens 1×; Seitenhiebe 1–2×; Lachen per Tag höchstens 3–5×.
+6. **Keine Ich-Geschichten und nichts Privates** – Praxis als Beobachtung („Zum Sozialen Dienst kommen manchmal …“). Jonas mit ruhigen Tags (Abschnitt 5).
 7. Jede Faktenaussage mit `#@`-Quelle; Wortlaut, Daten, Zahlen, Bedingungen an der Primärquelle geprüft; eigene Lesarten gekennzeichnet.
 8. Keine Abkürzungen, keine Zeichen (§ % €), Paragrafennummern nur für die wichtigsten Stellen.
 9. Nichts wörtlich aus früheren Folgen übernommen – außer dem Erkennungszeichen in der Begrüßung.
@@ -240,3 +244,10 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 | Befragungen zu Figuren und Stil (24.11.2026) | Abschnitt 2 und 4 |
 | Neue Folge jeden Montag, Thema aus der Verwaltung | Abschnitt 8 |
 | Folge 1, Fassung 3 | 18:57 min, Mira ×1,02 / Jonas ×1,0, Spracherkennung 0–1,7 % Fehler |
+| **Fassung 3:** Tempo, Pacing, kleine Pausen „perfekt, so soll es sein“ | festgeschrieben (Abschnitt 4) |
+| F3: zu viele Witze, Sticheleien und Kommentare – etwa die Hälfte | höchstens 8–10 leichte Momente, fast alle trockene Kritik aus der Sache |
+| F3: nicht mit einem Witz anfangen | Kaltstart mit kritischer Frage oder spannendem Widerspruch |
+| F3: Jonas etwas zu emotional | ruhige Tags, keine aufgeregten (Abschnitt 2 und 5) |
+| F3: persönliche Witze zwischen den beiden („Jonas. Praxis.“) klingen „cringe“ | keine persönlichen Sticheleien mehr, nur das Erkennungszeichen |
+| F3: Ich-Geschichten („Ich hatte gestern eine Mutter …“) wirken bei einer KI komisch | Praxis als Beobachtung („Zum Sozialen Dienst kommen manchmal Mütter …“) |
+| F3: Ambivalenzen, kritische Einordnung, mehrere Seiten – sehr gut, gern mehr | zu jedem großen Punkt mindestens zwei Positionen mit Quelle |
