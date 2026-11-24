@@ -4,7 +4,7 @@
 //   node podcast/werkzeuge/einreichen.mjs podcast/folgen/02-thema            prüfen, dann Commit und Push
 //   node podcast/werkzeuge/einreichen.mjs podcast/folgen/02-thema --probe    nur prüfen
 // Exit 2 = Prüffehler (Dateien korrigieren und denselben Befehl wiederholen) · Exit 3 = Hochladen gescheitert
-import { readFile, access } from 'node:fs/promises';
+import { readFile, readdir, access } from 'node:fs/promises';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { basename, dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -43,6 +43,23 @@ if (meta.id !== undefined) {
   if (typeof meta.stimmen !== 'string' || !/KI/.test(meta.stimmen)) fehler.push('folge.json: „stimmen“ muss die KI-Kennzeichnung enthalten, z. B. „KI-generiert (ElevenLabs Eleven v4)“.');
   if (!meta.tempo || typeof meta.tempo !== 'object' || !(meta.tempo.MIRA > 0.9 && meta.tempo.MIRA < 1.12) || !(meta.tempo.JONAS > 0.9 && meta.tempo.JONAS < 1.12)) fehler.push('folge.json: „tempo“ wie in der letzten Folge übernehmen, z. B. { "MIRA": 1.02, "JONAS": 1.0 }.');
 }
+
+// ---------- Themenliste aus der Verwaltung: Dran ist das oberste Thema, das noch keine Folge hat ----------
+const liste = await readFile(join(REPO, 'daten', 'podcast-themen.json'), 'utf8').then(JSON.parse, () => ({ themen: [] }));
+const themen = Array.isArray(liste.themen) ? liste.themen : [];
+const benutzt = new Set();
+for (const name of await readdir(join(WERKSTATT, 'folgen')).catch(() => [])) {
+  if (name === NAME) continue;
+  try { const m = JSON.parse(await readFile(join(WERKSTATT, 'folgen', name, 'folge.json'), 'utf8')); if (m.themaId) benutzt.add(m.themaId); } catch { /* kein Folgenordner */ }
+}
+const dran = themen.find((t) => !benutzt.has(t.id));
+if (meta.themaId) {
+  const t = themen.find((x) => x.id === meta.themaId);
+  if (!t) fehler.push(`folge.json: „themaId“ ${meta.themaId} steht nicht in daten/podcast-themen.json.`);
+  else if (benutzt.has(meta.themaId)) fehler.push(`folge.json: Zum Thema „${t.thema}“ gibt es schon eine Folge.`);
+  else if (!vorhanden && dran && meta.themaId !== dran.id) fehler.push(`folge.json: Dran ist das oberste offene Thema „${dran.thema}“ – "themaId": "${dran.id}".`);
+} else if (!vorhanden && dran) fehler.push(`In der Themenliste wartet „${dran.thema}“: folge.json braucht "themaId": "${dran.id}", und die Folge muss dieses Thema mit seinen Anweisungen behandeln.`);
+if (meta.themaId) console.log(`Thema aus der Verwaltung: ${(themen.find((x) => x.id === meta.themaId) || {}).thema || meta.themaId}`);
 
 // ---------- skript.txt ----------
 let skript = '';

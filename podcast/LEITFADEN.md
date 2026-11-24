@@ -13,7 +13,7 @@
 | **Wann gehört** | Montagmorgens, zum ersten Kaffee oder auf dem Weg zur Arbeit. Wach, gut gelaunt, mit Energie – aber nicht albern. |
 | **Inhalt** | **Nicht** die Grundzüge, die stehen im Boniblatt. Sondern: Details, frische News, Dinge zwischen den Zeilen, Fallstricke. Immer mit der Frage: Was heißt das für den Arbeitsalltag? |
 | **Länge** | 15–20 Minuten (≈ 2.100–2.900 gesprochene Wörter). |
-| **Erscheinen** | **Jeden Montag mit der Ausgabe.** Das Thema kommt aus der Verwaltung (Abschnitt 8); fehlt es, wählt die Redaktion ein prominentes Thema der letzten ein bis drei Wochen, möglichst nah am Alltag der Jugendhilfeplanung. |
+| **Erscheinen** | **Jeden Montag mit der Ausgabe.** Das Thema kommt aus der **Themenliste** der Verwaltung (Abschnitt 8): das oberste Thema, das noch keine Folge hat, mit seinen Anweisungen an die KI. Ist kein Thema offen, wählt die Redaktion ein prominentes Thema der letzten ein bis drei Wochen, möglichst nah am Alltag der Jugendhilfeplanung. |
 | **Gefühl** | Eine Kollegin und ein Kollege, befreundet, die sich nach Feierabend über Neues aus dem Job unterhalten – mit Meinung, Ärger, Begeisterung und Ambivalenz. Kein Vorlesen, kein Theaterstück, kein Nachrichtenton. |
 | **Mischung** | Etwa **zwei Drittel Information und fachliche Einordnung**, **ein Drittel Kritik, Alltag, Spaß, Ambivalenz und Gefühl**. |
 
@@ -140,9 +140,12 @@ Dazu `folge.json` (Tempo und Stimmen aus der letzten Folge übernehmen):
 ```json
 { "nummer": 2, "id": "2026-11-30-thema", "titel": "…", "beschreibung": "1–2 Sätze für die Seite",
   "datum": "2026-11-30", "stand": "30.11.2026", "stimmen": "KI-generiert (ElevenLabs Eleven v4)",
-  "datei": "folge-02-thema.mp3", "tempo": { "MIRA": 1.02, "JONAS": 1.0 } }
+  "datei": "folge-02-thema.mp3", "tempo": { "MIRA": 1.02, "JONAS": 1.0 }, "themaId": "t3f9a…" }
 ```
-`fassung` setzt `veroeffentlichen.mjs` selbst hoch, wenn eine schon veröffentlichte Folge neu produziert wird.
+- `themaId`: die `id` des Themas aus `daten/podcast-themen.json`, wenn die Folge ein Thema aus der Verwaltung behandelt (sonst weglassen). Daran erkennen Verwaltung und Routine, dass das Thema erledigt ist; `einreichen.mjs` verlangt das oberste offene Thema.
+- `fassung` setzt `veroeffentlichen.mjs` selbst hoch, wenn eine schon veröffentlichte Folge neu produziert wird.
+
+**Anweisungen zum Thema:** Sie kommen vom Herausgeber über die passwortgeschützte Verwaltung und sind redaktionell verbindlich – Schwerpunkte, Blickwinkel, Quellen, was hinein soll oder nicht, Rollen von Mira und Jonas. Grenzen: Richtigkeit (Abschnitt 6) und die Regeln dieses Leitfadens gehen vor; was sich nicht umsetzen ließ, steht in der Zusammenfassung der Routine.
 
 ---
 
@@ -151,9 +154,9 @@ Dazu `folge.json` (Tempo und Stimmen aus der letzten Folge übernehmen):
 ### Jede Woche automatisch
 | Wann (Winterzeit) | Was | Wo |
 |---|---|---|
-| bis Sonntagabend | Thema (und Hinweise) in der **Verwaltung** unter „Podcast-Thema“ abgeben. Danach ist das Feld ausgegraut und als „abgegeben“ markiert; „Bearbeiten“ öffnet es wieder. | `docs/verwaltung.html` → Cloudflare `/admin/podcast` |
-| täglich 0:10 und 12:10, montags zusätzlich 1:20 | Themen ins Repository holen: `daten/podcast-themen.json` | Action „Stimmen holen“ |
-| Montag 2:00 | **Wochenroutine** (Claude, Auftrag in `routinen/podcast.md`): Thema aus der Verwaltung oder selbst gewählt, Recherche, Skript, `einreichen.mjs` | Claude-Cloud-Routine |
+| jederzeit, spätestens Sonntagabend | **Themenliste** in der Verwaltung („Podcast-Themen“) pflegen: Themen mit Anweisungen an die KI hinzufügen, mit ↑/↓ umsortieren, bearbeiten, löschen. Gespeicherte Themen erscheinen ausgegraut mit dem Montag, an dem sie drankommen; erschienene wandern nach unten. | `docs/verwaltung.html` → Cloudflare `/admin/podcast` (KV `podcast:liste`) |
+| täglich 0:10 und 12:10, montags zusätzlich 1:20 | Liste ins Repository holen: `daten/podcast-themen.json` | Action „Stimmen holen“ |
+| Montag 2:00 | **Wochenroutine** (Claude, Auftrag in `routinen/podcast.md`): oberstes offenes Thema samt Anweisungen (oder selbst gewählt), Recherche, Skript, `einreichen.mjs` | Claude-Cloud-Routine |
 | danach, ≈ 15 min | **Action „Podcast produzieren“**: `produzieren.mjs` = aufnehmen → prüfen (auffällige Teile einmal neu) → abmischen → veröffentlichen, dann Commit und Seite neu | `.github/workflows/podcast.yml` |
 | ab Montag früh | Folge auf `podcast.html`; Knopf glänzt und Werbeflieger zieht „Neue Podcast-Folge ist raus!“ (Tage 0–3) | Startseite |
 
@@ -197,7 +200,7 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 - **Neue Fassung einer Folge:** `fassung` > 1 hängt `?v=<fassung>` an die Audio-Adresse, damit niemand die alte Datei aus dem Zwischenspeicher hört.
 - **Startseite:** Podcast-Knopf links oben; 3 Tage nach einer neuen Folge glänzt er mit „Neu“, und der Werbeflieger zieht „Neue Podcast-Folge ist raus!“ (`docs/daten/podcast.js`, eingebunden über `werkzeuge/intro-einbauen.mjs`).
 - **Spieler:** Wellenform mit Kapiteln, Tempo 0,75× / 1× / 1,25×, „KI-generiert“-Hinweis, Quellen-Fenster mit Zeitmarken (Klick springt an die Stelle), `?folge=<id>&t=<Sekunden>`.
-- **Verwaltung:** Bereich „Podcast-Thema“ (siehe Abschnitt 8); die Themen sind im öffentlichen Repository lesbar.
+- **Verwaltung:** Bereich „Podcast-Themen“ mit der Themenliste (siehe Abschnitt 8); Themen und Anweisungen sind im öffentlichen Repository lesbar.
 - **Speicher:** ≈ 16 MB je Folge im Repository. Wöchentlich erreicht GitHub Pages die 1-GB-Grenze in gut einem Jahr – **bis Herbst 2027 auslagern**, etwa nach Cloudflare R2 (Konto vorhanden) oder als Release-Anhang.
 
 ---
@@ -213,6 +216,7 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 7. Jede Faktenaussage mit `#@`-Quelle; Wortlaut, Daten, Zahlen, Bedingungen an der Primärquelle geprüft; eigene Lesarten gekennzeichnet.
 8. Keine Abkürzungen, keine Zeichen (§ % €), Paragrafennummern nur für die wichtigsten Stellen.
 9. Nichts wörtlich aus früheren Folgen übernommen – außer dem Erkennungszeichen in der Begrüßung.
+10. Thema aus der Liste: `themaId` gesetzt und jede Anweisung umgesetzt – oder in der Zusammenfassung begründet, warum nicht.
 
 ---
 

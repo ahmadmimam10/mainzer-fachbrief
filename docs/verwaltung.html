@@ -198,6 +198,11 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 .pthema .stand{font-size:13px;color:var(--leise)}.pthema .stand.ok{color:var(--gruen)}
 .pthema .klein{margin:12px 0 0;font-size:12.5px;color:var(--zart);max-width:80ch}
 .marke.gruen{box-shadow:inset 0 0 0 1px var(--gruen);color:var(--gruen)}
+.karte.pthema.abgegeben{background:transparent;box-shadow:inset 0 0 0 1px var(--linie2)}
+.pthema .pt-titel{margin:10px 0 0;font-size:17px;line-height:1.35}
+.pthema .pt-anw{margin:6px 0 0;font-size:14px;line-height:1.5;color:var(--leise);white-space:pre-wrap;max-width:80ch}
+.pthema .fuss button[disabled]{opacity:.35;cursor:default}
+.pthema.neu{border-top:0}
 .notiz .fuss{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--leise);margin:4px 0 0}
 .haken{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:5px;font-size:14px}.haken li{padding-left:22px;position:relative}.haken li::before{content:"✓";position:absolute;left:0;color:var(--gruen);font-weight:700}
 
@@ -247,7 +252,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
   <a class="heim" href="./">← Boniblatt</a>
   <nav class="sprung" aria-label="Bereiche">
     <a href="#ueberblick">Überblick</a>
-    <a href="#podcast">Podcast-Thema<i class="punkt" data-punkt="podcast"></i></a>
+    <a href="#podcast">Podcast-Themen<i class="punkt" data-punkt="podcast"></i></a>
     <a href="#besuche">Besuche</a>
     <a href="#qm">Qualitätsmanager<i class="punkt" data-punkt="qm"></i></a>
     <a href="#leser">Leserstimmen<i class="punkt" data-punkt="leser"></i></a>
@@ -272,7 +277,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 <div id="innen" hidden>
 <section id="ueberblick" aria-label="Überblick">
   <div class="ueber">
-    <a class="kachel" href="#podcast" data-k="podcast"><span><i class="punkt"></i>Podcast-Thema</span><b>…</b><small>&nbsp;</small></a>
+    <a class="kachel" href="#podcast" data-k="podcast"><span><i class="punkt"></i>Podcast-Themen</span><b>…</b><small>&nbsp;</small></a>
     <a class="kachel" href="#besuche" data-k="besuche"><span><i class="punkt"></i>Besuche</span><b>…</b><small>&nbsp;</small></a>
     <a class="kachel" href="#qm" data-k="qm"><span><i class="punkt"></i>Qualitätsmanager</span><b>…</b><small>&nbsp;</small></a>
     <a class="kachel" href="#leser" data-k="leser"><span><i class="punkt"></i>Leserstimmen</span><b>…</b><small>&nbsp;</small></a>
@@ -284,8 +289,9 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 </section>
 
 <section id="podcast">
-  <h2>Podcast-Thema</h2>
-  <p class="unter">Jeden Montag erscheint mit der Ausgabe eine neue Folge von „Zwischen den Zeilen“. Trag hier das Thema für den nächsten Montag ein. Ohne Thema wählt die Redaktion ein prominentes Thema aus den Nachrichten der letzten Wochen, möglichst nah am Alltag der Jugendhilfeplanung.</p>
+  <h2>Podcast-Themen</h2>
+  <p class="unter">Jeden Montag erscheint mit der Ausgabe eine neue Folge von „Zwischen den Zeilen“. Plane hier die Themen der nächsten Wochen, jedes mit eigenen Anweisungen an die KI. Die Redaktion nimmt immer das oberste offene Thema; ist die Liste leer, wählt sie ein prominentes Thema aus den Nachrichten, möglichst nah am Alltag der Jugendhilfeplanung.</p>
+  <p class="meldung" id="p-meldung" role="alert"></p>
   <div id="p-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
 </section>
 
@@ -779,56 +785,76 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     document.querySelectorAll("#innen section").forEach(s => ob.observe(s));
   }
 
-  /* ---------- Podcast-Thema (Cloudflare /admin/podcast → daten/podcast-themen.json → Wochenroutine montags 2 Uhr) ---------- */
-  let THEMEN = {}, PFOLGEN = null, themaOffen = false;
+  /* ---------- Podcast-Themen (Cloudflare /admin/podcast → daten/podcast-themen.json → Wochenroutine montags 2 Uhr) ----------
+     Liste in Reihenfolge: Jeden Montag nimmt die Redaktion das oberste Thema, das noch keine Folge hat (folge.json → themaId). */
+  let THEMEN = [], PFOLGEN = null, bearbeite = null;
   const naechsterMontag = () => { const d = new Date(HEUTE + "T12:00:00"); d.setDate(d.getDate() + (((8 - d.getDay()) % 7) || 7)); return iso(d); };
+  const plusWochen = (tag, n) => { const d = new Date(tag + "T12:00:00"); d.setDate(d.getDate() + 7 * n); return iso(d); };
+  const kurzTag = t => tagText(t, { weekday: "short", day: "numeric", month: "short" });
+  const themenTeilen = () => {
+    const benutzt = new Map(((PFOLGEN && PFOLGEN.folgen) || []).filter(f => f.themaId).map(f => [f.themaId, f]));
+    return { benutzt, offen: THEMEN.filter(t => !benutzt.has(t.id)), erschienen: THEMEN.filter(t => benutzt.has(t.id)) };
+  };
   function podcastMalen() {
-    const m = naechsterMontag(), e = THEMEN[m], zu = Boolean(e) && !themaOffen;
+    const { benutzt, offen, erschienen } = themenTeilen(), m = naechsterMontag();
+    kachel("podcast", offen.length ? `${offen.length} geplant` : "leer", offen.length ? `als Nächstes (${kurzTag(m)}): ${offen[0].thema.length > 30 ? offen[0].thema.slice(0, 29) + "…" : offen[0].thema}` : "die Redaktion wählt selbst", offen.length ? "gut" : "");
+    const karte = (t, i) => {
+      const wann = `${i + 1}. · ${kurzTag(plusWochen(m, i))}`;
+      if (bearbeite === t.id) return `<form class="karte breit pthema" data-id="${esc(t.id)}">
+        <p style="margin:0"><span class="marke">${esc(wann)}</span><span class="marke">wird bearbeitet</span></p>
+        <label>Thema<input name="thema" maxlength="300" autocomplete="off" value="${esc(t.thema)}"></label>
+        <label>Anweisungen an die KI <small>(Blickwinkel, Schwerpunkte, Quellen, was unbedingt hinein soll – oder was nicht)</small><textarea name="anweisungen" maxlength="3000">${esc(t.anweisungen)}</textarea></label>
+        <div class="fuss"><button type="submit">Speichern</button><button type="button" class="leicht" data-p="abbrechen">Abbrechen</button></div></form>`;
+      return `<div class="karte breit pthema abgegeben" data-id="${esc(t.id)}">
+        <p style="margin:0"><span class="marke${i === 0 ? " gruen" : ""}">${esc(wann)}${i === 0 ? " · als Nächstes" : ""}</span><span class="marke">gespeichert ${esc(uhrUndTag(t.geaendert || t.erstellt))}</span></p>
+        <h3 class="pt-titel">${esc(t.thema)}</h3>
+        ${t.anweisungen ? `<p class="pt-anw">${esc(t.anweisungen)}</p>` : `<p class="pt-anw leer">Keine Anweisungen – die Redaktion folgt dem Leitfaden.</p>`}
+        <div class="fuss"><button type="button" class="leicht" data-p="hoch" aria-label="Früher drankommen" title="Früher drankommen"${i === 0 ? " disabled" : ""}>↑</button><button type="button" class="leicht" data-p="runter" aria-label="Später drankommen" title="Später drankommen"${i === offen.length - 1 ? " disabled" : ""}>↓</button><button type="button" class="leicht" data-p="bearbeiten">Bearbeiten</button><button type="button" class="leicht" data-p="loeschen">Löschen</button></div></div>`;
+    };
     const letzte = PFOLGEN && PFOLGEN.folgen && PFOLGEN.folgen[0];
-    const frueher = Object.values(THEMEN).filter(x => x && x.montag < m).sort((a, b) => b.montag.localeCompare(a.montag)).slice(0, 8);
-    kachel("podcast", e ? "abgegeben" : "offen", e ? `für ${tagText(m, { weekday: "short", day: "numeric", month: "short" })}: ${e.thema.length > 38 ? e.thema.slice(0, 37) + "…" : e.thema}` : `für ${tagText(m, { weekday: "short", day: "numeric", month: "short" })} – sonst wählt die Redaktion`, e ? "gut" : "");
     $("#p-inhalt").innerHTML = `<div class="raster">
-      <form class="karte breit pthema${zu ? " abgegeben" : ""}" data-montag="${m}">
-        <p style="margin:0"><span class="marke">Folge am ${esc(tagText(m, { weekday: "long", day: "numeric", month: "long" }))}</span>${e ? `<span class="marke gruen">abgegeben</span>` : `<span class="marke">noch offen</span>`}</p>
-        <label>Thema<input name="thema" maxlength="300" autocomplete="off" placeholder="z. B. Neue Zahlen zu Inobhutnahmen – was heißt das für die Planung?" value="${esc(e ? e.thema : "")}"${zu ? " readonly" : ""}></label>
-        <label>Hinweise <small>(freiwillig: Blickwinkel, Quellen, was unbedingt hinein soll)</small><textarea name="hinweise" maxlength="2000"${zu ? " readonly" : ""}>${esc(e ? e.hinweise : "")}</textarea></label>
-        <div class="fuss">${zu
-          ? `<button type="button" class="leicht" data-p="bearbeiten">Bearbeiten</button><span class="stand ok">Abgegeben am ${esc(uhrUndTag(e.eingereicht))}${e.geaendert && e.geaendert !== e.eingereicht ? " · geändert am " + esc(uhrUndTag(e.geaendert)) : ""}</span>`
-          : `<button type="submit">${e ? "Änderung abgeben" : "Thema abgeben"}</button>${e ? `<button type="button" class="leicht" data-p="abbrechen">Abbrechen</button><button type="button" class="leicht" data-p="zurueck">Zurückziehen</button>` : ""}<span class="stand">${e ? "Du bearbeitest ein schon abgegebenes Thema." : "Noch nichts abgegeben."}</span>`}</div>
-        <p class="klein">Abgeben bis Sonntagabend: Montags um 2 Uhr beginnt die Redaktion mit Recherche und Skript, gegen 4 Uhr ist die Folge auf der Seite. Thema und Hinweise werden im öffentlichen Repository gespeichert (daten/podcast-themen.json) und sind dort lesbar.</p>
+      ${offen.map(karte).join("") || `<div class="karte breit"><p class="leer">Noch keine Themen geplant – dann wählt die Redaktion jeden Montag selbst ein prominentes Thema der letzten Wochen, möglichst nah am Alltag der Jugendhilfeplanung.</p></div>`}
+      <form class="karte breit pthema neu" data-id="">
+        <p style="margin:0"><span class="marke">Neues Thema</span><span class="marke">kommt ans Ende · ${esc(kurzTag(plusWochen(m, offen.length)))}</span></p>
+        <label>Thema<input name="thema" maxlength="300" autocomplete="off" placeholder="z. B. Neue Zahlen zu Inobhutnahmen – was heißt das für die Planung?"></label>
+        <label>Anweisungen an die KI <small>(freiwillig)</small><textarea name="anweisungen" maxlength="3000" placeholder="z. B. Schwerpunkt Rheinland-Pfalz, die Landesstatistik einbeziehen, eher kritisch, Mira erzählt aus der Bereitschaft …"></textarea></label>
+        <div class="fuss"><button type="submit">Zur Liste hinzufügen</button></div>
+        <p class="klein">Jeden Montag um 2 Uhr nimmt die Redaktion das oberste Thema – Änderungen bis Sonntagabend kommen sicher an. Die Anweisungen befolgt sie, soweit sie mit dem Leitfaden vereinbar sind; Richtigkeit geht immer vor. Themen und Anweisungen werden im öffentlichen Repository gespeichert (daten/podcast-themen.json) und sind dort lesbar.</p>
       </form>
+      ${erschienen.length ? `<div class="karte breit"><h3>Schon als Folge erschienen</h3><ul class="balken">${erschienen.map(t => { const f = benutzt.get(t.id); return `<li data-id="${esc(t.id)}"><span>${esc(tagText(f.datum))} · Folge ${esc(f.nummer)} – ${esc(t.thema)}</span><button type="button" class="leicht" data-p="loeschen">Entfernen</button></li>`; }).join("")}</ul></div>` : ""}
       ${letzte ? `<div class="karte"><h3>Zuletzt erschienen</h3><p style="margin:0;font-size:15px"><a href="podcast.html" target="_blank" rel="noopener">Folge ${esc(letzte.nummer)}: ${esc(letzte.titel)}</a></p><p class="leer" style="font-size:13px;margin-top:6px">${esc(tagText(letzte.datum, { weekday: "long", day: "numeric", month: "long" }))} · ${Math.round((letzte.dauer || 0) / 60)} Minuten</p></div>` : ""}
-      ${frueher.length ? `<div class="karte"><h3>Frühere Themen</h3><ul class="balken">${frueher.map(x => `<li><span>${esc(tagText(x.montag))} – ${esc(x.thema)}</span></li>`).join("")}</ul></div>` : ""}
     </div>`;
   }
-  async function podcastSenden(f, thema, hinweise) {
-    const stand = f.querySelector(".stand"), knoepfe = f.querySelectorAll("button");
-    knoepfe.forEach(k => { k.disabled = true; }); stand.className = "stand"; stand.style.color = ""; stand.textContent = "Wird gesendet …";
+  async function themenSpeichern(neu) {
+    const knoepfe = $("#p-inhalt").querySelectorAll("button");
+    knoepfe.forEach(k => { k.disabled = true; }); $("#p-meldung").textContent = "";
     try {
-      const r = await fetch(`${DIENST}/admin/podcast`, { method: "POST", headers: { Authorization: "Bearer " + encodeURIComponent(pw), "Content-Type": "application/json" }, body: JSON.stringify({ montag: f.dataset.montag, thema, hinweise }) });
-      const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.fehler || "Senden hat nicht geklappt.");
-      if (d.eintrag) THEMEN[f.dataset.montag] = d.eintrag; else delete THEMEN[f.dataset.montag];
-      themaOffen = false; podcastMalen();
-    } catch (x) { stand.style.color = "var(--rot)"; stand.textContent = x.message || "Senden hat nicht geklappt."; knoepfe.forEach(k => { k.disabled = false; }); }
+      const r = await fetch(`${DIENST}/admin/podcast`, { method: "POST", headers: { Authorization: "Bearer " + encodeURIComponent(pw), "Content-Type": "application/json" }, body: JSON.stringify({ themen: neu.map(t => ({ id: t.id || "", thema: t.thema, anweisungen: t.anweisungen || "" })) }) });
+      const d = await r.json().catch(() => ({})); if (!r.ok) throw new Error(d.fehler || "Speichern hat nicht geklappt.");
+      THEMEN = d.themen || []; bearbeite = null; podcastMalen();
+    } catch (x) { $("#p-meldung").textContent = x.message || "Speichern hat nicht geklappt."; knoepfe.forEach(k => { k.disabled = false; }); }
   }
   $("#p-inhalt").addEventListener("click", e => {
     const b = e.target.closest("button[data-p]"); if (!b) return;
-    const f = b.closest("form.pthema");
-    if (b.dataset.p === "bearbeiten") { themaOffen = true; podcastMalen(); const i = $("#p-inhalt input[name=thema]"); if (i) { i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }
-    else if (b.dataset.p === "abbrechen") { themaOffen = false; podcastMalen(); }
-    else if (b.dataset.p === "zurueck" && confirm("Thema für diesen Montag zurückziehen? Dann wählt die Redaktion selbst ein Thema.")) podcastSenden(f, "", "");
+    const id = (b.closest("[data-id]") || {}).dataset?.id || "", { offen, erschienen } = themenTeilen(), i = offen.findIndex(t => t.id === id);
+    if (b.dataset.p === "bearbeiten") { bearbeite = id; podcastMalen(); const f = $(`#p-inhalt form[data-id="${CSS.escape(id)}"] input`); if (f) { f.focus(); f.setSelectionRange(f.value.length, f.value.length); } }
+    else if (b.dataset.p === "abbrechen") { bearbeite = null; podcastMalen(); }
+    else if (b.dataset.p === "hoch" && i > 0) { [offen[i - 1], offen[i]] = [offen[i], offen[i - 1]]; themenSpeichern([...offen, ...erschienen]); }
+    else if (b.dataset.p === "runter" && i >= 0 && i < offen.length - 1) { [offen[i + 1], offen[i]] = [offen[i], offen[i + 1]]; themenSpeichern([...offen, ...erschienen]); }
+    else if (b.dataset.p === "loeschen") { const t = THEMEN.find(x => x.id === id); if (t && confirm(`„${t.thema}“ aus der Liste löschen?`)) themenSpeichern(THEMEN.filter(x => x.id !== id)); }
   });
   $("#p-inhalt").addEventListener("submit", e => {
     const f = e.target.closest("form.pthema"); if (!f) return; e.preventDefault();
-    const thema = f.elements.thema.value.trim(), hinweise = f.elements.hinweise.value.trim();
-    if (!thema) { const s = f.querySelector(".stand"); s.style.color = "var(--rot)"; s.textContent = "Bitte zuerst ein Thema eintragen."; f.elements.thema.focus(); return; }
-    podcastSenden(f, thema, hinweise);
+    const thema = f.elements.thema.value.trim(), anweisungen = f.elements.anweisungen.value.trim();
+    if (!thema) { $("#p-meldung").textContent = "Bitte zuerst ein Thema eintragen."; f.elements.thema.focus(); return; }
+    const id = f.dataset.id, { offen, erschienen } = themenTeilen();
+    themenSpeichern(id ? THEMEN.map(t => t.id === id ? { ...t, thema, anweisungen } : t) : [...offen, { id: "", thema, anweisungen }, ...erschienen]);
   });
   async function podcastZeigen() {
     const [themen, folgen] = await Promise.all([fetch(`${DIENST}/admin/podcast`, mitPw()).then(r => r.ok ? r.json() : null).catch(() => null), json("daten/podcast.json").catch(() => null)]);
     PFOLGEN = folgen;
-    if (!themen) { kachel("podcast", "?", "Themen gerade nicht abrufbar", "achtung"); $("#p-inhalt").innerHTML = `<div class="karte"><p class="leer">Die Themen sind gerade nicht abrufbar. Ist der Dienst schon mit dem Podcast-Teil veröffentlicht?</p></div>`; return; }
-    THEMEN = themen.themen || {}; podcastMalen();
+    if (!themen || !Array.isArray(themen.themen)) { kachel("podcast", "?", "Themen gerade nicht abrufbar", "achtung"); $("#p-inhalt").innerHTML = `<div class="karte"><p class="leer">Die Themenliste ist gerade nicht abrufbar.</p></div>`; return; }
+    THEMEN = themen.themen; podcastMalen();
   }
 
   /* ---------- Abläufe ---------- */
@@ -850,7 +876,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
       ["Quellen abrufen", `alle drei Stunden, täglich – ${aktiv || "alle"} Quellen, Neues kommt in den Pool`, "GitHub", dreier, "var(--tinte)"],
       ["Schnelle Feeds", `stündlich – nur ${schnell.length === 1 ? "ein Feed" : schnell.length + " Feeds"}, die sich schneller drehen`, "GitHub", stuendlich, "var(--blau)"],
       ["Morgenausgabe", "Mo–Fr – sichten, auswählen, schreiben, „Was geht?“", "Claude", [5 + 7 / 60], "var(--gold)"],
-      ["Podcast", "montags – Thema aus der Verwaltung (sonst selbst gewählt), Recherche, Skript; danach Aufnahme und Veröffentlichung", "Claude · GitHub · ElevenLabs", [2, 3.2], "var(--rot)"],
+      ["Podcast", "montags – oberstes Thema der Themenliste (sonst selbst gewählt), Recherche, Skript; danach Aufnahme und Veröffentlichung", "Claude · GitHub · ElevenLabs", [2, 3.2], "var(--rot)"],
       ["Vertonen und veröffentlichen", "nach jeder Ausgabe – Hörfassungen mit wechselnden Stimmen, Seite neu", "GitHub · ElevenLabs", [5.6], "var(--gruen)"],
       ["Qualitätssicherung", "montags – Quellen reparieren, Abruftakt und Webseite prüfen", "Claude", [6.5], "var(--gold)"],
       ["DeepSeek-Schattenlauf", "Mo–Fr direkt nach der Morgenausgabe, zehn Ausgaben lang – nur zum Vergleich", "GitHub · DeepSeek", [5.75], "var(--blau)"],

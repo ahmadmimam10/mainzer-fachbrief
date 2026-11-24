@@ -18,8 +18,10 @@
 //   GET /admin/daumen → { monate: { JJJJ-MM: [{ id, hoch, runter }] } } – Leserstimmen „relevant ja/nein“
 //   GET /admin/antwort → { antworten: { id: {…} } } · POST /admin/antwort { id, entscheidung: "ja" | "nein" | "hinweis", kommentar }
 //     – deine Antwort auf einen Vorschlag des Qualitätsmanagers (daten/leser-vorschlag.json); er liest sie im nächsten Monatslauf
-//   GET /admin/podcast → { themen: { JJJJ-MM-TT: {…} } } · POST /admin/podcast { montag, thema, hinweise } – Thema für die
-//     Podcast-Folge an diesem Montag (leeres Thema und leere Hinweise = zurückziehen); die Wochenroutine liest es aus dem Repository
+//   GET /admin/podcast → { themen: [{ id, thema, anweisungen, erstellt, geaendert }] } · POST /admin/podcast { themen: [{ id?, thema,
+//     anweisungen }] } – die ganze Themenliste für den Podcast speichern (Reihenfolge = Warteschlange; neue Themen ohne id).
+//     Die Wochenroutine nimmt das oberste Thema ohne Folge (folge.json → themaId) und liest es aus dem Repository.
+//     (Die erste Fassung vom 24.11.2026 kannte ein Thema je Montag, „podcast:JJJJ-MM-TT“ – wird beim Lesen übernommen.)
 //   Nach acht falschen Versuchen ist die Anmeldung für 15 Minuten gesperrt.
 //
 // Leserstimmen (docs/blatt/daumen.js): POST /d → { id: Meldung, w: 1 | -1 | 0, alt: 1 | -1 | 0 } – zählt je Monat und Meldung hoch
@@ -100,11 +102,18 @@ async function antwortenLesen(env) {
     for (const k of l.keys) { try { aus[k.name.slice(8)] = JSON.parse(await env.LISTE.get(k.name)); } catch { /* übergehen */ } } } while (cursor);
   return aus;
 }
+// Podcast-Themenliste (KV „podcast:liste“): Reihenfolge = Warteschlange, das oberste Thema ohne Folge ist als Nächstes dran.
+const THEMEN_MAX = 40, THEMA_ID = /^t[a-z0-9]{6,24}$/;
 async function podcastLesen(env) {
-  const aus = {}; let cursor;
+  try { const l = JSON.parse((await env.LISTE.get("podcast:liste")) || "null"); if (Array.isArray(l)) return l; } catch { /* neu aufbauen */ }
+  // Übergang: Themen aus der ersten Fassung (ein Thema je Montag, Schlüssel „podcast:JJJJ-MM-TT“) einmalig übernehmen
+  const alt = []; let cursor;
   do { const l = await env.LISTE.list({ prefix: "podcast:", cursor }); cursor = l.list_complete ? null : l.cursor;
-    for (const k of l.keys) { try { aus[k.name.slice(8)] = JSON.parse(await env.LISTE.get(k.name)); } catch { /* übergehen */ } } } while (cursor);
-  return aus;
+    for (const k of l.keys) {
+      const tag = k.name.slice(8); if (!TAG.test(tag)) continue;
+      try { const e = JSON.parse(await env.LISTE.get(k.name)); if (e && e.thema) alt.push({ id: "t" + tag.replace(/-/g, ""), thema: String(e.thema), anweisungen: String(e.hinweise || ""), erstellt: e.eingereicht || "", geaendert: e.geaendert || "" }); } catch { /* übergehen */ }
+    } } while (cursor);
+  return alt.sort((a, b) => a.id.localeCompare(b.id));
 }
 async function daumenLesen(env, ab) {
   const r = await env.DB.prepare("SELECT monat, id, hoch, runter FROM daumen WHERE monat != 'test' AND monat >= ?1 ORDER BY monat, id").bind(ab).all();
@@ -169,17 +178,20 @@ async function verwaltung(anfrage, env, url, kopf) {
   if (url.pathname === "/admin/podcast") {
     if (anfrage.method === "POST") {
       let d; try { d = await anfrage.json(); } catch { return antwort({ fehler: "Die Angaben waren nicht lesbar." }, 400, kopf); }
-      const montag = String(d.montag ?? ""), thema = String(d.thema ?? "").replace(/\s+/g, " ").trim().slice(0, 300),
-        hinweise = String(d.hinweise ?? "").replace(/\r/g, "").trim().slice(0, 2000);
-      if (!TAG.test(montag) || new Date(montag + "T12:00:00Z").getUTCDay() !== 1) return antwort({ fehler: "Das Datum ist kein Montag." }, 400, kopf);
-      if (montag < heute()) return antwort({ fehler: "Dieser Montag ist schon vorbei." }, 400, kopf);
-      if (!thema && !hinweise) { await env.LISTE.delete("podcast:" + montag); return antwort({ geloescht: montag }, 200, kopf); }
-      if (!thema) return antwort({ fehler: "Bitte ein Thema eintragen – Hinweise allein reichen nicht." }, 400, kopf);
-      let alt = null; try { alt = JSON.parse((await env.LISTE.get("podcast:" + montag)) || "null"); } catch { /* neu */ }
-      const jetzt = new Date().toISOString();
-      const e = { montag, thema, hinweise, eingereicht: (alt && alt.eingereicht) || jetzt, geaendert: jetzt };
-      await env.LISTE.put("podcast:" + montag, JSON.stringify(e), { expirationTtl: 400 * 86400 });
-      return antwort({ gespeichert: jetzt, eintrag: e }, 200, kopf);
+      if (!d || !Array.isArray(d.themen) || d.themen.length > THEMEN_MAX) return antwort({ fehler: `Die Liste ist ungültig (höchstens ${THEMEN_MAX} Themen).` }, 400, kopf);
+      const alt = new Map((await podcastLesen(env)).map(t => [t.id, t])), jetzt = new Date().toISOString(), neu = [], gesehen = new Set();
+      for (const x of d.themen) {
+        const thema = String((x && x.thema) ?? "").replace(/\s+/g, " ").trim().slice(0, 300);
+        const anweisungen = String((x && x.anweisungen) ?? "").replace(/\r/g, "").trim().slice(0, 3000);
+        if (!thema) return antwort({ fehler: "Jedes Thema braucht einen Titel." }, 400, kopf);
+        let id = String((x && x.id) ?? "");
+        if (!THEMA_ID.test(id) || gesehen.has(id)) id = "t" + crypto.randomUUID().replace(/-/g, "").slice(0, 12);
+        gesehen.add(id);
+        const vorher = alt.get(id), geaendert = !vorher || vorher.thema !== thema || vorher.anweisungen !== anweisungen;
+        neu.push({ id, thema, anweisungen, erstellt: (vorher && vorher.erstellt) || jetzt, geaendert: geaendert ? jetzt : (vorher.geaendert || vorher.erstellt || jetzt) });
+      }
+      await env.LISTE.put("podcast:liste", JSON.stringify(neu));
+      return antwort({ gespeichert: jetzt, themen: neu }, 200, kopf);
     }
     return antwort({ themen: await podcastLesen(env) }, 200, kopf);
   }

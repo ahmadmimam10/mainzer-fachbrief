@@ -61,14 +61,16 @@ async function holen() {
     await writeJson("daten/qm-antworten.json", { info: "Antworten aus der Verwaltung auf die Vorschläge des Qualitätsmanagers (daten/leser-vorschlag.json): je Vorschlag ja / nein / hinweis und ein freier Kommentar. Der Qualitätsmanager liest sie im nächsten Monatslauf (QUALITAET.md, Schritt 10a). Geholt von werkzeuge/stimmen.mjs.", stand: d.stand, antworten });
     console.log(`daten/qm-antworten.json: ${Object.keys(antworten).length} Antworten.`);
   } else console.log("Antworten unverändert.");
-  // Podcast-Themen aus der Verwaltung (nur, wenn der Dienst sie schon kennt – ältere Fassungen liefern kein Feld „podcast“)
+  // Podcast-Themenliste aus der Verwaltung, in Reihenfolge (nur, wenn der Dienst sie kennt – ältere Fassungen liefern kein Feld „podcast“)
   if (d.podcast && typeof d.podcast === "object") {
-    const themen = Object.fromEntries(Object.entries(d.podcast).filter(([m, e]) => /^\d{4}-\d{2}-\d{2}$/.test(m) && e && e.thema)
-      .sort(([a], [b]) => a.localeCompare(b)).map(([m, e]) => [m, { thema: String(e.thema), hinweise: String(e.hinweise || ""), eingereicht: e.eingereicht || "", geaendert: e.geaendert || "" }]));
+    const roh = Array.isArray(d.podcast) ? d.podcast   // ab 24.11.2026 abends: Liste; davor ein Thema je Montag
+      : Object.entries(d.podcast).sort(([a], [b]) => a.localeCompare(b)).map(([m, e]) => ({ id: "t" + m.replace(/-/g, ""), thema: e && e.thema, anweisungen: e && e.hinweise, erstellt: e && e.eingereicht, geaendert: e && e.geaendert }));
+    const themen = roh.filter(t => t && /^t[a-z0-9]{6,24}$/.test(String(t.id)) && t.thema)
+      .map(t => ({ id: String(t.id), thema: String(t.thema), anweisungen: String(t.anweisungen || ""), erstellt: t.erstellt || "", geaendert: t.geaendert || "" }));
     const alt4 = await readJson("daten/podcast-themen.json", {});
-    if (JSON.stringify(alt4.themen || {}) !== JSON.stringify(themen)) {
-      await writeJson("daten/podcast-themen.json", { info: "Themen für den Podcast „Zwischen den Zeilen“ aus der Verwaltung: je Montag (Erscheinungstag der Folge) Thema und Hinweise. Die Wochenroutine (routinen/podcast.md) liest das Thema für ihren Montag; fehlt es, wählt sie selbst. Geholt von werkzeuge/stimmen.mjs.", stand: d.stand || new Date().toISOString(), themen });
-      console.log(`daten/podcast-themen.json: ${Object.keys(themen).length} Themen.`);
+    if (JSON.stringify(alt4.themen || []) !== JSON.stringify(themen)) {
+      await writeJson("daten/podcast-themen.json", { info: "Themenliste für den Podcast „Zwischen den Zeilen“ aus der Verwaltung, in Reihenfolge. Die Wochenroutine (routinen/podcast.md) nimmt jeden Montag das oberste Thema, das noch keine Folge hat (folge.json → themaId); die Anweisungen sind redaktionelle Vorgaben des Herausgebers. Ist kein Thema offen, wählt sie selbst. Geholt von werkzeuge/stimmen.mjs.", stand: d.stand || new Date().toISOString(), themen });
+      console.log(`daten/podcast-themen.json: ${themen.length} Themen.`);
     } else console.log("Podcast-Themen unverändert.");
   }
 }

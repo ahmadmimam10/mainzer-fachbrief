@@ -302,7 +302,7 @@ async function main() {
 
   const daten = {
     nummer: meta.nummer, id: meta.id, titel: meta.titel, beschreibung: meta.beschreibung, datum: meta.datum, stand: meta.stand,
-    stimmen: meta.stimmen, datei: meta.datei, fassung: meta.fassung || 1, dauer: Math.round(laengeFertig),
+    stimmen: meta.stimmen, datei: meta.datei, fassung: meta.fassung || 1, ...(meta.themaId ? { themaId: meta.themaId } : {}), dauer: Math.round(laengeFertig),
     kapitel: kapitel.map((k) => ({ t: +k.start.toFixed(1), titel: k.titel })),
     quellen, welle: welle.map((v) => +Math.pow(v / max, 0.7).toFixed(2)),
   };
