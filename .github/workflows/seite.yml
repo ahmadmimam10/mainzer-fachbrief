@@ -27,8 +27,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # Hörfassungen je Ressort als MP3 (Azure Speech, Gratis-Tarif F0). Die MP3s landen nur im Seitenpaket,
-      # nicht im Repository; der Zwischenspeicher verhindert, dass derselbe Text zweimal vertont wird.
+      # Hörfassungen je Ressort als MP3: ElevenLabs (vier Stimmen im Wechsel), Ersatz Azure Speech (Gratis-Tarif F0).
+      # Die MP3s landen nur im Seitenpaket, nicht im Repository; der Zwischenspeicher verhindert, dass derselbe Text
+      # zweimal vertont (und bezahlt) wird.
       - name: Vertonungen aus dem Zwischenspeicher holen
         uses: actions/cache/restore@v4
         with:
@@ -39,6 +40,10 @@ jobs:
         id: vertonen
         continue-on-error: true
         env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_AB: ${{ vars.ELEVENLABS_AB }}
+          ELEVENLABS_STIMMEN: ${{ vars.ELEVENLABS_STIMMEN }}
+          ELEVENLABS_MAX: ${{ vars.ELEVENLABS_MAX }}
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
           AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
           AZURE_SPEECH_STIMME: ${{ vars.AZURE_SPEECH_STIMME }}

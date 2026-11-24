@@ -1,13 +1,15 @@
 name: Stimmen holen
 # Holt die Häkchen aus dem Vergleich Claude ↔ DeepSeek (Verwaltung) und die Leserstimmen „relevant ja/nein“ (Startseite)
 # vom Dienst (cloudflare/bestenliste) ins Repository: daten/abgleich-stimmen.json und daten/leser-daumen.json – dazu deine
-# Antworten auf die Monatsvorschläge des Qualitätsmanagers (daten/qm-antworten.json).
+# Antworten auf die Monatsvorschläge des Qualitätsmanagers (daten/qm-antworten.json) und die Podcast-Themen
+# (daten/podcast-themen.json, gelesen von der Podcast-Wochenroutine montags um 2 Uhr).
 # Gebraucht von den Anpassungs-Läufen des Abgleichs (ABGLEICH.md, nachts um 2:30 Uhr) und der Monatsauswertung des
 # Qualitätsmanagers (QUALITAET.md). Kein Schlüssel nötig: Der Dienst gibt nur aus, was danach ohnehin hier öffentlich liegt.
 on:
   schedule:
     - cron: "10 23 * * *"   # 0:10 Uhr Winterzeit – vor den nächtlichen Anpassungs-Läufen
     - cron: "10 11 * * *"   # 12:10 Uhr – damit der Stand tagsüber nicht alt wird
+    - cron: "20 0 * * 1"    # montags 1:20 Uhr Winterzeit – holt ein spät abgegebenes Podcast-Thema vor der Wochenroutine (2 Uhr)
   workflow_dispatch:
 
 permissions:
@@ -35,7 +37,7 @@ jobs:
           git config user.name "Boniblatt-Stimmen"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           set +e                      # dieser Lauf schlägt nie „rot“ fehl und verschickt keine Mails
-          git add daten/abgleich-stimmen.json daten/leser-daumen.json daten/qm-antworten.json 2>/dev/null
+          git add daten/abgleich-stimmen.json daten/leser-daumen.json daten/qm-antworten.json daten/podcast-themen.json 2>/dev/null
           if git diff --cached --quiet; then echo "Nichts zu speichern."; exit 0; fi
           git commit -q -m "Stimmen $(date -u +'%Y-%m-%d %H:%M')"
           git push -q origin HEAD:main || { git pull -q --rebase origin main && git push -q origin HEAD:main; } || echo "::warning::Speichern nicht möglich – der nächste Lauf holt es nach."

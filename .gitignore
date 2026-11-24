@@ -9,3 +9,7 @@ docs/daten/audio.json
 stimmproben/
 docs/_*
 .wrangler/
+
+# Podcast: Arbeitsdateien der Vertonung (Teile, Einwürfe, Master) bleiben außerhalb des Repositorys
+podcast/folgen/*/audio/
+podcast/folgen/*/*.log

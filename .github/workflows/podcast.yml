@@ -1,0 +1,86 @@
+name: Podcast produzieren
+
+# Wöchentlich: Die Podcast-Routine (routinen/podcast.md) schreibt montags früh ein Skript und lädt es mit
+# podcast/werkzeuge/einreichen.mjs hoch. Dieser Lauf macht daraus die fertige Folge – Aufnahme mit ElevenLabs,
+# Prüfung per Spracherkennung (auffällige Teile werden einmal neu aufgenommen), Abmischung, MP3 und Daten für
+# podcast.html – speichert alles im Repository und veröffentlicht die Seite neu.
+# Braucht das Secret ELEVENLABS_API_KEY. Kosten je Folge etwa 8.000–9.000 Credits (Aufnahme plus Prüfung).
+# Von Hand: Actions → „Podcast produzieren“ → Run workflow (leer = jüngste Folge mit neuem Skript; oder Ordnername,
+# z. B. 02-thema, um genau diese Folge neu zu produzieren).
+on:
+  push:
+    branches: [main]
+    paths: ["podcast/folgen/*/skript.txt"]
+  workflow_dispatch:
+    inputs:
+      ordner:
+        description: "Ordner unter podcast/folgen (leer = jüngste Folge mit neuem Skript)"
+        required: false
+        default: ""
+
+concurrency:
+  group: podcast
+  cancel-in-progress: false
+
+jobs:
+  produzieren:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Welche Folge ist dran?
+        id: offen
+        env:
+          ORDNER: ${{ inputs.ordner }}
+        run: node podcast/werkzeuge/offen.mjs "$ORDNER" | tee -a "$GITHUB_OUTPUT"
+      - name: ffmpeg installieren
+        if: steps.offen.outputs.ordner != ''
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+      # Schon bezahlte Aufnahmen dieser Folge wiederverwenden (z. B. wenn nur ein Abschnitt des Skripts geändert wurde)
+      - name: Aufnahmen aus dem Zwischenspeicher holen
+        if: steps.offen.outputs.ordner != ''
+        uses: actions/cache/restore@v4
+        with:
+          path: podcast/folgen/${{ steps.offen.outputs.ordner }}/audio
+          key: podcast-${{ steps.offen.outputs.ordner }}-${{ github.run_id }}
+          restore-keys: podcast-${{ steps.offen.outputs.ordner }}-
+      - name: Aufnehmen, prüfen, abmischen, veröffentlichen
+        id: produktion
+        if: steps.offen.outputs.ordner != ''
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ORDNER: ${{ steps.offen.outputs.ordner }}
+        run: node podcast/werkzeuge/produzieren.mjs "podcast/folgen/$ORDNER"
+      - name: Aufnahmen zwischenspeichern
+        if: always() && steps.offen.outputs.ordner != ''
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: podcast/folgen/${{ steps.offen.outputs.ordner }}/audio
+          key: podcast-${{ steps.offen.outputs.ordner }}-${{ github.run_id }}
+      - name: Speichern und Seite veröffentlichen
+        if: steps.produktion.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ORDNER: ${{ steps.offen.outputs.ordner }}
+        run: |
+          git config user.name "Boniblatt-Podcast"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/podcast docs/daten/podcast.json docs/daten/podcast.js
+          if git diff --cached --quiet; then echo "Nichts zu speichern."; exit 0; fi
+          git commit -q -m "Podcast: Folge $ORDNER veröffentlicht"
+          ok=0
+          for versuch in 1 2 3; do
+            if git push -q origin HEAD:main; then ok=1; break; fi
+            git pull -q --rebase origin main || { git rebase --abort; break; }
+          done
+          [ "$ok" = 1 ] || { echo "::error::Speichern auf main nicht möglich"; exit 1; }
+          gh workflow run seite.yml --ref main --repo "$GITHUB_REPOSITORY"

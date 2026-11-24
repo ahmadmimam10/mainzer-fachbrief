@@ -33,3 +33,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run seite.yml --ref main --repo "$GITHUB_REPOSITORY"
+      # Ein Podcast-Skript (Branch claude/podcast-…) braucht danach noch die Produktion: Pushes mit dem GitHub-Token
+      # lösen keine Workflows aus, darum hier ausdrücklich starten.
+      - name: Podcast produzieren
+        if: startsWith(github.ref_name, 'claude/podcast-')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run podcast.yml --ref main --repo "$GITHUB_REPOSITORY"

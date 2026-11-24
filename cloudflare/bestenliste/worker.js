@@ -18,14 +18,16 @@
 //   GET /admin/daumen → { monate: { JJJJ-MM: [{ id, hoch, runter }] } } – Leserstimmen „relevant ja/nein“
 //   GET /admin/antwort → { antworten: { id: {…} } } · POST /admin/antwort { id, entscheidung: "ja" | "nein" | "hinweis", kommentar }
 //     – deine Antwort auf einen Vorschlag des Qualitätsmanagers (daten/leser-vorschlag.json); er liest sie im nächsten Monatslauf
+//   GET /admin/podcast → { themen: { JJJJ-MM-TT: {…} } } · POST /admin/podcast { montag, thema, hinweise } – Thema für die
+//     Podcast-Folge an diesem Montag (leeres Thema und leere Hinweise = zurückziehen); die Wochenroutine liest es aus dem Repository
 //   Nach acht falschen Versuchen ist die Anmeldung für 15 Minuten gesperrt.
 //
 // Leserstimmen (docs/blatt/daumen.js): POST /d → { id: Meldung, w: 1 | -1 | 0, alt: 1 | -1 | 0 } – zählt je Monat und Meldung hoch
 //   bzw. um (alt → w). Gespeichert werden nur Monat, Meldung und die beiden Zahlen – keine Adresse, keine Kennung.
 //
-// Ausfuhr für GitHub (.github/workflows/stimmen.yml): GET /ausfuhr → { stand, wahl, daumen, antworten } – nur lesen. Bewusst ohne
+// Ausfuhr für GitHub (.github/workflows/stimmen.yml): GET /ausfuhr → { stand, wahl, daumen, antworten, podcast } – nur lesen. Bewusst ohne
 //   Schlüssel: Dieselben Daten liegen danach ohnehin im öffentlichen Repository (daten/abgleich-stimmen.json, daten/leser-daumen.json,
-//   daten/qm-antworten.json); keine Adressen. Die Verwaltung sagt beim Kommentarfeld, dass Kommentare dort öffentlich lesbar sind.
+//   daten/qm-antworten.json, daten/podcast-themen.json); keine Adressen. Die Verwaltung sagt beim Kommentarfeld, dass Kommentare dort öffentlich lesbar sind.
 const ERLAUBT = ["https://boniblatt-mainz.de", "https://www.boniblatt-mainz.de", "http://localhost:8766", "http://127.0.0.1:8766"];
 const SCHLUESSEL = "bestenliste", BEHALTEN = 50, ZEIGEN = 20, MAX_PUNKTE = 400;
 const NAME = /^[\p{L}\p{N}][\p{L}\p{N} ._-]{1,11}$/u;
@@ -98,6 +100,12 @@ async function antwortenLesen(env) {
     for (const k of l.keys) { try { aus[k.name.slice(8)] = JSON.parse(await env.LISTE.get(k.name)); } catch { /* übergehen */ } } } while (cursor);
   return aus;
 }
+async function podcastLesen(env) {
+  const aus = {}; let cursor;
+  do { const l = await env.LISTE.list({ prefix: "podcast:", cursor }); cursor = l.list_complete ? null : l.cursor;
+    for (const k of l.keys) { try { aus[k.name.slice(8)] = JSON.parse(await env.LISTE.get(k.name)); } catch { /* übergehen */ } } } while (cursor);
+  return aus;
+}
 async function daumenLesen(env, ab) {
   const r = await env.DB.prepare("SELECT monat, id, hoch, runter FROM daumen WHERE monat != 'test' AND monat >= ?1 ORDER BY monat, id").bind(ab).all();
   return r.results || [];
@@ -116,7 +124,7 @@ function wahlPruefen(d) {
 }
 
 async function verwaltung(anfrage, env, url, kopf) {
-  if (anfrage.method !== "GET" && !(anfrage.method === "POST" && ["/admin/merk", "/admin/wahl", "/admin/antwort"].includes(url.pathname))) return antwort({ fehler: "Nicht erlaubt." }, 405, kopf);
+  if (anfrage.method !== "GET" && !(anfrage.method === "POST" && ["/admin/merk", "/admin/wahl", "/admin/antwort", "/admin/podcast"].includes(url.pathname))) return antwort({ fehler: "Nicht erlaubt." }, 405, kopf);
   if (!env.ADMIN_PASSWORT) return antwort({ fehler: "Es ist noch kein Passwort hinterlegt (Secret ADMIN_PASSWORT)." }, 503, kopf);
   const fehl = Number(await env.LISTE.get("adminfehl")) || 0;
   if (fehl >= FEHL_MAX) return antwort({ fehler: "Zu viele falsche Versuche. In 15 Minuten geht es wieder." }, 429, kopf);
@@ -157,6 +165,23 @@ async function verwaltung(anfrage, env, url, kopf) {
       return antwort({ gespeichert: a.am, antwort: a }, 200, kopf);
     }
     return antwort({ antworten: await antwortenLesen(env) }, 200, kopf);
+  }
+  if (url.pathname === "/admin/podcast") {
+    if (anfrage.method === "POST") {
+      let d; try { d = await anfrage.json(); } catch { return antwort({ fehler: "Die Angaben waren nicht lesbar." }, 400, kopf); }
+      const montag = String(d.montag ?? ""), thema = String(d.thema ?? "").replace(/\s+/g, " ").trim().slice(0, 300),
+        hinweise = String(d.hinweise ?? "").replace(/\r/g, "").trim().slice(0, 2000);
+      if (!TAG.test(montag) || new Date(montag + "T12:00:00Z").getUTCDay() !== 1) return antwort({ fehler: "Das Datum ist kein Montag." }, 400, kopf);
+      if (montag < heute()) return antwort({ fehler: "Dieser Montag ist schon vorbei." }, 400, kopf);
+      if (!thema && !hinweise) { await env.LISTE.delete("podcast:" + montag); return antwort({ geloescht: montag }, 200, kopf); }
+      if (!thema) return antwort({ fehler: "Bitte ein Thema eintragen – Hinweise allein reichen nicht." }, 400, kopf);
+      let alt = null; try { alt = JSON.parse((await env.LISTE.get("podcast:" + montag)) || "null"); } catch { /* neu */ }
+      const jetzt = new Date().toISOString();
+      const e = { montag, thema, hinweise, eingereicht: (alt && alt.eingereicht) || jetzt, geaendert: jetzt };
+      await env.LISTE.put("podcast:" + montag, JSON.stringify(e), { expirationTtl: 400 * 86400 });
+      return antwort({ gespeichert: jetzt, eintrag: e }, 200, kopf);
+    }
+    return antwort({ themen: await podcastLesen(env) }, 200, kopf);
   }
   if (url.pathname === "/admin/daumen") {
     const ab = new Date(Date.now() - 62 * 864e5).toISOString().slice(0, 7), monate = {};
@@ -205,7 +230,7 @@ export default {
     if (url.pathname === "/ausfuhr") {
       if (anfrage.method !== "GET") return antwort({ fehler: "Nicht erlaubt." }, 405, kopf);
       if (zuViel(anfrage.headers.get("CF-Connecting-IP") || "?")) return antwort({ fehler: "Zu viele Abrufe." }, 429, kopf);
-      return antwort({ stand: new Date().toISOString(), wahl: await wahlLesen(env), daumen: await daumenLesen(env, "2026-01"), antworten: await antwortenLesen(env) }, 200, kopf);
+      return antwort({ stand: new Date().toISOString(), wahl: await wahlLesen(env), daumen: await daumenLesen(env, "2026-01"), antworten: await antwortenLesen(env), podcast: await podcastLesen(env) }, 200, kopf);
     }
     if (url.pathname.startsWith("/admin/")) return verwaltung(anfrage, env, url, kopf);
     if (url.pathname !== "/") return antwort({ fehler: "Unbekannt." }, 404, kopf);

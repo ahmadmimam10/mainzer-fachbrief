@@ -12,8 +12,9 @@ Arbeitsanleitung dafür – für Menschen und für Claude.
 3. **Settings → Actions → General → Workflow permissions: „Read and write permissions“**.
 4. Claude-GitHub-App für das neue Repository freigeben:
    https://github.com/apps/claude/installations/select_target
-5. Optional (Hörfassungen zum Anhören): Azure-Speech-Schlüssel als **Secrets** `AZURE_SPEECH_KEY` und
-   `AZURE_SPEECH_REGION` eintragen (Settings → Secrets and variables → Actions). Schlüssel nie in einen Chat
+5. Optional (Hörfassungen zum Anhören): ElevenLabs-Schlüssel als **Secret** `ELEVENLABS_API_KEY` (beste Stimmen,
+   kostenpflichtig) und/oder Azure-Speech-Schlüssel als **Secrets** `AZURE_SPEECH_KEY` und `AZURE_SPEECH_REGION`
+   (kostenlos, Ersatz) eintragen (Settings → Secrets and variables → Actions). Schlüssel nie in einen Chat
    kopieren. Ohne Schlüssel erscheint die Seite einfach ohne Audio.
 6. Repository klonen und darin Claude Code starten, dann den Auftrag aus Abschnitt 2 einfügen.
 
@@ -85,7 +86,8 @@ committen und pushen. Der Workflow „Seite“ veröffentlicht `docs/` auf GitHu
 ## Was Kosten verursacht
 
 GitHub (öffentliches Repository, Actions, Pages) und Open-Meteo sind kostenlos. Die Routinen laufen über das
-Claude-Abonnement. Azure Speech ist bis 500 000 Zeichen im Monat kostenlos (Stufe F0).
+Claude-Abonnement. Azure Speech ist bis 500 000 Zeichen im Monat kostenlos (Stufe F0). ElevenLabs kostet je nach
+Abo: die drei Hörfassungen eines Werktags brauchen etwa 1.700–2.000 Credits, eine Podcast-Folge etwa 8.000.
 
 ## Eigene Domain (optional)
 

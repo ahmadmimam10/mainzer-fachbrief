@@ -1,0 +1,11 @@
+{
+  "_hinweis": "Erkennungsmusik für „Zwischen den Zeilen“. Erzeugt mit Eleven Music (kommerziell nutzbar ab Starter-Plan). Gleicher Stil für alle Stücke, damit die Folge wie aus einem Guss klingt. Neu erzeugen: node werkzeuge/musik.mjs --neu NAME",
+  "modell": "music_v2_5",
+  "stil": "warm, upbeat modern indie-pop for a German morning podcast about social work: muted acoustic guitar, soft Rhodes piano, light drums with claps, 96 bpm, friendly and confident, clean professional mix, not cheesy, instrumental only",
+  "stuecke": [
+    { "name": "intro", "laenge_ms": 3000, "prompt": "A 3-second podcast intro sting. A bright, catchy two-chord motif that lands on a clean, resolved final hit. Starts immediately, no fade-in." },
+    { "name": "thema", "laenge_ms": 7000, "prompt": "A 7-second podcast theme that opens the show: confident groove with a short memorable melody, ending on a clear resolved chord so a voice can start right after." },
+    { "name": "uebergang", "laenge_ms": 4000, "prompt": "A 4-second podcast transition between topics: a short light groove with a soft drum fill and a warm guitar lick, ending cleanly." },
+    { "name": "outro", "laenge_ms": 10000, "prompt": "A 10-second podcast outro: the groove plays the main motif once more and winds down to a final resolved chord with a natural ending." }
+  ]
+}

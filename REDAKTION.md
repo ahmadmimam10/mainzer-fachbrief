@@ -219,8 +219,8 @@ Den Kasten „Wusstest du schon?“ (früher „Zahl des Tages“) gibt es seit 
 ## Hörfassung („Anhören“) – je Ressort
 
 Teil jeder Ausgabe: **je Ressort** ein Sprechtext im Feld `hoerfassung` neben `meldungen`
-(`ressorts.<id>.hoerfassung`). Beim Veröffentlichen spricht eine Azure-Stimme jeden Text als MP3 ein; die Seite spielt
-sie über den Knopf „Anhören“ oben auf dem Bogen. Fehlt die MP3, liest die Sprachausgabe des Browsers den Text vor.
+(`ressorts.<id>.hoerfassung`). Beim Veröffentlichen spricht eine KI-Stimme von ElevenLabs jeden Text als MP3 ein (vier
+Stimmen im Wechsel: Mira, Jonas, Leonie, Ben; Ersatz: Azure); die Seite spielt sie über den Knopf „Anhören“ oben auf dem Bogen. Fehlt die MP3, liest die Sprachausgabe des Browsers den Text vor.
 Optional, aber werktags für jedes Ressort mit Meldungen schreiben; Ressorts ohne Meldungen bekommen keine Hörfassung.
 Das frühere Feld `hoerfassung` auf oberster Ebene (ein Text für alle Ressorts) gilt nur noch für alte Ausgaben.
 

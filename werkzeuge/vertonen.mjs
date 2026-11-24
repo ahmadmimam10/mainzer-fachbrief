@@ -1,15 +1,22 @@
 #!/usr/bin/env node
-// Vertont die Hörfassungen je Ressort der neuesten Ausgaben mit Azure Speech (Gratis-Tarif F0) als MP3.
+// Vertont die Hörfassungen je Ressort der neuesten Ausgaben als MP3.
+//   • Ab dem Stichtag (ELEVENLABS_AB, Vorgabe 2026-11-24): ElevenLabs Eleven v4, vier Stimmen im Wechsel
+//     (Mira und Jonas aus dem Podcast, dazu Leonie und Ben) – je Werktag und Ressort reihum, nie zweimal dieselbe
+//     Stimme an einem Tag. Braucht das Secret ELEVENLABS_API_KEY.
+//   • Ältere Ausgaben und jeder Ausfall von ElevenLabs (kein Schlüssel, Kontingent leer, Fehler): Azure Speech
+//     (Gratis-Tarif F0) wie bisher. Ohne beide Schlüssel liest die Seite mit der Browser-Stimme vor.
 // Läuft beim Veröffentlichen der Seite (.github/workflows/seite.yml). Die MP3s kommen NICHT ins Repository:
-//   .audio-cache/<hash>.mp3            bleibt zwischen den Läufen per actions/cache erhalten (keine doppelten Kosten)
+//   .audio-cache/<hash>.mp3 (Azure) bzw. el-<hash>.mp3 (ElevenLabs) bleibt per actions/cache erhalten (keine doppelten Kosten)
 //   docs/audio/<datum>-<ressort>-*.mp3  und  docs/daten/audio.json  nur im veröffentlichten Seitenpaket
-// Ohne AZURE_SPEECH_KEY / AZURE_SPEECH_REGION passiert nichts – die Seite liest dann mit der Browser-Stimme vor.
 //
 //   node werkzeuge/vertonen.mjs                vertonen (braucht die beiden Umgebungsvariablen)
 //   node werkzeuge/vertonen.mjs --trocken      nur anzeigen, was vertont würde (ohne Azure)
 //   node werkzeuge/vertonen.mjs --stimmproben  kurze Hörprobe je deutscher Stimme nach stimmproben/ (Workflow „Stimmproben“)
 //
 // Einstellbar über Repository-Variablen (GitHub → Settings → Secrets and variables → Actions → Variables):
+//   ELEVENLABS_AB       Stichtag JJJJ-MM-TT; ältere Ausgaben behalten ihre Azure-Fassung (Vorgabe 2026-11-24)
+//   ELEVENLABS_STIMMEN  z. B. Mira:zKHQdbB8oaQ7roNTiDTK,Jonas:z1EhmmPwF0ENGYE8dBE6 (Reihenfolge = Wechsel)
+//   ELEVENLABS_MAX      höchstens so viele Zeichen je Lauf an ElevenLabs (Vorgabe 15000, Rest über Azure)
 //   AZURE_SPEECH_STIMME  z. B. de-DE-KatjaNeural (mehrere mit Komma = Ersatzstimmen)
 //   AZURE_SPEECH_STIL    z. B. cheerful (nur bei Stimmen, die diesen Sprechstil kennen)
 //   AZURE_SPEECH_TEMPO   z. B. +6%     AZURE_SPEECH_HOEHE  z. B. +2%
@@ -31,7 +38,25 @@ const STIL = sicher(process.env.AZURE_SPEECH_STIL, /^[a-z-]{3,30}$/, "");
 const TEMPO = sicher(process.env.AZURE_SPEECH_TEMPO, /^[+-]\d{1,2}%$/, "+3%");
 const HOEHE = sicher(process.env.AZURE_SPEECH_HOEHE, /^[+-]\d{1,2}%$/, "+0%");
 const FORMAT = "audio-24khz-48kbitrate-mono-mp3";
-const BYTES_PRO_SEKUNDE = 6000;            // 48 kbit/s
+const BYTES_PRO_SEKUNDE = 6000;            // 48 kbit/s (Azure)
+const EL_KEY = (process.env.ELEVENLABS_API_KEY || "").trim();
+const EL_AB = sicher(process.env.ELEVENLABS_AB, /^\d{4}-\d{2}-\d{2}$/, "2026-11-24");
+const EL_MAX = Number(sicher(process.env.ELEVENLABS_MAX, /^\d{3,6}$/, "15000"));
+const EL_MODELL = "eleven_v4";
+const EL_FORMAT = "mp3_44100_96";
+const EL_BYTES_PRO_SEKUNDE = 12000;        // 96 kbit/s
+const EL_STIMMEN = (sicher(process.env.ELEVENLABS_STIMMEN, /^[A-Za-zÄÖÜäöüß]+:[A-Za-z0-9]{16,32}(,[A-Za-zÄÖÜäöüß]+:[A-Za-z0-9]{16,32})*$/,
+  "Mira:zKHQdbB8oaQ7roNTiDTK,Jonas:z1EhmmPwF0ENGYE8dBE6,Leonie:uvysWDLbKpA4XvpD3GI6,Ben:aTTiK3YzK3dXETpuDE2h"))
+  .split(",").map(s => { const [name, id] = s.split(":"); return { name, id }; });
+// Aussprache für ElevenLabs: Abkürzungen ausschreiben, die die Stimme sonst buchstabiert oder verschluckt.
+const AUSSPRACHE = [
+  [/\bKJHSRG\b/g, "Kinder- und Jugendhilfestrukturreformgesetz"], [/\bKJSG\b/g, "Kinder- und Jugendstärkungsgesetz"],
+  [/\bISM\b/g, "Institut für Sozialpädagogische Forschung Mainz"],
+  [/\bSGB (VIII|XII|XI|IX|X|VII|VI|V|IV|III|II|I)\b/g, (_, r) => "Sozialgesetzbuch " + { I: "Eins", II: "Zwei", III: "Drei", IV: "Vier", V: "Fünf", VI: "Sechs", VII: "Sieben", VIII: "Acht", IX: "Neun", X: "Zehn", XI: "Elf", XII: "Zwölf" }[r]],
+  [/§§\s*/g, "Paragrafen "], [/§\s*/g, "Paragraf "], [/\bz\.\s?B\./g, "zum Beispiel"], [/\bu\.\s?a\./g, "unter anderem"],
+  [/\bd\.\s?h\./g, "das heißt"], [/\bbzw\./g, "beziehungsweise"], [/\bca\./g, "circa"], [/\bNr\./g, "Nummer"], [/\bAbs\./g, "Absatz"],
+];
+const aussprechen = text => AUSSPRACHE.reduce((t, [muster, ersatz]) => t.replace(muster, ersatz), text);
 const ANZAHL_AUSGABEN = 5;                 // so viele neueste Ausgaben bekommen Ton
 const MIN_ZEICHEN = 200, MAX_ZEICHEN = 3200;
 const CACHE = ".audio-cache";
@@ -92,8 +117,7 @@ function stimmeFuer(datum) {
   if ((process.env.AZURE_SPEECH_STIMME || "").trim() && STIMMEN.length) {
     return { stimme: STIMMEN[0], stil: STIL, tempo: TEMPO, hoehe: HOEHE, ersatz: STIMMEN.slice(1) };
   }
-  const tage = Math.round((Date.UTC(+datum.slice(0, 4), +datum.slice(5, 7) - 1, +datum.slice(8, 10)) - Date.UTC(2026, 0, 5)) / 86400000);
-  const werktage = Math.floor(tage / 7) * 5 + Math.min(((tage % 7) + 7) % 7, 4);          // Werktage seit Mo, 5.1.2026
+  const werktage = werktagNr(datum);                                                    // Werktage seit Mo, 5.1.2026
   return { ...WECHSEL[(((werktage + 2) % 3) + 3) % 3], ersatz: ["de-DE-KatjaNeural"] };
 }
 
@@ -106,6 +130,46 @@ async function synthese(text, wahl) {
   }
   throw letzter || new Error("Keine Stimme konfiguriert.");
 }
+
+// ElevenLabs: eine Anfrage (Text to Speech, Eleven v4). Wirft bei Fehlern; .abbruch = Schlüssel ungültig oder Kontingent leer.
+async function elAnfrage(text, stimmeId) {
+  let letzter = "", status = 0;
+  for (let versuch = 1; versuch <= 3; versuch++) {
+    let antwort;
+    try {
+      antwort = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${stimmeId}?output_format=${EL_FORMAT}`, {
+        method: "POST",
+        headers: { "xi-api-key": EL_KEY, "Content-Type": "application/json", "User-Agent": "MainzerBoniblatt" },
+        body: JSON.stringify({ text, model_id: EL_MODELL, language_code: "de",
+          voice_settings: { stability: 0.5, similarity_boost: 0.75 } }),
+        signal: AbortSignal.timeout(180000),
+      });
+    } catch (fehler) { letzter = fehler.message; await warte(4000 * versuch); continue; }
+    status = antwort.status;
+    if (antwort.ok) {
+      const daten = Buffer.from(await antwort.arrayBuffer());
+      if (daten.length > 4000) return { daten, kosten: Number(antwort.headers.get("character-cost")) || 0 };
+      letzter = "leere Antwort";
+    } else {
+      const inhalt = (await antwort.text().catch(() => "")).slice(0, 300);
+      letzter = `HTTP ${antwort.status}${/quota|credits/i.test(inhalt) ? " (Kontingent aufgebraucht)" : ""}`;
+      if ([401, 402, 403].includes(antwort.status) || /quota_exceeded/i.test(inhalt)) { status = 401; break; }
+      if ([400, 404, 422].includes(antwort.status)) break;
+    }
+    await warte(antwort.status === 429 ? 15000 * versuch : 4000 * versuch);
+  }
+  const e = new Error(`ElevenLabs: ${letzter}`);
+  e.status = status; e.abbruch = status === 401;
+  throw e;
+}
+
+// Werktage seit Montag, 5.1.2026 – Grundlage für den Stimmenwechsel
+function werktagNr(datum) {
+  const tage = Math.round((Date.UTC(+datum.slice(0, 4), +datum.slice(5, 7) - 1, +datum.slice(8, 10)) - Date.UTC(2026, 0, 5)) / 86400000);
+  return Math.floor(tage / 7) * 5 + Math.min(((tage % 7) + 7) % 7, 4);
+}
+// Je Werktag rückt der Wechsel eine Stimme weiter; die drei Ressorts eines Tages haben immer drei verschiedene Stimmen.
+const elStimmeFuer = (datum, ressortNr) => EL_STIMMEN[((werktagNr(datum) + ressortNr) % EL_STIMMEN.length + EL_STIMMEN.length) % EL_STIMMEN.length];
 
 async function stimmproben() {
   const antwort = await fetch(`https://${REGION}.tts.speech.microsoft.com/cognitiveservices/voices/list`,
@@ -135,9 +199,10 @@ async function stimmproben() {
 }
 
 async function hauptteil() {
-  if (!TROCKEN && (!KEY || !REGION)) { console.log("Vertonung übersprungen: AZURE_SPEECH_KEY / AZURE_SPEECH_REGION nicht gesetzt."); return 0; }
-  if (!TROCKEN && !/^[a-z0-9]+$/.test(REGION)) { console.log("Vertonung übersprungen: AZURE_SPEECH_REGION hat kein gültiges Format (z. B. westeurope)."); return 0; }
-  if (PROBEN) { await stimmproben(); return 0; }
+  let azure = Boolean(KEY && REGION);
+  if (azure && !/^[a-z0-9]+$/.test(REGION)) { console.log("Azure aus: AZURE_SPEECH_REGION hat kein gültiges Format (z. B. westeurope)."); azure = false; }
+  if (!TROCKEN && !azure && !EL_KEY) { console.log("Vertonung übersprungen: weder ELEVENLABS_API_KEY noch AZURE_SPEECH_KEY / AZURE_SPEECH_REGION gesetzt."); return 0; }
+  if (PROBEN) { if (azure) await stimmproben(); else console.log("Stimmproben gibt es nur für Azure."); return 0; }
 
   const namen = (await readdir("daten/ausgaben")).filter(f => /^\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort().reverse();
   const ausgaben = [];
@@ -149,8 +214,11 @@ async function hauptteil() {
     if (ausgaben.length >= ANZAHL_AUSGABEN) break;
   }
   if (TROCKEN) {
-    for (const { datum, texte } of ausgaben) for (const [r, t] of texte) console.log(`${datum} ${r}: ${t.length} Zeichen, ca. ${Math.round(t.length / 15)} s`);
-    console.log(`${ausgaben.reduce((n, a) => n + a.texte.length, 0)} Hörfassungen gefunden; Stimme ${STIMMEN[0]}, Stil ${STIL || "–"}, Tempo ${TEMPO}, Höhe ${HOEHE}.`);
+    for (const { datum, texte } of ausgaben) for (const [r, t] of texte) {
+      const el = datum >= EL_AB ? elStimmeFuer(datum, RESSORTS.indexOf(r)).name : null;
+      console.log(`${datum} ${r}: ${t.length} Zeichen, ca. ${Math.round(t.length / 15)} s – ${el ? `ElevenLabs ${el}` : `Azure ${stimmeFuer(datum).stimme}`}`);
+    }
+    console.log(`${ausgaben.reduce((n, a) => n + a.texte.length, 0)} Hörfassungen gefunden; ElevenLabs ab ${EL_AB} (${EL_KEY ? "Schlüssel da" : "kein Schlüssel"}), sonst Azure.`);
     return 0;
   }
 
@@ -158,11 +226,40 @@ async function hauptteil() {
   await mkdir("docs/audio", { recursive: true });
   const manifest = { stand: new Date().toISOString(), stimme: "wechselnd", ausgaben: {} };
   const behalten = new Set();
-  let neu = 0, zeichen = 0, abbruch = false;
+  let neu = 0, zeichen = 0, abbruch = !azure, elZeichen = 0, elKosten = 0, elAus = !EL_KEY;
 
   for (const { datum, texte } of ausgaben) {
     const wahl = stimmeFuer(datum);
     for (const [ressort, text] of texte) {
+      // Zuerst ElevenLabs (ab dem Stichtag), bei jedem Problem weiter mit Azure
+      if (datum >= EL_AB) {
+        const el = elStimmeFuer(datum, RESSORTS.indexOf(ressort));
+        const gesprochen = aussprechen(text);
+        const elHash = createHash("sha1").update(`elevenlabs|${el.id}|${EL_MODELL}|${EL_FORMAT}|0.5|${gesprochen}`).digest("hex").slice(0, 12);
+        const elDatei = join(CACHE, `el-${elHash}.mp3`);
+        let da = existsSync(elDatei);
+        if (!da && !elAus && elZeichen + gesprochen.length <= EL_MAX) {
+          try {
+            const { daten, kosten } = await elAnfrage(gesprochen, el.id);
+            await writeFile(elDatei, daten);
+            neu++; elZeichen += gesprochen.length; elKosten += kosten; da = true;
+            console.log(`✓ ${datum} ${ressort}: ca. ${Math.round(daten.length / EL_BYTES_PRO_SEKUNDE)} s, ${gesprochen.length} Zeichen (ElevenLabs ${el.name}${kosten ? `, ${kosten} Credits` : ""})`);
+            await warte(800);
+          } catch (fehler) {
+            console.log(`✗ ${datum} ${ressort}: ${fehler.message} – weiter mit Azure`);
+            if (fehler.abbruch) elAus = true;
+          }
+        } else if (!da && !elAus) console.log(`• ${datum} ${ressort}: Zeichenbremse ELEVENLABS_MAX (${EL_MAX}) erreicht – Azure`);
+        if (da) {
+          behalten.add(`el-${elHash}.mp3`);
+          const datei = `audio/${datum}-${ressort}-${elHash.slice(0, 8)}.mp3`;
+          await copyFile(elDatei, join("docs", datei));
+          const { size } = await stat(elDatei);
+          (manifest.ausgaben[datum] ||= {})[ressort] = { datei, sekunden: Math.round(size / EL_BYTES_PRO_SEKUNDE), stimme: el.name };
+          continue;
+        }
+      }
+      if (!azure) continue;
       const hash = createHash("sha1").update(`${wahl.stimme}|${wahl.stil}|${wahl.tempo}|${wahl.hoehe}|${FORMAT}|${text}`).digest("hex").slice(0, 12);
       const cacheDatei = join(CACHE, `${hash}.mp3`);
       behalten.add(`${hash}.mp3`);
@@ -191,7 +288,7 @@ async function hauptteil() {
   for (const f of await readdir(CACHE)) if (!behalten.has(f)) await unlink(join(CACHE, f));   // Alte Vertonungen aufräumen
   const anzahl = Object.values(manifest.ausgaben).reduce((n, o) => n + Object.keys(o).length, 0);
   if (anzahl) await writeFile("docs/daten/audio.json", JSON.stringify(manifest));
-  console.log(`Vertonung: ${neu} neu (${zeichen} Zeichen an Azure), ${anzahl} MP3 auf der Seite.`);
+  console.log(`Vertonung: ${neu} neu (${elZeichen} Zeichen an ElevenLabs${elKosten ? ` = ${elKosten} Credits` : ""}, ${zeichen} an Azure), ${anzahl} MP3 auf der Seite.`);
   return neu;
 }
 

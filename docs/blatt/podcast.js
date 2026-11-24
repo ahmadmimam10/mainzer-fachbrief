@@ -69,7 +69,7 @@
       kapKnoepfe: [...buehne.querySelectorAll(".pc-kapitel button")],
     };
     audio.pause();
-    audio.src = "podcast/" + f.datei;
+    audio.src = "podcast/" + f.datei + (f.fassung > 1 ? "?v=" + f.fassung : "");   // neue Fassung = neue Adresse, kein alter Cache
     audio.defaultPlaybackRate = audio.playbackRate = tempo;
     if (start) springe(start);
     binden();
