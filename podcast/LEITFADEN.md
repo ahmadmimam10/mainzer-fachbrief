@@ -35,17 +35,19 @@
 | Gast | Bereich | Stimme (Tempo) | passt zu Themen wie | erzählt aus der Arbeit, zum Beispiel |
 |---|---|---|---|---|
 | **Mira** | Allgemeiner Sozialer Dienst, „drüben im Stadthaus“ | Laura – Sharp and Professional (×1,02) | Kinderschutz, Hilfen zur Erziehung, Inobhutnahme, Familien, Pflegekinder | Gefährdungseinschätzung im Team, Hilfeplanung mit Familien, Bereitschaftsdienst, Zusammenarbeit mit dem Familiengericht |
-| **Ben** | Schulsozialarbeit an einer Realschule plus | Ben (×1,0) | Schule, Ganztag, Bildungsassistenz, Jugendsozialarbeit, Fehlzeiten, Startchancen, psychische Gesundheit Jugendlicher | Sprechstunde im Schulhaus, Konflikte in Klassen, lange Fehlzeiten, Abstimmung mit Lehrkräften und Sozialem Dienst, Übergang Schule–Beruf |
-| **Leonie** | Leitung einer städtischen Kita | Leonie – Clear and Engaging (×1,0) | Kindertagesbetreuung, Frühe Hilfen, Familienbildung, Kitaplätze, Fachkräfte, Sprachförderung, Vorrang der Infrastruktur | Dienstpläne bei Personalmangel, Eingewöhnung, Elterngespräche, Anmeldungen und Warteliste, wenn ein Kind Sorgen macht, Schutzkonzept |
-| **Petra** | Wirtschaftliche Jugendhilfe, im Stadthaus | Ramona – Professional and Calm (×1,0) | Kosten, Kostenbeiträge der Eltern, Kostenerstattung, Zuständigkeit, Entgelte, Haushalt | Rechnungen der Einrichtungen und Dienste, Kostenbeiträge berechnen, Zuständigkeitswechsel, Erstattung zwischen Jugendämtern und durch das Land |
-| **Elif** | Team Eingliederungshilfe des Jugendamts | Susi – Effortless and Confident (×1,0) | Paragraf 35a, Inklusion, Schulbegleitung, Teilhabe, inklusive Lösung, Verfahrenslotsen | Stellungnahme von Fachärztinnen, Fachärzten oder Psychotherapeuten einholen, Teilhabe prüfen, Schulbegleitung organisieren, Abgrenzung zur Eingliederungshilfe nach dem Sozialgesetzbuch Neun |
+| **Ben** | Schulsozialarbeit an einer Realschule plus | Simon – Relatable and Normal (×1,0) | Schule, Ganztag, Bildungsassistenz, Jugendsozialarbeit, Fehlzeiten, Startchancen, psychische Gesundheit Jugendlicher | Sprechstunde im Schulhaus, Konflikte in Klassen, lange Fehlzeiten, Abstimmung mit Lehrkräften und Sozialem Dienst, Übergang Schule–Beruf |
+| **Leonie** | Leitung einer städtischen Kita | Yvonne – Casual and Natural (×1,0) | Kindertagesbetreuung, Frühe Hilfen, Familienbildung, Kitaplätze, Fachkräfte, Sprachförderung, Vorrang der Infrastruktur | Dienstpläne bei Personalmangel, Eingewöhnung, Elterngespräche, Anmeldungen und Warteliste, wenn ein Kind Sorgen macht, Schutzkonzept |
+| **Rainer** | Wirtschaftliche Jugendhilfe, im Stadthaus – älterer Kollege, seit vielen Jahren dabei | Leo Liest – Dark & Smoky (×1,0) | Kosten, Kostenbeiträge der Eltern, Kostenerstattung, Zuständigkeit, Entgelte, Haushalt | Rechnungen der Einrichtungen und Dienste, Kostenbeiträge berechnen, Zuständigkeitswechsel, Erstattung zwischen Jugendämtern und durch das Land |
+| **Elif** | Team Eingliederungshilfe des Jugendamts | Lea – Genuine and Soothing (×1,0) | Paragraf 35a, Inklusion, Schulbegleitung, Teilhabe, inklusive Lösung, Verfahrenslotsen | Stellungnahme von Fachärztinnen, Fachärzten oder Psychotherapeuten einholen, Teilhabe prüfen, Schulbegleitung organisieren, Abgrenzung zur Eingliederungshilfe nach dem Sozialgesetzbuch Neun |
+| **Sabine** | Amtsleitung – leitet das Jugendamt | Irene – Wise & Confident (×1,0) | Jugendhilfeausschuss, Haushalt und Stellen, Fachkräftemangel, Organisation, Reformen umsetzen, Steuerung, Zusammenarbeit mit Schule und Gesundheit | Vorlagen für den Jugendhilfeausschuss, Stellen- und Budgetverhandlungen, Prioritäten setzen, wenn Geld und Personal fehlen, Reformen ins Amt übersetzen |
 
 - **Mira** (Steckbrief): Blick auf den Einzelfall und die Praxis im Sozialen Dienst; pragmatisch und kritisch, manchmal genervt („wieder ein neues Feld im Formular“), aber nicht zynisch; Gefühle mittel. Tags: `[engaged]` `[serious]` `[pragmatic]` `[concerned]` `[warmly]`, sparsam `[dryly]`.
-- **Ben:** jüngste Stimme, direkt und zugewandt; spricht für Schülerinnen und Schüler, kennt Schule von innen, sieht die Jugendhilfe von außen. Tags: `[engaged]` `[warmly]` `[serious]`.
-- **Leonie:** organisiert, warm und klar; denkt an Kinder, Eltern und ihr Team zugleich; kann gut erklären, was „Infrastruktur“ im Alltag bedeutet. Tags: `[warmly]` `[engaged]` `[concerned]`.
-- **Petra:** genau, ruhig, trockener Humor; übersetzt Fachentscheidungen in Zahlen und Zuständigkeiten, ohne Fachlichkeit kleinzureden. Tags: `[matter-of-fact]` `[calm]`, sparsam `[dryly]`.
-- **Elif:** sorgfältig und klar; achtet auf Rechtsgrundlagen und darauf, dass Teilhabe nicht zwischen zwei Systemen verloren geht. Tags: `[calm]` `[serious]` `[warmly]`.
-- Neue Gäste: Eintrag in `podcast/besetzung.json` (Stimme aus der ElevenLabs-Bibliothek, Tonhöhe deutlich anders als Jonas – männliche Stimmen liegen mit Eleven v4 fast alle bei 110–125 Hz wie Jonas), Steckbrief hier ergänzen, Tempo nach der ersten Folge über die Meldung von `abmischen.mjs` einstellen.
+- **Ben:** jüngste Stimme, locker und nahbar, mit natürlichen Denkpausen; spricht für Schülerinnen und Schüler, kennt Schule von innen und sieht die Jugendhilfe von außen. Tags: `[engaged]` `[warmly]` `[serious]`.
+- **Leonie:** lebhaft, direkt, alltagsnah; denkt an Kinder, Eltern und ihr Team zugleich; kann gut erklären, was „Infrastruktur“ im Alltag bedeutet. Tags: `[warmly]` `[engaged]` `[concerned]`.
+- **Rainer:** älterer Kollege mit rauer, tiefer Stimme; hat schon einige Reformen kommen und gehen sehen, trockener Humor, skeptisch bei großen Ankündigungen, aber fair; übersetzt Fachentscheidungen in Zahlen und Zuständigkeiten, ohne Fachlichkeit kleinzureden. Tags: `[dryly]` `[calm]` `[matter-of-fact]`.
+- **Elif:** ruhig, aufmerksam, wirkt wie jemand, der wirklich zuhört; achtet auf Rechtsgrundlagen und darauf, dass Teilhabe nicht zwischen zwei Systemen verloren geht. Tags: `[calm]` `[serious]` `[warmly]`.
+- **Sabine:** Amtsleitung mit ruhiger Autorität und Wärme; denkt in Prioritäten, Haushalt und Personal, erklärt die Sicht von Politik und Verwaltung ehrlich, ohne Pressesprecher-Ton; Jonas spricht mit ihr respektvoll, aber auf Augenhöhe. Tags: `[calm]` `[serious]` `[warmly]`, selten `[dryly]`.
+- **Stimmen mit Charakter:** natürliche, etwas unperfekte Stimmen wie bei Mira und Jonas – keine Werbe-, Hörbuch- oder Kundenservice-Stimmen (Rückmeldung vom 24.11.2026). Neue Gäste: Eintrag in `podcast/besetzung.json`, Stimme aus der ElevenLabs-Bibliothek mit Beschreibungen wie „natural“, „authentic“, „relatable“, „with character“; Tonhöhe oder Klangfarbe deutlich anders als Jonas (männliche Stimmen liegen mit Eleven v4 oft bei 110–130 Hz wie er) – mit einer Probe und der Sprecher-Erkennung von Scribe prüfen. Tempo nach der ersten Folge über die Meldung von `abmischen.mjs` einstellen.
 
 ### Regeln für Folgen mit Gast
 - **Ein Gast pro Folge**, passend zum Thema (Tabelle oben). Steht in der Themenliste der Verwaltung ein Gast, gilt der. Abwechslung: derselbe Gast höchstens zweimal hintereinander, außer die Themenliste will es so.
@@ -154,7 +156,7 @@ Dazu `folge.json` (Stimmen-Kennzeichnung aus der letzten Folge, Tempo für Jonas
   "datum": "2026-11-30", "stand": "30.11.2026", "stimmen": "KI-generiert (ElevenLabs Eleven v4)",
   "datei": "folge-02-thema.mp3", "gast": "BEN", "tempo": { "JONAS": 1.0, "BEN": 1.0 }, "themaId": "t3f9a…" }
 ```
-- `gast`: Schlüssel des Gastes aus `podcast/besetzung.json` (MIRA, BEN, LEONIE, PETRA, ELIF). Im Skript sprechen nur JONAS und dieser Gast; `einreichen.mjs` prüft das.
+- `gast`: Schlüssel des Gastes aus `podcast/besetzung.json` (MIRA, BEN, LEONIE, RAINER, ELIF, SABINE). Im Skript sprechen nur JONAS und dieser Gast; `einreichen.mjs` prüft das.
 - `themaId`: die `id` des Themas aus `daten/podcast-themen.json`, wenn die Folge ein Thema aus der Verwaltung behandelt (sonst weglassen). Daran erkennen Verwaltung und Routine, dass das Thema erledigt ist; `einreichen.mjs` verlangt das oberste offene Thema.
 - `fassung` setzt `veroeffentlichen.mjs` selbst hoch, wenn eine schon veröffentlichte Folge neu produziert wird.
 
@@ -210,6 +212,7 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 ## 10. Webseite
 
 - **Seite:** `docs/podcast.html`, Logik in `docs/blatt/podcast.js` und `podcast.css`, Daten in `docs/daten/podcast.json` (alle Folgen mit Kapiteln, Quellen, Wellenform, Skript-Fingerabdruck `skriptHash`).
+- **KI-Kennzeichnung (Wunsch vom 24.11.2026):** Oben steht die Marke „KI-Podcast – Stimmen und Gespräche sind KI-generiert“, die Beschreibung sagt es noch einmal; jede Folge trägt „KI-generiert“; Startseiten-Knopf „KI-Podcast“, Werbeflieger „Neue KI-Podcast-Folge ist raus!“. Die Seite zeigt nur Titel, kurze Beschreibung und die Folgen – **keine Vorstellung von Jonas oder den Gästen** und keine Gast-Zeile je Folge.
 - **Neue Fassung einer Folge:** `fassung` > 1 hängt `?v=<fassung>` an die Audio-Adresse, damit niemand die alte Datei aus dem Zwischenspeicher hört.
 - **Startseite:** Podcast-Knopf links oben; 3 Tage nach einer neuen Folge glänzt er mit „Neu“, und der Werbeflieger zieht „Neue Podcast-Folge ist raus!“ (`docs/daten/podcast.js`, eingebunden über `werkzeuge/intro-einbauen.mjs`).
 - **Spieler:** Wellenform mit Kapiteln, Tempo 0,75× / 1× / 1,25×, „KI-generiert“-Hinweis, Quellen-Fenster mit Zeitmarken (Klick springt an die Stelle), `?folge=<id>&t=<Sekunden>`.
@@ -262,4 +265,5 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 | F3: Ich-Geschichten („Ich hatte gestern eine Mutter …“) wirken bei einer KI komisch | Praxis als Beobachtung („Zum Sozialen Dienst kommen manchmal Mütter …“) |
 | F3: Ambivalenzen, kritische Einordnung, mehrere Seiten – sehr gut, gern mehr | zu jedem großen Punkt mindestens zwei Positionen mit Quelle |
 | Folge 1, Fassung 4 | 19:57 min, Mira ×1,02 (≈ 146) / Jonas ×1,0 (≈ 144), Spracherkennung 0–1,7 %, produziert über die Wochen-Action |
-| Wunsch 24.11.2026: andere Bereiche des Jugendamts kennenlernen | Jonas als fester Gastgeber, je Thema ein Gast (Mira, Ben, Leonie, Petra, Elif), Abschnitt 2 |
+| Wunsch 24.11.2026: andere Bereiche des Jugendamts kennenlernen | Jonas als fester Gastgeber, je Thema ein Gast (Mira, Ben, Leonie, Rainer, Elif, Sabine), Abschnitt 2 |
+| Wunsch 24.11.2026: KI klar kennzeichnen; Figuren nicht auf der Seite vorstellen; Petra durch einen älteren Mann ersetzen; Amtsleitung dazu; Stimmen mit Charakter statt Werbestimmen | Seite: „KI-Podcast“-Marke, nur Titel, Beschreibung, Folgen; Rainer und Sabine neu; Ben, Leonie, Elif mit natürlicheren Stimmen |

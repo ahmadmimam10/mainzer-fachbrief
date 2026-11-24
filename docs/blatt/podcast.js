@@ -48,9 +48,8 @@
     buehne.dataset.zustand = "aus";
     buehne.innerHTML = `<div class="pc-glut" aria-hidden="true"></div>
       <div class="pc-zeile"><span class="etikett">Folge ${f.nummer} · ${datumLang(f.datum)} · ${Math.round(f.dauer / 60)} Min.</span>${neu ? '<span class="etikett pc-neu">Neu</span>' : ""}
-        <span class="pc-ki" title="Die Stimmen von Jonas${f.gast ? " und " + esc(f.gast.name) : ""} sind KI-generiert (${esc(String(f.stimmen || "ElevenLabs").replace(/^KI-generiert\s*/, "").replace(/^\(|\)$/g, ""))}). Die Inhalte sind recherchiert, Faktenstand ${esc(f.stand)}.">${INFO}KI-generiert</span></div>
+        <span class="pc-ki" title="Ein KI-Podcast: Stimmen und Gespräche sind KI-generiert (${esc(String(f.stimmen || "ElevenLabs").replace(/^KI-generiert\s*/, "").replace(/^\(|\)$/g, ""))}). Die Inhalte sind recherchiert, Faktenstand ${esc(f.stand)}.">${INFO}KI-generiert</span></div>
       <h2><small>Zwischen den Zeilen</small>${esc(f.titel)}</h2>
-      ${f.gast ? `<p class="pc-mit">Jonas im Gespräch mit ${esc(f.gast.name)}${f.gast.rolle ? " · " + esc(f.gast.rolle) : ""}</p>` : ""}
       <p class="pc-text">${esc(f.beschreibung)}</p>
       <div class="pc-spieler">
         <button class="pc-knopf" type="button" aria-label="Abspielen">${SPIEL}${PAUSE}</button>
@@ -77,7 +76,7 @@
     stand();
     liste.querySelectorAll(".pc-folge").forEach((k) => k.classList.toggle("laeuft", k.dataset.id === f.id));
     if ("mediaSession" in navigator) {
-      navigator.mediaSession.metadata = new MediaMetadata({ title: f.titel, artist: "Zwischen den Zeilen – Boniblatt", album: `Folge ${f.nummer}`,
+      navigator.mediaSession.metadata = new MediaMetadata({ title: f.titel, artist: "Zwischen den Zeilen – KI-Podcast vom Boniblatt", album: `Folge ${f.nummer}`,
         artwork: [{ src: new URL("bilder/zeichen.svg", location.href).href, sizes: "512x512", type: "image/svg+xml" }] });
     }
     if (abspielen) spielen();
@@ -85,9 +84,9 @@
   function zeigeListe() {
     liste.innerHTML = folgen.map((f, i) => `<article class="k da pc-folge" style="--i:${i}" data-id="${esc(f.id)}" tabindex="0" role="button" aria-label="Folge ${f.nummer} abspielen: ${esc(f.titel)}">
         <span class="pc-nr"><span>Folge ${f.nummer} · ${datumKurz(f.datum)}</span><span>${Math.round(f.dauer / 60)} Min.</span></span>
-        <h4>${esc(f.titel)}</h4>${f.gast ? `<p class="pc-mit">mit ${esc(f.gast.name)} · ${esc(f.gast.rolle || "")}</p>` : ""}<p>${esc(f.beschreibung)}</p>
+        <h4>${esc(f.titel)}</h4><p>${esc(f.beschreibung)}</p>
         <div class="unten"><span>${istNeu(f) ? "Neu · " : ""}Anhören</span><span class="pfeil">${SPIEL}</span></div></article>`).join("")
-      + `<div class="k da pc-folge pc-bald" aria-hidden="true"><strong>Die nächste Folge</strong><p>erscheint nächsten Montag, mit einem Gast aus einem anderen Bereich des Jugendamts.</p></div>`;
+      + `<div class="k da pc-folge pc-bald" aria-hidden="true"><strong>Die nächste Folge</strong><p>erscheint nächsten Montag.</p></div>`;
     document.getElementById("pc-anzahl").textContent = folgen.length === 1 ? "1 Folge" : `${folgen.length} Folgen`;
     liste.querySelectorAll(".pc-folge[data-id]").forEach((k) => {
       const los = () => { const f = folgen.find((x) => x.id === k.dataset.id); if (f && f !== aktiv) zeigeFolge(f, true); else if (f) spielen(); buehne.scrollIntoView({ behavior: "smooth", block: "start" }); };

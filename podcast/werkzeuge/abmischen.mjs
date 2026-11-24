@@ -274,7 +274,7 @@ async function main() {
   const ln = `loudnorm=I=-16:TP=-1.5:LRA=11:measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:offset=${m.target_offset}:linear=true`;
 
   const laengeFertig = gesamt;
-  const META = { title: `Folge ${meta.nummer}: ${meta.titel}`, artist: 'Zwischen den Zeilen – der Podcast vom Boniblatt', album: 'Zwischen den Zeilen', date: meta.datum.slice(0, 4), genre: 'Podcast', language: 'deu', comment: `Stimmen ${meta.stimmen}. Faktenstand: ${meta.stand}. Quellen: boniblatt-mainz.de/podcast.html` };
+  const META = { title: `Folge ${meta.nummer}: ${meta.titel}`, artist: 'Zwischen den Zeilen – der KI-Podcast vom Boniblatt', album: 'Zwischen den Zeilen', date: meta.datum.slice(0, 4), genre: 'Podcast', language: 'deu', comment: `Stimmen ${meta.stimmen}. Faktenstand: ${meta.stand}. Quellen: boniblatt-mainz.de/podcast.html` };
   const esc = (s) => String(s).replace(/([=;#\\\n])/g, '\\$1');
   const kapitelDatei = join(AUDIO, '_kapitel.txt');
   await writeFile(kapitelDatei, [';FFMETADATA1', ...Object.entries(META).map(([k, v]) => `${k}=${esc(v)}`),

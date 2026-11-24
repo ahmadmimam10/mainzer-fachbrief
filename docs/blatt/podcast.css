@@ -15,24 +15,13 @@ button{font:inherit;color:inherit}
 @media (max-width:760px){.kopf-zeile{grid-template-columns:30px minmax(0,1fr) 30px;column-gap:6px;padding-top:18px;padding-bottom:14px}}
 
 /* ---- Kopfbereich ---- */
-.pc-oben{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px 44px;align-items:end;padding:14px 4px 26px}
+.pc-oben{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:end;padding:14px 4px 26px;max-width:860px}
+.pc-kimarke{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:0;font:500 14px/1.3 "Bricolage Grotesque",var(--sans);opacity:.85}
+.pc-kimarke span{display:inline-block;padding:5px 12px;border-radius:99px;background:var(--ra);color:var(--at);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
 .bb .pc-oben .bb-gruss{grid-area:auto;margin:0;white-space:normal;font-family:"Fraunces",serif;font-weight:560;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.04em}
 .pc-oben .bb-gruss i{font-weight:340;color:var(--ra)}
 .bb .pc-oben .bb-gruss small{max-width:36em;margin-top:16px;font-size:16px;line-height:1.45;opacity:.85}
-.pc-leute{display:grid;gap:10px}
-.pc-person{display:flex;align-items:center;gap:14px;padding:12px 18px 12px 12px;border-radius:22px;background:var(--pap)}
-.pc-person b{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:50%;background:var(--ra);color:var(--at);font:500 21px/1 "Fraunces",serif}
-.pc-person em{margin-left:6px;font:600 11px/1 "Bricolage Grotesque",var(--sans);font-style:normal;letter-spacing:.06em;text-transform:uppercase;opacity:.6}
-.pc-gaeste{display:flex;flex-wrap:wrap;gap:8px}
-.pc-gast{display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:99px;background:var(--pap);font:600 14px/1.2 "Bricolage Grotesque",var(--sans)}
-.pc-gast b{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;background:var(--rc);color:var(--ct);font:500 14px/1 "Fraunces",serif}
-.pc-gast small{font-weight:450;font-size:12.5px;opacity:.7}
-.pc-buehne .pc-mit{margin:-4px 0 10px;font:500 15px/1.35 "Bricolage Grotesque",var(--sans);opacity:.8}
-.pc-folge .pc-mit{margin:2px 0 6px;font-size:13px;font-weight:600;opacity:.7}
-.pc-person span{font:600 16px/1.25 "Bricolage Grotesque",var(--sans)}
-.pc-person small{display:block;margin-top:2px;font-weight:450;font-size:13.5px;line-height:1.35;opacity:.72}
-@media (max-width:900px){.pc-oben{grid-template-columns:1fr}}
-@media (max-width:560px){.pc-leute{grid-template-columns:1fr}}
+
 
 /* ---- Bühne: aktuelle Folge (dunkle Kachel wie „Anhören“) ---- */
 .bb .pc-buehne{position:relative;gap:18px;padding:28px 30px 24px;border-radius:30px;background:var(--tinte);color:var(--hell);isolation:isolate}

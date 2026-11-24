@@ -2,7 +2,7 @@
 // veroeffentlichen.mjs – bringt eine fertig abgemischte Folge auf die Boniblatt-Seite:
 //  • MP3 nach docs/podcast/ im Repository
 //  • Folge in docs/daten/podcast.json eintragen (gleiche id wird ersetzt)
-//  • docs/daten/podcast.js neu schreiben: neueste Folge → 3 Tage Werbeflieger „Neue Podcast-Folge ist raus!“
+//  • docs/daten/podcast.js neu schreiben: neueste Folge → 3 Tage Werbeflieger „Neue KI-Podcast-Folge ist raus!“
 //    und glänzender Podcast-Knopf auf der Startseite
 // Aufruf: node werkzeuge/veroeffentlichen.mjs folgen/01-strukturreform [--repo ..]   (Vorgabe: das Repository um podcast/)
 // Wöchentlich erledigt das die Action „Podcast produzieren“ (produzieren.mjs) samt Commit und Seitenveröffentlichung.
@@ -35,7 +35,7 @@ await writeFile(jsonPfad, JSON.stringify(bestand));
 
 const n = bestand.folgen[0];
 const js = `/* Boniblatt-Podcast: neueste Folge – erzeugt von Podcast/werkzeuge/veroeffentlichen.mjs.
-   ${TAGE_NEU} Tage nach dem Erscheinen fliegt der Werbeflieger mit „Neue Podcast-Folge ist raus!“ und der Podcast-Knopf glänzt.
+   ${TAGE_NEU} Tage nach dem Erscheinen fliegt der Werbeflieger mit „Neue KI-Podcast-Folge ist raus!“ und der Podcast-Knopf glänzt.
    Vorschau: ?podcast=neu */
 window.BONIBLATT_PODCAST = ${JSON.stringify({ neueste: { id: n.id, nummer: n.nummer, titel: n.titel, datum: n.datum }, tageNeu: TAGE_NEU })};
 (function () {
@@ -45,7 +45,7 @@ window.BONIBLATT_PODCAST = ${JSON.stringify({ neueste: { id: n.id, nummer: n.num
   var heute = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(q.get("tag") || "") ? q.get("tag") : new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
   var tage = (Date.parse(heute) - Date.parse(n.datum)) / 864e5;
   p.istNeu = q.get("podcast") === "neu" || (tage >= 0 && tage <= (p.tageNeu || 3));
-  if (p.istNeu && !q.has("spruch")) (window.BONIBLATT_FLIEGER = window.BONIBLATT_FLIEGER || {})[heute] = "Neue Podcast-Folge ist raus!";
+  if (p.istNeu && !q.has("spruch")) (window.BONIBLATT_FLIEGER = window.BONIBLATT_FLIEGER || {})[heute] = "Neue KI-Podcast-Folge ist raus!";
 })();
 `;
 await writeFile(join(DOCS, 'daten', 'podcast.js'), js);

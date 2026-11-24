@@ -51,11 +51,11 @@
     "Infrastruktur"
    ]
   },
-  "PETRA": {
-   "name": "Petra",
+  "RAINER": {
+   "name": "Rainer",
    "rolle": "Wirtschaftliche Jugendhilfe",
    "ort": "im Stadthaus",
-   "kurz": "weiß, was jede Hilfe kostet und wer sie bezahlt",
+   "kurz": "seit vielen Jahren dabei, weiß, was jede Hilfe kostet und wer sie bezahlt",
    "themen": [
     "Kosten",
     "Kostenbeiträge der Eltern",
@@ -79,6 +79,21 @@
     "Verfahrenslotsen",
     "Autismus",
     "Lese-Rechtschreib-Schwäche"
+   ]
+  },
+  "SABINE": {
+   "name": "Sabine",
+   "rolle": "Amtsleitung",
+   "ort": "leitet das Jugendamt",
+   "kurz": "vermittelt zwischen Politik, Verwaltung und Fachdiensten",
+   "themen": [
+    "Jugendhilfeausschuss",
+    "Haushalt und Stellen",
+    "Fachkräftemangel",
+    "Organisation des Jugendamts",
+    "Reformen umsetzen",
+    "Steuerung",
+    "Zusammenarbeit mit Schule und Gesundheit"
    ]
   }
  }
