@@ -1,34 +1,28 @@
 {
  "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
- "stand": "2026-11-23T05:17:53.361Z",
+ "stand": "2026-11-24T05:05:27.282Z",
  "zugang": "ok",
  "grenze": "nächtlicher Abruf",
  "letzterLauf": "2026-12-06",
  "gesamt": {
-  "tage": 2,
-  "notion": 97,
-  "erfasst": 91,
-  "fehlt": 6,
+  "tage": 3,
+  "notion": 175,
+  "erfasst": 171,
+  "fehlt": 4,
   "offen": 0,
-  "zusaetzlich": 5
+  "zusaetzlich": 18
  },
  "luecken": [
   {
-   "quelle": "Allgemeine Zeitung",
-   "id": "az",
-   "grund": "rubrik",
-   "rubrik": "/lokales/rheinhessen/",
-   "rubrikName": "Rheinhessen",
-   "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/",
-   "anzahl": 4,
+   "quelle": "akj stat",
+   "id": "akjstat",
+   "grund": "unklar",
+   "anzahl": 1,
    "tage": [
-    "2026-11-21",
-    "2026-11-23"
+    "2026-11-24"
    ],
    "beispiele": [
-    "Bodenheimer Schoppengarde bereitet Jubiläumsfeier vor",
-    "Uelversheimerin forscht ohne Abschluss auf Elite-Uni-Niveau",
-    "Weinprämierung für Rheinhessen: Es geht um die Zukunft"
+    "ANGEBOTSSTRUKTUREN DER STATIONÄREN KINDER- UND JUGENDHILFE – ERSTE BEFUNDE AUS DER NEUEN „TRÄGERSTATISTIK“"
    ]
   },
   {
@@ -60,43 +54,191 @@
    "beispiele": [
     "Live-Verkehrsticker: Hier staut es sich am Freitagmorgen"
    ]
+  },
+  {
+   "quelle": "Allgemeine Zeitung",
+   "id": "az",
+   "grund": "rubrik",
+   "rubrik": "/lokales/rheinhessen/",
+   "rubrikName": "Rheinhessen",
+   "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/",
+   "anzahl": 1,
+   "tage": [
+    "2026-11-21"
+   ],
+   "beispiele": [
+    "Wertstoffhof: Warum Gewerbebetriebe abgewiesen werden"
+   ]
   }
  ],
  "tage": [
   {
+   "tag": "2026-11-24",
+   "von": "2026-11-23T03:42:02.312Z",
+   "bis": "2026-11-24T03:40:17.777Z",
+   "vorlaeufig": true,
+   "eintraege": 91,
+   "notion": 78,
+   "erfasst": 77,
+   "fehlt": 1,
+   "offen": 0,
+   "zusaetzlich": 18,
+   "vorsprungMinuten": 202,
+   "quellen": [
+    {
+     "name": "Allgemeine Zeitung",
+     "id": "az",
+     "notion": 35,
+     "erfasst": 35,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 7
+    },
+    {
+     "name": "SPIEGEL",
+     "id": "spiegel",
+     "notion": 15,
+     "erfasst": 15,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 2
+    },
+    {
+     "name": "BundesratKompakt",
+     "id": "bundesrat",
+     "notion": 13,
+     "erfasst": 13,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Jugendhilfeportal.de",
+     "id": "jugendhilfeportal",
+     "notion": 4,
+     "erfasst": 4,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 1
+    },
+    {
+     "name": "Mainz Pressemeldungen",
+     "id": "stadt-mainz",
+     "notion": 3,
+     "erfasst": 3,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Bundestag",
+     "id": "bundestag",
+     "notion": 2,
+     "erfasst": 2,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Sensor",
+     "id": "sensor",
+     "notion": 2,
+     "erfasst": 2,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Landtag",
+     "id": "landtag",
+     "notion": 2,
+     "erfasst": 2,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "akj stat",
+     "id": "akjstat",
+     "notion": 1,
+     "erfasst": 0,
+     "fehlt": 1,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "NZFH Nachrichten",
+     "id": "nzfh",
+     "notion": 1,
+     "erfasst": 1,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Deutscher Bildungsserver",
+     "id": "bildungsserver",
+     "notion": 0,
+     "erfasst": 0,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 7
+    },
+    {
+     "name": "Bildungsministerium Rheinland-Pfalz",
+     "id": "bm-rlp",
+     "notion": 0,
+     "erfasst": 0,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 1
+    }
+   ],
+   "fehlend": [
+    {
+     "titel": "ANGEBOTSSTRUKTUREN DER STATIONÄREN KINDER- UND JUGENDHILFE – ERSTE BEFUNDE AUS DER NEUEN „TRÄGERSTATISTIK“",
+     "url": "https://www.akjstat.tu-dortmund.de/detail/news/angebotsstrukturen-der-stationaeren-kinder-und-jugendhilfe-erste-befunde-aus-der-neuen-traegerstatistik",
+     "quelle": "akj stat",
+     "id": "akjstat",
+     "zeit": "2026-11-23T23:30:00.000Z",
+     "grund": "unklar"
+    }
+   ]
+  },
+  {
    "tag": "2026-11-23",
    "von": "2026-11-21T23:00:00.000Z",
    "bis": "2026-11-23T03:42:02.312Z",
-   "vorlaeufig": true,
+   "vorlaeufig": false,
    "eintraege": 64,
    "notion": 53,
-   "erfasst": 50,
-   "fehlt": 3,
+   "erfasst": 53,
+   "fehlt": 0,
    "offen": 0,
-   "zusaetzlich": 5,
+   "zusaetzlich": 0,
    "vorsprungMinuten": 99,
    "quellen": [
     {
      "name": "Allgemeine Zeitung",
      "id": "az",
      "notion": 28,
-     "erfasst": 25,
-     "fehlt": 3,
+     "erfasst": 28,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Bildungsserver",
+     "id": "bildungsserver",
+     "notion": 8,
+     "erfasst": 8,
+     "fehlt": 0,
      "offen": 0,
      "zusaetzlich": 0
     },
     {
      "name": "SPIEGEL",
      "id": "spiegel",
-     "notion": 8,
-     "erfasst": 8,
-     "fehlt": 0,
-     "offen": 0,
-     "zusaetzlich": 5
-    },
-    {
-     "name": "Bildungsserver",
-     "id": "bildungsserver",
      "notion": 8,
      "erfasst": 8,
      "fehlt": 0,
@@ -131,41 +273,7 @@
      "zusaetzlich": 0
     }
    ],
-   "fehlend": [
-    {
-     "titel": "Bodenheimer Schoppengarde bereitet Jubiläumsfeier vor",
-     "url": "https://www.allgemeine-zeitung.de/lokales/rheinhessen/bodenheimer-schoppengarde-bereitet-jubilaeumsfeier-vor-6712297",
-     "quelle": "Allgemeine Zeitung",
-     "id": "az",
-     "zeit": "2026-11-22T11:51:00.000Z",
-     "grund": "rubrik",
-     "rubrik": "/lokales/rheinhessen/",
-     "rubrikName": "Rheinhessen",
-     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/"
-    },
-    {
-     "titel": "Uelversheimerin forscht ohne Abschluss auf Elite-Uni-Niveau",
-     "url": "https://www.allgemeine-zeitung.de/lokales/rheinhessen/uelversheimerin-forscht-ohne-abschluss-auf-elite-uni-niveau-6727490",
-     "quelle": "Allgemeine Zeitung",
-     "id": "az",
-     "zeit": "2026-11-22T11:51:00.000Z",
-     "grund": "rubrik",
-     "rubrik": "/lokales/rheinhessen/",
-     "rubrikName": "Rheinhessen",
-     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/"
-    },
-    {
-     "titel": "Weinprämierung für Rheinhessen: Es geht um die Zukunft",
-     "url": "https://www.allgemeine-zeitung.de/lokales/rheinhessen/weinpraemierung-fuer-rheinhessen-es-geht-um-die-zukunft-6780206",
-     "quelle": "Allgemeine Zeitung",
-     "id": "az",
-     "zeit": "2026-11-22T11:51:00.000Z",
-     "grund": "rubrik",
-     "rubrik": "/lokales/rheinhessen/",
-     "rubrikName": "Rheinhessen",
-     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/"
-    }
-   ]
+   "fehlend": []
   },
   {
    "tag": "2026-11-21",
