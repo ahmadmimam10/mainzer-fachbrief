@@ -1,0 +1,138 @@
+/* Podcast-Seite „Zwischen den Zeilen“ – nutzt Farben, Schriften und Kacheln der Ausgabe (bb.css) */
+
+/* Grundlage wie auf der Startseite (dort steht sie im Kopf von index.html) */
+:root{color-scheme:light;--tisch:#f6f4ef;--tinte:#141414;--sans:"Schibsted Grotesk","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;--akzent:#c8102e}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--tisch);color:var(--tinte);font:16px/1.5 var(--sans);overflow-x:clip}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--akzent);outline-offset:3px}
+.blatt{max-width:1200px;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
+.kopf-zeile{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:16px;padding-top:30px;padding-bottom:22px}
+.marke{justify-self:center;margin:0;line-height:0}
+.marke a{display:inline-block;max-width:100%}
+@media (max-width:760px){.kopf-zeile{grid-template-columns:30px minmax(0,1fr) 30px;column-gap:6px;padding-top:18px;padding-bottom:14px}}
+
+/* ---- Kopfbereich ---- */
+.pc-oben{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px 44px;align-items:end;padding:14px 4px 26px}
+.bb .pc-oben .bb-gruss{grid-area:auto;margin:0;white-space:normal;font-family:"Fraunces",serif;font-weight:560;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;letter-spacing:-.04em}
+.pc-oben .bb-gruss i{font-weight:340;color:var(--ra)}
+.bb .pc-oben .bb-gruss small{max-width:36em;margin-top:16px;font-size:16px;line-height:1.45;opacity:.85}
+.pc-leute{display:grid;gap:10px}
+.pc-person{display:flex;align-items:center;gap:14px;padding:12px 18px 12px 12px;border-radius:22px;background:var(--pap)}
+.pc-person b{display:grid;place-items:center;flex:none;width:46px;height:46px;border-radius:50%;background:var(--ra);color:var(--at);font:500 21px/1 "Fraunces",serif}
+.pc-person:nth-child(2) b{background:var(--rc);color:var(--ct)}
+.pc-person span{font:600 16px/1.25 "Bricolage Grotesque",var(--sans)}
+.pc-person small{display:block;margin-top:2px;font-weight:450;font-size:13.5px;line-height:1.35;opacity:.72}
+@media (max-width:900px){.pc-oben{grid-template-columns:1fr}.pc-leute{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pc-leute{grid-template-columns:1fr}}
+
+/* ---- Bühne: aktuelle Folge (dunkle Kachel wie „Anhören“) ---- */
+.bb .pc-buehne{position:relative;gap:18px;padding:28px 30px 24px;border-radius:30px;background:var(--tinte);color:var(--hell);isolation:isolate}
+.pc-glut{position:absolute;inset:-25%;z-index:-1;pointer-events:none;opacity:.32;filter:blur(40px);transition:opacity 1s;
+  background:radial-gradient(40% 45% at 20% 30%,var(--rb),transparent 70%),radial-gradient(35% 40% at 80% 70%,var(--ra),transparent 70%),radial-gradient(30% 35% at 60% 20%,var(--rc),transparent 70%);
+  animation:pc-glut 18s ease-in-out infinite alternate}
+.pc-buehne[data-zustand="spielt"] .pc-glut{opacity:calc(.45 + var(--pegel,0) * .9)}
+@keyframes pc-glut{to{transform:translate(4%,-3%) rotate(8deg) scale(1.08)}}
+.pc-zeile{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.bb .pc-buehne .etikett{background:rgba(255,255,255,.14)}
+.bb .pc-buehne .pc-neu{background:var(--rb);color:var(--bt)}
+.pc-ki{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.25);font:500 12px/1.2 "Bricolage Grotesque",var(--sans);opacity:.8;cursor:help}
+.pc-ki svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2}
+.pc-buehne h2{margin:4px 0 0;font:500 clamp(30px,3.8vw,52px)/1 "Fraunces",serif;font-variation-settings:"SOFT" 100,"opsz" 144;letter-spacing:-.035em}
+.pc-buehne h2 small{display:block;margin-bottom:8px;font:600 13px/1 "Bricolage Grotesque",var(--sans);letter-spacing:.02em;opacity:.65}
+.bb .pc-buehne p.pc-text{max-width:52em;font-size:16px;opacity:.86}
+
+/* Spieler */
+.pc-spieler{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:6px 22px;margin-top:6px}
+.pc-knopf{position:relative;grid-row:span 2;width:84px;height:84px;border:0;border-radius:50%;background:var(--rb);color:var(--bt);cursor:pointer;
+  transition:transform .35s cubic-bezier(.3,1.7,.5,1),background 1.1s;scale:calc(1 + var(--pegel,0) * .12)}
+.pc-knopf:hover{transform:scale(1.06)}.pc-knopf:active{transform:scale(.94)}
+.pc-knopf svg{width:34px;height:34px;fill:currentColor}
+.pc-knopf .pause,[data-zustand="spielt"] .pc-knopf .spiel{display:none}
+[data-zustand="spielt"] .pc-knopf .pause{display:block}
+.pc-knopf svg{margin:auto}
+.pc-spur{position:relative;height:76px;cursor:pointer;touch-action:none;outline-offset:6px}
+.pc-balken{position:absolute;inset:0;display:flex;align-items:center;gap:2px}
+.pc-balken i{flex:1;min-width:1px;border-radius:2px;background:currentColor;height:calc(8% + var(--h) * 92%)}
+.pc-balken.hinten i{opacity:.24}
+.pc-balken.vorn{color:var(--rb);clip-path:inset(0 calc(100% - var(--fort,0) * 100%) 0 0);transition:clip-path .25s linear}
+.pc-marken{position:absolute;inset:-6px 0;pointer-events:none}
+.pc-marken i{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;border-radius:1px;background:var(--hell);opacity:.55}
+.pc-zeiger{position:absolute;top:-30px;padding:4px 8px;border-radius:7px;background:var(--hell);color:var(--tinte);font:600 12px/1 "JetBrains Mono",monospace;translate:-50% 0;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.pc-spur:hover .pc-zeiger{opacity:1}
+.pc-leiste{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 18px}
+.pc-zeit{font:600 13px/1 "JetBrains Mono",monospace;opacity:.9}
+.pc-kapitel-jetzt{flex:1;min-width:10em;font:500 14px/1.2 "Bricolage Grotesque",var(--sans);opacity:.75;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc-tempo{display:inline-flex;padding:3px;border-radius:999px;background:rgba(255,255,255,.1)}
+.pc-tempo button{padding:6px 11px;border:0;border-radius:999px;background:none;font:600 12.5px/1 "JetBrains Mono",monospace;cursor:pointer;opacity:.7;transition:background .3s,opacity .3s}
+.pc-tempo button[aria-pressed="true"]{background:var(--hell);color:var(--tinte);opacity:1}
+.pc-quellen-knopf{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border:1.5px solid rgba(255,255,255,.3);border-radius:999px;background:none;font:600 13px/1 "Bricolage Grotesque",var(--sans);cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.pc-quellen-knopf:hover{background:var(--hell);color:var(--tinte);border-color:var(--hell)}
+.pc-quellen-knopf svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Kapitel */
+.pc-kapitel{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.22) transparent;padding:4px 2px 8px;margin-top:2px}
+.pc-kapitel::-webkit-scrollbar{height:6px}.pc-kapitel::-webkit-scrollbar-thumb{border-radius:3px;background:rgba(255,255,255,.22)}.pc-kapitel::-webkit-scrollbar-track{background:transparent}
+.pc-kapitel button{flex:none;display:flex;flex-direction:column;gap:5px;min-width:128px;max-width:200px;padding:10px 13px;border:0;border-radius:16px;background:rgba(255,255,255,.08);text-align:left;cursor:pointer;transition:background .3s,color .3s}
+.pc-kapitel button:hover{background:rgba(255,255,255,.16)}
+.pc-kapitel button.jetzt{background:var(--hell);color:var(--tinte)}
+.pc-kapitel b{font:600 11.5px/1 "JetBrains Mono",monospace;opacity:.7}
+.pc-kapitel span{font:560 14px/1.2 "Bricolage Grotesque",var(--sans)}
+
+/* ---- Alle Folgen ---- */
+.pc-titelzeile{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:34px 4px 14px}
+.pc-titelzeile h3{margin:0;font:500 clamp(26px,2.6vw,36px)/1 "Fraunces",serif;letter-spacing:-.03em}
+.pc-titelzeile span{font:500 14px/1.3 "Bricolage Grotesque",var(--sans);opacity:.7}
+.pc-liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.bb .pc-folge{border-radius:24px;cursor:pointer;transition:background 1.1s,transform .4s cubic-bezier(.3,1.6,.5,1)}
+.bb .pc-folge:hover{transform:translateY(-3px)}
+.bb .pc-folge.laeuft{background:var(--rb);color:var(--bt)}
+.pc-folge .pc-nr{display:flex;align-items:center;justify-content:space-between;font:600 12.5px/1 "JetBrains Mono",monospace;opacity:.75}
+.pc-folge h4{margin:0;font:500 24px/1.08 "Fraunces",serif;letter-spacing:-.025em}
+.bb .pc-folge p{font-size:14.5px;opacity:.8}
+.pc-folge .unten .pfeil svg{width:15px;height:15px;fill:currentColor}
+.pc-bald{display:flex;flex-direction:column;justify-content:center;gap:8px;border:2px dashed color-mix(in srgb,var(--tinte) 18%,transparent)}
+.bb .pc-bald{background:transparent}
+.pc-bald strong{font:500 22px/1.1 "Fraunces",serif}
+.pc-fuss{margin:40px 4px 0;font:450 13.5px/1.5 "Bricolage Grotesque",var(--sans);opacity:.7;max-width:60em}
+
+/* ---- Quellen-Fenster ---- */
+.pc-fenster{width:min(760px,calc(100vw - 24px));max-height:min(86vh,900px);padding:0;border:0;border-radius:26px;background:var(--pap,#fbf6ea);color:var(--tinte,#1f1c18);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.pc-fenster::backdrop{background:rgba(20,18,16,.45);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.pc-fenster[open]{display:flex;flex-direction:column;animation:pc-auf .35s cubic-bezier(.2,1.2,.3,1)}
+@keyframes pc-auf{from{opacity:0;transform:translateY(24px) scale(.97)}}
+.pc-fenster header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 24px 14px;border-bottom:1px solid rgba(0,0,0,.08)}
+.pc-fenster h3{margin:0;font:500 28px/1.05 "Fraunces",serif;letter-spacing:-.03em}
+.pc-fenster header p{margin:6px 0 0;font:450 13.5px/1.4 "Bricolage Grotesque",var(--sans);opacity:.72}
+.pc-zu{flex:none;width:38px;height:38px;border:0;border-radius:50%;background:rgba(0,0,0,.08);font-size:20px;line-height:1;cursor:pointer}
+.pc-zu:hover{background:var(--tinte,#1f1c18);color:var(--hell,#fbf5e9)}
+.pc-qliste{overflow-y:auto;padding:6px 24px 24px}
+.pc-qliste h4{margin:18px 0 6px;font:600 12.5px/1 "Bricolage Grotesque",var(--sans);letter-spacing:.06em;text-transform:uppercase;opacity:.55}
+.pc-q{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;padding:11px 0;border-top:1px solid rgba(0,0,0,.07)}
+.pc-q button{grid-row:span 2;align-self:start;padding:6px 9px;border:0;border-radius:9px;background:var(--rb,#dba63f);color:var(--bt,#231d14);font:600 12.5px/1 "JetBrains Mono",monospace;cursor:pointer;transition:transform .3s cubic-bezier(.3,1.7,.5,1)}
+.pc-q button:hover{transform:scale(1.07)}
+.pc-q strong{font:560 15px/1.35 "Bricolage Grotesque",var(--sans)}
+.pc-q span{font:450 13.5px/1.4 "Bricolage Grotesque",var(--sans);opacity:.75}
+.pc-q a{text-decoration-thickness:1px;text-underline-offset:2px}
+.pc-q em{font-style:normal;padding:1px 7px;border-radius:999px;background:rgba(0,0,0,.08);font-size:12px}
+
+@media (max-width:700px){
+  .bb .pc-buehne{padding:22px 18px 18px;border-radius:24px}
+  .pc-spieler{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"spur spur" "knopf leiste";gap:14px 14px}
+  .pc-spur{grid-area:spur;height:62px}
+  .pc-knopf{grid-area:knopf;grid-row:auto;width:64px;height:64px}.pc-knopf svg{width:26px;height:26px}
+  .pc-leiste{grid-area:leiste;gap:8px 10px}.pc-kapitel-jetzt{order:3;flex-basis:100%;min-width:0}
+  .pc-quellen-knopf{padding:7px 12px}
+  .pc-fenster header{padding:18px 18px 12px}.pc-qliste{padding:4px 18px 18px}
+}
+@media (prefers-reduced-motion:reduce){.pc-glut{animation:none}.pc-knopf{scale:1}}
+
+/* Dunkle Darstellung (wie auf der Startseite per Schalter gewählt) */
+[data-thema="dunkel"] body{background:#0e0d0c;color:#f2ede4}
+[data-thema="dunkel"] .bb{--p0:#1a1816;--pap:#25221f;--tinte:#f2ede4;--hell:#1a1816}
+[data-thema="dunkel"] .bb .pc-buehne{background:#2c2925;color:#f2ede4}
+[data-thema="dunkel"] .pc-tempo button[aria-pressed="true"],[data-thema="dunkel"] .pc-kapitel button.jetzt{background:#f2ede4;color:#1a1816}
+[data-thema="dunkel"] .pc-marken i{background:#f2ede4}
+[data-thema="dunkel"] .kopf-info,[data-thema="dunkel"] .kopf-podcast,[data-thema="dunkel"] .bb-marke a{color:#f2ede4}

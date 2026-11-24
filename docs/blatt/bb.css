@@ -616,6 +616,17 @@ body{background:#f6f4ef}
 .kopf-info:hover{background:#1f1c18;color:#f6f4ef;translate:0 -2px}
 .kopf-info svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 @media (max-width:760px){.kopf-info{padding:8px;border-color:transparent}.kopf-info span{display:none}}
+/* Kopfzeile: Podcast links oben – glänzt drei Tage lang, wenn eine neue Folge erschienen ist (daten/podcast.js) */
+.kopf-podcast{justify-self:start;position:relative;display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border:1.5px solid rgba(31,28,24,.16);border-radius:999px;color:#1f1c18;font:600 13.5px/1 "Bricolage Grotesque",var(--sans);text-decoration:none;white-space:nowrap;transition:background .3s,color .3s,translate .3s cubic-bezier(.3,1.7,.5,1)}
+.kopf-podcast:hover{background:#1f1c18;color:#f6f4ef;translate:0 -2px}
+.kopf-podcast svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.kopf-podcast.neu{border-color:#1f1c18;background:#1f1c18;color:#f6f4ef;overflow:visible;animation:kp-puls 2.6s ease-out infinite}
+.kopf-podcast.neu::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%) no-repeat;background-size:260% 100%;animation:kp-glanz 3.4s ease-in-out infinite;pointer-events:none}
+.kopf-podcast.neu::after{content:"Neu";position:absolute;top:-9px;right:-12px;padding:3px 7px 4px;border-radius:999px;background:#c8102e;color:#fff;font:700 10.5px/1 "Bricolage Grotesque",var(--sans);letter-spacing:.03em;rotate:8deg;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+@keyframes kp-puls{0%{box-shadow:0 0 0 0 rgba(200,16,46,.45)}70%{box-shadow:0 0 0 13px rgba(200,16,46,0)}100%{box-shadow:0 0 0 0 rgba(200,16,46,0)}}
+@keyframes kp-glanz{0%{background-position:130% 0}55%,100%{background-position:-130% 0}}
+@media (max-width:760px){.kopf-podcast{padding:8px;border-color:transparent}.kopf-podcast span{display:none}.kopf-podcast.neu::after{top:-10px;right:-16px}}
+@media (prefers-reduced-motion:reduce){.kopf-podcast.neu,.kopf-podcast.neu::before{animation:none}}
 
 /* ==== Altpapier-Wurf (nur am PC, unter der Fußleiste; Logik in blatt/spiel.js) ==== */
 .bb-spiel{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:14px 18px;margin-top:22px;min-height:200px;padding:22px 24px 24px;border-radius:30px;background:#fff;color:var(--tinte)}

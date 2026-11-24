@@ -487,6 +487,7 @@ const html = `<!-- INTRO-START -->
 </section>
 <script src="daten/wetter.js"></script>
 <script src="daten/flieger.js"></script>
+<script src="daten/podcast.js"></script>
 <script>
 /* Intro bei jedem Aufruf der Ausgabe (auch mit Ressort-Lesezeichen), nur hell und nicht nach der Rückkehr von ueber.html; ?intro erzwingt es. ?zeit=1.5 / ?p=0.5 = Standbilder für Entwürfe. */
 (() => {

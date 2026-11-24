@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html data-entwurf="b1" lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zwischen den Zeilen – der Podcast vom Mainzer Boniblatt</title>
+<meta name="description" content="Zwischen den Zeilen: Mira aus dem Allgemeinen Sozialen Dienst und Jonas aus der Jugendhilfeplanung sprechen über das Kleingedruckte in der Kinder- und Jugendhilfe – zweimal im Monat, mit Quellen zu jeder Aussage.">
+<meta property="og:title" content="Zwischen den Zeilen – der Podcast vom Mainzer Boniblatt">
+<meta property="og:description" content="Das Kleingedruckte der Kinder- und Jugendhilfe – zweimal im Monat, mit Quellen zu jeder Aussage.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#f6f4ef">
+<link rel="icon" href="bilder/favicon.ico" sizes="32x32">
+<link rel="icon" href="bilder/favicon-hell.svg" type="image/svg+xml" id="favicon">
+<script>
+try {
+  if (localStorage.getItem("fachbrief.thema") === "dunkel") {
+    document.documentElement.dataset.thema = "dunkel";
+    document.getElementById("favicon").href = "bilder/favicon-dunkel.svg";
+    document.querySelector('meta[name="theme-color"]').content = "#0e0d0c";
+  }
+} catch (e) {}
+</script>
+<link rel="stylesheet" href="blatt/schrift.css?v=23">
+<link rel="stylesheet" href="blatt/bb.css?v=23">
+<link rel="stylesheet" href="blatt/podcast.css?v=3">
+</head>
+<body>
+<header id="kopf" class="e-kopf bb-kopf"><div class="blatt kopf-zeile"><a class="kopf-podcast" href="./" title="Zur heutigen Ausgabe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg><span>Ausgabe</span></a><h1 class="marke bb-marke"><a href="./" title="Zur Ausgabe">
+      <img class="logo-hell" src="bilder/zeichen.svg" alt="" width="128" height="128"><span class="bb-wort">Mainzer <i>Boniblatt</i><b>.</b></span></a></h1><a class="kopf-info" href="ueber.html" title="Wie das Boniblatt entsteht"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4Z"/></svg><span>Werkstatt<i> und Geschichte</i></span></a></div></header>
+
+<main id="pc" class="bb b1" data-zeit="herbst">
+  <div class="bb-welle" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 60V30C100 6 200 6 300 30S500 54 600 30S800 6 900 30S1100 54 1200 30V60Z"/></svg><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 60V30C100 6 200 6 300 30S500 54 600 30S800 6 900 30S1100 54 1200 30V60Z"/></svg></div>
+  <div class="bb-innen">
+    <div class="pc-oben">
+      <h2 class="bb-gruss">Zwischen <i>den</i> Zeilen<small>Der Podcast vom Boniblatt: das Kleingedruckte der Kinder- und Jugendhilfe – Gesetze, Studien, Beschlüsse und was sie für den Arbeitsalltag bedeuten. Zweimal im Monat, mit Quellen zu jeder Aussage.</small></h2>
+      <div class="pc-leute" aria-label="Im Gespräch">
+        <div class="pc-person"><b aria-hidden="true">M</b><span>Mira<small>Allgemeiner Sozialer Dienst – will wissen, was das am Montag im Fachteam heißt</small></span></div>
+        <div class="pc-person"><b aria-hidden="true">J</b><span>Jonas<small>Jugendhilfeplanung – denkt in Strukturen und hat immer eine Tabelle</small></span></div>
+      </div>
+    </div>
+
+    <article id="pc-buehne" class="k da pc-buehne" data-zustand="aus" aria-live="polite">
+      <div class="pc-glut" aria-hidden="true"></div>
+      <p class="pc-text">Folge wird geladen …</p>
+    </article>
+
+    <div class="pc-titelzeile"><h3>Alle Folgen</h3><span id="pc-anzahl"></span></div>
+    <div class="pc-liste" id="pc-liste"></div>
+
+    <p class="pc-fuss">Die Stimmen von Mira und Jonas sind KI-generiert (ElevenLabs). Die Inhalte sind recherchiert und mit Quellen belegt – unter „Quellen“ steht zu jeder Aussage die Fundstelle mit Zeitangabe. Eigene Einschätzungen der beiden sind im Gespräch als solche zu erkennen.</p>
+  </div>
+</main>
+
+<dialog class="pc-fenster" id="pc-fenster" aria-labelledby="pc-fenster-titel">
+  <header><div><h3 id="pc-fenster-titel">Quellen</h3><p>Zu jeder Aussage die Fundstelle. Ein Klick auf die Zeit springt an die Stelle in der Folge.</p></div><button class="pc-zu" type="button" aria-label="Schließen">×</button></header>
+  <div class="pc-qliste" id="pc-qliste"></div>
+</dialog>
+
+<script src="blatt/podcast.js?v=2"></script>
+<script src="blatt/zaehlung.js?v=22" data-seite="podcast" defer></script>
+</body>
+</html>
