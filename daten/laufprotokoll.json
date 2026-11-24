@@ -263,5 +263,14 @@
    "✗ bildungsserver           0 gefunden,   0 neu  ⚠ www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
    "6 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-24T06:40:15.100Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "15 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 0 Quellen mit Fehlern. Zustand: 56 ok, 0 auffällig, 0 gestört.",
+  "auffaellig": [
+   "15 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 0 Quellen mit Fehlern. Zustand: 56 ok, 0 auffällig, 0 gestört."
+  ]
  }
 ]
