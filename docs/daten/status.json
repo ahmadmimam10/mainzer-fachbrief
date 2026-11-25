@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-24T21:38:54.712Z",
+ "stand": "2026-11-25T04:01:44.883Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -26,10 +26,10 @@
    "name": "Allgemeine Zeitung",
    "kurz": "Allgemeine Zeitung",
    "ebene": "mainz",
-   "ok": true,
-   "treffer": 100,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 100 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.allgemeine-zeitung.de: HTTP 403"
   },
   {
    "id": "merkurist",
@@ -76,10 +76,10 @@
    "name": "SWR Aktuell Rheinland-Pfalz",
    "kurz": "SWR Aktuell",
    "ebene": "land",
-   "ok": true,
-   "treffer": 47,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 42 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.swr.de: HTTP 403"
   },
   {
    "id": "landtag",
@@ -206,10 +206,10 @@
    "name": "DER SPIEGEL",
    "kurz": "Spiegel",
    "ebene": "bund",
-   "ok": true,
-   "treffer": 60,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 60 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.spiegel.de: HTTP 403"
   },
   {
    "id": "destatis",
@@ -296,10 +296,10 @@
    "name": "Deutsches Institut für Urbanistik",
    "kurz": "Difu",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 125,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 125 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): difu.de: HTTP 503"
   },
   {
    "id": "nzfh",
@@ -419,7 +419,7 @@
    "ok": false,
    "treffer": 0,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "hinweis": "Abruffehler (2. Lauf in Folge): www.bildungsserver.de: HTTP 503"
   },
   {
    "id": "sozial-de",
@@ -529,7 +529,7 @@
    "ok": false,
    "treffer": 0,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "hinweis": "Abruffehler (2. Lauf in Folge): www.der-paritaetische.de: HTTP 503"
   },
   {
    "id": "bertelsmann",
