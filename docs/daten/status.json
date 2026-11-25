@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-25T11:45:04.405Z",
+ "stand": "2026-11-25T20:40:59.610Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -37,9 +37,9 @@
    "kurz": "Merkurist",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 6,
+   "treffer": 8,
    "zustand": "ok",
-   "hinweis": "unauffällig – 6 Treffer"
+   "hinweis": "unauffällig – 8 Treffer"
   },
   {
    "id": "sensor",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 47,
+   "treffer": 48,
    "zustand": "ok",
-   "hinweis": "unauffällig – 42 Treffer"
+   "hinweis": "unauffällig – 43 Treffer"
   },
   {
    "id": "landtag",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "ok": true,
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "spiegel",
@@ -286,10 +286,10 @@
    "name": "Deutsches Jugendinstitut",
    "kurz": "DJI",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 30,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.dji.de: Antwort ist kein RSS-/Atom-Feed"
   },
   {
    "id": "difu",
@@ -416,10 +416,10 @@
    "name": "Deutscher Bildungsserver",
    "kurz": "Bildungsserver",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 14,
+   "ok": false,
+   "treffer": 0,
    "zustand": "auffaellig",
-   "hinweis": "3 von 3 neuen Links nicht erreichbar (Zeitüberschreitung (10 s)), 1. Lauf in Folge"
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "sozial-de",
@@ -427,9 +427,9 @@
    "kurz": "sozial.de",
    "ebene": "fach",
    "ok": true,
-   "treffer": 20,
+   "treffer": 21,
    "zustand": "ok",
-   "hinweis": "unauffällig – 20 Treffer"
+   "hinweis": "unauffällig – 21 Treffer"
   },
   {
    "id": "jadigital",
