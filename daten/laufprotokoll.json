@@ -325,5 +325,15 @@
    "✗ paritaet                 0 gefunden,   0 neu  ⚠ www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
    "4 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-25T11:45:55.709Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "46 neue Kandidaten (3 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört.",
+  "auffaellig": [
+   "✗ bundesrat                0 gefunden,   0 neu  ⚠ www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "46 neue Kandidaten (3 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört."
+  ]
  }
 ]

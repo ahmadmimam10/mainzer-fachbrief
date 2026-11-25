@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-25T04:01:44.883Z",
+ "stand": "2026-11-25T11:45:04.405Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -26,10 +26,10 @@
    "name": "Allgemeine Zeitung",
    "kurz": "Allgemeine Zeitung",
    "ebene": "mainz",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.allgemeine-zeitung.de: HTTP 403"
+   "ok": true,
+   "treffer": 100,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 100 Treffer"
   },
   {
    "id": "merkurist",
@@ -76,10 +76,10 @@
    "name": "SWR Aktuell Rheinland-Pfalz",
    "kurz": "SWR Aktuell",
    "ebene": "land",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.swr.de: HTTP 403"
+   "ok": true,
+   "treffer": 47,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 42 Treffer"
   },
   {
    "id": "landtag",
@@ -196,20 +196,20 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": true,
-   "treffer": 30,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "spiegel",
    "name": "DER SPIEGEL",
    "kurz": "Spiegel",
    "ebene": "bund",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.spiegel.de: HTTP 403"
+   "ok": true,
+   "treffer": 60,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 60 Treffer"
   },
   {
    "id": "destatis",
@@ -296,10 +296,10 @@
    "name": "Deutsches Institut für Urbanistik",
    "kurz": "Difu",
    "ebene": "fach",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): difu.de: HTTP 503"
+   "ok": true,
+   "treffer": 122,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 122 Treffer"
   },
   {
    "id": "nzfh",
@@ -416,10 +416,10 @@
    "name": "Deutscher Bildungsserver",
    "kurz": "Bildungsserver",
    "ebene": "fach",
-   "ok": false,
-   "treffer": 0,
+   "ok": true,
+   "treffer": 14,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (2. Lauf in Folge): www.bildungsserver.de: HTTP 503"
+   "hinweis": "3 von 3 neuen Links nicht erreichbar (Zeitüberschreitung (10 s)), 1. Lauf in Folge"
   },
   {
    "id": "sozial-de",
@@ -526,10 +526,10 @@
    "name": "Der Paritätische Gesamtverband",
    "kurz": "Paritätischer",
    "ebene": "fach",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (2. Lauf in Folge): www.der-paritaetische.de: HTTP 503"
+   "ok": true,
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "bertelsmann",
