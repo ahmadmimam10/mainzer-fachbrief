@@ -1,6 +1,6 @@
 {
  "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
- "stand": "2026-11-24T05:05:27.282Z",
+ "stand": "2026-11-25T05:08:12.039Z",
  "zugang": "ok",
  "grenze": "nächtlicher Abruf",
  "letzterLauf": "2026-12-06",
@@ -10,7 +10,7 @@
   "erfasst": 171,
   "fehlt": 4,
   "offen": 0,
-  "zusaetzlich": 18
+  "zusaetzlich": 8
  },
  "luecken": [
   {
@@ -76,13 +76,13 @@
    "tag": "2026-11-24",
    "von": "2026-11-23T03:42:02.312Z",
    "bis": "2026-11-24T03:40:17.777Z",
-   "vorlaeufig": true,
+   "vorlaeufig": false,
    "eintraege": 91,
    "notion": 78,
    "erfasst": 77,
    "fehlt": 1,
    "offen": 0,
-   "zusaetzlich": 18,
+   "zusaetzlich": 8,
    "vorsprungMinuten": 202,
    "quellen": [
     {
@@ -92,7 +92,7 @@
      "erfasst": 35,
      "fehlt": 0,
      "offen": 0,
-     "zusaetzlich": 7
+     "zusaetzlich": 4
     },
     {
      "name": "SPIEGEL",
@@ -174,15 +174,6 @@
      "fehlt": 0,
      "offen": 0,
      "zusaetzlich": 0
-    },
-    {
-     "name": "Deutscher Bildungsserver",
-     "id": "bildungsserver",
-     "notion": 0,
-     "erfasst": 0,
-     "fehlt": 0,
-     "offen": 0,
-     "zusaetzlich": 7
     },
     {
      "name": "Bildungsministerium Rheinland-Pfalz",
