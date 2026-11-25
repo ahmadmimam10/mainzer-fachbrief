@@ -1577,6 +1577,474 @@
      }
     }
    }
+  },
+  {
+   "datum": "2026-11-25",
+   "erstellt": "2026-11-25T04:11:59.621Z",
+   "kandidaten": 118,
+   "claude": {
+    "jugendhilfeplanung": [
+     {
+      "id": "20426796c0",
+      "stufe": "aufmacher",
+      "titel": "Bundesregierung beschließt Reform des Kindschaftsrechts"
+     },
+     {
+      "id": "9cb61e8e7f",
+      "stufe": "wichtig",
+      "titel": "Mainzer Defizit wird schon 2026 deutlich höher als erwartet"
+     },
+     {
+      "id": "07cf9acefa",
+      "stufe": "wichtig",
+      "titel": "Bundesrat ruft Vermittlungsausschuss zum Startchancengesetz an"
+     },
+     {
+      "id": "e0cf954a3e",
+      "stufe": "wichtig",
+      "titel": "Jeder fünften Familie mit Kleinkind fehlt ein Kita-Platz"
+     },
+     {
+      "id": "96c590d15b",
+      "stufe": "kurz",
+      "titel": "Regierungsentwurf zur Verbesserung des Unterhaltsrückgriffs nach dem Unterhaltsvorschussgesetz"
+     },
+     {
+      "id": "ad893268dd",
+      "stufe": "kurz",
+      "titel": "Kitaplätze fehlen – trotz weniger Geburten"
+     },
+     {
+      "id": "b160326e4c",
+      "stufe": "kurz",
+      "titel": "Kinderhilfswerk fordert bessere Rahmenbedingungen für Kitas"
+     },
+     {
+      "id": "f0332b26ab",
+      "stufe": "kurz",
+      "titel": "Langzeitstudie zeigt Bildungswege geflüchteter Kinder und Jugendlicher"
+     }
+    ],
+    "fruehe-hilfen": [
+     {
+      "id": "47b55231e3",
+      "stufe": "aufmacher",
+      "titel": "Kindschaftsrechtsreform: Gesetzentwurf stärkt Gewaltschutz, lässt aber Lücken"
+     },
+     {
+      "id": "e075435507",
+      "stufe": "wichtig",
+      "titel": "Digitales Angebot unterstützt Familien und Kinder bei Trennung"
+     },
+     {
+      "id": "e0cf954a3e",
+      "stufe": "wichtig",
+      "titel": "Jeder fünften Familie mit Kleinkind fehlt ein Kita-Platz"
+     },
+     {
+      "id": "20426796c0",
+      "stufe": "kurz",
+      "titel": "Bundesregierung beschließt Reform des Kindschaftsrechts"
+     },
+     {
+      "id": "96c590d15b",
+      "stufe": "kurz",
+      "titel": "Regierungsentwurf zum Unterhaltsrückgriff nach dem Unterhaltsvorschussgesetz"
+     }
+    ],
+    "quartiersmanagement": [
+     {
+      "id": "7a29be33a1",
+      "stufe": "aufmacher",
+      "titel": "156.000 Euro für „Kunst am Bau“ auf dem Lerchenberg"
+     },
+     {
+      "id": "8c68424bf1",
+      "stufe": "wichtig",
+      "titel": "Warum in manchen Mainzer Supermärkten die Regale leer bleiben"
+     },
+     {
+      "id": "86d80bfd24",
+      "stufe": "wichtig",
+      "titel": "Neuer Modalfilter in der Backhaushohl in Bretzenheim installiert"
+     },
+     {
+      "id": "28125eeea5",
+      "stufe": "wichtig",
+      "titel": "Mainz bekommt eine Hundewiese in Bretzenheim"
+     },
+     {
+      "id": "d8d1238869",
+      "stufe": "kurz",
+      "titel": "„MainzBaum“-Projektabschluss: Alle sind eingeladen, Tiere und Pflanzen an Bäumen zu dokumentieren"
+     }
+    ]
+   },
+   "claudeHoer": {
+    "jugendhilfeplanung": "Guten Morgen, hier ist das Mainzer Boniblatt für die Jugendhilfeplanung am Mittwoch, 25. November.\n\nDie Bundesregierung hat am 18. November die Reform des Kindschaftsrechts beschlossen. Das Kindschaftsrechtsmodernisierungsgesetz fasst die Regeln zu Sorge und Umgang neu.\n\nIn Mainz wird das Defizit schon im laufenden Jahr deutlich höher ausfallen als erwartet. Während der Haushalt für 2027 beraten wird, überschreitet es eine Schallmauer.\n\nBeim Startchancen- und Qualitätsentwicklungsgesetz hat der Bundesrat den Vermittlungsausschuss angerufen. Er begründet das vor allem mit offenen Finanzierungsfragen. Das Gesetz geht damit in eine Verhandlungsrunde.\n\nZur Kinderbetreuung liegt eine Elternbefragung vor. Jeder fünften Familie mit einem Kleinkind fehlt nach der Elternzeit ein Kita-Platz. In Rheinland-Pfalz sieht es nicht besser aus als im Bund.\n\nKurz notiert: Die Bundesregierung hat einen Entwurf zum Unterhaltsrückgriff nach dem Unterhaltsvorschussgesetz vorgelegt. Außerdem fehlen bundesweit Kita-Plätze, obwohl weniger Kinder geboren werden. Und eine Langzeitstudie zeichnet die Bildungswege geflüchteter Kinder und Jugendlicher nach.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+    "fruehe-hilfen": "Guten Morgen, hier ist das Mainzer Boniblatt für Frühe Hilfen, Kinderschutz und Familienbildung am Mittwoch, 25. November.\n\nZur Reform des Kindschaftsrechts liegt eine erste Einschätzung der Frauenhauskoordinierung vor. Der Kabinettsentwurf greift Forderungen aus dem Gewalt- und Kinderschutz auf. Die Fachleute sehen Fortschritte, aber weiterhin Nachbesserungsbedarf. Der Entwurf stärkt den Gewaltschutz, lässt aber Lücken.\n\nEin Online-Fachtag zur Unterstützung von Familien bei starker Spannung oder Trennung hat am 23. und 24. November stattgefunden. Mehr als 1200 Fachkräfte nahmen teil. Im Mittelpunkt stand ein digitales Angebot, das Eltern helfen soll, das Wohl ihrer Kinder auch in Krisen im Blick zu behalten.\n\nDazu passt eine Zahl aus der Kinderbetreuung. Jeder fünften Familie mit einem Kleinkind fehlt nach dem Ende der Elternzeit ein Kita-Platz. Eine Elternbefragung zeigt das für Rheinland-Pfalz und für ganz Deutschland.\n\nKurz notiert: Die Bundesregierung hat am 18. November die Reform des Kindschaftsrechts beschlossen. Außerdem gibt es einen Regierungsentwurf zum Unterhaltsrückgriff nach dem Unterhaltsvorschussgesetz.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+    "quartiersmanagement": "Guten Morgen, hier ist das Mainzer Boniblatt für das Quartiersmanagement am Mittwoch, 25. November.\n\nAuf dem Lerchenberg steht vor dem neuen Bürgerhaus eine Skulpturengruppe mit dem Namen Kling und Klonk. Die Kunst am Bau kostet 156.000 Euro. Die Meldung erzählt auch die Hintergründe des Werks.\n\nWeniger erfreulich ist die Lage in der Nahversorgung. In den Nahkauf-Märkten in Lerchenberg und Bretzenheim sind die Regale leer. Es gibt keinen Lebensmittelnachschub mehr. Warum das so ist, schildert die Meldung.\n\nIn Bretzenheim tut sich beim Verkehr etwas. In der Backhaushohl wurde ein Modalfilter installiert. Auf Höhe einzelner Häuser wird die Straße für den Autoverkehr dichtgemacht. Es gibt Gründe, und es gibt Profiteure.\n\nEbenfalls in Bretzenheim bekommt Mainz eine Hundewiese. Die Fläche in der Hinkelsteinerstraße ist 2734 Quadratmeter groß. Hunde sollen dort bald frei und sicher laufen können.\n\nKurz notiert: Zum Abschluss des Projekts MainzBaum sind alle eingeladen, Tiere und Pflanzen an Bäumen in ihrem Lebensumfeld zu dokumentieren.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen."
+   },
+   "claudeTermine": [
+    {
+     "art": "fussball",
+     "tag": "2026-11-25",
+     "wann": "18:45 Uhr",
+     "titel": "Sabah – FC Barcelona",
+     "ort": "Champions League",
+     "url": "https://www.fcbarcelona.es/es/partidos/141532/sabah-fc-barcelona-liga-de-campeones-2026-2027"
+    },
+    {
+     "art": "fussball",
+     "tag": "2026-11-28",
+     "wann": "",
+     "titel": "Real Madrid – Alavés",
+     "ort": "La Liga",
+     "url": "https://www.realmadrid.com/en-US/news/football/first-team/latest-news/el-calendario-del-real-madrid-hasta-navidad-11-11-2026"
+    },
+    {
+     "art": "fussball",
+     "tag": "2026-11-29",
+     "wann": "",
+     "titel": "Deportivo La Coruña – FC Barcelona",
+     "ort": "La Liga",
+     "url": "https://www.fcbarcelona.com/en/matches/138412/deportivo-de-la-coruna-fc-barcelona-la-liga-2026-2027"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-25",
+     "wann": "",
+     "titel": "Frankfurter Weihnachtsmarkt",
+     "ort": "Frankfurt, Römerberg",
+     "url": "https://www.festivalsindeutschland.de/festival/frankfurter-weihnachtsmarkt"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-26",
+     "wann": "ab 11 Uhr",
+     "titel": "Mainzer Weihnachtsmarkt eröffnet",
+     "ort": "Mainz, Domplätze",
+     "url": "https://www.mainz.de/en/angebote-entdecken/freizeit/feste-und-veranstaltungen/weihnachtsmarkt"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-28",
+     "wann": "15 Uhr",
+     "titel": "Finthener Weihnachtsmarkt",
+     "ort": "Mainz-Finthen",
+     "url": "https://www.festivalsindeutschland.de/festival/finthener-weihnachtsmarkt"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-29",
+     "wann": "11 Uhr",
+     "titel": "Laubenheimer Weihnachtsmarkt",
+     "ort": "Mainz-Laubenheim",
+     "url": "https://www.festivalsindeutschland.de/festival/laubenheimer-weihnachtsmarkt"
+    },
+    {
+     "art": "spielzeug",
+     "tag": "2026-11-25",
+     "wann": "",
+     "titel": "Dito! – Spiel des Jahres 2026",
+     "ort": "ab 10 Jahren · Partyspiel",
+     "url": "https://www.spiel-des-jahres.de/en/dito-is-spiel-des-jahres-2026/"
+    }
+   ],
+   "modelle": {
+    "deepseek-flash": {
+     "denken": "max (Suche: high)",
+     "tarif": "Nebenzeit",
+     "sekunden": 300,
+     "usd": 0.06487,
+     "tokens": {
+      "eingabe": 45886,
+      "cache": 209536,
+      "ausgabe": 63086
+     },
+     "erfunden": 0,
+     "verstoesse": [
+      "quartiersmanagement: Hörfassung hat 825 Zeichen (erlaubt 900–2800)"
+     ],
+     "ressorts": {
+      "jugendhilfeplanung": [
+       {
+        "id": "e0cf954a3e",
+        "stufe": "aufmacher",
+        "titel": "Jeder fünften Familie mit Kleinkind fehlt ein Kita-Platz",
+        "kurz": "Eine Elternbefragung zeigt, dass in Rheinland-Pfalz und bundesweit der Bedarf an Kita-Plätzen für Kleinkinder nicht gedeckt wird."
+       },
+       {
+        "id": "9cb61e8e7f",
+        "stufe": "wichtig",
+        "titel": "Mainzer Defizit steigt schon 2026 stärker als erwartet",
+        "kurz": "Während der Haushalt für 2027 beraten wird, durchbricht das Defizit im laufenden Jahr eine Schallmauer."
+       },
+       {
+        "id": "96c590d15b",
+        "stufe": "wichtig",
+        "titel": "Bundesregierung will Unterhaltsrückgriff beim Unterhaltsvorschuss verbessern",
+        "kurz": "Ein Regierungsentwurf vom 18. November soll den Rückgriff nach dem Unterhaltsvorschussgesetz verbessern."
+       },
+       {
+        "id": "20426796c0",
+        "stufe": "wichtig",
+        "titel": "Bundesregierung beschließt umfassende Reform des Kindschaftsrechts",
+        "kurz": "Das am 18. November beschlossene Kindschaftsrechtsmodernisierungsgesetz reformiert das Kindschaftsrecht umfassend."
+       },
+       {
+        "id": "07cf9acefa",
+        "stufe": "kurz",
+        "titel": "Vermittlungsausschuss berät Startchancen- und Qualitätsentwicklungsgesetz"
+       },
+       {
+        "id": "b160326e4c",
+        "stufe": "kurz",
+        "titel": "Deutsches Kinderhilfswerk fordert bessere Kita-Rahmenbedingungen"
+       },
+       {
+        "id": "f0332b26ab",
+        "stufe": "kurz",
+        "titel": "Langzeitstudie zeichnet Bildungswege geflüchteter Kinder und Jugendlicher nach"
+       }
+      ],
+      "fruehe-hilfen": [
+       {
+        "id": "20426796c0",
+        "stufe": "aufmacher",
+        "titel": "Bundesregierung beschließt umfassende Reform des Kindschaftsrechts",
+        "kurz": "Das Kindschaftsrechtsmodernisierungsgesetz wurde am 18. November beschlossen und soll das Kindschaftsrecht umfassend reformieren."
+       },
+       {
+        "id": "b0f16c02e6",
+        "stufe": "wichtig",
+        "titel": "Häusliche Gewalt erreicht neuen Höchststand",
+        "kurz": "2025 wurden 280.000 Menschen Opfer häuslicher Gewalt; die Bundeslagebilder zeigen erstmals Anstiege in allen erfassten Deliktsbereichen."
+       },
+       {
+        "id": "e075435507",
+        "stufe": "wichtig",
+        "titel": "Digitales Angebot unterstützt Familien bei Trennung",
+        "kurz": "Ein Online-Fachtag mit über 1200 Fachkräften befasste sich mit der Unterstützung von Eltern und Kindern bei starker Spannung oder Trennung."
+       },
+       {
+        "id": "47b55231e3",
+        "stufe": "kurz",
+        "titel": "Kindschaftsrechtsreform: Paritätischer sieht Fortschritte beim Gewaltschutz, aber Lücken"
+       },
+       {
+        "id": "685b5428cc",
+        "stufe": "kurz",
+        "titel": "Menschenrechtsinstitut empfiehlt Reform des Sexualstrafrechts"
+       }
+      ],
+      "quartiersmanagement": [
+       {
+        "id": "7a29be33a1",
+        "stufe": "aufmacher",
+        "titel": "Lerchenberg: 156.000 Euro für Kunst am neuen Bürgerhaus",
+        "kurz": "Vor dem neuen Bürgerhaus im Stadtteil Lerchenberg steht die Skulpturengruppe „Kling und Klonk“; für Kunst am Bau sind 156.000 Euro vorgesehen."
+       },
+       {
+        "id": "8c68424bf1",
+        "stufe": "wichtig",
+        "titel": "Leere Regale bei Nahkauf in Lerchenberg und Bretzenheim",
+        "kurz": "In den Nahkauf-Märkten in Lerchenberg und Bretzenheim fehlt der Lebensmittelnachschub; das berührt die Nahversorgung in den Stadtteilen."
+       },
+       {
+        "id": "28125eeea5",
+        "stufe": "kurz",
+        "titel": "Hundewiese in Bretzenheim wird an der Hinkelsteinerstraße angelegt"
+       },
+       {
+        "id": "86d80bfd24",
+        "stufe": "kurz",
+        "titel": "Backhaushohl in Bretzenheim wird für den Autoverkehr teilweise gesperrt"
+       }
+      ]
+     },
+     "hoer": {
+      "jugendhilfeplanung": "Guten Morgen, hier ist das Mainzer Boniblatt für die Jugendhilfeplanung am Mittwoch, 25. November.\n\nJeder fünften Familie mit einem Kleinkind fehlt einer Elternbefragung zufolge ein Kita-Platz. Nach Ende der Elternzeit suchen viele Familien für ihr Kleinkind einen Betreuungsplatz. In Rheinland-Pfalz wie in ganz Deutschland wird der Bedarf nicht gedeckt. Das zeigt die Befragung von Eltern.\n\nIn Mainz wird das Defizit schon im laufenden Jahr deutlich höher als erwartet. Das wird klar, während der Haushalt für 2027 beraten wird. Das Defizit durchbricht eine Schallmauer.\n\nDie Bundesregierung hat am 18. November einen Regierungsentwurf zur Verbesserung des Unterhaltsrückgriffs nach dem Unterhaltsvorschussgesetz vorgelegt. Der Entwurf betrifft den Rückgriff nach dem Unterhaltsvorschussgesetz. Außerdem hat die Bundesregierung am 18. November eine umfassende Reform des Kindschaftsrechts beschlossen. Das Gesetz trägt den Namen Kindschaftsrechtsmodernisierungsgesetz.\n\nKurz notiert: Der Vermittlungsausschuss befasst sich mit dem Startchancen- und Qualitätsentwicklungsgesetz. Der Bundesrat begründet die Anrufung vor allem mit Finanzierungsfragen. Das Deutsche Kinderhilfswerk begrüßt die Anrufung und fordert bessere Rahmenbedingungen und mehr Mittel für Kitas. Der Personal-Kind-Schlüssel und qualifiziertes Personal müssen gestärkt werden. Eine Langzeitstudie mit Daten von mehr als 4.800 Kindern und Jugendlichen zeichnet Spracherwerb und Bildungswege geflüchteter Kinder und Jugendlicher nach. Sie weist darauf hin, wo integrationspolitische Maßnahmen gezielt ansetzen können.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+      "fruehe-hilfen": "Guten Morgen, hier ist das Mainzer Boniblatt für Frühe Hilfen, Kinderschutz und Familienbildung am Mittwoch, 25. November.\n\nDie Bundesregierung hat am 18. November eine umfassende Reform des Kindschaftsrechts beschlossen. Das Gesetz trägt den Namen Kindschaftsrechtsmodernisierungsgesetz. Es soll das Kindschaftsrecht modernisieren.\n\nDie Gewalt gegen Frauen und Mädchen nimmt weiter zu. 280.000 Menschen wurden 2025 Opfer häuslicher Gewalt, so viele wie nie zuvor. Die aktuellen Bundeslagebilder belegen erstmals Anstiege in allen erfassten Deliktsbereichen.\n\nEin digitales Angebot unterstützt Familien und Kinder bei Trennung. Am 23. und 24. November fand dazu ein Online-Fachtag mit über 1200 Fachkräften statt. Im Mittelpunkt stand, wie Eltern bei starker Spannung oder Trennung für das Wohl ihrer Kinder unterstützt werden können.\n\nKurz notiert: Der Paritätische sieht in der Kindschaftsrechtsreform Fortschritte beim Gewalt- und Kinderschutz, aber weiterhin Nachbesserungsbedarf. Der Kabinettsentwurf greift Forderungen aus dem Gewalt- und Kinderschutz auf. Das Deutsche Institut für Menschenrechte empfiehlt eine Weiterentwicklung des Sexualstrafrechts. Es kritisiert Schutzlücken bei der Nein-heißt-Nein-Regelung, besonders bei Schockstarre. Eine Reform zu Nur-Ja-heißt-Ja soll die freiwillige Zustimmung stärken.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+      "quartiersmanagement": "Guten Morgen, hier ist das Mainzer Boniblatt für das Quartiersmanagement am Mittwoch, 25. November.\n\nAuf dem Lerchenberg steht vor dem neuen Bürgerhaus die Skulpturengruppe „Kling und Klonk“. Für die Kunst am Bau sind 156.000 Euro vorgesehen. Die Skulpturengruppe ist recht auffällig.\n\nIn den Nahkauf-Märkten in Lerchenberg und Bretzenheim sind die Regale wie leergefegt. Es gibt keinen Lebensmittelnachschub mehr.\n\nKurz notiert: In Bretzenheim entsteht eine Hundewiese an der Hinkelsteinerstraße. Die Fläche ist 2734 Quadratmeter groß. Hunde sollen dort frei und sicher laufen und miteinander spielen können. In der Backhaushohl in Bretzenheim ist ein neuer Modalfilter installiert. Auf Höhe einzelner Häuser wird die Straße für den Autoverkehr dichtgemacht.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen."
+     },
+     "gremien": {
+      "tokens": {
+       "eingabe": 2808,
+       "cache": 2944,
+       "ausgabe": 14443
+      },
+      "usd": 0.0091,
+      "sekunden": 68.5,
+      "verstoesse": [],
+      "sitzungen": {
+       "4995": {
+        "gremium": "Ortsbeirat Mainz-Drais",
+        "datum": "2026-11-17",
+        "punkte": 3,
+        "claude": {
+         "ressorts": {}
+        },
+        "deepseek": {
+         "ressorts": {}
+        }
+       },
+       "5028": {
+        "gremium": "Ausschuss für Finanzen und Beteiligungen",
+        "datum": "2026-11-24",
+        "punkte": 30,
+        "claude": {
+         "ressorts": {
+          "jugendhilfeplanung": "Haushaltsplan 2027 (Verwaltungsentwurf), Mehrbedarf Amt 51, Krippe Pusteblume, Kita Ebersheim, Schulsanierungen.",
+          "quartiersmanagement": "Haushaltsplan 2027, Mehrmittel RS+ Mombach (Brucknerstraße), Finanzcontrollingbericht."
+         }
+        },
+        "deepseek": {
+         "ressorts": {
+          "jugendhilfeplanung": "Haushalt 2027, 2,4 Mio. € Mehrbedarf HzE/§ 35a; Krippe Pusteblume in Kita-Bedarfsplan; Kita Ebersheim Ersatzneubau.",
+          "quartiersmanagement": "RS+ Mombach: Auslagerung Brucknerstraße, 5,45 Mio. € Verpflichtungsermächtigung 2026."
+         }
+        }
+       },
+       "5125": {
+        "gremium": "Ortsbeirat Mainz-Hechtsheim",
+        "datum": "2026-11-17",
+        "punkte": 16,
+        "claude": {
+         "ressorts": {}
+        },
+        "deepseek": {
+         "ressorts": {}
+        }
+       },
+       "5128": {
+        "gremium": "Ortsbeirat Mainz-Finthen",
+        "datum": "2026-11-24",
+        "punkte": 20,
+        "claude": {
+         "ressorts": {}
+        },
+        "deepseek": {
+         "ressorts": {}
+        }
+       },
+       "5522": {
+        "gremium": "Haupt- und Personalausschuss",
+        "datum": "2026-11-24",
+        "punkte": 1,
+        "claude": {
+         "ressorts": {}
+        },
+        "deepseek": {
+         "ressorts": {}
+        }
+       }
+      }
+     },
+     "termine": {
+      "tokens": {
+       "eingabe": 31139,
+       "cache": 203392,
+       "ausgabe": 15378
+      },
+      "usd": 0.03401,
+      "sekunden": 79,
+      "suchen": 18,
+      "abrufe": 8,
+      "verstoesse": [],
+      "termine": [
+       {
+        "art": "fussball",
+        "tag": "2026-11-25",
+        "wann": "18:45 Uhr",
+        "titel": "Sabah – FC Barcelona",
+        "ort": "Champions League",
+        "url": "https://eurosport.tvn24.pl/pilka-nozna/la-liga/2026-2027/barcelone-czeka-maraton-meczow-przed-swietami-bozego-narodzenia.-dziewiec-meczow-w-28-dni_sto23356351/story.shtml"
+       },
+       {
+        "art": "restaurant",
+        "tag": "2026-11-25",
+        "wann": "",
+        "titel": "Weinhaus Bluhm – urige Weinstube",
+        "ort": "Mainz, Altstadt (Badergasse)",
+        "url": "https://weinhaus-bluhm.de/"
+       },
+       {
+        "art": "markt",
+        "tag": "2026-11-26",
+        "wann": "",
+        "titel": "Weihnachtsmarkt Mainz eröffnet",
+        "ort": "Mainz, Domplätze",
+        "url": "https://www.mainz.de/angebote-entdecken/freizeit/feste-und-veranstaltungen/weihnachtsmarkt"
+       },
+       {
+        "art": "fest",
+        "tag": "2026-11-27",
+        "wann": "17 Uhr",
+        "titel": "Mombacher Adventsmarkt",
+        "ort": "Mainz-Mombach, Ortskern",
+        "url": "https://www.festivalsindeutschland.de/index.php/festival/mombacher-adventsmarkt"
+       },
+       {
+        "art": "theater",
+        "tag": "2026-11-27",
+        "wann": "19:30 Uhr",
+        "titel": "Flauschige Ekstase",
+        "ort": "Mainz, Staatstheater",
+        "url": "https://www.rheinhessen.de/veranstaltungskalender/e-flauschige-ekstase"
+       },
+       {
+        "art": "musik",
+        "tag": "2026-11-28",
+        "wann": "20 Uhr",
+        "titel": "Götz Alsmann live",
+        "ort": "Mainz, Frankfurter Hof",
+        "url": "https://laut.de/Goetz-Alsmann/Konzerte/Mainz-Frankfurter-Hof-28-11-2026-380455"
+       },
+       {
+        "art": "musik",
+        "tag": "2026-11-28",
+        "wann": "20 Uhr",
+        "titel": "Die Katzen – Weihnachtsspecial",
+        "ort": "Mainz-Ebersheim",
+        "url": "https://www.rheinhessen.de/en/what-when-where-1/e-die-katzen-das-weihnachtsspecial"
+       },
+       {
+        "art": "wein",
+        "tag": "2026-11-28",
+        "wann": "ab 14 Uhr",
+        "titel": "Weihnachtsmarkt im Weingut Menk",
+        "ort": "Ingelheim am Rhein",
+        "url": "https://www.ingelheim-erleben.de/e-herbst-weinprobiertage-im-weingut-menk"
+       },
+       {
+        "art": "fussball",
+        "tag": "2026-11-29",
+        "wann": "17 Uhr",
+        "titel": "Real Madrid – Alavés",
+        "ort": "La Liga",
+        "url": "https://www.lefigaro.fr/sports/football/equipes/real-madrid/calendrier-resultats"
+       },
+       {
+        "art": "musik",
+        "tag": "2026-11-29",
+        "wann": "17 Uhr",
+        "titel": "Adventskonzert Big Band 6.5000",
+        "ort": "Mainz, Altmünster",
+        "url": "https://www.innenstadtgemeinde-mainz.de/b/adventskonzert-der-big-band-6-5000-67250946"
+       },
+       {
+        "art": "musik",
+        "tag": "2026-11-29",
+        "wann": "17 Uhr",
+        "titel": "Advents-Benefizkonzert popCHORn",
+        "ort": "Mainz-Hechtsheim, St. Pankratius",
+        "url": "https://popchorn.de/index.php?id=lichtundton1"
+       }
+      ]
+     }
+    }
+   }
   }
  ],
  "info": "DeepSeek-Schattenlauf, geschrieben von werkzeuge/schatten.mjs. Je Ausgabe: Claudes Arbeit und die von DeepSeek aus denselben Vorgaben – Auswahl mit Hörfassung, Gremien-Notizen, „Was geht?“ – mit Tokens und Kosten in US-Dollar."
