@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-25T20:40:59.610Z",
+ "stand": "2026-11-26T03:09:59.854Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 48,
+   "treffer": 46,
    "zustand": "ok",
-   "hinweis": "unauffällig – 43 Treffer"
+   "hinweis": "unauffällig – 41 Treffer"
   },
   {
    "id": "landtag",
@@ -286,10 +286,10 @@
    "name": "Deutsches Jugendinstitut",
    "kurz": "DJI",
    "ebene": "fach",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.dji.de: Antwort ist kein RSS-/Atom-Feed"
+   "ok": true,
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "difu",
@@ -419,7 +419,7 @@
    "ok": false,
    "treffer": 0,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "hinweis": "Abruffehler (2. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "sozial-de",
