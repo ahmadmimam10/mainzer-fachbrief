@@ -356,5 +356,16 @@
    "✗ bildungsserver           0 gefunden,   0 neu  ⚠ www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
    "4 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-26T15:51:01.806Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "88 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört.",
+  "auffaellig": [
+   "✗ bundesrat                0 gefunden,   0 neu  ⚠ www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "✓ dv                       8 gefunden,   0 neu  ⚠ www.deutscher-verein.de: Zeitüberschreitung",
+   "88 neue Kandidaten (0 verworfen), 1 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 54 ok, 2 auffällig, 0 gestört."
+  ]
  }
 ]
