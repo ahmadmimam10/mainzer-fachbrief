@@ -2045,6 +2045,446 @@
      }
     }
    }
+  },
+  {
+   "datum": "2026-11-26",
+   "erstellt": "2026-11-26T04:06:58.395Z",
+   "kandidaten": 122,
+   "claude": {
+    "jugendhilfeplanung": [
+     {
+      "id": "d91a77f792",
+      "stufe": "aufmacher",
+      "titel": "Mainzer Stadtrat stimmt Konsolidierungskurs für den Haushalt 2027 zu"
+     },
+     {
+      "id": "ea64bceb7f",
+      "stufe": "wichtig",
+      "titel": "Zehn Jahre ChiK: Mehr Chancengleichheit in der Kindertagespflege"
+     },
+     {
+      "id": "82240478be",
+      "stufe": "wichtig",
+      "titel": "Städtetag: Bundeshaushalt ist enttäuschend für die Städte"
+     },
+     {
+      "id": "f2c8260ca2",
+      "stufe": "wichtig",
+      "titel": "Amadeu Antonio Stiftung warnt vor Folgen der Kürzungen bei „Demokratie leben!“"
+     },
+     {
+      "id": "e5c21dbcef",
+      "stufe": "kurz",
+      "titel": "Wie Frankfurt mit knappen Mitteln Wirkung in die Planung bringt"
+     },
+     {
+      "id": "9f8418d5c4",
+      "stufe": "kurz",
+      "titel": "Pirmasens verpflichtet arbeitslose junge Erwachsene zu gemeinnütziger Arbeit"
+     },
+     {
+      "id": "42f4c6aa21",
+      "stufe": "kurz",
+      "titel": "Studie: Junge Menschen begegnen Veränderungen mit Offenheit und Neugier"
+     },
+     {
+      "id": "3be0d63902",
+      "stufe": "kurz",
+      "titel": "Jugendverbände nehmen Klimaanpassung als neues Themenfeld in den Blick"
+     },
+     {
+      "id": "2f81f22431",
+      "stufe": "kurz",
+      "titel": "Fachveranstaltung für Jugendamtsleitungen im Januar 2027 in Hannover"
+     }
+    ],
+    "fruehe-hilfen": [
+     {
+      "id": "e3880950c7",
+      "stufe": "aufmacher",
+      "titel": "Abschlussstudie: Fast 800 missbrauchte Kinder im Bistum Trier"
+     },
+     {
+      "id": "bb96965da2",
+      "stufe": "wichtig",
+      "titel": "Vierter Landeskinderschutzbericht in Schleswig-Holstein"
+     },
+     {
+      "id": "5ef14c6d5c",
+      "stufe": "wichtig",
+      "titel": "Hessen fördert Modellregion für inklusive Frühförderung"
+     },
+     {
+      "id": "ad2fb663f3",
+      "stufe": "kurz",
+      "titel": "Grenzen der Zuneigung: Nähe und Distanz im Betreuungsalltag"
+     }
+    ],
+    "quartiersmanagement": [
+     {
+      "id": "437ce7bd7f",
+      "stufe": "aufmacher",
+      "titel": "156.000 Euro für „Kunst am Bau“ vor dem neuen Bürgerhaus Lerchenberg"
+     },
+     {
+      "id": "5f7713b303",
+      "stufe": "wichtig",
+      "titel": "Leere Regale: Wie geht es mit Nahkauf in Bretzenheim und auf dem Lerchenberg weiter?"
+     },
+     {
+      "id": "dfa0b3d660",
+      "stufe": "wichtig",
+      "titel": "Stadt äußert sich zu Problemen im Heiligkreuzareal in Weisenau"
+     },
+     {
+      "id": "e6c3ce85ec",
+      "stufe": "kurz",
+      "titel": "Baustelle Holzstraße bis Neutorstraße 22 endet vor Weihnachten"
+     },
+     {
+      "id": "088f579430",
+      "stufe": "kurz",
+      "titel": "Mainzer Hundewiese: Stadt stellt Gelände und Pläne vor"
+     },
+     {
+      "id": "f07d08dc35",
+      "stufe": "kurz",
+      "titel": "Gebühren für Straßenparken steigen um 25 bis 30 Prozent"
+     }
+    ]
+   },
+   "claudeHoer": {
+    "jugendhilfeplanung": "Guten Morgen, hier ist das Mainzer Boniblatt für die Jugendhilfeplanung am Donnerstag, 26. November.\n\nDer Mainzer Stadtrat hat den Konsolidierungskurs für den Haushalt 2027 beschlossen. Er beriet den Verwaltungsentwurf und die Haushaltsanträge der Fraktionen. Die Stadt rechnet mit einem Defizit von über 233 Millionen Euro. Ein Sparpaket und Steuererhöhungen sollen das Minus eindämmen.\n\nZur Kindertagespflege: Das Mainzer Modell ChiK feiert zehn Jahre. Es ermöglicht Betreuung ohne private Zuzahlungen. In dieser Zeit wurden mehr als 1.200 Kinder über ChiK-Plätze betreut.\n\nAuch der Bund steht im Blick. Der Deutsche Städtetag nennt den Bundeshaushalt nach seiner Präsidiumssitzung in Bremen enttäuschend für die Städte. Zugleich warnt die Amadeu Antonio Stiftung vor den Kürzungen beim Programm Demokratie leben. Betroffen sei vor allem der ländliche Raum, besonders in Ostdeutschland.\n\nKurz notiert: Pirmasens verpflichtet arbeitslose junge Erwachsene zu gemeinnütziger Arbeit. Wer nicht erscheint, dem droht Leistungsentzug. Eine neue Studie zeigt, dass junge Menschen Veränderungen in der Welt mit Offenheit und Neugier begegnen. Und der Deutsche Verein lädt Jugendamtsleitungen im Januar zu einer Fachveranstaltung nach Hannover ein.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+    "fruehe-hilfen": "Guten Morgen, hier ist das Mainzer Boniblatt für Frühe Hilfen, Kinderschutz und Familienbildung am Donnerstag, 26. November.\n\nHistoriker der Universität Trier haben den Abschlussbericht zum sexuellen Missbrauch im Bistum Trier vorgelegt. Sie untersuchten die Zeit seit 1946. Nach den Ergebnissen wurden fast 800 Kinder missbraucht. Die Studie bietet laut den Forschern viel Stoff für weitere Untersuchungen.\n\nDann ein Blick in andere Länder. Schleswig-Holstein hat seinen vierten Landeskinderschutzbericht veröffentlicht. Er zeigt Fortschritte wie mehr Prävention und neue Kinderschutz-Zentren. Fachkräftemangel, digitale Risiken und inklusiver Schutz bleiben Herausforderungen.\n\nIn Hessen fördert die Landesregierung eine Modellregion für inklusive Frühförderung im Landkreis Waldeck-Frankenberg. Sie stellt dafür 300.000 Euro bereit. Ziel ist eine frühe Unterstützung von Kindern mit Entwicklungsrisiken, mit Prävention und Familienorientierung.\n\nKurz notiert: Pädagogische Fachkräfte müssen im Betreuungsalltag ständig über Nähe und Grenzen nachdenken. Die Professorin Sabina Schutter diskutiert, wie ein liebevolles Zuhause für Kinder aussehen kann, ohne Grenzen zu überschreiten.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+    "quartiersmanagement": "Guten Morgen, hier ist das Mainzer Boniblatt für das Quartiersmanagement am Donnerstag, 26. November.\n\nAuf dem Lerchenberg steht vor dem neuen Bürgerhaus eine Skulpturengruppe mit dem Namen Kling und Klonk. Sie kostete 156.000 Euro und wurde als Kunst am Bau aufgestellt.\n\nBeim Thema Nahversorgung bleibt es unruhig. In Bretzenheim und auf dem Lerchenberg bleibt in den Nahkauf-Märkten Ware aus. Rewe nennt interne Gründe des Betreibers, die Hintergründe sind unklar. Mainzer Politiker werden aktiv.\n\nIm Heiligkreuzareal in Weisenau gibt es weiter zahlreiche Probleme. Genannt werden ein unsicherer Zugang, fehlende Infrastruktur und mögliche Mängel. Baudezernent Holle hat den Status quo vorgestellt.\n\nKurz notiert: Die Baustelle in der Holzstraße bis zur Neutorstraße 22 soll vor Weihnachten fertig werden. Die Vollsperrung der Neutorstraße gilt voraussichtlich bis zum 18. Dezember. Außerdem stellt die Stadt Gelände und Pläne für die erste Mainzer Hundewiese vor. Und die Gebühren für das Straßenparken steigen um 25 bis 30 Prozent.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen."
+   },
+   "claudeTermine": [
+    {
+     "art": "markt",
+     "tag": "2026-11-26",
+     "wann": "",
+     "titel": "Mainzer Weihnachtsmarkt eröffnet",
+     "ort": "Mainz, Dom und Marktplatz",
+     "url": "https://freizeitmonster.de/aktivitaeten/veranstaltungen/mainzer-weihnachtsmarkt-2026-324339"
+    },
+    {
+     "art": "theater",
+     "tag": "2026-11-27",
+     "wann": "",
+     "titel": "Dantons Tod",
+     "ort": "Mainz, M8 Großer Saal",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/dantons-tod-schauspiel-von-und-nach-georg-buechner-mainz-27-11/"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-11-27",
+     "wann": "",
+     "titel": "Sababa 5",
+     "ort": "Mainz, Kulturclub schon schön",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/sababa-5-kulturclub-schon-schoen-mainz/"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-27",
+     "wann": "",
+     "titel": "Mombacher Adventsmarkt",
+     "ort": "Mainz-Mombach",
+     "url": "https://freizeitmonster.de/aktivitaeten/veranstaltungen/mombacher-adventsmarkt-2026-324341"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-11-28",
+     "wann": "",
+     "titel": "Wort und Klang I – Adventskonzert",
+     "ort": "Mainz, Dom St. Martin",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/wort-und-klang-i-musik-und-texte-zum-advent-dom-st-martin/"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-11-28",
+     "wann": "",
+     "titel": "Die Katzen – Swing zur Weihnacht",
+     "ort": "Mainz-Ebersheim, Weingut Becker",
+     "url": "https://www.mvp.de/rheinland-pfalz/veranstaltungen/die-katzen-eine-weihnachtliche-reise-in-die-swing-aera-mainz-ot-ebersheim/"
+    },
+    {
+     "art": "party",
+     "tag": "2026-11-28",
+     "wann": "",
+     "titel": "Ü50 – Forever Young Party",
+     "ort": "Mainz, KUZ",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/ue50-forever-young-party-70er-80er-mit-dj-taikee-mainz/"
+    },
+    {
+     "art": "theater",
+     "tag": "2026-11-29",
+     "wann": "",
+     "titel": "Josef Hader – Hader on Ice",
+     "ort": "Mainz, Rheingoldhalle",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/josef-hader-hader-on-ice-rheingoldhalle-mainz/"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-11-29",
+     "wann": "",
+     "titel": "Adventliche Chor- und Orgelmusik",
+     "ort": "Mainz, Dom St. Martin",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/machtet-die-tore-weit-adventliche-chor-und-orgelmusik-mainz/"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-11-30",
+     "wann": "",
+     "titel": "Memento Odesa 2026",
+     "ort": "Mainz, Bürgerhaus Lerchenberg",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/memento-odesa-2026-sebastian-studnitzky-band-odesa-chamber/"
+    },
+    {
+     "art": "theater",
+     "tag": "2026-12-02",
+     "wann": "",
+     "titel": "Oliver Wnuk liest und denkt laut",
+     "ort": "Mainz, Frankfurter Hof",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/oliver-wnuk-wnuk-denkt-laut-und-liest-was-vor-frankfurter-hof/"
+    },
+    {
+     "art": "theater",
+     "tag": "2026-12-03",
+     "wann": "",
+     "titel": "Woyzeck",
+     "ort": "Mainz, M8 Großer Saal",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/woyzeck-schauspiel-von-georg-buechner-m8-mainz-grosser-03-12/"
+    }
+   ],
+   "modelle": {
+    "deepseek-flash": {
+     "denken": "max (Suche: high)",
+     "tarif": "Nebenzeit",
+     "sekunden": 232,
+     "usd": 0.04529,
+     "tokens": {
+      "eingabe": 44844,
+      "cache": 109568,
+      "ausgabe": 32474
+     },
+     "erfunden": 0,
+     "verstoesse": [],
+     "ressorts": {
+      "jugendhilfeplanung": [
+       {
+        "id": "d91a77f792",
+        "stufe": "aufmacher",
+        "titel": "Stadtrat beschließt Konsolidierungskurs für den Haushalt 2027",
+        "kurz": "Der Mainzer Stadtrat hat den Haushaltsplan 2027 beraten und Beschlüsse zum Verwaltungsentwurf sowie zu den Haushaltsanträgen der Fraktionen gefasst."
+       },
+       {
+        "id": "ea64bceb7f",
+        "stufe": "wichtig",
+        "titel": "Zehn Jahre ChiK: Mehr als 1.200 Kinder in zuzahlungsfreier Kindertagespflege",
+        "kurz": "Das Mainzer Modell ChiK ermöglicht seit zehn Jahren Kindertagespflege ohne private Zuzahlungen; in dieser Zeit wurden mehr als 1.200 Kinder über ChiK-Plätze betreut."
+       },
+       {
+        "id": "42f4c6aa21",
+        "stufe": "wichtig",
+        "titel": "Studie: Junge Menschen begegnen Krisen mit Offenheit und Neugier",
+        "kurz": "Eine neue Studie zeigt, dass junge Menschen trotz Krisen neugierig auf die Welt blicken und an der Staatsform Demokratie festhalten."
+       },
+       {
+        "id": "82240478be",
+        "stufe": "wichtig",
+        "titel": "Deutscher Städtetag nennt Bundeshaushalt enttäuschend für die Städte",
+        "kurz": "Nach einer Präsidiumssitzung in Bremen bewertet der Deutsche Städtetag den Bundeshaushalt als enttäuschend für die Kommunen."
+       },
+       {
+        "id": "e5c21dbcef",
+        "stufe": "kurz",
+        "titel": "Frankfurt zeigt, wie Kommunen knappe Mittel wirkungsorientiert planen"
+       },
+       {
+        "id": "3be0d63902",
+        "stufe": "kurz",
+        "titel": "Jugendverbände tauschen sich erstmals zu Klimaanpassung aus"
+       }
+      ],
+      "fruehe-hilfen": [
+       {
+        "id": "e3880950c7",
+        "stufe": "aufmacher",
+        "titel": "Studie zum Bistum Trier nennt fast 800 missbrauchte Kinder",
+        "kurz": "Eine historische Studie der Universität Trier zu sexuellem Missbrauch im Bistum Trier ist abgeschlossen; sie nennt fast 800 betroffene Kinder und bietet Stoff für weitere Forschungen."
+       },
+       {
+        "id": "bb96965da2",
+        "stufe": "wichtig",
+        "titel": "Landeskinderschutzbericht sieht Fortschritte und offene Aufgaben",
+        "kurz": "Der vierte Landeskinderschutzbericht für Schleswig-Holstein verzeichnet mehr Prävention und neue Kinderschutz-Zentren, benennt aber Fachkräftemangel, digitale Risiken und inklusiven Schutz als Herausforderungen."
+       },
+       {
+        "id": "5ef14c6d5c",
+        "stufe": "wichtig",
+        "titel": "300.000 Euro für Modellregion inklusive Frühförderung",
+        "kurz": "Hessen fördert im Landkreis Waldeck-Frankenberg eine Modellregion, die Kinder mit Entwicklungsrisiken frühzeitig und familienorientiert unterstützen soll."
+       },
+       {
+        "id": "8dca8f8dd0",
+        "stufe": "wichtig",
+        "titel": "DJI: Prävention geschlechtsspezifischer Gewalt wirksamer gestalten",
+        "kurz": "Das Deutsche Jugendinstitut verweist auf steigende geschlechtsspezifische und häusliche Gewalt und erläutert Ansätze für wirksamere Prävention."
+       },
+       {
+        "id": "ad2fb663f3",
+        "stufe": "kurz",
+        "titel": "Nähe und Grenzen in der pädagogischen Betreuung reflektieren"
+       }
+      ],
+      "quartiersmanagement": [
+       {
+        "id": "5f7713b303",
+        "stufe": "aufmacher",
+        "titel": "Nahkauf-Märkte in Bretzenheim und Lerchenberg: Politik schaltet sich ein",
+        "kurz": "In zwei Mainzer Nahkauf-Märkten bleibt Ware aus; Rewe nennt interne Gründe des Betreibers, während Mainzer Politiker aktiv werden."
+       },
+       {
+        "id": "437ce7bd7f",
+        "stufe": "wichtig",
+        "titel": "Neues Bürgerhaus Lerchenberg erhält Skulpturengruppe für 156.000 Euro",
+        "kurz": "Vor dem neuen Bürgerhaus auf dem Lerchenberg steht die Skulpturengruppe „Kling und Klonk“; für die Kunst am Bau sind 156.000 Euro vorgesehen."
+       },
+       {
+        "id": "e6c3ce85ec",
+        "stufe": "wichtig",
+        "titel": "Baustelle zwischen Holzstraße und Neutorstraße soll vor Weihnachten fertig werden",
+        "kurz": "Die Arbeiten können wie geplant vor Weihnachten abgeschlossen werden; die Vollsperrung der Neutorstraße gilt voraussichtlich bis zum 18. Dezember."
+       },
+       {
+        "id": "088f579430",
+        "stufe": "kurz",
+        "titel": "Stadt stellt Gelände und Pläne für die erste Mainzer Hundewiese vor"
+       }
+      ]
+     },
+     "hoer": {
+      "jugendhilfeplanung": "Guten Morgen, hier ist der Mainzer Fachbrief für die Jugendhilfeplanung am Donnerstag, 26. November.\n\nDer Stadtrat hat den Haushaltsplan für 2027 beraten und den Konsolidierungskurs beschlossen. Er traf Beschlüsse zum Verwaltungsentwurf und zu den Haushaltsanträgen der Fraktionen. Damit ist der finanzielle Rahmen für die kommenden Planungen abgesteckt.\n\nDas Mainzer Modell ChiK wird zehn Jahre alt. ChiK steht für Chancengleichheit in der Kindertagespflege und ermöglicht Betreuung ohne private Zuzahlungen. In den vergangenen zehn Jahren wurden mehr als 1.200 Kinder über ChiK-Plätze betreut.\n\nEine neue Studie zeigt, dass junge Menschen Veränderungen in der Welt mit Offenheit und Neugier begegnen. Trotz aller Krisen halten sie an der Staatsform Demokratie fest.\n\nDer Deutsche Städtetag hat den Bundeshaushalt als enttäuschend für die Städte bewertet. Die Einschätzung stammt aus einer Präsidiumssitzung in Bremen.\n\nKurz notiert: Ein Fachbeitrag aus Frankfurt beschreibt, wie Kommunen mit Wirkungsorientierung knappe Mittel systematisch priorisieren. Er fragt, welche Probleme keinen Aufschub dulden, welche Gruppen mehr Unterstützung brauchen und welche Angebote die Lage verbessern können. Außerdem haben sich Jugendverbände und Jugendorganisationen erstmals zum Thema Klimaanpassung ausgetauscht. Den Anstoß gab die Arbeitsgruppe Strategische Ausrichtung.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+      "fruehe-hilfen": "Guten Morgen, hier ist der Mainzer Fachbrief für Frühe Hilfen, Kinderschutz und Familienbildung am Donnerstag, 26. November.\n\nEine historische Studie der Universität Trier zu sexuellem Missbrauch im Bistum Trier ist abgeschlossen. Sie nennt fast 800 missbrauchte Kinder und bietet nach Einschätzung der Historiker Stoff für weitere Forschungen.\n\nDer vierte Landeskinderschutzbericht für Schleswig-Holstein liegt vor. Er zeigt Fortschritte wie mehr Prävention und neue Kinderschutz-Zentren. Fachkräftemangel, digitale Risiken und inklusiver Schutz bleiben aber Herausforderungen.\n\nIn Hessen fördert die Landesregierung mit 300.000 Euro eine Modellregion für inklusive Frühförderung im Landkreis Waldeck-Frankenberg. Ziel ist die frühzeitige Unterstützung von Kindern mit Entwicklungsrisiken durch Prävention und Familienorientierung.\n\nDas Deutsche Jugendinstitut verweist auf steigende geschlechtsspezifische und häusliche Gewalt. Obwohl Gewaltkriminalität insgesamt rückläufig ist, nimmt diese Gewalt zu. Zum Internationalen Tag zur Beseitigung von Gewalt gegen Frauen erläutert Christoph Liel, wie Prävention wirksamer werden kann.\n\nKurz notiert: Ein Fachbeitrag diskutiert, wie pädagogische Fachkräfte im Betreuungsalltag Nähe und Grenzen reflektieren. Umarmungen sind nicht per se problematisch, doch Grenzüberschreitungen müssen vermieden werden.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen.",
+      "quartiersmanagement": "Guten Morgen, hier ist der Mainzer Fachbrief für das Quartiersmanagement am Donnerstag, 26. November.\n\nIn den Nahkauf-Märkten in Bretzenheim und auf dem Lerchenberg bleibt Ware aus. Rewe nennt interne Gründe des Betreibers, die Hintergründe sind unklar. Mainzer Politiker werden aktiv.\n\nVor dem neuen Bürgerhaus auf dem Lerchenberg steht die Skulpturengruppe „Kling und Klonk“. Für die Kunst am Bau sind 156.000 Euro vorgesehen.\n\nDie Baustelle im Bereich Holzstraße bis zur Neutorstraße 22 kann wie geplant vor Weihnachten abgeschlossen werden. Die Vollsperrung der Neutorstraße gilt voraussichtlich bis zum 18. Dezember. Die Stadt weist darauf hin, dass die Lokale und Geschäfte trotzdem geöffnet sind.\n\nKurz notiert: Die Stadt Mainz hat den nächsten Schritt für die erste Hundewiese der Stadt gemacht und Gelände sowie Pläne vorgestellt. Hundehalter warten schon lange auf einen Ort, an dem ihre Vierbeiner herumtollen dürfen.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Bis morgen."
+     },
+     "gremien": {
+      "hinweis": "keine neue Sitzung zum Vergleichen"
+     },
+     "termine": {
+      "tokens": {
+       "eingabe": 33360,
+       "cache": 105344,
+       "ausgabe": 10740
+      },
+      "usd": 0.03051,
+      "sekunden": 55.7,
+      "suchen": 18,
+      "abrufe": 7,
+      "verstoesse": [
+       "„Christmas Lights Mainz“: unbekannte Art „“"
+      ],
+      "termine": [
+       {
+        "art": "markt",
+        "tag": "2026-11-26",
+        "wann": "ab 11 Uhr",
+        "titel": "Historischer Weihnachtsmarkt eröffnet",
+        "ort": "Mainz, Domplätze",
+        "url": "https://www.mainz.de/angebote-entdecken/freizeit/feste-und-veranstaltungen/weihnachtsmarkt"
+       },
+       {
+        "art": "theater",
+        "tag": "2026-11-27",
+        "wann": "20 Uhr",
+        "titel": "Dantons Tod",
+        "ort": "Mainz, M8",
+        "url": "https://www.mvp.de/mainz/veranstaltungen/dantons-tod-schauspiel-von-und-nach-georg-buechner-mainz-27-11/"
+       },
+       {
+        "art": "musik",
+        "tag": "2026-11-27",
+        "wann": "20 Uhr",
+        "titel": "Red Hot Chilli Pipers",
+        "ort": "Mainz, Frankfurter Hof",
+        "url": "https://www.kulturpur.de/buehnen/frankfurter-hof-mainz/spielplan/2026-11"
+       },
+       {
+        "art": "markt",
+        "tag": "2026-11-27",
+        "wann": "ab 10:30 Uhr",
+        "titel": "Sternschnuppenmarkt Wiesbaden",
+        "ort": "Wiesbaden, Schlossplatz",
+        "url": "https://tourismus.wiesbaden.de/microsite/tourismus/erleben/events/stadtevents/sternschnuppenmarkt"
+       },
+       {
+        "art": "wein",
+        "tag": "2026-11-28",
+        "wann": "ab 14 Uhr",
+        "titel": "Glühweinwochenende Weingut Menk",
+        "ort": "Ingelheim, Weingut Menk",
+        "url": "https://www.ingelheim-erleben.de/e-herbst-weinprobiertage-im-weingut-menk"
+       },
+       {
+        "art": "fussball",
+        "tag": "2026-11-29",
+        "wann": "15 Uhr",
+        "titel": "Real Madrid – CD Alavés",
+        "ort": "La Liga",
+        "url": "https://www.sport.de/fussball/spanien-primera-division/ma12188203/real-madrid_cd-alaves/uebersicht/"
+       },
+       {
+        "art": "fussball",
+        "tag": "2026-11-29",
+        "wann": "16:15 Uhr",
+        "titel": "Deportivo – FC Barcelona",
+        "ort": "La Liga",
+        "url": "https://www.fcbarcelona.com/en/football/first-team/news/4609868/nine-games-in-a-month-to-round-off-2026"
+       },
+       {
+        "art": "spiel",
+        "tag": "2026-12-03",
+        "wann": "",
+        "titel": "Warhammer 40.000: Dawn of War IV",
+        "ort": "PC",
+        "url": "https://www.videogameszone.de/Spiele/Alle/Alle/Release/Naechstes-Quartal/"
+       },
+       {
+        "art": "spiel",
+        "tag": "2026-12-03",
+        "wann": "",
+        "titel": "Rayman Legends Retold",
+        "ort": "PC, PS5, Xbox, Switch 2",
+        "url": "https://www.videogameszone.de/Spiele/Alle/Alle/Release/Naechstes-Quartal/"
+       },
+       {
+        "art": "restaurant",
+        "tag": "2026-11-27",
+        "wann": "",
+        "titel": "KUEHN Schankraum & Biergarten",
+        "ort": "Mainz, Altes Rohrlager",
+        "url": "https://www.rheinhessen.de/essen-und-trinken/a-kuehn-schankraum-biergarten"
+       },
+       {
+        "art": "spielzeug",
+        "tag": "2026-11-30",
+        "wann": "",
+        "titel": "Dito! – Spiel des Jahres 2026",
+        "ort": "ab 8 Jahren · Partyspiel",
+        "url": "https://www.spiel-des-jahres.de/das-spiel-des-jahres-heisst-dito/"
+       },
+       {
+        "art": "",
+        "tag": "2026-12-02",
+        "wann": "",
+        "titel": "Christmas Lights Mainz",
+        "ort": "Mainz, Ludwigsstraße",
+        "url": "https://www.mainz.de/angebote-entdecken/freizeit/feste-und-veranstaltungen/weihnachtsmarkt"
+       }
+      ]
+     }
+    }
+   }
   }
  ],
  "info": "DeepSeek-Schattenlauf, geschrieben von werkzeuge/schatten.mjs. Je Ausgabe: Claudes Arbeit und die von DeepSeek aus denselben Vorgaben – Auswahl mit Hörfassung, Gremien-Notizen, „Was geht?“ – mit Tokens und Kosten in US-Dollar."
