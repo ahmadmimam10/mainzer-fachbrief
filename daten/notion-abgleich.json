@@ -1,18 +1,32 @@
 {
  "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
- "stand": "2026-11-25T05:08:12.039Z",
+ "stand": "2026-11-26T13:45:22.346Z",
  "zugang": "ok",
  "grenze": "nächtlicher Abruf",
  "letzterLauf": "2026-12-06",
  "gesamt": {
-  "tage": 3,
-  "notion": 175,
-  "erfasst": 171,
-  "fehlt": 4,
+  "tage": 4,
+  "notion": 332,
+  "erfasst": 325,
+  "fehlt": 7,
   "offen": 0,
-  "zusaetzlich": 8
+  "zusaetzlich": 30
  },
  "luecken": [
+  {
+   "quelle": "Bildungsserver",
+   "id": "bildungsserver",
+   "grund": "unklar",
+   "anzahl": 3,
+   "tage": [
+    "2026-11-26"
+   ],
+   "beispiele": [
+    "OER zum Thema Klima: Kostenlose Materialien und Lernideen für den Unterricht",
+    "Klimabildungspolitik weltweit mit dem Climate Education NDCs Tracker",
+    "Klimawiki: Fakten zum Klimawandel"
+   ]
+  },
   {
    "quelle": "akj stat",
    "id": "akjstat",
@@ -72,6 +86,164 @@
   }
  ],
  "tage": [
+  {
+   "tag": "2026-11-26",
+   "von": "2026-11-24T03:40:17.777Z",
+   "bis": "2026-11-26T03:10:34.258Z",
+   "vorlaeufig": true,
+   "eintraege": 193,
+   "notion": 157,
+   "erfasst": 154,
+   "fehlt": 3,
+   "offen": 0,
+   "zusaetzlich": 22,
+   "vorsprungMinuten": 122,
+   "quellen": [
+    {
+     "name": "Allgemeine Zeitung",
+     "id": "az",
+     "notion": 84,
+     "erfasst": 84,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 5
+    },
+    {
+     "name": "SPIEGEL",
+     "id": "spiegel",
+     "notion": 19,
+     "erfasst": 19,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 2
+    },
+    {
+     "name": "Bildungsserver",
+     "id": "bildungsserver",
+     "notion": 13,
+     "erfasst": 10,
+     "fehlt": 3,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Difu",
+     "id": "difu",
+     "notion": 11,
+     "erfasst": 11,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 1
+    },
+    {
+     "name": "Jugendhilfeportal.de",
+     "id": "jugendhilfeportal",
+     "notion": 9,
+     "erfasst": 9,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 4
+    },
+    {
+     "name": "Mainz Pressemeldungen",
+     "id": "stadt-mainz",
+     "notion": 7,
+     "erfasst": 7,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Bundesministerium für Bildung, Familie, Senioren, Frauen und Jugend",
+     "id": "bmbfsfj",
+     "notion": 5,
+     "erfasst": 5,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 4
+    },
+    {
+     "name": "Deutsches Jugendinstitut",
+     "id": "dji",
+     "notion": 4,
+     "erfasst": 4,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "DIJUF",
+     "id": "dijuf",
+     "notion": 2,
+     "erfasst": 2,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Kommune360",
+     "id": "kommune360",
+     "notion": 1,
+     "erfasst": 1,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Bundestag",
+     "id": "bundestag",
+     "notion": 1,
+     "erfasst": 1,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Bildungsminsterium",
+     "id": "bm-rlp",
+     "notion": 1,
+     "erfasst": 1,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Landtag Rheinland-Pfalz",
+     "id": "landtag",
+     "notion": 0,
+     "erfasst": 0,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 6
+    }
+   ],
+   "fehlend": [
+    {
+     "titel": "OER zum Thema Klima: Kostenlose Materialien und Lernideen für den Unterricht",
+     "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2658&pk_campaign=no_campaign_rss&pk_source=neuigkeiten&pk_medium=rss",
+     "quelle": "Bildungsserver",
+     "id": "bildungsserver",
+     "zeit": "2026-11-26T01:11:00.000Z",
+     "grund": "unklar"
+    },
+    {
+     "titel": "Klimabildungspolitik weltweit mit dem Climate Education NDCs Tracker",
+     "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2673&pk_campaign=no_campaign_rss&pk_source=neuigkeiten&pk_medium=rss",
+     "quelle": "Bildungsserver",
+     "id": "bildungsserver",
+     "zeit": "2026-11-26T01:11:00.000Z",
+     "grund": "unklar"
+    },
+    {
+     "titel": "Klimawiki: Fakten zum Klimawandel",
+     "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2269&pk_campaign=no_campaign_rss&pk_source=neuigkeiten&pk_medium=rss",
+     "quelle": "Bildungsserver",
+     "id": "bildungsserver",
+     "zeit": "2026-11-26T01:11:00.000Z",
+     "grund": "unklar"
+    }
+   ]
+  },
   {
    "tag": "2026-11-24",
    "von": "2026-11-23T03:42:02.312Z",
