@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-26T15:49:36.178Z",
+ "stand": "2026-11-27T01:10:08.188Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -37,9 +37,9 @@
    "kurz": "Merkurist",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 9,
+   "treffer": 10,
    "zustand": "ok",
-   "hinweis": "unauffällig – 9 Treffer"
+   "hinweis": "unauffällig – 10 Treffer"
   },
   {
    "id": "sensor",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 46,
+   "treffer": 49,
    "zustand": "ok",
-   "hinweis": "unauffällig – 41 Treffer"
+   "hinweis": "unauffällig – 44 Treffer"
   },
   {
    "id": "landtag",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "ok": true,
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "spiegel",
@@ -286,10 +286,10 @@
    "name": "Deutsches Jugendinstitut",
    "kurz": "DJI",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 30,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.dji.de: HTTP 415"
   },
   {
    "id": "difu",
@@ -297,9 +297,9 @@
    "kurz": "Difu",
    "ebene": "fach",
    "ok": true,
-   "treffer": 121,
+   "treffer": 118,
    "zustand": "ok",
-   "hinweis": "unauffällig – 121 Treffer"
+   "hinweis": "unauffällig – 118 Treffer"
   },
   {
    "id": "nzfh",
@@ -367,9 +367,9 @@
    "kurz": "Deutscher Verein",
    "ebene": "fach",
    "ok": true,
-   "treffer": 8,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.deutscher-verein.de: Zeitüberschreitung; nur 8 brauchbare Treffer statt üblicherweise 50"
+   "treffer": 47,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 47 Treffer"
   },
   {
    "id": "dbjr",
@@ -416,10 +416,10 @@
    "name": "Deutscher Bildungsserver",
    "kurz": "Bildungsserver",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 15,
-   "zustand": "ok",
-   "hinweis": "unauffällig – 15 Treffer"
+   "ok": false,
+   "treffer": 0,
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
   },
   {
    "id": "sozial-de",
