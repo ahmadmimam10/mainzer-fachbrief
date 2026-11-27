@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-27T01:10:08.188Z",
+ "stand": "2026-11-27T11:26:42.016Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -37,9 +37,9 @@
    "kurz": "Merkurist",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 10,
+   "treffer": 11,
    "zustand": "ok",
-   "hinweis": "unauffällig – 10 Treffer"
+   "hinweis": "unauffällig – 11 Treffer"
   },
   {
    "id": "sensor",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 49,
+   "treffer": 47,
    "zustand": "ok",
-   "hinweis": "unauffällig – 44 Treffer"
+   "hinweis": "unauffällig – 42 Treffer"
   },
   {
    "id": "landtag",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": true,
-   "treffer": 30,
+   "ok": false,
+   "treffer": 0,
    "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "hinweis": "letzter Abruf nicht erreichbar (www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt"
   },
   {
    "id": "spiegel",
@@ -286,10 +286,10 @@
    "name": "Deutsches Jugendinstitut",
    "kurz": "DJI",
    "ebene": "fach",
-   "ok": false,
-   "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.dji.de: HTTP 415"
+   "ok": true,
+   "treffer": 30,
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "difu",
@@ -416,10 +416,10 @@
    "name": "Deutscher Bildungsserver",
    "kurz": "Bildungsserver",
    "ebene": "fach",
-   "ok": false,
-   "treffer": 0,
+   "ok": true,
+   "treffer": 13,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "hinweis": "3 von 5 neuen Links nicht erreichbar (Zeitüberschreitung (10 s)), 1. Lauf in Folge"
   },
   {
    "id": "sozial-de",
@@ -427,9 +427,9 @@
    "kurz": "sozial.de",
    "ebene": "fach",
    "ok": true,
-   "treffer": 21,
+   "treffer": 20,
    "zustand": "ok",
-   "hinweis": "unauffällig – 21 Treffer"
+   "hinweis": "unauffällig – 20 Treffer"
   },
   {
    "id": "jadigital",
@@ -526,10 +526,10 @@
    "name": "Der Paritätische Gesamtverband",
    "kurz": "Paritätischer",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 30,
+   "ok": false,
+   "treffer": 0,
    "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer"
+   "hinweis": "letzter Abruf nicht erreichbar (www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt"
   },
   {
    "id": "bertelsmann",

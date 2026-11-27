@@ -1,13 +1,13 @@
 {
- "stand": "2026-11-27T01:10:08.188Z",
+ "stand": "2026-11-27T11:26:42.016Z",
  "info": "Vom Quellenabruf (werkzeuge/sammeln.mjs) geschrieben, nicht von Hand ändern. zustand: ok | auffaellig | gestoert; trefferVerlauf: brauchbare Treffer der letzten 14 Läufe (null = Abruf fehlgeschlagen); verworfen: neue Kandidaten des letzten Laufs, die an Titel-, Link- oder Linkprüfung scheiterten. Reparatur: REDAKTION.md, Abschnitt „Quellenpflege“.",
  "quellen": {
   "ratsinfo": {
    "zustand": "ok",
    "hinweis": "unauffällig – 6 Treffer",
    "seit": "2026-11-21T15:28:12.445Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -26,14 +26,15 @@
    "juengstes": "",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": []
   },
   "stadt-mainz": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -60,20 +61,21 @@
     "2026-11-25": 5,
     "2026-11-26": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": []
   },
   "az": {
    "zustand": "ok",
    "hinweis": "unauffällig – 100 Treffer",
    "seit": "2026-11-25T11:45:04.405Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 100,
    "brauchbar": 100,
-   "neu": 8,
+   "neu": 16,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -81,12 +83,12 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [100, 100, 100, 100, 100, 100, 100, 100, null, 100, 100, 100, 100, 100],
+   "trefferVerlauf": [100, 100, 100, 100, 100, 100, 100, null, 100, 100, 100, 100, 100, 100],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-27T01:10:08.188Z",
-    "titel": "Erster Spatenstich für die „BUGA29“ auf Burg Rheinfels"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "Live-Verkehrsticker: Züge wegen Störungen verspätet"
    },
    "neuTage": {
     "2026-11-22": 3,
@@ -94,21 +96,31 @@
     "2026-11-24": 30,
     "2026-11-25": 34,
     "2026-11-26": 17,
-    "2026-11-27": 8
+    "2026-11-27": 24
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/mainz-lerchenberg/ortsverwaltung-lerchenberg-soll-beschilderung-erhalten-5377259",
+     "datum": "2026-05-20"
+    },
+    {
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/mainz-hartenberg-muenchfeld/sarah-nitschmann-leitet-jetzt-mainzer-astrid-lindgren-schule-5712459",
+     "datum": "2026-06-24"
+    }
+   ]
   },
   "merkurist": {
    "zustand": "ok",
-   "hinweis": "unauffällig – 10 Treffer",
+   "hinweis": "unauffällig – 11 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 10,
-   "brauchbar": 10,
+   "gefunden": 11,
+   "brauchbar": 11,
    "neu": 1,
    "verworfen": 0,
    "verworfenNach": {
@@ -117,28 +129,29 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 8, 8, 9, 10],
+   "trefferVerlauf": [5, 5, 5, 5, 5, 6, 6, 6, 6, 8, 8, 9, 10, 11],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-27T01:10:08.188Z",
-    "titel": "„Christmas Lights“: Neue Lichtskulpturen in Mainzer Altstadt"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "Kosten für Geflüchtete: So viel zahlt Mainz für freiwillige ..."
    },
    "neuTage": {
     "2026-11-23": 1,
     "2026-11-24": 3,
     "2026-11-25": 4,
     "2026-11-26": 5,
-    "2026-11-27": 1
+    "2026-11-27": 2
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": []
   },
   "sensor": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -163,14 +176,15 @@
     "2026-11-23": 2,
     "2026-11-26": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": []
   },
   "wohnbau-mainz": {
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -189,20 +203,58 @@
    "juengstes": "2026-09-21",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.wohnbau-mainz.de/presse/100-jahre-fichteplatz-ein-jahrhundert-mainzer-stadtgeschichte/",
+     "datum": "2026-09-21"
+    },
+    {
+     "url": "https://www.wohnbau-mainz.de/presse/bezahlbarer-und-zukunftsfaehiger-wohnraum-spitzenverband-der-wohnungswirt-schaft-besucht-erfolgreiche-bauprojekte/",
+     "datum": "2026-08-12"
+    },
+    {
+     "url": "https://www.wohnbau-mainz.de/presse/zeitkapsel-fuer-die-zukunft-wohnbau-mainz-bewahrt-ein-stueck-gegenwart-in-ebersheim/",
+     "datum": "2026-06-24"
+    },
+    {
+     "url": "https://www.wohnbau-mainz.de/presse/mehr-wohnraum-mehr-klimaschutz-starke-quartiere-wohnbau-mainz-zieht-positive-bilanz/",
+     "datum": "2026-06-18"
+    },
+    {
+     "url": "https://www.wohnbau-mainz.de/presse/wohnbau-mainz-feiert-ein-jahrzehnt-gemeinschaftliches-wohnen-auf-dem-hartenberg/",
+     "datum": "2026-06-01"
+    },
+    {
+     "url": "https://www.wohnbau-mainz.de/presse/wohnbau-mainz-gibt-neue-geschaeftsfuehrerin-bekannt-zusammen-mit-roman-becker-wird-sie-kuenftig-das-groesste-wohnungsbauunternehmen-in-der-landeshauptstadt-leiten/",
+     "datum": "2026-03-27"
+    },
+    {
+     "url": "https://www.wohnbau-mainz.de/presse/freiwilliger-wohnungswechsel-schafft-anreize-und-setzt-wohnraum-gezielt-frei/",
+     "datum": "2026-03-20"
+    },
+    {
+     "url": "https://www.wohnbau-mainz.de/presse/kommunale-waermewende-nimmt-fahrt-auf-wohnbau-mainz-und-mainzer-fernwaerme-forcieren-anschluss-weiterer-quartiere/",
+     "datum": "2026-03-06"
+    },
+    {
+     "url": "https://www.wohnbau-mainz.de/presse/erfolgreicher-start-des-neuen-kundenportals-immomio-erste-positive-bilanz-fuer-das-neue-system-gleichzeitig-immer-noch-hohe-nachfrage-nach-wohnraum-in-mainz/",
+     "datum": "2026-01-28"
+    }
+   ]
   },
   "mainz-mastodon": {
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 20,
    "brauchbar": 20,
-   "neu": 1,
+   "neu": 5,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -212,32 +264,33 @@
    "beispiele": [],
    "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-27T01:10:08.188Z",
-    "titel": "In Mainz weihnachtet es sehr! 🎄💫⭐ Die Mainzer WinterZeit-Märkte, der Neuwintermarkt und der historische …"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "Teil 1/2/2 Auch in Teil 2 stellen wir euch weitere Still- und Wickelorte in Mainz vor."
    },
    "neuTage": {
     "2026-11-23": 3,
     "2026-11-24": 2,
     "2026-11-25": 5,
     "2026-11-26": 3,
-    "2026-11-27": 1
+    "2026-11-27": 6
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": []
   },
   "swr": {
    "zustand": "ok",
-   "hinweis": "unauffällig – 44 Treffer",
+   "hinweis": "unauffällig – 42 Treffer",
    "seit": "2026-11-25T11:45:04.405Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 49,
-   "brauchbar": 44,
-   "neu": 9,
+   "gefunden": 47,
+   "brauchbar": 42,
+   "neu": 10,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -261,12 +314,12 @@
      "url": "https://www.instagram.com/swraktuell/"
     }
    ],
-   "trefferVerlauf": [46, 46, 43, 39, 40, 39, 42, 42, null, 42, 43, 41, 41, 44],
+   "trefferVerlauf": [46, 43, 39, 40, 39, 42, 42, null, 42, 43, 41, 41, 44, 42],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-27T01:10:08.188Z",
-    "titel": "Bewegt sich die Koalition beim Thema Rente?"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "Bundesregierung will KI-Anbieter zur Kasse bitten"
    },
    "neuTage": {
     "2026-11-22": 8,
@@ -274,22 +327,60 @@
     "2026-11-24": 36,
     "2026-11-25": 25,
     "2026-11-26": 19,
-    "2026-11-27": 9
+    "2026-11-27": 19
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.swr.de/swraktuell/rheinland-pfalz/mainz/gluehwein-preise-2026-auf-weihnachtsmaerkten-in-rlp-100.html",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.swr.de/swraktuell/rheinland-pfalz/kaiserslautern/schreiner-aus-busenberg-suedwestpfalz-baut-huetten-fuer-weihnachtsmaerkte-100.html",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.ardmediathek.de/swr/sammlung/swr-aktuell-rp-gesamtsendungen/6ydsCgrWVIUi03L90grv2N",
+     "datum": "2026-04-28"
+    },
+    {
+     "url": "https://www.swr.de/swraktuell/neue-version-swr-aktuell-app-100.html",
+     "datum": "2026-02-02"
+    },
+    {
+     "url": "https://www.facebook.com/SWRAktuell/",
+     "datum": "2024-10-30"
+    },
+    {
+     "url": "https://www.instagram.com/swraktuell/",
+     "datum": "2024-10-30"
+    },
+    {
+     "url": "https://www.youtube.com/@swraktuell",
+     "datum": "2026-11-05"
+    },
+    {
+     "url": "https://www.tiktok.com/@swraktuell",
+     "datum": "2025-10-02"
+    },
+    {
+     "url": "https://www.swr.de/swr1/rp/index.html",
+     "datum": "2019-06-04"
+    }
+   ]
   },
   "landtag": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 10,
    "brauchbar": 10,
-   "neu": 0,
+   "neu": 2,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -299,24 +390,26 @@
    "beispiele": [],
    "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-26T15:49:36.178Z",
-    "titel": "Gewalt gegen Frauen: Landtag setzt deutliche Zeichen"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "Junge Menschen stärker beteiligen"
    },
    "neuTage": {
     "2026-11-24": 4,
     "2026-11-25": 2,
-    "2026-11-26": 2
+    "2026-11-26": 2,
+    "2026-11-27": 2
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": []
   },
   "bm-rlp": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -340,20 +433,30 @@
    "neuTage": {
     "2026-11-23": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://bm.rlp.de/service/pressemitteilungen/detail/betroffene-kinder-und-jugendliche-unterstuetzen-bildung-ermoeglichen-bildungsministerium-veroeffentlicht-handreichung-zu-post-akuten-infektionssyndromen-in-der-schule",
+     "datum": "2026-11-04"
+    },
+    {
+     "url": "https://bm.rlp.de/service/pressemitteilungen/detail/zwoelf-neue-konsultationskitas-bildungsministerin-dr-eiling-huetig-sie-zeigen-wie-lernen-von-der-praxis-fuer-die-praxis-gelingen-kann",
+     "datum": "2026-11-04"
+    }
+   ]
   },
   "masffj": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 10,
    "brauchbar": 10,
-   "neu": 0,
+   "neu": 2,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -363,23 +466,42 @@
    "beispiele": [],
    "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-26T15:49:36.178Z",
-    "titel": "Rheinland-Pfalz treibt Umsetzung des Gewalthilfegesetzes voran – Frauenministerin Bätzing-Lichtenthäler: „Gewalt gegen …"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "Arbeitsplätze in Rheinland-Pfalz sichern und gute Arbeit stärken – Staatssekretärin Anklam-Trapp: „Fachkräftesicherung …"
    },
    "neuTage": {
     "2026-11-23": 1,
-    "2026-11-26": 3
+    "2026-11-26": 3,
+    "2026-11-27": 2
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://masffj.rlp.de/service/presse/detail/ministerin-baetzing-lichtenthaeler-demokratie-braucht-menschen-die-sich-fuer-sie-einsetzen-und-verlaessliche-strukturen-die-dieses-engagement-ermoeglichen",
+     "datum": "2026-11-11"
+    },
+    {
+     "url": "https://masffj.rlp.de/service/presse/detail/60-neue-digital-botschafter-fuer-rheinland-pfalz-sozialministerin-baetzing-lichtenthaeler-wuerdigt-ihr-ehrenamtliches-engagement-sie-oeffnen-tueren-zur-digitalen-welt-und-staerken-die-teilhabe",
+     "datum": "2026-11-02"
+    },
+    {
+     "url": "https://masffj.rlp.de/service/presse/detail/arbeitslosigkeit-geht-im-oktober-zurueck-baetzing-lichtenthaeler-163-neue-arbeitsmarktpolitische-projekte-starten-zu-jahresbeginn",
+     "datum": "2026-10-30"
+    },
+    {
+     "url": "https://masffj.rlp.de/service/presse/detail/diakonie-in-simmern-ist-teil-des-netzwerks-vertrauliche-hilfe-nach-gewalt",
+     "datum": "2026-10-22"
+    }
+   ]
   },
   "mkbwk": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -404,14 +526,24 @@
     "2026-11-23": 1,
     "2026-11-25": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://mkbwk.rlp.de/service/presse/detail/neues-verwaltungsgebaeude-fuer-kusel-kommunalministerium-foerdert-sanierung-von-denkmalgeschuetztem-gebaeude-haselrech-1",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://mkbwk.rlp.de/service/presse/detail/starke-kommunen-starke-heimat-minister-teuber-foerdert-ki-plattform-in-der-westpfalz",
+     "datum": "2026-11-16"
+    }
+   ]
   },
   "lsjv": {
    "zustand": "ok",
    "hinweis": "unauffällig – 5 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -430,14 +562,36 @@
    "juengstes": "2026-11-12",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://lsjv.rlp.de/service/presse/detail/fachtag-lenkt-blick-auf-sozialraeumliche-unterstuetzung-von-menschen-mit-demenz-in-rheinland-pfalz",
+     "datum": "2026-11-12"
+    },
+    {
+     "url": "https://lsjv.rlp.de/service/presse/detail/zwischen-himmel-und-erde-kunstkalender-kreativ-und-inklusiv-zeigt-persoenliche-sichtweisen-von-menschen-mit-behinderung",
+     "datum": "2026-11-12"
+    },
+    {
+     "url": "https://lsjv.rlp.de/service/presse/detail/fachveranstaltung-des-lsjv-zeigt-wege-zu-neuen-wohnformen",
+     "datum": "2026-10-29"
+    },
+    {
+     "url": "https://lsjv.rlp.de/service/presse/detail/25-jahre-rauswege-wege-aus-dem-rechtsextremismus-begleiten",
+     "datum": "2026-10-01"
+    },
+    {
+     "url": "https://lsjv.rlp.de/service/presse/detail/naehe-die-verbindet-strukturen-die-tragen-rheinland-pfalz-buendelt-anlaufstellen-fuer-aeltere-menschen-in-neuer-landeszentrale",
+     "datum": "2026-10-01"
+    }
+   ]
   },
   "kita-rlp": {
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -461,14 +615,64 @@
    "neuTage": {
     "2026-11-26": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/fuenf-landesministerien-verlaengern-beim-rheinland-pfaelzischen-mint-gipfel-in-bingen-erfolgreiche-kooperation",
+     "datum": "2026-11-13"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/sprache-im-alltag-beobachten-siab-weitere-interessierte-kitas-gesucht",
+     "datum": "2026-11-09"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/zwoelf-neue-konsultationskitas-fuer-den-durchgang-2027-2030",
+     "datum": "2026-11-06"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/sprachstandserhebung-mit-sprache-im-alltag-beobachten-bildungsministerin-dr-eiling-huetig-wir-schaffen-einheitliche-standards-ein-einheitliches-verfahren-und-mehr-verbindlichkeit-damit-alle-kinder-gut-deutsch-lernen",
+     "datum": "2026-10-20"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/bildungsministerin-eiling-huetig-gute-fruehkindliche-bildung-ist-das-fundament-fuer-das-gesamte-bildungsleben-eines-menschen",
+     "datum": "2026-10-16"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/malwettbewerb-wie-stellt-ihr-euch-eine-gute-zukunft-fuer-alle-vor",
+     "datum": "2026-10-14"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/kita-bau-neu-denken-land-und-kommunen-legen-gemeinsames-kompendium-fuer-den-kita-bau-in-rheinland-pfalz-vor",
+     "datum": "2026-10-13"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/landesweiter-demokratietag-in-ingelheim-bildungsministerin-dr-ute-eiling-huetig-haltung-zeigen-ist-jetzt-wichtiger-denn-je",
+     "datum": "2026-09-24"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/niedrigschwellige-foerdermoeglichkeit-fuer-kitas-in-den-landkreisen-vulkaneifel-und-bitburg-pruem",
+     "datum": "2026-09-21"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/mehr-als-44-millionen-euro-fuer-den-kita-ausbau-ministerin-eiling-huetig-bekraeftigt-unterstuetzung-der-kommunen-durch-das-land",
+     "datum": "2026-09-04"
+    },
+    {
+     "url": "https://kita.rlp.de/service/veranstaltungshinweise/detail/ich-kann-kochen-kostenfreie-fortbildungen-fuer-paedagogische-fachkraefte-in-der-ernaehrungsbildung-fuer-2027",
+     "datum": "2026-11-06"
+    },
+    {
+     "url": "https://kita.rlp.de/service/veranstaltungshinweise/detail/infoveranstaltung-des-projektes-iq-arrival-kita-am-03122026",
+     "datum": "2026-10-30"
+    }
+   ]
   },
   "statistik-rlp": {
    "zustand": "ok",
    "hinweis": "unauffällig – 100 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -484,7 +688,7 @@
    "beispiele": [],
    "trefferVerlauf": [100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
     "am": "2026-11-26T15:49:36.178Z",
     "titel": "Mehr als eine Millionen Menschen in Rheinland-Pfalz hat eine Einwanderungsgeschichte"
@@ -492,14 +696,64 @@
    "neuTage": {
     "2026-11-26": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/neuerscheinungen-0911-201126",
+     "datum": "2026-11-23"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/weniger-baugenehmigungen-in-den-ersten-drei-quartalen",
+     "datum": "2026-11-23"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/ein-drittel-der-pkw-neuzulassungen-der-ersten-drei-quartale-sind-elektroautos",
+     "datum": "2026-11-20"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/studierendenzahl-annaehernd-auf-vorjahresniveau-langfristig-deutlicher-rueckgang",
+     "datum": "2026-11-20"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/erwerbstaetigkeit-sinkt-2025-in-den-kreisfreien-staedten-und-in-den-landkreisen",
+     "datum": "2026-11-19"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/bauhauptgewerbe-im-september-2026-auftragseingaenge-und-umsaetze-steigen",
+     "datum": "2026-11-19"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/industrie-in-rheinland-pfalz-starker-september-verbessert-umsatzbilanz-der-ersten-drei-quartale",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/grundbesitz-in-rheinland-pfalz-einfamilienhaeuser-und-wohnungseigentum-dominieren-das-bebaute-grundvermoegen",
+     "datum": "2026-11-12"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/gesundheitsausgaben-nehmen-deutlich-zu",
+     "datum": "2026-11-12"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/neuerscheinungen-2610-301026",
+     "datum": "2026-11-09"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/schnellmeldung-rheinland-pfalz-zieht-mehr-gaeste-an-hoehere-tourismuszahlen-im-september",
+     "datum": "2026-11-06"
+    },
+    {
+     "url": "https://www.statistik.rlp.de/nachrichten/nachrichtendetailseite/industrie-im-september-2026-produktion-steigt-erneut",
+     "datum": "2026-11-06"
+    }
+   ]
   },
   "staedtetag-rlp": {
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -518,14 +772,48 @@
    "juengstes": "2026-11-17",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.staedtetag-rlp.de/presse/aktuell/pm-2026/2026-11-04-mitgliederversammlung/",
+     "datum": "2026-11-04"
+    },
+    {
+     "url": "https://www.staedtetag-rlp.de/presse/aktuell/pm-2026/2026-10-12-kita-baukompendium/",
+     "datum": "2026-10-13"
+    },
+    {
+     "url": "https://www.staedtetag-rlp.de/presse/aktuell/pm-2026/2026-09-25-klage-abgewiesen/",
+     "datum": "2026-09-25"
+    },
+    {
+     "url": "https://www.staedtetag-rlp.de/presse/aktuell/pm-2026/2026-09-21-klage-kfa-pirmasens-suedwestpfalz/",
+     "datum": "2026-09-21"
+    },
+    {
+     "url": "https://www.staedtetag-rlp.de/presse/aktuell/pm-2026/2026-09-02-ikz-website/",
+     "datum": "2026-09-02"
+    },
+    {
+     "url": "https://www.staedtetag-rlp.de/presse/aktuell/pm-2026/2026-08-24-eingliederungshilfe-landesrahmenvertrag-1/",
+     "datum": "2026-08-24"
+    },
+    {
+     "url": "https://www.staedtetag-rlp.de/presse/aktuell/pm-2026/2026-06-22-kommunen-am-limit/",
+     "datum": "2026-06-22"
+    },
+    {
+     "url": "https://www.staedtetag-rlp.de/presse/aktuell/pm-2026/2026-06-18-kommunun-am-limit/",
+     "datum": "2026-06-18"
+    }
+   ]
   },
   "netzwerk-familie-rlp": {
    "zustand": "ok",
    "hinweis": "unauffällig – 8 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -544,20 +832,50 @@
    "juengstes": "2026-11-13",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.servicestelle-netzwerk-familie.de/aktuelles/aktuelles-detailseite.html?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=366&cHash=fb4b2b79fe0363c3c327a8f448dc2e86",
+     "datum": "2026-11-13"
+    },
+    {
+     "url": "https://www.servicestelle-netzwerk-familie.de/aktuelles/aktuelles-detailseite.html?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=351&cHash=73e934ed01b1e410041b3a192b8b1b0a",
+     "datum": "2026-09-03"
+    },
+    {
+     "url": "https://www.servicestelle-netzwerk-familie.de/aktuelles/aktuelles-detailseite.html?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=360&cHash=5bb1106d349f952d1e7889fc1d1df12c",
+     "datum": "2026-05-27"
+    },
+    {
+     "url": "https://www.servicestelle-netzwerk-familie.de/aktuelles/aktuelles-detailseite.html?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=357&cHash=f2c31f2ddaa7660d8302be82eb77663e",
+     "datum": "2026-05-23"
+    },
+    {
+     "url": "https://www.servicestelle-netzwerk-familie.de/aktuelles/aktuelles-detailseite.html?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=358&cHash=4058bbc046d8267b3292a7a03de24a94",
+     "datum": "2026-03-16"
+    },
+    {
+     "url": "https://www.servicestelle-netzwerk-familie.de/aktuelles/aktuelles-detailseite.html?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=359&cHash=6d045184faee7fdc3fc6c4a3c3cb9b0a",
+     "datum": "2026-02-28"
+    },
+    {
+     "url": "https://www.servicestelle-netzwerk-familie.de/aktuelles/aktuelles-detailseite.html?tx_news_pi1%5Baction%5D=detail&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Bnews%5D=353&cHash=a3805b66d4616b57cdff4a297b63bc9b",
+     "datum": "2026-01-23"
+    }
+   ]
   },
   "bmbfsfj": {
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 40,
    "brauchbar": 40,
-   "neu": 0,
+   "neu": 4,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -567,24 +885,47 @@
    "beispiele": [],
    "trefferVerlauf": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-26T15:49:36.178Z",
-    "titel": "Bund-Länder-Kommission spricht mit Aufarbeitungskommission"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "Bundesfrauenministerin Prien ruft zum Schulterschluss gegen Gewalt an Frauen auf"
    },
    "neuTage": {
     "2026-11-24": 5,
     "2026-11-25": 2,
-    "2026-11-26": 1
+    "2026-11-26": 1,
+    "2026-11-27": 4
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.bmbfsfj.bund.de/bmbfsfj/gemeinsam-zeichen-fuer-mehr-kinder-und-jugendsport-setzen-299374",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.bmbfsfj.bund.de/bmbfsfj/aktuelles/alle-meldungen/zukunftsorientierte-lernumgebungen-gestalten-299540",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.bmbfsfj.bund.de/bmbfsfj/aktuelles/alle-meldungen/karin-prien-setzt-ersten-spatenstich-fuer-innovativen-handwerks-campus--299534",
+     "datum": "2026-11-13"
+    },
+    {
+     "url": "https://www.bmbfsfj.bund.de/bmbfsfj/aktuelles/pressemitteilungen/berufliche-schulen-sollen-zu-innovationstreibern-fuer-digitales-und-ki-gestuetztes-lernen-werden-299722",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.bmbfsfj.bund.de/bmbfsfj/aktuelles/pressemitteilungen/nationales-dialogforum-kinder-und-jugendsport-aufwachsen-in-bewegung-299804",
+     "datum": "2026-11-16"
+    }
+   ]
   },
   "bundestag": {
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -602,28 +943,29 @@
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "",
    "letzteNeu": {
-    "am": "2026-11-27T01:10:08.188Z",
-    "titel": "TOP Epl 17 Bildung, Familie, Senioren, Frauen und Jugend"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "TOP Epl 11 Arbeit und Soziales"
    },
    "neuTage": {
     "2026-11-23": 2,
     "2026-11-24": 1,
     "2026-11-26": 3,
-    "2026-11-27": 1
+    "2026-11-27": 2
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": []
   },
   "bundesrat": {
    "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer",
+   "hinweis": "letzter Abruf nicht erreichbar (www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt",
    "seit": "2026-11-27T01:10:08.188Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
    "letzterErfolg": "2026-11-27T01:10:08.188Z",
-   "fehlerInFolge": 0,
+   "fehlerInFolge": 1,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 30,
-   "brauchbar": 30,
+   "gefunden": 0,
+   "brauchbar": 0,
    "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
@@ -632,25 +974,29 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, null, 30, 30, null, null, null, 30, 30, null, 30, 30, null, 30],
+   "trefferVerlauf": [null, 30, 30, null, null, null, 30, 30, null, 30, 30, null, 30, null],
    "seitBeobachtung": "2026-11-22T15:27:47.331Z",
    "juengstes": "2026-11-20",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [
+    "www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   ],
+   "zuAlt": [],
+   "pause": "letzter Abruf nicht erreichbar (www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt"
   },
   "spiegel": {
    "zustand": "ok",
    "hinweis": "unauffällig – 60 Treffer",
    "seit": "2026-11-25T11:45:04.405Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 60,
    "brauchbar": 60,
-   "neu": 7,
+   "neu": 3,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -658,12 +1004,12 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [60, 60, 60, 60, 60, 60, 60, 60, null, 60, 60, 60, 60, 60],
+   "trefferVerlauf": [60, 60, 60, 60, 60, 60, 60, null, 60, 60, 60, 60, 60, 60],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-27T01:10:08.188Z",
-    "titel": "USA unter Donald Trump: Wie die Tech-Elite immer mächtiger wird"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "News: Bundestag stimmt über umstrittenen Haushalt 2027 ab, Black Friday, Tech-Bros"
    },
    "neuTage": {
     "2026-11-22": 2,
@@ -671,16 +1017,38 @@
     "2026-11-24": 13,
     "2026-11-25": 15,
     "2026-11-26": 16,
-    "2026-11-27": 7
+    "2026-11-27": 10
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.spiegel.de/panorama/gesellschaft/bayern-ursula-kuhn-fuehrt-tante-emma-laden-seit-70-jahren-a-0ddeb584-bcf6-4956-b1c6-e6dee3b58636",
+     "datum": "2026-11-18"
+    },
+    {
+     "url": "https://www.spiegel.de/wirtschaft/soziales/gewerkschaften-und-linkspartei-lehnen-arbeitsrechtsreform-ab-a-18921d1d-3887-44c6-b1ec-b1b226536e48",
+     "datum": "2026-11-19"
+    },
+    {
+     "url": "https://www.spiegel.de/wirtschaft/soziales/stromsteuer-runter-spritpreisdeckel-ab-2027-das-bringen-ihnen-die-neuen-entlastungen-a-7a13da31-0fe1-40ea-a60c-457fef341154",
+     "datum": "2026-11-18"
+    },
+    {
+     "url": "https://www.spiegel.de/wirtschaft/soziales/gesundheit-frueherer-arzttermin-gegen-bezahlung-ist-das-ueberhaupt-legal-a-2258c04f-51c0-43ea-9a20-07331e9175a7",
+     "datum": "2026-11-17"
+    },
+    {
+     "url": "https://www.spiegel.de/wirtschaft/soziales/rente-mit-63-verschaerfung-bei-fruehrente-wuerde-hauptsaechlich-frauen-treffen-a-f2e26573-c611-428b-80fc-b0ae08ac0dd4",
+     "datum": "2026-11-05"
+    }
+   ]
   },
   "destatis": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -696,17 +1064,23 @@
    "beispiele": [],
    "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.destatis.de/DE/Presse/Pressemitteilungen/2026/11/PD26_N082_73.html",
+     "datum": "2026-11-23"
+    }
+   ]
   },
   "ubskm": {
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -725,14 +1099,64 @@
    "juengstes": "2026-11-18",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1231",
+     "datum": "2026-11-10"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1230",
+     "datum": "2026-11-03"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1206",
+     "datum": "2026-10-13"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1197",
+     "datum": "2026-09-16"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1195",
+     "datum": "2026-09-07"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1189",
+     "datum": "2026-07-30"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1184",
+     "datum": "2026-07-21"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1180",
+     "datum": "2026-07-17"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1174",
+     "datum": "2026-06-22"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1228",
+     "datum": "2026-11-02"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1205",
+     "datum": "2026-10-13"
+    },
+    {
+     "url": "https://beauftragte-missbrauch.de/presse/artikel/1185",
+     "datum": "2026-07-27"
+    }
+   ]
   },
   "bmwsb": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -751,14 +1175,56 @@
    "juengstes": "2026-11-13",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.bmwsb.bund.de/SharedDocs/pressemitteilungen/DE/2026/11/Haushalt-2027.html",
+     "datum": "2026-11-13"
+    },
+    {
+     "url": "https://www.bmwsb.bund.de/SharedDocs/pressemitteilungen/DE/2026/11/X8-BauDialog.html",
+     "datum": "2026-11-09"
+    },
+    {
+     "url": "https://www.bmwsb.bund.de/SharedDocs/pressemitteilungen/DE/2026/11/1Jahr_Bauturbo.html",
+     "datum": "2026-11-03"
+    },
+    {
+     "url": "https://www.bmwsb.bund.de/SharedDocs/pressemitteilungen/DE/2026/10/sks.html",
+     "datum": "2026-10-23"
+    },
+    {
+     "url": "https://www.bmwsb.bund.de/SharedDocs/pressemitteilungen/DE/2026/10/deutscher_ingenieurpreis26.html",
+     "datum": "2026-10-15"
+    },
+    {
+     "url": "https://www.bmwsb.bund.de/SharedDocs/pressemitteilungen/DE/2026/10/azubi-wohnen.html",
+     "datum": "2026-10-14"
+    },
+    {
+     "url": "https://www.bmwsb.bund.de/SharedDocs/pressemitteilungen/DE/2026/10/EH55.html",
+     "datum": "2026-10-09"
+    },
+    {
+     "url": "https://www.bmwsb.bund.de/SharedDocs/pressemitteilungen/DE/2026/10/PSTP_SKS.html",
+     "datum": "2026-10-01"
+    },
+    {
+     "url": "https://www.bmwsb.bund.de/SharedDocs/pressemitteilungen/DE/2026/09/eh55.html",
+     "datum": "2026-09-30"
+    },
+    {
+     "url": "https://www.bmwsb.bund.de/SharedDocs/pressemitteilungen/DE/2026/09/wissenplattform-wohnungslosigkeit.html",
+     "datum": "2026-09-29"
+    }
+   ]
   },
   "staedtebaufoerderung": {
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -777,14 +1243,64 @@
    "juengstes": "2026-11-18",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/TopMeldungen/261210_TW_Kompass_II.html",
+     "datum": "2026-11-11"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/TopMeldungen/261126_Webinar_Tag_der_Staedtebaufoerderung.html",
+     "datum": "2026-10-28"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/TopMeldungen/20261028_Regionalworkshop_Altbauaktivierung_Witzenhausen.html",
+     "datum": "2026-10-28"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/TopMeldungen/261111_SDS_Webinar.html",
+     "datum": "2026-10-01"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/TopMeldungen/261028_Abschluss_Staedtebaufoerderungsmassnahmen.html",
+     "datum": "2026-09-23"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/TopMeldungen/260529_TdSBF_Fotowettbewerb_2026.html",
+     "datum": "2026-09-01"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/TopMeldungen/262309_SDS-Webinar.html",
+     "datum": "2026-08-12"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/TopMeldungen/260922_TW_Kompass.html",
+     "datum": "2026-08-01"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/TopMeldungen/260708_TDS_2027_SaveTheDate.html",
+     "datum": "2026-07-13"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/TopMeldungen/260702_Aus_Leer_wird_Mehr.html",
+     "datum": "2026-07-02"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/LebendigeZentren/261111_SDS_Webinar.html",
+     "datum": "2026-11-12"
+    },
+    {
+     "url": "https://www.staedtebaufoerderung.info/SharedDocs/kurzmeldungen/DE/LebendigeZentren/261060_TW_DreifacheInnenentwicklung.html",
+     "datum": "2026-11-12"
+    }
+   ]
   },
   "ism": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -803,14 +1319,15 @@
    "juengstes": "2026-10-27",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": []
   },
   "ikj": {
    "zustand": "ok",
    "hinweis": "unauffällig – 5 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -829,14 +1346,51 @@
    "juengstes": "2026-11-19",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": []
   },
   "jugendhilfeportal": {
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "fehlerInFolge": 0,
+   "nullTrefferInFolge": 0,
+   "linkStoerungInFolge": 0,
+   "gefunden": 30,
+   "brauchbar": 30,
+   "neu": 4,
+   "verworfen": 0,
+   "verworfenNach": {
+    "titel": 0,
+    "link": 0,
+    "linkpruefung": 0
+   },
+   "beispiele": [],
+   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
+   "seitBeobachtung": "2026-11-20T11:48:20.171Z",
+   "juengstes": "",
+   "letzteNeu": {
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "Hunger und Mangelernährung schränken Kinderrechte extrem ein"
+   },
+   "neuTage": {
+    "2026-11-23": 5,
+    "2026-11-24": 7,
+    "2026-11-25": 6,
+    "2026-11-26": 6,
+    "2026-11-27": 4
+   },
+   "fehler": [],
+   "zuAlt": []
+  },
+  "dji": {
+   "zustand": "ok",
+   "hinweis": "unauffällig – 30 Treffer",
+   "seit": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -850,41 +1404,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30],
-   "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "",
-   "letzteNeu": {
-    "am": "2026-11-26T15:49:36.178Z",
-    "titel": "„Gleiche Bildungschancen dürfen kein leeres Versprechen bleiben“"
-   },
-   "neuTage": {
-    "2026-11-23": 5,
-    "2026-11-24": 7,
-    "2026-11-25": 6,
-    "2026-11-26": 6
-   },
-   "fehler": []
-  },
-  "dji": {
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.dji.de: HTTP 415",
-   "seit": "2026-11-27T01:10:08.188Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-26T15:49:36.178Z",
-   "fehlerInFolge": 1,
-   "nullTrefferInFolge": 0,
-   "linkStoerungInFolge": 0,
-   "gefunden": 0,
-   "brauchbar": 0,
-   "neu": 0,
-   "verworfen": 0,
-   "verworfenNach": {
-    "titel": 0,
-    "link": 0,
-    "linkpruefung": 0
-   },
-   "beispiele": [],
-   "trefferVerlauf": [null, 30, 30, 30, 30, 30, 30, 30, 30, 30, null, 30, 30, null],
+   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, null, 30, 30, null, 30],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-25",
    "letzteNeu": {
@@ -895,22 +1415,34 @@
     "2026-11-23": 1,
     "2026-11-26": 1
    },
-   "fehler": [
-    "www.dji.de: HTTP 415"
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.dji.de/veroeffentlichungen/aktuelles/news/article/kinderschutz-im-kontext-von-armut-und-sozialer-ungleichheit.html",
+     "datum": "2026-11-12"
+    },
+    {
+     "url": "https://www.dji.de/veroeffentlichungen/aktuelles/news/article/1844-weniger-kinder-weniger-jugendliche-was-bedeutet-das-fuer-die-kinder-und-jugendhilfe.html",
+     "datum": "2026-11-12"
+    },
+    {
+     "url": "https://www.dji.de/veroeffentlichungen/aktuelles/news/article/1840-inklusive-kinder-und-jugendhilfe-verfahrenslotsinnen-und-lotsen-in-vielen-jugendaemtern-eingefuehrt.html",
+     "datum": "2026-10-21"
+    }
    ]
   },
   "difu": {
    "zustand": "ok",
    "hinweis": "unauffällig – 118 Treffer",
    "seit": "2026-11-25T11:45:04.405Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 118,
    "brauchbar": 118,
-   "neu": 0,
+   "neu": 1,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -918,26 +1450,45 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [124, 123, 123, 123, 125, 125, 125, 125, null, 122, 122, 122, 121, 118],
+   "trefferVerlauf": [123, 123, 123, 125, 125, 125, 125, null, 122, 122, 122, 121, 118, 118],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-26T15:49:36.178Z",
-    "titel": "Prüfung des Fortschreibungsbedarfs des Stadtentwicklungsplans Klima 2.0 Berlin"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "Smarte Lieferzonen"
    },
    "neuTage": {
     "2026-11-24": 2,
     "2026-11-25": 1,
-    "2026-11-26": 1
+    "2026-11-26": 1,
+    "2026-11-27": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://difu.de/en/press/press-releases/2026-06-12/ob-barometer-2026-finances-housing-and-the-economy-are-the-biggest-causes-for-concern",
+     "datum": "2026-06-12"
+    },
+    {
+     "url": "https://difu.de/publikationen/2026/difu-berichte-3-2026",
+     "datum": "2026-09-01"
+    },
+    {
+     "url": "https://difu.de/publikationen/2026/difu-berichte-2-2026",
+     "datum": "2026-06-17"
+    },
+    {
+     "url": "https://difu.de/nachrichten/rueckblick-netzwerkkonferenz-2026-umwelt-wirtschaft-nachhaltigkeit",
+     "datum": "2026-09-30"
+    }
+   ]
   },
   "nzfh": {
    "zustand": "ok",
    "hinweis": "unauffällig – 28 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -961,14 +1512,20 @@
    "neuTage": {
     "2026-11-23": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.fruehehilfen.de/service/aktuelles/nachrichten/einzelansicht/entwicklung-der-fruehen-hilfen-in-kommunen-ergebnisse-der-nzfh-forschung/",
+     "datum": "2026-11-16"
+    }
+   ]
   },
   "dijuf": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -992,14 +1549,15 @@
    "neuTage": {
     "2026-11-24": 2
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": []
   },
   "agj": {
    "zustand": "ok",
    "hinweis": "unauffällig – 25 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1018,14 +1576,64 @@
    "juengstes": "2026-10-09",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.agj.de/positionen/artikel/stellungnahme-1-kjhsrg-regierungsentwurf-fuehrt-zu-rasantem-reformkarussell-statt-zu-kohaerentem-gesamtkonzept-1.html",
+     "datum": "2026-10-09"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/positionspapier-jugend-gehoert-in-jede-politik-fuer-eine-starke-eigenstaendige-jugendpolitik-in-allen-politischen-handlungsfeldern.html",
+     "datum": "2026-10-06"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/zwischenruf-handlungsempfehlungen-zum-kinder-und-jugendschutz-in-der-digitalen-welt-einordnungen-und-erwartungen-aus-kinder-und-jugendhilfepolitischer-perspektive-1.html",
+     "datum": "2026-09-08"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/zwischenruf-kuerzungen-beim-unterhaltsvorschuss-jugend-und-bildungspolitik-durch-die-hintertuer-mehr-druck-auf-die-kinder-und-jugendhilfe-1.html",
+     "datum": "2026-07-28"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/mehr-als-lesen-schreiben-rechnen-zwischen-bildungsverstaendnissen-und-gemeinsamer-verantwortung-von-kindertagesbetreuung-und-schule-diskussionspapier-der-arbeitsgemeinschaft-fuer-kinder-und-jugendhilfe-agj-1.html",
+     "datum": "2026-07-22"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/position-paper-shaping-digital-spaces-regulating-platforms-and-safeguarding-democratic-practices-online.html",
+     "datum": "2026-05-13"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/positionspapier-digitale-raeume.html",
+     "datum": "2026-05-12"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/default-8072da34d546202e00e8c73abf91b35d.html",
+     "datum": "2026-04-16"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/junge-menschen-im-mittelpunkt-rechte-der-jungen-generation-verwirklichen.html",
+     "datum": "2026-02-10"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/djht-spezial-kinder-und-jugendhilfemonitor-2025.html",
+     "datum": "2025-04-29"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/agj-zwischenruf-jugend-in-der-pflicht-engagement-staerken-statt-zwang-einfuehren.html",
+     "datum": "2025-03-25"
+    },
+    {
+     "url": "https://www.agj.de/positionen/artikel/zwischenruf-1.html",
+     "datum": "2025-03-17"
+    }
+   ]
   },
   "akjstat": {
    "zustand": "ok",
    "hinweis": "unauffällig – 4 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1044,14 +1652,20 @@
    "juengstes": "2026-11-16",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.akjstat.tu-dortmund.de/detail/news/angebotsstrukturen-der-stationaeren-kinder-und-jugendhilfe-erste-befunde-aus-der-neuen-traegerstatistik",
+     "datum": "2026-11-16"
+    }
+   ]
   },
   "igfh": {
    "zustand": "ok",
    "hinweis": "unauffällig – 4 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1070,14 +1684,28 @@
    "juengstes": "2026-11-18",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://igfh.de/publikationen/fachpolitische-stellungnahmen/erziehung-freiheit",
+     "datum": "2026-11-18"
+    },
+    {
+     "url": "https://igfh.de/publikationen/fachpolitische-stellungnahmen/inklusive-kinder-jugendhilfe-auf-unbestimmte-zeit",
+     "datum": "2026-08-12"
+    },
+    {
+     "url": "https://igfh.de/wo-ist-mein-zuhause",
+     "datum": "2026-09-16"
+    }
+   ]
   },
   "afet": {
    "zustand": "ok",
    "hinweis": "unauffällig – 80 Treffer",
    "seit": "2026-11-23T18:36:35.063Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1101,20 +1729,70 @@
    "neuTage": {
     "2026-11-23": 2
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://afet-ev.de/themenplattform/appell-junge-menschen-brauchen-passende-hilfen-statt-pauschaler-vorrangregeln-zur-streichung-des-27-absatz-5-sgb-viii-e-30102026",
+     "datum": "2026-11-09"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/verbaendeuebergreifender-zwischenruf-keine-mitteilungspflicht-des-jugendamtes-an-familiengerichte-wenn-eltern-hilfen-im-kinderschutz-ablehnen",
+     "datum": "2026-10-06"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/erste-einordnung-der-erziehungshilfefachverbaende-zum-1-kjhsrg-vom-27082026",
+     "datum": "2026-09-04"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/17-parlamentarisches-gespraech-der-erziehungshilfefachverbaende-ein-inklusives-sgb-viii-verwirklichen-rechte-und-bedarfe-von-kindern-jugendlichen-und-ihren-familien-in-den-mittelpunkt-stellen",
+     "datum": "2026-05-29"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/zwischenruf-der-erziehungshilfefachverbaende-zu-spardiskussionen-auf-der-bundesebene-24042026",
+     "datum": "2026-05-07"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/positionspapier-der-bundesfachverbaende-fuer-erziehungshilfen-zur-strukturreform-des-sgb-viii-inklusion-steuerung-und-rechtsanspruch-15042026",
+     "datum": "2026-04-16"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/rechtliche-und-ethische-verantwortung-der-jugendhilfe-in-faellen-sexualisierter-gewalt-fachartikel",
+     "datum": "2026-04-15"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/endlich-neuregelungen-bei-ferienaufenthalten-im-ausland",
+     "datum": "2026-03-10"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/fachtag-der-fachverbaende-fuer-erziehungshilfen-in-deutschland-am-23-juni-2026-in-frankfurt-am-main",
+     "datum": "2026-03-09"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/sammlung-von-stellungnahmen-zum-kjhsrg",
+     "datum": "2026-02-24"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/zwischenruf-zum-gesetzgebungsverfahrens-zur-weiterentwicklung-des-buergergeldes-20022026",
+     "datum": "2026-02-23"
+    },
+    {
+     "url": "https://afet-ev.de/themenplattform/recht-auf-individuelle-aufarbeitung-verlaesslich-umsetzen-positionspapier-zur-weiterentwicklung-der-bundesrechtlichen-rahmenbedingungen-der-aufarbeitung-in-der-kinder-und-jugendhilfe-12022026",
+     "datum": "2026-02-13"
+    }
+   ]
   },
   "dv": {
    "zustand": "ok",
    "hinweis": "unauffällig – 47 Treffer",
    "seit": "2026-11-27T01:10:08.188Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 47,
    "brauchbar": 47,
-   "neu": 1,
+   "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -1122,7 +1800,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [52, 52, 52, 50, 10, 10, 50, 50, 50, 50, 50, 50, 8, 47],
+   "trefferVerlauf": [52, 52, 50, 10, 10, 50, 50, 50, 50, 50, 50, 8, 47, 47],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-26",
    "letzteNeu": {
@@ -1135,14 +1813,64 @@
     "2026-11-25": 1,
     "2026-11-27": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/jetzt-anmelden-qualitaetssichernde-foerderung-von-quereinstiegen-in-sozialen-einrichtungen-und-diensten/",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/icsw-expertinnentreffen-in-wien/",
+     "datum": "2026-11-12"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/70-jahre-oeksa-dv-vorstaendin-mit-bericht-auf-festkonferenz/",
+     "datum": "2026-11-11"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/besuch-der-studierenden-der-katholischen-hochschule-fuer-sozialwesen-berlin-khsb-im-deutschen-verein-dv/",
+     "datum": "2026-11-10"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/30-jahre-kinderschutzuebereinkommens-ksue-15-jahre-internationaler-sozialdienst-isd/",
+     "datum": "2026-11-09"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/wirksamkeit-des-familienrat-verfahrens-bestaetigt-leitfaden-des-deutschen-vereins-bietet-praxishilfe/",
+     "datum": "2026-11-06"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/inklusive-bildung-zwischen-wunsch-und-wirklichkeit/",
+     "datum": "2026-11-05"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/dv-moderation-des-start-guides-fachtags-der-caritas-osnabrueck-und-des-niedersaechsischen-sozialministeriums/",
+     "datum": "2026-11-04"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/neuer-dv-praesident-beim-antrittsbesuch-bei-der-diakonie-deutschland/",
+     "datum": "2026-11-03"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/dv-mit-eroeffnungsvortrag-beim-ebet-kongress-wohnungsnotfallhilfe-im-blick-perspektiven-fuer-heute-und-morgen/",
+     "datum": "2026-11-02"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/jetzt-aktiv-mitgestalten-35-europaeische-konferenz-des-sozialwesens-vom-08-11-juni-2027-in-spanien/",
+     "datum": "2026-10-30"
+    },
+    {
+     "url": "https://www.deutscher-verein.de/presse/detail/die-november-ausgabe-unseres-nachrichtendienstes-ndv-der-fachzeitschrift-fuer-die-soziale-arbeit-ist-da/",
+     "datum": "2026-10-29"
+    }
+   ]
   },
   "dbjr": {
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1169,14 +1897,64 @@
     "2026-11-25": 1,
     "2026-11-26": 3
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.dbjr.de/artikel/dbjr-bedrohungs-studie-veroeffentlicht",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/ag-europaeische-jugendpolitik-jugendziele-und-europaeische-jugendpolitik-im-fokus",
+     "datum": "2026-11-13"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/jugendverbaende-im-austausch-mit-dem-bundesinnenministerium-ueber-demokratische-resilienz-und-gesellschaftlichen-zusammenhalt",
+     "datum": "2026-11-12"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/so-funktioniert-der-eu-jugenddialog",
+     "datum": "2026-11-10"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/the-future-of-erasmus-starts-with-youth-konferenz-in-bruessel",
+     "datum": "2026-11-05"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/sicher-beteiligen-fachtag-zu-schutzstrukturen-in-der-jugendbeteiligung-auf-bundesebene",
+     "datum": "2026-11-04"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/99-vollversammlung-des-bundesjugendrings-jugendverbaende-setzen-zeichen-fuer-solidaritaet-und-demokratie",
+     "datum": "2026-11-02"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/vollversammlung-steht-geschlossen-an-der-seite-von-lambda",
+     "datum": "2026-10-31"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/99-vollversammlung-bundesjugendring-setzt-starke-jugendpolitische-zeichen",
+     "datum": "2026-10-31"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/politische-beteiligung-junger-menschen-schuetzen-gegen-einschuechterungen-und-repressionen",
+     "datum": "2026-10-31"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/peer-to-peer-gewalt-wirksam-verhindern-schutz-und-praevention-fuer-junge-menschen-staerken",
+     "datum": "2026-10-31"
+    },
+    {
+     "url": "https://www.dbjr.de/artikel/sexuelle-bildung-staerken",
+     "datum": "2026-10-31"
+    }
+   ]
   },
   "jugendgerecht": {
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1195,14 +1973,20 @@
    "juengstes": "2026-11-12",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.jugendgerecht.de/eigenstaendige-jugendpolitik/aktuelles/oecd-studie-mental-health-junger-menschen/",
+     "datum": "2026-06-23"
+    }
+   ]
   },
   "kommune360": {
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1226,14 +2010,20 @@
    "neuTage": {
     "2026-11-25": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.kommune360.de/allrounderin-gesucht-was-es-fuer-eine-gute-jugendhilfeplanung-wirklich-braucht/",
+     "datum": "2026-07-06"
+    }
+   ]
   },
   "kosmo": {
    "zustand": "ok",
    "hinweis": "unauffällig – 8 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1252,54 +2042,101 @@
    "juengstes": "2026-11-16",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.kommunales-bildungsmonitoring.de/aktuelles-termine/news/details/neues-praxisbeispiel-das-dashboard-bildungsreport-der-stadt-leipzig",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.kommunales-bildungsmonitoring.de/aktuelles-termine/news/page?tx_news_pi1%5BcurrentPage%5D=2&cHash=6b6066546309603b92b373d2b8003efc3fbe85ee7be016c85b4f4d3fdf449a8e",
+     "datum": "2026-03-02"
+    }
+   ]
   },
   "bildungsserver": {
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "hinweis": "3 von 5 neuen Links nicht erreichbar (Zeitüberschreitung (10 s)), 1. Lauf in Folge",
    "seit": "2026-11-27T01:10:08.188Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-26T15:49:36.178Z",
-   "fehlerInFolge": 1,
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
-   "linkStoerungInFolge": 0,
-   "gefunden": 0,
-   "brauchbar": 0,
-   "neu": 0,
-   "verworfen": 0,
+   "linkStoerungInFolge": 1,
+   "gefunden": 13,
+   "brauchbar": 13,
+   "neu": 2,
+   "verworfen": 3,
    "verworfenNach": {
     "titel": 0,
     "link": 0,
-    "linkpruefung": 0
+    "linkpruefung": 3
    },
-   "beispiele": [],
-   "trefferVerlauf": [13, null, 14, 14, 14, 14, 14, null, null, 14, null, null, 15, null],
+   "beispiele": [
+    {
+     "grund": "Zeitüberschreitung (10 s)",
+     "titel": "Heute, 27. November 2026: Fachtag des Deutschen Bildungsservers zur Klimabildung (mit Livestream)",
+     "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2684"
+    },
+    {
+     "grund": "Zeitüberschreitung (10 s)",
+     "titel": "Außerschulische Klimabildung für Jugendliche",
+     "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2647"
+    },
+    {
+     "grund": "Zeitüberschreitung (10 s)",
+     "titel": "Forschungsinstitute und Bildungsinitiativen zu Klima und Nachhaltigkeit",
+     "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2654"
+    }
+   ],
+   "trefferVerlauf": [null, 14, 14, 14, 14, 14, null, null, 14, null, null, 15, null, 13],
    "seitBeobachtung": "2026-11-22T15:27:47.331Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-26T15:49:36.178Z",
-    "titel": "Mitmachen und gewinnen! Das Klima im Wettbewerb"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "\"Zukunft? Jugend fragen!\" Fortsetzung der Studienreihe 2025 (Chartbook)"
    },
    "neuTage": {
     "2026-11-23": 7,
-    "2026-11-26": 5
+    "2026-11-26": 5,
+    "2026-11-27": 2
    },
-   "fehler": [
-    "www.bildungsserver.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.bildungsserver.de/veranstaltung.html?veranstaltungenen_id=41417",
+     "datum": "2026-07-10"
+    },
+    {
+     "url": "https://www.bildungsserver.de/veranstaltung.html?veranstaltungenen_id=41488",
+     "datum": "2026-07-15"
+    },
+    {
+     "url": "https://www.bildungsserver.de/veranstaltung.html?veranstaltungenen_id=41490",
+     "datum": "2026-07-15"
+    },
+    {
+     "url": "https://www.bildungsserver.de/veranstaltung.html?veranstaltungenen_id=42184",
+     "datum": "2026-11-19"
+    },
+    {
+     "url": "https://www.bildungsserver.de/veranstaltung.html?veranstaltungenen_id=42147",
+     "datum": "2026-10-29"
+    }
    ]
   },
   "sozial-de": {
    "zustand": "ok",
-   "hinweis": "unauffällig – 21 Treffer",
+   "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-21T03:33:52.449Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 21,
-   "brauchbar": 21,
-   "neu": 0,
+   "gefunden": 20,
+   "brauchbar": 20,
+   "neu": 2,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -1307,26 +2144,45 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21],
+   "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 20],
    "seitBeobachtung": "2026-11-21T03:33:52.449Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-26T15:49:36.178Z",
-    "titel": "Der Paritätische protestiert: Koalition friert die Regelsätze ein"
+    "am": "2026-11-27T11:26:42.016Z",
+    "titel": "Seelische Gesundheit: Der Antistigma-Preis geht an 3 Projekte"
    },
    "neuTage": {
     "2026-11-24": 2,
     "2026-11-25": 2,
-    "2026-11-26": 2
+    "2026-11-26": 2,
+    "2026-11-27": 2
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.sozial.de/dossiers/systemische-beratung/systemische-gespraechsfuehrung.html",
+     "datum": "2025-03-28"
+    },
+    {
+     "url": "https://www.sozial.de/wie-macht-gemacht-wird.html",
+     "datum": "2019-11-13"
+    },
+    {
+     "url": "https://www.sozial.de/sokratisches-gespraech.html",
+     "datum": "2023-06-22"
+    },
+    {
+     "url": "https://www.sozial.de/eine-welt-oder-mehrere-welten.html",
+     "datum": "2023-05-09"
+    }
+   ]
   },
   "jadigital": {
    "zustand": "ok",
    "hinweis": "unauffällig – 1 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1345,14 +2201,20 @@
    "juengstes": "2026-11-13",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.digitalejugendhilfe.de/jadigital/jadigital-newsletter.html?ausgabe=2026-11-13",
+     "datum": "2026-11-13"
+    }
+   ]
   },
   "staedtetag": {
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1377,14 +2239,64 @@
     "2026-11-23": 1,
     "2026-11-25": 2
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/preis-soziale-stadt-wettbewerb-startet",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/kita-startchancengesetz-mehrbelastung-fuer-staedte",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/staedte-fordern-faire-finanzierung-beim-pass-und-ausweiswesen-und-mehr-engagement-des-bundes-beim-bevoelkerungsschutz",
+     "datum": "2026-11-13"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/zivil-katastrophenschutz-staedte-brauchen-gesicherte-finanzierung",
+     "datum": "2026-11-11"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/reform-des-elektromobilitaetsgesetzes-wir-brauchen-mehr-beinfreiheit-statt-bundeseinheitlicher-vorgaben",
+     "datum": "2026-11-06"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/digitalpakt-20-schul-it-befristete-foerderprogramme-ungeeignet",
+     "datum": "2026-11-02"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/betroffene-staedte-duerfen-mit-folgen-solcher-ausschreitungen-nicht-allein-gelassen-werden",
+     "datum": "2026-11-02"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/reformdebatte-finanzmisere-laesst-sich-nicht-durch-einschnitte-beim-unterhaltsvorschuss-loesen",
+     "datum": "2026-11-02"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/geplante-demonstrationen-stimme-der-jungen-generation-muss-in-der-politik-gewicht-haben",
+     "datum": "2026-10-30"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/reform-der-pflege-setzen-uns-fuer-sockel-spitze-tausch-ein",
+     "datum": "2026-10-28"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/sozialleistungen-fuer-familien-es-darf-nicht-allein-darum-gehen-ausgaben-zu-reduzieren",
+     "datum": "2026-10-27"
+    },
+    {
+     "url": "https://www.staedtetag.de/presse/pressemeldungen/2026/schutz-vor-cyber-angriffen-verlaessliche-strukturen-und-auskoemmliche-finanzierung",
+     "datum": "2026-10-23"
+    }
+   ]
   },
   "dstgb": {
    "zustand": "ok",
    "hinweis": "unauffällig – 13 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1398,7 +2310,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 13],
+   "trefferVerlauf": [14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 13, 13],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-26",
    "letzteNeu": {
@@ -1408,14 +2320,48 @@
    "neuTage": {
     "2026-11-26": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.dstgb.de/themen/digitalisierung/aktuelles/bundeskongress-buerokratieabbau-schlanker-staat-starke-steuerung-am-1-dezember-2026/",
+     "datum": "2026-11-11"
+    },
+    {
+     "url": "https://www.dstgb.de/themen/klimaschutz-und-klimaanpassung/aktuelles/wettbewerb-klimaaktive-kommune-2026-sechs-kommunen-ausgezeichnet/",
+     "datum": "2026-11-11"
+    },
+    {
+     "url": "https://www.dstgb.de/publikationen/pressemitteilungen/sicherheit-darf-keine-frage-der-kommunalen-haushaltslage-sein/",
+     "datum": "2026-11-11"
+    },
+    {
+     "url": "https://www.dstgb.de/publikationen/pressemitteilungen/nachhaltige-krankenhausfinanzierung-sicherstellen-rolle-der-kommunen-als-ausfallbuergen-beenden/",
+     "datum": "2026-11-10"
+    },
+    {
+     "url": "https://www.dstgb.de/publikationen/pressemitteilungen/kommunen-fordern-stopp-des-pachtpreisdeckels-fuer-windenergieflaechen/",
+     "datum": "2026-11-09"
+    },
+    {
+     "url": "https://www.dstgb.de/publikationen/pressemitteilungen/stellung-des-sportes-in-deutschland-staerken/",
+     "datum": "2026-11-05"
+    },
+    {
+     "url": "https://www.dstgb.de/publikationen/pressemitteilungen/die-eu-partnerschaftlich-mit-den-kommunen-zum-erfolg-fuehren/",
+     "datum": "2026-11-03"
+    },
+    {
+     "url": "https://www.dstgb.de/themen/lokale-demokratie/aktuelles/mehr-schutz-mehr-teilhabe-mehr-demokratie-frauen-in-der-kommunalpolitik-staerken/",
+     "datum": "2026-11-02"
+    }
+   ]
   },
   "bagljae": {
    "zustand": "ok",
    "hinweis": "unauffällig – 37 Treffer",
    "seit": "2026-11-21T21:21:38.649Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1434,14 +2380,64 @@
    "juengstes": "2026-09-20",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/weltkindertag-wer-junge-menschen-staerken-will-muss-sie-beteiligen/",
+     "datum": "2026-09-20"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/gemeinsame-empfehlungen-zur-kostenbeteiligung-nach-dem-sgb-viii/",
+     "datum": "2026-09-11"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/kijuta-saar-2026-gemeinsam-stark-fuer-junge-menschen/",
+     "datum": "2026-08-05"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/empfehlungen-pflegekinderhilfe-umsetzung-paragraph-37c-abs3-sgb8/",
+     "datum": "2026-07-31"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/kindschaftsrecht-stellungnahme-der-bag-landesjugendamter-zum-kimog-und-zur-reform-des-famfg/",
+     "datum": "2026-07-15"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/oeffentlichkeitsarbeit-fuer-jugendaemter-materialien-ueberblick/",
+     "datum": "2026-06-12"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/grundsaetze-und-massstaebe-berechtigtes-interesse-9b-sgb8/",
+     "datum": "2026-05-19"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/enrico-birkner-in-bundesjugendkuratorium-berufen/",
+     "datum": "2026-05-08"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/ergebnisse-umfrage-zur-vormundschaftsrechtsreform/",
+     "datum": "2026-05-07"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/oeffentlichkeitsarbeit-verfahrenslotsen/",
+     "datum": "2026-05-05"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/hearing-der-expertenkommission-kinder-und-jugendschutz-in-der-digitalen-welt/",
+     "datum": "2026-05-05"
+    },
+    {
+     "url": "https://www.bag-landesjugendaemter.de/de/neues/demokratie-vielfalt-wertefreiheit-schuetzen/",
+     "datum": "2026-04-27"
+    }
+   ]
   },
   "dksb": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1460,14 +2456,56 @@
    "juengstes": "2026-11-13",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://kinderschutzbund.de/familienrechtsreform-verbaende-fordern-besseren-schutz-vor-haeuslicher-gewalt/",
+     "datum": "2026-11-13"
+    },
+    {
+     "url": "https://kinderschutzbund.de/buendnis-kindergrundsicherung-wer-bei-armutsbetroffenen-kindern-spart-setzt-die-falschen-prioritaeten/",
+     "datum": "2026-11-12"
+    },
+    {
+     "url": "https://kinderschutzbund.de/bundeshaushalt-2027-ratschlag-kinderarmut-fordert-mit-71-unterstuetzerinnen-investitionen-gegen-jugendarmut/",
+     "datum": "2026-10-27"
+    },
+    {
+     "url": "https://kinderschutzbund.de/streichung-des-kindersofortzuschlags-waere-haushaltskonsolidierung-auf-kosten-von-kindern/",
+     "datum": "2026-10-12"
+    },
+    {
+     "url": "https://kinderschutzbund.de/regierungsentwurf-des-ersten-kinder-und-jugendhilfestrukturreformgesetzes-1-kjhsrg/",
+     "datum": "2026-09-22"
+    },
+    {
+     "url": "https://kinderschutzbund.de/weltkindertag-wer-kinderrechte-ernst-nimmt-muss-die-kinder-und-jugendhilfe-staerken/",
+     "datum": "2026-09-20"
+    },
+    {
+     "url": "https://kinderschutzbund.de/ueber-80-organisationen-fordern-kindeswohl-zum-massstab-der-klimapolitik-zu-machen/",
+     "datum": "2026-09-10"
+    },
+    {
+     "url": "https://kinderschutzbund.de/kinder-in-krisen-und-kriegsgebieten-schuetzen-kinderrechte-weltweit-sichern/",
+     "datum": "2026-09-01"
+    },
+    {
+     "url": "https://kinderschutzbund.de/bertelsmann-analyse-zeigt-gravierende-luecken-beim-bildungs-und-teilhabepaket/",
+     "datum": "2026-07-20"
+    },
+    {
+     "url": "https://kinderschutzbund.de/referentenentwurf-eines-gesetzes-zur-reform-des-kindschaftsrechts-kimog/",
+     "datum": "2026-07-13"
+    }
+   ]
   },
   "dkhw": {
    "zustand": "ok",
    "hinweis": "unauffällig – 5 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1491,14 +2529,20 @@
    "neuTage": {
     "2026-11-25": 1
    },
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.dkhw.de/informieren/im-ueberblick/aktuelles/nachricht/gross-schoenebeck-kinderrechte/",
+     "datum": "2026-11-20"
+    }
+   ]
   },
   "liga-kind": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1517,14 +2561,56 @@
    "juengstes": "2026-11-05",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.liga-kind.de/neue-ausgabe-der-digitalen-fachzeitschrift-fruehe-kindheit-kinder-von-eltern-mit-psychischen-erkrankungen-oder-suchterkrankungen-herausforderungen-erkennen-unterstuetzung-staerken/",
+     "datum": "2026-11-05"
+    },
+    {
+     "url": "https://www.liga-kind.de/bundesregierung-beschliesst-eckpunkte-fuer-besseren-kinder-und-jugendmedienschutz/",
+     "datum": "2026-11-04"
+    },
+    {
+     "url": "https://www.liga-kind.de/einfach-machen-ein-bericht-zur-tagung-und-wer-fragt-mich-3-0/",
+     "datum": "2026-10-23"
+    },
+    {
+     "url": "https://www.liga-kind.de/ihre-erfahrungen-als-fachberaterinnen-sind-gefragt-online-befragung-zur-fachberatung-kindertagespflege/",
+     "datum": "2026-09-30"
+    },
+    {
+     "url": "https://www.liga-kind.de/medienfit-ins-neue-schuljahr-das-schulstart-special-von-flimmo/",
+     "datum": "2026-09-30"
+    },
+    {
+     "url": "https://www.liga-kind.de/unicef-studie-in-21-laendern-jedes-fuenfte-kind-hat-technologiegestuetzte-sexuelle-ausbeutung-oder-sexuellen-missbrauch-erlebt/",
+     "datum": "2026-09-30"
+    },
+    {
+     "url": "https://www.liga-kind.de/bmbfsfj-veroeffentlicht-56-empfehlungen-fuer-einen-zeitgemaessen-kinder-und-jugendschutz-in-der-digitalen-welt/",
+     "datum": "2026-09-30"
+    },
+    {
+     "url": "https://www.liga-kind.de/nichtohne-uns-echt-gehoert-nicht-nur-angehoert-kampagne-zum-kinderrecht-auf-beteiligung/",
+     "datum": "2026-09-30"
+    },
+    {
+     "url": "https://www.liga-kind.de/stimmungsbild-zum-weltkindertag-kinder-in-deutschland-wuenschen-sich-sicherheit-schutz-und-faire-bildung-und-fordern-mehr-mitsprache/",
+     "datum": "2026-09-30"
+    },
+    {
+     "url": "https://www.liga-kind.de/nextgen-elternkongress-2026/",
+     "datum": "2026-09-30"
+    }
+   ]
   },
   "kinderschutz-zentren": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1543,14 +2629,52 @@
    "juengstes": "2026-11-18",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.kinderschutz-zentren.org/aktuelles/stellungnahmen/keine-gesetzliche-vorrangstellung-von-infrastruktur-und-regelangeboten-vor-individuellen-hilfen/",
+     "datum": "2026-11-06"
+    },
+    {
+     "url": "https://www.kinderschutz-zentren.org/weiterbildungen/fachkongresse/stuttgart2026/",
+     "datum": "2026-10-10"
+    },
+    {
+     "url": "https://www.kinderschutz-zentren.org/aktuelles/stellungnahmen/keine-verbindliche-mitteilungspflicht-von-jugendaemtern-an-familiengerichte/",
+     "datum": "2026-10-05"
+    },
+    {
+     "url": "https://www.kinderschutz-zentren.org/aktuelles/stellungnahmen/vielfalt-von-familienformen/",
+     "datum": "2026-10-01"
+    },
+    {
+     "url": "https://www.kinderschutz-zentren.org/aktuelles/fort-und-weiterbildungen/rueckblick-7-sommerhochschule-2026-fh-muenster/",
+     "datum": "2026-09-21"
+    },
+    {
+     "url": "https://www.kinderschutz-zentren.org/allgemein/neues-fort-und-weiterbildungsprogramm-2027/",
+     "datum": "2026-09-20"
+    },
+    {
+     "url": "https://www.kinderschutz-zentren.org/weiterbildungen/fachkongresse/hamburg2027/",
+     "datum": "2026-09-18"
+    },
+    {
+     "url": "https://www.kinderschutz-zentren.org/aktuelles/stellungnahmen/demokratiebildung-als-grundlage-von-kinderschutz/",
+     "datum": "2026-09-08"
+    },
+    {
+     "url": "https://www.kinderschutz-zentren.org/aktuelles/fort-und-weiterbildungen/beteiligung-von-kindern-im-kinderschutz-methoden-gelingender-gespraechsfuehrung/",
+     "datum": "2026-08-31"
+    }
+   ]
   },
   "isa": {
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1569,19 +2693,69 @@
    "juengstes": "2026-10-29",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=278&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=d003da957d1fb4f1822e9918a6412769",
+     "datum": "2026-10-29"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=277&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=a45d8e571b925181aee4beae72b5283a",
+     "datum": "2026-10-06"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=276&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=233752bc569f413f15fc4cc37027a7d5",
+     "datum": "2026-09-11"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=275&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=aabef285964b7c404c7b4cf4b3912b41",
+     "datum": "2026-09-03"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=274&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=f4fff09dfc3217cf2cd64e66da9376fd",
+     "datum": "2026-09-01"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=273&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=5215d2cfb20dc632fad3eeb274a5d464",
+     "datum": "2026-07-02"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=272&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=70975176cb0fd178d2a58b7b910c2c4d",
+     "datum": "2026-06-30"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=271&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=071ef2735f61284da6b2c1e9dbe76bda",
+     "datum": "2026-06-22"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=266&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=f3041903e9da80b2bbc6af7dc2516a7e",
+     "datum": "2026-04-01"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=267&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=637e0d4546291efe289d0e76c73ff89a",
+     "datum": "2026-03-20"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=265&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=88151785b0ba9483d94b4d75abf38d27",
+     "datum": "2025-12-15"
+    },
+    {
+     "url": "https://isa-muenster.de/startseite/news/detailansicht/?tx_news_pi1%5Bnews%5D=264&tx_news_pi1%5Bcontroller%5D=News&tx_news_pi1%5Baction%5D=detail&cHash=570c2fda9b30322c782b5c330941bda5",
+     "datum": "2025-12-01"
+    }
+   ]
   },
   "paritaet": {
    "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer",
+   "hinweis": "letzter Abruf nicht erreichbar (www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt",
    "seit": "2026-11-25T11:45:04.405Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
    "letzterErfolg": "2026-11-27T01:10:08.188Z",
-   "fehlerInFolge": 0,
+   "fehlerInFolge": 1,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 30,
-   "brauchbar": 30,
+   "gefunden": 0,
+   "brauchbar": 0,
    "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
@@ -1590,7 +2764,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, null, null, 30, 30, 30, 30, 30],
+   "trefferVerlauf": [30, 30, 30, 30, 30, 30, null, null, 30, 30, 30, 30, 30, null],
    "seitBeobachtung": "2026-11-20T18:38:46.227Z",
    "juengstes": "2026-11-26",
    "letzteNeu": {
@@ -1601,14 +2775,18 @@
     "2026-11-23": 1,
     "2026-11-24": 1
    },
-   "fehler": []
+   "fehler": [
+    "www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   ],
+   "zuAlt": [],
+   "pause": "letzter Abruf nicht erreichbar (www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt"
   },
   "bertelsmann": {
    "zustand": "ok",
    "hinweis": "unauffällig – 18 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1635,17 +2813,67 @@
    ],
    "trefferVerlauf": [18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-23",
+   "juengstes": "2026-11-27",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/junge-menschen-und-gesellschaft/digitale-welten-4",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/junge-menschen-und-gesellschaft/empowerment",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/junge-menschen-und-gesellschaft/digitale-welten-2",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/junge-menschen-und-gesellschaft/knowledge-base",
+     "datum": "2026-11-16"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/junge-menschen-und-gesellschaft/engagement-junger-menschen-1",
+     "datum": "2026-11-15"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/junge-menschen-und-gesellschaft/well-being",
+     "datum": "2026-11-15"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/junge-menschen-und-gesellschaft/digitale-welten",
+     "datum": "2026-11-15"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/aufwachsen-in-wohlbefinden/projektnachrichten/kinderkonferenzen-im-landkreis-kassel",
+     "datum": "2026-11-09"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/fruehkindliche-bildung/projektnachrichten/kita-traeger-koennten-staerker-zur-qualitaet-in-der-fruehkindlichen-bildung-beitragen",
+     "datum": "2026-10-15"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/unsere-projekte/aufwachsen-in-wohlbefinden/projektnachrichten/ausbildung-der-moderatorinnen-fuer-kinderkonferenzen-in-hessen",
+     "datum": "2026-10-07"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/themen/aktuelle-meldungen/2026/reform-der-altersteilzeit-wuerde-erwerbspotenziale-heben-und-fiskalische-spielraeume-schaffen",
+     "datum": "2026-11-23"
+    },
+    {
+     "url": "https://www.bertelsmann-stiftung.de/de/themen/aktuelle-meldungen/2026/matthias-meis-wird-ab-juli-2027-mitglied-des-vorstands-der-bertelsmann-stiftung",
+     "datum": "2026-11-17"
+    }
+   ]
   },
   "baj": {
    "zustand": "ok",
    "hinweis": "unauffällig – 18 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1664,14 +2892,64 @@
    "juengstes": "2026-11-05",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/4646594e05",
+     "datum": "2026-11-05"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/0aafc76350",
+     "datum": "2026-10-30"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/b857da960a",
+     "datum": "2026-10-21"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/227daff6e5",
+     "datum": "2026-10-08"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/220e096194",
+     "datum": "2026-10-05"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/0341fd88e0",
+     "datum": "2026-10-01"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/0841a94884",
+     "datum": "2026-09-30"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/825b4dc83e",
+     "datum": "2026-09-30"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/b07841f1b0",
+     "datum": "2026-09-24"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/a715084c81",
+     "datum": "2026-09-02"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/3acdaa8bf0",
+     "datum": "2026-08-31"
+    },
+    {
+     "url": "https://www.bag-jugendschutz.de/de/news/1233f69e8c",
+     "datum": "2026-08-31"
+    }
+   ]
   },
   "bag-ssg": {
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T01:10:08.188Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
+   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterErfolg": "2026-11-27T11:26:42.016Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1696,7 +2974,49 @@
    "juengstes": "2026-08-11",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": []
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.bagsozialestadtentwicklung.de/online-salon-personenzentrierte-sozialraumanalyse-und-kooperation-mit-der-gwa-0",
+     "datum": "2026-08-11"
+    },
+    {
+     "url": "https://www.bagsozialestadtentwicklung.de/wirkungsvoll-mit-community-organizing-fuer-mehr-demokratische-power-von-unten",
+     "datum": "2026-08-10"
+    },
+    {
+     "url": "https://www.bagsozialestadtentwicklung.de/gebauter-zusammenhalt-wie-begegnungsorte-quartiere-staerken",
+     "datum": "2026-08-10"
+    },
+    {
+     "url": "https://www.bagsozialestadtentwicklung.de/gwa-werkstatt-2026-dokumentation-und-ausblick",
+     "datum": "2026-06-26"
+    },
+    {
+     "url": "https://www.bagsozialestadtentwicklung.de/online-salon-personenzentrierte-sozialraumanalyse-und-kooperation-mit-der-gwa",
+     "datum": "2026-06-25"
+    },
+    {
+     "url": "https://www.bagsozialestadtentwicklung.de/gwa-werkstatt-2026-programm",
+     "datum": "2026-06-15"
+    },
+    {
+     "url": "https://www.bagsozialestadtentwicklung.de/gwa-werkstatt-2026-einladung-und-anmeldung",
+     "datum": "2026-01-15"
+    },
+    {
+     "url": "https://www.bagsozialestadtentwicklung.de/sachsen-0",
+     "datum": "2025-09-09"
+    },
+    {
+     "url": "https://www.bagsozialestadtentwicklung.de/einladung-zur-online-ringvorlesung-gemeinwesenarbeit-dgsa-sektion-gemeinwesenarbeit",
+     "datum": "2025-03-21"
+    },
+    {
+     "url": "https://www.bagsozialestadtentwicklung.de/aspekte-des-gemeinwohls-der-wohnungswirtschaft-dv-jahrestagung-am-11092024",
+     "datum": "2024-08-29"
+    }
+   ]
   }
  }
 }
