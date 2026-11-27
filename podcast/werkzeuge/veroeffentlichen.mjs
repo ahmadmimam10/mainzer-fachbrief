@@ -30,7 +30,9 @@ const bestand = await access(jsonPfad).then(() => readFile(jsonPfad, 'utf8').the
 // Wird eine schon veröffentlichte Folge neu produziert, zählt die Fassung hoch – das ändert die Audio-Adresse (?v=…).
 web.skriptHash = createHash('sha1').update(await readFile(join(FOLGE, 'skript.txt'))).digest('hex').slice(0, 12);
 const alt = bestand.folgen.find((f) => f.id === web.id);
-if (alt && alt.skriptHash && alt.skriptHash !== web.skriptHash) web.fassung = Math.max(web.fassung || 1, (alt.fassung || 1) + 1);
+// Jede neue Veröffentlichung einer schon erschienenen Folge bekommt eine höhere Fassung – auch wenn nur neu abgemischt wurde (andere Musik) und
+// das Skript gleich blieb. Die Fassung hängt als ?v=… an der Audio-Adresse; ginge sie zurück, spielten Browser eine alte Datei aus dem Zwischenspeicher.
+if (alt) web.fassung = Math.max(web.fassung || 1, (alt.fassung || 1) + 1);
 bestand.folgen = [web, ...bestand.folgen.filter((f) => f.id !== web.id)].sort((a, b) => b.datum.localeCompare(a.datum) || b.nummer - a.nummer);
 await writeFile(jsonPfad, JSON.stringify(bestand));
 
