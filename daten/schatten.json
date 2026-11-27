@@ -2485,6 +2485,538 @@
      }
     }
    }
+  },
+  {
+   "datum": "2026-11-27",
+   "erstellt": "2026-11-27T04:10:25.021Z",
+   "kandidaten": 130,
+   "claude": {
+    "jugendhilfeplanung": [
+     {
+      "id": "42fef57420",
+      "stufe": "aufmacher",
+      "titel": "Mainzer Stadtrat verabschiedet den Haushalt 2027"
+     },
+     {
+      "id": "16ddc53192",
+      "stufe": "wichtig",
+      "titel": "Bündnis aus Rheinland-Pfalz erhält den Deutschen Kita-Preis"
+     },
+     {
+      "id": "9b256987d7",
+      "stufe": "wichtig",
+      "titel": "Länder rufen 2026 deutlich mehr Startchancen-Mittel ab"
+     },
+     {
+      "id": "766858868f",
+      "stufe": "wichtig",
+      "titel": "DGB: Kitas brauchen zuerst mehr Personal"
+     },
+     {
+      "id": "f0f0f3315f",
+      "stufe": "kurz",
+      "titel": "Anklam-Trapp: Zukunftssorgen junger Menschen ernst nehmen"
+     },
+     {
+      "id": "7f9047db00",
+      "stufe": "kurz",
+      "titel": "Paritätischer protestiert gegen eingefrorene Regelsätze"
+     },
+     {
+      "id": "cc91cce06d",
+      "stufe": "kurz",
+      "titel": "Betriebsrentenmodell für die private Kinder- und Jugendhilfe vereinbart"
+     },
+     {
+      "id": "8552c900a8",
+      "stufe": "kurz",
+      "titel": "„Kultur macht stark“: Zugang zu kultureller Bildung in Gefahr"
+     },
+     {
+      "id": "e97e4f1eb0",
+      "stufe": "kurz",
+      "titel": "EU-Kommission will Grundkompetenzen stärken und Lehrkräftemangel bekämpfen"
+     },
+     {
+      "id": "6ff1e877b6",
+      "stufe": "kurz",
+      "titel": "Studie: Einwanderungsgeschichte erhöht das Armutsrisiko deutlich"
+     },
+     {
+      "id": "ba6a1300e6",
+      "stufe": "kurz",
+      "titel": "XI. KiTa-Kongress am 26. Februar 2027"
+     }
+    ],
+    "fruehe-hilfen": [
+     {
+      "id": "bd9e3b44e6",
+      "stufe": "aufmacher",
+      "titel": "Studie zu sexualisierter Gewalt in katholischen Jugendverbänden sucht Interviewpartner"
+     },
+     {
+      "id": "16ddc53192",
+      "stufe": "wichtig",
+      "titel": "Bündnis aus Rheinland-Pfalz erhält den Deutschen Kita-Preis"
+     },
+     {
+      "id": "8276f7f5cd",
+      "stufe": "kurz",
+      "titel": "Rauchverbot: Landtag debattiert Ausweitung auf Haltestellen und Spielplätze"
+     },
+     {
+      "id": "15c0daa5b3",
+      "stufe": "kurz",
+      "titel": "Rheinland-Pfalz treibt Umsetzung des Gewalthilfegesetzes voran"
+     }
+    ],
+    "quartiersmanagement": [
+     {
+      "id": "fd6358c15f",
+      "stufe": "aufmacher",
+      "titel": "Stadtrat beschließt Leitbild Mobilität 2035+"
+     },
+     {
+      "id": "0f33fcdeab",
+      "stufe": "wichtig",
+      "titel": "Diese Beschlüsse hat der Mainzer Stadtrat gefasst"
+     },
+     {
+      "id": "c7df0009f6",
+      "stufe": "wichtig",
+      "titel": "Zweckentfremdungsverbot in Mainz: Hilft es gegen Leerstand?"
+     },
+     {
+      "id": "0d7c3ec40e",
+      "stufe": "wichtig",
+      "titel": "Neuer Standort für Mainzer Unimedizin: Zwei Flächen fallen weg"
+     },
+     {
+      "id": "03c5c3515e",
+      "stufe": "kurz",
+      "titel": "Haushalt: Was auf die Mainzer Bürger zukommt"
+     },
+     {
+      "id": "10ec744ded",
+      "stufe": "kurz",
+      "titel": "Viel Kritik: Haushaltsdebatte im Mainzer Stadtrat"
+     },
+     {
+      "id": "d4ed70608d",
+      "stufe": "kurz",
+      "titel": "Bau- und Sanierungsausschuss: Schutz für Römerfunde im Mainzer Westen"
+     },
+     {
+      "id": "1d2d43248a",
+      "stufe": "kurz",
+      "titel": "Gebühren für Straßenparken steigen um 25 bis 30 Prozent"
+     },
+     {
+      "id": "3c64cfed65",
+      "stufe": "kurz",
+      "titel": "CDU und Grüne wollen Modalfilter an der Großen Bleiche ändern"
+     },
+     {
+      "id": "7f6d317997",
+      "stufe": "kurz",
+      "titel": "Fernwärme: Parkplätze für Vorarbeiten in Gonsenheim gesperrt"
+     }
+    ]
+   },
+   "claudeHoer": {
+    "jugendhilfeplanung": "Guten Morgen, hier ist das Mainzer Boniblatt für die Jugendhilfeplanung am Freitag, 27. November.\n\nDer Mainzer Stadtrat hat den Haushalt 2027 verabschiedet. Bürgermeister Daniel Köbler erklärt, warum Mainz das Haushaltsdefizit senken muss: Nur so könne die Stadt weiter in Kitas, Schulen und Sporthallen investieren.\n\nDrei Meldungen sind heute besonders wichtig. Erstens: Ein Bündnis aus Rheinland-Pfalz ist mit dem Deutschen Kita-Preis geehrt worden. Eine Stadt will Kindern trotz knapper Kassen gute Startchancen bieten und erhält dafür einen Titel und ein Preisgeld. Zweitens: Die Bundesländer haben 2026 deutlich mehr Mittel aus dem Startchancenprogramm abgerufen. Das geht aus einer Antwort der Bundesregierung hervor. Drittens: Der DGB kritisiert den Kita-Gesetzentwurf. Schon jetzt fehlen 107.000 Erzieherinnen und Erzieher, und nur 14 Prozent der Kitas erreichen die empfohlene Personalausstattung.\n\nKurz notiert: Jugendstaatssekretärin Kathrin Anklam-Trapp hat im Landtag gefordert, die Perspektive junger Menschen bei politischen Entscheidungen konsequent zu berücksichtigen. Der Paritätische protestiert dagegen, dass die Regelsätze in der Grundsicherung bis 2028 nicht angepasst werden sollen. Und GEW und AG VPK haben ein Betriebsrentenmodell für die private Kinder- und Jugendhilfe vereinbart.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Schönes Wochenende, bis Montag.",
+    "fruehe-hilfen": "Guten Morgen, hier ist das Mainzer Boniblatt für die Frühen Hilfen, den Kinderschutz und die Familienbildung am Freitag, 27. November.\n\nZwei Institute untersuchen sexualisierte Gewalt in den Jugendverbänden des Bundes der Deutschen Katholischen Jugend. Für die Studie suchen sie Betroffene und Zeitzeuginnen und Zeitzeugen, die anonym interviewt werden. Untersucht werden Ausmaß, Strukturen und Folgen der Gewalt. Ergebnisse sollen 2029 vorliegen.\n\nWichtig ist außerdem: Ein Bündnis aus Rheinland-Pfalz ist mit dem Deutschen Kita-Preis geehrt worden. Eine Stadt will Kindern trotz knapper Kassen gute Startchancen bieten. Dafür gibt es einen besonderen Titel und ein Preisgeld.\n\nKurz notiert: Das rheinland-pfälzische Nichtraucherschutzgesetz soll nach knapp 20 Jahren überarbeitet werden. Der Landtag debattiert über die geplante Reform, die das Rauchverbot auf Haltestellen und Spielplätze ausweiten soll. Außerdem treibt Rheinland-Pfalz die Umsetzung des Gewalthilfegesetzes voran. Der Landtag hat sich auf Grundlage eines Antrags der Regierungsfraktionen mit dem Gewaltschutz für Frauen befasst.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Schönes Wochenende, bis Montag.",
+    "quartiersmanagement": "Guten Morgen, hier ist das Mainzer Boniblatt für das Quartiersmanagement am Freitag, 27. November.\n\nDer Mainzer Stadtrat hat das Leitbild Mobilität 2035 plus beschlossen. Rund ein Jahr lang hat die Stadtverwaltung gemeinsam mit dem Mobilitätsbeirat und der Öffentlichkeit am Mobilitätsplan Mainz gearbeitet.\n\nDrei weitere Meldungen sind wichtig. Erstens: Der Stadtrat hat in seiner letzten regulären Sitzung des Jahres zahlreiche zentrale Themen beraten. Die Allgemeine Zeitung fasst die wichtigsten Entscheidungen zusammen. Zweitens das Zweckentfremdungsverbot: Leerstehende Wohnungen und Kurzzeitvermietungen müssen in Mainz genehmigt werden, die Satzung läuft aber aus. Gefragt wird, was sie gegen Leerstand bisher geleistet hat. Drittens das neue Zentralklinikum der Universitätsmedizin: Noch sechs Flächen werden untersucht, zwei fallen weg. Der Stadtrat hat grünes Licht für die Prüfung gegeben.\n\nKurz notiert: Im Bau- und Sanierungsausschuss ging es um den Schutz von Römerfunden im Mainzer Westen. Das vorläufig geschützte Areal könnte weitere römische und vorgeschichtliche Spuren bergen. Die Gebühren fürs Kurzzeitparken außerhalb der Parkhäuser sollen um 25 bis 30 Prozent steigen. Und in Gonsenheim fallen zeitweise Parkplätze weg, weil der Kampfmittelräumdienst vor der Verlegung von Fernwärmeleitungen den Untergrund untersucht.\n\nAlle Meldungen und Quellen finden Sie auf der Seite. Schönes Wochenende, bis Montag."
+   },
+   "claudeTermine": [
+    {
+     "art": "fussball",
+     "tag": "2026-11-29",
+     "wann": "",
+     "titel": "Deportivo La Coruña – FC Barcelona",
+     "ort": "La Liga, Spieltag 14",
+     "url": "https://www.fcbarcelona.com/en/matches/138412/deportivo-de-la-coruna-fc-barcelona-la-liga-2026-2027"
+    },
+    {
+     "art": "markt",
+     "tag": "2026-11-28",
+     "wann": "",
+     "titel": "Finthener Weihnachtsmarkt",
+     "ort": "Mainz, Finthen",
+     "url": "https://www.festivalsindeutschland.de/festival/finthener-weihnachtsmarkt"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-11-28",
+     "wann": "12 Uhr",
+     "titel": "Wort und Klang: Musik zum Advent",
+     "ort": "Mainz, Dom St. Martin",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/wort-und-klang-i-musik-und-texte-zum-advent-dom-st-martin/"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-11-28",
+     "wann": "20 Uhr",
+     "titel": "Die Katzen: Weihnachtliche Swing-Reise",
+     "ort": "Mainz-Ebersheim, Weingut Becker",
+     "url": "https://www.mvp.de/rheinland-pfalz/veranstaltungen/die-katzen-eine-weihnachtliche-reise-in-die-swing-aera-mainz-ot-ebersheim/"
+    },
+    {
+     "art": "theater",
+     "tag": "2026-11-29",
+     "wann": "",
+     "titel": "Josef Hader – Hader on Ice",
+     "ort": "Mainz, Rheingoldhalle",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/josef-hader-hader-on-ice-rheingoldhalle-mainz/"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-11-29",
+     "wann": "",
+     "titel": "Machtet die Tore weit! Chor und Orgel",
+     "ort": "Mainz, Dom St. Martin",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/machtet-die-tore-weit-adventliche-chor-und-orgelmusik-mainz/"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-11-30",
+     "wann": "",
+     "titel": "Memento Odesa: Studnitzky und Band",
+     "ort": "Mainz, Bürgerhaus Lerchenberg",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/memento-odesa-2026-sebastian-studnitzky-band-odesa-chamber/"
+    },
+    {
+     "art": "theater",
+     "tag": "2026-12-02",
+     "wann": "",
+     "titel": "Oliver Wnuk – Wnuk denkt laut",
+     "ort": "Mainz, Frankfurter Hof",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/oliver-wnuk-wnuk-denkt-laut-und-liest-was-vor-frankfurter-hof/"
+    },
+    {
+     "art": "theater",
+     "tag": "2026-12-04",
+     "wann": "",
+     "titel": "Mundstuhl – Wir kommen",
+     "ort": "Mainz, Frankfurter Hof",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/mundstuhl-wir-kommen-frankfurter-hof-mainz-04-12/"
+    },
+    {
+     "art": "musik",
+     "tag": "2026-12-04",
+     "wann": "",
+     "titel": "heavytones – 25 Jahre, die Tour",
+     "ort": "Mainz, KUZ",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/heavytones-25-jahre-die-tour-kuz-kulturzentrum-mainz/"
+    },
+    {
+     "art": "theater",
+     "tag": "2026-11-27",
+     "wann": "",
+     "titel": "Dantons Tod – Junge Bühne Mainz",
+     "ort": "Mainz, M8",
+     "url": "https://www.mvp.de/mainz/veranstaltungen/dantons-tod-schauspiel-von-und-nach-georg-buechner-mainz-27-11/"
+    },
+    {
+     "art": "verein",
+     "tag": "2026-11-27",
+     "wann": "",
+     "titel": "Mainzer Ruder-Verein 1878: Rudern am Rhein",
+     "ort": "Mainz, Victor-Hugo-Ufer",
+     "url": "https://mainz.de/en/verzeichnisse/vereinsverzeichnis/Mainzer_Ruder-Verein_1878_e.V"
+    }
+   ],
+   "modelle": {
+    "deepseek-flash": {
+     "denken": "max (Suche: high)",
+     "tarif": "Nebenzeit",
+     "sekunden": 299,
+     "usd": 0.05409,
+     "tokens": {
+      "eingabe": 40748,
+      "cache": 151040,
+      "ausgabe": 49196
+     },
+     "erfunden": 0,
+     "verstoesse": [],
+     "ressorts": {
+      "jugendhilfeplanung": [
+       {
+        "id": "42fef57420",
+        "stufe": "aufmacher",
+        "titel": "Stadtrat verabschiedet Haushalt 2027",
+        "kurz": "Der Mainzer Stadtrat hat den Haushalt für 2027 beschlossen; Bürgermeister Daniel Köbler betont, dass die Stadt das Defizit senken muss, um weiter in Kitas, Schulen und Sporthallen investieren zu können."
+       },
+       {
+        "id": "766858868f",
+        "stufe": "wichtig",
+        "titel": "DGB: Kitas brauchen zuerst mehr Personal",
+        "kurz": "Der Deutsche Gewerkschaftsbund kritisiert den Kita-Gesetzentwurf: Neue Aufgaben seien ohne zusätzliches Personal nicht umsetzbar, bundesweit fehlen 107.000 Erzieherinnen und Erzieher."
+       },
+       {
+        "id": "9b256987d7",
+        "stufe": "wichtig",
+        "titel": "Startchancenprogramm: Bundesländer rufen mehr Mittel ab",
+        "kurz": "Die Summe der aus dem Startchancenprogramm für Schulen abgerufenen Mittel der Bundesländer hat sich 2026 deutlich erhöht, wie aus einer Antwort der Bundesregierung hervorgeht."
+       },
+       {
+        "id": "6ff1e877b6",
+        "stufe": "wichtig",
+        "titel": "Studie: Einwanderungsgeschichte erhöht Armutsrisiko deutlich",
+        "kurz": "Rund jeder vierte Mensch mit Migrationshintergrund ist arm, mehr als doppelt so viel wie im Rest der Bevölkerung; der Paritätische Gesamtverband kritisiert, dass sich entscheidende Weichen anders stellen ließen."
+       },
+       {
+        "id": "16ddc53192",
+        "stufe": "kurz",
+        "titel": "Bündnis aus Rheinland-Pfalz beim Deutschen Kita-Preis geehrt"
+       },
+       {
+        "id": "e2a526bc20",
+        "stufe": "kurz",
+        "titel": "Mehr als eine Million Menschen in Rheinland-Pfalz mit Einwanderungsgeschichte"
+       },
+       {
+        "id": "ba6a1300e6",
+        "stufe": "kurz",
+        "titel": "11. Kita-Kongress Rheinland-Pfalz am 26. Februar 2027"
+       },
+       {
+        "id": "f0f0f3315f",
+        "stufe": "kurz",
+        "titel": "Staatssekretärin fordert stärkere Berücksichtigung junger Menschen"
+       },
+       {
+        "id": "cc91cce06d",
+        "stufe": "kurz",
+        "titel": "Tarifliches Betriebsrentenmodell für private Kinder- und Jugendhilfe"
+       }
+      ],
+      "fruehe-hilfen": [
+       {
+        "id": "15c0daa5b3",
+        "stufe": "aufmacher",
+        "titel": "Rheinland-Pfalz treibt Umsetzung des Gewalthilfegesetzes voran",
+        "kurz": "Der Landtag hat den Gewaltschutz für Frauen debattiert; Rheinland-Pfalz will das Gewalthilfegesetz umsetzen, wie Frauenministerin Bätzing-Lichtenthäler betont."
+       },
+       {
+        "id": "bd9e3b44e6",
+        "stufe": "wichtig",
+        "titel": "Studie zu sexualisierter Gewalt in katholischen Jugendverbänden sucht Betroffene",
+        "kurz": "Zwei Institute untersuchen Ausmaß, Strukturen und Folgen sexualisierter Gewalt in katholischen Jugendverbänden; für anonyme Interviews werden Betroffene und Zeitzeuginnen und Zeitzeugen gesucht."
+       },
+       {
+        "id": "8276f7f5cd",
+        "stufe": "wichtig",
+        "titel": "Landtag debattiert Rauchverbot auf Spielplätzen und Haltestellen",
+        "kurz": "Das rheinland-pfälzische Nichtraucherschutzgesetz soll nach knapp 20 Jahren überarbeitet werden; der Landtag debattiert über eine Ausweitung auf Haltestellen und Spielplätze."
+       },
+       {
+        "id": "fda2a80a58",
+        "stufe": "wichtig",
+        "titel": "Awareness-Räume auch bei weiteren Großveranstaltungen in Mainz?",
+        "kurz": "Nach dem ersten Schutzraum bei der Fastnachtsparty am 11. November könnte es Awareness-Angebote für Betroffene von Belästigung und Gewalt auch bei weiteren Großveranstaltungen in Mainz geben."
+       },
+       {
+        "id": "126c2bfc43",
+        "stufe": "kurz",
+        "titel": "Bundesfachtagung Heilpädagogik befasst sich mit Diagnostik"
+       }
+      ],
+      "quartiersmanagement": [
+       {
+        "id": "fd6358c15f",
+        "stufe": "aufmacher",
+        "titel": "Stadtrat beschließt Leitbild Mobilität 2035+",
+        "kurz": "Die Stadtverwaltung hat mit dem Mobilitätsbeirat und der Öffentlichkeit rund ein Jahr am Mobilitätsplan Mainz gearbeitet; der Stadtrat hat nun das Leitbild beschlossen."
+       },
+       {
+        "id": "0f33fcdeab",
+        "stufe": "wichtig",
+        "titel": "Stadtrat fasst zentrale Beschlüsse",
+        "kurz": "In der letzten regulären Sitzung des Jahres hat der Mainzer Stadtrat zahlreiche zentrale Themen behandelt; der Überblick bündelt die wichtigsten Entscheidungen."
+       },
+       {
+        "id": "c7df0009f6",
+        "stufe": "wichtig",
+        "titel": "Zweckentfremdungsverbot in Mainz: Was die Satzung bisher leistete",
+        "kurz": "Leerstehende Wohnungen und Kurzzeitvermietungen müssen in Mainz genehmigt werden, sonst drohen Strafen; die Zweckentfremdungsverbotssatzung läuft aus."
+       },
+       {
+        "id": "0d7c3ec40e",
+        "stufe": "wichtig",
+        "titel": "Neuer Standort für die Mainzer Unimedizin: Zwei Flächen fallen weg",
+        "kurz": "Für ein neues Zentralklinikum der Universitätsmedizin Mainz werden noch sechs Flächen untersucht; der Stadtrat hat grünes Licht für die Prüfung gegeben."
+       },
+       {
+        "id": "3c64cfed65",
+        "stufe": "kurz",
+        "titel": "CDU und Grüne wollen Modalfilter an der Großen Bleiche ändern"
+       },
+       {
+        "id": "7f6d317997",
+        "stufe": "kurz",
+        "titel": "Fernwärme: Parkplätze für Vorarbeiten in Gonsenheim gesperrt"
+       },
+       {
+        "id": "d4ed70608d",
+        "stufe": "kurz",
+        "titel": "Bau- und Sanierungsausschuss: Schutz für Römerfunde im Mainzer Westen"
+       },
+       {
+        "id": "1d2d43248a",
+        "stufe": "kurz",
+        "titel": "Gebühren für Straßenparken steigen um 25 bis 30 Prozent"
+       }
+      ]
+     },
+     "hoer": {
+      "jugendhilfeplanung": "Guten Morgen, hier ist die Jugendhilfeplanung am Freitag, 27. November.\n\nDer Mainzer Stadtrat hat den Haushalt für 2027 verabschiedet. Bürgermeister Daniel Köbler erklärt, warum die Stadt das Defizit senken muss, um weiter in Kitas, Schulen und Sporthallen investieren zu können. Der Haushalt für 2027 ist damit beschlossen.\n\nDer Deutsche Gewerkschaftsbund kritisiert den Kita-Gesetzentwurf. Neue Aufgaben seien ohne zusätzliches Personal nicht umsetzbar. Bundesweit fehlen nach seinen Angaben 107.000 Erzieherinnen und Erzieher. Nur 14 Prozent der Kitas erreichen die empfohlene Personalausstattung.\n\nDie Bundesländer haben 2026 deutlich mehr Mittel aus dem Startchancenprogramm für Schulen abgerufen. Das geht aus einer Antwort der Bundesregierung hervor.\n\nEine Studie zeigt: Rund jeder vierte Mensch mit Migrationshintergrund ist arm. Das ist mehr als doppelt so viel wie im Rest der Bevölkerung. Der Paritätische Gesamtverband kritisiert, dass sich entscheidende Weichen anders stellen ließen.\n\nKurz notiert: Ein Bündnis aus Rheinland-Pfalz ist beim Deutschen Kita-Preis geehrt worden und erhält ein Preisgeld. In Rheinland-Pfalz hatten rund 1,07 Millionen Menschen eine Einwanderungsgeschichte. Jugendstaatssekretärin Anklam-Trapp fordert, die Perspektive junger Menschen bei allen politischen Entscheidungen konsequent zu berücksichtigen.\n\nAlle Meldungen und Quellen stehen auf der Seite. Bis Montag.",
+      "fruehe-hilfen": "Guten Morgen, hier sind die Frühen Hilfen, der Kinderschutz und die Familienbildung am Freitag, 27. November.\n\nRheinland-Pfalz treibt die Umsetzung des Gewalthilfegesetzes voran. Anlässlich des Internationalen Tages zur Beseitigung von Gewalt gegen Frauen am 25. November hat sich der Landtag mit dem Gewaltschutz für Frauen befasst. Grundlage war ein Antrag der Regierungsfraktionen. Frauenministerin Bätzing-Lichtenthäler betont, Gewalt gegen Frauen dürfe keinen Platz in unserer Gesellschaft haben.\n\nZwei Institute führen eine Studie zur Aufarbeitung sexualisierter Gewalt in katholischen Jugendverbänden durch. Sie untersuchen Ausmaß, Strukturen und Folgen der Gewalt. Für anonyme Interviews werden Betroffene und Zeitzeuginnen und Zeitzeugen gesucht. Die Ergebnisse werden 2029 erwartet.\n\nDer Landtag debattiert über eine Ausweitung des Nichtraucherschutzes. Nach knapp 20 Jahren soll das rheinland-pfälzische Gesetz überarbeitet werden. Vorgesehen ist, das Rauchverbot auch auf Haltestellen und Spielplätze zu erstrecken.\n\nIn Mainz könnte es bei weiteren Großveranstaltungen Awareness-Räume geben. Bei der Fastnachtsparty am 11. November gab es erstmals einen Schutzraum für Betroffene von Belästigung und Gewalt. Solche Angebote könnten nun auch bei anderen Events in der Stadt entstehen.\n\nKurz notiert: Die 57. Bundesfachtagung des Berufs- und Fachverbands Heilpädagogik befasst sich vom 27. bis 29. November in Stuttgart mit heilpädagogischer Diagnostik als Grundlage des Handelns. Die Tagung steht unter dem Motto „Sehen. Wahrnehmen. Verständigen.“\n\nAlle Meldungen und Quellen stehen auf der Seite. Bis Montag.",
+      "quartiersmanagement": "Guten Morgen, hier ist das Quartiersmanagement am Freitag, 27. November.\n\nDer Mainzer Stadtrat hat das Leitbild Mobilität 2035+ beschlossen. Seit rund einem Jahr arbeitet die Stadtverwaltung zusammen mit dem Mobilitätsbeirat und der Öffentlichkeit am Mobilitätsplan Mainz. Das Leitbild Mobilität 2035+ ist damit beschlossen.\n\nIn der letzten regulären Sitzung des Jahres hat der Stadtrat zahlreiche zentrale Themen behandelt. Der Überblick bündelt die wichtigsten Entscheidungen aus dieser Sitzung.\n\nLeerstehende Wohnungen und Kurzzeitvermietungen müssen in Mainz genehmigt werden, sonst drohen Strafen. Die Zweckentfremdungsverbotssatzung läuft aus. Der Beitrag beleuchtet, was sie bisher geleistet hat.\n\nFür ein neues Zentralklinikum der Universitätsmedizin Mainz werden noch sechs Flächen untersucht. Der Stadtrat hat am Mittwoch grünes Licht für die Prüfung gegeben. Zwei Flächen sind bereits weggefallen.\n\nKurz notiert: Der Modalfilter an der Großen Bleiche beschäftigt den Altstadt-Ortsbeirat weiter. CDU und Grüne legen unterschiedliche Änderungsvorschläge vor. In Gonsenheim sind für Vorarbeiten an Fernwärmeleitungen zeitweise Parkplätze gesperrt. Im Mainzer Westen könnten Bauvorhaben auf weitere römische und vorgeschichtliche Spuren stoßen.\n\nAlle Meldungen und Quellen stehen auf der Seite. Bis Montag."
+     },
+     "gremien": {
+      "tokens": {
+       "eingabe": 199,
+       "cache": 2944,
+       "ausgabe": 611
+      },
+      "usd": 0.00041,
+      "sekunden": 4.8,
+      "verstoesse": [],
+      "sitzungen": {
+       "5523": {
+        "gremium": "Wirtschaftsausschuss",
+        "datum": "2026-11-25",
+        "punkte": 1,
+        "claude": {
+         "ressorts": {}
+        },
+        "deepseek": {
+         "ressorts": {}
+        }
+       }
+      }
+     },
+     "termine": {
+      "tokens": {
+       "eingabe": 27964,
+       "cache": 143872,
+       "ausgabe": 10694
+      },
+      "usd": 0.02904,
+      "sekunden": 50.4,
+      "suchen": 15,
+      "abrufe": 9,
+      "verstoesse": [],
+      "termine": [
+       {
+        "art": "markt",
+        "tag": "2026-11-27",
+        "wann": "ab 11 Uhr",
+        "titel": "Historischer Weihnachtsmarkt Mainz",
+        "ort": "Mainz, Domplätze",
+        "url": "https://www.mainz.de/angebote-entdecken/freizeit/feste-und-veranstaltungen/weihnachtsmarkt"
+       },
+       {
+        "art": "restaurant",
+        "tag": "2026-11-27",
+        "wann": "",
+        "titel": "FAVORITE restaurant – Sterneküche im Stadtpark",
+        "ort": "Mainz, Stadtpark",
+        "url": "https://guide.michelin.com/en/rheinland-pfalz/mainz/restaurant/favorite-restaurant"
+       },
+       {
+        "art": "fussball",
+        "tag": "2026-11-28",
+        "wann": "21 Uhr",
+        "titel": "Real Madrid – Alavés",
+        "ort": "La Liga",
+        "url": "https://www.realmadrid.com/de-DE/noticias/futbol/primer-equipo/actualidad/el-calendario-del-real-madrid-hasta-navidad-11-11-2026"
+       },
+       {
+        "art": "markt",
+        "tag": "2026-11-28",
+        "wann": "",
+        "titel": "Gonsenheimer Adventsmarkt",
+        "ort": "Mainz, Pfarrer-Grimm-Anlage",
+        "url": "https://freizeitmonster.de/aktivitaeten/veranstaltungen/gonsenheimer-adventsmarkt-2026-324343"
+       },
+       {
+        "art": "musik",
+        "tag": "2026-11-28",
+        "wann": "20 Uhr",
+        "titel": "Nacht der Lichter zum Advent",
+        "ort": "Mainz, Christuskirche",
+        "url": "https://bistummainz.de/jugend/vor-ort/kjb-rheinhessen/m-event/Nacht-der-Lichter-in-der-Mainzer-Christuskirche-zum-Advent-2026.11.28/"
+       },
+       {
+        "art": "musik",
+        "tag": "2026-11-28",
+        "wann": "20 Uhr",
+        "titel": "Götz Alsmann live",
+        "ort": "Mainz, Frankfurter Hof",
+        "url": "https://laut.de/Goetz-Alsmann/Konzerte/Mainz-Frankfurter-Hof-28-11-2026-380455"
+       },
+       {
+        "art": "fussball",
+        "tag": "2026-11-29",
+        "wann": "16:15 Uhr",
+        "titel": "Deportivo – FC Barcelona",
+        "ort": "La Liga",
+        "url": "https://www.laliga.com/partido/temporada-2026-2027-laliga-ea-sports-rc-deportivo-fc-barcelona-14"
+       },
+       {
+        "art": "ausflug",
+        "tag": "2026-11-30",
+        "wann": "",
+        "titel": "Glühwein-Funzelfahrt im Planwagen",
+        "ort": "Mainz-Ebersheim, Weinberge",
+        "url": "https://weingut-fasanenhof.de/pages/gluehwein-funzelfahrt-mainz"
+       },
+       {
+        "art": "spielzeug",
+        "tag": "2026-12-02",
+        "wann": "",
+        "titel": "Dito! – Spiel des Jahres 2026",
+        "ort": "Brettspiel · Spiel des Jahres 2026",
+        "url": "https://www.spiel-des-jahres.de/en/dito-is-spiel-des-jahres-2026/"
+       },
+       {
+        "art": "spiel",
+        "tag": "2026-12-03",
+        "wann": "",
+        "titel": "Warhammer 40.000: Dawn of War IV",
+        "ort": "PC",
+        "url": "https://www.meinbezirk.at/wien/c-freizeit/der-dezember-geht-es-spieletechnisch-ruhiger-an_a9031968"
+       },
+       {
+        "art": "spiel",
+        "tag": "2026-12-03",
+        "wann": "",
+        "titel": "Dragon Quest Monsters: Die welkende Welt",
+        "ort": "PC, PS5, Switch",
+        "url": "https://www.meinbezirk.at/wien/c-freizeit/der-dezember-geht-es-spieletechnisch-ruhiger-an_a9031968"
+       },
+       {
+        "art": "verein",
+        "tag": "2026-12-04",
+        "wann": "",
+        "titel": "Mitmachen beim ARSV Mainz",
+        "ort": "Mainz, Neustadt",
+        "url": "https://arsv-mainz.de/unser-verein/"
+       },
+       {
+        "art": "wein",
+        "tag": "2026-12-04",
+        "wann": "14 Uhr",
+        "titel": "Winter im Weingut Gehring",
+        "ort": "Nierstein, Weingut Gehring",
+        "url": "https://www.mainz-news.com/veranstaltungen/maerkte/best-of-weinerlebnis-winter-im-weingut-26092103291702"
+       }
+      ]
+     }
+    }
+   }
   }
  ],
  "info": "DeepSeek-Schattenlauf, geschrieben von werkzeuge/schatten.mjs. Je Ausgabe: Claudes Arbeit und die von DeepSeek aus denselben Vorgaben – Auswahl mit Hörfassung, Gremien-Notizen, „Was geht?“ – mit Tokens und Kosten in US-Dollar."
