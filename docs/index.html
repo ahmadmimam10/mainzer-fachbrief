@@ -9,14 +9,14 @@
 <meta property="og:description" content="Der werktägliche Morgenüberblick für Jugendhilfeplanung, Frühe Hilfen, Kinderschutz und Familienbildung sowie Quartiermanagement in Mainz.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#f6f4ef">
-<link rel="icon" href="bilder/favicon.ico" sizes="32x32">
-<link rel="icon" href="bilder/favicon-hell.svg" type="image/svg+xml" id="favicon">
+<link rel="icon" href="bilder/favicon.ico?v=2" sizes="32x32">
+<link rel="icon" href="bilder/favicon-hell.svg?v=2" type="image/svg+xml" id="favicon">
 <script>
 /* Darstellung vor dem ersten Zeichnen setzen: Standard ist hell, dunkel nur nach eigener Wahl (localStorage „fachbrief.thema“) */
 try {
   if (localStorage.getItem("fachbrief.thema") === "dunkel") {
     document.documentElement.dataset.thema = "dunkel";
-    document.getElementById("favicon").href = "bilder/favicon-dunkel.svg";
+    document.getElementById("favicon").href = "bilder/favicon-dunkel.svg?v=2";
     document.querySelector('meta[name="theme-color"]').content = "#0e0d0c";
   }
 } catch (e) {}
@@ -398,7 +398,7 @@ main{min-height:55vh}
 <link rel="preload" href="schriften/entwurf/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/entwurf/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="blatt/schrift.css?v=22">
-<link rel="stylesheet" href="blatt/bb.css?v=25">
+<link rel="stylesheet" href="blatt/bb.css?v=26">
 <script src="blatt/rahmen.js?v=2"></script>
 </head>
 <body data-ressort="jugendhilfeplanung">
@@ -737,7 +737,7 @@ main{min-height:55vh}
 <noscript><p>Bitte JavaScript aktivieren, um die Ausgabe zu lesen.</p></noscript>
 <script src="daten/wetter7.js"></script>
 <script src="blatt/gemeinsam.js?v=23"></script>
-<script src="blatt/bb.js?v=25"></script>
+<script src="blatt/bb.js?v=26"></script>
 <script src="blatt/zaehlung.js?v=22" data-seite="start" defer></script>
 </body>
 </html>

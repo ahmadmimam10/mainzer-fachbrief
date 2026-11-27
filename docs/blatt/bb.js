@@ -342,25 +342,27 @@
   if (matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches) { const sp = document.createElement("section"); sp.id = "spiel"; sp.className = "bb-spiel"; sp.setAttribute("aria-label", "Spiel: Altpapier-Wurf");
     // Das Spiel liegt versteckt weiter unten: Von der Fußzeile führt eine dünne Linie hinab, unterwegs meldet sich jemand.
     const weg = document.createElement("div"); weg.className = "sp-weg"; weg.setAttribute("aria-hidden", "true"); weg.innerHTML = '<i></i><span>pst …</span><i></i><span>Hey, ist dir ein bisschen langweilig?</span><i></i>';
-    // Schwelle davor: Nach der Fußzeile hält die Seite kurz an – man scrollt weiter, aber es geht erst weiter, wenn sich der Ring um das kleine
-    // Schloss gefüllt hat. Die Naht darüber gibt dabei nach wie ein gespanntes Band; dann springt das Schloss auf: Hier ist etwas versteckt.
-    // (Kein Eingriff ins Scrollen selbst: Die Schwelle ist ein Stück Extraweg, auf dem das Schloss stehen bleibt.) Wer in diesem Besuch schon
-    // durch ist, kommt beim nächsten Mal ohne Halt hinunter.
+    // Schwelle davor, bewusst unauffällig: Ein gutes Stück unter der Fußzeile bleibt ein kleines Schloss stehen, während man weiterscrollt.
+    // Sein Ring füllt sich langsam (über gut eine Bildschirmhöhe), die kurze Naht darüber gibt ein wenig nach; ist der Ring voll, geht der Bügel
+    // auf – hier ist etwas versteckt. Kein Eingriff ins Scrollen: Die Schwelle ist ein Stück Extraweg. Alle Werte laufen weich nach
+    // (kein Springen beim Mausrad), und nichts berührt die Fußzeile.
     const schwelle = document.createElement("div"); schwelle.className = "sp-schwelle"; schwelle.setAttribute("aria-hidden", "true");
-    schwelle.innerHTML = '<div class="sp-halt"><svg class="sp-naht" viewBox="0 0 1000 130" preserveAspectRatio="none"><path d="M0 14Q500 14 1000 14"/></svg>'
-      + '<div class="sp-schloss"><svg viewBox="0 0 60 60"><circle class="spur" cx="30" cy="30" r="26"/><circle class="gang" cx="30" cy="30" r="26" pathLength="100"/><path class="buegel" d="M23 28v-5a7 7 0 0 1 14 0v5"/><rect class="kasten" x="20" y="28" width="20" height="15" rx="3.5"/></svg><span>weiter scrollen</span></div></div>';
-    let offen = false; try { offen = sessionStorage.getItem("boniblatt.schwelle") === "offen"; } catch (e) { /* ohne Speicher: jedes Mal neu */ }
-    if (offen) schwelle.classList.add("offen", "kurz");
+    schwelle.innerHTML = '<div class="sp-halt"><svg class="sp-naht" viewBox="0 0 200 40" preserveAspectRatio="none"><path d="M0 6Q100 6 200 6"/></svg>'
+      + '<div class="sp-schloss"><svg viewBox="0 0 40 40"><circle class="spur" cx="20" cy="20" r="17"/><circle class="gang" cx="20" cy="20" r="17" pathLength="100"/><path class="buegel" d="M16 19v-3a4 4 0 0 1 8 0v3"/><rect class="kasten" x="14" y="19" width="12" height="9" rx="2"/></svg><span>weiter scrollen</span></div></div>';
     wurzel.querySelector(".bb-fuss").after(schwelle, weg, sp);
-    { const naht = schwelle.querySelector(".sp-naht path"), gang = schwelle.querySelector(".gang"), schloss = schwelle.querySelector(".sp-schloss"), wort = schloss.querySelector("span"); let wartet = false, nah = false;
-      const zeichne = () => { wartet = false; if (offen || !nah) return;
-        const r = schwelle.getBoundingClientRect(), h = innerHeight, weg2 = r.height - h * .46, p = Math.min(1, Math.max(0, (h * .54 - r.top) / weg2)), e = p * p * (3 - 2 * p), tief = e * 96;
-        naht.setAttribute("d", "M0 14Q500 " + (14 + tief * 2).toFixed(1) + " 1000 14"); schloss.style.translate = "0 " + tief.toFixed(1) + "px"; schloss.style.opacity = Math.min(1, p * 5).toFixed(2); gang.style.strokeDashoffset = (100 - p * 100).toFixed(1);
-        if (p >= 1) { offen = true; schwelle.classList.add("offen"); wort.textContent = "entdeckt"; try { sessionStorage.setItem("boniblatt.schwelle", "offen"); } catch (f) { /* egal */ } } };
-      const los = () => { if (!wartet && !offen) { wartet = true; requestAnimationFrame(zeichne); } };
-      new IntersectionObserver(es => { nah = es[0].isIntersecting; los(); }, { rootMargin: "20% 0px" }).observe(schwelle);
-      addEventListener("scroll", los, { passive: true }); addEventListener("resize", los);
-      if (offen) wort.textContent = "entdeckt"; }
+    { const halt = schwelle.firstChild, naht = schwelle.querySelector(".sp-naht path"), gang = schwelle.querySelector(".gang"), schloss = schwelle.querySelector(".sp-schloss"), wort = schloss.querySelector("span");
+      let soll = 0, ist = 0, laeuft2 = 0, offen = false, nah = false;
+      // Fortschritt 0…1 über die Strecke, auf der das Schloss steht; das erste Fünftel ist Anlauf (das Schloss erscheint nur)
+      const messen = () => { const r = schwelle.getBoundingClientRect(), h = innerHeight, vor = parseFloat(getComputedStyle(schwelle).paddingTop) || 0, strecke = r.height - vor - halt.offsetHeight;
+        soll = Math.min(1, Math.max(0, (h * .5 - (r.top + vor)) / Math.max(1, strecke))); };
+      const malen = () => { const f = Math.min(1, Math.max(0, (ist - .2) / .8)), e = f * f * (3 - 2 * f), tief = e * 22;
+        naht.setAttribute("d", "M0 6Q100 " + (6 + tief * 2).toFixed(2) + " 200 6"); schloss.style.translate = "0 " + tief.toFixed(2) + "px"; schloss.style.opacity = Math.min(1, ist / .16).toFixed(3); gang.style.strokeDashoffset = (100 - f * 100).toFixed(2); };
+      const schritt = () => { laeuft2 = 0; if (offen) return; messen(); ist += (soll - ist) * .09; if (Math.abs(soll - ist) < .0015) ist = soll; malen();
+        if (ist >= 1) { offen = true; schwelle.classList.add("offen"); wort.textContent = "entdeckt"; return; }
+        if (ist !== soll && nah) laeuft2 = requestAnimationFrame(schritt); };
+      const los = () => { if (!laeuft2 && !offen && nah) laeuft2 = requestAnimationFrame(schritt); };
+      new IntersectionObserver(es => { nah = es[0].isIntersecting; los(); }, { rootMargin: "10% 0px" }).observe(schwelle);
+      addEventListener("scroll", los, { passive: true }); addEventListener("resize", los); }
     const zeig = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("da"); zeig.unobserve(e.target); } }), { rootMargin: "0px 0px -3% 0px" }); [...weg.children].forEach(x => zeig.observe(x));
     new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=21"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });
