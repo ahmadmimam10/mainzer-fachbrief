@@ -1,16 +1,16 @@
 {
  "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / ausfall / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
- "stand": "2026-11-27T05:43:22.189Z",
+ "stand": "2026-11-27T13:42:58.280Z",
  "zugang": "ok",
  "grenze": "nächtlicher Abruf",
  "letzterLauf": "2026-12-06",
  "gesamt": {
   "tage": 4,
   "notion": 332,
-  "erfasst": 325,
-  "fehlt": 7,
+  "erfasst": 326,
+  "fehlt": 6,
   "offen": 0,
-  "zusaetzlich": 30
+  "zusaetzlich": 28
  },
  "luecken": [
   {
@@ -18,12 +18,11 @@
    "id": "bildungsserver",
    "grund": "ausfall",
    "hinweis": "Der Server der Quelle war in 4 von 10 Abrufen für GitHub nicht erreichbar.",
-   "anzahl": 3,
+   "anzahl": 2,
    "tage": [
     "2026-11-26"
    ],
    "beispiele": [
-    "OER zum Thema Klima: Kostenlose Materialien und Lernideen für den Unterricht",
     "Klimabildungspolitik weltweit mit dem Climate Education NDCs Tracker",
     "Klimawiki: Fakten zum Klimawandel"
    ]
@@ -46,14 +45,14 @@
    "tag": "2026-11-26",
    "von": "2026-11-24T03:40:17.777Z",
    "bis": "2026-11-26T03:10:34.258Z",
-   "vorlaeufig": true,
+   "vorlaeufig": false,
    "eintraege": 193,
    "notion": 157,
-   "erfasst": 154,
-   "fehlt": 3,
+   "erfasst": 155,
+   "fehlt": 2,
    "offen": 0,
-   "zusaetzlich": 22,
-   "vorsprungMinuten": 122,
+   "zusaetzlich": 20,
+   "vorsprungMinuten": 114,
    "quellen": [
     {
      "name": "Allgemeine Zeitung",
@@ -77,8 +76,8 @@
      "name": "Bildungsserver",
      "id": "bildungsserver",
      "notion": 13,
-     "erfasst": 10,
-     "fehlt": 3,
+     "erfasst": 11,
+     "fehlt": 2,
      "offen": 0,
      "zusaetzlich": 0
     },
@@ -116,7 +115,7 @@
      "erfasst": 5,
      "fehlt": 0,
      "offen": 0,
-     "zusaetzlich": 4
+     "zusaetzlich": 1
     },
     {
      "name": "Deutsches Jugendinstitut",
@@ -170,19 +169,19 @@
      "erfasst": 0,
      "fehlt": 0,
      "offen": 0,
-     "zusaetzlich": 6
+     "zusaetzlich": 4
+    },
+    {
+     "name": "sozial.de",
+     "id": "sozial-de",
+     "notion": 0,
+     "erfasst": 0,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 3
     }
    ],
    "fehlend": [
-    {
-     "titel": "OER zum Thema Klima: Kostenlose Materialien und Lernideen für den Unterricht",
-     "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2658&pk_campaign=no_campaign_rss&pk_source=neuigkeiten&pk_medium=rss",
-     "quelle": "Bildungsserver",
-     "id": "bildungsserver",
-     "zeit": "2026-11-26T01:11:00.000Z",
-     "grund": "ausfall",
-     "hinweis": "Der Server der Quelle war in 4 von 10 Abrufen für GitHub nicht erreichbar."
-    },
     {
      "titel": "Klimabildungspolitik weltweit mit dem Climate Education NDCs Tracker",
      "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2673&pk_campaign=no_campaign_rss&pk_source=neuigkeiten&pk_medium=rss",
