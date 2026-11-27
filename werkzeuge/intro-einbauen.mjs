@@ -412,17 +412,18 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .intro[data-zeit="winter"]{--b0:#2e4a66;--s0:#eef4f8;--b1:#b9a0b4;--s1:#231a22;--b2:#4d6b5c;--s2:#eef5f0}
 .intro[data-zeit="fruehling"]{--b0:#4f8a5b;--s0:#f4faef;--b1:#f2dc86;--s1:#2a2410;--b2:#a9cfe8;--s2:#16242e}
 .intro[data-zeit="sommer"]{--b0:#2456c9;--s0:#eff4ff;--b1:#5cc2a0;--s1:#0e2a22;--b2:#f7c63f;--s2:#2a2008}
-.i-wahl{position:relative;z-index:3;display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:clamp(2px,1vh,10px);padding:0 6px;
+.i-wahl{position:relative;z-index:3;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:clamp(2px,1vh,10px);padding:0 6px;
   opacity:calc(1 - var(--ip,0) * 5);translate:0 calc(var(--ip,0) * -60px)}
-.i-wahl button{display:inline-flex;align-items:center;gap:7px;padding:8px 14px 8px 9px;border:0;border-radius:999px;background:var(--bf);color:var(--sf);
-  font:600 14px/1 "Bricolage Grotesque",var(--sans);white-space:nowrap;cursor:pointer;box-shadow:0 8px 16px -12px var(--bf);
+.i-wahl button{display:inline-flex;align-items:center;gap:6px;padding:6px 11px 6px 7px;border:0;border-radius:999px;background:var(--bf);color:var(--sf);
+  font:600 12.5px/1 "Bricolage Grotesque",var(--sans);white-space:nowrap;cursor:pointer;box-shadow:0 6px 12px -10px var(--bf);
   animation:i-wahl .9s cubic-bezier(.16,1,.3,1) calc(2.7s + var(--nr) * .09s) both;transition:opacity .45s ease,filter .3s ease,box-shadow .3s ease}
 .i-wahl button:nth-child(1){--bf:var(--b0);--sf:var(--s0)}.i-wahl button:nth-child(2){--bf:var(--b1);--sf:var(--s1)}.i-wahl button:nth-child(3){--bf:var(--b2);--sf:var(--s2)}
-.i-wahl button i{flex:none;width:20px;aspect-ratio:1;background:currentColor;-webkit-mask:var(--bild) center/contain no-repeat;mask:var(--bild) center/contain no-repeat}
+.i-wahl button{position:relative}.i-wahl button::after{content:"";position:absolute;inset:-9px -3px}   /* größere Tippfläche, ohne dass der Knopf größer aussieht */
+.i-wahl button i{flex:none;width:16px;aspect-ratio:1;background:currentColor;-webkit-mask:var(--bild) center/contain no-repeat;mask:var(--bild) center/contain no-repeat}
 .i-wahl button:hover,.i-wahl button:focus-visible{filter:brightness(1.08);box-shadow:0 10px 20px -10px var(--bf)}
 .i-wahl.gewaehlt button{pointer-events:none}.i-wahl.gewaehlt button:not(.wahl){opacity:.28}
 @keyframes i-wahl{from{opacity:0;transform:translateY(8px)}}
-@media (max-width:560px){.i-wahl{gap:6px}.i-wahl button{padding:7px 12px 7px 8px;font-size:13.5px}.i-wahl button i{width:18px}}
+@media (max-width:560px){.i-wahl{gap:5px}.i-wahl button{padding:5px 10px 5px 6px;font-size:12px}.i-wahl button i{width:15px}}
 .i-weiter{position:absolute;z-index:3;left:50%;bottom:max(18px,env(safe-area-inset-bottom));display:inline-flex;flex-direction:column;align-items:center;gap:4px;
   padding:8px 14px;border:0;background:none;color:#5d584f;font:600 13px/1 var(--sans);letter-spacing:.04em;cursor:pointer;
   transform:translateX(-50%);opacity:calc(1 - var(--ip,0) * 6);animation:i-ein .6s ease 3.1s both}

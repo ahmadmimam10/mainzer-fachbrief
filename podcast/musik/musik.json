@@ -1,17 +1,17 @@
 {
-  "_hinweis": "Erkennungsmusik für „Zwischen den Zeilen“. Erzeugt mit Eleven Music (kommerziell nutzbar ab Starter-Plan). Gleicher Stil für alle Stücke, damit die Folge wie aus einem Guss klingt. Neu erzeugen: node werkzeuge/musik.mjs --neu NAME. Seit 27.11.2026 „Redaktions-Beat“ (vorher Indie-Pop mit Akustikgitarre – laut Rückmeldung „Wartezimmermusik“).",
+  "_hinweis": "Erkennungsmusik für „Zwischen den Zeilen“. Erzeugt mit Eleven Music (kommerziell nutzbar ab Starter-Plan). Gleicher Stil für alle Stücke, damit die Folge wie aus einem Guss klingt. Neu erzeugen: node werkzeuge/musik.mjs --neu NAME. Seit 27.11.2026 Richtung „Gitarre“ (Neo-Soul-Beat mit E-Gitarren-Melodie und gedämpfter Trompete) – vom Herausgeber aus vier Richtungen gewählt („so geile Richtung“). Davor: Redaktions-Beat („okay, aber schon hundertmal gehört“), ganz am Anfang Indie-Pop („Wartezimmermusik“).",
   "modell": "music_v2_5",
-  "stil": "head-nodding boom bap hip-hop beat at 92 bpm built from newsroom sounds: punchy dusty kick, crisp cracking snare, hi-hats made of rhythmic typewriter key clicks, a typewriter carriage-return bell 'ding' as the signature accent, a deep warm upright bass riff, and one catchy five-note hook played on a chopped vibraphone. Cool, confident, slightly cheeky, warm vinyl character, dry tight studio mix, bold and memorable, not background music, instrumental only",
+  "stil": "relaxed modern neo-soul beat at 92 bpm: laid-back swung drums with a fat snare, round Fender bass, warm tape saturation, and the melody played on a clean electric guitar with slides and a little chorus, answered by a short muted trumpet phrase. The identity of the piece is ONE simple, singable six-note melody (a clear call-and-answer phrase) that a listener can hum after hearing it once; it is stated clearly up front and repeated. Modern, clean, uncluttered production, relaxed but uplifting Monday-morning mood, confident and cool, absolutely not stock music, not corporate, no generic ukulele or claps, instrumental only",
   "stuecke": [
     {
       "name": "thema",
-      "laenge_ms": 8000,
-      "prompt": "An 8-second podcast opening theme. Starts immediately with the full beat and states the main hook twice, then ends on one tight, clearly resolved final hit with a short natural tail so a voice can start right after. No fade-in, no fade-out."
+      "laenge_ms": 9000,
+      "prompt": "A 9-second podcast opening theme. Starts immediately, no intro build-up: the full beat and the melody from the first second, the melody stated twice, ending on one clear resolved final note with a short natural tail so a voice can start right after. No fade-in, no fade-out."
     },
     {
       "name": "outro",
       "laenge_ms": 12000,
-      "prompt": "A 12-second podcast outro. The same beat and the same main hook return at full energy, play the hook twice, then break down to the signature final hit and a natural ending. No long fade."
+      "prompt": "A 12-second podcast outro. The same beat and exactly the same melody return, stated twice, then a short break and one clear resolved final note with a natural ending. No long fade."
     }
   ]
 }
