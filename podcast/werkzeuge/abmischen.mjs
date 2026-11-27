@@ -25,12 +25,15 @@ const VOR = 0.06, NACH = 0.25;  // Luft vor dem ersten / nach dem letzten Wort e
 const PAUSE_MAX = 1.4;          // längere Stille mitten im Gespräch …
 const PAUSE_BLEIBT = 1.0;       // … wird auf diese Länge gekürzt (Fassung 2: 1,8 → 1,2 war zu träge)
 const EINWURF_DB = -7;          // Einwürfe leiser als die Hauptspur
-// Musik: Abstand davor, Überlappung mit der folgenden Sprache, Pegel relativ zur Sprache, Ein-/Ausblenden
+// Musik: Abstand davor (negativ = beginnt schon unter der Sprache), Überlappung mit der folgenden Sprache, Pegel relativ zur Sprache,
+// Ein-/Ausblenden in Sekunden.
+//   thema: Die Sprache setzt 1,5 s vor dem Ende der Titelmelodie ein; die Melodie blendet über ihre letzten 2,4 s aus – eine leichte Überlappung.
+//   outro: Der Abspann beginnt 3 s vor dem letzten Wort und blendet über 4 s ein – eine etwas längere Überlappung, die Musik kommt unter dem Abschied hoch.
 const MUSIK_REGEL = {
   intro: { vor: 0, ueber: 0.25, rel: 1, ein: 0, aus: 0.5 },
-  thema: { vor: 0.4, ueber: 0.6, rel: 0, ein: 0.03, aus: 0.9 },
+  thema: { vor: 0.4, ueber: 1.5, rel: 0, ein: 0.03, aus: 2.4 },
   uebergang: { vor: 0.5, ueber: 0.2, rel: -1, ein: 0.12, aus: 0.5 },
-  outro: { vor: 0.7, ueber: 0, rel: 0, ein: 0.2, aus: 1.6 },
+  outro: { vor: -3.0, ueber: 0, rel: 0, ein: 4.0, aus: 1.6 },
 };
 
 const nr2 = (n) => String(n).padStart(2, '0');

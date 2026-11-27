@@ -68,11 +68,13 @@
   const ORTE = [["dom", "Der Dom"], ["christuskirche", "Christuskirche"], ["gutenberg", "Gutenberg"], ["bruecke", "Theodor-Heuss-Brücke"], ["holzturm", "Holzturm"], ["fastnachtsbrunnen", "Fastnachtsbrunnen"], ["schloss", "Kurfürstliches Schloss"],
     ["staatstheater", "Staatstheater"], ["kirschgarten", "Kirschgarten"], ["hafenkran", "Zollhafen"], ["strassenbahn", "Linie 51"], ["neustadt", "Neustadt"], ["weinberg", "Weinberge"], ["schiff", "Auf dem Rhein"], ["bonituerme", "Bonifaziustürme"]];
 
+  // Neben dem Gruß steht blass ein Mainzer Wahrzeichen, jeden Tag ein anderes – nur Bauwerke, die man sofort erkennt (keine Brücke, Bahn, Weinberge)
+  const WAHRZEICHEN = ["dom", "gutenberg", "holzturm", "christuskirche", "fastnachtsbrunnen", "schloss", "bonituerme", "staatstheater"];
   // ---- Gerüst ----
   const welle = `<svg viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60V30C100 6 200 6 300 30S500 54 600 30S800 6 900 30S1100 54 1200 30V60Z"/></svg>`;
   const stunde = new Date().getHours(), gruss = stunde >= 4 && stunde < 11 ? "Morgen" : stunde >= 11 && stunde < 17 ? "Tag" : "Abend";
   wurzel.innerHTML = `<div class="bb-welle">${welle}${welle}</div><div class="bb-nieder" aria-hidden="true"></div><div class="bb-innen">
-    <header class="bb-oben">${motiv(ORTE[(tagNr + 9) % ORTE.length][0], "wz kopfwz")}<p class="bb-gruss">Guten <i>${gruss}.</i></p><div class="bb-ausgaben"></div>
+    <header class="bb-oben">${motiv(WAHRZEICHEN[tagNr % WAHRZEICHEN.length], "wz kopfwz")}<p class="bb-gruss">Guten <i>${gruss}.</i></p><div class="bb-ausgaben"></div>
       <nav class="bb-reiter" aria-label="Bereiche"><i class="r-pille" aria-hidden="true"></i>${BEREICHE.map((b, i) => `<button type="button" data-r="${b.id}" aria-pressed="false" style="--nr:${i}">${motiv(b.motive[0])}<span>${esc(b.reiter)}</span></button>`).join("")}</nav></header>
     <section class="bb-raster" id="kacheln"></section>
     
@@ -340,7 +342,25 @@
   if (matchMedia("(min-width:1000px) and (hover:hover) and (pointer:fine)").matches) { const sp = document.createElement("section"); sp.id = "spiel"; sp.className = "bb-spiel"; sp.setAttribute("aria-label", "Spiel: Altpapier-Wurf");
     // Das Spiel liegt versteckt weiter unten: Von der Fußzeile führt eine dünne Linie hinab, unterwegs meldet sich jemand.
     const weg = document.createElement("div"); weg.className = "sp-weg"; weg.setAttribute("aria-hidden", "true"); weg.innerHTML = '<i></i><span>pst …</span><i></i><span>Hey, ist dir ein bisschen langweilig?</span><i></i>';
-    wurzel.querySelector(".bb-fuss").after(weg, sp);
+    // Schwelle davor: Nach der Fußzeile hält die Seite kurz an – man scrollt weiter, aber es geht erst weiter, wenn sich der Ring um das kleine
+    // Schloss gefüllt hat. Die Naht darüber gibt dabei nach wie ein gespanntes Band; dann springt das Schloss auf: Hier ist etwas versteckt.
+    // (Kein Eingriff ins Scrollen selbst: Die Schwelle ist ein Stück Extraweg, auf dem das Schloss stehen bleibt.) Wer in diesem Besuch schon
+    // durch ist, kommt beim nächsten Mal ohne Halt hinunter.
+    const schwelle = document.createElement("div"); schwelle.className = "sp-schwelle"; schwelle.setAttribute("aria-hidden", "true");
+    schwelle.innerHTML = '<div class="sp-halt"><svg class="sp-naht" viewBox="0 0 1000 130" preserveAspectRatio="none"><path d="M0 14Q500 14 1000 14"/></svg>'
+      + '<div class="sp-schloss"><svg viewBox="0 0 60 60"><circle class="spur" cx="30" cy="30" r="26"/><circle class="gang" cx="30" cy="30" r="26" pathLength="100"/><path class="buegel" d="M23 28v-5a7 7 0 0 1 14 0v5"/><rect class="kasten" x="20" y="28" width="20" height="15" rx="3.5"/></svg><span>weiter scrollen</span></div></div>';
+    let offen = false; try { offen = sessionStorage.getItem("boniblatt.schwelle") === "offen"; } catch (e) { /* ohne Speicher: jedes Mal neu */ }
+    if (offen) schwelle.classList.add("offen", "kurz");
+    wurzel.querySelector(".bb-fuss").after(schwelle, weg, sp);
+    { const naht = schwelle.querySelector(".sp-naht path"), gang = schwelle.querySelector(".gang"), schloss = schwelle.querySelector(".sp-schloss"), wort = schloss.querySelector("span"); let wartet = false, nah = false;
+      const zeichne = () => { wartet = false; if (offen || !nah) return;
+        const r = schwelle.getBoundingClientRect(), h = innerHeight, weg2 = r.height - h * .46, p = Math.min(1, Math.max(0, (h * .54 - r.top) / weg2)), e = p * p * (3 - 2 * p), tief = e * 96;
+        naht.setAttribute("d", "M0 14Q500 " + (14 + tief * 2).toFixed(1) + " 1000 14"); schloss.style.translate = "0 " + tief.toFixed(1) + "px"; schloss.style.opacity = Math.min(1, p * 5).toFixed(2); gang.style.strokeDashoffset = (100 - p * 100).toFixed(1);
+        if (p >= 1) { offen = true; schwelle.classList.add("offen"); wort.textContent = "entdeckt"; try { sessionStorage.setItem("boniblatt.schwelle", "offen"); } catch (f) { /* egal */ } } };
+      const los = () => { if (!wartet && !offen) { wartet = true; requestAnimationFrame(zeichne); } };
+      new IntersectionObserver(es => { nah = es[0].isIntersecting; los(); }, { rootMargin: "20% 0px" }).observe(schwelle);
+      addEventListener("scroll", los, { passive: true }); addEventListener("resize", los);
+      if (offen) wort.textContent = "entdeckt"; }
     const zeig = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("da"); zeig.unobserve(e.target); } }), { rootMargin: "0px 0px -3% 0px" }); [...weg.children].forEach(x => zeig.observe(x));
     new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=21"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });

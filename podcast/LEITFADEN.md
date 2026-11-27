@@ -198,7 +198,7 @@ Voraussetzungen: `ELEVENLABS_API_KEY` als Windows-Benutzervariable, ffmpeg (wing
 
 **Musik:** `podcast/musik/` – thema (≈ 9 s) und outro (≈ 12 s) aus Eleven Music, für alle Folgen dieselbe (Wiedererkennung). Seit 27.11.2026 Richtung „Gitarre“: entspannter Neo-Soul-Beat (92 Schläge pro Minute, satte Snare, runder Bass) mit einer einfachen, merkbaren Melodie auf der E-Gitarre, beantwortet von einer gedämpften Trompete – vom Herausgeber aus vier Richtungen gewählt. Sein Maßstab: moderner Beat, cool, morgens, entspannt bis inspirierend, mit einer Melodie, die man sich merkt; der „Redaktions-Beat“ davor war „okay, aber schon hundertmal gehört“, die erste Musik „Wartezimmermusik“. Neu erzeugen: `node podcast/werkzeuge/musik.mjs --neu NAME`, Stil in `musik/musik.json`. Vor einem Wechsel mehrere Richtungen zur Wahl erzeugen und anhören lassen.
 
-**Einstellungen** (seit Fassung 3): Eleven v4, Stabilität 0,4, Deutsch; höchstens 1.900 Zeichen je Anfrage; Tempo je Stimme aus `folge.json`; Pausen 0,2 s + Ränder zwischen Teilen, 0,75 s an Kapiteln; Stille über 1,4 s → 1,0 s; Einwürfe −7 dB; −16 LUFS; Web-MP3 112 kbit/s Stereo.
+**Einstellungen** (seit Fassung 3): Eleven v4, Stabilität 0,4, Deutsch; höchstens 1.900 Zeichen je Anfrage; Tempo je Stimme aus `folge.json`; Pausen 0,2 s + Ränder zwischen Teilen, 0,75 s an Kapiteln; Stille über 1,4 s → 1,0 s; Einwürfe −7 dB; −16 LUFS; Web-MP3 112 kbit/s Stereo. **Musik und Sprache überlappen:** Die Sprache setzt 1,5 s vor dem Ende der Titelmelodie ein, die dabei ausblendet (leichte Überlappung); der Abspann beginnt 3 s vor dem letzten Wort und blendet über 4 s ein (etwas längere Überlappung) – `MUSIK_REGEL` in `abmischen.mjs`.
 
 ---
 

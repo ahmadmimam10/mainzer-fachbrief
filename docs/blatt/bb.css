@@ -760,3 +760,28 @@ body{background:#f6f4ef}
   .bb-nieder[data-art="regen"] i:nth-child(n+12),.bb-nieder[data-art="schnee"] i:nth-child(n+11){display:none}
   .bb .k>.bb-lieg,.bb .k.verschneit::before{filter:none}
 }
+
+/* Schwelle vor dem versteckten Spiel (nur am PC): ein Stück Extraweg, auf dem das Schloss im unteren Teil des Fensters stehen bleibt. Beim
+   Weiterscrollen füllt sich der Ring, die Naht gibt nach; ist er voll, springt der Bügel auf und die Naht löst sich. */
+.sp-schwelle{position:relative;height:calc(46vh + 62vh);color:var(--tinte)}
+.sp-schwelle.kurz{height:46vh}
+.sp-halt{position:sticky;top:54vh;height:46vh;display:flex;flex-direction:column;align-items:center}
+.sp-naht{position:absolute;left:8%;top:0;width:84%;height:130px;overflow:visible;transition:opacity .9s ease}
+.sp-naht path{fill:none;stroke:currentColor;stroke-width:1.2;stroke-dasharray:2 7;stroke-linecap:round;opacity:.42;vector-effect:non-scaling-stroke}
+.sp-schloss{position:relative;margin-top:-16px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;will-change:translate}
+.sp-schloss svg{width:60px;height:60px;overflow:visible}
+.sp-schloss circle{fill:var(--p0,#f1eadc);stroke:currentColor;stroke-width:1.6}
+.sp-schloss .spur{opacity:.16}
+.sp-schloss .gang{fill:none;stroke:var(--ra);stroke-width:2.6;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;rotate:-90deg;transform-origin:30px 30px}
+.sp-schloss .kasten{fill:currentColor}
+.sp-schloss .buegel{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;transform-origin:37px 28px;transition:rotate .55s cubic-bezier(.3,1.7,.5,1) .1s,translate .55s cubic-bezier(.3,1.7,.5,1) .1s}
+.sp-schloss span{font:600 12.5px/1 "Bricolage Grotesque",var(--sans);letter-spacing:.04em;opacity:.5;transition:opacity .4s}
+.sp-schwelle.offen .sp-naht{opacity:0}
+.sp-schwelle.offen .sp-schloss{opacity:1!important;translate:0 96px}
+.sp-schwelle.offen .buegel{rotate:32deg;translate:0 -3px}
+.sp-schwelle.offen .gang{stroke-dashoffset:0;animation:sp-auf .9s ease-out}
+.sp-schwelle.offen .sp-schloss svg{animation:sp-federn .7s cubic-bezier(.3,1.6,.5,1)}
+.sp-schwelle.offen.kurz .sp-schloss{translate:0 0}.sp-schwelle.offen.kurz .gang,.sp-schwelle.offen.kurz .sp-schloss svg{animation:none}
+@keyframes sp-auf{0%{stroke-width:2.6;opacity:1}45%{stroke-width:9;opacity:.35}100%{stroke-width:2.6;opacity:1}}
+@keyframes sp-federn{0%{scale:1}35%{scale:1.16}100%{scale:1}}
+@media (prefers-reduced-motion:reduce){.sp-schwelle{height:46vh}}
