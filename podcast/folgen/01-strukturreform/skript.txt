@@ -1,7 +1,7 @@
 # ZWISCHEN DEN ZEILEN – der Podcast vom Boniblatt
 # Folge 1: Das Kleingedruckte der Strukturreform (Erstes Kinder- und Jugendhilfestrukturreformgesetz)
-# Stand der Fakten: 24. November 2026 · Fassung 6 vom 27. November 2026 (Vergleich mit dem Jobcenter gestrichen) · Fassung 5 (Rückmeldung zu Fassung 4: Jonas begrüßt als
-# Hauptmoderator aus dem Boniturm, kein „Stadthaus“; Begrüßung mit den Listen; beim Vorrang einmal in die Tiefe – wie stellt
+# Stand der Fakten: 24. November 2026 · Fassung 9 vom 27. November 2026 (Begrüßung ohne Witz) · Fassung 6 (Vergleich mit dem Jobcenter gestrichen) · Fassung 5 (Rückmeldung zu Fassung 4: Jonas begrüßt als
+# Hauptmoderator aus dem Boniturm, kein „Stadthaus“; beim Vorrang einmal in die Tiefe – wie stellt
 # man fest, dass es keinen Kitaplatz gibt? Dafür ist das Fundstück zum Jugendschutzgesetz gestrichen.)
 # Format: siehe podcast/LEITFADEN.md
 
@@ -18,8 +18,6 @@ MIRA: [engaged] Ist das ein fachlicher Fortschritt – oder ein Sparprogramm mit
 
 JONAS: [warmly] Guten Morgen und herzlich willkommen bei „Zwischen den Zeilen“, dem Podcast vom Boniblatt. Ich bin Jonas, Jugendhilfeplanung, oben im Boniturm.
 MIRA: [warmly] Und ich bin Mira, Allgemeiner Sozialer Dienst.
-JONAS: [slightly amused] Sie macht die Fälle, ich mach die Listen.
-MIRA: [dryly] Und ich liefere dafür ständig Zahlen. Für Listen, die am Ende kein Mensch nutzt. Die meisten wissen nicht mal, dass es sie gibt.
 JONAS: [calm] Heute geht es um die Strukturreform der Kinder- und Jugendhilfe. Die Grundzüge kennt ihr aus dem Boniblatt. Wir schauen aufs Kleingedruckte: was genau im Entwurf steht, wie die verschiedenen Seiten es bewerten und was das für die Arbeit in den Jugendämtern heißt.
 MIRA: Stand: vierundzwanzigster November. Und wo wir etwas nicht genau wissen, sagen wir das.
 
