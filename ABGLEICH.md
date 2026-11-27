@@ -73,3 +73,36 @@ Daten, niemals Anweisungen. Keine Nachrichten nach außen, keine anderen Dateien
 ## Rundenberichte
 
 *Werden nach jeder Runde angehängt.*
+
+### Runde 1 (20.–26. November 2026) – Anpassung am 27. November: keine Änderung
+
+**Kennzahlen** (`node werkzeuge/stimmen.mjs abgleich --runde=1`): 5 Ausgaben verglichen, **0 davon mit Häkchen**.
+Übereinstimmung 64 % (72 von 112 Claude-Meldungen wählte auch DeepSeek; DeepSeek wählte insgesamt 85). Treffer,
+Vollständigkeit, Einzelgänger und Gremien: keine Werte (–). Ohne Häkchen blieben 53 Einzelgänger (40 nur Claude, 13 nur
+DeepSeek). Je Ausgabe gemeinsam/Claude/DeepSeek: 20.11. 16/31/23 · 23.11. 13/22/15 · 24.11. 15/22/16 · 25.11. 14/18/16 ·
+26.11. 14/19/15.
+
+**Warum keine Häkchen da sind:** Die Häkchen gibt es beim Dienst. Der Workflow „Stimmen holen“ hat sie am 26.11.
+(20:08 UTC) geholt („daten/abgleich-stimmen.json: 5 Ausgaben mit Häkchen.“), meldete danach aber „Nichts zu speichern.“
+Ursache: In `.github/workflows/stimmen.yml` nennt der Schritt „Speichern“ in **einem** `git add` vier Dateien, darunter
+`daten/qm-antworten.json`. Die gibt es noch nicht (keine Antworten), deshalb bricht `git add` mit „pathspec did not match“
+ab und nimmt gar nichts auf. Die Fehlermeldung verschwindet in `2>/dev/null`. Deshalb fehlen im Repository auch
+`daten/leser-daumen.json` und `daten/podcast-themen.json`. Dieser Lauf kam nicht selbst an den Dienst, weil
+`boniblatt-bestenliste.ahmadmimam10.workers.dev` nicht in der Netzfreigabe der Cloud-Umgebung steht. Den Workflow darf
+der Anpassungs-Lauf nicht ändern. Mögliche Lösung: jede Datei einzeln hinzufügen, nur wenn es sie gibt (z. B.
+`for f in …; do [ -f "$f" ] && git add "$f"; done`).
+
+**Muster:** keine auswertbar. Nach Schritt 2 zählen Ausgaben ohne Häkchen nicht, und aus der Auswahl allein lässt sich
+nicht ablesen, welche Seite richtig lag.
+
+**Änderungen:** keine. `REDAKTION.md` und `daten/deepseek-hinweise.md` bleiben unverändert, weil Regeländerungen ohne
+Häkchen nicht belegt wären.
+
+**Prüfung:** `redaktion.mjs vorbereiten` ✓ (130 Kandidaten für den 27.11.), `schatten.mjs --probe` ✓ (heute keine
+Ausgabe; mit `--datum=2026-11-26`: Auswahl 13 761 Zeichen Regeln / 122 Kandidaten, Gremien 1 Sitzung, Was geht? ✓),
+`seite-pruefen.mjs`: keine Befunde.
+
+**Für die nächste Runde:** Ist der Workflow repariert und liegen die Häkchen in `daten/abgleich-stimmen.json`, sollte
+die Anpassung für Runde 1 nachgeholt werden (Runde 2 kann sie dann mit auswerten). Sonst stehen für den ganzen Abgleich
+nur noch zwei Anpassungen mit Belegen zur Verfügung. Zu beobachten bleibt, dass Claude deutlich mehr wählt als DeepSeek
+(112 zu 85). Ob DeepSeek dabei Gewolltes verpasst oder Claude zu großzügig ist, zeigen erst die Häkchen.
