@@ -389,5 +389,17 @@
    "✗ paritaet                 0 gefunden,   0 neu  ⚠ www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
    "53 neue Kandidaten (3 verworfen), 0 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-27T20:24:03.602Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "47 neue Kandidaten (1 verworfen), 0 Sitzungstermine, 3 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört.",
+  "auffaellig": [
+   "✗ ratsinfo                 0 gefunden  ⚠ bi.mainz.de: fetch failed (UND_ERR_CONNECT_TIMEOUT) | bi.mainz.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "✗ bundesrat                0 gefunden,   0 neu  ⚠ www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+   "✗ dji                      0 gefunden,   0 neu  ⚠ www.dji.de: HTTP 415",
+   "47 neue Kandidaten (1 verworfen), 0 Sitzungstermine, 3 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört."
+  ]
  }
 ]

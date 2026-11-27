@@ -1,18 +1,18 @@
 {
- "stand": "2026-11-27T11:26:42.016Z",
+ "stand": "2026-11-27T20:19:52.433Z",
  "info": "Vom Quellenabruf (werkzeuge/sammeln.mjs) geschrieben, nicht von Hand ändern. zustand: ok | auffaellig | gestoert; trefferVerlauf: brauchbare Treffer der letzten 14 Läufe (null = Abruf fehlgeschlagen); verworfen: neue Kandidaten des letzten Laufs, die an Titel-, Link- oder Linkprüfung scheiterten. Reparatur: REDAKTION.md, Abschnitt „Quellenpflege“.",
  "quellen": {
   "ratsinfo": {
    "zustand": "ok",
-   "hinweis": "unauffällig – 6 Treffer",
+   "hinweis": "letzter Abruf nicht erreichbar (bi.mainz.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt",
    "seit": "2026-11-21T15:28:12.445Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
    "letzterErfolg": "2026-11-27T11:26:42.016Z",
-   "fehlerInFolge": 0,
+   "fehlerInFolge": 1,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 6,
-   "brauchbar": 6,
+   "gefunden": 0,
+   "brauchbar": 0,
    "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
@@ -21,26 +21,30 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+   "trefferVerlauf": [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, null],
    "seitBeobachtung": "2026-11-21T15:28:12.445Z",
    "juengstes": "",
    "letzteNeu": null,
    "neuTage": {},
-   "fehler": [],
-   "zuAlt": []
+   "fehler": [
+    "bi.mainz.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)",
+    "bi.mainz.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
+   ],
+   "zuAlt": [],
+   "pause": "letzter Abruf nicht erreichbar (bi.mainz.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt"
   },
   "stadt-mainz": {
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 10,
    "brauchbar": 10,
-   "neu": 0,
+   "neu": 2,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -50,16 +54,17 @@
    "beispiele": [],
    "trefferVerlauf": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-26T15:49:36.178Z",
-    "titel": "Stadtrat beschließt Leitbild Mobilität 2035+"
+    "am": "2026-11-27T20:19:52.433Z",
+    "titel": "Designpreis Rheinland-Pfalz 2026: Ausstellung FLORA ausgezeichnet"
    },
    "neuTage": {
     "2026-11-23": 3,
     "2026-11-24": 2,
     "2026-11-25": 5,
-    "2026-11-26": 1
+    "2026-11-26": 1,
+    "2026-11-27": 2
    },
    "fehler": [],
    "zuAlt": []
@@ -68,14 +73,14 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 100 Treffer",
    "seit": "2026-11-25T11:45:04.405Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 100,
    "brauchbar": 100,
-   "neu": 16,
+   "neu": 18,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -83,12 +88,12 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [100, 100, 100, 100, 100, 100, 100, null, 100, 100, 100, 100, 100, 100],
+   "trefferVerlauf": [100, 100, 100, 100, 100, 100, null, 100, 100, 100, 100, 100, 100, 100],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-27T11:26:42.016Z",
-    "titel": "Live-Verkehrsticker: Züge wegen Störungen verspätet"
+    "am": "2026-11-27T20:19:52.433Z",
+    "titel": "„Leser helfen“: Beamer für die Palliativstation Alzey"
    },
    "neuTage": {
     "2026-11-22": 3,
@@ -96,7 +101,7 @@
     "2026-11-24": 30,
     "2026-11-25": 34,
     "2026-11-26": 17,
-    "2026-11-27": 24
+    "2026-11-27": 42
    },
    "fehler": [],
    "zuAlt": [
@@ -112,16 +117,16 @@
   },
   "merkurist": {
    "zustand": "ok",
-   "hinweis": "unauffällig – 11 Treffer",
+   "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 11,
-   "brauchbar": 11,
-   "neu": 1,
+   "gefunden": 9,
+   "brauchbar": 9,
+   "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -129,7 +134,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [5, 5, 5, 5, 5, 6, 6, 6, 6, 8, 8, 9, 10, 11],
+   "trefferVerlauf": [5, 5, 5, 5, 6, 6, 6, 6, 8, 8, 9, 10, 11, 9],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-27",
    "letzteNeu": {
@@ -150,8 +155,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -183,8 +188,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -247,14 +252,14 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 20,
    "brauchbar": 20,
-   "neu": 5,
+   "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -281,15 +286,15 @@
   },
   "swr": {
    "zustand": "ok",
-   "hinweis": "unauffällig – 42 Treffer",
+   "hinweis": "unauffällig – 41 Treffer",
    "seit": "2026-11-25T11:45:04.405Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 47,
-   "brauchbar": 42,
+   "gefunden": 46,
+   "brauchbar": 41,
    "neu": 10,
    "verworfen": 0,
    "verworfenNach": {
@@ -314,12 +319,12 @@
      "url": "https://www.instagram.com/swraktuell/"
     }
    ],
-   "trefferVerlauf": [46, 43, 39, 40, 39, 42, 42, null, 42, 43, 41, 41, 44, 42],
+   "trefferVerlauf": [43, 39, 40, 39, 42, 42, null, 42, 43, 41, 41, 44, 42, 41],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-27T11:26:42.016Z",
-    "titel": "Bundesregierung will KI-Anbieter zur Kasse bitten"
+    "am": "2026-11-27T20:19:52.433Z",
+    "titel": "So viel Geld bekommen die Ministerien 2027"
    },
    "neuTage": {
     "2026-11-22": 8,
@@ -327,7 +332,7 @@
     "2026-11-24": 36,
     "2026-11-25": 25,
     "2026-11-26": 19,
-    "2026-11-27": 19
+    "2026-11-27": 29
    },
    "fehler": [],
    "zuAlt": [
@@ -373,14 +378,14 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 10,
    "brauchbar": 10,
-   "neu": 2,
+   "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -408,8 +413,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -449,14 +454,14 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 10,
    "brauchbar": 10,
-   "neu": 2,
+   "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -500,8 +505,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -542,8 +547,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 5 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -590,8 +595,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -617,6 +622,18 @@
    },
    "fehler": [],
    "zuAlt": [
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/gemeinsam-geschichten-entdecken-und-sprachkompetenz-entfalten-bildungsministerin-dr-ute-eiling-huetig-und-staatssekretaerin-jenny-gross-beim-bundesweiten-vorlesetag",
+     "datum": "2026-11-20"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/ob-im-garten-oder-im-labor-mint-sterne-leuchten-ueberall-in-kitas-und-schulen-bildungsministerin-dr-ute-eiling-huetig-verleiht-preise-fuer-die-besten-mint-erklaererinnen-und-erklaerer",
+     "datum": "2026-11-19"
+    },
+    {
+     "url": "https://kita.rlp.de/service/presse/detail/staatssekretaerin-jenny-gross-aus-konzepten-wird-handlungssicherheit-fachtag-kinderschutz-staerkt-kita-teams-in-rlp",
+     "datum": "2026-11-19"
+    },
     {
      "url": "https://kita.rlp.de/service/presse/detail/fuenf-landesministerien-verlaengern-beim-rheinland-pfaelzischen-mint-gipfel-in-bingen-erfolgreiche-kooperation",
      "datum": "2026-11-13"
@@ -646,18 +663,6 @@
      "datum": "2026-10-13"
     },
     {
-     "url": "https://kita.rlp.de/service/presse/detail/landesweiter-demokratietag-in-ingelheim-bildungsministerin-dr-ute-eiling-huetig-haltung-zeigen-ist-jetzt-wichtiger-denn-je",
-     "datum": "2026-09-24"
-    },
-    {
-     "url": "https://kita.rlp.de/service/presse/detail/niedrigschwellige-foerdermoeglichkeit-fuer-kitas-in-den-landkreisen-vulkaneifel-und-bitburg-pruem",
-     "datum": "2026-09-21"
-    },
-    {
-     "url": "https://kita.rlp.de/service/presse/detail/mehr-als-44-millionen-euro-fuer-den-kita-ausbau-ministerin-eiling-huetig-bekraeftigt-unterstuetzung-der-kommunen-durch-das-land",
-     "datum": "2026-09-04"
-    },
-    {
      "url": "https://kita.rlp.de/service/veranstaltungshinweise/detail/ich-kann-kochen-kostenfreie-fortbildungen-fuer-paedagogische-fachkraefte-in-der-ernaehrungsbildung-fuer-2027",
      "datum": "2026-11-06"
     },
@@ -671,8 +676,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 100 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -752,8 +757,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -812,8 +817,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 8 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -868,14 +873,14 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 40,
    "brauchbar": 40,
-   "neu": 4,
+   "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -924,14 +929,14 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 30,
    "brauchbar": 30,
-   "neu": 1,
+   "neu": 4,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -943,14 +948,14 @@
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "",
    "letzteNeu": {
-    "am": "2026-11-27T11:26:42.016Z",
-    "titel": "TOP Epl 11 Arbeit und Soziales"
+    "am": "2026-11-27T20:19:52.433Z",
+    "titel": "Förderung für das Violence Prevention Network"
    },
    "neuTage": {
     "2026-11-23": 2,
     "2026-11-24": 1,
     "2026-11-26": 3,
-    "2026-11-27": 2
+    "2026-11-27": 6
    },
    "fehler": [],
    "zuAlt": []
@@ -959,9 +964,9 @@
    "zustand": "ok",
    "hinweis": "letzter Abruf nicht erreichbar (www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt",
    "seit": "2026-11-27T01:10:08.188Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
    "letzterErfolg": "2026-11-27T01:10:08.188Z",
-   "fehlerInFolge": 1,
+   "fehlerInFolge": 2,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 0,
@@ -974,7 +979,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [null, 30, 30, null, null, null, 30, 30, null, 30, 30, null, 30, null],
+   "trefferVerlauf": [30, 30, null, null, null, 30, 30, null, 30, 30, null, 30, null, null],
    "seitBeobachtung": "2026-11-22T15:27:47.331Z",
    "juengstes": "2026-11-20",
    "letzteNeu": null,
@@ -989,14 +994,14 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 60 Treffer",
    "seit": "2026-11-25T11:45:04.405Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 60,
    "brauchbar": 60,
-   "neu": 3,
+   "neu": 9,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -1004,12 +1009,12 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [60, 60, 60, 60, 60, 60, 60, null, 60, 60, 60, 60, 60, 60],
+   "trefferVerlauf": [60, 60, 60, 60, 60, 60, null, 60, 60, 60, 60, 60, 60, 60],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-27T11:26:42.016Z",
-    "titel": "News: Bundestag stimmt über umstrittenen Haushalt 2027 ab, Black Friday, Tech-Bros"
+    "am": "2026-11-27T20:19:52.433Z",
+    "titel": "Hamburg: Einsturzgefährdetes Haus in der Holstenstraße wird vollständig abgerissen"
    },
    "neuTage": {
     "2026-11-22": 2,
@@ -1017,7 +1022,7 @@
     "2026-11-24": 13,
     "2026-11-25": 15,
     "2026-11-26": 16,
-    "2026-11-27": 10
+    "2026-11-27": 19
    },
    "fehler": [],
    "zuAlt": [
@@ -1047,8 +1052,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1079,8 +1084,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1155,8 +1160,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1223,8 +1228,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1299,8 +1304,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1326,8 +1331,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 5 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1353,14 +1358,14 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 30,
    "brauchbar": 30,
-   "neu": 4,
+   "neu": 2,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -1372,30 +1377,30 @@
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "",
    "letzteNeu": {
-    "am": "2026-11-27T11:26:42.016Z",
-    "titel": "Hunger und Mangelernährung schränken Kinderrechte extrem ein"
+    "am": "2026-11-27T20:19:52.433Z",
+    "titel": "Mit Kindern über Wünsche und Geschenke sprechen"
    },
    "neuTage": {
     "2026-11-23": 5,
     "2026-11-24": 7,
     "2026-11-25": 6,
     "2026-11-26": 6,
-    "2026-11-27": 4
+    "2026-11-27": 6
    },
    "fehler": [],
    "zuAlt": []
   },
   "dji": {
-   "zustand": "ok",
-   "hinweis": "unauffällig – 30 Treffer",
-   "seit": "2026-11-27T11:26:42.016Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
+   "zustand": "auffaellig",
+   "hinweis": "Abruffehler (1. Lauf in Folge): www.dji.de: HTTP 415",
+   "seit": "2026-11-27T20:19:52.433Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
    "letzterErfolg": "2026-11-27T11:26:42.016Z",
-   "fehlerInFolge": 0,
+   "fehlerInFolge": 1,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 30,
-   "brauchbar": 30,
+   "gefunden": 0,
+   "brauchbar": 0,
    "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
@@ -1404,7 +1409,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, 30, null, 30, 30, null, 30],
+   "trefferVerlauf": [30, 30, 30, 30, 30, 30, 30, 30, null, 30, 30, null, 30, null],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-25",
    "letzteNeu": {
@@ -1415,7 +1420,9 @@
     "2026-11-23": 1,
     "2026-11-26": 1
    },
-   "fehler": [],
+   "fehler": [
+    "www.dji.de: HTTP 415"
+   ],
    "zuAlt": [
     {
      "url": "https://www.dji.de/veroeffentlichungen/aktuelles/news/article/kinderschutz-im-kontext-von-armut-und-sozialer-ungleichheit.html",
@@ -1435,14 +1442,14 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 118 Treffer",
    "seit": "2026-11-25T11:45:04.405Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 118,
    "brauchbar": 118,
-   "neu": 1,
+   "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -1450,7 +1457,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [123, 123, 123, 125, 125, 125, 125, null, 122, 122, 122, 121, 118, 118],
+   "trefferVerlauf": [123, 123, 125, 125, 125, 125, null, 122, 122, 122, 121, 118, 118, 118],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-27",
    "letzteNeu": {
@@ -1487,8 +1494,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 28 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1524,8 +1531,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1556,8 +1563,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 25 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1632,8 +1639,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 4 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1664,8 +1671,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 4 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1704,8 +1711,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 80 Treffer",
    "seit": "2026-11-23T18:36:35.063Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1785,8 +1792,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 47 Treffer",
    "seit": "2026-11-27T01:10:08.188Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1800,7 +1807,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [52, 52, 50, 10, 10, 50, 50, 50, 50, 50, 50, 8, 47, 47],
+   "trefferVerlauf": [52, 50, 10, 10, 50, 50, 50, 50, 50, 50, 8, 47, 47, 47],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-26",
    "letzteNeu": {
@@ -1869,8 +1876,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1953,8 +1960,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -1985,8 +1992,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2022,8 +2029,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 8 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2055,51 +2062,41 @@
    ]
   },
   "bildungsserver": {
-   "zustand": "auffaellig",
-   "hinweis": "3 von 5 neuen Links nicht erreichbar (Zeitüberschreitung (10 s)), 1. Lauf in Folge",
-   "seit": "2026-11-27T01:10:08.188Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "zustand": "ok",
+   "hinweis": "unauffällig – 13 Treffer, 1 neuer Kandidat verworfen (Zeitüberschreitung (10 s))",
+   "seit": "2026-11-27T20:19:52.433Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
-   "linkStoerungInFolge": 1,
+   "linkStoerungInFolge": 0,
    "gefunden": 13,
    "brauchbar": 13,
    "neu": 2,
-   "verworfen": 3,
+   "verworfen": 1,
    "verworfenNach": {
     "titel": 0,
     "link": 0,
-    "linkpruefung": 3
+    "linkpruefung": 1
    },
    "beispiele": [
-    {
-     "grund": "Zeitüberschreitung (10 s)",
-     "titel": "Heute, 27. November 2026: Fachtag des Deutschen Bildungsservers zur Klimabildung (mit Livestream)",
-     "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2684"
-    },
-    {
-     "grund": "Zeitüberschreitung (10 s)",
-     "titel": "Außerschulische Klimabildung für Jugendliche",
-     "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2647"
-    },
     {
      "grund": "Zeitüberschreitung (10 s)",
      "titel": "Forschungsinstitute und Bildungsinitiativen zu Klima und Nachhaltigkeit",
      "url": "https://www.bildungsserver.de/nachricht.html?nachricht_id=2654"
     }
    ],
-   "trefferVerlauf": [null, 14, 14, 14, 14, 14, null, null, 14, null, null, 15, null, 13],
+   "trefferVerlauf": [14, 14, 14, 14, 14, null, null, 14, null, null, 15, null, 13, 13],
    "seitBeobachtung": "2026-11-22T15:27:47.331Z",
    "juengstes": "2026-11-27",
    "letzteNeu": {
-    "am": "2026-11-27T11:26:42.016Z",
-    "titel": "\"Zukunft? Jugend fragen!\" Fortsetzung der Studienreihe 2025 (Chartbook)"
+    "am": "2026-11-27T20:19:52.433Z",
+    "titel": "Außerschulische Klimabildung für Jugendliche"
    },
    "neuTage": {
     "2026-11-23": 7,
     "2026-11-26": 5,
-    "2026-11-27": 2
+    "2026-11-27": 4
    },
    "fehler": [],
    "zuAlt": [
@@ -2129,14 +2126,14 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 20 Treffer",
    "seit": "2026-11-21T03:33:52.449Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
    "gefunden": 20,
    "brauchbar": 20,
-   "neu": 2,
+   "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
     "titel": 0,
@@ -2144,7 +2141,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 20],
+   "trefferVerlauf": [20, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 20, 20],
    "seitBeobachtung": "2026-11-21T03:33:52.449Z",
    "juengstes": "2026-11-27",
    "letzteNeu": {
@@ -2181,8 +2178,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 1 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2213,8 +2210,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2293,15 +2290,15 @@
   },
   "dstgb": {
    "zustand": "ok",
-   "hinweis": "unauffällig – 13 Treffer",
+   "hinweis": "unauffällig – 11 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 13,
-   "brauchbar": 13,
+   "gefunden": 11,
+   "brauchbar": 11,
    "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
@@ -2310,7 +2307,7 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 13, 13],
+   "trefferVerlauf": [14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 13, 13, 11],
    "seitBeobachtung": "2026-11-20T11:48:20.171Z",
    "juengstes": "2026-11-26",
    "letzteNeu": {
@@ -2345,14 +2342,6 @@
     {
      "url": "https://www.dstgb.de/publikationen/pressemitteilungen/stellung-des-sportes-in-deutschland-staerken/",
      "datum": "2026-11-05"
-    },
-    {
-     "url": "https://www.dstgb.de/publikationen/pressemitteilungen/die-eu-partnerschaftlich-mit-den-kommunen-zum-erfolg-fuehren/",
-     "datum": "2026-11-03"
-    },
-    {
-     "url": "https://www.dstgb.de/themen/lokale-demokratie/aktuelles/mehr-schutz-mehr-teilhabe-mehr-demokratie-frauen-in-der-kommunalpolitik-staerken/",
-     "datum": "2026-11-02"
     }
    ]
   },
@@ -2360,8 +2349,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 37 Treffer",
    "seit": "2026-11-21T21:21:38.649Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2436,8 +2425,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2504,8 +2493,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 5 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2541,8 +2530,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2609,8 +2598,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 10 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2673,8 +2662,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 40 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2747,15 +2736,15 @@
   },
   "paritaet": {
    "zustand": "ok",
-   "hinweis": "letzter Abruf nicht erreichbar (www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt",
+   "hinweis": "unauffällig – 30 Treffer",
    "seit": "2026-11-25T11:45:04.405Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T01:10:08.188Z",
-   "fehlerInFolge": 1,
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
+   "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
-   "gefunden": 0,
-   "brauchbar": 0,
+   "gefunden": 30,
+   "brauchbar": 30,
    "neu": 0,
    "verworfen": 0,
    "verworfenNach": {
@@ -2764,9 +2753,9 @@
     "linkpruefung": 0
    },
    "beispiele": [],
-   "trefferVerlauf": [30, 30, 30, 30, 30, 30, null, null, 30, 30, 30, 30, 30, null],
+   "trefferVerlauf": [30, 30, 30, 30, 30, null, null, 30, 30, 30, 30, 30, null, 30],
    "seitBeobachtung": "2026-11-20T18:38:46.227Z",
-   "juengstes": "2026-11-26",
+   "juengstes": "2026-11-27",
    "letzteNeu": {
     "am": "2026-11-24T12:46:20.908Z",
     "titel": "Erste Einschätzung von FHK zur Kindschaftsrechtsreform: Gesetzentwurf der Bundesregierung stärkt Gewaltschutz, lässt …"
@@ -2775,18 +2764,64 @@
     "2026-11-23": 1,
     "2026-11-24": 1
    },
-   "fehler": [
-    "www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)"
-   ],
-   "zuAlt": [],
-   "pause": "letzter Abruf nicht erreichbar (www.der-paritaetische.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt"
+   "fehler": [],
+   "zuAlt": [
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/gewalthilfegesetz-umsetzen-ausbau-jetzt/",
+     "datum": "2026-11-23"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/stellungnahme-zum-referentenentwurf-fuer-das-gesetz-zur-aenderung-des-bundeselterngeld-und-elternzeitgesetzes-zur-weiterentwicklung-und-vereinfachung-des-elterngeldes-sowie-des-mutterschutzgesetzes/",
+     "datum": "2026-11-23"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/stellungnahmen-zum-entwurf-eines-pflegeneuordnungsgesetz/",
+     "datum": "2026-11-23"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/die-presseschau-vom-23-november-2026/",
+     "datum": "2026-11-23"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/onlineveranstaltung-aktion-energiebotschafterinnen-mehr-energieeffizienz-in-sozialen-einrichtungen/",
+     "datum": "2026-11-23"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/paritaetische-stellungnahme-zum-gesetzentwurf-zum-einsatz-kuenstlicher-intelligenz-in-der-migrationsverwaltung-kimvg/",
+     "datum": "2026-11-23"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/rechtsvereinfachungsgesetz/",
+     "datum": "2026-11-20"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/fhk-projekt-baut-kompetenzen-im-hilfesystem-gegen-digitale-gewalt-weiter-aus/",
+     "datum": "2026-11-18"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/bagfw-und-fhk-fordern-gewaltschutz-in-jedem-feld-sozialer-arbeit/",
+     "datum": "2026-11-18"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/bagfw-nimmt-stellung-zum-entwurf-des-hilfsmittelmodernisierungs-und-buerokratierueckbaugesetz-hib/",
+     "datum": "2026-11-18"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/umsetzung-der-beschluesse-des-koalitionsausschusses-im-arbeitsrecht/",
+     "datum": "2026-11-17"
+    },
+    {
+     "url": "https://www.der-paritaetische.de/alle-meldungen/einkaufsvorteile-neuer-partner-mediconzert/",
+     "datum": "2026-11-17"
+    }
+   ]
   },
   "bertelsmann": {
    "zustand": "ok",
    "hinweis": "unauffällig – 18 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2872,8 +2907,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 18 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
@@ -2948,8 +2983,8 @@
    "zustand": "ok",
    "hinweis": "unauffällig – 9 Treffer",
    "seit": "2026-11-20T11:48:20.171Z",
-   "letzterLauf": "2026-11-27T11:26:42.016Z",
-   "letzterErfolg": "2026-11-27T11:26:42.016Z",
+   "letzterLauf": "2026-11-27T20:19:52.433Z",
+   "letzterErfolg": "2026-11-27T20:19:52.433Z",
    "fehlerInFolge": 0,
    "nullTrefferInFolge": 0,
    "linkStoerungInFolge": 0,
