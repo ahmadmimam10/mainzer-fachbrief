@@ -7,249 +7,438 @@
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="bilder/favicon.ico" sizes="32x32">
 <link rel="icon" href="bilder/favicon-hell.svg" type="image/svg+xml">
+<meta name="theme-color" content="#fbfaf7">
+<link rel="preload" href="schriften/entwurf/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/entwurf/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<script>/* Jahreszeit bestimmt die Akzentfarben – dieselbe Regel wie auf der Hauptseite (blatt/bb.js) */
+(m => { document.documentElement.dataset.zeit = m >= 3 && m <= 5 ? "fruehling" : m >= 6 && m <= 8 ? "sommer" : m >= 9 && m <= 11 ? "herbst" : "winter"; })(new Date().getMonth() + 1);</script>
 <style>
-/* Verwaltung – ruhig und übersichtlich: eine Schrift (Schibsted Grotesk wie auf der Startseite), helle Flächen, Farbe nur für
-   Zustände. Links die Leiste mit allen Bereichen, oben der Überblick. Die Besuchszahlen kommen vom Dienst (cloudflare/bestenliste)
-   und nur mit Passwort; alles andere liegt als Datei im Repository (daten/*.json). */
-@font-face{font-family:"Schibsted Grotesk";src:url(schriften/schibsted-grotesk.woff2) format("woff2");font-weight:400 800;font-display:swap}
+/* Verwaltung im Kleid der Hauptseite: Überschriften in Fraunces, alles andere in Bricolage Grotesque, große runde Kacheln auf sehr
+   hellem Grund, die Leiste als dunkle Tinten-Kachel, Farbe nur als Akzent (Etiketten, Zustände, Zahlen). Die Zustandsfarben
+   (grün / gold / rot) bleiben eindeutig; die Akzentfarbe der Überschriften richtet sich nach der Jahreszeit und meidet diese Töne.
+   Die Besuchszahlen kommen vom Dienst (cloudflare/bestenliste) und nur mit Passwort; alles andere liegt als Datei im Repository. */
+@font-face{font-family:"Bricolage Grotesque";src:url(schriften/entwurf/bricolage.woff2) format("woff2");font-weight:200 800;font-stretch:75% 100%;font-display:swap}
+@font-face{font-family:"Fraunces";src:url(schriften/entwurf/fraunces.woff2) format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Fraunces";src:url(schriften/entwurf/fraunces-kursiv.woff2) format("woff2");font-weight:100 900;font-style:italic;font-display:swap}
 *{box-sizing:border-box}
-:root{--tinte:#23211d;--leise:#6d685f;--zart:#aaa499;--grund:#f6f5f1;--karte:#fff;--flaeche:#f6f5f1;--linie:rgba(35,33,29,.08);--linie2:rgba(35,33,29,.17);
-  --gruen:#4d8760;--gold:#c08a2f;--rot:#b9533f;--blau:#5a7c97;--sans:"Schibsted Grotesk","Segoe UI",system-ui,-apple-system,sans-serif}
-html{background:var(--grund);color:var(--tinte);font:400 15px/1.55 var(--sans);-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased}
-body{margin:0}
-a{color:inherit;text-decoration-color:var(--linie2);text-underline-offset:3px}a:hover{text-decoration-color:currentColor}
-:focus-visible{outline:2px solid var(--blau);outline-offset:2px;border-radius:6px}
-h1{font:650 26px/1.2 var(--sans);letter-spacing:-.015em;margin:0}
-h2{font:650 19px/1.3 var(--sans);letter-spacing:-.01em;margin:0}
-h3{font:600 14.5px/1.4 var(--sans);margin:0 0 10px}
-.unter{color:var(--leise);margin:3px 0 16px;max-width:68ch;font-size:14.5px}
+:root{color-scheme:light;--tinte:#1f1c18;--hell:#fbf5e9;--leise:#676258;--zart:#a39d92;
+  --kopf:#fbfaf7;--grund:#f2f0ea;--pap:#fffefb;--flaeche:#f6f4ee;--linie:rgba(31,28,24,.09);--linie2:rgba(31,28,24,.18);
+  --gruen:#4b8760;--gold:#c08a2f;--rot:#b9503a;--blau:#56799a;
+  --akz:#6a3e58;--f1:#a8472b;--f2:#b98627;--f3:#5f6f43;--f4:#6a3e58;--f5:#5d8078;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;--sans:"Bricolage Grotesque","Segoe UI",system-ui,-apple-system,sans-serif;
+  --weich:"SOFT" 100,"WONK" 1,"opsz" 144;--feder:cubic-bezier(.2,1.2,.35,1)}
+/* Jahreszeiten wie auf der Hauptseite (dort: blatt/bb.css) – hier nur als Akzent */
+:root[data-zeit="winter"]{--grund:#eef0ef;--flaeche:#f3f5f4;--akz:#2e4a66;--f1:#2e4a66;--f2:#6f8a9c;--f3:#4d6b5c;--f4:#8d6f87;--f5:#c0533e}
+:root[data-zeit="fruehling"]{--grund:#f2f1e9;--akz:#7a4f8f;--f1:#4f8a5b;--f2:#c0718a;--f3:#4f88ad;--f4:#a98c22;--f5:#7a4f8f}
+:root[data-zeit="sommer"]{--grund:#f4f1e8;--akz:#2456c9;--f1:#2456c9;--f2:#d9573a;--f3:#b98d14;--f4:#3f9c7e;--f5:#c95f8e}
+html{background:var(--kopf);color:var(--tinte);font:400 15.5px/1.5 var(--sans);-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{margin:0;overflow-x:clip;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration-color:var(--linie2);text-decoration-thickness:1.5px;text-underline-offset:3px}a:hover{text-decoration-color:currentColor}
+:focus-visible{outline:2.5px solid var(--akz);outline-offset:3px;border-radius:8px}
+h1,h2,.fr{font-family:var(--serif);font-weight:460;font-variation-settings:var(--weich);letter-spacing:-.03em}
+h1{margin:0;font-size:clamp(44px,6.4vw,84px);line-height:.92;letter-spacing:-.035em}
+h2{margin:0;font-size:clamp(31px,3.7vw,46px);line-height:1;text-wrap:balance}
+h1 i,h2 i{font-style:italic;font-weight:320;color:var(--akz)}
+h3{font:650 14.5px/1.35 var(--sans);margin:0 0 12px}
+.unter{color:var(--leise);margin:12px 0 22px;max-width:66ch;font-size:15.5px;line-height:1.5;text-wrap:pretty}
 .leer{color:var(--leise);margin:0}
+/* Bildmotive als Maske: nehmen die Schriftfarbe an (wie .st in blatt/bb.css) */
+.st{display:block;flex:none;width:var(--g,56px);aspect-ratio:1;background:currentColor;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
 
-/* Rahmen: links die Leiste, rechts der Inhalt */
-.rahmen{display:grid;grid-template-columns:224px minmax(0,1fr);max-width:1220px;margin:0 auto}
-.leiste{position:sticky;top:0;align-self:start;height:100vh;padding:28px 12px 24px 18px;display:flex;flex-direction:column;gap:18px;overflow:auto}
-.heim{font-size:14px;color:var(--leise);text-decoration:none;padding:0 10px}.heim:hover{color:var(--tinte)}
-.sprung{display:flex;flex-direction:column;gap:1px}
-.sprung a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 10px;border-radius:9px;font-size:14.5px;color:var(--leise);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
-.sprung a:hover{color:var(--tinte);background:rgba(35,33,29,.04)}
-.sprung a[aria-current=true]{color:var(--tinte);background:var(--karte);box-shadow:0 0 0 1px var(--linie);font-weight:600}
-main{min-width:0;padding:30px clamp(16px,4vw,48px) 96px;max-width:980px}
-.seitenkopf{display:flex;align-items:baseline;justify-content:space-between;gap:4px 18px;flex-wrap:wrap}
-.seitenkopf p{margin:0;color:var(--leise);font-size:13.5px}
-section{margin-top:56px;scroll-margin-top:22px}
-#ueberblick{margin-top:22px}
+/* Kopf: Bildzeichen und Schriftzug wie auf der Hauptseite, darunter die Wellenkante */
+.kopf-zeile{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;max-width:1300px;margin:0 auto;padding:24px clamp(14px,3vw,34px) 16px}
+.heim{justify-self:start;display:inline-flex;align-items:center;gap:6px;padding:8px 15px 8px 10px;border:1.5px solid var(--linie2);border-radius:999px;font:600 13.5px/1 var(--sans);text-decoration:none;white-space:nowrap;transition:background .3s,color .3s,border-color .3s,translate .35s var(--feder)}
+.heim:hover{background:var(--tinte);border-color:var(--tinte);color:var(--hell);translate:0 -2px}
+.heim svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.wortmarke{margin:0;line-height:0}
+.wortmarke a{display:inline-flex;align-items:center;gap:11px;color:#181716;text-decoration:none}
+.wortmarke img{display:block;height:48px;width:auto}
+.wortmarke span{font:640 clamp(24px,2.8vw,36px)/1 var(--serif);font-variation-settings:var(--weich);letter-spacing:-.04em;white-space:nowrap}
+.wortmarke i{font-style:italic;font-weight:420}.wortmarke b{color:#c8102e}
+.buehne{position:relative;flex:1;margin-top:44px;background:var(--grund);display:flex;flex-direction:column}
+.welle{position:absolute;left:0;right:0;top:-44px;height:46px;overflow:hidden;pointer-events:none}
+.welle svg{position:absolute;left:0;bottom:-1px;width:200%;height:100%;fill:var(--grund);animation:welle 24s linear infinite}
+.welle svg+svg{opacity:.5;animation-duration:38s;animation-direction:reverse;bottom:5px}
+@keyframes welle{to{transform:translateX(-50%)}}
+.skyline{display:flex;align-items:flex-end;justify-content:center;gap:clamp(6px,2vw,30px);margin-top:auto;padding:70px 14px 0;color:var(--tinte);opacity:.09;overflow:hidden}
+.skyline .st{--g:clamp(46px,10vw,132px)}
+
+/* Rahmen: links die Leiste als Tinten-Kachel, rechts der Inhalt */
+.rahmen{display:grid;grid-template-columns:228px minmax(0,1fr);gap:0 clamp(22px,3.4vw,52px);width:100%;max-width:1300px;margin:0 auto;padding:8px clamp(14px,3vw,34px) 0}
+.leiste{position:sticky;top:16px;align-self:start;margin-top:14px;max-height:calc(100vh - 32px);overflow:auto;padding:12px;border-radius:28px;background:var(--tinte);color:var(--hell);scrollbar-width:none}
+.leiste::-webkit-scrollbar{display:none}
+.sprung{display:flex;flex-direction:column;gap:2px}
+.sprung a{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 14px;border-radius:999px;font:520 15px/1.25 var(--sans);color:rgba(251,245,233,.74);text-decoration:none;white-space:nowrap;transition:background .35s,color .35s}
+.sprung a:hover{color:var(--hell);background:rgba(255,255,255,.09)}
+.sprung a[aria-current=true]{color:var(--tinte);background:var(--hell)}
+.sprung a:focus-visible{outline-color:var(--hell);outline-offset:-3px;border-radius:999px}
+.leiste-bild{display:flex;align-items:flex-end;justify-content:center;gap:8px;padding:26px 6px 6px;opacity:.16}
+.leiste-bild .st{--g:52px}.leiste-bild .st:nth-child(2){--g:66px}
+main{min-width:0;padding:0 0 30px}
+.seitenkopf{position:relative;isolation:isolate;padding:22px 4px 28px}
+.seitenkopf p{margin:14px 0 0;color:var(--leise);font:500 15px/1.3 var(--sans)}
+.seitenkopf .wz{position:absolute;z-index:-1;left:clamp(300px,46%,520px);top:-30px;--g:clamp(120px,15vw,186px);rotate:4deg;opacity:.075;pointer-events:none}
+section{margin-top:84px;scroll-margin-top:22px}
+#ueberblick{margin-top:0}
 
 /* vor der Anmeldung: nur das Feld für das Passwort */
-.zu .leiste{display:none}.zu .rahmen{display:block}.zu main{max-width:420px;margin:14vh auto 0}.zu .seitenkopf p{display:none}
+.zu .leiste{display:none}.zu .rahmen{display:block}
+.zu main{max-width:440px;margin:0 auto;padding-top:clamp(18px,8vh,84px)}
+.zu .seitenkopf{text-align:center;padding-bottom:22px}.zu .seitenkopf p{display:none}
+.zu .seitenkopf .wz{left:50%;top:-58px;translate:-50% 0;rotate:0deg;--g:176px;opacity:.07}
+.zu h1{font-size:clamp(46px,9vw,68px)}
 
 /* Zustände */
-.punkt{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--linie2);flex:none;transition:background .4s}
-.punkt.gut{background:var(--gruen)}.punkt.achtung{background:var(--gold)}.punkt.stoerung{background:var(--rot)}
+.punkt{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--linie2);flex:none;transition:background .5s,box-shadow .5s}
+.punkt.gut{background:var(--gruen);box-shadow:0 0 0 4px color-mix(in srgb,var(--gruen) 16%,transparent)}
+.punkt.achtung{background:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 20%,transparent)}
+.punkt.stoerung{background:var(--rot);box-shadow:0 0 0 4px color-mix(in srgb,var(--rot) 18%,transparent)}
+.sprung .punkt{box-shadow:none}
 .sprung .punkt:not(.achtung):not(.stoerung){opacity:0}
+.sprung .punkt.achtung{background:#e5b24e}.sprung .punkt.stoerung{background:#e8735b}
 
 /* Überblick */
-.ueber{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
-.kachel{display:grid;gap:2px;align-content:start;padding:15px 18px 16px;border-radius:14px;background:var(--karte);box-shadow:0 0 0 1px var(--linie);color:inherit;text-decoration:none;transition:box-shadow .25s}
-.kachel:hover{box-shadow:0 0 0 1px var(--linie2),0 12px 26px -20px rgba(0,0,0,.4)}
-.kachel>span{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--leise)}
-.kachel b{font:600 22px/1.25 var(--sans);letter-spacing:-.01em;margin-top:7px}
-.kachel small{font-size:13px;color:var(--leise)}
+.ueber{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kachel{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;gap:5px;min-height:158px;padding:18px 20px 17px;border-radius:26px;background:var(--pap);color:inherit;text-decoration:none;
+  transition:transform .5s var(--feder),box-shadow .35s}
+.kachel:hover{transform:translateY(-4px);box-shadow:0 18px 30px -22px rgba(0,0,0,.42)}
+.kachel:focus-visible{border-radius:26px}
+.kachel>span{display:flex;align-items:center;gap:10px;margin-bottom:auto;padding-bottom:16px;font:560 13.5px/1.2 var(--sans);color:var(--leise)}
+.kachel b{font:460 clamp(21px,1.9vw,26px)/1.08 var(--serif);font-variation-settings:var(--weich);letter-spacing:-.018em;text-wrap:balance}
+.kachel small{font-size:13px;line-height:1.35;color:var(--leise);min-height:2.7em;text-wrap:pretty;overflow-wrap:anywhere}
+.kachel::after{content:"";position:absolute;z-index:-1;right:-10px;top:-12px;width:78px;aspect-ratio:1;background:var(--tinte);opacity:.05;rotate:-6deg;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;transition:rotate .8s var(--feder),scale .8s var(--feder)}
+.kachel:hover::after{rotate:2deg;scale:1.06}
+.kachel:has(.punkt.achtung){box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--gold) 48%,transparent)}
+.kachel:has(.punkt.stoerung){box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--rot) 60%,transparent)}
+.kachel:has(.punkt.achtung):hover{box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--gold) 48%,transparent),0 18px 30px -22px rgba(0,0,0,.42)}
+.kachel:has(.punkt.stoerung):hover{box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--rot) 60%,transparent),0 18px 30px -22px rgba(0,0,0,.42)}
+[data-k=podcast]{--m:url(bilder/motive/kopfhoerer.webp)}[data-k=besuche]{--m:url(bilder/motive/jugendliche.webp)}[data-k=qm]{--m:url(bilder/motive/klemmbrett.webp)}[data-k=leser]{--m:url(bilder/motive/megafon.webp)}
+[data-k=quellen]{--m:url(bilder/motive/zeitung.webp)}[data-k=notion]{--m:url(bilder/motive/stadtplan.webp)}[data-k=vergleich]{--m:url(bilder/motive/baukloetze.webp)}[data-k=ablauf]{--m:url(bilder/motive/strassenbahn.webp)}
 
 /* Karten */
-.karte{background:var(--karte);border-radius:14px;padding:18px 20px;box-shadow:0 0 0 1px var(--linie)}
-.raster{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.karte{background:var(--pap);border-radius:24px;padding:22px 24px}
+.raster{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
 .breit{grid-column:1/-1}
-.zahl b{display:block;font:600 28px/1.15 var(--sans);letter-spacing:-.015em}
-.zahl span{display:block;margin-top:4px;font-size:14px}
-.zahl i{font-style:normal;display:block;margin-top:2px;font-size:13px;color:var(--leise)}
-.zahl h3{font-weight:500;color:var(--leise);margin-bottom:6px}
-.hinweis{background:#fcf8ee;box-shadow:0 0 0 1px rgba(192,138,47,.28)}
+/* je Bereich eine feste Aufteilung, damit keine Lücken bleiben */
+#b-inhalt{grid-template-columns:repeat(6,minmax(0,1fr))}#b-inhalt>.karte{grid-column:span 2}#b-inhalt>.breit{grid-column:1/-1}#b-inhalt>.karte:nth-last-child(-n+2){grid-column:span 3}
+#q-inhalt .raster{grid-template-columns:repeat(4,minmax(0,1fr))}#q-inhalt .raster>.breit:first-child{grid-column:span 3}
+#n-inhalt .raster,#a-stand{grid-template-columns:repeat(3,minmax(0,1fr))}
+#d-inhalt .raster{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+#p-inhalt .raster>.karte{grid-column:1/-1}
+.abstand{margin-bottom:12px}
+.karte>h3{font:460 21px/1.15 var(--serif);font-variation-settings:var(--weich);letter-spacing:-.014em;margin-bottom:14px;text-wrap:balance}
+.zahl b{display:block;font:460 46px/1 var(--serif);font-variation-settings:var(--weich);letter-spacing:-.035em}
+.zahl>span{display:block;margin-top:8px;font-size:14.5px;font-weight:560;line-height:1.3}
+.zahl i{font-style:normal;display:block;margin-top:3px;font-size:13px;line-height:1.4;color:var(--leise)}
+.zahl>h3{font:560 13.5px/1.35 var(--sans);letter-spacing:0;color:var(--leise);margin-bottom:12px}
+.zahl.text>span{margin:0 0 8px;font-size:13.5px;color:var(--leise)}.zahl.text b{font-size:25px;line-height:1.08;letter-spacing:-.018em}.zahl.text i{margin-top:8px;overflow-wrap:anywhere}
+.hinweis{background:color-mix(in srgb,var(--gold) 5%,var(--pap));box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--gold) 45%,transparent)}
 .hinweis p{margin:0}.hinweis p+p{margin-top:6px}
 
 /* Anmeldung und Bedienelemente */
-#tor{margin-top:22px}
-#tor label{display:block;font-size:14px;font-weight:600;margin-bottom:8px}
-.zeile{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-input,button{font:inherit;color:inherit}
-input[type=password],input[type=date]{flex:1;min-width:0;padding:9px 12px;border-radius:10px;border:1px solid var(--linie2);background:var(--karte)}
-button{cursor:pointer;padding:9px 16px;border-radius:10px;border:1px solid var(--tinte);background:var(--tinte);color:#fbfaf7;font-weight:600}
-button.leicht{background:var(--karte);color:var(--tinte);border-color:var(--linie2);font-weight:500;padding:6px 12px;font-size:14px}
-button.leicht:hover{border-color:var(--tinte)}
-button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-color:var(--tinte)}
-.meldung{margin:10px 0 0;color:var(--rot);font-size:14px}.meldung:empty{display:none}
+#tor{position:relative;border-radius:28px;padding:24px 24px 26px;box-shadow:0 24px 44px -34px rgba(0,0,0,.4)}
+#tor label{display:block;font-size:14px;font-weight:600;margin:0 0 9px 4px}
+.zeile{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input,button,select,textarea{font:inherit;color:inherit}
+input[type=password],input[type=date]{flex:1;min-width:0;padding:11px 18px;border-radius:999px;border:1.5px solid var(--linie2);background:var(--pap);transition:border-color .25s}
+input[type=password]:hover,input[type=date]:hover{border-color:rgba(31,28,24,.4)}
+input[type=date]{flex:0 1 158px;padding:7px 14px;font-size:14px;font-variant-numeric:tabular-nums}
+.bis{color:var(--leise);font-size:14px}
+button{cursor:pointer;padding:12px 22px;border-radius:999px;border:0;background:var(--tinte);color:var(--hell);font:600 14.5px/1.15 var(--sans);transition:transform .4s var(--feder),background .3s,color .3s,box-shadow .3s,opacity .3s}
+button:hover:not(:disabled){transform:translateY(-2px)}button:active:not(:disabled){transform:scale(.97)}
+button:disabled{cursor:default}
+button:focus-visible{border-radius:999px}
+button.leicht{background:transparent;color:var(--tinte);box-shadow:inset 0 0 0 1.5px var(--linie2);font-weight:560;padding:9px 16px;font-size:13.5px}
+button.leicht:hover:not(:disabled){background:var(--tinte);color:var(--hell);box-shadow:inset 0 0 0 1.5px var(--tinte)}
+button.leicht[aria-pressed=true]{background:var(--tinte);color:var(--hell);box-shadow:inset 0 0 0 1.5px var(--tinte)}
+.spanne{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:rgba(31,28,24,.065)}
+.spanne button.leicht{box-shadow:none;padding:8px 15px}
+.spanne button.leicht:hover:not(:disabled):not([aria-pressed=true]){background:rgba(31,28,24,.08);color:var(--tinte);box-shadow:none;transform:none}
+.meldung{margin:12px 0 0;padding:10px 16px;border-radius:16px;background:color-mix(in srgb,var(--rot) 9%,transparent);color:#8c3625;font-size:14px;font-weight:520}.meldung:empty{display:none}
 
 /* Tagesverlauf */
-.verlauf{display:flex;align-items:flex-end;gap:2px;height:150px;margin-top:4px}
-.verlauf div{flex:1;min-width:0;height:100%;display:flex;align-items:flex-end;gap:1px;border-radius:3px}
-.verlauf u{flex:1;border-radius:2px 2px 0 0;background:var(--tinte);min-height:1px;text-decoration:none;opacity:.85}
+.verlauf{display:flex;align-items:flex-end;gap:2px;height:176px;margin-top:8px;background:repeating-linear-gradient(to bottom,var(--linie) 0 1px,transparent 1px 25%)}
+.verlauf div{flex:1;min-width:0;height:100%;display:flex;align-items:flex-end;gap:1px;border-radius:5px;transition:background .25s}
+.verlauf u{flex:1;border-radius:3px 3px 0 0;background:var(--akz);min-height:2px;text-decoration:none}
 .verlauf u+u{background:var(--gold)}
-.verlauf div:hover{background:rgba(35,33,29,.05)}
-.achse{display:flex;justify-content:space-between;font-size:12.5px;color:var(--leise);margin-top:6px;padding-top:6px;border-top:1px solid var(--linie)}
-.legende{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--leise);margin:0 0 10px}
-.legende i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--f,var(--tinte))}
+.verlauf div:hover{background:rgba(31,28,24,.06)}
+.verlauf:has(div:nth-child(100)){gap:0}.verlauf:has(div:nth-child(100)) div{gap:0}.verlauf:has(div:nth-child(100)) u{border-radius:0}
+.achse{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--leise);margin-top:0;padding-top:8px;border-top:1.5px solid var(--linie2)}
+.legende{display:flex;gap:6px 18px;flex-wrap:wrap;font-size:13px;color:var(--leise);margin:0 0 12px}
+.legende i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:-1px;background:var(--f,var(--akz))}
 
 /* Balkenlisten */
-.balken{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.balken li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 12px;align-items:baseline;font-size:14px}
+.balken{list-style:none;margin:0;padding:0;display:grid;gap:13px}
+.balken li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 14px;align-items:baseline;font-size:14.5px;line-height:1.38}
 .balken li>span,.balken li>a{overflow-wrap:anywhere}
 .balken small{display:block;color:var(--leise);font-size:12.5px}
-.balken b{font-variant-numeric:tabular-nums;font-weight:600}
-.balken em{grid-column:1/-1;height:4px;border-radius:9px;background:var(--f,var(--tinte));width:calc(var(--w)*1%);min-width:3px;opacity:.7}
+.balken b{font-variant-numeric:tabular-nums;font-weight:650}
+.balken li>button{align-self:center}
+.balken em{grid-column:1/-1;height:6px;border-radius:9px;background:rgba(31,28,24,.06)}
+.balken em::before{content:"";display:block;height:100%;width:calc(var(--w)*1%);min-width:6px;border-radius:9px;background:var(--f,var(--akz))}
 .top li>a{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-decoration:none}.top li>a:hover{text-decoration:underline}
-.teiler{display:flex;height:8px;border-radius:9px;overflow:hidden;background:var(--linie);margin:6px 0 10px}
-.teiler i{background:var(--tinte)}.teiler i+i{background:var(--gold)}
+.teiler{display:flex;gap:3px;height:10px;margin:8px 0 14px}
+.teiler i{border-radius:9px;background:var(--akz)}.teiler i+i{background:var(--gold)}
 
 /* Tabellen */
-.tab{width:100%;border-collapse:collapse;font-size:14px}
-.tab th{text-align:right;font-weight:500;color:var(--leise);font-size:12.5px;padding:0 0 8px 14px;white-space:nowrap}
-.tab td{padding:9px 0 9px 14px;border-top:1px solid var(--linie);text-align:right;white-space:nowrap}
+.tab{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.tab th{text-align:right;font-weight:600;color:var(--leise);font-size:12.5px;line-height:1.3;padding:0 0 10px 16px;white-space:nowrap}
+.tab td{padding:11px 0 11px 16px;border-top:1px solid var(--linie);text-align:right;white-space:nowrap}
 .tab th:first-child,.tab td:first-child{text-align:left;padding-left:0}
-.tab td.last{width:26%}.tab td.last em{display:block;height:5px;border-radius:9px;background:var(--gold);width:calc(var(--w)*1%);min-width:3px;margin-left:auto;opacity:.8}
-.rollen{overflow-x:auto}
+.tab td.last{width:24%;min-width:84px;padding-left:22px}.tab td.last em{display:block;height:6px;border-radius:9px;background:var(--gold);width:calc(var(--w)*1%);min-width:5px}
+#v-inhalt th:last-child{text-align:left;padding-left:22px}
+.rollen{overflow-x:auto;scrollbar-width:thin;scrollbar-color:var(--linie2) transparent}
 
 /* Aufklappbare Tage (DeepSeek, Notion) */
-.vgl{display:grid;gap:8px;margin-top:12px}
-.vgl details{background:var(--karte);border-radius:12px;padding:0 18px;box-shadow:0 0 0 1px var(--linie)}
-.vgl summary{cursor:pointer;padding:12px 0;display:flex;gap:4px 18px;flex-wrap:wrap;align-items:center;list-style:none;font-size:14px}
+.vgl{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:12px}
+.vgl details{min-width:0;background:var(--pap);border-radius:22px;padding:0 22px}
+.vgl summary{cursor:pointer;padding:15px 0;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center;list-style:none;font-size:14.5px;border-radius:14px}
 .vgl summary::-webkit-details-marker{display:none}
-.vgl summary b{min-width:10ch;font-weight:600}
-.vgl summary span{color:var(--leise)}
-.vgl summary::after{content:"+";margin-left:auto;color:var(--zart);font-size:18px;line-height:1}.vgl details[open]>summary::after{content:"–"}
-.vgl .ress{border-top:1px solid var(--linie);padding:14px 0}
-.vgl .auf{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 12px;font-size:14px;margin:6px 0 10px}
+.vgl summary b{min-width:6.6em;font:460 20px/1.1 var(--serif);font-variation-settings:var(--weich);letter-spacing:-.014em}
+.vgl summary>span:not(.marke){color:var(--leise)}
+.vgl summary::after,.erkl>summary::after{content:"";margin-left:auto;flex:none;width:32px;height:32px;border-radius:50%;color:var(--tinte);
+  background:linear-gradient(currentColor,currentColor) center/12px 1.8px no-repeat,linear-gradient(currentColor,currentColor) center/1.8px 12px no-repeat,rgba(31,28,24,.07);transition:rotate .5s var(--feder),background-size .3s,background-color .3s}
+.vgl details[open]>summary::after,.erkl[open]>summary::after{rotate:180deg;background-size:12px 1.8px,1.8px 0,auto}
+.vgl summary:hover::after,.erkl>summary:hover::after{background-color:rgba(31,28,24,.13)}
+.vgl details[open]>:not(summary),.erkl[open]>div{animation:klapp .45s cubic-bezier(.2,.9,.3,1)}
+@keyframes klapp{from{opacity:0;transform:translateY(-8px)}}
+.vgl .ress{border-top:1px solid var(--linie);padding:18px 0}
+.vgl .ress h3{line-height:1.45;text-wrap:pretty}
+.vgl .auf{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:14px;margin:8px 0 12px}
 .vgl .auf i{font-style:normal;color:var(--leise)}
-.streifen{display:flex;height:8px;border-radius:9px;overflow:hidden;margin:6px 0 4px}
-.streifen i{flex:var(--n) 0 0}
-.spalten{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px 22px;font-size:13.5px;margin-top:8px}
-.spalten ul{margin:4px 0 0;padding-left:16px;color:var(--leise)}
-.spalten strong{font-weight:600}
+.streifen{display:flex;gap:3px;height:10px;margin:8px 0 6px}
+.streifen i{flex:var(--n) 0 0;border-radius:9px}
+.spalten{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 24px;font-size:13.5px;margin-top:8px}
+.spalten ul{margin:5px 0 0;padding-left:17px;color:var(--leise);display:grid;gap:3px}
+.spalten strong{font-weight:650}
 /* Häkchen im Vergleich: Was gehört in die Zeitung? */
-.wahl{border-top:1px solid var(--linie);padding:14px 0 18px}
-.wahl h3{margin:0;font-size:15px;font-weight:600}
-.wahl .wahl-satz{margin:2px 0 4px;font-size:13.5px;color:var(--leise)}
-.wahl fieldset{border:0;margin:12px 0 0;padding:0;min-width:0}
-.wahl legend{padding:0;margin-bottom:3px;font-size:12.5px;font-weight:600;color:var(--leise)}
-.wahl label{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:10px;align-items:start;padding:7px 8px;margin:0 -8px;border-radius:9px;font-size:14px;line-height:1.38;cursor:pointer}
-.wahl label:hover{background:rgba(0,0,0,.035)}
-.wahl input{width:17px;height:17px;margin:1px 0 0;accent-color:var(--tinte);cursor:pointer}
-.wahl .von{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
-.wahl .von.c{background:color-mix(in srgb,var(--gold) 17%,transparent);color:#83591a}
-.wahl .von.d{background:color-mix(in srgb,var(--blau) 17%,transparent);color:#3d586d}
-.wahl .ohne{margin:2px 0 0 37px;font-size:13px;color:var(--zart)}
-.wahl .fuss{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
-.wahl .stand{font-size:13px;color:var(--leise)}.wahl .stand.ok{color:var(--gruen)}
-.vgl summary .gewaehlt{color:var(--gruen)}
-.runden{display:flex;gap:6px;margin-top:10px}.runden i{flex:1;height:5px;border-radius:9px;background:var(--linie2)}.runden i.voll{background:var(--tinte)}.runden i.halb{background:var(--gold)}
-.verstoss{margin:0 0 6px;color:var(--rot);font-size:14px}
-.vgl details.hoer{box-shadow:none;padding:0;margin-top:10px}.vgl details.hoer summary{padding:4px 0;font-size:14px;color:var(--blau)}.vgl details.hoer summary::after{content:none}
-.hoer div{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 26px}.hoer p{margin:6px 0 0;font-size:14px;line-height:1.55;white-space:pre-line}.hoer strong{display:block;margin-bottom:4px}
-.termine{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px 24px;font-size:13.5px}.termine ul{margin:4px 0 0;padding-left:16px;color:var(--leise)}.termine li.gleich{color:var(--gruen)}
+.wahl{border-top:1px solid var(--linie);padding:20px 0 24px}
+.wahl h3{margin:0;font:460 23px/1.1 var(--serif);font-variation-settings:var(--weich);letter-spacing:-.018em}
+.wahl .wahl-satz{margin:6px 0 4px;font-size:14px;color:var(--leise)}
+.wahl fieldset{border:0;margin:16px 0 0;padding:0;min-width:0}
+.wahl legend{padding:0;margin-bottom:5px;font-size:13px;font-weight:650;color:var(--leise)}
+.wahl label{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:11px;align-items:start;padding:9px 12px;margin:0 -12px;border-radius:16px;font-size:14.5px;line-height:1.38;cursor:pointer;transition:background .25s}
+.wahl label:hover{background:rgba(31,28,24,.045)}
+.wahl label:has(input:checked){background:rgba(31,28,24,.04)}
+.wahl input{-webkit-appearance:none;appearance:none;display:grid;place-items:center;width:21px;height:21px;margin:0;border-radius:7px;background:var(--pap);box-shadow:inset 0 0 0 1.5px rgba(31,28,24,.34);cursor:pointer;transition:background .25s,box-shadow .25s}
+.wahl input::after{content:"";width:10px;height:5.5px;margin-top:-2px;border:solid var(--hell);border-width:0 0 2.2px 2.2px;rotate:-45deg;scale:0;transition:scale .3s var(--feder)}
+.wahl input:checked{background:var(--tinte);box-shadow:inset 0 0 0 1.5px var(--tinte)}.wahl input:checked::after{scale:1}
+.wahl .von{font-size:11.5px;font-weight:650;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.wahl .von.c{background:color-mix(in srgb,var(--gold) 19%,transparent);color:#7a5216}
+.wahl .von.d{background:color-mix(in srgb,var(--blau) 18%,transparent);color:#34536c}
+.wahl .ohne{margin:3px 0 0 32px;font-size:13px;color:var(--leise);opacity:.8}
+.wahl .fuss{display:flex;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap}
+.stand{font-size:13px;color:var(--leise)}.stand.ok{color:#356b48;font-weight:560}
+.vgl summary .wahlstand{padding:4px 11px;border-radius:99px;font-size:12.5px;font-weight:600;background:color-mix(in srgb,var(--gold) 16%,transparent);color:#7a5216}
+.vgl summary .wahlstand.gewaehlt{background:color-mix(in srgb,var(--gruen) 15%,transparent);color:#2f6341}
+.runden{display:flex;gap:5px;margin:12px 0 8px}.runden i{flex:1;height:6px;border-radius:9px;background:rgba(31,28,24,.1)}.runden i.voll{background:var(--tinte)}.runden i.halb{background:var(--gold)}
+.verstoss{margin:0 0 8px;color:#9c3d28;font-size:14px;font-weight:520}
+.vgl details.hoer{background:none;border-radius:0;padding:0;margin-top:12px}
+.vgl details.hoer summary{display:inline-flex;padding:8px 15px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--linie2);font-size:13.5px;font-weight:560;transition:background .3s,color .3s}
+.vgl details.hoer summary:hover,.vgl details.hoer[open] summary{background:var(--tinte);color:var(--hell)}
+.vgl details.hoer summary::after{content:none}
+.hoer div{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 28px;margin-top:8px}.hoer p{margin:6px 0 0;font-size:14px;line-height:1.55;white-space:pre-line}.hoer strong{display:block;margin-bottom:4px}
+.termine{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px 26px;font-size:13.5px;margin-top:4px}.termine ul{margin:5px 0 0;padding-left:17px;color:var(--leise);display:grid;gap:3px}.termine li.gleich{color:#356b48}
 
 /* Notion-Abgleich */
-.luecke{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1px 16px;padding:12px 0;border-top:1px solid var(--linie);font-size:14px}
-.luecke:first-of-type{border-top:0;padding-top:2px}
-.luecke>b{font-variant-numeric:tabular-nums;font-weight:600}
-.luecke small{grid-column:1/-1;color:var(--leise);font-size:13px;overflow-wrap:anywhere}
-.anteil{display:flex;height:6px;width:96px;border-radius:9px;overflow:hidden;background:var(--linie)}
-.anteil i{background:var(--gruen)}.anteil i+i{background:var(--gold)}
-.fehlt{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:9px;font-size:14px}
-.fehlt li{display:grid;grid-template-columns:8px minmax(0,1fr);gap:0 10px;align-items:baseline}
-.fehlt li .punkt{transform:translateY(-1px)}
+.luecke{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 16px;padding:14px 0;border-top:1px solid var(--linie);font-size:14.5px}
+.luecke:first-of-type{border-top:0;padding-top:2px}.luecke:last-child{padding-bottom:2px}
+.luecke>b{font:460 22px/1 var(--serif);font-variation-settings:var(--weich);font-variant-numeric:tabular-nums}
+.luecke small{grid-column:1/-1;color:var(--leise);font-size:13px;line-height:1.45;overflow-wrap:anywhere}
+.anteil{display:flex;gap:2px;height:7px;width:96px}
+.anteil i{border-radius:9px;background:var(--gruen)}.anteil i+i{background:var(--gold)}
+.fehlt{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:11px;font-size:14.5px}
+.fehlt li{display:grid;grid-template-columns:9px minmax(0,1fr);gap:0 12px;align-items:baseline}
+.fehlt li .punkt{transform:translateY(-1px);box-shadow:none}
+.fehlt a{overflow-wrap:anywhere}
 .fehlt small{grid-column:2;display:block;color:var(--leise);font-size:12.5px}
+.nachsatz{font-size:13px;line-height:1.5;margin-top:12px;max-width:86ch}
 
 /* Abläufe */
-.uhr{display:grid;grid-template-columns:minmax(150px,230px) minmax(0,1fr);gap:0 16px;align-items:center}
-.uhr .kopf{grid-column:2;display:flex;justify-content:space-between;font-size:12.5px;color:var(--leise);padding-bottom:6px}
-.uhr .name{padding:11px 0;border-top:1px solid var(--linie)}
-.uhr .name b{display:block;font-weight:600;font-size:14.5px}
-.uhr .name span{font-size:13px;color:var(--leise)}
-.uhr .spur{position:relative;height:100%;min-height:52px;border-top:1px solid var(--linie);background:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),var(--linie) calc(12.5% - 1px) 12.5%)}
-.uhr .spur i{position:absolute;top:50%;left:calc(var(--t)/24*100%);width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--f,var(--tinte))}
-.uhr .spur i.band{left:0;right:0;width:auto;height:4px;margin:-2px 0 0;border-radius:9px;opacity:.5}
-.wo{display:inline-block;font-size:12px;font-weight:500;padding:0 8px 1px;border-radius:99px;box-shadow:inset 0 0 0 1px var(--linie2);margin-left:6px;color:var(--leise);vertical-align:1px}
+.uhr{display:grid;grid-template-columns:minmax(170px,270px) minmax(0,1fr);gap:0 18px;align-items:center}
+.uhr .kopf{grid-column:2;display:flex;justify-content:space-between;font-size:12.5px;font-weight:560;color:var(--leise);padding-bottom:8px}
+.uhr .name{padding:13px 0;border-top:1px solid var(--linie)}
+.uhr .name b{display:block;font-weight:650;font-size:14.5px;line-height:1.5}
+.uhr .name span{font-size:13px;line-height:1.4;color:var(--leise)}
+.uhr .name>span{display:block;margin-top:2px}
+.uhr .spur{position:relative;height:100%;min-height:56px;border-top:1px solid var(--linie);background:repeating-linear-gradient(90deg,transparent 0 calc(12.5% - 1px),var(--linie) calc(12.5% - 1px) 12.5%)}
+.uhr .spur i{position:absolute;top:50%;left:calc(var(--t)/24*100%);width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--f,var(--tinte))}
+.uhr .spur i.band{left:0;right:0;width:auto;height:6px;margin:-3px 0 0;border-radius:9px;opacity:.45}
+.wo{display:inline-block;font-size:11.5px;font-weight:600;line-height:1.3;padding:3px 9px;border-radius:99px;background:rgba(31,28,24,.065);margin-left:7px;color:#4c473f;vertical-align:1.5px;white-space:nowrap}
 
-/* Qualitätsmanager */
-.marke{display:inline-block;font-size:12.5px;padding:1px 9px 2px;border-radius:99px;box-shadow:inset 0 0 0 1px var(--linie2);color:var(--leise);margin:0 5px 0 0}
-.marke.rot{box-shadow:inset 0 0 0 1px var(--rot);color:var(--rot)}
-.notiz{display:grid;gap:8px}
-.notiz h3{font:600 17px/1.3 var(--sans);margin:2px 0 0}
-.notiz dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 14px;margin:0;font-size:14px}
-.notiz dt{color:var(--leise)}.notiz dd{margin:0}
+/* Etiketten, Notizen (Qualitätsmanager, Leserstimmen) */
+.marke{display:inline-block;font-size:12.5px;font-weight:560;line-height:1.3;padding:4px 11px;border-radius:99px;background:rgba(31,28,24,.065);color:#4c473f;margin:0 6px 6px 0}
+.marke.rot{background:color-mix(in srgb,var(--rot) 15%,transparent);color:#8c3625}
+.marke.gruen{background:color-mix(in srgb,var(--gruen) 16%,transparent);color:#2f6341}
+.vgl summary .marke{margin:0}
+.notiz{display:grid;gap:10px}
+.notiz h3{font:460 24px/1.12 var(--serif);font-variation-settings:var(--weich);letter-spacing:-.018em;margin:0;text-wrap:balance;overflow-wrap:anywhere;-webkit-hyphens:auto;hyphens:auto}
+.notiz dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px 18px;margin:2px 0 0;font-size:14.5px;line-height:1.45}
+.notiz dt{color:var(--leise);font-weight:560;font-size:13.5px;padding-top:1px}.notiz dd{margin:0;overflow-wrap:anywhere}
+.notiz:has(.marke.rot){box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--rot) 50%,transparent)}
 .notiz.aus{opacity:.55}
-.stimmen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 28px;margin-top:8px}
-.stimmen h4{margin:0;font-size:13px;font-weight:600;color:var(--leise)}
-.stimmen ol{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:7px;font-size:14px;line-height:1.35}
-.stimmen li{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:10px;align-items:baseline}
-.stimmen li b{font-weight:600;font-variant-numeric:tabular-nums;color:var(--leise);font-size:13px;white-space:nowrap}
-.vorschlag .aend{display:grid;gap:5px;padding:12px 14px;border-radius:10px;background:rgba(0,0,0,.025);box-shadow:inset 0 0 0 1px var(--linie);font-size:14px}
-.vorschlag .aend p{margin:0}.vorschlag .aend .alt{color:var(--leise);text-decoration:line-through;text-decoration-color:rgba(0,0,0,.25)}
+.notiz .fuss{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--leise);margin:6px 0 0}
+.haken{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:7px;font-size:14.5px}.haken li{padding-left:28px;position:relative}
+.haken li::before{content:"";position:absolute;left:0;top:.14em;width:18px;height:18px;border-radius:50%;background:color-mix(in srgb,var(--gruen) 18%,transparent)}
+.haken li::after{content:"";position:absolute;left:5.2px;top:calc(.14em + 5.4px);width:8px;height:4.5px;border:solid #2f6341;border-width:0 0 1.8px 1.8px;rotate:-45deg}
+.stimmen{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 30px;margin-top:14px}
+.stimmen h4{margin:0;font-size:13px;font-weight:650;color:var(--leise)}
+.stimmen ol{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:14.5px;line-height:1.35}
+.stimmen li{display:grid;grid-template-columns:4.4em minmax(0,1fr);gap:10px;align-items:baseline}
+.stimmen li b{font-weight:650;font-variant-numeric:tabular-nums;color:var(--leise);font-size:13px;white-space:nowrap}
+.vorschlag .aend{display:grid;gap:6px;padding:15px 18px;border-radius:18px;background:var(--flaeche);font-size:14.5px}
+.vorschlag .aend p{margin:0}.vorschlag .aend .alt{color:var(--leise);text-decoration:line-through;text-decoration-color:rgba(31,28,24,.3)}
 .vorschlag .entscheid{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-.vorschlag textarea{width:100%;min-height:86px;margin-top:8px;padding:10px 12px;border-radius:10px;border:1px solid var(--linie2);background:var(--karte);font:inherit;font-size:14.5px;line-height:1.45;resize:vertical;box-sizing:border-box}
-.vorschlag .stand{font-size:13px;color:var(--leise)}.vorschlag .stand.ok{color:var(--gruen)}
-.vorschlag .klein{margin:0;font-size:12.5px;color:var(--zart)}
-/* Podcast-Thema: nach dem Abgeben ausgegraut, über „Bearbeiten“ wieder offen */
-.pthema label{display:block;margin-top:14px;font-size:13px;font-weight:600;color:var(--leise)}
-.pthema label small{font-weight:400}
-.pthema input,.pthema textarea,.pthema select{display:block;width:100%;box-sizing:border-box;margin-top:5px;padding:10px 12px;border-radius:10px;border:1px solid var(--linie2);background:var(--karte);font:inherit;font-size:15.5px;line-height:1.45;color:var(--tinte)}
-.pthema textarea{min-height:92px;resize:vertical;font-size:14.5px}
-.pthema input:focus,.pthema textarea:focus,.pthema select:focus{outline:2px solid var(--gold);outline-offset:1px}
-.pthema.abgegeben input,.pthema.abgegeben textarea{background:transparent;color:var(--leise);border-style:dashed;cursor:default;outline:none}
-.pthema .fuss{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
-.pthema .stand{font-size:13px;color:var(--leise)}.pthema .stand.ok{color:var(--gruen)}
-.pthema .klein{margin:12px 0 0;font-size:12.5px;color:var(--zart);max-width:80ch}
-.marke.gruen{box-shadow:inset 0 0 0 1px var(--gruen);color:var(--gruen)}
-.karte.pthema.abgegeben{background:transparent;box-shadow:inset 0 0 0 1px var(--linie2)}
-.pthema .pt-titel{margin:10px 0 0;font-size:17px;line-height:1.35}
-.pthema .pt-anw{margin:6px 0 0;font-size:14px;line-height:1.5;color:var(--leise);white-space:pre-wrap;max-width:80ch}
-.pthema .fuss button[disabled]{opacity:.35;cursor:default}
-.pthema.neu{border-top:0}
-.notiz .fuss{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--leise);margin:4px 0 0}
-.haken{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:5px;font-size:14px}.haken li{padding-left:22px;position:relative}.haken li::before{content:"✓";position:absolute;left:0;color:var(--gruen);font-weight:700}
+.vorschlag .antwort .fuss{justify-content:flex-start;gap:14px;margin-top:12px}
+.klein{margin:0;font-size:12.5px;line-height:1.5;color:var(--leise)}
+.vorschlag .antwort .klein{margin-top:12px}
+textarea,.pthema input,.pthema select{display:block;width:100%;padding:12px 16px;border-radius:16px;border:1.5px solid var(--linie2);background:var(--pap);font:inherit;font-size:15px;line-height:1.45;color:var(--tinte);transition:border-color .25s,box-shadow .25s}
+textarea{min-height:96px;resize:vertical}
+textarea:hover,.pthema input:hover,.pthema select:hover{border-color:rgba(31,28,24,.4)}
+textarea:focus,.pthema input:focus,.pthema select:focus,input[type=password]:focus,input[type=date]:focus{outline:0;border-color:var(--akz);box-shadow:0 0 0 3px color-mix(in srgb,var(--akz) 18%,transparent)}
+::placeholder{color:#8c867b;opacity:1}
+.vorschlag textarea{margin-top:10px}
+
+/* Podcast-Thema: gespeicherte Themen als Kachel, das neue Thema als gestrichelte Kachel */
+.pthema label{display:block;margin-top:16px;font-size:13.5px;font-weight:650}
+.pthema label small{font-weight:400;font-size:12.5px;color:var(--leise)}
+.pthema input,.pthema textarea,.pthema select{margin-top:7px}
+.pthema input{font-size:16px}
+.pthema select{-webkit-appearance:none;appearance:none;padding-right:44px;cursor:pointer;text-overflow:ellipsis;
+  background:var(--pap) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231f1c18' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") right 14px center/18px no-repeat}
+.pthema .fuss{display:flex;align-items:center;gap:8px;margin-top:16px;flex-wrap:wrap}
+.pthema .klein{margin:14px 0 0;max-width:84ch}
+.pthema .pt-titel{margin:8px 0 0;font:460 clamp(22px,2.1vw,27px)/1.12 var(--serif);font-variation-settings:var(--weich);letter-spacing:-.018em;text-wrap:balance;overflow-wrap:anywhere;-webkit-hyphens:auto;hyphens:auto}
+.pthema .pt-anw{margin:9px 0 0;font-size:14.5px;line-height:1.5;color:var(--leise);white-space:pre-wrap;overflow-wrap:anywhere;max-width:80ch}
+.pthema .fuss button[disabled]{opacity:.3}
+.pthema .fuss [data-p=hoch],.pthema .fuss [data-p=runter]{width:37px;height:37px;padding:0;font-size:16px}
+[data-p=loeschen]:hover:not(:disabled){background:var(--rot)!important;box-shadow:inset 0 0 0 1.5px var(--rot)!important;color:#fff7f2!important}
+form.pthema:not(.neu){box-shadow:inset 0 0 0 1.5px var(--akz)}
+.pthema.neu{background:transparent;border:2px dashed rgba(31,28,24,.2);padding:20px 22px}
 
 /* Quellen */
-.ampel{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:8px;background:var(--gruen);vertical-align:1px}
+.ampel{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:9px;background:var(--gruen);vertical-align:1px}
 .ampel.auffaellig{background:var(--gold)}.ampel.gestoert{background:var(--rot)}.ampel.still{background:var(--blau)}.ampel.pausiert{background:transparent;box-shadow:inset 0 0 0 1.5px var(--zart)}
 .qtab td,.qtab th{text-align:left!important;white-space:normal;vertical-align:top}
-.qtab td small{display:block;color:var(--leise);font-size:12.5px;line-height:1.4}
-.qtab td.z{text-align:right!important;white-space:nowrap;font-variant-numeric:tabular-nums}.qtab th.z{text-align:right!important}
-.qtab tr.gruppe td{border-top:0;padding-top:20px;font-weight:600}
+.qtab td:first-child{font-weight:560;min-width:11em}
+.qtab td small{display:block;color:var(--leise);font-size:12.5px;font-weight:400;line-height:1.4;overflow-wrap:anywhere}
+.qtab td.z{text-align:right!important;white-space:nowrap}.qtab th.z{text-align:right!important;white-space:nowrap}
+.qtab td:nth-child(2){min-width:10.5em}.qtab td:nth-child(3){min-width:13em}.qtab td:last-child{min-width:10.5em}
+.qtab tr.gruppe td{border-top:0;padding:26px 0 10px;font:460 21px/1.1 var(--serif);font-variation-settings:var(--weich);letter-spacing:-.014em}
+.qtab tbody tr.gruppe:first-child td{padding-top:8px}
+.qtab tr.gruppe .ampel{vertical-align:2px}
 
 /* So funktioniert es */
-.erkl{background:var(--karte);border-radius:14px;padding:0 20px;margin-top:8px;box-shadow:0 0 0 1px var(--linie)}
-.erkl>summary{cursor:pointer;padding:14px 0;font:600 15.5px/1.35 var(--sans);list-style:none;display:flex;justify-content:space-between;gap:14px}
-.erkl>summary::-webkit-details-marker{display:none}.erkl>summary::after{content:"+";color:var(--zart);font-size:18px;font-weight:400}.erkl[open]>summary::after{content:"–"}
-.erkl>div{padding:0 0 20px;display:grid;gap:12px;max-width:76ch;font-size:14.5px}
-.erkl p{margin:0}.erkl ul{margin:0;padding-left:20px;display:grid;gap:5px}
-.erkl h3{margin:8px 0 -4px}
-.weg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;counter-reset:w;max-width:none!important}
-.weg div{border-radius:12px;padding:12px 14px;font-size:13.5px;counter-increment:w;background:var(--flaeche)}
-.weg div::before{content:counter(w);display:block;font-weight:600;font-size:12.5px;color:var(--zart);margin-bottom:4px}
-.weg b{display:block;font-size:14.5px;margin-bottom:2px}.weg span{color:var(--leise)}
-.beispiel:empty{display:none}.beispiel{border-left:2px solid var(--linie2);padding:3px 0 3px 14px;font-size:14px}.beispiel i{font-style:normal;color:var(--leise)}
-.drei{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;max-width:none!important}
-.drei div{border-radius:12px;padding:13px 15px;font-size:13.5px;background:var(--flaeche);display:grid;gap:6px;align-content:start}
-.drei b{font-size:14.5px}.drei i{font-style:normal;color:var(--leise);font-size:12.5px;display:block}
+.erkl{background:var(--pap);border-radius:24px;padding:0 24px;margin-top:10px}
+.erkl>summary{cursor:pointer;padding:17px 0;font:460 clamp(20px,1.9vw,24px)/1.15 var(--serif);font-variation-settings:var(--weich);letter-spacing:-.018em;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px;border-radius:14px}
+.erkl>summary::-webkit-details-marker{display:none}
+.erkl>div{padding:2px 0 24px;display:grid;gap:13px;font-size:15px}
+.erkl>div>*{max-width:76ch}
+.erkl p{margin:0}.erkl ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.erkl li::marker{color:var(--zart)}
+.erkl h3{margin:10px 0 -3px;font-size:15.5px}
+.weg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;counter-reset:w;max-width:none!important}
+.weg div{border-radius:20px;padding:16px 16px 18px;font-size:13.5px;line-height:1.42;counter-increment:w;background:var(--flaeche)}
+.weg div::before{content:counter(w);display:block;font:italic 340 42px/1 var(--serif);font-variation-settings:var(--weich);color:var(--f1);margin-bottom:12px}
+.weg div:nth-child(2)::before{color:var(--f2)}.weg div:nth-child(3)::before{color:var(--f3)}.weg div:nth-child(4)::before{color:var(--f4)}.weg div:nth-child(5)::before{color:var(--f5)}
+.weg b{display:block;font-size:15px;font-weight:650;line-height:1.22;margin-bottom:5px}.weg span{color:var(--leise)}
+.beispiel:empty{display:none}.beispiel{position:relative;padding:4px 0 4px 20px;font-size:14.5px}
+.beispiel::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px;background:var(--akz);opacity:.55}
+.beispiel i{font-style:normal;color:var(--leise)}
+.drei{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;max-width:none!important}
+.drei div{border-radius:20px;padding:16px 18px 18px;font-size:13.5px;line-height:1.45;background:var(--flaeche);display:grid;gap:7px;align-content:start}
+.drei b{font-size:15.5px;font-weight:650;line-height:1.25}.drei i{font-style:normal;font-weight:650;color:var(--leise);font-size:12.5px;display:block}
 
-@media (max-width:900px){
-  .rahmen{display:block}
-  .leiste{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;gap:4px;padding:8px 10px;background:rgba(246,245,241,.93);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--linie);overflow-x:auto;scrollbar-width:none}
-  .leiste::-webkit-scrollbar{display:none}
-  .heim{flex:none;padding:0 8px 0 4px}
+/* Bewegung: Die Überblick-Kacheln kommen nach der Anmeldung nacheinander herein; mehr nicht – beim Arbeiten soll nichts flackern. */
+@keyframes herein{from{opacity:0;transform:translateY(26px) scale(.975)}}
+@keyframes sanft{from{opacity:0;transform:translateY(12px)}}
+.seitenkopf h1,#tor{animation:sanft .7s cubic-bezier(.2,.9,.3,1) backwards}
+#tor{animation-delay:.08s}
+.kachel{animation:herein .85s var(--feder) backwards;animation-delay:calc(var(--i,0) * 55ms + 60ms)}
+.kachel:nth-child(2){--i:1}.kachel:nth-child(3){--i:2}.kachel:nth-child(4){--i:3}.kachel:nth-child(5){--i:4}.kachel:nth-child(6){--i:5}.kachel:nth-child(7){--i:6}.kachel:nth-child(8){--i:7}
+
+@media (max-width:1180px){.ueber{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:960px){
+  .rahmen{display:block;padding-top:0}
+  #q-inhalt .raster{grid-template-columns:minmax(0,1fr)}#q-inhalt .raster>.karte{grid-column:1/-1!important}
+  .leiste{top:8px;z-index:20;display:flex;margin:6px -4px 0;max-height:none;padding:5px;border-radius:999px;background:rgba(31,28,24,.93);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 10px 24px -14px rgba(0,0,0,.5);overflow-x:auto;overscroll-behavior-x:contain}
+  .leiste-bild{display:none}
   .sprung{flex-direction:row;gap:2px}
-  .sprung a{padding:6px 10px;font-size:14px}
-  .sprung .punkt{display:none}
-  main{padding-top:22px}
-  section{scroll-margin-top:66px}
+  .sprung a{flex:none;gap:8px;padding:9px 15px;font-size:14px}
+  .sprung .punkt:not(.achtung):not(.stoerung){display:none}
+  .seitenkopf{padding-top:26px}
+  .seitenkopf .wz{left:auto;right:2%}
+  section{scroll-margin-top:74px}
+  .ueber{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .weg{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
 }
-@media (max-width:640px){.uhr{grid-template-columns:1fr}.uhr .kopf{grid-column:1}.uhr .name{padding-bottom:2px}.uhr .spur{border-top:0;min-height:26px}.karte{padding:16px}
-  .ueber{grid-template-columns:1fr 1fr;gap:8px}.kachel{padding:11px 13px 12px;border-radius:12px}.kachel>span{font-size:12.5px;gap:6px}.kachel b{font-size:16.5px;margin-top:4px}.kachel small{font-size:12px;line-height:1.35}
-  .seitenkopf p{font-size:12.5px}h1{font-size:23px}}
+@media (max-width:740px){.ueber{grid-template-columns:repeat(2,minmax(0,1fr))}.kachel{min-height:132px}}
+@media (max-width:640px){
+  html{font-size:15px}
+  .kopf-zeile{grid-template-columns:38px minmax(0,1fr) 38px;gap:6px;padding:16px 14px 10px}
+  .heim{padding:9px;border-color:transparent}.heim span{display:none}.heim svg{width:18px;height:18px}
+  .wortmarke{justify-self:center}.wortmarke img{height:36px}.wortmarke a{gap:8px}
+  .buehne{margin-top:34px}.welle{top:-34px;height:36px}
+  .rahmen{padding:0 12px}
+  .seitenkopf{padding:22px 2px 20px}.seitenkopf p{margin-top:10px;font-size:13.5px}
+  .seitenkopf .wz{--g:104px;top:-6px;right:0}
+  section{margin-top:60px}
+  .unter{font-size:15px;margin:10px 0 18px}
+  .ueber{gap:8px}
+  .kachel{min-height:0;padding:13px 14px 13px;border-radius:20px;gap:3px}
+  .kachel>span{font-size:12.5px;gap:8px;padding-bottom:12px}.kachel b{font-size:19px}.kachel small{font-size:12px;min-height:2.7em}
+  .kachel::after{width:54px;right:-8px;top:-8px;opacity:.045}
+  .karte{padding:18px 18px;border-radius:20px}
+  #tor{padding:20px 18px 22px;border-radius:24px}
+  .raster{gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  #b-inhalt>.karte{grid-column:span 3}#b-inhalt>.breit,#b-inhalt>.karte:nth-child(3),#b-inhalt>.karte:nth-last-child(-n+2){grid-column:1/-1}
+  #n-inhalt .raster{grid-template-columns:repeat(2,minmax(0,1fr))}#n-inhalt .zahl:nth-last-child(2){grid-column:1/-1}
+  #a-stand,#d-inhalt .raster{grid-template-columns:minmax(0,1fr)}
+  .zahl b{font-size:38px}.zahl.text b{font-size:22px}
+  .spanne{width:100%}.spanne button{flex:1;padding-inline:8px!important}
+  input[type=date]{flex:1 1 120px}
+  .verlauf{height:150px}.verlauf:has(div:nth-child(50)){gap:1px}.verlauf:has(div:nth-child(50)) div{gap:0}
+  .vgl details{padding:0 18px;border-radius:20px}
+  .vgl summary{gap:5px 14px;padding:14px 0}.vgl summary b{flex-basis:calc(100% - 46px);order:-2}.vgl summary::after{order:-1}
+  .vgl .auf{grid-template-columns:minmax(0,1fr);gap:0}.vgl .auf i{font-size:12.5px}.vgl .auf span{margin-bottom:6px}
+  .wahl label{grid-template-columns:auto minmax(0,1fr)}.wahl label .von{grid-column:2;justify-self:start;margin-bottom:-6px}.wahl label>span:last-child{grid-column:2}
+  .wahl input{grid-row:span 2}
+  .notiz dl{grid-template-columns:1fr;gap:1px}.notiz dd{margin-bottom:8px}
+  .notiz h3{font-size:21px}
+  .stimmen{grid-template-columns:1fr}
+  .uhr{grid-template-columns:1fr}.uhr .kopf{grid-column:1;grid-row:1}.uhr .name{padding-bottom:0}.uhr .spur{border-top:0;min-height:30px}
+  .erkl{padding:0 18px;border-radius:20px}
+  .weg{grid-template-columns:1fr}.weg div{display:grid;grid-template-columns:40px minmax(0,1fr);gap:0 6px;padding:14px 16px}.weg div::before{grid-row:span 2;font-size:34px;margin:0}
+  .pthema.neu{padding:16px}
+  .pthema .fuss button:not([data-p]){flex:1 1 auto}
+  /* Quellen am Handy: je Quelle ein Block statt sechs enger Spalten */
+  .qtab thead{display:none}
+  .qtab,.qtab tbody{display:block}
+  .qtab tr{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 14px;padding:14px 0;border-top:1px solid var(--linie)}
+  .qtab tr.gruppe{display:block;padding:0;border:0}.qtab tr.gruppe td{padding:22px 0 10px}
+  .qtab td{display:block;padding:0;border:0;min-width:0}
+  .qtab td:first-child{grid-column:1/-1}.qtab td:nth-child(2),.qtab td:nth-child(3),.qtab td:last-child{grid-column:span 2;min-width:0}
+  .qtab td.z{text-align:left!important}
+  .qtab td[data-l]::before{content:attr(data-l);display:block;font-size:12px;font-weight:560;color:var(--leise)}
+  .tab:not(.qtab) td:first-child{white-space:normal;min-width:8.5em}
+  .vgl .tab th{white-space:normal;vertical-align:bottom}.vgl .tab th,.vgl .tab td{padding-left:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
 </style>
+<script src="blatt/rahmen.js?v=1"></script>
 </head>
 <body class="zu">
+<header class="kopf"><div class="kopf-zeile">
+  <a class="heim" href="./" title="Zurück zum Boniblatt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg><span>Boniblatt</span></a>
+  <p class="wortmarke"><a href="./" title="Zum Boniblatt"><img src="bilder/zeichen.svg" alt="" width="128" height="128"><span>Mainzer <i>Boniblatt</i><b>.</b></span></a></p>
+</div></header>
+<div class="buehne">
+<div class="welle" aria-hidden="true"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 60V30C100 6 200 6 300 30S500 54 600 30S800 6 900 30S1100 54 1200 30V60Z"/></svg><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 60V30C100 6 200 6 300 30S500 54 600 30S800 6 900 30S1100 54 1200 30V60Z"/></svg></div>
 <div class="rahmen">
 <aside class="leiste">
-  <a class="heim" href="./">← Boniblatt</a>
   <nav class="sprung" aria-label="Bereiche">
     <a href="#ueberblick">Überblick</a>
     <a href="#podcast">Podcast-Themen<i class="punkt" data-punkt="podcast"></i></a>
@@ -263,9 +452,10 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     <a href="#ablauf">Abläufe<i class="punkt" data-punkt="ablauf"></i></a>
     <a href="#system">So funktioniert es</a>
   </nav>
+  <div class="leiste-bild" aria-hidden="true"><i class="st" style="--m:url(bilder/motive/holzturm.webp)"></i><i class="st" style="--m:url(bilder/motive/dom.webp)"></i><i class="st" style="--m:url(bilder/motive/bonituerme.webp)"></i></div>
 </aside>
 <main>
-<header class="seitenkopf"><h1>Verwaltung</h1><p id="kopf-stand"></p></header>
+<header class="seitenkopf"><i class="st wz" style="--m:url(bilder/motive/bonituerme.webp)" aria-hidden="true"></i><h1>Verwaltung<i aria-hidden="true">.</i></h1><p id="kopf-stand"></p></header>
 
 <form id="tor" class="karte" autocomplete="on">
   <input type="text" name="username" value="boniblatt" autocomplete="username" hidden>
@@ -289,7 +479,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 </section>
 
 <section id="podcast">
-  <h2>Podcast-Themen</h2>
+  <h2>Podcast-<i>Themen</i></h2>
   <p class="unter">Jeden Montag erscheint mit der Ausgabe eine neue Folge von „Zwischen den Zeilen“. Plane hier die Themen der nächsten Wochen, jedes mit eigenen Anweisungen an die KI. Die Redaktion nimmt immer das oberste offene Thema; ist die Liste leer, wählt sie ein prominentes Thema aus den Nachrichten, möglichst nah am Alltag der Jugendhilfeplanung.</p>
   <p class="meldung" id="p-meldung" role="alert"></p>
   <div id="p-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
@@ -298,9 +488,9 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 <section id="besuche">
   <h2>Besuche</h2>
   <p class="unter" id="b-unter">Anonym gezählt, ohne Adresse und ohne Kennung.</p>
-  <div class="zeile" style="margin-bottom:14px">
-    <button type="button" class="leicht" data-t="7">7 Tage</button><button type="button" class="leicht" data-t="30" aria-pressed="true">30 Tage</button><button type="button" class="leicht" data-t="90">90 Tage</button><button type="button" class="leicht" data-t="alles">Alles</button>
-    <input type="date" id="von" aria-label="von" style="flex:0 1 150px;padding:5px 10px;font-size:14px"><span style="color:var(--leise);font-size:14px">bis</span><input type="date" id="bis" aria-label="bis" style="flex:0 1 150px;padding:5px 10px;font-size:14px">
+  <div class="zeile abstand">
+    <div class="spanne" role="group" aria-label="Zeitraum"><button type="button" class="leicht" data-t="7">7 Tage</button><button type="button" class="leicht" data-t="30" aria-pressed="true">30 Tage</button><button type="button" class="leicht" data-t="90">90 Tage</button><button type="button" class="leicht" data-t="alles">Alles</button></div>
+    <input type="date" id="von" aria-label="von"><span class="bis">bis</span><input type="date" id="bis" aria-label="bis">
   </div>
   <p class="meldung" id="b-meldung" role="alert"></p>
   <div class="raster" id="b-inhalt"></div>
@@ -325,13 +515,13 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 </section>
 
 <section id="notion">
-  <h2>Notion-Abgleich</h2>
+  <h2>Notion-<i>Abgleich</i></h2>
   <p class="unter">Kommt alles, was Make.com in die Notion-Datenbank „AZ“ schreibt, auch bei GitHub an? Jeden Morgen werden die 24 Stunden bis zum nächtlichen Abruf von GitHub geprüft, bis zum 6. Dezember.</p>
   <div id="n-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
 </section>
 
 <section id="vergleich">
-  <h2>DeepSeek im Vergleich</h2>
+  <h2>DeepSeek <i>im Vergleich</i></h2>
   <p class="unter">DeepSeek macht direkt nach Claude dieselbe Arbeit, veröffentlicht wird davon nichts. Drei Runden à fünf Ausgaben: Du kreuzt bei jeder Ausgabe an, was von den Unterschieden in die Zeitung gehört. Nach jeder Runde werden die Prompts beider Seiten danach angepasst (ABGLEICH.md).</p>
   <div id="d-inhalt"><div class="karte"><p class="leer">Lädt …</p></div></div>
 </section>
@@ -343,14 +533,14 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 </section>
 
 <section id="ablauf">
-  <h2>Was im Hintergrund läuft</h2>
+  <h2>Was im Hintergrund <i>läuft</i></h2>
   <p class="unter">Ein Tag im Überblick, Zeiten in Winterzeit (im Sommer eine Stunde später). GitHub startet geplante Läufe oft 30 bis 60 Minuten später als eingetragen. Nichts davon läuft auf einem eigenen Rechner.</p>
-  <div class="raster" id="a-stand" style="margin-bottom:12px"></div>
+  <div class="raster abstand" id="a-stand"></div>
   <div class="karte"><div class="uhr" id="a-uhr"></div></div>
 </section>
 
 <section id="system">
-  <h2>So funktioniert es</h2>
+  <h2>So <i>funktioniert</i> es</h2>
   <p class="unter">Das ganze System in Ruhe erklärt – vom Auftauchen einer Meldung bis zur fertigen Seite. Maßgeblich sind die Regeln im Quellcode (<a href="https://github.com/ahmadmimam10/mainzer-fachbrief/blob/main/REDAKTION.md" target="_blank" rel="noopener">Redaktionsregeln</a>, <a href="https://github.com/ahmadmimam10/mainzer-fachbrief/blob/main/QUALITAET.md" target="_blank" rel="noopener">Anleitung des Qualitätsmanagers</a>); hier steht, was sie bedeuten.</p>
 
   <details class="erkl" open><summary>Der Weg einer Meldung</summary><div>
@@ -387,7 +577,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     <div class="drei">
       <div><b>Jugendhilfeplanung</b><span><i>Rein</i>Steuerung und Planung der Kinder- und Jugendhilfe, große Maßnahmen und Konzepte, Zahlen und Studien, Gesetze, Haushalt und Förderung, Kita, Hilfen zur Erziehung, Fachkräfte.</span><span><i>Raus</i>Einzelfälle, Erziehungstipps, Parteienstreit, Politik ohne Bezug zur Jugendhilfe.</span></div>
       <div><b>Frühe Hilfen und Kinderschutz</b><span><i>Rein</i>Familien mit Kindern von 0 bis 3, Netzwerke, Familienhebammen, Schutzkonzepte, Kindeswohl, Familienbildung – besonders aus Mainz und Rheinland-Pfalz.</span><span><i>Raus</i>Allgemeine Jugendhilfe ohne diesen Fokus, Einzelfälle ohne strukturelle Bedeutung.</span></div>
-      <div><b>Quartiersmanagement</b><span><i>Rein</i>Alles aus Lerchenberg, Neustadt, Mombach und Hartenberg-Münchfeld; Städtebauförderung und Sozialer Zusammenhalt; Bauprojekte, Stadtrat, Ortsbeiräte, Beteiligung, Spielplätze, Grün, Verkehr.</span><span><i>Raus</i>Reine Gastronomie- und Ladenmeldungen; Überregionales ohne Bezug zur Sozialen Stadt.</span></div>
+      <div><b>Quartiermanagement</b><span><i>Rein</i>Alles aus Lerchenberg, Neustadt, Mombach und Hartenberg-Münchfeld; Städtebauförderung und Sozialer Zusammenhalt; Bauprojekte, Stadtrat, Ortsbeiräte, Beteiligung, Spielplätze, Grün, Verkehr.</span><span><i>Raus</i>Reine Gastronomie- und Ladenmeldungen; Überregionales ohne Bezug zur Sozialen Stadt.</span></div>
     </div>
     <h3>Die wichtigsten Regeln</h3>
     <ul>
@@ -451,6 +641,8 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 </div>
 </main>
 </div>
+<div class="skyline" aria-hidden="true"><i class="st" style="--m:url(bilder/motive/kirschgarten.webp)"></i><i class="st" style="--m:url(bilder/motive/christuskirche.webp)"></i><i class="st" style="--m:url(bilder/motive/holzturm.webp)"></i><i class="st" style="--m:url(bilder/motive/dom.webp)"></i><i class="st" style="--m:url(bilder/motive/staatstheater.webp)"></i><i class="st" style="--m:url(bilder/motive/bonituerme.webp)"></i><i class="st" style="--m:url(bilder/motive/bruecke.webp)"></i></div>
+</div>
 <script>
 (() => {
   const DIENST = "https://boniblatt-bestenliste.ahmadmimam10.workers.dev", ROH = "https://raw.githubusercontent.com/ahmadmimam10/mainzer-fachbrief/main/";
@@ -479,7 +671,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
 
   /* ---------- Besuche ---------- */
   const AKTIONEN = { ton: "Hörfassung gestartet", teilen: "Meldung geteilt", archiv: "Archiv geöffnet", spiel: "Altpapier-Wurf gespielt" };
-  const RESSORT = { "jugendhilfeplanung": "Jugendhilfeplanung", "fruehe-hilfen": "Frühe Hilfen", "quartiersmanagement": "Quartiersmanagement" };
+  const RESSORT = { "jugendhilfeplanung": "Jugendhilfeplanung", "fruehe-hilfen": "Frühe Hilfen", "quartiersmanagement": "Quartiermanagement" };
   const SEITEN = { start: "Startseite", werkstatt: "Werkstatt und Geschichte", kalender: "Fundstück-Kalender" };
   const liste = (eintraege, farbe) => { const max = Math.max(1, ...eintraege.map(e => e[1])); return eintraege.length ? `<ul class="balken">${eintraege.map(([n, w, zusatz]) => `<li><span>${n}${zusatz ? `<small>${zusatz}</small>` : ""}</span><b>${zahl(w)}</b><em style="--w:${w / max * 100}${farbe ? ";--f:" + farbe : ""}"></em></li>`).join("")}</ul>` : `<p class="leer">Noch nichts gezählt.</p>`; };
 
@@ -605,12 +797,12 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     if (!k || !k.quellen) return void ($("#k-inhalt").innerHTML = `<div class="karte"><p class="leer">Die Ampel wird mit dem nächsten Abruf zum ersten Mal berechnet (alle drei Stunden).</p></div>`);
     const z = k.zusammen, reihen = Object.keys(AMPEL).flatMap(a => { const l = k.quellen.filter(q => q.ampel === a).sort((x, y) => x.name.localeCompare(y.name, "de")); return l.length ? [`<tr class="gruppe"><td colspan="6"><span class="ampel ${a}"></span>${esc(AMPEL[a])} · ${l.length}</td></tr>`, ...l.map(q => { const s = probe[q.id];
       return `<tr><td>${esc(q.name)}<small>${esc(q.art)}${q.adressen > 1 ? " · " + q.adressen + " Adressen" : ""}${q.stuendlich ? " · stündlich" : ""}${q.ampel !== "ok" ? " – " + esc(q.grund) : ""}</small></td>
-        <td>${q.juengstes ? esc(tagText(q.juengstes)) : "–"}<small>${q.treffer == null ? "" : q.treffer + " Einträge beim letzten Abruf"}</small></td>
-        <td>${q.letzteNeu ? esc(tagText(q.letzteNeu.am.slice(0, 10))) : "–"}<small>${q.letzteNeu ? esc(q.letzteNeu.titel) : "seit Beobachtungsbeginn nichts Neues"}</small></td>
-        <td class="z">${q.neu7}</td><td class="z">${q.neu30}</td><td>${s ? esc(PROBE[s.ergebnis] || s.ergebnis) + `<small>${esc(tagText(s.am))}${s.notiz ? " – " + esc(s.notiz) : ""}</small>` : `<small>noch nicht dran</small>`}</td></tr>`; })] : []; }).join("");
+        <td data-l="Jüngster Eintrag dort">${q.juengstes ? esc(tagText(q.juengstes)) : "–"}<small>${q.treffer == null ? "" : q.treffer + " Einträge beim letzten Abruf"}</small></td>
+        <td data-l="Zuletzt Neues bei uns">${q.letzteNeu ? esc(tagText(q.letzteNeu.am.slice(0, 10))) : "–"}<small>${q.letzteNeu ? esc(q.letzteNeu.titel) : "seit Beobachtungsbeginn nichts Neues"}</small></td>
+        <td class="z" data-l="7 Tage">${q.neu7}</td><td class="z" data-l="30 Tage">${q.neu30}</td><td data-l="Gegenprobe von Hand">${s ? esc(PROBE[s.ergebnis] || s.ergebnis) + `<small>${esc(tagText(s.am))}${s.notiz ? " – " + esc(s.notiz) : ""}</small>` : `<small>noch nicht dran</small>`}</td></tr>`; })] : []; }).join("");
     const rest = [z.auffaellig && z.auffaellig + " auffällig", z.gestoert && z.gestoert + " gestört", z.still && z.still + " still"].filter(Boolean);
     kachel("quellen", `${z.ok} von ${z.ok + z.auffaellig + z.gestoert + z.still} in Ordnung`, rest.length ? rest.join(" · ") : "alle liefern", z.gestoert ? "stoerung" : rest.length ? "achtung" : "gut");
-    $("#k-inhalt").innerHTML = `<div class="raster" style="margin-bottom:12px">
+    $("#k-inhalt").innerHTML = `<div class="raster abstand">
       <div class="karte zahl"><b>${z.ok}</b><span><span class="ampel"></span>in Ordnung</span></div>
       <div class="karte zahl"><b>${z.auffaellig}</b><span><span class="ampel auffaellig"></span>auffällig</span><i>Fehler oder ungewöhnlich wenig beim letzten Abruf</i></div>
       <div class="karte zahl"><b>${z.gestoert}</b><span><span class="ampel gestoert"></span>gestört</span><i>scheitert seit mehreren Abrufen</i></div>
@@ -740,8 +932,8 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
   }
 
   /* ---------- Notion-Abgleich ---------- */
-  const GRUND = { rubrik: "Diese Rubrik ruft GitHub nicht ab.", alt: "War beim Eintrag in Notion älter als drei Tage – so etwas übernimmt der Abruf bewusst nicht.", unklar: "Hätte GitHub sehen müssen – genauer ansehen." };
-  const GRUND_KURZ = { rubrik: "Rubrik wird nicht abgerufen", alt: "älter als drei Tage", quelle: "Quelle nicht im Abruf", unklar: "unerklärt", offen: "noch offen – kam nach dem letzten Abruf, wird morgen nachgeprüft" };
+  const GRUND = { rubrik: "Diese Rubrik ruft GitHub nicht ab.", alt: "War beim Eintrag in Notion älter als drei Tage – so etwas übernimmt der Abruf bewusst nicht.", ausfall: "Der Server dieser Quelle hat GitHub in dieser Zeit mehrfach nicht hereingelassen. Solche Seiten holt der Abruf jetzt über einen Umweg.", unklar: "Hätte GitHub sehen müssen – genauer ansehen." };
+  const GRUND_KURZ = { rubrik: "Rubrik wird nicht abgerufen", alt: "älter als drei Tage", ausfall: "Server war für GitHub zeitweise nicht erreichbar", quelle: "Quelle nicht im Abruf", unklar: "unerklärt", offen: "noch offen – kam nach dem letzten Abruf, wird morgen nachgeprüft" };
   const uhrzeit = z => new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(new Date(z)).replace(/^0(?=\d)/, "");
   const fensterText = t => { if (!t.von || !t.bis) return "ganzer Tag"; const s = Math.round((Date.parse(t.bis) - Date.parse(t.von)) / 36e5), u = uhrzeit(t.bis); return u === "0:00" && s === 24 ? "ganzer Tag" : `${s} Std. bis ${u} Uhr`; };
   const mitte = a => { const s = a.filter(x => x != null).sort((x, y) => x - y), m = s.length >> 1; return s.length ? (s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2) : null; };
@@ -759,14 +951,14 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     const tage = d.tage.map(t => `<details><summary><b>${esc(tagText(t.tag, { weekday: "short", day: "numeric", month: "short" }))}</b><span>${esc(fensterText(t))}</span><span>${t.erfasst} von ${t.notion} erfasst</span><span${t.fehlt ? ' style="color:var(--tinte)"' : ""}>${t.fehlt} ${t.fehlt === 1 ? "fehlt" : "fehlen"}</span>${t.offen ? `<span>${t.offen} noch offen</span>` : ""}${t.vorlaeufig ? `<span class="marke" title="wird am nächsten Morgen noch einmal geprüft">vorläufig</span>` : ""}<span class="anteil" aria-hidden="true"><i style="flex:${t.erfasst}"></i><i style="flex:${t.fehlt}"></i></span></summary>
       <div class="ress"><div class="rollen"><table class="tab"><thead><tr><th>Quelle</th><th>in Notion</th><th>erfasst</th><th>fehlt</th><th title="Meldungen derselben Quellen, die nur GitHub hat">nur bei GitHub</th></tr></thead>
         <tbody>${t.quellen.map(q => `<tr><td>${esc(q.name)}</td><td>${q.notion || "–"}</td><td>${q.erfasst || "–"}</td><td>${q.fehlt || "–"}${q.offen ? ` <span style="color:var(--leise)">+ ${q.offen} offen</span>` : ""}</td><td>${q.zusaetzlich || "–"}</td></tr>`).join("")}</tbody></table></div>
-        ${t.fehlend.length ? `<ul class="fehlt">${t.fehlend.map(f => `<li><i class="punkt ${f.grund === "unklar" ? "stoerung" : f.grund === "offen" ? "" : "achtung"}"></i><a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.titel)}</a><small>${esc(f.quelle)} · ${esc(GRUND_KURZ[f.grund] || f.grund)}${f.rubrikName ? " (" + esc(f.rubrikName) + ")" : ""} · in Notion seit ${esc(uhr(f.zeit))}</small></li>`).join("")}</ul>` : ""}</div></details>`).join("");
+        ${t.fehlend.length ? `<ul class="fehlt">${t.fehlend.map(f => `<li><i class="punkt ${f.erledigt ? "gut" : f.grund === "unklar" ? "stoerung" : f.grund === "offen" ? "" : "achtung"}"></i><a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">${esc(f.titel)}</a><small>${esc(f.quelle)} · ${esc(f.erledigt ? "Rubrik inzwischen im Abruf" : GRUND_KURZ[f.grund] || f.grund)}${f.rubrikName ? " (" + esc(f.rubrikName) + ")" : ""} · in Notion seit ${esc(uhr(f.zeit))}</small></li>`).join("")}</ul>` : ""}</div></details>`).join("");
     $("#n-inhalt").innerHTML = `<div class="raster">${wartet ? `<div class="karte hinweis breit"><p><b>Der tägliche Abgleich wartet auf den Notion-Zugang.</b></p><p class="leer">${esc(d.hinweis || "")} Bis dahin steht hier der von Hand geprüfte Stand.</p></div>` : ""}
       <div class="karte zahl"><b>${zahl(anteil * 100)} %</b><span>von GitHub erfasst</span><i>${zahl(g.erfasst)} von ${zahl(basis)} Artikeln · ${g.tage} ${g.tage === 1 ? "Tag" : "Tage"} geprüft</i></div>
       <div class="karte zahl"><b>${zahl(g.fehlt)}</b><span>${g.fehlt === 1 ? "Artikel fehlt" : "Artikel fehlen"} bei GitHub</span><i>${g.fehlt ? (unklar ? unklar + " davon unerklärt" : "alle erklärbar, siehe unten") : "nichts"}${g.offen ? " · " + g.offen + " noch offen" : ""}</i></div>
       <div class="karte zahl"><b>${vors == null ? "–" : dauer(vors)}</b><span>${vors != null && vors < 0 ? "später als Notion" : "früher als Notion"}</span><i>So viel ${vors != null && vors < 0 ? "später" : "früher"} hatte GitHub die Artikel, im Mittel.</i></div>
       <div class="karte breit"><h3>Was fehlt und warum</h3>${luecken}</div></div>
       <div class="vgl">${tage}</div>
-      <p class="leer" style="font-size:13px;margin-top:10px">${vorbei ? "Abgeschlossen." : "Läuft bis zum 6. Dezember. Jeder Zeitraum endet mit dem nächtlichen Abruf von GitHub (meist gegen 4:35 Uhr) und wird am nächsten Morgen noch einmal geprüft."}${g.zusaetzlich ? ` Dazu fand GitHub ${zahl(g.zusaetzlich)} Meldungen derselben Quellen, die nicht in Notion stehen.` : ""} Stand: ${esc(new Date(d.stand).toLocaleString("de-DE", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))} Uhr.</p>`;
+      <p class="leer nachsatz">${vorbei ? "Abgeschlossen." : "Läuft bis zum 6. Dezember. Jeder Zeitraum endet mit dem nächtlichen Abruf von GitHub (meist gegen 4:35 Uhr) und wird am nächsten Morgen noch einmal geprüft."}${g.zusaetzlich ? ` Dazu fand GitHub ${zahl(g.zusaetzlich)} Meldungen derselben Quellen, die nicht in Notion stehen.` : ""} Stand: ${esc(new Date(d.stand).toLocaleString("de-DE", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))} Uhr.</p>`;
   }
 
   /* ---------- Leiste: zeigt, wo man gerade ist ---------- */
@@ -790,7 +982,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
   let THEMEN = [], PFOLGEN = null, BESETZUNG = null, bearbeite = null;
   const gaeste = () => Object.entries((BESETZUNG && BESETZUNG.figuren) || {}).filter(([k]) => k !== ((BESETZUNG && BESETZUNG.gastgeber) || "JONAS"));
   const gastName = k => { const f = ((BESETZUNG && BESETZUNG.figuren) || {})[k]; return f ? `${f.name} · ${f.rolle}` : k; };
-  const gastWahl = wert => `<label>Gast bei Jonas <small>(wer aus dem Jugendamt mitredet)</small><select name="gast"><option value="">passend zum Thema – wählt die Redaktion</option>${gaeste().map(([k, f]) => `<option value="${esc(k)}"${k === wert ? " selected" : ""}>${esc(f.name)} – ${esc(f.rolle)}</option>`).join("")}</select></label>`;
+  const gastWahl = wert => `<label>Moderiert mit Jonas <small>(wer aus dem Jugendamt mitmoderiert)</small><select name="gast"><option value="">passend zum Thema – wählt die Redaktion</option>${gaeste().map(([k, f]) => `<option value="${esc(k)}"${k === wert ? " selected" : ""}>${esc(f.name)} – ${esc(f.rolle)}</option>`).join("")}</select></label>`;
   const naechsterMontag = () => { const d = new Date(HEUTE + "T12:00:00"); d.setDate(d.getDate() + (((8 - d.getDay()) % 7) || 7)); return iso(d); };
   const plusWochen = (tag, n) => { const d = new Date(tag + "T12:00:00"); d.setDate(d.getDate() + 7 * n); return iso(d); };
   const kurzTag = t => tagText(t, { weekday: "short", day: "numeric", month: "short" });
@@ -810,7 +1002,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
         ${gastWahl(t.gast || "")}
         <div class="fuss"><button type="submit">Speichern</button><button type="button" class="leicht" data-p="abbrechen">Abbrechen</button></div></form>`;
       return `<div class="karte breit pthema abgegeben" data-id="${esc(t.id)}">
-        <p style="margin:0"><span class="marke${i === 0 ? " gruen" : ""}">${esc(wann)}${i === 0 ? " · als Nächstes" : ""}</span><span class="marke">${t.gast ? "mit " + esc(gastName(t.gast)) : "Gast passend zum Thema"}</span><span class="marke">gespeichert ${esc(uhrUndTag(t.geaendert || t.erstellt))}</span></p>
+        <p style="margin:0"><span class="marke${i === 0 ? " gruen" : ""}">${esc(wann)}${i === 0 ? " · als Nächstes" : ""}</span><span class="marke">${t.gast ? "mit " + esc(gastName(t.gast)) : "Mitmoderation passend zum Thema"}</span><span class="marke">gespeichert ${esc(uhrUndTag(t.geaendert || t.erstellt))}</span></p>
         <h3 class="pt-titel">${esc(t.thema)}</h3>
         ${t.anweisungen ? `<p class="pt-anw">${esc(t.anweisungen)}</p>` : `<p class="pt-anw leer">Keine Anweisungen – die Redaktion folgt dem Leitfaden.</p>`}
         <div class="fuss"><button type="button" class="leicht" data-p="hoch" aria-label="Früher drankommen" title="Früher drankommen"${i === 0 ? " disabled" : ""}>↑</button><button type="button" class="leicht" data-p="runter" aria-label="Später drankommen" title="Später drankommen"${i === offen.length - 1 ? " disabled" : ""}>↓</button><button type="button" class="leicht" data-p="bearbeiten">Bearbeiten</button><button type="button" class="leicht" data-p="loeschen">Löschen</button></div></div>`;
@@ -821,7 +1013,7 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
       <form class="karte breit pthema neu" data-id="">
         <p style="margin:0"><span class="marke">Neues Thema</span><span class="marke">kommt ans Ende · ${esc(kurzTag(plusWochen(m, offen.length)))}</span></p>
         <label>Thema<input name="thema" maxlength="300" autocomplete="off" placeholder="z. B. Neue Zahlen zu Inobhutnahmen – was heißt das für die Planung?"></label>
-        <label>Anweisungen an die KI <small>(freiwillig)</small><textarea name="anweisungen" maxlength="3000" placeholder="z. B. Schwerpunkt Rheinland-Pfalz, die Landesstatistik einbeziehen, eher kritisch, der Gast soll erklären, wie der Bereitschaftsdienst abläuft …"></textarea></label>
+        <label>Anweisungen an die KI <small>(freiwillig)</small><textarea name="anweisungen" maxlength="3000" placeholder="z. B. Schwerpunkt Rheinland-Pfalz, die Landesstatistik einbeziehen, eher kritisch, Mira soll erklären, wie der Bereitschaftsdienst abläuft …"></textarea></label>
         ${gastWahl("")}
         <div class="fuss"><button type="submit">Zur Liste hinzufügen</button></div>
         <p class="klein">Jeden Montag um 2 Uhr nimmt die Redaktion das oberste Thema – Änderungen bis Sonntagabend kommen sicher an. Die Anweisungen befolgt sie, soweit sie mit dem Leitfaden vereinbar sind; Richtigkeit geht immer vor. Themen und Anweisungen werden im öffentlichen Repository gespeichert (daten/podcast-themen.json) und sind dort lesbar.</p>
@@ -873,9 +1065,9 @@ button.leicht[aria-pressed=true]{background:var(--tinte);color:#fbfaf7;border-co
     kachel("ablauf", status && status.stand ? new Date(status.stand).toLocaleString("de-DE", { weekday: "short", hour: "2-digit", minute: "2-digit" }) + " Uhr" : "unbekannt",
       "jüngste Ausgabe: " + (ausgaben && ausgaben.ausgaben[0] ? tagText(ausgaben.ausgaben[0].datum, { weekday: "short", day: "numeric", month: "short" }) : "unbekannt"), alter == null || alter > 7 ? "achtung" : "gut");
     $("#a-stand").innerHTML = `
-      <div class="karte zahl"><span>Letzter Quellenabruf</span><b style="font-size:19px;margin-top:2px">${esc(wann(status && status.stand))}</b></div>
-      <div class="karte zahl"><span>Jüngste Ausgabe</span><b style="font-size:19px;margin-top:2px">${esc(ausgaben && ausgaben.ausgaben[0] ? tagText(ausgaben.ausgaben[0].datum, { weekday: "long", day: "numeric", month: "long" }) : "unbekannt")}</b></div>
-      <div class="karte zahl"><span>Quellen</span><b style="font-size:19px;margin-top:2px">${aktiv || (Array.isArray(ql) ? ql.length : "?")} aktiv${gestoert ? ` · ${gestoert} gestört` : ""}</b><i>${schnell.length ? "stündlich: " + esc(schnell.map(s => s.name + " (" + s.u.replace(/^https?:\/\/[^/]+/, "").replace(/\/$/, "") + ")").join(", ")) : "kein Feed im stündlichen Abruf"}</i></div>`;
+      <div class="karte zahl text"><span>Letzter Quellenabruf</span><b>${esc(wann(status && status.stand))}</b></div>
+      <div class="karte zahl text"><span>Jüngste Ausgabe</span><b>${esc(ausgaben && ausgaben.ausgaben[0] ? tagText(ausgaben.ausgaben[0].datum, { weekday: "long", day: "numeric", month: "long" }) : "unbekannt")}</b></div>
+      <div class="karte zahl text"><span>Quellen</span><b>${aktiv || (Array.isArray(ql) ? ql.length : "?")} aktiv${gestoert ? ` · ${gestoert} gestört` : ""}</b><i>${schnell.length ? "stündlich: " + esc(schnell.map(s => s.name + " (" + s.u.replace(/^https?:\/\/[^/]+/, "").replace(/\/$/, "") + ")").join(", ")) : "kein Feed im stündlichen Abruf"}</i></div>`;
     const dreier = [2, 5, 8, 11, 14, 17, 20].map(h => h + 1 + 47 / 60), stuendlich = Array.from({ length: 19 }, (_, i) => i + 5 + 17 / 60);
     const zeilen = [
       ["Quellen abrufen", `alle drei Stunden, täglich – ${aktiv || "alle"} Quellen, Neues kommt in den Pool`, "GitHub", dreier, "var(--tinte)"],

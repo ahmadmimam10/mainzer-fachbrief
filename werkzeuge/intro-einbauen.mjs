@@ -360,6 +360,11 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-turm g{transform-box:view-box;animation:i-dom 1.7s cubic-bezier(.22,.61,.36,1) .65s both}
 .i-turm .i-dunkel{fill:#2f2b2b}
 .i-fenster path{fill:var(--f,#f6eedd);animation:i-fenster .9s cubic-bezier(.3,.6,.3,1) calc(1.75s + var(--v)) both}
+/* Nur etwa die Hälfte der Fenster leuchtet, der Rest ist dunkelgrau; alle paar Sekunden geht eines an oder aus (docs/blatt/rahmen.js):
+   .aus = von Anfang an dunkel, .dunkel = geht gerade aus, .an = geht gerade an */
+.i-l.i-fenster path.aus{fill:#57524d;animation:i-ein 1.2s ease 1.3s both}
+.i-l.i-fenster path.dunkel{fill:#57524d;animation:none;transition:fill 2.6s ease}
+.i-l.i-fenster path.an{animation:i-licht 1.9s ease both}
 .i-sonne path{fill:#cf073d;transform-box:view-box;animation:i-sonne 3.4s cubic-bezier(.22,.61,.36,1) .3s both}
 .i-zl svg,.i-zr svg{fill:#151414;transform-origin:50% 75%}
 .i-zl svg{animation:i-blatt 1.6s cubic-bezier(.22,.61,.36,1) .15s both}
@@ -401,9 +406,24 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-unter span{display:inline-block;white-space:nowrap;letter-spacing:.02em;animation:i-unter 1s cubic-bezier(.16,1,.3,1) 2.4s both}
 .i-unter::before,.i-unter::after{content:"";width:clamp(0px,calc((100vw - 380px) * .3),34px);height:1px;background:#a8a093;animation:i-strich .8s cubic-bezier(.16,1,.3,1) 2.6s both}
 .i-unter::before{transform-origin:100% 50%}.i-unter::after{transform-origin:0 50%}
-.i-weiter{position:absolute;z-index:3;left:50%;bottom:max(18px,env(safe-area-inset-bottom));display:inline-flex;flex-direction:column;align-items:center;gap:4px;
-  padding:8px 14px;border:0;background:none;color:#5d584f;font:600 13px/1 var(--sans);letter-spacing:.04em;cursor:pointer;
-  transform:translateX(-50%);opacity:calc(1 - var(--ip,0) * 6);animation:i-ein .6s ease 2.9s both}
+/* Fachbereichswahl: drei Knöpfe am unteren Rand. Der gewählte fliegt bei der Fahrt nach unten mit und landet als aktiver Reiter. */
+.i-wahl{position:absolute;z-index:3;left:0;right:0;bottom:max(12px,env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;gap:6px;padding:0 12px;
+  opacity:calc(1 - var(--ip,0) * 6);pointer-events:none}
+.i-wahl>*{pointer-events:auto}
+.i-wahl-reihe{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.i-wahl-reihe button,.i-flug{display:inline-flex;align-items:center;gap:8px;padding:10px 17px 10px 11px;border:0;border-radius:999px;background:rgba(255,253,248,.9);color:#1f1c18;
+  font:600 15.5px/1 "Bricolage Grotesque",var(--sans);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 0 0 1px rgba(31,28,24,.07),0 10px 24px -16px rgba(40,30,20,.6)}
+.i-wahl-reihe button{cursor:pointer;animation:i-wahl .8s cubic-bezier(.2,1.25,.3,1) calc(2.75s + var(--nr) * .11s) both;transition:background .3s,color .3s,translate .35s cubic-bezier(.3,1.7,.5,1),opacity .5s}
+.i-wahl-reihe button i,.i-flug i{flex:none;width:24px;aspect-ratio:1;background:currentColor;-webkit-mask:var(--bild) center/contain no-repeat;mask:var(--bild) center/contain no-repeat}
+.i-wahl-reihe button:hover,.i-wahl-reihe button:focus-visible{background:#1f1c18;color:#f6f4ef;translate:0 -2px}
+.i-wahl.gewaehlt .i-wahl-reihe button{opacity:0;pointer-events:none}.i-wahl.gewaehlt .i-weiter{opacity:0}
+.i-flug{position:fixed;z-index:40;left:0;top:0;margin:0;pointer-events:none;transform-origin:0 0;will-change:transform;transition:background-color 1s ease .5s,color 1s ease .5s}
+.i-flug.faerbt{background:var(--zf,#1f1c18);color:var(--zt,#f6f4ef)}
+@keyframes i-wahl{from{opacity:0;transform:translateY(16px)}}
+@media (max-width:560px){.i-wahl-reihe{gap:7px}.i-wahl-reihe button,.i-flug{padding:9px 14px 9px 9px;font-size:14.5px}.i-wahl-reihe button i,.i-flug i{width:21px}}
+.i-weiter{display:inline-flex;flex-direction:column;align-items:center;gap:2px;
+  padding:6px 14px 2px;border:0;background:none;color:#5d584f;font:600 12.5px/1 var(--sans);letter-spacing:.04em;cursor:pointer;
+  transition:opacity .4s;animation:i-ein .6s ease 3.2s both}
 .i-weiter i{font-style:normal;font-size:20px;animation:i-wippen 1.8s ease-in-out 3.5s infinite}
 .intro.fertig *,.intro.fertig *::before,.intro.fertig *::after{animation:none!important}
 @keyframes i-aus{from{opacity:1}}
@@ -424,6 +444,7 @@ ${FEST_CSS}
 @keyframes i-drehen{to{transform:rotate(360deg)}}
 @keyframes i-sonne{from{transform:translateY(44px)}}
 @keyframes i-fenster{0%{opacity:0;fill:#fffdf8}35%{opacity:1;fill:#fffdf8}100%{opacity:1}}
+@keyframes i-licht{0%{fill:#57524d}32%{fill:#fffdf8}}
 @keyframes i-dom{from{transform:translateY(3px);opacity:0}}
 @keyframes i-blatt{from{transform:translateY(3.5%);opacity:0}}
 @keyframes i-flug{0%{transform:translate(calc(var(--L) * var(--x0)),calc(var(--L) * var(--y0))) scale(1);opacity:0}7%{opacity:1}86%{opacity:1}100%{transform:translate(0,0) scale(.3);opacity:0}}
@@ -473,7 +494,8 @@ const html = `<!-- INTRO-START -->
   </div>
   ${FEST_BUEHNE}
   <div class="i-nieder" aria-hidden="true"><div class="i-wieg"><div class="n n1"></div><div class="n n2"></div><div class="n n5"></div><div class="n n3"></div><div class="n n4"></div></div></div>
-  <button type="button" class="i-weiter">Zur Ausgabe<i aria-hidden="true">↓</i></button>
+  <nav class="i-wahl" aria-label="Fachbereich wählen"><div class="i-wahl-reihe">${[["jugendhilfeplanung", "Jugendhilfeplanung", "stadtplan"], ["fruehe-hilfen", "Fachstelle", "haende"], ["quartiersmanagement", "Quartiermanagement", "parkbank"]].map(([id, name, bild], i) => `<button type="button" data-r="${id}" style="--nr:${i};--bild:url(bilder/motive/${bild}.webp)"><i aria-hidden="true"></i>${name}</button>`).join("")}</div>
+    <button type="button" class="i-weiter" aria-label="Zur Ausgabe"><i aria-hidden="true">↓</i></button></nav>
  </div>
  <div class="i-traeger" aria-hidden="true"><div class="i-platz">
       <div class="i-l i-sonne i-vorn"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont2"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont2)"><path d="M9.6 77.5a54.4 54.4 0 0 1 108.8 0Z"/></g></svg></div>
@@ -555,7 +577,7 @@ const html = `<!-- INTRO-START -->
   // Bühne steht fest (die Bühne klebt am Fenster), der Platz in der Kopfzeile wandert genau mit der Scrollhöhe.
   const messen = () => {
     if (!intro.isConnected || fertig) return;
-    bild = bild || document.querySelector("#kopf .marke img.logo-hell"); if (!bild) return;
+    bild = bild || document.querySelector("#kopf .marke .logo-hell"); if (!bild) return;
     const a = logo.getBoundingClientRect(), b = buehne.getBoundingClientRect(), z = bild.getBoundingClientRect(), i = intro.getBoundingClientRect();
     geo = { aw: a.width, al: a.left - b.left, at: a.top - b.top, ax: a.left - b.left + a.width / 2, ay: a.top - b.top + a.height / 2,
       zx: z.left + z.height / 2 - b.left, zy: z.top + z.height / 2 + scrollY, zh: z.height, strecke: strecke() };
@@ -605,22 +627,49 @@ const html = `<!-- INTRO-START -->
   // Wer am Intro auf Dunkel schaltet, bekommt die Ausgabe ohne Intro (die Szene gibt es nur hell).
   new MutationObserver(() => {
     if (document.documentElement.dataset.thema !== "dunkel" || !intro.isConnected) return;
-    const bild = document.querySelector("#kopf .marke img.logo-hell"); if (bild) bild.style.clipPath = bild.style.opacity = "";
+    const bild = document.querySelector("#kopf .marke .logo-hell"); if (bild) bild.style.clipPath = bild.style.opacity = "";
     const rest = Math.max(0, scrollY - strecke()); intro.remove(); scrollTo(0, rest);
   }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-thema"] });
   // „Zur Ausgabe“: eine einzige ruhige Fahrt bis genau an den Anfang der Ausgabe. Wer dabei selbst scrollt, übernimmt.
   const halt = () => { if (fahrt) { cancelAnimationFrame(fahrt); fahrt = 0; if (fertig) { clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); } } };
   addEventListener("wheel", halt, { passive: true }); addEventListener("touchstart", halt, { passive: true });
-  intro.querySelector(".i-weiter").addEventListener("click", () => {
-    if (fahrt || fertig) return; if (!geo) messen();
-    const von = scrollY, bis = strecke(), t0 = performance.now(), dauer = 1400;
+  const kurve = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  const fahre = (dauer, unterwegs) => {
+    if (fahrt || fertig) return false; if (!geo) messen();
+    const von = scrollY, bis = strecke(), t0 = performance.now();
     const schritt = jetzt => {
       if (!intro.isConnected) { fahrt = 0; return; }
       const x = grenze((jetzt - t0) / dauer);
-      scrollTo(0, von + (bis - von) * (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2));
+      scrollTo(0, von + (bis - von) * kurve(x)); if (unterwegs) unterwegs(x);
       if (x < 1) fahrt = requestAnimationFrame(schritt); else { fahrt = 0; clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }
     };
-    fahrt = requestAnimationFrame(schritt);
+    fahrt = requestAnimationFrame(schritt); return true;
+  };
+  intro.querySelector(".i-weiter").addEventListener("click", () => fahre(1400));
+  // Fachbereich im Startbild wählen: Die Ausgabe stellt sich auf den Bereich ein (Ereignis „boni-bereich“, blatt/bb.js), dann
+  // fährt die Seite hinunter. Der gewählte Knopf fliegt als Kopie mit und landet genau auf seinem Reiter in der Ausgabe.
+  const wahl = intro.querySelector(".i-wahl");
+  wahl.addEventListener("click", e => {
+    const k = e.target.closest("button[data-r]"); if (!k || fahrt || fertig) return;
+    window.BONI_START = k.dataset.r; document.dispatchEvent(new CustomEvent("boni-bereich", { detail: k.dataset.r }));
+    const a = k.getBoundingClientRect(), flug = document.createElement("div"); flug.className = "i-flug"; flug.innerHTML = k.innerHTML; flug.style.cssText = k.style.cssText;
+    // Zielfarbe = Farbe des Bereichs in der Ausgabe (Rollen wie in blatt/bb.css: Bereich 1 → Farbe 1, 2 → 4, 3 → 3). Fest eingetragen, weil die
+    // Rollenfarbe --ra beim Umschalten selbst gerade umläuft – ein Übergang dorthin käme nie in Gang.
+    const ziel = document.getElementById("e"), fnr = [1, 4, 3, 2, 5][[...wahl.querySelectorAll("button[data-r]")].indexOf(k) % 5];
+    if (ziel) { const cs = getComputedStyle(ziel), zf = cs.getPropertyValue("--p" + fnr).trim(), zt = cs.getPropertyValue("--t" + fnr).trim(); if (zf) flug.style.setProperty("--zf", zf); if (zt) flug.style.setProperty("--zt", zt); }
+    (ziel || document.body).appendChild(flug); wahl.classList.add("gewaehlt"); requestAnimationFrame(() => requestAnimationFrame(() => flug.classList.add("faerbt")));
+    const setze = (x, y, g, o) => { flug.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px) scale(" + g.toFixed(4) + ")"; flug.style.opacity = o; };
+    setze(a.left, a.top, 1, 1);
+    const weg = () => { flug.remove(); };
+    const los = fahre(1700, x => {
+      // Ziel: der Reiter des Bereichs, so wie er am Ende der Fahrt im Fenster steht (er wandert mit der Seite nach oben)
+      const z = document.querySelector('#e .bb-reiter button[data-r="' + k.dataset.r + '"]'); if (!z) { setze(a.left, a.top, 1, 1 - x); return; }
+      const r = z.getBoundingClientRect(), rest = strecke() - scrollY, zy = r.top - rest, g = r.height / a.height, w = kurve(grenze(x * 1.04));
+      // leichter Bogen: erst ein kleines Stück nach oben, dann hinunter zum Reiter
+      setze(a.left + (r.left - a.left) * w, a.top + (zy - a.top) * w - Math.sin(Math.PI * x) * 26, 1 + (g - 1) * w, x > .9 ? (1 - x) / .1 : 1);
+      if (x >= 1) weg();
+    });
+    if (!los) weg(); else { const ab = () => { if (!fahrt) { flug.style.transition = "opacity .3s"; flug.style.opacity = 0; setTimeout(weg, 320); } }; addEventListener("wheel", ab, { passive: true, once: true }); addEventListener("touchstart", ab, { passive: true, once: true }); }
   });
   messen(); addEventListener("DOMContentLoaded", messen); addEventListener("load", messen);
   // Lädt die Titelschrift nach, verschiebt sich die Logofläche auf der Bühne um ein paar Pixel – der Träger zieht sofort nach.

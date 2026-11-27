@@ -3,7 +3,7 @@ const E = (() => {
   const RESSORTS = [
     { id: "jugendhilfeplanung", lang: "Jugendhilfeplanung", kurz: "Planung", zwei: ["Jugendhilfe-", "planung"] },
     { id: "fruehe-hilfen", lang: "Frühe Hilfen & Kinderschutz", kurz: "Frühe Hilfen", zwei: ["Frühe Hilfen &", "Kinderschutz"] },
-    { id: "quartiersmanagement", lang: "Quartiersmanagement", kurz: "Quartier", zwei: ["Quartiers-", "management"] },
+    { id: "quartiersmanagement", lang: "Quartiermanagement", kurz: "Quartier", zwei: ["Quartier-", "management"] },
   ];
   const q = new URLSearchParams(location.search);
   const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));

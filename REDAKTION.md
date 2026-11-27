@@ -1,7 +1,7 @@
 # Redaktionsanleitung – Mainzer Boniblatt
 
 Diese Datei ist die verbindliche Arbeitsanweisung für die werktägliche Morgenausgabe. Sie ersetzt die drei
-DeepSeek-Prompts aus den früheren Make-Szenarien (Jugendhilfeplanung, Frühe Hilfen, Quartiersmanagement)
+DeepSeek-Prompts aus den früheren Make-Szenarien (Jugendhilfeplanung, Frühe Hilfen, Quartiermanagement)
 und übernimmt deren fachliche Kriterien.
 
 Ziel: Fachkräfte öffnen morgens eine Seite und erkennen in einer Minute, **was heute wichtig ist, worum es
@@ -126,8 +126,8 @@ Schutzkonzepte, niedrigschwellige Zugänge, neue gesetzliche Entwicklungen.
 Nicht aufnehmen: allgemeine Jugendhilfethemen ohne diesen Fokus (Jugendhilfeplanung, Inobhutnahme, Sucht,
 Schulsozialarbeit …) und Einzelfälle ohne strukturelle Bedeutung.
 
-### 3. Quartiersmanagement (`quartiersmanagement`)
-Leser:in ist Quartiersmanager:in. Das Quartiersmanagement begleitet Projekte und (Bau-)Maßnahmen des Programms
+### 3. Quartiermanagement (`quartiersmanagement`)
+Leser:in ist Quartiermanager:in. Das Quartiermanagement begleitet Projekte und (Bau-)Maßnahmen des Programms
 Soziale Stadt | Sozialer Zusammenhalt in den Mainzer Stadtteilen **Lerchenberg, Neustadt, Mombach und
 Hartenberg-Münchfeld** – als Schnittstelle zwischen Verwaltung, Politik, Stadtteilakteuren und Bewohnerschaft.
 
@@ -147,7 +147,7 @@ Quartiersentwicklung, etwa Leerstand, Nahversorgung, Treffpunkte im Stadtteil od
 ## Auswahlregeln
 
 - **Höchstens 12 Meldungen je Ressort.** Lieber 5 starke als 12 mittelmäßige. Mindestens: Jugendhilfeplanung 1,
-  Frühe Hilfen 1, Quartiersmanagement 3 – aber nur, wenn es passende Kandidaten gibt. Nichts erzwingen.
+  Frühe Hilfen 1, Quartiermanagement 3 – aber nur, wenn es passende Kandidaten gibt. Nichts erzwingen.
 - **Allgemeine Zeitung (Mainz)** ist eine wichtige Quelle – aber nur bei echtem fachlichen Bezug. Nicht
   „irgendetwas“ aus der AZ nehmen, nur weil sie wichtig ist. Gleiches gilt für Spiegel und SWR.
 - **JAdigital**: Taucht ein JAdigital-Newsletter auf, immer in Jugendhilfeplanung und Frühe Hilfen aufnehmen
@@ -203,7 +203,7 @@ Je Ressort, in dieser Reihenfolge in der Liste:
   | `familie` | Familie und Familienpolitik, Eltern, Familienbildung, Familienzentren, Familienleistungen (Unterhaltsvorschuss, Elterngeld, Kindergeld) |
   | `kita` | Kindertagesbetreuung: Kita, Krippe, Kindertagespflege, Kita-Fachkräfte, Kita-Gesetze |
   | `schule` | Schule und Bildung: Startchancen, Ganztag, Schulbau, Schulwege, Übergang Kita–Schule |
-  | `quartier` | Quartiersmanagement, Soziale Stadt / Sozialer Zusammenhalt, Städtebauförderung, Stadtteile und ihre Projekte |
+  | `quartier` | Quartiermanagement, Soziale Stadt / Sozialer Zusammenhalt, Städtebauförderung, Stadtteile und ihre Projekte |
   | `sozialraum` | Sozialraum und Stadtentwicklung: Sozialraumanalyse, Planung, Wohnen, Verkehr, Grün- und Freiflächen |
   | `gremien` | Stadtrat, Ausschüsse, Ortsbeiräte, Parlamente und Regierungen: Beschlüsse, Anträge, Anfragen |
   | `haushalt` | Haushalt und Finanzen: Etats, Förderprogramme, Zuschüsse, Kosten |
@@ -224,6 +224,9 @@ Stimmen im Wechsel: Mira, Jonas, Leonie, Ben; Ersatz: Azure); die Seite spielt s
 Optional, aber werktags für jedes Ressort mit Meldungen schreiben; Ressorts ohne Meldungen bekommen keine Hörfassung.
 Das frühere Feld `hoerfassung` auf oberster Ebene (ein Text für alle Ressorts) gilt nur noch für alte Ausgaben.
 
+- **Schreibweise:** Es heißt **„Quartiermanagement“ – ohne s** (auch „Quartiermanagerin“, „Quartiermanager“), in allen Texten der
+  Ausgabe und besonders in der Hörfassung, sonst spricht die Stimme das s mit. Nur die technische Kennung des Ressorts lautet
+  weiter `quartiersmanagement`.
 - **Länge:** höchstens 3 Minuten Sprechzeit, also etwa **250–400 Wörter**. `pruefen` verlangt 900–2800 Zeichen je Text.
 - **Jeder Text steht für sich** – wer nur ein Ressort hört, versteht alles ohne die anderen:
   1. ein einziger kurzer Einstiegssatz mit Datum und Ressort („Guten Morgen, hier ist das Mainzer Boniblatt für die
@@ -269,7 +272,7 @@ Leuten, die in Jugendamt, Sozialplanung und Quartiersarbeit arbeiten und über i
 Woran er anknüpfen kann, in dieser Reihenfolge der Vorliebe:
 
 1. eine Meldung der heutigen Ausgabe (Gesetz, Förderprogramm, Statistik, Sitzung),
-2. das Fach allgemein: Jugendhilfe, Jugendhilfeplanung, Frühe Hilfen, Quartiersmanagement, Soziale Stadt bzw. Sozialer
+2. das Fach allgemein: Jugendhilfe, Jugendhilfeplanung, Frühe Hilfen, Quartiermanagement, Soziale Stadt bzw. Sozialer
    Zusammenhalt (Abkürzungen, Fristen, Fallzahlen, Bedarfsplanung, Verfügungsfonds, Gremien, Fördermittelabruf),
 3. Wetter, Wochentag oder ein besonderer Tag (steht in der Lage).
 
@@ -320,8 +323,16 @@ Champions-League-Spiele. Der Mannschaftsname muss im `titel` genau so stehen: �
 „Ägypten“. Anstoß immer in deutscher Zeit (Europe/Berlin); `ort` nennt den Wettbewerb.
 
 **Dazu aus dem Rhein-Main-Gebiet** – Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim und Umgebung: Feste, Märkte,
-Konzerte, Kino- und Theaterabende mit breitem Publikum, Neueröffnungen, Angebote
-für Familien. Nichts Nischiges, keine abseitigen Kunst-Veranstaltungen, keine Werbung, keine Dauerangebote ohne Anlass.
+Sport zum Zuschauen oder Mitmachen, Angebote für Familien, Essen und Wein, Neueröffnungen, Kino, Ausstellungen, Flohmärkte –
+und ein wenig Bühne. Nichts Nischiges, keine abseitigen Kunst-Veranstaltungen, keine Werbung, keine Dauerangebote ohne Anlass.
+
+**Immer eine gute Mischung** (Rückmeldung des Herausgebers vom 27.11.2026: „nicht so viel Theater und Konzerte – ein bisschen,
+aber nicht zu viel“): Konzerte (`musik`) und Theater-, Kabarett- oder Comedy-Abende (`theater`) kommen **zusammen höchstens
+zweimal** vor, und dann nur große, bekannte Namen oder Häuser. Jede andere Art höchstens dreimal (Fußball ausgenommen). Bei acht
+und mehr Einträgen mindestens vier verschiedene Arten. Die Liste soll sich lesen wie ein bunter Wochenplan – Markt, Fest, Spiel,
+etwas für Kinder, etwas zu essen, etwas Neues –, nicht wie der Spielplan eines Ticketportals. Deshalb nicht alles aus einer
+Fundstelle holen: Wer bei mvp.de oder eventim.de anfängt, landet fast nur bei Konzerten und Kabarett; zuerst die Kalender der
+Städte, Stadtteile und Vereine ansehen. `redaktion.mjs` prüft die Obergrenzen und lehnt eine Liste mit zu viel Bühne ab.
 
 **Spiele-Neuheiten** (`art: "spiel"`): große Videospiel-Veröffentlichungen der 7 Tage – nur Titel, über die breit berichtet
 wird (große Reihen, viel erwartete Neuheiten), höchstens zwei je Ausgabe. `tag` ist der Erscheinungstag, `titel` der Name
@@ -404,7 +415,7 @@ Stadtrat 14 Tage) – ohne Obergrenze, die drei Kern-Gremien zuerst.
 - Maßstab: **Jugendhilfeplanung** – Jugendhilfeausschuss, Haushalt der Jugendhilfe, Kita-Bedarfsplanung und
   Kita-Plätze, Schule und Bildung, Sozialraumanalyse, Integration und anderes mit städtischer Tragweite.
   **Frühe Hilfen** – Kinderschutz, Schutzkonzepte, Frühe Hilfen, Familienbildung und Familienzentren.
-  **Quartiersmanagement** – die vier Stadtteile Lerchenberg, Neustadt, Mombach, Hartenberg-Münchfeld (auch ihre
+  **Quartiermanagement** – die vier Stadtteile Lerchenberg, Neustadt, Mombach, Hartenberg-Münchfeld (auch ihre
   Ortsbeiräte), Soziale Stadt / Sozialer Zusammenhalt, Städtebauförderung, Sozialraumanalyse. Ortsbeiräte anderer
   Stadtteile nur bei ausdrücklichem Bezug.
 - `vorschau: true` – die Notiz beruht nur auf der Tagesordnung (kommende Sitzung oder noch keine Ergebnisse

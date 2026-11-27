@@ -21,7 +21,7 @@ const DIENST = "https://boniblatt-bestenliste.ahmadmimam10.workers.dev";
 const argv = process.argv.slice(2), befehl = argv.find(a => !a.startsWith("--")) || "abgleich";
 const wert = n => (argv.find(a => a.startsWith(`--${n}=`)) || "").split("=")[1] || "";
 const ALS_JSON = argv.includes("--json");
-const RESSORT = { jugendhilfeplanung: "Jugendhilfeplanung", "fruehe-hilfen": "Frühe Hilfen", quartiersmanagement: "Quartiersmanagement" };
+const RESSORT = { jugendhilfeplanung: "Jugendhilfeplanung", "fruehe-hilfen": "Frühe Hilfen", quartiersmanagement: "Quartiermanagement" };
 const prozent = (a, b) => b ? Math.round(a / b * 100) + " %" : "–";
 
 // Alle Meldungen der Ausgaben (für Titel zu Kennungen)

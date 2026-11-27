@@ -1,11 +1,17 @@
 {
-  "_hinweis": "Erkennungsmusik für „Zwischen den Zeilen“. Erzeugt mit Eleven Music (kommerziell nutzbar ab Starter-Plan). Gleicher Stil für alle Stücke, damit die Folge wie aus einem Guss klingt. Neu erzeugen: node werkzeuge/musik.mjs --neu NAME",
+  "_hinweis": "Erkennungsmusik für „Zwischen den Zeilen“. Erzeugt mit Eleven Music (kommerziell nutzbar ab Starter-Plan). Gleicher Stil für alle Stücke, damit die Folge wie aus einem Guss klingt. Neu erzeugen: node werkzeuge/musik.mjs --neu NAME. Seit 27.11.2026 „Redaktions-Beat“ (vorher Indie-Pop mit Akustikgitarre – laut Rückmeldung „Wartezimmermusik“).",
   "modell": "music_v2_5",
-  "stil": "warm, upbeat modern indie-pop for a German morning podcast about social work: muted acoustic guitar, soft Rhodes piano, light drums with claps, 96 bpm, friendly and confident, clean professional mix, not cheesy, instrumental only",
+  "stil": "head-nodding boom bap hip-hop beat at 92 bpm built from newsroom sounds: punchy dusty kick, crisp cracking snare, hi-hats made of rhythmic typewriter key clicks, a typewriter carriage-return bell 'ding' as the signature accent, a deep warm upright bass riff, and one catchy five-note hook played on a chopped vibraphone. Cool, confident, slightly cheeky, warm vinyl character, dry tight studio mix, bold and memorable, not background music, instrumental only",
   "stuecke": [
-    { "name": "intro", "laenge_ms": 3000, "prompt": "A 3-second podcast intro sting. A bright, catchy two-chord motif that lands on a clean, resolved final hit. Starts immediately, no fade-in." },
-    { "name": "thema", "laenge_ms": 7000, "prompt": "A 7-second podcast theme that opens the show: confident groove with a short memorable melody, ending on a clear resolved chord so a voice can start right after." },
-    { "name": "uebergang", "laenge_ms": 4000, "prompt": "A 4-second podcast transition between topics: a short light groove with a soft drum fill and a warm guitar lick, ending cleanly." },
-    { "name": "outro", "laenge_ms": 10000, "prompt": "A 10-second podcast outro: the groove plays the main motif once more and winds down to a final resolved chord with a natural ending." }
+    {
+      "name": "thema",
+      "laenge_ms": 8000,
+      "prompt": "An 8-second podcast opening theme. Starts immediately with the full beat and states the main hook twice, then ends on one tight, clearly resolved final hit with a short natural tail so a voice can start right after. No fade-in, no fade-out."
+    },
+    {
+      "name": "outro",
+      "laenge_ms": 12000,
+      "prompt": "A 12-second podcast outro. The same beat and the same main hook return at full energy, play the hook twice, then break down to the signature final hit and a natural ending. No long fade."
+    }
   ]
 }

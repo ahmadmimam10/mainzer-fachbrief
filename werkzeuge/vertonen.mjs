@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 // Vertont die Hörfassungen je Ressort der neuesten Ausgaben als MP3.
 //   • Ab dem Stichtag (ELEVENLABS_AB, Vorgabe 2026-11-24): ElevenLabs Eleven v4, vier Stimmen im Wechsel
-//     (Mira und Jonas aus dem Podcast, dazu Leonie und Ben) – je Werktag und Ressort reihum, nie zweimal dieselbe
-//     Stimme an einem Tag. Braucht das Secret ELEVENLABS_API_KEY.
+//     (Mira, Jonas, Leonie und Ben – dieselben trockenen, studioklaren Stimmen wie im Podcast, siehe podcast/besetzung.json) –
+//     je Werktag und Ressort reihum, nie zweimal dieselbe Stimme an einem Tag. Braucht das Secret ELEVENLABS_API_KEY.
+//     Bis 27.11.2026 lasen für Leonie und Ben zwei ältere Stimmen; eine davon klang hallig („nicht so klar und studiomäßig“).
+//     Zu jeder Aufnahme liefert ElevenLabs die Zeit jedes Zeichens: Daraus entstehen die Satzzeiten („marken“ in audio.json),
+//     damit der mitlaufende Text auf der Seite genau zum Ton passt (vorher geschätzt – mal eine Sekunde zu früh).
 //   • Ältere Ausgaben und jeder Ausfall von ElevenLabs (kein Schlüssel, Kontingent leer, Fehler): Azure Speech
 //     (Gratis-Tarif F0) wie bisher. Ohne beide Schlüssel liest die Seite mit der Browser-Stimme vor.
 // Läuft beim Veröffentlichen der Seite (.github/workflows/seite.yml). Die MP3s kommen NICHT ins Repository:
@@ -46,10 +49,11 @@ const EL_MODELL = "eleven_v4";
 const EL_FORMAT = "mp3_44100_96";
 const EL_BYTES_PRO_SEKUNDE = 12000;        // 96 kbit/s
 const EL_STIMMEN = (sicher(process.env.ELEVENLABS_STIMMEN, /^[A-Za-zÄÖÜäöüß]+:[A-Za-z0-9]{16,32}(,[A-Za-zÄÖÜäöüß]+:[A-Za-z0-9]{16,32})*$/,
-  "Mira:zKHQdbB8oaQ7roNTiDTK,Jonas:z1EhmmPwF0ENGYE8dBE6,Leonie:uvysWDLbKpA4XvpD3GI6,Ben:aTTiK3YzK3dXETpuDE2h"))
+  "Mira:zKHQdbB8oaQ7roNTiDTK,Jonas:z1EhmmPwF0ENGYE8dBE6,Leonie:1iF3vHdwHKuVKSPDK23Z,Ben:K5ZVtkkBnuPY6YqXs70E"))
   .split(",").map(s => { const [name, id] = s.split(":"); return { name, id }; });
 // Aussprache für ElevenLabs: Abkürzungen ausschreiben, die die Stimme sonst buchstabiert oder verschluckt.
 const AUSSPRACHE = [
+  [/Quartiersmanage/g, "Quartiermanage"], [/quartiersmanage/g, "quartiermanage"],     // es heißt Quartiermanagement, ohne s
   [/\bKJHSRG\b/g, "Kinder- und Jugendhilfestrukturreformgesetz"], [/\bKJSG\b/g, "Kinder- und Jugendstärkungsgesetz"],
   [/\bISM\b/g, "Institut für Sozialpädagogische Forschung Mainz"],
   [/\bSGB (VIII|XII|XI|IX|X|VII|VI|V|IV|III|II|I)\b/g, (_, r) => "Sozialgesetzbuch " + { I: "Eins", II: "Zwei", III: "Drei", IV: "Vier", V: "Fünf", VI: "Sechs", VII: "Sieben", VIII: "Acht", IX: "Neun", X: "Zehn", XI: "Elf", XII: "Zwölf" }[r]],
@@ -57,6 +61,20 @@ const AUSSPRACHE = [
   [/\bd\.\s?h\./g, "das heißt"], [/\bbzw\./g, "beziehungsweise"], [/\bca\./g, "circa"], [/\bNr\./g, "Nummer"], [/\bAbs\./g, "Absatz"],
 ];
 const aussprechen = text => AUSSPRACHE.reduce((t, [muster, ersatz]) => t.replace(muster, ersatz), text);
+// Satzzeiten für den mitlaufenden Text: Die Seite (docs/blatt/bb.js) teilt die Hörfassung an Satzenden in Sätze – genau so wird hier
+// geteilt. Zu jedem Satz Beginn und Ende in Sekunden, gelesen aus den Zeichenzeiten von ElevenLabs. Die Stimme spricht den Text nach
+// „aussprechen“ (ausgeschriebene Abkürzungen): Die Stelle eines Satzanfangs im gesprochenen Text ist die Länge des ebenso umgeschriebenen
+// Textes davor.
+function satzZeiten(text, zeichen) {
+  const start = zeichen?.character_start_times_seconds, ende = zeichen?.character_end_times_seconds;
+  if (!Array.isArray(start) || !Array.isArray(ende) || !start.length) return null;
+  const rund = x => Math.round(x * 100) / 100, marken = [], muster = /(?<=[.!?…])\s+/g;
+  let von = 0, m;
+  const satz = (a, b) => { if (!text.slice(a, b).trim()) return; const i = Math.min(start.length - 1, aussprechen(text.slice(0, a)).length), j = Math.min(ende.length - 1, Math.max(i, aussprechen(text.slice(0, b)).length - 1)); marken.push([rund(start[i]), rund(ende[j])]); };
+  while ((m = muster.exec(text))) { satz(von, m.index); von = m.index + m[0].length; }
+  satz(von, text.length);
+  return marken.every((x, i) => Number.isFinite(x[0]) && Number.isFinite(x[1]) && x[1] >= x[0] && (!i || x[0] >= marken[i - 1][0])) ? marken : null;
+}
 const ANZAHL_AUSGABEN = 5;                 // so viele neueste Ausgaben bekommen Ton
 const MIN_ZEICHEN = 200, MAX_ZEICHEN = 3200;
 const CACHE = ".audio-cache";
@@ -137,7 +155,7 @@ async function elAnfrage(text, stimmeId) {
   for (let versuch = 1; versuch <= 3; versuch++) {
     let antwort;
     try {
-      antwort = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${stimmeId}?output_format=${EL_FORMAT}`, {
+      antwort = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${stimmeId}/with-timestamps?output_format=${EL_FORMAT}`, {
         method: "POST",
         headers: { "xi-api-key": EL_KEY, "Content-Type": "application/json", "User-Agent": "MainzerBoniblatt" },
         body: JSON.stringify({ text, model_id: EL_MODELL, language_code: "de",
@@ -147,8 +165,9 @@ async function elAnfrage(text, stimmeId) {
     } catch (fehler) { letzter = fehler.message; await warte(4000 * versuch); continue; }
     status = antwort.status;
     if (antwort.ok) {
-      const daten = Buffer.from(await antwort.arrayBuffer());
-      if (daten.length > 4000) return { daten, kosten: Number(antwort.headers.get("character-cost")) || 0 };
+      // Antwort mit Zeitmarken: { audio_base64, alignment: { characters, character_start_times_seconds, character_end_times_seconds } }
+      const j = await antwort.json().catch(() => null), daten = Buffer.from((j && j.audio_base64) || "", "base64");
+      if (daten.length > 4000) return { daten, zeichen: j.alignment || null, kosten: Number(antwort.headers.get("character-cost")) || 0 };
       letzter = "leere Antwort";
     } else {
       const inhalt = (await antwort.text().catch(() => "")).slice(0, 600);
@@ -239,12 +258,14 @@ async function hauptteil() {
         const el = elStimmeFuer(datum, RESSORTS.indexOf(ressort));
         const gesprochen = aussprechen(text);
         const elHash = createHash("sha1").update(`elevenlabs|${el.id}|${EL_MODELL}|${EL_FORMAT}|0.5|${gesprochen}`).digest("hex").slice(0, 12);
-        const elDatei = join(CACHE, `el-${elHash}.mp3`);
+        const elDatei = join(CACHE, `el-${elHash}.mp3`), zeitDatei = join(CACHE, `el-${elHash}.json`);
         let da = existsSync(elDatei);
         if (!da && !elAus && elZeichen + gesprochen.length <= EL_MAX) {
           try {
-            const { daten, kosten } = await elAnfrage(gesprochen, el.id);
+            const { daten, zeichen, kosten } = await elAnfrage(gesprochen, el.id);
             await writeFile(elDatei, daten);
+            const marken = satzZeiten(text, zeichen);
+            if (marken) await writeFile(zeitDatei, JSON.stringify({ marken })); else console.log(`  (ohne Satzzeiten: ${datum} ${ressort})`);
             neu++; elZeichen += gesprochen.length; elKosten += kosten; da = true;
             console.log(`✓ ${datum} ${ressort}: ca. ${Math.round(daten.length / EL_BYTES_PRO_SEKUNDE)} s, ${gesprochen.length} Zeichen (ElevenLabs ${el.name}${kosten ? `, ${kosten} Credits` : ""})`);
             await warte(800);
@@ -254,11 +275,12 @@ async function hauptteil() {
           }
         } else if (!da && !elAus) console.log(`• ${datum} ${ressort}: Zeichenbremse ELEVENLABS_MAX (${EL_MAX}) erreicht – Azure`);
         if (da) {
-          behalten.add(`el-${elHash}.mp3`);
+          behalten.add(`el-${elHash}.mp3`); behalten.add(`el-${elHash}.json`);
           const datei = `audio/${datum}-${ressort}-${elHash.slice(0, 8)}.mp3`;
           await copyFile(elDatei, join("docs", datei));
           const { size } = await stat(elDatei);
-          (manifest.ausgaben[datum] ||= {})[ressort] = { datei, sekunden: Math.round(size / EL_BYTES_PRO_SEKUNDE), stimme: el.name };
+          const marken = existsSync(zeitDatei) ? (JSON.parse(await readFile(zeitDatei, "utf8").catch(() => "{}")).marken || null) : null;
+          (manifest.ausgaben[datum] ||= {})[ressort] = { datei, sekunden: Math.round(size / EL_BYTES_PRO_SEKUNDE), stimme: el.name, ...(marken ? { marken } : {}) };
           continue;
         }
       }

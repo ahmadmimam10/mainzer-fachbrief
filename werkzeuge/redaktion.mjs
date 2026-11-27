@@ -49,6 +49,7 @@ const TIPP_ARTEN = ["restaurant", "ausflug", "spielzeug", "verein", "entdecken"]
 const TIPP_NAMEN = { restaurant: "Restaurant oder Café", ausflug: "Unternehmung", spielzeug: "Spielzeug oder Spiel", verein: "Verein zum Mitmachen", entdecken: "besonderer Ort oder coole Sache" };
 const ERGEBNISSE = ["beschlossen", "einstimmig", "mehrheitlich", "abgelehnt", "vertagt", "zurückgestellt", "zur Kenntnis"];
 const HEUTE_MAX = 14, HEUTE_TAGE = 7;
+const BUEHNE_MAX = 2, ART_MAX = 3;   // „Was geht?“: Konzerte + Theater zusammen höchstens 2, jede andere Art (außer Fußball) höchstens 3
 const heuteListe = a => Array.isArray(a?.termine) ? a.termine.filter(x => x && typeof x === "object").map(x => Object.fromEntries(["art", "tag", "wann", "titel", "ort", "url"].map(f => [f, String(x[f] ?? "").replace(/\s+/g, " ").trim()]))) : [];
 const fliegerText = a => typeof a?.flieger === "string" ? a.flieger.replace(/\s+/g, " ").trim() : "";
 
@@ -109,7 +110,7 @@ async function vorbereiten() {
   md += `\n## Was geht? – Termine vom ${DATUM} bis ${dayOffset(DATUM, HEUTE_TAGE)} (Regeln: REDAKTION.md, Abschnitt „Was geht?“)\n`
     + `- Feld „termine“ der Ausgabe: 8–${HEUTE_MAX} belegte Termine der nächsten ${HEUTE_TAGE} Tage, jeder mit „tag“ (JJJJ-MM-TT).\n`
     + `- Fußball nur von FC Barcelona, Real Madrid, Spanien und Ägypten (Nationalmannschaften): deren Spiele der ${HEUTE_TAGE} Tage eintragen – die Seite zeigt je Mannschaft nur das nächste. Keine anderen Vereine.\n`
-    + `- Dazu Rhein-Main (Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim): Feste, Märkte, Konzerte, Sport, Neueröffnungen – nichts Nischiges. Nur mit Quelle; sonst das Feld weglassen.\n`;
+    + `- Dazu Rhein-Main (Mainz zuerst, dann Wiesbaden, Frankfurt, Ingelheim): Feste, Märkte, Sport, Familie, Essen und Wein, Neueröffnungen, Kino, Ausstellungen – nichts Nischiges. Gute Mischung: Konzerte und Theater/Bühne zusammen höchstens ${BUEHNE_MAX}, jede andere Art höchstens ${ART_MAX} (die Prüfung lehnt mehr ab); nicht alles aus einem Ticketportal holen. Nur mit Quelle; sonst das Feld weglassen.\n`;
   { // Empfehlungen: Tipp-Tag? Welcher Bereich ist dran? Was kam in den letzten acht Wochen schon?
     const frueher = ausgaben.filter(a => a.datum < DATUM && a.datum >= dayOffset(DATUM, -7 * TIPP_WOCHEN)).sort((a, b) => b.datum.localeCompare(a.datum))
       .flatMap(a => (Array.isArray(a.termine) ? a.termine : []).filter(x => TIPP_ARTEN.includes(x.art)).map(x => ({ ...x, am: a.datum })));
@@ -147,6 +148,10 @@ function pruefen(ausgabe, bekannte, ausgaben = []) {
     else {
       const termine = heuteListe(ausgabe), bis = dayOffset(DATUM, HEUTE_TAGE);
       if (termine.length > HEUTE_MAX) fehler.push(`„termine“: höchstens ${HEUTE_MAX} Termine (sind ${termine.length}).`);
+      // Gute Mischung (Wunsch des Herausgebers): wenig Bühne. Konzerte und Theater zusammen höchstens zwei; auch sonst nicht viermal dasselbe.
+      const jeArt = termine.reduce((z, x) => (z[x.art] = (z[x.art] || 0) + 1, z), {}), buehne = (jeArt.musik || 0) + (jeArt.theater || 0);
+      if (buehne > BUEHNE_MAX) fehler.push(`„termine“: höchstens ${BUEHNE_MAX} Konzerte und Theater-/Bühnenabende zusammen (sind ${buehne}) – streichen oder durch anderes ersetzen: Feste, Märkte, Sport, Familie, Essen und Wein, Neueröffnungen, Kino, Ausstellungen, Flohmärkte.`);
+      for (const [art, n] of Object.entries(jeArt)) if (n > ART_MAX && art !== "fussball") fehler.push(`„termine“: ${n}-mal „${art}“ – höchstens ${ART_MAX} je Art, damit die Mischung stimmt.`);
       termine.forEach((x, i) => {
         const wo = `„termine“ Nr. ${i + 1}`;
         if (!HEUTE_ARTEN.includes(x.art)) fehler.push(`${wo}: „art“ muss eines von ${HEUTE_ARTEN.join(", ")} sein.`);

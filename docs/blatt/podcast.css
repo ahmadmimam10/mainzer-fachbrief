@@ -131,3 +131,19 @@ button{font:inherit;color:inherit}
 [data-thema="dunkel"] .pc-tempo button[aria-pressed="true"],[data-thema="dunkel"] .pc-kapitel button.jetzt{background:#f2ede4;color:#1a1816}
 [data-thema="dunkel"] .pc-marken i{background:#f2ede4}
 [data-thema="dunkel"] .kopf-info,[data-thema="dunkel"] .kopf-podcast,[data-thema="dunkel"] .bb-marke a{color:#f2ede4}
+
+/* Quellen-Fenster folgt dem Ton: Die Quelle, über die gerade gesprochen wird, ist hervorgehoben (drei kleine Balken schlagen aus);
+   liegt die Aussage länger zurück, bleibt sie dezent markiert, bis die nächste belegte Aussage kommt. */
+.pc-q{position:relative;transition:background .5s,box-shadow .5s}
+.pc-q-ton{display:none}
+.pc-q.jetzt,.pc-q.zuletzt{margin:0 -12px;padding:11px 12px;border-top-color:transparent;border-radius:14px}
+.pc-q.jetzt{background:color-mix(in srgb,var(--rb,#dba63f) 24%,transparent);box-shadow:inset 3px 0 0 var(--rb,#dba63f)}
+.pc-q.zuletzt{background:rgba(0,0,0,.045)}
+.pc-q.jetzt+.pc-q,.pc-q.zuletzt+.pc-q{border-top-color:transparent}
+.pc-q.jetzt .pc-q-ton{position:absolute;right:12px;top:13px;display:flex;align-items:flex-end;gap:2.5px;height:14px}
+.pc-q.jetzt .pc-q-ton b{width:3px;height:100%;border-radius:2px;background:currentColor;transform-origin:50% 100%;animation:pc-q-ton .7s ease-in-out infinite alternate}
+.pc-q.jetzt .pc-q-ton b:nth-child(2){animation-delay:-.25s}.pc-q.jetzt .pc-q-ton b:nth-child(3){animation-delay:-.5s}
+.pc-q.jetzt strong{padding-right:26px}
+.pc-fenster[data-pause] .pc-q.jetzt .pc-q-ton b{animation-play-state:paused}
+@keyframes pc-q-ton{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){.pc-q.jetzt .pc-q-ton b{animation:none}}

@@ -49,12 +49,34 @@ const MELDEN_STUNDEN = 48;      // --zustand --streng: Fehlschlag, wenn eine Que
 const ZUSTAND_DATEI = "daten/quellen-zustand.json";
 const DIAGNOSE_ORDNER = "daten/diagnose";
 
+// Umweg (cloudflare/bestenliste/worker.js, /hol): Manche Server nehmen von GitHubs Rechnern oft keine Verbindung an (Bundesrat in mehr als
+// der Hälfte der Läufe, Bildungsserver, Paritätischer – Zeitüberschreitung beim Verbindungsaufbau). Dann holt der Abruf die Seite über den
+// eigenen kleinen Dienst bei Cloudflare, der von anderen Rechnern aus anfragt. UMWEG="" in der Umgebung schaltet das ab.
+const UMWEG = process.env.UMWEG ?? "https://boniblatt-bestenliste.ahmadmimam10.workers.dev/hol";
+const umwege = [];                                       // welche Adressen in diesem Lauf den Umweg brauchten (fürs Protokoll)
+const netzFehler = e => !e?.status && (e?.name === "TimeoutError" || e?.name === "AbortError" || e?.cause?.name === "TimeoutError" || /fetch failed|ECONNRESET|ETIMEDOUT|ENOTFOUND|EAI_AGAIN|UND_ERR|socket|network/i.test(String(e?.message) + " " + String(e?.cause?.code || "")));
+const voruebergehend = e => netzFehler(e) || [403, 408, 425, 429, 500, 502, 503, 504, 520, 521, 522, 523, 524].includes(e?.status);
+/** Eine Adresse laden: direkt, bei Netzfehlern oder Abweisung (403, 429, 5xx) nach kurzer Pause noch einmal, dann über den Umweg. */
 async function holen(url, accept) {
+  let fehler = new Error("Umweg erzwungen");
+  if (!process.env.UMWEG_IMMER) for (const [nr, zeit] of [[1, 20_000], [2, 12_000]]) {      // UMWEG_IMMER=1: zum Testen gleich über den Umweg
+    try { return await holenDirekt(url, accept, zeit); }
+    catch (e) { fehler = e; if (!voruebergehend(e)) throw e; if (nr === 1) await new Promise(r => setTimeout(r, 2500)); }
+  }
+  if (!UMWEG || DATEI) throw fehler;
+  try {
+    const r = await holenDirekt(UMWEG + "?u=" + encodeURIComponent(url), accept, 30_000, { "X-Umweg-UA": UA });
+    umwege.push(new URL(url).hostname);
+    return { ...r, finalUrl: r.umwegUrl || url, umweg: true };
+  } catch (e) { throw fehler; }                          // der Umweg half nicht: der ursprüngliche Fehler sagt mehr
+}
+async function holenDirekt(url, accept, zeit, kopf = {}) {
   const res = await fetch(url, {
-    headers: { "User-Agent": UA, Accept: accept, "Accept-Language": "de-DE,de;q=0.9,en;q=0.4" },
+    headers: { "User-Agent": UA, Accept: accept, "Accept-Language": "de-DE,de;q=0.9,en;q=0.4", ...kopf },
     redirect: "follow",
-    signal: AbortSignal.timeout(25_000),
+    signal: AbortSignal.timeout(zeit),
   });
+  if (kopf["X-Umweg-UA"] && res.headers.get("x-umweg") !== "ja") throw new Error("Umweg: " + res.status);
   if (!res.ok) {
     const fehler = new Error("HTTP " + res.status);
     // Fehlerseite für den Diagnose-Schnappschuss aufheben (zeigt z. B. Sperr- oder Umzugshinweise)
@@ -70,7 +92,7 @@ async function holen(url, accept) {
   if (cs && !/^utf-?8$/i.test(cs)) {
     try { body = new TextDecoder(cs.toLowerCase()).decode(buf); } catch { /* bleibt UTF-8 */ }
   }
-  return { body, finalUrl: res.url || url, status: res.status };
+  return { body, finalUrl: res.url || url, status: res.status, umwegUrl: res.headers.get("x-umweg-url") || "" };
 }
 
 function hostErlaubt(u, quelle, basis) {
@@ -268,6 +290,7 @@ async function quelleAbrufen(quelle) {
       } else {
         try {
           Object.assign(r, await holen(url, accept));
+          if (r.umweg) r.finalUrl = r.finalUrl || url;
         } catch (error) {
           if (error.roh) Object.assign(r, { body: error.roh, finalUrl: error.finalUrl, status: error.status });
           throw error;
@@ -492,11 +515,24 @@ function zustandBerechnen(quelle, alt, abruf, p, jetzt) {
     letzteNeu: p.neu ? { am: jetzt, titel: cut(p.neuTitel, 120) } : (alt.letzteNeu || null),
     neuTage: (() => { const t = { ...(alt.neuTage || {}) }, tag = jetzt.slice(0, 10); if (p.neu) t[tag] = (t[tag] || 0) + p.neu; for (const k of Object.keys(t)) if (k < dayOffset(tag, -60)) delete t[k]; return t; })(),
     fehler: abruf.fehler.slice(0, 3),
+    // Meldungen, die die Quelle zeigt, die der Abruf aber bewusst nicht übernimmt, weil sie älter als drei Tage sind (ALTER_MAX) – damit der
+    // Notion-Abgleich solche Lücken erklären kann („alt“ statt „unklar“)
+    zuAlt: nichtsGeladen ? (alt.zuAlt || []) : (p.zuAlt || []).slice(0, 12),
   };
   const gestoert = [], auffaellig = [];
   const ersterFehler = abruf.fehler[0] || "";
   const abhilfe = quelle.typ === "rss" ? "Feed-Adresse prüfen (urls)" : quelle.typ === "html" ? "Seitenstruktur prüfen (muster, bereich)" : "Seitenstruktur prüfen (Sonderleser)";
-  if (e.fehlerInFolge >= 3) gestoert.push(`Abruf seit ${e.fehlerInFolge} Läufen fehlerhaft: ${ersterFehler}`);
+  // Nicht erreichbar (Zeitüberschreitung, Verbindung abgelehnt, Server überlastet) ist etwas anderes als „Seite umgebaut“: Der Abruf hat es
+  // schon zweimal direkt und einmal über den Umweg versucht und holt beim nächsten Lauf alles nach (Feeds halten ihre Einträge tagelang).
+  // Deshalb erst auffällig, wenn seit über 24 Stunden nichts ankam, und gestört erst nach 48 Stunden.
+  const nurNetz = abruf.fehler.length > 0 && abruf.fehler.every(f => /Zeitüberschreitung|fetch failed|UND_ERR|ECONNRESET|ETIMEDOUT|EAI_AGAIN|HTTP (403|408|429|5[0-9][0-9])/i.test(f));
+  const ohneErfolg = e.letzterErfolg ? (Date.parse(jetzt) - Date.parse(e.letzterErfolg)) / 3600_000 : Infinity;
+  if (nurNetz && hatteTreffer) {
+    if (ohneErfolg > 48) gestoert.push(`seit ${Math.round(ohneErfolg)} Stunden nicht erreichbar (auch nicht über den Umweg): ${ersterFehler}`);
+    else if (ohneErfolg > 24) auffaellig.push(`seit ${Math.round(ohneErfolg)} Stunden nicht erreichbar: ${ersterFehler}`);
+    else e.pause = `letzter Abruf nicht erreichbar (${ersterFehler}) – wird beim nächsten Lauf nachgeholt`;
+  }
+  else if (e.fehlerInFolge >= 3) gestoert.push(`Abruf seit ${e.fehlerInFolge} Läufen fehlerhaft: ${ersterFehler}`);
   else if (e.fehlerInFolge) auffaellig.push(`Abruffehler (${e.fehlerInFolge}. Lauf in Folge): ${ersterFehler}`);
   if (e.nullTrefferInFolge >= 4 && hatteTreffer) {
     const zuvor = [...vorher].reverse().find(x => x > 0);
@@ -519,7 +555,7 @@ function zustandBerechnen(quelle, alt, abruf, p, jetzt) {
     (e.linkStoerungInFolge >= 3 ? gestoert : auffaellig).push(satz);
   }
   e.zustand = gestoert.length ? "gestoert" : auffaellig.length ? "auffaellig" : "ok";
-  e.hinweis = cut([...gestoert, ...auffaellig].join("; "), 300) || `unauffällig – ${brauchbar} Treffer`
+  e.hinweis = cut([...gestoert, ...auffaellig].join("; "), 300) || e.pause || `unauffällig – ${brauchbar} Treffer${abruf.roh.some(r => r.umweg) ? " (über den Umweg geholt)" : ""}`
     + (verworfen ? `, ${verworfen === 1 ? "1 neuer Kandidat" : `${verworfen} neue Kandidaten`} verworfen (${haeufigster(p.verworfenGruende)})` : "");
   if (e.zustand !== alt.zustand) e.seit = jetzt;
   if (brauchbar > 0 && !schrankeGestoert) e.letzterErfolg = jetzt;
@@ -793,6 +829,7 @@ async function main() {
       const bekannt = Boolean(id && gesehen.links[id]);
       if (q.typ === "rss" && it.adr) { const m = takt[it.adr] ||= { quelle: q.id, gezeigt: 0, unbekannt: 0 }; m.gezeigt++; if (id && !bekannt && !zuAlt) m.unbekannt++; }
       if (DATEI) p.eintraege.push({ titel, url: it.url || "", datum: it.datum || "", grund, bekannt, zuAlt });
+      if (zuAlt && !bekannt && it.url) (p.zuAlt ||= []).push({ url: it.url, datum: it.datum });
       if (!id || zuAlt || bekannt || vergeben.has(id)) continue;
       if (q.filter && !new RegExp(q.filter, "i").test(it.titel + " " + it.teaser + " " + it.url)) continue;
       if (grund) {
@@ -856,6 +893,7 @@ async function main() {
   }
 
   const summe = v => v.titel + v.link + v.linkpruefung;
+  if (umwege.length) console.log(`Über den Umweg geholt (direkt nicht erreichbar): ${[...new Set(umwege)].join(", ")}`);
   const zusammenfassung = Object.entries(status).map(([id, s]) => {
     const z = zustand[id], v = summe(pruefung[id].verworfen);
     return `${s.ok ? "✓" : "✗"} ${id.padEnd(22)} ${String(s.treffer).padStart(3)} gefunden${s.neu !== undefined ? `, ${String(s.neu).padStart(3)} neu` : ""}`

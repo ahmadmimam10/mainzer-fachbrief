@@ -1,7 +1,7 @@
 # Mainzer Boniblatt
 
 Der werktägliche Morgenüberblick für **Jugendhilfeplanung**, **Frühe Hilfen & Kinderschutz** und
-**Quartiersmanagement** in Mainz – als Zeitungsseite im Netz:
+**Quartiermanagement** in Mainz – als Zeitungsseite im Netz:
 **https://boniblatt-mainz.de/**
 
 Direktlinks je Ressort: `#jugendhilfeplanung`, `#fruehe-hilfen`, `#quartiersmanagement`

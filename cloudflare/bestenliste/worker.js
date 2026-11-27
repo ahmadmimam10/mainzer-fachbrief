@@ -25,12 +25,42 @@
 //     (Die erste Fassung vom 24.11.2026 kannte ein Thema je Montag, „podcast:JJJJ-MM-TT“ – wird beim Lesen übernommen.)
 //   Nach acht falschen Versuchen ist die Anmeldung für 15 Minuten gesperrt.
 //
+// Umweg für den Quellenabruf: GET /hol?u=<Adresse einer Quelle> – siehe UMWEG weiter unten.
+//
 // Leserstimmen (docs/blatt/daumen.js): POST /d → { id: Meldung, w: 1 | -1 | 0, alt: 1 | -1 | 0 } – zählt je Monat und Meldung hoch
 //   bzw. um (alt → w). Gespeichert werden nur Monat, Meldung und die beiden Zahlen – keine Adresse, keine Kennung.
 //
 // Ausfuhr für GitHub (.github/workflows/stimmen.yml): GET /ausfuhr → { stand, wahl, daumen, antworten, podcast } – nur lesen. Bewusst ohne
 //   Schlüssel: Dieselben Daten liegen danach ohnehin im öffentlichen Repository (daten/abgleich-stimmen.json, daten/leser-daumen.json,
 //   daten/qm-antworten.json, daten/podcast-themen.json); keine Adressen. Die Verwaltung sagt beim Kommentarfeld, dass Kommentare dort öffentlich lesbar sind.
+// Umweg für den Quellenabruf (werkzeuge/sammeln.mjs): Manche Server – Bundesrat, Bildungsserver, Paritätischer – nehmen von den
+// Rechnern, auf denen GitHub den Abruf startet, oft keine Verbindung an (Zeitüberschreitung beim Verbindungsaufbau). Dann holt der
+// Abruf die Seite über diesen Dienst:  GET /hol?u=<Adresse>  → Inhalt, Status und Inhaltstyp der Seite, unverändert.
+// Nur lesend, nur für die Server der Quellen aus quellen.json (Liste unten; neue Quelle → hier nachtragen und „npx wrangler deploy“),
+// höchstens 8 MB, mit Bremse je Absender. Nichts wird gespeichert.
+const UMWEG = ["afet-ev.de","agj.de","akjstat.tu-dortmund.de","allgemeine-zeitung.de","api.landtag-rlp.de","bag-jugendschutz.de","bag-landesjugendaemter.de","bagsozialestadtentwicklung.de","beauftragte-missbrauch.de","bertelsmann-stiftung.de","bi.mainz.de","bildungsserver.de","bm.rlp.de","bmbfsfj.bund.de","bmwsb.bund.de","bundesrat.de","bundestag.de","dbjr.de","der-paritaetische.de","destatis.de","deutscher-verein.de","difu.de","digitalejugendhilfe.de","dijuf.de","dji.de","dkhw.de","dstgb.de","fruehehilfen.de","igfh.de","ikj-online.de","internet.mainz.de","isa-muenster.de","ism-mz.de","jugendgerecht.de","jugendhilfeportal.de","kinderschutz-zentren.org","kinderschutzbund.de","kita.rlp.de","kommunales-bildungsmonitoring.de","kommune360.de","liga-kind.de","lsjv.rlp.de","mainz.de","masffj.rlp.de","mastodon.social","merkurist.de","mkbwk.rlp.de","sensor-magazin.de","servicestelle-netzwerk-familie.de","sozial.de","spiegel.de","staedtebaufoerderung.info","staedtetag-rlp.de","staedtetag.de","startchancen-programm.com","statistik.rlp.de","swr.de","tagesschau.de","wohnbau-mainz.de"];
+const umwegErlaubt = host => { const h = host.toLowerCase().replace(/^www\./, ""); return UMWEG.some(x => h === x || h.endsWith("." + x)); };
+const umwegZahl = new Map();
+async function umweg(anfrage, url) {
+  const klar = (text, status) => new Response(text, { status, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store", "X-Umweg": "abgelehnt" } });
+  if (anfrage.method !== "GET") return klar("Nur GET.", 405);
+  let ziel; try { ziel = new URL(url.searchParams.get("u") || ""); } catch { return klar("Adresse fehlt.", 400); }
+  if (ziel.protocol !== "https:" || ziel.username || ziel.port || !umwegErlaubt(ziel.hostname)) return klar("Diese Adresse gehört nicht zu den Quellen.", 403);
+  // Bremse: höchstens 240 Abrufe je Absender in 10 Minuten (ein voller Abruf braucht den Umweg nur für eine Handvoll Adressen)
+  const ip = anfrage.headers.get("CF-Connecting-IP") || "?", jetzt = Date.now(), e = umwegZahl.get(ip);
+  if (!e || jetzt - e.seit > 600_000) umwegZahl.set(ip, { seit: jetzt, n: 1 }); else if (++e.n > 240) return klar("Zu viele Abrufe.", 429);
+  if (umwegZahl.size > 2000) umwegZahl.clear();
+  try {
+    const r = await fetch(ziel.href, { redirect: "follow", signal: AbortSignal.timeout(25_000),
+      headers: { "User-Agent": anfrage.headers.get("X-Umweg-UA") || "Mozilla/5.0 (compatible; MainzerBoniblatt/1.0; +https://github.com/ahmadmimam10/mainzer-fachbrief)", Accept: anfrage.headers.get("Accept") || "*/*", "Accept-Language": "de-DE,de;q=0.9,en;q=0.4" } });
+    let ende; try { ende = new URL(r.url || ziel.href); } catch { ende = ziel; }
+    if (!umwegErlaubt(ende.hostname)) return klar("Weiterleitung auf eine fremde Adresse.", 502);
+    const inhalt = await r.arrayBuffer();
+    if (inhalt.byteLength > 8_000_000) return klar("Seite zu groß.", 502);
+    return new Response(inhalt, { status: r.status, headers: { "Content-Type": r.headers.get("Content-Type") || "application/octet-stream", "Cache-Control": "no-store", "X-Umweg": "ja", "X-Umweg-Url": ende.href, "X-Robots-Tag": "noindex" } });
+  } catch (f) { return klar("Abruf gescheitert: " + String((f && f.name) || f).slice(0, 80), 504); }
+}
+
 const ERLAUBT = ["https://boniblatt-mainz.de", "https://www.boniblatt-mainz.de", "http://localhost:8766", "http://127.0.0.1:8766"];
 const SCHLUESSEL = "bestenliste", BEHALTEN = 50, ZEIGEN = 20, MAX_PUNKTE = 400;
 const NAME = /^[\p{L}\p{N}][\p{L}\p{N} ._-]{1,11}$/u;
@@ -228,6 +258,7 @@ export default {
       "Access-Control-Allow-Origin": ERLAUBT.includes(herkunft) ? herkunft : ERLAUBT[0], "Access-Control-Allow-Methods": "GET, POST, OPTIONS", "Access-Control-Allow-Headers": "Content-Type, Authorization", "Access-Control-Max-Age": "86400" };
     if (anfrage.method === "OPTIONS") return new Response(null, { status: 204, headers: kopf });
 
+    if (url.pathname === "/hol") return umweg(anfrage, url);
     if (url.pathname === "/z") {
       if (anfrage.method === "POST" && ERLAUBT.includes(herkunft)) {
         const text = (await anfrage.text()).slice(0, 2000);   // erst lesen, dann antworten – gezählt wird danach im Hintergrund

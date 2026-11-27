@@ -1,6 +1,6 @@
 {
- "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
- "stand": "2026-11-26T13:45:22.346Z",
+ "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / ausfall / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
+ "stand": "2026-11-27T05:43:22.189Z",
  "zugang": "ok",
  "grenze": "nächtlicher Abruf",
  "letzterLauf": "2026-12-06",
@@ -16,7 +16,8 @@
   {
    "quelle": "Bildungsserver",
    "id": "bildungsserver",
-   "grund": "unklar",
+   "grund": "ausfall",
+   "hinweis": "Der Server der Quelle war in 4 von 10 Abrufen für GitHub nicht erreichbar.",
    "anzahl": 3,
    "tage": [
     "2026-11-26"
@@ -30,58 +31,13 @@
   {
    "quelle": "akj stat",
    "id": "akjstat",
-   "grund": "unklar",
+   "grund": "alt",
    "anzahl": 1,
    "tage": [
     "2026-11-24"
    ],
    "beispiele": [
     "ANGEBOTSSTRUKTUREN DER STATIONÄREN KINDER- UND JUGENDHILFE – ERSTE BEFUNDE AUS DER NEUEN „TRÄGERSTATISTIK“"
-   ]
-  },
-  {
-   "quelle": "SPIEGEL",
-   "id": "spiegel",
-   "grund": "rubrik",
-   "rubrik": "/wirtschaft/soziales/",
-   "rubrikName": "Wirtschaft · Soziales",
-   "feed": "https://www.spiegel.de/wirtschaft/soziales/index.rss",
-   "anzahl": 1,
-   "tage": [
-    "2026-11-21"
-   ],
-   "beispiele": [
-    "Für Friedrich Merz geht es in der Ukraine auch ums Geschäft"
-   ]
-  },
-  {
-   "quelle": "Allgemeine Zeitung",
-   "id": "az",
-   "grund": "rubrik",
-   "rubrik": "/lokales/rhein-main/",
-   "rubrikName": "Rhein-Main",
-   "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rhein-main/",
-   "anzahl": 1,
-   "tage": [
-    "2026-11-21"
-   ],
-   "beispiele": [
-    "Live-Verkehrsticker: Hier staut es sich am Freitagmorgen"
-   ]
-  },
-  {
-   "quelle": "Allgemeine Zeitung",
-   "id": "az",
-   "grund": "rubrik",
-   "rubrik": "/lokales/rheinhessen/",
-   "rubrikName": "Rheinhessen",
-   "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/",
-   "anzahl": 1,
-   "tage": [
-    "2026-11-21"
-   ],
-   "beispiele": [
-    "Wertstoffhof: Warum Gewerbebetriebe abgewiesen werden"
    ]
   }
  ],
@@ -224,7 +180,8 @@
      "quelle": "Bildungsserver",
      "id": "bildungsserver",
      "zeit": "2026-11-26T01:11:00.000Z",
-     "grund": "unklar"
+     "grund": "ausfall",
+     "hinweis": "Der Server der Quelle war in 4 von 10 Abrufen für GitHub nicht erreichbar."
     },
     {
      "titel": "Klimabildungspolitik weltweit mit dem Climate Education NDCs Tracker",
@@ -232,7 +189,8 @@
      "quelle": "Bildungsserver",
      "id": "bildungsserver",
      "zeit": "2026-11-26T01:11:00.000Z",
-     "grund": "unklar"
+     "grund": "ausfall",
+     "hinweis": "Der Server der Quelle war in 4 von 10 Abrufen für GitHub nicht erreichbar."
     },
     {
      "titel": "Klimawiki: Fakten zum Klimawandel",
@@ -240,7 +198,8 @@
      "quelle": "Bildungsserver",
      "id": "bildungsserver",
      "zeit": "2026-11-26T01:11:00.000Z",
-     "grund": "unklar"
+     "grund": "ausfall",
+     "hinweis": "Der Server der Quelle war in 4 von 10 Abrufen für GitHub nicht erreichbar."
     }
    ]
   },
@@ -364,7 +323,8 @@
      "quelle": "akj stat",
      "id": "akjstat",
      "zeit": "2026-11-23T23:30:00.000Z",
-     "grund": "unklar"
+     "grund": "alt",
+     "datum": "2026-11-16"
     }
    ]
   },
@@ -497,7 +457,8 @@
      "grund": "rubrik",
      "rubrik": "/wirtschaft/soziales/",
      "rubrikName": "Wirtschaft · Soziales",
-     "feed": "https://www.spiegel.de/wirtschaft/soziales/index.rss"
+     "feed": "https://www.spiegel.de/wirtschaft/soziales/index.rss",
+     "erledigt": "Diese Rubrik ist inzwischen im Abruf."
     },
     {
      "titel": "Live-Verkehrsticker: Hier staut es sich am Freitagmorgen",
@@ -508,7 +469,8 @@
      "grund": "rubrik",
      "rubrik": "/lokales/rhein-main/",
      "rubrikName": "Rhein-Main",
-     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rhein-main/"
+     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rhein-main/",
+     "erledigt": "Diese Rubrik ist inzwischen im Abruf."
     },
     {
      "titel": "Wertstoffhof: Warum Gewerbebetriebe abgewiesen werden",
@@ -519,7 +481,8 @@
      "grund": "rubrik",
      "rubrik": "/lokales/rheinhessen/",
      "rubrikName": "Rheinhessen",
-     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/"
+     "feed": "https://www.allgemeine-zeitung.de/rss/lokales/rheinhessen/",
+     "erledigt": "Diese Rubrik ist inzwischen im Abruf."
     }
    ],
    "offen": 0

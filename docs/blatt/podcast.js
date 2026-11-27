@@ -20,7 +20,7 @@
   const datumKurz = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
   const heute = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
-  const istNeu = (f) => { const t = (Date.parse(heute) - Date.parse(f.datum)) / 864e5; return t >= 0 && t <= 3; };
+  const istNeu = (f) => { const t = (Date.parse(heute) - Date.parse(f.datum)) / 864e5; return t >= 0 && t <= 1; };   // Montag und Dienstag
   const SPIEL = '<svg class="spiel" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5Z"/></svg>';
   const PAUSE = '<svg class="pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4.2" height="14" rx="1.2"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.2"/></svg>';
   const INFO = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>';
@@ -76,7 +76,7 @@
     stand();
     liste.querySelectorAll(".pc-folge").forEach((k) => k.classList.toggle("laeuft", k.dataset.id === f.id));
     if ("mediaSession" in navigator) {
-      navigator.mediaSession.metadata = new MediaMetadata({ title: f.titel, artist: "Zwischen den Zeilen – KI-Podcast vom Boniblatt", album: `Folge ${f.nummer}`,
+      navigator.mediaSession.metadata = new MediaMetadata({ title: f.titel, artist: "Zwischen den Zeilen – Podcast vom Boniblatt", album: `Folge ${f.nummer}`,
         artwork: [{ src: new URL("bilder/zeichen.svg", location.href).href, sizes: "512x512", type: "image/svg+xml" }] });
     }
     if (abspielen) spielen();
@@ -137,7 +137,23 @@
       el.kapAktiv = k; el.kap.textContent = aktiv.kapitel[k]?.titel || "";
       el.kapKnoepfe.forEach((b, i) => b.classList.toggle("jetzt", i === k));
     }
+    if (fenster.open) quellenStand(t);
   }
+  // Läuft die Folge, während das Quellen-Fenster offen ist, hebt es die Quelle hervor, über die gerade gesprochen wird, und holt sie
+  // ins Bild. Wer selbst in der Liste blättert, wird dabei ein paar Sekunden lang nicht gestört.
+  let qJetzt = null, qBlaettern = 0;
+  function quellenStand(t = audio.currentTime, sofort = false) {
+    const ql = document.getElementById("pc-qliste"), alle = [...ql.querySelectorAll(".pc-q")];
+    const gestartet = aktiv && (t > 0.5 || !audio.paused);
+    let zeit = null; if (gestartet) for (const x of aktiv.quellen) if (x.t <= t + 0.4 && (zeit === null || x.t > zeit)) zeit = x.t;
+    // „gerade“: Die Aussage zu dieser Quelle fiel in den letzten 75 Sekunden; danach gilt sie nur noch als zuletzt genannt.
+    const art = zeit === null ? "" : t - zeit <= 75 ? "jetzt" : "zuletzt", merk = zeit + "|" + art;
+    if (merk === qJetzt && !sofort) return; qJetzt = merk;
+    let erste = null;
+    alle.forEach((q) => { const an = zeit !== null && +q.dataset.t === zeit; q.classList.toggle("jetzt", an && art === "jetzt"); q.classList.toggle("zuletzt", an && art === "zuletzt"); if (an && !erste) erste = q; });
+    if (erste && (sofort || Date.now() - qBlaettern > 6000)) { const ziel = erste.offsetTop - ql.offsetTop - ql.clientHeight * 0.3; ql.scrollTo({ top: Math.max(0, ziel), behavior: sofort ? "auto" : "smooth" }); }
+  }
+  ["wheel", "touchmove", "keydown"].forEach((n) => document.getElementById("pc-qliste").addEventListener(n, () => { qBlaettern = Date.now(); }, { passive: true }));
   function binden() {
     el.knopf.addEventListener("click", () => (audio.paused ? spielen() : audio.pause()));
     const anteil = (e) => { const r = el.spur.getBoundingClientRect(); return Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)); };
@@ -197,7 +213,7 @@
       return `<h4>${esc(k.titel)}</h4>` + hier.map((x) => {
         const eigen = /^eigene lesart/i.test(x.aussage);
         const aussage = eigen ? x.aussage.replace(/^eigene lesart:\s*/i, "") : x.aussage;
-        return `<div class="pc-q"><button type="button" data-t="${x.t}" aria-label="Zur Stelle ${fmt(x.t)} springen">${fmt(x.t)}</button>
+        return `<div class="pc-q" data-t="${x.t}"><i class="pc-q-ton" aria-hidden="true"><b></b><b></b><b></b></i><button type="button" data-t="${x.t}" aria-label="Zur Stelle ${fmt(x.t)} springen">${fmt(x.t)}</button>
           <strong>${esc(aussage)}${eigen ? " <em>eigene Lesart</em>" : ""}</strong>
           <span>${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.quelle)}</a>` : esc(x.quelle)} · gesagt von ${esc(String(x.sprecher || "").charAt(0) + String(x.sprecher || "").slice(1).toLowerCase())}</span></div>`;
       }).join("");
@@ -205,6 +221,7 @@
     ql.querySelectorAll("button[data-t]").forEach((b) => b.addEventListener("click", () => { fenster.close(); springe(+b.dataset.t - 0.4); spielen(); }));
     fenster.showModal();
     ql.scrollTop = 0;
+    quellenStand(audio.currentTime, true);
   }
   fenster.querySelector(".pc-zu").addEventListener("click", () => fenster.close());
   fenster.addEventListener("click", (e) => { if (e.target === fenster) fenster.close(); });

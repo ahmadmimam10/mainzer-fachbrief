@@ -1,14 +1,14 @@
 {
-  "_hinweis": "Besetzung von „Zwischen den Zeilen“: Jonas ist immer da und holt sich je nach Thema einen Gast. Schlüssel = Sprechername im Skript. Beschreibung der Figuren: podcast/LEITFADEN.md, Abschnitt 2. Stimmen bewusst natürlich, mit Charakter – keine Werbe- oder Hörbuchstimmen. veroeffentlichen.mjs schreibt eine öffentliche Fassung nach docs/daten/podcast-besetzung.json (ohne Stimmen-IDs).",
+  "_hinweis": "Besetzung von „Zwischen den Zeilen“: Jonas ist Hauptmoderator (im Boniturm), je nach Thema moderiert eine zweite Person mit – als Mitmoderation, nicht als Gast. Ortsangaben gibt es nur bei Jonas (kein „Stadthaus“). Schlüssel = Sprechername im Skript. Beschreibung der Figuren: podcast/LEITFADEN.md, Abschnitt 2. Stimmen bewusst natürlich, mit Charakter – keine Werbe- oder Hörbuchstimmen. veroeffentlichen.mjs schreibt eine öffentliche Fassung nach docs/daten/podcast-besetzung.json (ohne Stimmen-IDs).",
   "gastgeber": "JONAS",
   "figuren": {
     "JONAS": {
-      "name": "Jonas", "rolle": "Jugendhilfeplanung", "ort": "oben im Turm",
+      "name": "Jonas", "rolle": "Jugendhilfeplanung", "ort": "oben im Boniturm",
       "stimme": "z1EhmmPwF0ENGYE8dBE6", "stimmeName": "Christian Plasa – Soft and Mild", "tempo": 1.0,
-      "kurz": "Gastgeber – denkt in Strukturen, Zahlen und Zuständigkeiten"
+      "kurz": "Hauptmoderator – denkt in Strukturen, Zahlen und Zuständigkeiten"
     },
     "MIRA": {
-      "name": "Mira", "rolle": "Allgemeiner Sozialer Dienst", "ort": "drüben im Stadthaus",
+      "name": "Mira", "rolle": "Allgemeiner Sozialer Dienst", "ort": "",
       "stimme": "zKHQdbB8oaQ7roNTiDTK", "stimmeName": "Laura – Sharp and Professional", "tempo": 1.02,
       "kurz": "will wissen, was das für Familien und das Fachteam heißt",
       "themen": ["Kinderschutz", "Hilfen zur Erziehung", "Inobhutnahme", "Familien", "Pflegekinder"]
@@ -26,7 +26,7 @@
       "themen": ["Kindertagesbetreuung", "Frühe Hilfen", "Familienbildung", "Kitaplätze", "Fachkräfte", "Sprachförderung", "Infrastruktur"]
     },
     "RAINER": {
-      "name": "Rainer", "rolle": "Wirtschaftliche Jugendhilfe", "ort": "im Stadthaus",
+      "name": "Rainer", "rolle": "Wirtschaftliche Jugendhilfe", "ort": "",
       "stimme": "czb8zR3V35utWZxvKd9a", "stimmeName": "Leo Liest – Dark & Smoky", "tempo": 1.0,
       "kurz": "seit vielen Jahren dabei, weiß, was jede Hilfe kostet und wer sie bezahlt",
       "themen": ["Kosten", "Kostenbeiträge der Eltern", "Kostenerstattung", "Zuständigkeit", "Entgelte", "Haushalt"]

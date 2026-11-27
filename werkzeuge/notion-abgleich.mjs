@@ -15,6 +15,8 @@
  *   rubrik   Die Quelle ruft GitHub ab, diese Rubrik aber nicht (z. B. AZ Rheinhessen). Mit vermuteter Feed-Adresse.
  *   alt      Der Artikel war beim Eintrag in Notion älter als drei Tage. Der Abruf übernimmt bewusst nichts Älteres.
  *   quelle   Diese Quelle gibt es beim Abruf nicht oder sie ist pausiert.
+ *   ausfall  Der Server der Quelle war in dieser Zeit für GitHub mehrfach nicht erreichbar (Zeitüberschreitung, Abweisung). Seit dem
+ *            27.11.2026 holt der Abruf solche Seiten über einen Umweg (sammeln.mjs, cloudflare/bestenliste → /hol).
  *   unklar   Hätte der Abruf sehen müssen. Genauer ansehen.
  *
  *   node werkzeuge/notion-abgleich.mjs                    neues Fenster prüfen, das vom Vortag nachprüfen, Verpasstes nachholen
@@ -55,7 +57,7 @@ const NAME_ZU_QUELLE = {
   "bundesratkompakt": "bundesrat", "jugendgerecht.de": "jugendgerecht", "jadigital": "jadigital", "bildungsminsterium": "bm-rlp",
   "bildungsministerium": "bm-rlp", "deutscher verein veranstaltungen": "dv", "deutscher verein": "dv",
 };
-const REIHE = ["unklar", "rubrik", "alt", "quelle", "offen"];
+const REIHE = ["unklar", "ausfall", "rubrik", "alt", "quelle", "offen"];
 
 const host = u => { try { return new URL(u).hostname.toLowerCase().replace(/^www\./, ""); } catch { return ""; } };
 const pfad = u => { try { return decodeURIComponent(new URL(u).pathname).toLowerCase(); } catch { return ""; } };
@@ -259,10 +261,32 @@ function fensterAbgleichen(f, notion, abruf, quellen, jetzt) {
   };
 }
 
-/** Über alle Fenster: Wo liegen die Lücken? (je Quelle und Grund, Rubriken einzeln; „offen“ zählt nicht) */
+/**
+ * Nachklären, auch für schon gespeicherte Fenster – damit in der Verwaltung nichts „unerklärt“ oder „fehlt“ heißt, was längst geklärt ist:
+ *   • Rubrik inzwischen aufgenommen (ihr Feed steht jetzt in quellen.json) → „erledigt“, zählt nicht mehr als Lücke.
+ *   • „unklar“, aber die Quelle zeigte den Artikel mit einem Datum, das beim Abruf schon älter als drei Tage war (quellen-zustand → zuAlt) → „alt“.
+ *   • „unklar“, und der Server der Quelle war im Fenster für GitHub mehrfach nicht erreichbar (laufprotokoll) → „ausfall“.
+ */
+function nachklaeren(tage, quellen, zustand, protokoll) {
+  const feeds = new Set(quellen.flatMap(q => q.aktiv === false ? [] : [...(q.urls || []), ...(Array.isArray(q.stuendlich) ? q.stuendlich : [])]).map(u => (cleanUrl(u) || u).replace(/\/$/, "")));
+  const ausfaelle = (protokoll || []).flatMap(l => (l.auffaellig || []).map(z => /^✗ (\S+).*⚠ .*(fetch failed|Zeitüberschreitung|UND_ERR|ETIMEDOUT|HTTP (403|429|5[0-9][0-9]))/.exec(z)).filter(Boolean).map(m => ({ id: m[1], zeit: Date.parse(l.zeit) })));
+  const laeufe = (protokoll || []).map(l => Date.parse(l.zeit)).filter(Boolean);
+  for (const tag of tage) for (const f of tag.fehlend || []) {
+    if (f.grund === "rubrik" && f.feed && feeds.has((cleanUrl(f.feed) || f.feed).replace(/\/$/, ""))) { f.erledigt = "Diese Rubrik ist inzwischen im Abruf."; continue; }
+    if (f.grund !== "unklar") continue;
+    const alt = ((zustand.quellen || {})[f.id] || {}).zuAlt || [], eigene = new Set(schluessel(f.url));
+    const treffer = alt.find(x => schluessel(x.url).some(k => eigene.has(k)));
+    if (treffer) { f.grund = "alt"; f.datum = treffer.datum; continue; }
+    const von = fensterVon(tag).getTime() - 6 * H, bis = fensterBis(tag).getTime();
+    const n = ausfaelle.filter(a => a.id === f.id && a.zeit >= von && a.zeit <= bis).length, m = laeufe.filter(z => z >= von && z <= bis).length;
+    if (n >= 2) { f.grund = "ausfall"; f.hinweis = `Der Server der Quelle war in ${n} von ${m} Abrufen für GitHub nicht erreichbar.`; }
+  }
+}
+
+/** Über alle Fenster: Wo liegen die Lücken? (je Quelle und Grund, Rubriken einzeln; „offen“ und Erledigtes zählen nicht) */
 function luecken(tage) {
   const g = new Map();
-  for (const t of [...tage].reverse()) for (const f of t.fehlend.filter(f => f.grund !== "offen")) {
+  for (const t of [...tage].reverse()) for (const f of t.fehlend.filter(f => f.grund !== "offen" && !f.erledigt)) {
     const k = [f.id || f.quelle, f.grund, f.rubrik || ""].join("|");
     const e = g.get(k) || { quelle: f.quelle, id: f.id, grund: f.grund, ...(f.rubrik ? { rubrik: f.rubrik, rubrikName: f.rubrikName, feed: f.feed } : {}), ...(f.hinweis ? { hinweis: f.hinweis } : {}), anzahl: 0, tage: [], beispiele: [] };
     e.anzahl++; if (!e.tage.includes(t.tag)) e.tage.push(t.tag); e.beispiele = [...e.beispiele, f.titel].slice(-3);
@@ -293,11 +317,12 @@ async function main() {
   const jetzt = JETZT;
   const alt = await readJson(DATEI, null);
   const stand = alt || { tage: [] };
-  const plan = fensterPlanen(stand.tage, jetzt, await abrufZeiten());
-  if (!plan.length) { console.log(HEUTE > LETZTER_LAUF ? "Der Notion-Abgleich ist abgeschlossen." : "Nichts abzugleichen – bis zum letzten nächtlichen Abruf ist alles geprüft."); return; }
+  const plan = argv.includes("--nachklaeren") ? [] : fensterPlanen(stand.tage, jetzt, await abrufZeiten());
+  if (!plan.length && !argv.includes("--nachklaeren")) { console.log(HEUTE > LETZTER_LAUF ? "Der Notion-Abgleich ist abgeschlossen." : "Nichts abzugleichen – bis zum letzten nächtlichen Abruf ist alles geprüft."); return; }
 
   let notion, zugang = "ok", hinweis = "";
-  try {
+  if (argv.includes("--nachklaeren")) { zugang = stand.zugang || "ok"; hinweis = stand.hinweis || ""; }
+  else try {
     if (opt("datei")) notion = await dateiLesen(opt("datei"));
     else notion = await notionLesen(new Date(Math.min(...plan.map(f => f.von.getTime())) - 24 * H), new Date(Math.min(jetzt.getTime(), Math.max(...plan.map(f => f.bis.getTime())) + 24 * H)));
   } catch (e) {
@@ -317,9 +342,10 @@ async function main() {
     }
   }
   const alle = neu.tage || [];
+  nachklaeren(alle, await readJson("quellen.json", []).catch(() => []), await readJson("daten/quellen-zustand.json", {}).catch(() => ({})), await readJson("daten/laufprotokoll.json", []).catch(() => []));
   const sum = k => alle.reduce((s, t) => s + (t[k] || 0), 0);
   const ergebnis = {
-    info: "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
+    info: "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / ausfall / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
     stand: new Date().toISOString(), zugang, ...(hinweis ? { hinweis } : {}), grenze: "nächtlicher Abruf", letzterLauf: LETZTER_LAUF,
     gesamt: { tage: alle.length, notion: sum("notion"), erfasst: sum("erfasst"), fehlt: sum("fehlt"), offen: sum("offen"), zusaetzlich: sum("zusaetzlich") },
     luecken: luecken(alle), tage: alle,

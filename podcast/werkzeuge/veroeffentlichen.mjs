@@ -2,8 +2,8 @@
 // veroeffentlichen.mjs – bringt eine fertig abgemischte Folge auf die Boniblatt-Seite:
 //  • MP3 nach docs/podcast/ im Repository
 //  • Folge in docs/daten/podcast.json eintragen (gleiche id wird ersetzt)
-//  • docs/daten/podcast.js neu schreiben: neueste Folge → 3 Tage Werbeflieger „Neue KI-Podcast-Folge ist raus!“
-//    und glänzender Podcast-Knopf auf der Startseite
+//  • docs/daten/podcast.js neu schreiben: neueste Folge → am Erscheinungstag Werbeflieger „Neue Podcast-Folge ist raus!“,
+//    an diesem und am nächsten Tag glänzender Podcast-Knopf mit „Neu“ auf der Startseite (ohne „KI“ – der Hinweis steht auf der Podcast-Seite)
 // Aufruf: node werkzeuge/veroeffentlichen.mjs folgen/01-strukturreform [--repo ..]   (Vorgabe: das Repository um podcast/)
 // Wöchentlich erledigt das die Action „Podcast produzieren“ (produzieren.mjs) samt Commit und Seitenveröffentlichung.
 // Von Hand danach im Repository: git add docs/podcast docs/daten/podcast.* && git commit && git push
@@ -17,7 +17,8 @@ const args = process.argv.slice(2);
 const FOLGE = resolve(args.find((a) => !a.startsWith('--')) || '.');
 const REPO = resolve(args.includes('--repo') ? args[args.indexOf('--repo') + 1] : join(WERKSTATT, '..'));
 const DOCS = join(REPO, 'docs');
-const TAGE_NEU = 3;
+const TAGE_NEU = 1;       // „Neu“ am Podcast-Knopf: am Tag des Erscheinens und am Tag danach (Montag und Dienstag)
+const TAGE_FLIEGER = 0;   // Werbeflieger im Startbild: nur am Tag des Erscheinens (Montag)
 
 const web = JSON.parse(await readFile(join(FOLGE, 'audio', 'web.json'), 'utf8'));
 await mkdir(join(DOCS, 'podcast'), { recursive: true });
@@ -35,17 +36,19 @@ await writeFile(jsonPfad, JSON.stringify(bestand));
 
 const n = bestand.folgen[0];
 const js = `/* Boniblatt-Podcast: neueste Folge – erzeugt von Podcast/werkzeuge/veroeffentlichen.mjs.
-   ${TAGE_NEU} Tage nach dem Erscheinen fliegt der Werbeflieger mit „Neue KI-Podcast-Folge ist raus!“ und der Podcast-Knopf glänzt.
+   Am Tag des Erscheinens fliegt der Werbeflieger mit „Neue Podcast-Folge ist raus!“; der Podcast-Knopf glänzt an diesem und am nächsten Tag.
    Vorschau: ?podcast=neu */
-window.BONIBLATT_PODCAST = ${JSON.stringify({ neueste: { id: n.id, nummer: n.nummer, titel: n.titel, datum: n.datum }, tageNeu: TAGE_NEU })};
+window.BONIBLATT_PODCAST = ${JSON.stringify({ neueste: { id: n.id, nummer: n.nummer, titel: n.titel, datum: n.datum }, tageNeu: TAGE_NEU, tageFlieger: TAGE_FLIEGER })};
 (function () {
   var p = window.BONIBLATT_PODCAST, n = p && p.neueste;
   if (!n) return;
   var q = new URLSearchParams(location.search);
   var heute = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(q.get("tag") || "") ? q.get("tag") : new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Berlin" }).format(new Date());
   var tage = (Date.parse(heute) - Date.parse(n.datum)) / 864e5;
-  p.istNeu = q.get("podcast") === "neu" || (tage >= 0 && tage <= (p.tageNeu || 3));
-  if (p.istNeu && !q.has("spruch")) (window.BONIBLATT_FLIEGER = window.BONIBLATT_FLIEGER || {})[heute] = "Neue KI-Podcast-Folge ist raus!";
+  var probe = q.get("podcast") === "neu";
+  p.istNeu = probe || (tage >= 0 && tage <= (p.tageNeu == null ? 1 : p.tageNeu));          // Knopf glänzt mit „Neu“: Tag des Erscheinens und der Tag danach
+  p.fliegt = probe || (tage >= 0 && tage <= (p.tageFlieger || 0));                       // Werbeflieger: nur am Tag des Erscheinens
+  if (p.fliegt && !q.has("spruch")) (window.BONIBLATT_FLIEGER = window.BONIBLATT_FLIEGER || {})[heute] = "Neue Podcast-Folge ist raus!";
 })();
 `;
 await writeFile(join(DOCS, 'daten', 'podcast.js'), js);
@@ -58,4 +61,4 @@ if (besetzung) {
   await writeFile(join(DOCS, 'daten', 'podcast-besetzung.json'), JSON.stringify(oeffentlich, null, 1));
 }
 console.log(`Veröffentlicht: Folge ${web.nummer} „${web.titel}“ → docs/podcast/${web.datei}`);
-console.log(`podcast.json: ${bestand.folgen.length} Folge(n) · neu bis ${new Date(Date.parse(n.datum) + TAGE_NEU * 864e5).toISOString().slice(0, 10)}`);
+console.log(`podcast.json: ${bestand.folgen.length} Folge(n) · „Neu“ bis ${new Date(Date.parse(n.datum) + TAGE_NEU * 864e5).toISOString().slice(0, 10)}`);

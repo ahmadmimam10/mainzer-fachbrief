@@ -1,7 +1,8 @@
 # ZWISCHEN DEN ZEILEN – der Podcast vom Boniblatt
 # Folge 1: Das Kleingedruckte der Strukturreform (Erstes Kinder- und Jugendhilfestrukturreformgesetz)
-# Stand der Fakten: 24. November 2026 · Fassung 4 (Rückmeldung zu Fassung 3: Witze etwa halbiert, keine persönlichen
-# Sticheleien und Ich-Geschichten, Einstieg mit kritischer Frage, Jonas ruhiger, mehr Positionen und Einordnung)
+# Stand der Fakten: 24. November 2026 · Fassung 5 vom 27. November 2026 (Rückmeldung zu Fassung 4: Jonas begrüßt als
+# Hauptmoderator aus dem Boniturm, kein „Stadthaus“; Begrüßung mit den Listen; beim Vorrang einmal in die Tiefe – wie stellt
+# man fest, dass es keinen Kitaplatz gibt? Dafür ist das Fundstück zum Jugendschutzgesetz gestrichen.)
 # Format: siehe podcast/LEITFADEN.md
 
 #> musik thema
@@ -15,16 +16,17 @@ MIRA: [engaged] Ist das ein fachlicher Fortschritt – oder ein Sparprogramm mit
 
 ## 2 · Begrüßung
 
-MIRA: [warmly] Guten Morgen und herzlich willkommen bei „Zwischen den Zeilen“, dem Podcast vom Boniblatt. Ich bin Mira, Allgemeiner Sozialer Dienst, drüben im Stadthaus.
-JONAS: [warmly] Und ich bin Jonas, Jugendhilfeplanung, oben im Turm. Sie macht die Fälle, ich mach die Tabellen.
-MIRA: [lightly amused] Und ich muss mit deinen Tabellen leben.
+JONAS: [warmly] Guten Morgen und herzlich willkommen bei „Zwischen den Zeilen“, dem Podcast vom Boniblatt. Ich bin Jonas, Jugendhilfeplanung, oben im Boniturm.
+MIRA: [warmly] Und ich bin Mira, Allgemeiner Sozialer Dienst.
+JONAS: [slightly amused] Sie macht die Fälle, ich mach die Listen.
+MIRA: [dryly] Und ich liefere dafür ständig Zahlen. Für Listen, die am Ende kein Mensch nutzt. Die meisten wissen nicht mal, dass es sie gibt.
 JONAS: [calm] Heute geht es um die Strukturreform der Kinder- und Jugendhilfe. Die Grundzüge kennt ihr aus dem Boniblatt. Wir schauen aufs Kleingedruckte: was genau im Entwurf steht, wie die verschiedenen Seiten es bewerten und was das für die Arbeit in den Jugendämtern heißt.
 MIRA: Stand: vierundzwanzigster November. Und wo wir etwas nicht genau wissen, sagen wir das.
 
 ## 3 · Was gerade passiert
 
 MIRA: [engaged] Zuerst das Aktuelle. Eigentlich sollte der Bundestag das Gesetz am dreizehnten November verabschieden. Kurz vorher wurde es von der Tagesordnung genommen.
-JONAS: [matter-of-fact] Die Koalitionsfraktionen von Union und SPD verhandeln nach. Einen neuen Termin gibt es noch nicht, und worüber genau verhandelt wird, sagt offiziell niemand. Die Verbände haben ihre Erwartungen aber klar formuliert. Der Paritätische und mehrere Fachverbände der Erziehungshilfe wollen den Vorrang der Infrastruktur streichen. Und die Wohlfahrtsverbände wollen keine Bildungsassistenz in der Kita.
+JONAS: [matter-of-fact] Die Koalitionsfraktionen von Union und SPD verhandeln nach. Einen neuen Termin gibt es noch nicht. Die Verbände haben ihre Erwartungen klar formuliert. Der Paritätische und mehrere Fachverbände der Erziehungshilfe wollen den Vorrang der Infrastruktur streichen. Und die Wohlfahrtsverbände wollen keine Bildungsassistenz in der Kita.
 #@ 2./3. Lesung am 13.11.2026 abgesetzt, Koalition verhandelt nach; Appelle zu § 27 Abs. 5 und zur Kita | Der Paritätische, Meldung vom 11.11.2026 | https://www.der-paritaetische.de/alle-meldungen/strukturreform-der-kinder-und-jugendhilfe-zeitplan-fuer-das-1-kjhsrg-verschoben-gespraeche-ueber-nachbesserungen-laufen/
 MIRA: Und selbst wenn sich der Bundestag einigt, muss danach noch der Bundesrat zustimmen.
 #@ Zustimmungsgesetz („mit Zustimmung des Bundesrates“) | BT-Drs. 21/8274, Gesetzestext, Eingangsformel | https://dserver.bundestag.de/btd/21/082/2108274.pdf
@@ -33,8 +35,6 @@ JONAS: [calm] Und die Länder haben im September siebenundzwanzig Punkte zum Ent
 MIRA: [pragmatic] Und was gilt wann?
 JONAS: Wenn es so kommt wie im Entwurf, gilt ein kleiner Teil schon am Tag nach der Verkündung: unbegleitete Minderjährige, Kinderschutz, ein neuer Name für die Heimerziehung und das Jugendschutzgesetz. Der große Rest kommt am ersten Januar 2028.
 #@ Inkrafttreten: am Tag nach der Verkündung, Artikel 2 am 01.01.2028 | BT-Drs. 21/8274, Art. 9 | https://dserver.bundestag.de/btd/21/082/2108274.pdf
-JONAS: [calm] Und am Montag hat Rheinland-Pfalz in Berlin über die Reform diskutiert, bei der Berliner Runde in der Landesvertretung. Ministerin Bätzing-Lichtenthäler hat dort eine verlässliche Finanzierung und gerechte Chancen für junge Menschen gefordert.
-#@ Berliner Runde III am 23.11.2026: Forderungen der Ministerin | Pressemitteilung des Ministeriums (MASFFJ) Rheinland-Pfalz | https://masffj.rlp.de/service/presse/detail/berliner-runde-iii-baetzing-lichtenthaeler-fordert-verlaessliche-finanzierung-und-gerechte-chancen-fuer-junge-menschen
 
 ## 4 · Der Vorrang
 
@@ -47,7 +47,7 @@ JONAS: [matter-of-fact] Entscheiden sollen mehrere Fachkräfte gemeinsam, mit ei
 #@ Vollständige Deckung erfüllt den Anspruch; bei teilweiser Deckung Kombination mit Hilfe zur Erziehung | BT-Drs. 21/8274, Begründung zu § 27 Abs. 5 (S. 40) | https://dserver.bundestag.de/btd/21/082/2108274.pdf
 MIRA: Und was heißt das für die Planung?
 JONAS: [thoughtful] Dass der Bestand mehr leisten muss als bisher. Er muss zeigen, für wen ein Angebot gedacht ist, wie viele Plätze es wirklich gibt und wie schnell eine Familie hineinkommt. Bedarfsermittlung klingt nach Hightech. In der Praxis sind das oft ein paar Excel-Dateien und eine Mail von 2019, die keiner löschen darf. [pause] Ab 2028 hängen daran Einzelfallentscheidungen.
-MIRA: [pragmatic] Und im Sozialen Dienst muss der Eignungsvergleich dokumentiert werden. Also ein neues Feld im Formular: „Vorrang geprüft: ja, nein.“ Ihr kennt das.
+MIRA: [pragmatic] Und im Sozialen Dienst muss der Eignungsvergleich dokumentiert werden. Also ein neues Feld im Formular: „Vorrang geprüft: ja, nein.“
 JONAS: [calm] Das Ministerium betont, der individuelle Rechtsanspruch bleibe uneingeschränkt bestehen.
 MIRA: [dryly] Uneingeschränkt. Mit Vorrangprüfung.
 #@ „Der individuelle Rechtsanspruch auf bedarfsgerechte Hilfen bleibt … uneingeschränkt bestehen“ | Bundesfamilienministerium, Pressemitteilung vom 12.08.2026 | https://www.bmbfsfj.bund.de/bmbfsfj/aktuelles/pressemitteilungen/bundesregierung-staerkt-und-modernisiert-die-kinder-und-jugendhilfe-292670
@@ -64,7 +64,7 @@ JONAS: [matter-of-fact] Die Arbeitsgemeinschaft für Kinder- und Jugendhilfe unt
 MIRA: [concerned] Genau das ist die Sorge vieler Fachkräfte im Sozialen Dienst: dass Familien, bei denen die Kita allein nicht reicht, später wiederkommen. Und dann mit größeren Problemen.
 JONAS: [calm] Die Internationale Gesellschaft für erzieherische Hilfen sieht es ähnlich. Sie warnt, dass sich die Entscheidungslogik verschiebt: weg vom Bedarf, hin zu der Frage, welches vorhandene Angebot eine Hilfe ersetzen kann. Und sie schreibt einen Satz, den ich wichtig finde: Eine gesetzliche Vorrangstellung schafft noch keine bedarfsgerechte Infrastruktur.
 #@ IGfH: Gefahr verschobener Entscheidungslogik; „Eine gesetzliche Vorrangstellung schafft zudem noch keine bedarfsgerechte Infrastruktur.“ | IGfH, Zwischenruf zum Regierungsentwurf vom 01.09.2026 | https://igfh.de/sites/default/files/2026-09/IGfH_Zwischenruf_KJHSRG-Regierungsentwurf_01092026_0.pdf
-MIRA: Und der Kinderschutzbund sieht vor allem neuen Aufwand: mehrere Fachkräfte, mehrere Prüfschritte, in Jugendämtern, die ohnehin überlastet sind. Einen Mehrwert erkennt er nicht.
+MIRA: Und der Kinderschutzbund sieht vor allem neuen Aufwand für ohnehin überlastete Jugendämter. Einen Mehrwert erkennt er nicht.
 #@ Kinderschutzbund: neuer bürokratischer Aufwand durch mehrere Fachkräfte, Mehrwert nicht erkennbar | Kinderschutzbund, Stellungnahme zum Regierungsentwurf (September 2026) | https://kinderschutzbund.de/wp-content/uploads/2026/09/Stellungnahme-Regierungsentwurf-1.-KJHSRG.pdf
 MIRA: [pause] Und gespart werden soll ja auch. Eins Komma drei Milliarden im Jahr, ab 2036.
 JONAS: [calm] Und an der Stelle ist die Begründung erstaunlich offen. Kommunen berichten von dreißig bis über fünfzig Prozent weniger Kosten bei den Hilfen zur Erziehung, aber belastbare Studien dazu gibt es nicht. Durchgerechnet werden deshalb nur Beispiele. Das erste: Kita statt Familienhilfe bei den Ein- bis Zweijährigen. Da gab es 2023 rund dreißigtausend ambulante Hilfen zur Erziehung, und die Begründung nimmt an, dass in einem Drittel davon künftig die Kita vorgeht. Macht hundert Millionen.
@@ -75,13 +75,25 @@ MIRA: [serious] Und da wird es für den Sozialen Dienst konkret. Zum Sozialen Di
 JONAS: [thoughtful] Dann gibt es auch keinen Vorrang. Das steht ausdrücklich in der Begründung: In die Prüfung dürfen nur Angebote einbezogen werden, die im Einzelfall tatsächlich verfügbar sind. Die kommunalen Spitzenverbände weisen außerdem darauf hin, dass Jugendsozialarbeit freiwillig ist und dass niemand verpflichtet ist, ein konkretes Angebot jederzeit vorzuhalten. Ist eine Stelle unbesetzt, gibt es das Angebot schlicht nicht.
 #@ Nur tatsächlich für den Einzelfall verfügbare Angebote werden einbezogen | BT-Drs. 21/8274, Begründung zu § 27 Abs. 5 (S. 40) | https://dserver.bundestag.de/btd/21/082/2108274.pdf
 #@ Jugendsozialarbeit freiwillig, keine verbindliche Vorhaltepflicht, etwa bei unbesetzten Stellen | Ausschussdrucksache 21(13)57f, Abschnitt 1.2 | https://www.bundestag.de/resource/blob/1223806/21-13-57f.pdf
-MIRA: Und selbst mit Platz: Die Kita sieht das Kind. Die Familienhilfe sieht die Küche.
+MIRA: [engaged] Da möchte ich genauer hinschauen. „Tatsächlich verfügbar“: Wie stellt man das fest, schwarz auf weiß? Fordert der Soziale Dienst die Mutter auf, sich erst bei drei Kitas anzumelden? Muss sie eine Bestätigung bringen, dass sie auf der Warteliste steht? Oder besorgt das Jugendamt den Platz selbst?
+JONAS: [thoughtful] Dazu steht im Entwurf nichts. Die Begründung hat dafür genau diesen einen Satz. Wer die Verfügbarkeit prüft, wie schnell das gehen muss und was als Nachweis gilt, bleibt offen. So lese ich das jedenfalls.
+#@ Eigene Lesart: Entwurf und Begründung regeln nicht, wie die Verfügbarkeit festgestellt wird, wer sie belegt und in welcher Frist | BT-Drs. 21/8274, Art. 2 Nr. 7 und 9 sowie Begründung zu § 27 Abs. 5 (S. 40) | https://dserver.bundestag.de/btd/21/082/2108274.pdf
+MIRA: [concerned] Dann entscheidet die Praxis. Und wenn eine Familie erst Absagen sammeln muss, bevor sie Hilfe bekommt, ist das eine Logik, die man eher vom Jobcenter kennt: erst der Nachweis, dann die Leistung. Leichter wird der Alltag dieser Mutter in den Wochen dazwischen nicht.
+JONAS: [calm] Und es gibt noch eine zweite Ebene. Ein Kind hat ab dem ersten Geburtstag schon heute einen Rechtsanspruch auf Förderung in einer Kita oder in der Kindertagespflege. Dieser Anspruch richtet sich an den Träger der öffentlichen Jugendhilfe. Also an dasselbe Jugendamt, das den Vorrang prüft.
+#@ Rechtsanspruch auf frühkindliche Förderung in einer Tageseinrichtung oder in Kindertagespflege ab dem vollendeten ersten Lebensjahr | § 24 Abs. 2 SGB VIII (geltendes Recht) | https://www.gesetze-im-internet.de/sgb_8/__24.html
+MIRA: [dryly] Steht also in der Akte „kein Platz verfügbar“, dann steht da auch: Ein Rechtsanspruch ist nicht erfüllt. Im eigenen Haus.
+JONAS: [matter-of-fact] Ja. Und das hat Folgen. Der Bundesgerichtshof hat 2016 entschieden: Bekommen Eltern trotz rechtzeitiger Anmeldung keinen Betreuungsplatz, kann die Kommune für den Verdienstausfall haften.
+#@ Amtshaftung für Verdienstausfall, wenn trotz rechtzeitiger Bedarfsanmeldung kein Betreuungsplatz zur Verfügung gestellt wird | Bundesgerichtshof, Urteile vom 20.10.2016 (III ZR 278/15, 302/15, 303/15) | https://dejure.org/dienste/vernetzung/rechtsprechung?Gericht=BGH&Datum=20.10.2016&Aktenzeichen=III%20ZR%20278/15
+MIRA: [engaged] Und ab wann gilt ein Platz als verfügbar? Wenn er in drei Monaten frei wird? Wenn er am anderen Ende der Stadt liegt? Wenn es nur vormittags ist? Dazu kommt die Eingewöhnung, und die dauert Wochen. Der Bedarf besteht aber jetzt.
+JONAS: [thoughtful] Meine Lesart: Verfügbar kann nur heißen, dass die Familie den Platz rechtzeitig und wirklich nutzen kann. Sonst wird aus dem Vorrang eine Warteschleife. Praktisch braucht es dafür einen festen Weg zwischen Sozialem Dienst und Platzvergabe, mit einer Antwort in wenigen Tagen. Und die Planung muss freie Plätze fast tagesaktuell kennen, nicht nur einmal im Jahr.
+#@ Eigene Lesart: „verfügbar“ setzt voraus, dass der Platz rechtzeitig und tatsächlich nutzbar ist; fester Weg zwischen Sozialem Dienst und Platzvergabe als eigener Vorschlag | BT-Drs. 21/8274, Begründung zu § 27 Abs. 5 (S. 40) | https://dserver.bundestag.de/btd/21/082/2108274.pdf
+MIRA: [pragmatic] Und vergibt das Jugendamt den Platz bevorzugt über den Sozialen Dienst, rutscht eine andere Familie auf der Warteliste nach hinten. Auch das gehört zur Wahrheit. [pause] Und selbst mit Platz: Die Kita sieht das Kind. Die Familienhilfe sieht die Küche.
 JONAS: [thoughtful] Ja. Und trotzdem will ich den Gedanken ein Stück verteidigen. Für manche Familien ist die Kita mit Elternberatung wirklich die bessere Hilfe: weniger Eingriff, mehr Normalität. Und die Kommunen haben recht, dass die Kosten so nicht weiter steigen können.
 MIRA: Aber?
 JONAS: [calm] Aber „genauso gut geeignet“ kann man auch mit dem Taschenrechner lesen. Und die Kämmerei liest bei „Vorrang der Infrastruktur“ vermutlich vor allem ein Wort: Vorrang.
 MIRA: [serious] Am Ende hängt es daran, wie ehrlich der Eignungsvergleich gemacht wird. Und ob es die Infrastruktur, auf die man verweist, wirklich gibt.
 MIRA: [pause] Und bei den Jugendlichen?
-JONAS: [matter-of-fact] Da geht die Jugendsozialarbeit vor, auch vor der Hilfe für junge Volljährige. Das begleitete Wohnen soll es künftig auch ohne andere Maßnahmen geben. Die Begründung rechnet so: Bei den Sechzehn- bis Siebenundzwanzigjährigen in der Heimerziehung passt für jeden Vierten das begleitete Wohnen genauso gut oder besser, und es ist dreißig Prozent günstiger. Ab 2033 sollen das zweihundertfünfzig Millionen im Jahr sein.
+JONAS: [matter-of-fact] Da geht die Jugendsozialarbeit vor, auch vor der Hilfe für junge Volljährige. Das begleitete Wohnen soll es künftig auch ohne andere Maßnahmen geben. Die Begründung rechnet so: Für jeden vierten jungen Menschen ab sechzehn in der Heimerziehung passt das begleitete Wohnen genauso gut oder besser, und es ist dreißig Prozent günstiger. Ab 2033 sollen das zweihundertfünfzig Millionen im Jahr sein.
 #@ § 13 Abs. 3 auch unabhängig von anderen Maßnahmen; jede/r Vierte, rund 30 % günstiger, 250 Mio. € ab 2033 | BT-Drs. 21/8274, Art. 2 Nr. 6 (§ 13 Abs. 3) und Begründung (S. 32 f.) | https://dserver.bundestag.de/btd/21/082/2108274.pdf
 MIRA: [concerned] Bei jungen Volljährigen ist das heikel. Die Internationale Gesellschaft für erzieherische Hilfen warnt genau hier vor pauschalen Zuweisungen und sinkenden Standards, gerade auch bei unbegleiteten jungen Geflüchteten.
 #@ IGfH: Risiko pauschaler Zuweisungen und Standardabsenkungen, insbesondere bei jungen Volljährigen und unbegleiteten geflüchteten jungen Menschen | IGfH, Zwischenruf zum Regierungsentwurf vom 01.09.2026 | https://igfh.de/sites/default/files/2026-09/IGfH_Zwischenruf_KJHSRG-Regierungsentwurf_01092026_0.pdf
@@ -96,7 +108,7 @@ JONAS: [thoughtful] Da stimme ich zu. Mir macht nur Sorge, dass die Begriffe zus
 MIRA: [engaged] Nächstes Thema, und da bin ich ehrlich hin- und hergerissen: Bildungsassistenz. Statt mehrerer Einzelbegleitungen in einer Klasse gibt es eine gemeinsame Assistenz für die Gruppe.
 JONAS: [calm] Die Bundesregierung begründet das so: Der Bedarf wird nicht mehr in jedem Einzelfall ermittelt, sondern in der Jugendhilfeplanung. Das erspart aufwendige Diagnosen und Verwaltungsverfahren, entlastet Eltern und Jugendämter. Und wenn eine Assistenz mehrere Kinder begleitet, soll das weniger stigmatisieren.
 #@ Begründung: Bedarfsermittlung auf struktureller Ebene (§ 80a), weniger Diagnoseprozesse, Entlastung, Inklusion und Entstigmatisierung | BT-Drs. 21/8274, Begründung zu Art. 2 Nr. 7 und 8 | https://dserver.bundestag.de/btd/21/082/2108274.pdf
-MIRA: Fachlich finde ich das überzeugend. Nur: Läuft die Assistenz als Infrastruktur, gibt es dafür keine Hilfeplanung mehr. Das steht ausdrücklich drin.
+MIRA: Fachlich finde ich das überzeugend. Nur: Läuft die Assistenz als Infrastruktur, gibt es dafür keine Hilfeplanung mehr.
 #@ Infrastrukturelle Bildungsassistenz ohne Hilfeplanung (§ 36 nicht anzuwenden), Planung nach § 80a | BT-Drs. 21/8274, Art. 2 Nr. 7, 8 und 17 (§ 27 Abs. 6, § 35b, § 80a) | https://dserver.bundestag.de/btd/21/082/2108274.pdf
 JONAS: [matter-of-fact] Das ist konsequent. Für eine Kita-Gruppe schreibt auch niemand einen Hilfeplan.
 MIRA: [concerned] Ja, aber wer schaut dann, ob es für das einzelne Kind passt? Die Eltern melden sich ja nicht bei der Planung, sondern beim Sozialen Dienst.
@@ -146,37 +158,28 @@ MIRA: [pause] Das bringt es auf den Punkt.
 
 ## 7 · Fundstücke
 
-MIRA: [engaged] Jetzt noch einige Details, die leicht untergehen. Erstens: unbegleitete Minderjährige. Wird am Freitagabend ein Jugendlicher vorläufig in Obhut genommen, hatte das Jugendamt bisher sieben Werktage für die Meldung an die Verteilstelle. Künftig ist es ein Monat. Das gibt mehr Zeit für die Alterseinschätzung.
+MIRA: [engaged] Jetzt noch einige Details, die leicht untergehen. Erstens: unbegleitete Minderjährige. Wird am Freitagabend ein Jugendlicher vorläufig in Obhut genommen, hatte das Jugendamt bisher sieben Werktage für die Meldung an die Verteilstelle. Künftig ist es ein Monat.
 #@ Meldung der vorläufigen Inobhutnahme: 7 Werktage → 1 Monat | BT-Drs. 21/8274, Art. 1 Nr. 6 (§ 42a Abs. 4) | https://dserver.bundestag.de/btd/21/082/2108274.pdf
-JONAS: [calm] Dazu steht in der Gegenäußerung der Bundesregierung ein wichtiger Satz: Wegen der europäischen Asylreform ist das Bundesamt für Migration und Flüchtlinge an die Alterseinschätzung des Jugendamts nicht gebunden. Es bezieht sie ein. Wenn Zweifel bleiben, prüft es selbst.
-#@ Bundesamt für Migration und Flüchtlinge nicht an die Alterseinschätzung des Jugendamts gebunden (Asylreform, VO (EU) 2024/1348) | BT-Drs. 21/8274, Anlage 4 (Gegenäußerung) zu Ziff. 4 | https://dserver.bundestag.de/btd/21/082/2108274.pdf
-MIRA: [serious] Das sollten die Teams wissen. Die Einschätzung des Jugendamts ist dann nicht das letzte Wort.
 JONAS: [matter-of-fact] Zweitens: Pflegekinder. Wird ein Kind in eine Pflegefamilie im Bezirk eines anderen Jugendamts vermittelt, muss das Jugendamt dort vorher informiert werden und Gelegenheit zur Stellungnahme bekommen. Sonst gibt es nach zwei Jahren keinen Zuständigkeitswechsel, und der Fall bleibt beim vermittelnden Jugendamt.
 #@ Pflegekinder: Information und Gelegenheit zur Stellungnahme vorab, sonst kein Zuständigkeitswechsel nach § 86 Abs. 6 | BT-Drs. 21/8274, Art. 2 Nr. 10 und 18 (§ 37c Abs. 3, § 86 Abs. 6) | https://dserver.bundestag.de/btd/21/082/2108274.pdf
 MIRA: [lightly amused] Viel Spaß dem Pflegekinderdienst. Der telefoniert ohnehin schon die halbe Zeit mit den Nachbarjugendämtern.
-JONAS: [calm] Dann gibt es dafür bald wenigstens eine gesetzliche Grundlage.
-MIRA: [engaged] Drittens, der Kinderschutz. Bei der Gefährdungseinschätzung nach Paragraf 8a sollen, wo es nötig ist, andere Stellen beteiligt werden, zum Beispiel spezialisierte Fachberatungsstellen. Und begleiteter Umgang soll an einem sicheren Ort stattfinden.
-JONAS: [calm] Das kommt aus europäischem Recht, aus den Richtlinien gegen Gewalt an Frauen und gegen Menschenhandel. Das Gesetz setzt beide nebenbei mit um, erkennbar nur an einer Fußnote unter der Überschrift.
+JONAS: [calm] Drittens, der Kinderschutz. Bei der Gefährdungseinschätzung nach Paragraf 8a sollen, wo es nötig ist, andere Stellen beteiligt werden, zum Beispiel spezialisierte Fachberatungsstellen. Und begleiteter Umgang soll an einem sicheren Ort stattfinden.
 #@ § 8a Abs. 1: Beteiligung anderer Stellen; § 18 Abs. 3: sicherer Ort für begleiteten Umgang; Umsetzung der Richtlinien (EU) 2024/1385 und 2024/1712 | BT-Drs. 21/8274, Art. 1 Nr. 2 und 4, Fußnote zum Gesetzestitel | https://dserver.bundestag.de/btd/21/082/2108274.pdf
 MIRA: Für die freien Träger: In die Leistungsvereinbarung kommt künftig auch die Wirksamkeit der Angebote. Der Bundesrat wollte das streichen, die Bundesregierung bleibt dabei.
 #@ § 78b: Wirksamkeit in der Leistungsvereinbarung; Bundesrat wollte streichen, Regierung lehnt ab | BT-Drs. 21/8274, Art. 2 Nr. 15; Anlage 3 Ziff. 14; Anlage 4 | https://dserver.bundestag.de/btd/21/082/2108274.pdf
 JONAS: [thoughtful] Das kann man von zwei Seiten sehen. Wirksamkeit zu beschreiben ist fachlich richtig. Wird sie in Verhandlungen aber zur Kennzahl, misst man schnell nur das, was sich leicht messen lässt.
-MIRA: Und für die Frühen Hilfen: Im Haushaltsentwurf für 2027 stehen für die Bundesstiftung einundsiebzig statt einundfünfzig Millionen im Jahr, und davon soll auch erprobt werden, die Frühen Hilfen auf Kinder von vier bis sechs Jahren auszuweiten. Wenn der Haushalt so beschlossen wird.
+MIRA: Und für die Frühen Hilfen: Im Haushaltsentwurf für 2027 stehen einundsiebzig statt einundfünfzig Millionen im Jahr, auch um die Frühen Hilfen für Kinder von vier bis sechs Jahren zu erproben. Wenn der Haushalt so beschlossen wird.
 #@ Frühe Hilfen: 51 → 71 Mio. € jährlich ab 2027 (Haushaltsentwurf), Modellversuch 4–6 Jahre | BT-Drs. 21/8274, Anlage 4 (Gegenäußerung) zu Ziff. 22 | https://dserver.bundestag.de/btd/21/082/2108274.pdf
 JONAS: [serious] Und dann eine Stelle, die für die Kommunen wichtig ist. Bund und Länder haben im Juni vereinbart: Belastet ein Bundesgesetz Länder und Kommunen mit mindestens zweihundert Millionen Euro im Jahr, wird das ausgeglichen. Das gilt aber nur für Gesetzentwürfe, die das Kabinett nach dem ersten Oktober beschlossen hat. Dieser hier wurde am zwölften August beschlossen. Und bestimmte Änderungen im Jugendhilferecht sind in der Vereinbarung ausdrücklich ausgenommen.
 #@ Veranlassungskonnexität: Ausgleich ab 200 Mio. €/Jahr nur für Kabinettsbeschlüsse nach dem 01.10.2026; Kabinett hier 12.08.2026; Jugendhilfe-Änderungen ausgenommen | BT-Drs. 21/8274, Anlage 4 (Gegenäußerung) zu Ziff. 24 a | https://dserver.bundestag.de/btd/21/082/2108274.pdf
 MIRA: [serious] Wer bestellt, bezahlt. Nur eben nicht bei uns.
-MIRA: Und zum Schluss das Jugendschutzgesetz: Bisher durften Vierzehn- und Fünfzehnjährige in Begleitung ihrer Eltern in der Öffentlichkeit Bier, Wein oder Sekt trinken. Diese Ausnahme fällt weg. Und der Bundesrat regt an zu prüfen, ob es Alkohol grundsätzlich erst ab achtzehn geben soll.
-#@ Begleitetes Trinken: § 9 Abs. 2 Jugendschutzgesetz gestrichen; Bundesrat regt Prüfung einer Altersgrenze von 18 an | BT-Drs. 21/8274, Art. 5; Anlage 3 Ziff. 20 | https://dserver.bundestag.de/btd/21/082/2108274.pdf
-JONAS: [slightly amused] Alkohol erst ab achtzehn, in Rheinhessen? Da gehen die Leute auf die Straße, bevor die Prüfung überhaupt anfängt.
-MIRA: Wobei das bisher nur eine Prüfbitte ist. Im Gesetzentwurf selbst steht davon nichts.
 
 ## 8 · Was heißt das für Montag?
 
 MIRA: [warmly] Was heißt das alles für Montagmorgen?
 JONAS: [calm] Für die Jugendhilfeplanung: den Bestand so aufbauen, dass er Einzelfallentscheidungen tragen kann, mit Plätzen, Wartezeiten und Zielgruppen. Jetzt, nicht erst 2028.
-MIRA: Für den Sozialen Dienst: den Eignungsvergleich so dokumentieren, dass er fachlich trägt, ohne Formularmonster. Und für den Pflegekinderdienst: mit den Nachbarjugendämtern klären, wie die Information vor einer Unterbringung künftig läuft.
-JONAS: [matter-of-fact] Die freien Träger sollten sich überlegen, wie sie Wirksamkeit beschreiben wollen, bevor es jemand anders für sie tut. Und alle sollten die Nachverhandlungen im Blick behalten. Ob der Vorrang so bleibt, ist die große Frage der nächsten Wochen. Parallel läuft bis Ende März 2027 die Konsultation zur zweiten Stufe der Reform. Wer mitreden will, geht am besten über seinen Verband.
+MIRA: Für den Sozialen Dienst: den Eignungsvergleich so dokumentieren, dass er fachlich trägt, ohne Formularmonster. Und mit der Platzvergabe früh klären, wie man in wenigen Tagen erfährt, ob ein Platz wirklich frei ist. Für den Pflegekinderdienst: mit den Nachbarjugendämtern klären, wie die Information vor einer Unterbringung künftig läuft.
+JONAS: [matter-of-fact] Die freien Träger sollten sich überlegen, wie sie Wirksamkeit beschreiben wollen, bevor es jemand anders für sie tut. Und alle sollten die Nachverhandlungen im Blick behalten: Ob der Vorrang so bleibt, ist die große Frage der nächsten Wochen. Parallel läuft bis Ende März 2027 die Konsultation zur zweiten Stufe der Reform.
 #@ Konsultation zur zweiten Reformstufe bis Ende März 2027 | Der Paritätische, Meldung vom 11.11.2026; BT-Drs. 21/8274, Vorblatt B | https://www.der-paritaetische.de/alle-meldungen/strukturreform-der-kinder-und-jugendhilfe-zeitplan-fuer-das-1-kjhsrg-verschoben-gespraeche-ueber-nachbesserungen-laufen/
 MIRA: [pause] Und dein Gedanke für den Tag?
 JONAS: [thoughtful] Am Ende geht es um ein Kind und seine Familie, nicht um Planzahlen. Ob Infrastruktur oder Einzelfallhilfe: Die Reform muss sich daran messen lassen, ob dieses Kind rechtzeitig die Hilfe bekommt, die es braucht.

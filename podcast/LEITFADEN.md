@@ -1,6 +1,6 @@
 # Leitfaden: „Zwischen den Zeilen“ – der Podcast vom Boniblatt
 
-> **Zweck:** Aus einem Thema (oder ganz ohne Vorgabe) entsteht jeden Montag eine fertige Folge: recherchiert, geschrieben, vertont, geprüft und auf der Seite veröffentlicht. Dieser Leitfaden ist verbindlich für jede Folge – für die Wochenroutine genauso wie für Arbeit von Hand. Stand: 24.11.2026 – Folge 1, Fassung 4, alle Rückmeldungen und Befragungen; ab Folge 2 mit Jonas als Gastgeber und wechselnden Gästen.
+> **Zweck:** Aus einem Thema (oder ganz ohne Vorgabe) entsteht jeden Montag eine fertige Folge: recherchiert, geschrieben, vertont, geprüft und auf der Seite veröffentlicht. Dieser Leitfaden ist verbindlich für jede Folge – für die Wochenroutine genauso wie für Arbeit von Hand. Stand: 27.11.2026 – Folge 1, Fassung 5, alle Rückmeldungen und Befragungen; Jonas ist Hauptmoderator, dazu je Folge eine Mitmoderation aus einem anderen Bereich.
 
 ---
 
@@ -9,35 +9,35 @@
 | | |
 |---|---|
 | **Name** | „Zwischen den Zeilen – der Podcast vom Boniblatt“ |
-| **Für wen** | Fachkräfte der Kinder- und Jugendhilfe (Allgemeiner Sozialer Dienst, Jugendhilfeplanung, Frühe Hilfen, Kinderschutz, Quartiersmanagement, freie Träger), meist in Mainz und Rheinland-Pfalz. Sie lesen das Boniblatt und kennen die Grundlagen. |
+| **Für wen** | Fachkräfte der Kinder- und Jugendhilfe (Allgemeiner Sozialer Dienst, Jugendhilfeplanung, Frühe Hilfen, Kinderschutz, Quartiermanagement, freie Träger), meist in Mainz und Rheinland-Pfalz. Sie lesen das Boniblatt und kennen die Grundlagen. |
 | **Wann gehört** | Montagmorgens, zum ersten Kaffee oder auf dem Weg zur Arbeit. Wach und zugewandt, mit Energie – aber sachlich, kein Witzepodcast. |
-| **Inhalt** | **Nicht** die Grundzüge, die stehen im Boniblatt. Sondern: Details, frische News, Dinge zwischen den Zeilen, Fallstricke. Immer mit der Frage: Was heißt das für den Arbeitsalltag? |
+| **Inhalt** | **Nicht** die Grundzüge, die stehen im Boniblatt. Sondern: Details, frische News, Dinge zwischen den Zeilen, Fallstricke. Immer mit der Frage: Was heißt das für den Arbeitsalltag? Hauptbestandteil bleibt die Information – aber **ein- bis zweimal pro Folge geht es richtig in die Tiefe** (Abschnitt 4, „Tiefe“): eine Regel so lange durchdenken und prüfen, bis klar ist, wie sie in der Praxis wirklich funktionieren würde. Das ist der neue Inhalt für Fachkräfte, das macht „zwischen den Zeilen“ aus. |
 | **Länge** | 15–20 Minuten (≈ 2.100–2.900 gesprochene Wörter). |
 | **Erscheinen** | **Jeden Montag mit der Ausgabe.** Das Thema kommt aus der **Themenliste** der Verwaltung (Abschnitt 8): das oberste Thema, das noch keine Folge hat, mit seinen Anweisungen an die KI. Ist kein Thema offen, wählt die Redaktion ein prominentes Thema der letzten ein bis drei Wochen, möglichst nah am Alltag der Jugendhilfeplanung. |
-| **Gefühl** | Jonas aus der Jugendhilfeplanung und jede Woche ein Gast aus einem anderen Bereich des Jugendamts reden fachlich auf Augenhöhe – mit Meinung, Kritik und Ambivalenz; nebenbei lernt man die Bereiche und ihren Arbeitsalltag kennen. **Echte Charaktere statt Show:** kein Vorlesen, kein Theaterstück, kein Nachrichtenton, keine Witze, „weil wir ein cooler Podcast sind“. |
+| **Gefühl** | Jonas aus der Jugendhilfeplanung und jede Woche eine Mitmoderatorin oder ein Mitmoderator aus einem anderen Bereich des Jugendamts reden fachlich auf Augenhöhe – mit Meinung, Kritik und Ambivalenz; nebenbei lernt man die Bereiche und ihren Arbeitsalltag kennen. **Echte Charaktere statt Show:** kein Vorlesen, kein Theaterstück, kein Nachrichtenton, keine Witze, „weil wir ein cooler Podcast sind“. |
 | **Mischung** | Etwa **zwei Drittel Information und fachliche Einordnung**, **ein Drittel Meinung, Kritik und Ambivalenz** – mehrere Seiten verständlich machen. Leichte Momente nur am Rand. |
 
 ---
 
-## 2. Die Besetzung: Jonas und ein Gast
+## 2. Die Besetzung: Jonas und eine Mitmoderation
 
-**Jonas ist immer da.** Je nach Thema holt er sich **einen Gast** aus einem anderen Bereich des Jugendamts oder der Jugendhilfe. So lernen die Hörenden die Bereiche nebenbei kennen: Der Gast erzählt hier und da kurz, wie die eigene Arbeit tatsächlich aussieht – immer dort, wo es zum Thema passt. Alle reden auf Augenhöhe, widersprechen sich sachlich und ordnen ein – **echte Charaktere statt Show**. Stimmen und Grunddaten stehen in `podcast/besetzung.json`.
+**Jonas ist immer da – er ist der Hauptmoderator** und sitzt „oben im Boniturm“ (mehr Ortsangaben gibt es nicht; **kein „Stadthaus“**, bei niemandem). Je nach Thema moderiert **eine zweite Person** aus einem anderen Bereich des Jugendamts oder der Jugendhilfe mit. **Sie ist keine Gästin und kein Gast, sondern Mitmoderatorin oder Mitmoderator** (Rückmeldung vom 27.11.2026): Sie wird nicht interviewt und nicht „zu Besuch“ begrüßt, sondern führt gleichberechtigt durch die Folge – kündigt Themen an, fragt nach, ordnet ein, widerspricht – genau so, wie Mira es in Folge 1 tut. Beide stellen sich am Anfang kurz selbst vor (Name und Bereich, ein Halbsatz), als Moderierende. So lernen die Hörenden die Bereiche nebenbei kennen: Die Mitmoderation zeigt hier und da kurz, wie die eigene Arbeit tatsächlich aussieht – immer dort, wo es zum Thema passt. Alle reden auf Augenhöhe, widersprechen sich sachlich und ordnen ein – **echte Charaktere statt Show**. Stimmen und Grunddaten stehen in `podcast/besetzung.json`; in `folge.json` und in den Werkzeugen heißt das Feld für die Mitmoderation aus technischen Gründen weiter `gast`.
 
-### Jonas – Gastgeber, Jugendhilfeplanung, „oben im Turm“
+### Jonas – Hauptmoderator, Jugendhilfeplanung, „oben im Boniturm“
 - **Stimme:** „Christian Plasa – Soft and Mild“ (ElevenLabs, `z1EhmmPwF0ENGYE8dBE6`), Tempo ×1,0.
-- **Rolle:** führt durch jede Folge, stellt den Gast vor, fragt nach dessen Arbeit und verbindet sie mit Planung, Zahlen und Zuständigkeiten. Fragt wie ein Kollege, nicht wie ein Interviewer.
+- **Rolle:** eröffnet und schließt jede Folge und hält den roten Faden; verbindet die Sicht der Mitmoderation mit Planung, Zahlen und Zuständigkeiten. Redet wie ein Kollege mit einer Kollegin, nicht wie ein Interviewer mit einem Gast.
 - **Ton: entspannt in den Emotionen** – ruhig, nachdenklich, sachlich, mit Wärme. Tags: `[calm]`, `[thoughtful]`, `[serious]`, `[matter-of-fact]`, `[warmly]`, selten `[slightly amused]`. **Nicht** `[excited]`, `[enthusiastic]`, `[annoyed]`, `[incredulous]`, `[laughing]`.
 - **Blick:** strukturell und grundsätzlich; mag Ambivalenzen und erklärt sie verständlich. Verständnis für die Kommunen (die Kostensteigerung ist real) – und klar, wo eine „Einsparung“ nur ein gebremster Anstieg ist.
 - **Selbstironie:** höchstens einmal pro Folge, mit Sachbezug („Bedarfsermittlung klingt nach Hightech. In der Praxis sind das oft ein paar Excel-Dateien und eine Mail von 2019, die keiner löschen darf.“). Nichts Privates.
 
-### Die Gäste
+### Die Mitmoderation (eine Person je Folge)
 
-| Gast | Bereich | Stimme (Tempo) | passt zu Themen wie | erzählt aus der Arbeit, zum Beispiel |
+| Wer | Bereich | Stimme (Tempo) | passt zu Themen wie | zeigt aus der Arbeit, zum Beispiel |
 |---|---|---|---|---|
-| **Mira** | Allgemeiner Sozialer Dienst, „drüben im Stadthaus“ | Laura – Sharp and Professional (×1,02) | Kinderschutz, Hilfen zur Erziehung, Inobhutnahme, Familien, Pflegekinder | Gefährdungseinschätzung im Team, Hilfeplanung mit Familien, Bereitschaftsdienst, Zusammenarbeit mit dem Familiengericht |
+| **Mira** | Allgemeiner Sozialer Dienst | Laura – Sharp and Professional (×1,02) | Kinderschutz, Hilfen zur Erziehung, Inobhutnahme, Familien, Pflegekinder | Gefährdungseinschätzung im Team, Hilfeplanung mit Familien, Bereitschaftsdienst, Zusammenarbeit mit dem Familiengericht |
 | **Ben** | Schulsozialarbeit an einer Realschule plus | Simon – Relatable and Normal (×1,0) | Schule, Ganztag, Bildungsassistenz, Jugendsozialarbeit, Fehlzeiten, Startchancen, psychische Gesundheit Jugendlicher | Sprechstunde im Schulhaus, Konflikte in Klassen, lange Fehlzeiten, Abstimmung mit Lehrkräften und Sozialem Dienst, Übergang Schule–Beruf |
 | **Leonie** | Leitung einer städtischen Kita | Louisa – Warm and Hopeful (×1,0) | Kindertagesbetreuung, Frühe Hilfen, Familienbildung, Kitaplätze, Fachkräfte, Sprachförderung, Vorrang der Infrastruktur | Dienstpläne bei Personalmangel, Eingewöhnung, Elterngespräche, Anmeldungen und Warteliste, wenn ein Kind Sorgen macht, Schutzkonzept |
-| **Rainer** | Wirtschaftliche Jugendhilfe, im Stadthaus – älterer Kollege, seit vielen Jahren dabei | Leo Liest – Dark & Smoky (×1,0) | Kosten, Kostenbeiträge der Eltern, Kostenerstattung, Zuständigkeit, Entgelte, Haushalt | Rechnungen der Einrichtungen und Dienste, Kostenbeiträge berechnen, Zuständigkeitswechsel, Erstattung zwischen Jugendämtern und durch das Land |
+| **Rainer** | Wirtschaftliche Jugendhilfe – älterer Kollege, seit vielen Jahren dabei | Leo Liest – Dark & Smoky (×1,0) | Kosten, Kostenbeiträge der Eltern, Kostenerstattung, Zuständigkeit, Entgelte, Haushalt | Rechnungen der Einrichtungen und Dienste, Kostenbeiträge berechnen, Zuständigkeitswechsel, Erstattung zwischen Jugendämtern und durch das Land |
 | **Elif** | Team Eingliederungshilfe des Jugendamts | Lea – Genuine and Soothing (×1,0) | Paragraf 35a, Inklusion, Schulbegleitung, Teilhabe, inklusive Lösung, Verfahrenslotsen | Stellungnahme von Fachärztinnen, Fachärzten oder Psychotherapeuten einholen, Teilhabe prüfen, Schulbegleitung organisieren, Abgrenzung zur Eingliederungshilfe nach dem Sozialgesetzbuch Neun |
 | **Sabine** | Amtsleitung – leitet das Jugendamt | Irene – Wise & Confident (×1,0) | Jugendhilfeausschuss, Haushalt und Stellen, Fachkräftemangel, Organisation, Reformen umsetzen, Steuerung, Zusammenarbeit mit Schule und Gesundheit | Vorlagen für den Jugendhilfeausschuss, Stellen- und Budgetverhandlungen, Prioritäten setzen, wenn Geld und Personal fehlen, Reformen ins Amt übersetzen |
 
@@ -47,13 +47,13 @@
 - **Rainer:** älterer Kollege mit rauer, tiefer Stimme; hat schon einige Reformen kommen und gehen sehen, trockener Humor, skeptisch bei großen Ankündigungen, aber fair; übersetzt Fachentscheidungen in Zahlen und Zuständigkeiten, ohne Fachlichkeit kleinzureden. Tags: `[dryly]` `[calm]` `[matter-of-fact]`.
 - **Elif:** ruhig, aufmerksam, wirkt wie jemand, der wirklich zuhört; achtet auf Rechtsgrundlagen und darauf, dass Teilhabe nicht zwischen zwei Systemen verloren geht. Tags: `[calm]` `[serious]` `[warmly]`.
 - **Sabine:** Amtsleitung mit ruhiger Autorität und Wärme; denkt in Prioritäten, Haushalt und Personal, erklärt die Sicht von Politik und Verwaltung ehrlich, ohne Pressesprecher-Ton; Jonas spricht mit ihr respektvoll, aber auf Augenhöhe. Tags: `[calm]` `[serious]` `[warmly]`, selten `[dryly]`.
-- **Stimmen mit Charakter:** natürliche, etwas unperfekte Stimmen wie bei Mira und Jonas – keine Werbe-, Hörbuch- oder Kundenservice-Stimmen (Rückmeldung vom 24.11.2026). Neue Gäste: Eintrag in `podcast/besetzung.json`, Stimme aus der ElevenLabs-Bibliothek mit Beschreibungen wie „natural“, „authentic“, „relatable“, „with character“; Tonhöhe oder Klangfarbe deutlich anders als Jonas (männliche Stimmen liegen mit Eleven v4 oft bei 110–130 Hz wie er) – mit einer Probe und der Sprecher-Erkennung von Scribe prüfen. **Aufnahme trocken und nah wie bei Jonas**, kein Raumhall (Rückmeldung vom 24.11.2026: Leonies erste Stimme klang „weit, wie in einem anderen Raum“): Einzelprobe mit `node podcast/werkzeuge/raumklang.mjs <probe.mp3>` messen – Jonas ≈ 60 ms, bis etwa 100 ms gut, ab etwa 150 ms hörbar raumig. Tempo vorab in einer Gesprächsprobe mit Jonas vergleichen (Wörter pro Minute je Sprecher aus Scribe) und nach der ersten Folge über die Meldung von `abmischen.mjs` feinjustieren.
+- **Stimmen mit Charakter:** natürliche, etwas unperfekte Stimmen wie bei Mira und Jonas – keine Werbe-, Hörbuch- oder Kundenservice-Stimmen (Rückmeldung vom 24.11.2026). Neue Stimmen: Eintrag in `podcast/besetzung.json`, Stimme aus der ElevenLabs-Bibliothek mit Beschreibungen wie „natural“, „authentic“, „relatable“, „with character“; Tonhöhe oder Klangfarbe deutlich anders als Jonas (männliche Stimmen liegen mit Eleven v4 oft bei 110–130 Hz wie er) – mit einer Probe und der Sprecher-Erkennung von Scribe prüfen. **Aufnahme trocken und nah wie bei Jonas**, kein Raumhall (Rückmeldung vom 24.11.2026: Leonies erste Stimme klang „weit, wie in einem anderen Raum“): Einzelprobe mit `node podcast/werkzeuge/raumklang.mjs <probe.mp3>` messen – Jonas ≈ 60 ms, bis etwa 100 ms gut, ab etwa 150 ms hörbar raumig. Tempo vorab in einer Gesprächsprobe mit Jonas vergleichen (Wörter pro Minute je Sprecher aus Scribe) und nach der ersten Folge über die Meldung von `abmischen.mjs` feinjustieren.
 
-### Regeln für Folgen mit Gast
-- **Ein Gast pro Folge**, passend zum Thema (Tabelle oben). Steht in der Themenliste der Verwaltung ein Gast, gilt der. Abwechslung: derselbe Gast höchstens zweimal hintereinander, außer die Themenliste will es so.
-- **Begrüßung:** Jonas begrüßt und stellt den Gast mit Bereich vor; der Gast sagt in einem Satz, was er oder sie macht. Mit Mira bleibt das Erkennungszeichen: „Sie macht die Fälle, ich mach die Tabellen.“ – „Und ich muss mit deinen Tabellen leben.“
-- **Arbeitsalltag zeigen – ohne Ich-Geschichten:** zwei bis vier kurze Einblicke pro Folge, wie die Arbeit des Gastes tatsächlich aussieht (Aufgaben, Abläufe, Schnittstellen, was im Alltag schwierig ist), jeweils da, wo es zum Thema passt. Immer als Beschreibung der Aufgabe („In der Wirtschaftlichen Jugendhilfe prüfen wir zuerst, wer zuständig ist …“, „Zur Schulsozialarbeit kommen oft Jugendliche, die …“), **nie** als erfundenes Erlebnis („Gestern hatte ich …“). Abläufe und Rechtsgrundlagen müssen stimmen; nichts Mainz-Spezifisches ohne Beleg.
-- **Echte Gespräche:** Der Gast widerspricht auch Jonas; mindestens zwei sachliche Meinungsverschiedenheiten pro Folge. Keine persönlichen Sticheleien.
+### Regeln für die Moderation zu zweit
+- **Eine Mitmoderation pro Folge**, passend zum Thema (Tabelle oben). Steht in der Themenliste der Verwaltung eine Person, gilt die. Abwechslung: dieselbe Person höchstens zweimal hintereinander, außer die Themenliste will es so.
+- **Begrüßung:** Jonas eröffnet („Ich bin Jonas, Jugendhilfeplanung, oben im Boniturm“), die Mitmoderation stellt sich direkt danach selbst vor („Und ich bin Mira, Allgemeiner Sozialer Dienst.“) – kurz, ohne Ortsangabe, ohne „heute zu Gast“. Mit Mira bleibt ein Erkennungszeichen, in der Fassung vom 27.11.2026: „Sie macht die Fälle, ich mach die Listen.“ – Mira, trocken und leicht verärgert: „Und ich liefere dafür ständig Zahlen. Für Listen, die am Ende kein Mensch nutzt. Die meisten wissen nicht mal, dass es sie gibt.“ Der Witz liegt in der Sache (Datenlieferung für Statistiken, deren Nutzen im Dienst keiner sieht), nicht in einer Stichelei gegen Jonas; Jonas kontert nicht, sondern leitet zum Thema über. Der Wortlaut darf von Folge zu Folge leicht wechseln. Mit anderen Mitmoderierenden gibt es kein erzwungenes Erkennungszeichen.
+- **Arbeitsalltag zeigen – ohne Ich-Geschichten:** zwei bis vier kurze Einblicke pro Folge, wie die Arbeit der Mitmoderation tatsächlich aussieht (Aufgaben, Abläufe, Schnittstellen, was im Alltag schwierig ist), jeweils da, wo es zum Thema passt. Immer als Beschreibung der Aufgabe („In der Wirtschaftlichen Jugendhilfe prüfen wir zuerst, wer zuständig ist …“, „Zur Schulsozialarbeit kommen oft Jugendliche, die …“), **nie** als erfundenes Erlebnis („Gestern hatte ich …“). Abläufe und Rechtsgrundlagen müssen stimmen; nichts Mainz-Spezifisches ohne Beleg.
+- **Echte Gespräche:** Die Mitmoderation widerspricht auch Jonas; mindestens zwei sachliche Meinungsverschiedenheiten pro Folge. Keine persönlichen Sticheleien.
 - **Fachdienste** (Pflegekinderdienst, Lotsinnen und Lotsen) dürfen als allgemeine Beobachtung vorkommen („Viel Spaß dem Pflegekinderdienst …“), nie als Geschichte über bestimmte Personen.
 - **Seitenhiebe** auf andere Fachbereiche (Kämmerei, Controlling, Schulverwaltung): höchstens ein- bis zweimal pro Folge, beiläufig und sachlich begründet.
 - **Mehrere Seiten verständlich machen:** zu jedem großen Punkt mindestens zwei Positionen mit Quelle (Bundesregierung und Begründung, Länder und Bundesrat, Kommunen, Fach- und Wohlfahrtsverbände, Praxis), danach eine eigene, abgewogene Einschätzung.
@@ -67,12 +67,12 @@
 
 | Teil | Dauer | Inhalt |
 |---|---|---|
-| ♪ **Titelmelodie** | 7 s | Ganz am Anfang (`#> musik thema` vor dem ersten Kapitel). Daran erkennt man: Jetzt geht’s los. |
+| ♪ **Titelmelodie** | ≈ 9 s | Ganz am Anfang (`#> musik thema` vor dem ersten Kapitel). Daran erkennt man: Jetzt geht’s los. |
 | **Kaltstart** | 20–40 s | Ein Aufhänger, der **aus dem Thema kommt und neugierig macht – kein Witz**: eine kritische Frage, ein Widerspruch, eine überraschende Regel, eine Zahl mit Haken, das Thema zugespitzt in einem Satz. Beispiel Folge 1, Fassung 4: „Ist das ein fachlicher Fortschritt – oder ein Sparprogramm mit fachlicher Begründung?“ Nicht in jeder Folge dieselbe Form. |
-| **Begrüßung** | 30–50 s | Jonas begrüßt („Ich bin Jonas, Jugendhilfeplanung, oben im Turm“) und stellt den Gast mit Bereich vor; der Gast sagt in einem Satz, was er oder sie macht. Mit Mira: das Erkennungszeichen. Dann Thema, Faktenstand („Stand: …“), „wo wir etwas nicht genau wissen, sagen wir das“. |
-| **Hauptteil** | 3–5 Kapitel | Je Kapitel: Was steht da genau → was heißt das im Alltag (ASD- und Planungsblick) → Meinung, Gefühl, Widerspruch → Zahlen und Belege. Mögliche Bausteine, keiner ist Pflicht: „Was gerade passiert“, Fundstücke aus dem Kleingedruckten, „Was heißt das für Montag?“ (konkrete Schritte je Rolle), ein „Gedanke für den Tag“. |
+| **Begrüßung** | 30–50 s | Jonas begrüßt („Ich bin Jonas, Jugendhilfeplanung, oben im Boniturm“), die Mitmoderation stellt sich in einem Halbsatz selbst vor – als Moderatorin oder Moderator, nicht als Gast. Mit Mira: das Erkennungszeichen mit den Listen. Dann Thema, Faktenstand („Stand: …“), „wo wir etwas nicht genau wissen, sagen wir das“. |
+| **Hauptteil** | 3–5 Kapitel | Je Kapitel: Was steht da genau → was heißt das im Alltag (ASD- und Planungsblick) → Meinung, Gefühl, Widerspruch → Zahlen und Belege. **An ein bis zwei Stellen der Folge in die Tiefe gehen** (Abschnitt 4, „Tiefe“). Mögliche Bausteine, keiner ist Pflicht: „Was gerade passiert“, Fundstücke aus dem Kleingedruckten, „Was heißt das für Montag?“ (konkrete Schritte je Rolle), ein „Gedanke für den Tag“. |
 | **Abschied** | 10–20 s | Hinweis auf die Quellen mit Zeitangabe beim Boniblatt, „nächsten Montag“. |
-| ♪ **Abspann** | 10 s | `#> musik outro` als letzte Zeile. |
+| ♪ **Abspann** | ≈ 12 s | `#> musik outro` als letzte Zeile. |
 
 **Keine Übergangsmusik und keine Jingles.** Themenwechsel entstehen im Gespräch („Okay, nächstes Thema – und da bin ich ehrlich hin- und hergerissen …“). Kapitel (`##`) sind nur Sprungmarken für Seite und MP3.
 
@@ -99,13 +99,20 @@
 - Lachen per Tag selten: höchstens drei- bis fünfmal pro Folge und dezent (`[slightly amused]`, `[chuckles]`).
 
 **Einordnung – gern etwas mehr**
-- Ambivalenzen, kritische Einordnung und das Verständlichmachen mehrerer Seiten kamen sehr gut an und dürfen ausgebaut werden: Was will die Bundesregierung, was sagen Länder, Kommunen und Verbände, was heißt es für Familien und Fachkräfte – und wo stehen Jonas und der Gast, mit Begründung.
+- Ambivalenzen, kritische Einordnung und das Verständlichmachen mehrerer Seiten kamen sehr gut an und dürfen ausgebaut werden: Was will die Bundesregierung, was sagen Länder, Kommunen und Verbände, was heißt es für Familien und Fachkräfte – und wo stehen Jonas und die Mitmoderation, mit Begründung.
+
+**Tiefe – ein- bis zweimal pro Folge richtig hineinbohren** (Rückmeldung vom 27.11.2026)
+- Die Wiedergabe von Informationen bleibt der Hauptbestandteil. Aber an **ein bis zwei Stellen** je Folge (je etwa 1½ bis 2½ Minuten) bleibt das Gespräch nicht bei „es gibt zwei Sichtweisen“ stehen, sondern geht **ins Detail der Ambivalenz**: Wie würde diese Regel am Schreibtisch tatsächlich ablaufen? Das ist der neue Inhalt für Fachkräfte – tiefe Reflexion und Prüfung statt Wiedergabe.
+- **Muster (Folge 1, „Kita statt Familienhilfe“):** Dass der Vorrang nicht gilt, wenn kein Kitaplatz da ist, steht in der Begründung – das ist die Information. Die Tiefe beginnt mit der Frage danach: Wie stellt man schwarz auf weiß fest, dass es keinen Platz gibt? Geht das überhaupt schnell? Fordert man die Familie auf, sich anzumelden? Muss sie eine Bestätigung bringen, dass sie auf der Warteliste steht – dann wird es „jobcentermäßig“: erst der Nachweis, dann die Leistung? Oder besorgt der Soziale Dienst den Platz? Ab wann genau heißt es „da gibt es kein Regelangebot“ – wenn der Platz in drei Monaten frei wird, am anderen Ende der Stadt liegt, nur vormittags ist? Und was bedeutet es, wenn dasselbe Jugendamt den Rechtsanspruch auf den Platz erfüllen müsste?
+- **So geht man vor:** eine Regel, eine Zahl oder eine Zuständigkeit nehmen und sie bis in die Praxis verfolgen – wer muss was nachweisen, wer entscheidet, wie lange dauert es, was passiert in der Zwischenzeit mit der Familie, wer trägt die Last, wo entstehen Fehlanreize, welche Nebenwirkung hat die naheliegende Lösung (im Muster: Wer bevorzugt einen Platz bekommt, verdrängt eine andere Familie auf der Warteliste). Geltendes Recht und Rechtsprechung dazuholen, wenn sie die Frage schärfen (im Muster: Rechtsanspruch auf Förderung ab dem ersten Geburtstag, Haftung der Kommune bei fehlendem Platz).
+- **Ehrlich bleiben:** Was der Text nicht regelt, als offen benennen („Dazu steht im Entwurf nichts“) und vorher am Wortlaut prüfen, dass es wirklich nicht geregelt ist. Eigene Schlüsse als eigene Lesart kennzeichnen – im Gespräch und in der `#@`-Quelle. Am Ende steht möglichst ein praktischer Gedanke: Was müsste ein Jugendamt vor Ort klären, damit es funktioniert?
+- **Passend wählen:** Die Tiefe gehört zum Kern der Folge, nicht zu einem Nebenschauplatz, und zu einer Stelle, an der die Mitmoderation aus ihrem Bereich wirklich etwas beitragen kann. Dafür an anderer Stelle kürzen (weniger Fundstücke), nicht die Folge verlängern.
 
 **Klarheit**
 - Jeder Gedanke muss beim einmaligen Hören verständlich sein. Verkürzungen wie „die Zuständigkeit steht im Konjunktiv“ ausformulieren: „Das Recht kommt also ins Gesetz. Die Zuständigkeit dafür noch nicht.“
 - **Paragrafennummern nur für die wichtigsten Stellen** (Folge 1: Paragraf 27, 8a, 1); sonst in Worten („die Regel zum Vorrang“).
 
-**Arbeitsalltag als Brille:** Jedes Thema wird aus der Sicht von Sozialem Dienst und Jugendhilfeplanung erzählt – als Beobachtung aus der Praxis, nicht als persönliches Erlebnis.
+**Arbeitsalltag als Brille:** Jedes Thema wird aus der Sicht der Praxis (Bereich der Mitmoderation) und der Jugendhilfeplanung erzählt – als Beobachtung aus der Praxis, nicht als persönliches Erlebnis.
 
 ---
 
@@ -144,7 +151,7 @@
 ```
 #> musik thema                 Titelmelodie – steht vor dem ersten Kapitel
 ## 1 · Kaltstart               Kapitel = Sprungmarke auf der Seite und in der MP3
-MIRA: [energetic] Text …       gesprochene Zeile (nur MIRA und JONAS)
+MIRA: [engaged] Text …         gesprochene Zeile (nur JONAS und die Mitmoderation der Folge)
 #@ Aussage | Fundstelle | Link Quelle zur vorigen Zeile (mehrere erlaubt, Link mit https://)
 +JONAS: [quietly] Mhm.         Einwurf: wird extra erzeugt und leise unter die vorige Zeile gelegt
 # Kommentar                    wird ignoriert
@@ -156,11 +163,11 @@ Dazu `folge.json` (Stimmen-Kennzeichnung aus der letzten Folge, Tempo für Jonas
   "datum": "2026-11-30", "stand": "30.11.2026", "stimmen": "KI-generiert (ElevenLabs Eleven v4)",
   "datei": "folge-02-thema.mp3", "gast": "BEN", "tempo": { "JONAS": 1.0, "BEN": 1.0 }, "themaId": "t3f9a…" }
 ```
-- `gast`: Schlüssel des Gastes aus `podcast/besetzung.json` (MIRA, BEN, LEONIE, RAINER, ELIF, SABINE). Im Skript sprechen nur JONAS und dieser Gast; `einreichen.mjs` prüft das.
+- `gast`: Schlüssel der Mitmoderation aus `podcast/besetzung.json` (MIRA, BEN, LEONIE, RAINER, ELIF, SABINE) – der Feldname ist historisch, gemeint ist die zweite Moderatorin oder der zweite Moderator. Im Skript sprechen nur JONAS und diese Person; `einreichen.mjs` prüft das.
 - `themaId`: die `id` des Themas aus `daten/podcast-themen.json`, wenn die Folge ein Thema aus der Verwaltung behandelt (sonst weglassen). Daran erkennen Verwaltung und Routine, dass das Thema erledigt ist; `einreichen.mjs` verlangt das oberste offene Thema.
 - `fassung` setzt `veroeffentlichen.mjs` selbst hoch, wenn eine schon veröffentlichte Folge neu produziert wird.
 
-**Anweisungen zum Thema:** Sie kommen vom Herausgeber über die passwortgeschützte Verwaltung und sind redaktionell verbindlich – Schwerpunkte, Blickwinkel, Quellen, was hinein soll oder nicht, Rollen von Jonas und dem Gast, ein bestimmter Gast. Grenzen: Richtigkeit (Abschnitt 6) und die Regeln dieses Leitfadens gehen vor; was sich nicht umsetzen ließ, steht in der Zusammenfassung der Routine.
+**Anweisungen zum Thema:** Sie kommen vom Herausgeber über die passwortgeschützte Verwaltung und sind redaktionell verbindlich – Schwerpunkte, Blickwinkel, Quellen, was hinein soll oder nicht, Rollen von Jonas und der Mitmoderation, eine bestimmte Person für die Mitmoderation. Grenzen: Richtigkeit (Abschnitt 6) und die Regeln dieses Leitfadens gehen vor; was sich nicht umsetzen ließ, steht in der Zusammenfassung der Routine.
 
 ---
 
@@ -173,7 +180,7 @@ Dazu `folge.json` (Stimmen-Kennzeichnung aus der letzten Folge, Tempo für Jonas
 | täglich 0:10 und 12:10, montags zusätzlich 1:20 | Liste ins Repository holen: `daten/podcast-themen.json` | Action „Stimmen holen“ |
 | Montag 2:00 | **Wochenroutine** (Claude, Auftrag in `routinen/podcast.md`): oberstes offenes Thema samt Anweisungen (oder selbst gewählt), Recherche, Skript, `einreichen.mjs` | Claude-Cloud-Routine |
 | danach, ≈ 15 min | **Action „Podcast produzieren“**: `produzieren.mjs` = aufnehmen → prüfen (auffällige Teile einmal neu) → abmischen → veröffentlichen, dann Commit und Seite neu | `.github/workflows/podcast.yml` |
-| ab Montag früh | Folge auf `podcast.html`; Knopf glänzt und Werbeflieger zieht „Neue Podcast-Folge ist raus!“ (Tage 0–3) | Startseite |
+| ab Montag früh | Folge auf `podcast.html`; der Werbeflieger zieht „Neue Podcast-Folge ist raus!“ nur am Erscheinungstag (Montag), der Knopf glänzt mit „Neu“ am Montag und Dienstag | Startseite |
 
 Fehlt das Secret `ELEVENLABS_API_KEY` im Repository oder ist das Kontingent leer, scheitert die Action sichtbar (rote Markierung, Mail von GitHub); das Skript liegt dann trotzdem im Repository und kann über „Run workflow“ später produziert werden.
 
@@ -189,7 +196,7 @@ Voraussetzungen: `ELEVENLABS_API_KEY` als Windows-Benutzervariable, ffmpeg (wing
 | 4 | Hochladen | Skript: `einreichen.mjs` (ohne `--probe`). Fertige Folge von Hand: `docs/podcast/…`, `docs/daten/podcast.json`, `docs/daten/podcast.js` committen, pushen, dann `gh workflow run seite.yml --ref main` |
 | 5 | Live prüfen | `boniblatt-mainz.de/podcast.html` · Startseite mit `?podcast=neu` |
 
-**Musik:** `podcast/musik/` – thema (7 s) und outro (10 s) aus Eleven Music, für alle Folgen dieselbe (Wiedererkennung). Neu erzeugen: `node podcast/werkzeuge/musik.mjs --neu NAME`, Stil in `musik/musik.json`.
+**Musik:** `podcast/musik/` – thema (≈ 9 s) und outro (≈ 12 s) aus Eleven Music, für alle Folgen dieselbe (Wiedererkennung). Seit 27.11.2026 „Redaktions-Beat“: ein Boom-Bap-Beat aus Zeitungsklängen (Schreibmaschinen-Tasten als Hi-Hat, die Klingel am Zeilenende als Erkennungston, Kontrabass, kurze Vibrafon-Melodie) – markant und mit Bezug zum Boniblatt; die erste Musik (Indie-Pop mit Akustikgitarre) klang laut Rückmeldung „wie Wartezimmermusik, extrem generisch“. Neu erzeugen: `node podcast/werkzeuge/musik.mjs --neu NAME`, Stil in `musik/musik.json`. Vor einem Wechsel mehrere Richtungen zur Wahl erzeugen und anhören lassen.
 
 **Einstellungen** (seit Fassung 3): Eleven v4, Stabilität 0,4, Deutsch; höchstens 1.900 Zeichen je Anfrage; Tempo je Stimme aus `folge.json`; Pausen 0,2 s + Ränder zwischen Teilen, 0,75 s an Kapiteln; Stille über 1,4 s → 1,0 s; Einwürfe −7 dB; −16 LUFS; Web-MP3 112 kbit/s Stereo.
 
@@ -212,10 +219,10 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 ## 10. Webseite
 
 - **Seite:** `docs/podcast.html`, Logik in `docs/blatt/podcast.js` und `podcast.css`, Daten in `docs/daten/podcast.json` (alle Folgen mit Kapiteln, Quellen, Wellenform, Skript-Fingerabdruck `skriptHash`).
-- **KI-Kennzeichnung (Wunsch vom 24.11.2026):** Oben steht die Marke „KI-Podcast – Stimmen und Gespräche sind KI-generiert“, die Beschreibung sagt es noch einmal; jede Folge trägt „KI-generiert“; Startseiten-Knopf „KI-Podcast“, Werbeflieger „Neue KI-Podcast-Folge ist raus!“. Die Seite zeigt nur Titel, kurze Beschreibung und die Folgen – **keine Vorstellung von Jonas oder den Gästen** und keine Gast-Zeile je Folge.
+- **KI-Kennzeichnung:** Sie steht **auf der Podcast-Seite und neben dem Ton** – oben die Marke „KI-Podcast – Stimmen und Gespräche sind KI-generiert“, die Beschreibung sagt es noch einmal, jede Folge trägt „KI-generiert“. **Nicht** auf dem Startseiten-Knopf („Podcast“) und nicht auf dem Werbeflieger („Neue Podcast-Folge ist raus!“) – dort stand es zuerst überall, das war zu viel (Rückmeldung vom 27.11.2026). Die Seite zeigt nur Titel, kurze Beschreibung und die Folgen – **keine Vorstellung von Jonas oder den Mitmoderierenden** und keine eigene Zeile dazu je Folge.
 - **Neue Fassung einer Folge:** `fassung` > 1 hängt `?v=<fassung>` an die Audio-Adresse, damit niemand die alte Datei aus dem Zwischenspeicher hört.
-- **Startseite:** Podcast-Knopf links oben; 3 Tage nach einer neuen Folge glänzt er mit „Neu“, und der Werbeflieger zieht „Neue Podcast-Folge ist raus!“ (`docs/daten/podcast.js`, eingebunden über `werkzeuge/intro-einbauen.mjs`).
-- **Spieler:** Wellenform mit Kapiteln, Tempo 0,75× / 1× / 1,25×, „KI-generiert“-Hinweis, Quellen-Fenster mit Zeitmarken (Klick springt an die Stelle), `?folge=<id>&t=<Sekunden>`.
+- **Startseite:** Podcast-Knopf links oben; am Erscheinungstag und am Tag danach (Montag und Dienstag) glänzt er mit „Neu“; der Werbeflieger zieht „Neue Podcast-Folge ist raus!“ nur am Erscheinungstag (`docs/daten/podcast.js`, geschrieben von `veroeffentlichen.mjs`: `tageNeu`, `tageFlieger`).
+- **Spieler:** Wellenform mit Kapiteln, Tempo 0,75× / 1× / 1,25×, „KI-generiert“-Hinweis, Quellen-Fenster mit Zeitmarken (Klick springt an die Stelle; läuft die Folge, ist die Quelle hervorgehoben, über die gerade gesprochen wird, und rückt von selbst ins Bild), `?folge=<id>&t=<Sekunden>`.
 - **Verwaltung:** Bereich „Podcast-Themen“ mit der Themenliste (siehe Abschnitt 8); Themen und Anweisungen sind im öffentlichen Repository lesbar.
 - **Speicher:** ≈ 16 MB je Folge im Repository. Wöchentlich erreicht GitHub Pages die 1-GB-Grenze in gut einem Jahr – **bis Herbst 2027 auslagern**, etwa nach Cloudflare R2 (Konto vorhanden) oder als Release-Anhang.
 
@@ -225,15 +232,15 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 
 1. Länge 2.100–2.900 Wörter, Ø 20–30 je Beitrag, kein Teil über 1.900 Zeichen (`--probe`).
 2. Titelmelodie vorn, Abspann hinten, **keine** Übergangsmusik.
-3. Kaltstart kommt aus dem Thema und ist **kein Witz** (kritische Frage, Widerspruch, Zahl mit Haken); Begrüßung mit Stadthaus/Turm und dem Fälle-Tabellen-Satz, danach kein Necken.
-4. Mischung ≈ zwei Drittel Information, ein Drittel Meinung, Kritik, Ambivalenz; zu jedem großen Punkt mindestens zwei Positionen mit Quelle; mindestens zwei echte, sachliche Meinungsverschiedenheiten.
+3. Kaltstart kommt aus dem Thema und ist **kein Witz** (kritische Frage, Widerspruch, Zahl mit Haken); Jonas begrüßt aus dem Boniturm, die Mitmoderation stellt sich selbst kurz vor (kein „Gast“, kein „Stadthaus“); mit Mira das Erkennungszeichen mit den Listen, danach kein Necken.
+4. Mischung ≈ zwei Drittel Information, ein Drittel Meinung, Kritik, Ambivalenz; zu jedem großen Punkt mindestens zwei Positionen mit Quelle; mindestens zwei echte, sachliche Meinungsverschiedenheiten. **Ein- bis zweimal geht es in die Tiefe** (Abschnitt 4): eine Regel bis in die Praxis verfolgt – wer weist was nach, wie schnell, was passiert dazwischen –, Ungeregeltes als offen benannt, eigene Lesart gekennzeichnet.
 5. Höchstens 8–10 leichte Momente, fast alle als trockene Kritik aus der Sache; keine persönlichen Sticheleien; Planungs-Selbstironie höchstens 1×; Seitenhiebe 1–2×; Lachen per Tag höchstens 3–5×.
 6. **Keine Ich-Geschichten und nichts Privates** – Praxis als Beobachtung („Zum Sozialen Dienst kommen manchmal …“). Jonas mit ruhigen Tags (Abschnitt 5).
 7. Jede Faktenaussage mit `#@`-Quelle; Wortlaut, Daten, Zahlen, Bedingungen an der Primärquelle geprüft; eigene Lesarten gekennzeichnet.
 8. Keine Abkürzungen, keine Zeichen (§ % €), Paragrafennummern nur für die wichtigsten Stellen.
 9. Nichts wörtlich aus früheren Folgen übernommen – außer dem Erkennungszeichen in der Begrüßung.
 10. Thema aus der Liste: `themaId` gesetzt und jede Anweisung umgesetzt – oder in der Zusammenfassung begründet, warum nicht.
-11. Gast passend zum Thema (oder wie in der Themenliste angegeben), `gast` und Tempo in `folge.json`; zwei bis vier kurze Einblicke in die echte Arbeit des Gastes, ohne Ich-Geschichten; Abläufe und Rechtsgrundlagen dazu stimmen.
+11. Mitmoderation passend zum Thema (oder wie in der Themenliste angegeben), `gast` und Tempo in `folge.json`; sie moderiert gleichberechtigt mit und wird nicht als Gast befragt; zwei bis vier kurze Einblicke in die echte Arbeit ihres Bereichs, ohne Ich-Geschichten; Abläufe und Rechtsgrundlagen dazu stimmen.
 
 ---
 
@@ -267,4 +274,10 @@ Abo **Creator**, ≈ 130.000 Credits im Monat (Kontingent wird am 24. neu aufgel
 | Folge 1, Fassung 4 | 19:57 min, Mira ×1,02 (≈ 146) / Jonas ×1,0 (≈ 144), Spracherkennung 0–1,7 %, produziert über die Wochen-Action |
 | Wunsch 24.11.2026: andere Bereiche des Jugendamts kennenlernen | Jonas als fester Gastgeber, je Thema ein Gast (Mira, Ben, Leonie, Rainer, Elif, Sabine), Abschnitt 2 |
 | Wunsch 24.11.2026: KI klar kennzeichnen; Figuren nicht auf der Seite vorstellen; Petra durch einen älteren Mann ersetzen; Amtsleitung dazu; Stimmen mit Charakter statt Werbestimmen | Seite: „KI-Podcast“-Marke, nur Titel, Beschreibung, Folgen; Rainer und Sabine neu; Ben, Leonie, Elif mit natürlicheren Stimmen |
-| Hörproben der neuen Gäste (24.11.2026): Rainer „passt so“; Leonie klang „weit, wie in einem anderen Raum“, nicht professionell wie Jonas | Leonie jetzt mit Louisa – Warm and Hopeful (Nachhall 60–80 ms statt 190 ms, Tempo wie Jonas); Raumklang neuer Stimmen wird gemessen (Abschnitt 2, `raumklang.mjs`) |
+| Hörproben der neuen Stimmen (24.11.2026): Rainer „passt so“; Leonie klang „weit, wie in einem anderen Raum“, nicht professionell wie Jonas | Leonie jetzt mit Louisa – Warm and Hopeful (Nachhall 60–80 ms statt 190 ms, Tempo wie Jonas); Raumklang neuer Stimmen wird gemessen (Abschnitt 2, `raumklang.mjs`) |
+| **Fassung 4** (27.11.2026): „Stadthaus“ weglassen; Jonas sitzt im Boniturm und ist Hauptmoderator; Mira und die anderen sind keine Gäste, sondern moderieren mit und stellen sich als Moderierende kurz vor | Abschnitt 2 und 3; `besetzung.json` ohne Ortsangaben außer bei Jonas |
+| F4: Witz „Ich muss mit deinen Tabellen leben“ ändern – Mira ärgert sich, dass sie ständig Daten für Listen liefert, die kein Mensch nutzt oder kennt | neues Erkennungszeichen mit den Listen (Abschnitt 2) |
+| F4: an einzelnen Stellen tief in die Ambivalenz gehen (Beispiel: Wie stellt man fest, dass es keinen Kitaplatz gibt? Wer weist das nach? Wird das „jobcentermäßig“?) – Wiedergabe bleibt Hauptbestandteil, die Tiefe macht „zwischen den Zeilen“ aus | Abschnitt 4 „Tiefe“, Checkliste Punkt 4; Folge 1 mit vertiefter Passage zum Vorrang |
+| Musik „wie Wartezimmermusik, extrem generisch“ – markant, coole Beats, für Montagmorgen | „Redaktions-Beat“ aus Zeitungsklängen (Abschnitt 8) |
+| KI-Hinweis stand überall – nicht auf Werbeflieger und Knopf, nur neben dem Ton und auf der Seite; Flieger nur montags, glänzender Knopf mit „Neu“ montags und dienstags; Quellen-Fenster folgt dem Ton | Abschnitt 10 |
+| Folge 1, Fassung 5 | neue Begrüßung, vertiefte Passage zum Vorrang, dafür ohne Berliner Runde, Jugendschutzgesetz und zwei Nebensätze bei den Fundstücken |

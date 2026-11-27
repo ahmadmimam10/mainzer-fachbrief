@@ -142,7 +142,7 @@
       <div class="h-leiste"><span class="h-zeit">0:00</span><span class="h-spur" role="slider" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"><i></i></span><span class="h-dauer">–:––</span><button type="button" class="h-tempo" aria-label="Wiedergabetempo ändern" title="Wiedergabetempo">1×</button></div></div>`);
     k.push(wetterKachel());
     wichtig.forEach((m, i) => k.push(`<a class="k wichtig n${wichtig.length === 4 ? 2 : wichtig.length}${i === 1 ? " farbe" : ""}" data-ein href="${esc(m.url)}"><span class="etikett">${esc(m.thema)}</span><h2>${esc(m.titel)}</h2><p>${esc(m.kurz || "")}</p>${unten(m)}</a>`));
-    if (kurz.length) k.push(`<div class="k liste" data-ein>${motiv(ORTE[(tagNr + nr * 4 + 5) % ORTE.length][0], "wz")}<h3>Kurz <i>notiert</i></h3>${kurz.map((m, i) => `<a href="${esc(m.url)}"${i >= 10 ? ' class="spaeter"' : ""}><b>${esc(m.thema)}</b><span>${esc(m.titel)}</span><span class="qu">${esc(E.quelle(m))}</span><span class="werkzeug">${daumen(m)}${teilen(m)}</span></a>`).join("")}${kurz.length > 10 ? `<button type="button" class="liste-mehr">Alle ${kurz.length} Meldungen zeigen</button>` : ""}</div>`);
+    if (kurz.length) k.push(`<div class="k liste" data-ein>${motiv(ORTE[(tagNr + nr * 4 + 5) % ORTE.length][0], "wz")}<h3>Kurz <i>notiert</i></h3>${kurz.map((m, i) => `<a href="${esc(m.url)}"${i >= 10 ? ' class="spaeter"' : ""}><b>${esc(m.thema)}</b><span class="ti">${esc(m.titel)}</span><span class="qu">${esc(E.quelle(m))}</span><span class="werkzeug">${daumen(m)}${teilen(m)}</span></a>`).join("")}${kurz.length > 10 ? `<button type="button" class="liste-mehr">Alle ${kurz.length} Meldungen zeigen</button>` : ""}</div>`);
     const gk = gremienKachel(b); if (gk) k.push(gk);
     const lk = losKachel(); if (lk) k.push(lk);
     raster.innerHTML = k.join("");
@@ -196,14 +196,20 @@
     const k = raster.querySelector(".ohr"), knopf = k.querySelector(".h-knopf"), gang = k.querySelector(".gang"), spur = k.querySelector(".h-spur"), satz = k.querySelector(".h-satz");
     const tKnopf = k.querySelector(".h-tempo"), tZeig = () => { tKnopf.textContent = String(tempo).replace(".", ",") + "×"; tKnopf.classList.toggle("an", tempo !== 1); if (audio) audio.defaultPlaybackRate = audio.playbackRate = tempo; };
     tZeig(); tKnopf.addEventListener("click", () => { tempo = tempo === 1 ? 1.25 : tempo === 1.25 ? 1.5 : 1; tZeig(); });
-    // Sätze mit ihrem Anteil am Text: daraus wird geschätzt, welcher gerade gesprochen wird
-    const saetze = text.split(/(?<=[.!?…])\s+/).filter(Boolean); let summe = 0; const grenzen = saetze.map(s => (summe += s.length + 1)); let gezeigt = -1;
+    // Welcher Satz gerade gesprochen wird: am besten aus den Satzzeiten der Aufnahme (audio.json → marken, je Satz Beginn und Ende in
+    // Sekunden, geschrieben von werkzeuge/vertonen.mjs). Fehlen sie (ältere Aufnahmen), wird aus der Textlänge geschätzt – mit etwas
+    // Gewicht für die Pause am Satzende und für Zahlen, die länger gesprochen werden, als sie geschrieben sind.
+    const saetze = text.split(/(?<=[.!?…])\s+/).filter(Boolean); let summe = 0; const grenzen = saetze.map(s => (summe += s.length + 7 + 3 * (s.match(/[0-9]/g) || []).length)); let gezeigt = -1, marken = null;
+    const zeigen = w => esc(w.replace(/Quartiersmanage/g, "Quartiermanage"));
     const stand = () => { if (!audio || !audio.duration) return; const p = audio.currentTime / audio.duration;
       gang.style.strokeDashoffset = 100 - p * 100; spur.firstElementChild.style.width = p * 100 + "%"; spur.setAttribute("aria-valuenow", Math.round(p * 100));
       k.style.setProperty("--p", p.toFixed(4)); k.querySelector(".h-zeit").textContent = uhr(audio.currentTime);
-      const nr = grenzen.findIndex(g => g / summe >= p); if (nr !== gezeigt && saetze[nr]) { gezeigt = nr; satz.classList.remove("neu"); void satz.offsetWidth; satz.innerHTML = saetze[nr].split(" ").map(w => "<span>" + esc(w) + "</span>").join(" "); satz.classList.add("neu"); }
-      // Wörter leuchten nach und nach auf (geschätzt aus der Textlänge)
-      if (saetze[nr]) { const von = nr ? grenzen[nr - 1] : 0, anteil = (p * summe - von) / (grenzen[nr] - von), ges = saetze[nr].length; let z = 0;
+      let nr = 0, anteil = 0;
+      if (marken) { const jetzt = audio.currentTime; for (let i = 0; i < marken.length; i++) if (marken[i][0] <= jetzt + .08) nr = i; anteil = (jetzt - marken[nr][0]) / Math.max(.3, marken[nr][1] - marken[nr][0]); }
+      else { nr = grenzen.findIndex(g => g / summe >= p); if (saetze[nr]) anteil = (p * summe - (nr ? grenzen[nr - 1] : 0)) / saetze[nr].length; }
+      if (nr !== gezeigt && saetze[nr]) { gezeigt = nr; satz.classList.remove("neu"); void satz.offsetWidth; satz.innerHTML = saetze[nr].split(" ").map(w => "<span>" + zeigen(w) + "</span>").join(" "); satz.classList.add("neu"); }
+      // Wörter leuchten nach und nach auf (innerhalb des Satzes nach der Textlänge verteilt)
+      if (saetze[nr]) { const ges = saetze[nr].length; let z = 0;
         for (const w of satz.children) { const a = z / ges; z += w.textContent.length + 1; const kl = anteil >= z / ges ? "war" : anteil >= a ? "jetzt" : ""; if (w.className !== kl) w.className = kl; } } };
     // Pegel: die echten Frequenzen der Aufnahme (Web Audio); klappt das nicht, läuft eine ruhige Ersatzbewegung
     const strahlen = [...k.querySelectorAll(".h-strahlen i")], wellen = [...k.querySelectorAll(".h-wellen i")]; let analyser = null, bins = null, bild = 0, glatt = 0, versucht = false;
@@ -219,6 +225,7 @@
       satz.innerHTML = (saetze[2] || saetze[0] || "").split(" ").map((w, i) => `<span class="${i < 5 ? "war" : i === 5 ? "jetzt" : ""}">${esc(w)}</span>`).join(" "); return; }
     hoerDaten.then(() => {
       const info = (hoerIndex[E.ausgabe.datum] || {})[b.daten]; if (!info || !k.isConnected) { k.dataset.zustand = "fehlt"; return; }
+      if (Array.isArray(info.marken) && info.marken.length === saetze.length) marken = info.marken;
       k.querySelector(".h-dauer").textContent = uhr(info.sekunden);
       const starten = () => { if (!audio) { audio = new Audio(); audio.crossOrigin = "anonymous"; audio.src = AUDIO_BASIS + info.datei; audio.defaultPlaybackRate = audio.playbackRate = tempo; k.dataset.zustand = "laedt";
           audio.addEventListener("timeupdate", stand); audio.addEventListener("playing", () => { audio.playbackRate = tempo; k.dataset.zustand = "spielt"; knopf.setAttribute("aria-label", "Pause"); if (!versucht) { versucht = true; messen(); } if (!bild) bild = requestAnimationFrame(lauf); });
@@ -234,21 +241,29 @@
 
   // ---- Bereichswechsel: Kacheln gehen (B1 klappen weg, B2 fliegen davon), die Farbrollen laufen um, die neuen kommen ----
   const zufall = (a, b) => (a + Math.random() * (b - a)).toFixed(1);
+  // Bildmotive vorab laden und entschlüsseln (je Bereich einmal), damit beim Wechsel nichts nachlädt
+  const geladen = new Map(), motivLaden = name => { const u = "bilder/motive/" + (name.includes(".") ? name : name + ".webp"); if (!geladen.has(u)) { const b = new Image(); b.src = u; geladen.set(u, (b.decode ? b.decode() : Promise.resolve()).catch(() => {})); } return geladen.get(u); };
+  const motiveBereit = b => Promise.all(b.motive.slice(0, 2).map(motivLaden));
+  (window.requestIdleCallback || (f => setTimeout(f, 2500)))(() => BEREICHE.forEach(motiveBereit));
   let aktiv = "", laeuft = false;
-  async function wechsel(id) {
+  async function wechsel(id, sofort) {
     if (id === aktiv || laeuft) return;
     const b = bereich(id), nr = BEREICHE.indexOf(b);
     wurzel.querySelectorAll(".bb-reiter button").forEach(x => x.setAttribute("aria-pressed", x.dataset.r === b.id));
     pilleSetzen(true);
     const setzen = () => { history.replaceState(null, "", "#" + b.id); wurzel.dataset.r = b.id; wurzel.dataset.n = nr % 5; };
-    if (!aktiv || q.has("still")) { setzen(); aktiv = b.id; zeichne(b.id); E.zeigen(raster); return; }
+    if (!aktiv || q.has("still") || sofort) { setzen(); aktiv = b.id; zeichne(b.id); E.zeigen(raster); return; }
     laeuft = true;
     raster.querySelectorAll(".k").forEach((el, i) => { el.style.setProperty("--i", i); el.style.setProperty("--dx", zufall(-60, 60) + "vw"); el.style.setProperty("--dy", zufall(30, 90) + "vh"); el.style.setProperty("--dr", zufall(-70, 70) + "deg"); });
     raster.classList.add("raus"); setzen();
     await E.warte(SPIEL ? 760 : 640);
-    raster.classList.remove("raus"); aktiv = b.id; zeichne(b.id);
+    raster.classList.remove("raus"); raster.classList.add("bereit"); aktiv = b.id; zeichne(b.id);
     raster.querySelectorAll(".k").forEach((el, i) => { el.classList.add("da"); el.style.setProperty("--i", i); el.style.setProperty("--dx", zufall(-30, 30) + "vw"); el.style.setProperty("--dr", zufall(-40, 40) + "deg"); });
-    raster.classList.add("rein");
+    // Erst wenn der Browser die neuen Kacheln fertig gezeichnet hat (zwei Bilder später, Motive geladen), beginnt die Drehung:
+    // So fällt die Rechenarbeit nicht mitten in die Bewegung – das ließ die erste Karte auf langsamen Rechnern hängen.
+    await Promise.race([motiveBereit(b), E.warte(700)]);
+    await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+    raster.classList.remove("bereit"); raster.classList.add("rein");
     await E.warte(1500); raster.classList.remove("rein"); laeuft = false;
   }
   // ---- Wetter: ein Tag antippen zeigt ihn groß ----
@@ -329,9 +344,12 @@
     const zeig = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("da"); zeig.unobserve(e.target); } }), { rootMargin: "0px 0px -3% 0px" }); [...weg.children].forEach(x => zeig.observe(x));
     new IntersectionObserver((es, io) => { if (!es[0].isIntersecting) return; io.disconnect(); const s = document.createElement("script"); s.src = "blatt/spiel.js?v=21"; document.body.appendChild(s); }, { rootMargin: "400px" }).observe(sp); }
   wurzel.querySelector(".bb-reiter").addEventListener("click", e => { const x = e.target.closest("button"); if (x) wechsel(x.dataset.r); });
-  const h = location.hash.slice(1);
+  let h = location.hash.slice(1);
+  // Wahl im Startbild (Knöpfe unter dem Titel): sofort auf den Bereich einstellen – die Kacheln liegen dann noch unter dem Bildrand
+  document.addEventListener("boni-bereich", e => { if (!BEREICHE.some(b => b.id === e.detail)) return; h = e.detail; if (aktiv) wechsel(e.detail, true); });
   // Solange das Startbild seinen Auftakt spielt, wartet der Aufbau der Kacheln: Beides zugleich ließ die Bewegung auf langsamen Geräten stottern.
   const intro = document.getElementById("intro");
   if (intro && !intro.hidden && scrollY < 40) await Promise.race([new Promise(r => setTimeout(r, 3600)), ...["scroll", "pointerdown", "keydown", "wheel", "touchstart"].map(n => new Promise(r => addEventListener(n, r, { once: true, passive: true })))]);
+  if (BEREICHE.some(b => b.id === window.BONI_START)) h = window.BONI_START;
   wechsel(BEREICHE.some(b => b.id === h) ? h : BEREICHE[0].id);
 })();
