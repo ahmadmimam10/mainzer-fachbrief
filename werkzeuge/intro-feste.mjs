@@ -180,13 +180,17 @@ export const FEST_STADT = `<g class="f f-nikolaus"><path fill="#d6243a" d="M547.
 
 // ---- Uferband ----
 const lichterkette = (() => {
-  let schnur = "", birnen = "";
+  // Die Lämpchen blinken in sechs Gruppen statt jedes für sich: 6 statt 115 laufende Animationen – sonst rechnete der Browser beim
+  // Scrollen durchs Startbild bei jedem Bild über hundert Lämpchen neu (am Handy ruckelte das im Advent).
+  let schnur = "", glimmen = ""; const gruppen = [[], [], [], [], [], []];
   const farben = ["#f6cf6a", "#f4a25a", "#fff1c2", "#f6cf6a"];
   for (let x = 14 + 27 * 12; x < 950; x += 27) {
     schnur += `M${x + .65} 54.200q13.500 3.600 27 0`;
-    for (let i = 1; i <= 5; i++) { const t = i / 6, bx = x + .65 + 27 * t, by = 54.2 + 2 * t * (1 - t) * 3.6 + .5; birnen += `<circle cx="${f(bx)}" cy="${f(by)}" r="1.500" fill="${farben[i % 4]}" opacity=".22"/><circle class="f-birne" cx="${f(bx)}" cy="${f(by)}" r=".8" fill="${farben[i % 4]}" style="animation-delay:${f(-((x + i * 7) % 23) / 10)}s"/>`; }
+    for (let i = 1; i <= 5; i++) { const t = i / 6, bx = x + .65 + 27 * t, by = 54.2 + 2 * t * (1 - t) * 3.6 + .5;
+      glimmen += `<circle cx="${f(bx)}" cy="${f(by)}" r="1.500" fill="${farben[i % 4]}" opacity=".22"/>`;
+      gruppen[(x + i * 7) % 6].push(`<circle cx="${f(bx)}" cy="${f(by)}" r=".8" fill="${farben[i % 4]}"/>`); }
   }
-  return `<g class="f f-lichterkette"><path fill="none" stroke="#6b6156" stroke-width=".26" d="${schnur}"/>${birnen}</g>`;
+  return `<g class="f f-lichterkette"><path fill="none" stroke="#6b6156" stroke-width=".26" d="${schnur}"/>${glimmen}${gruppen.map((g, n) => `<g class="f-birne" style="animation-delay:${f(-n * .53)}s">${g.join("")}</g>`).join("")}</g>`;
 })();
 
 // Tannenbaum: vier Stufen mit geschwungenem Saum, Lichterschweif, Kugeln mit Glanz, Stern mit Schein, zwei Geschenke

@@ -1,7 +1,7 @@
 /* Rahmen für Ausgabe, Podcast und Werkstatt – wird im <head> geladen.
-   1. Seitenwechsel: Die drei Seiten liegen nebeneinander (Podcast ← Ausgabe → Werkstatt). Ein Klick auf eine der anderen
-      schiebt deren Bild von der passenden Seite über das Fenster (Wellenkante wie überall auf der Seite); auf der neuen Seite
-      zieht das Blatt weiter bzw. löst sich auf, und der Inhalt kommt ruhig von derselben Seite herein.
+   1. Seitenwechsel, bewusst dezent: Zum Podcast und zurück zur Ausgabe blendet die Seite kurz ins Papier aus und die neue wieder ein.
+      Zur Werkstatt breitet sich vom angeklickten Knopf ihre dunkle Fläche mit den weichen Farbflecken aus (wie Tinte auf Papier) –
+      dasselbe Bild, mit dem die Werkstatt beginnt; dort löst sich die Fläche auf und der Titel steigt herein.
    2. Turmfenster im Logo: Etwa die Hälfte der Fenster des Boniturms leuchtet, der Rest ist dunkelgrau. Alle paar Sekunden
       geht irgendwo ein Licht an oder aus – im Startbild genauso wie im kleinen Logo der Kopfzeile (gleicher Stand).
    Ohne Bewegung (prefers-reduced-motion) gibt es keinen Seitenwechsel-Effekt; die Fenster stehen dann still. */
@@ -15,31 +15,17 @@
 
   const stil = d.createElement("style");
   stil.textContent = `
-.ug{position:fixed;inset:0;z-index:2147483000;overflow:hidden;contain:strict;--ug-grund:#1b1917}
-.ug-blatt{position:absolute;top:0;bottom:0;left:0;width:calc(100vw + 220px);display:flex;will-change:transform,opacity}
-.ug-kanten{position:relative;flex:none;width:110px;overflow:hidden}
-.ug-kanten svg{position:absolute;left:0;top:0;width:100%;height:200%;fill:var(--ug-grund);animation:ug-kante 11s linear infinite}
-.ug-kanten svg+svg{left:-22px;opacity:.5;animation-duration:17s;animation-direction:reverse}
-.ug-kanten.rechts{transform:scaleX(-1)}
-.ug-flaeche{position:relative;flex:1;margin:0 -1px;background:var(--ug-grund);overflow:hidden}
-.ug-k{position:absolute;width:74vmax;aspect-ratio:1;border-radius:50%;animation:ug-drift 9s ease-in-out infinite alternate}
-.ug-k:nth-child(1){left:-22vmax;top:-28vmax;background:radial-gradient(closest-side,var(--k1),transparent)}
-.ug-k:nth-child(2){right:-26vmax;top:-6vmax;background:radial-gradient(closest-side,var(--k4),transparent);animation-delay:-3s}
-.ug-k:nth-child(3){left:14vmax;bottom:-42vmax;background:radial-gradient(closest-side,var(--k2),transparent);animation-delay:-5s}
-.ug-k:nth-child(4){right:-2vmax;bottom:-40vmax;width:52vmax;background:radial-gradient(closest-side,var(--k3),transparent);animation-delay:-1.5s}
-.ug-podcast{--ug-grund:#1f1c18}.ug-podcast .ug-k{opacity:.5}
-.ug-ton{position:absolute;left:8%;right:8%;top:50%;height:min(30vh,220px);display:flex;align-items:center;gap:clamp(2px,.45vw,6px);translate:0 -50%}
-.ug-ton i{flex:1;height:calc(var(--h) * 100%);min-height:4px;border-radius:99px;background:#fbf5e9;opacity:.9;animation:ug-takt 1.15s ease-in-out calc(var(--i) * -.09s) infinite alternate}
-.ug-ton i:nth-child(7n+3){background:var(--k2)}
-.ug-ausgabe{--ug-grund:#f6f4ef}
-.ug-ausgabe .ug-flaeche::before{content:"";position:absolute;left:50%;top:62%;width:min(64vmin,520px);aspect-ratio:2;translate:-50% -100%;border-radius:999px 999px 0 0;background:#cf073d;animation:ug-sonne 1.5s cubic-bezier(.2,.7,.2,1) both}
-.ug-ausgabe .ug-flaeche::after{content:"";position:absolute;left:50%;top:62%;bottom:0;width:min(150vmin,1300px);translate:-50% 0;background:linear-gradient(#dfe5e7,#f6f4ef 62%);-webkit-mask:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent);mask:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent)}
-@keyframes ug-kante{to{transform:translateY(-50%)}}
-@keyframes ug-drift{to{transform:translate(5vmax,-4vmax) scale(1.14)}}
-@keyframes ug-takt{from{transform:scaleY(.45)}to{transform:scaleY(1)}}
-@keyframes ug-sonne{from{translate:-50% -72%}}
-.ug-kommt{animation:ug-kommt 1.15s cubic-bezier(.16,.84,.3,1) both}
-@keyframes ug-kommt{from{opacity:0;translate:var(--ug-x,60px) 0}}
+.ug{position:fixed;inset:0;z-index:2147483000;overflow:hidden;contain:strict;background:var(--ug-grund,#f6f4ef);will-change:opacity,clip-path}
+.ug-tinte{--ug-grund:#1b1917}
+.ug-k{position:absolute;width:54vmax;aspect-ratio:1;border-radius:50%;opacity:0;animation:ug-fleck 1s ease .2s forwards}
+.ug-da .ug-k{opacity:.95;animation:none}
+.ug-k:nth-child(1){left:-14vmax;top:-18vmax;background:radial-gradient(closest-side,var(--k1) 22%,transparent)}
+.ug-k:nth-child(2){right:-18vmax;top:4vmax;background:radial-gradient(closest-side,var(--k4) 22%,transparent)}
+.ug-k:nth-child(3){left:22vmax;bottom:-30vmax;background:radial-gradient(closest-side,var(--k2) 22%,transparent)}
+.ug-k:nth-child(4){right:6vmax;bottom:-26vmax;width:36vmax;background:radial-gradient(closest-side,var(--k3) 22%,transparent)}
+@keyframes ug-fleck{to{opacity:.95}}
+.ug-kommt{animation:ug-kommt .95s cubic-bezier(.16,.84,.3,1) both}
+@keyframes ug-kommt{from{opacity:0;translate:0 14px}}
 .logo-rahmen{position:relative;display:inline-block;flex:none;line-height:0;vertical-align:baseline}.logo-rahmen>img{display:block}
 .logo-licht{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .logo-licht rect{fill:#57524d;opacity:0;transition:opacity 2.6s ease}
@@ -47,26 +33,25 @@
   d.head.appendChild(stil);
 
   // ---------- 1. Seitenwechsel ----------
-  const ORT = { podcast: -1, ausgabe: 0, werkstatt: 1 }, MERK = "boniblatt.wechsel";
+  const MERK = "boniblatt.wechsel";
   const seiteVon = pfad => /\/ueber\.html$/.test(pfad) ? "werkstatt" : /\/podcast\.html$/.test(pfad) ? "podcast" : /\/(index\.html)?$/.test(pfad) ? "ausgabe" : "";
   const hier = seiteVon(location.pathname);
-  const KANTE = '<svg viewBox="0 0 60 1200" preserveAspectRatio="none"><path d="M60 0H30C6 100 6 200 30 300S54 500 30 600S6 800 30 900S54 1100 30 1200H60Z"/></svg>';
-  const inhalt = ziel => ziel === "ausgabe" ? "" : "<i class=\"ug-k\"></i>".repeat(4) + (ziel === "podcast"
-    ? `<div class="ug-ton">${Array.from({ length: innerWidth < 700 ? 34 : 64 }, (_, i) => `<i style="--i:${i};--h:${(.16 + .84 * Math.abs(Math.sin(i * .37) * Math.sin(i * .13 + 1.2))).toFixed(2)}"></i>`).join("")}</div>` : "");
-  function blatt(ziel, von) {
-    const u = d.createElement("div"); u.className = "ug ug-" + ziel; u.dataset.von = von; u.setAttribute("aria-hidden", "true");
-    FARBEN.forEach((f, i) => u.style.setProperty("--k" + (i + 1), f));
-    u.innerHTML = `<div class="ug-blatt"><div class="ug-kanten">${KANTE}${KANTE}</div><div class="ug-flaeche">${inhalt(ziel)}</div><div class="ug-kanten rechts">${KANTE}${KANTE}</div></div>`;
+  const papier = () => wurzel.dataset.thema === "dunkel" ? "#141312" : "#f6f4ef";
+  function flaeche(ziel, da) {
+    const u = d.createElement("div"); u.className = "ug" + (ziel === "werkstatt" ? " ug-tinte" : "") + (da ? " ug-da" : ""); u.setAttribute("aria-hidden", "true");
+    if (ziel === "werkstatt") { FARBEN.forEach((f, i) => u.style.setProperty("--k" + (i + 1), f)); u.innerHTML = "<i class=\"ug-k\"></i>".repeat(4); }
+    else u.style.setProperty("--ug-grund", papier());
     return u;
   }
-  // Lage des Blatts: draußen auf der Seite, von der es kommt · deckend · draußen auf der anderen Seite
-  const AUSSEN = { rechts: "translateX(100vw)", links: "translateX(calc(-100vw - 220px))" }, DECKT = "translateX(-110px)";
   let laeuft = false;
-  function gehe(adresse, ziel) {
-    const von = ORT[ziel] > ORT[hier] ? "rechts" : "links", u = blatt(ziel, von);
-    laeuft = true; wurzel.appendChild(u);
-    try { sessionStorage.setItem(MERK, JSON.stringify({ ziel, von, t: Date.now() })); } catch (e) { /* ohne Speicher kommt die neue Seite ohne Auflösung */ }
-    const a = u.firstChild.animate([{ transform: AUSSEN[von] }, { transform: DECKT }], { duration: innerWidth < 700 ? 820 : 1050, easing: "cubic-bezier(.62,0,.2,1)", fill: "forwards" });
+  function gehe(adresse, ziel, x, y) {
+    const u = flaeche(ziel, false); laeuft = true; wurzel.appendChild(u);
+    try { sessionStorage.setItem(MERK, JSON.stringify({ ziel, t: Date.now() })); } catch (e) { /* ohne Speicher kommt die neue Seite ohne Auflösung */ }
+    // Werkstatt: Die dunkle Fläche wächst als Kreis vom Knopf aus bis über die fernste Ecke. Sonst: kurze Blende ins Papier.
+    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) + 24;
+    const a = ziel === "werkstatt"
+      ? u.animate([{ clipPath: `circle(0px at ${x}px ${y}px)` }, { clipPath: `circle(${r}px at ${x}px ${y}px)` }], { duration: 900, easing: "cubic-bezier(.65,0,.25,1)", fill: "forwards" })
+      : u.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 240, easing: "ease-out", fill: "forwards" });
     const los = () => { location.href = adresse; };
     a.finished.then(los, los);
     setTimeout(() => { u.remove(); laeuft = false; }, 5000);        // klappt das Laden nicht, bleibt nichts verdeckt
@@ -78,22 +63,21 @@
       let u; try { u = new URL(l.href, location.href); } catch (f) { return; }
       if (u.origin !== location.origin) return;
       const ziel = seiteVon(u.pathname); if (!ziel || ziel === hier) return;
-      e.preventDefault(); if (!laeuft) gehe(u.href, ziel);
+      e.preventDefault(); if (laeuft) return;
+      const k = l.getBoundingClientRect();
+      gehe(u.href, ziel, e.clientX || k.left + k.width / 2, e.clientY || k.top + k.height / 2);
     });
     addEventListener("pageshow", e => { if (e.persisted) { d.querySelectorAll(".ug").forEach(x => x.remove()); laeuft = false; } });   // zurück über den Verlauf: nichts bleibt verdeckt
-    // Ankunft: Das Blatt deckt die neue Seite vom ersten Bild an. Ist sie da, zieht es weiter (oder löst sich auf, wenn dahinter
-    // dasselbe Bild steht wie in der Werkstatt), und der Inhalt kommt von derselben Seite herein.
+    // Ankunft: Die Fläche deckt die neue Seite vom ersten Bild an und löst sich auf, sobald sie da ist; der Inhalt steigt ein kleines Stück herein.
     let merk = null; try { merk = JSON.parse(sessionStorage.getItem(MERK) || "null"); sessionStorage.removeItem(MERK); } catch (e) { /* kein Speicher */ }
-    if (merk && merk.ziel === hier && Date.now() - merk.t < 6000 && AUSSEN[merk.von]) {
-      const u = blatt(hier, merk.von), b = u.firstChild; b.style.transform = DECKT; wurzel.appendChild(u);
+    if (merk && merk.ziel === hier && Date.now() - merk.t < 6000) {
+      const u = flaeche(hier, true); wurzel.appendChild(u);
       const bereit = Promise.race([new Promise(r => setTimeout(r, 1400)), Promise.all([new Promise(r => d.readyState !== "loading" ? r() : d.addEventListener("DOMContentLoaded", r, { once: true })), d.fonts ? d.fonts.ready : 0])]);
       bereit.then(() => requestAnimationFrame(() => requestAnimationFrame(() => {
         const rein = d.querySelector(hier === "werkstatt" ? "#held .innen" : hier === "podcast" ? "#pc .bb-innen" : "#e-nix");
-        if (rein) { rein.style.setProperty("--ug-x", merk.von === "rechts" ? "70px" : "-70px"); rein.classList.add("ug-kommt"); rein.addEventListener("animationend", ev => { if (ev.target === rein) rein.classList.remove("ug-kommt"); }); }
-        const a = hier === "werkstatt"
-          ? b.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, easing: "ease", fill: "forwards" })
-          : b.animate([{ transform: DECKT }, { transform: AUSSEN[merk.von === "rechts" ? "links" : "rechts"] }], { duration: innerWidth < 700 ? 820 : 1050, easing: "cubic-bezier(.5,0,.15,1)", fill: "forwards" });
-        const weg = () => u.remove(); a.finished.then(weg, weg); setTimeout(weg, 2500);
+        if (rein) { rein.classList.add("ug-kommt"); rein.addEventListener("animationend", ev => { if (ev.target === rein) rein.classList.remove("ug-kommt"); }); }
+        const a = u.animate([{ opacity: 1 }, { opacity: 0 }], { duration: hier === "werkstatt" ? 850 : 420, easing: "ease", fill: "forwards" });
+        const weg = () => u.remove(); a.finished.then(weg, weg); setTimeout(weg, 2000);
       })));
     }
   }

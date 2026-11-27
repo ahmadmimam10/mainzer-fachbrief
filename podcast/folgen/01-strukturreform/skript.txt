@@ -1,6 +1,6 @@
 # ZWISCHEN DEN ZEILEN – der Podcast vom Boniblatt
 # Folge 1: Das Kleingedruckte der Strukturreform (Erstes Kinder- und Jugendhilfestrukturreformgesetz)
-# Stand der Fakten: 24. November 2026 · Fassung 5 vom 27. November 2026 (Rückmeldung zu Fassung 4: Jonas begrüßt als
+# Stand der Fakten: 24. November 2026 · Fassung 6 vom 27. November 2026 (Vergleich mit dem Jobcenter gestrichen) · Fassung 5 (Rückmeldung zu Fassung 4: Jonas begrüßt als
 # Hauptmoderator aus dem Boniturm, kein „Stadthaus“; Begrüßung mit den Listen; beim Vorrang einmal in die Tiefe – wie stellt
 # man fest, dass es keinen Kitaplatz gibt? Dafür ist das Fundstück zum Jugendschutzgesetz gestrichen.)
 # Format: siehe podcast/LEITFADEN.md
@@ -78,7 +78,7 @@ JONAS: [thoughtful] Dann gibt es auch keinen Vorrang. Das steht ausdrücklich in
 MIRA: [engaged] Da möchte ich genauer hinschauen. „Tatsächlich verfügbar“: Wie stellt man das fest, schwarz auf weiß? Fordert der Soziale Dienst die Mutter auf, sich erst bei drei Kitas anzumelden? Muss sie eine Bestätigung bringen, dass sie auf der Warteliste steht? Oder besorgt das Jugendamt den Platz selbst?
 JONAS: [thoughtful] Dazu steht im Entwurf nichts. Die Begründung hat dafür genau diesen einen Satz. Wer die Verfügbarkeit prüft, wie schnell das gehen muss und was als Nachweis gilt, bleibt offen. So lese ich das jedenfalls.
 #@ Eigene Lesart: Entwurf und Begründung regeln nicht, wie die Verfügbarkeit festgestellt wird, wer sie belegt und in welcher Frist | BT-Drs. 21/8274, Art. 2 Nr. 7 und 9 sowie Begründung zu § 27 Abs. 5 (S. 40) | https://dserver.bundestag.de/btd/21/082/2108274.pdf
-MIRA: [concerned] Dann entscheidet die Praxis. Und wenn eine Familie erst Absagen sammeln muss, bevor sie Hilfe bekommt, ist das eine Logik, die man eher vom Jobcenter kennt: erst der Nachweis, dann die Leistung. Leichter wird der Alltag dieser Mutter in den Wochen dazwischen nicht.
+MIRA: [concerned] Dann entscheidet die Praxis. Und solange das geklärt wird, wird der Alltag dieser Mutter nicht leichter.
 JONAS: [calm] Und es gibt noch eine zweite Ebene. Ein Kind hat ab dem ersten Geburtstag schon heute einen Rechtsanspruch auf Förderung in einer Kita oder in der Kindertagespflege. Dieser Anspruch richtet sich an den Träger der öffentlichen Jugendhilfe. Also an dasselbe Jugendamt, das den Vorrang prüft.
 #@ Rechtsanspruch auf frühkindliche Förderung in einer Tageseinrichtung oder in Kindertagespflege ab dem vollendeten ersten Lebensjahr | § 24 Abs. 2 SGB VIII (geltendes Recht) | https://www.gesetze-im-internet.de/sgb_8/__24.html
 MIRA: [dryly] Steht also in der Akte „kein Platz verfügbar“, dann steht da auch: Ein Rechtsanspruch ist nicht erfüllt. Im eigenen Haus.

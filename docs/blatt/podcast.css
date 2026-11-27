@@ -147,3 +147,12 @@ button{font:inherit;color:inherit}
 .pc-fenster[data-pause] .pc-q.jetzt .pc-q-ton b{animation-play-state:paused}
 @keyframes pc-q-ton{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){.pc-q.jetzt .pc-q-ton b{animation:none}}
+
+/* Kopf der Podcast-Seite über die ganze Breite (wie der Spieler darunter): links der Titel, rechts daneben die Erklärung; schmal untereinander */
+.pc-oben{max-width:none;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"marke marke" "titel text";column-gap:clamp(28px,5vw,76px);row-gap:12px}
+.pc-oben .pc-kimarke{grid-area:marke}
+.bb .pc-oben .bb-gruss{grid-area:titel;white-space:nowrap}
+.bb .pc-intro{grid-area:text;align-self:end;margin:0 0 .35em;font:500 16px/1.5 "Bricolage Grotesque",var(--sans);opacity:.85;text-wrap:pretty}
+@media (max-width:980px){.pc-oben{grid-template-columns:minmax(0,1fr);grid-template-areas:"marke" "titel" "text"}.bb .pc-oben .bb-gruss{white-space:normal}.bb .pc-intro{margin:4px 0 0}}
+/* Kopfzeile wie auf der Startseite: Bildzeichen und Schriftzug mittig nebeneinander */
+.bb-kopf .bb-marke a{display:inline-flex;align-items:center}

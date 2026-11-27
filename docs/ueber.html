@@ -8,7 +8,7 @@
 <link rel="icon" href="bilder/favicon.ico" sizes="32x32">
 <link rel="icon" href="bilder/favicon-hell.svg" type="image/svg+xml">
 <link rel="stylesheet" href="blatt/schrift.css">
-<script src="blatt/rahmen.js?v=1"></script>
+<script src="blatt/rahmen.js?v=2"></script>
 <style>
 /* Werkstatt: die Über-Seite als Schaustück – reines CSS, SVG und ein wenig Skript, ohne Bibliotheken. */
 @property --f1{syntax:"<color>";inherits:true;initial-value:#a8472b}
@@ -913,8 +913,14 @@ section.kap{position:relative;overflow-x:clip;padding:clamp(60px,9vw,130px) 0}
   // Kapitel 3: Startbild umschalten  // Kapitel 4: Startbild umschalten (lädt die echte Startseite mit Testangaben), Seite färbt sich mit
   const schau = $("#schaubild"), buehne = schau.parentElement, jetzt = document.documentElement.dataset.zeit = (m => m >= 3 && m <= 5 ? "fruehling" : m >= 6 && m <= 8 ? "sommer" : m >= 9 && m <= 11 ? "herbst" : "winter")(new Date().getMonth() + 1);
   schau.addEventListener("load", () => { try { schau.contentDocument.documentElement.style.scrollbarWidth = "none"; } catch (e) { /* fremde Herkunft: dann eben mit Leiste */ } buehne.classList.remove("laedt"); });
-  document.querySelectorAll(".schalter button").forEach(b => b.addEventListener("click", () => { document.querySelectorAll(".schalter button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    document.documentElement.dataset.zeit = b.dataset.z || jetzt; buehne.classList.add("laedt"); setTimeout(() => { schau.src = "./?intro" + (b.dataset.q ? "&" + b.dataset.q : ""); }, 300); }));
+  // Das Schaufenster zeigt die echte Startseite mit ihren vielen kleinen Bewegungen. Ist es nicht im Bild, ruhen sie – sonst rechnet der
+  // Browser sie die ganze Zeit mit, auch wenn man längst woanders auf der Seite ist (auf langsamen Geräten stockte dann das Scrollen).
+  { let sichtbar = false;
+    const ruhe = () => { try { const d = schau.contentDocument; if (!d || !d.documentElement) return;
+        if (!d.getElementById("werkstatt-ruhe")) { const st = d.createElement("style"); st.id = "werkstatt-ruhe"; st.textContent = "html.ruht *,html.ruht *::before,html.ruht *::after{animation-play-state:paused!important}"; d.head.appendChild(st); }
+        d.documentElement.classList.toggle("ruht", !sichtbar); } catch (e) { /* fremde Herkunft: nichts zu tun */ } };
+    schau.addEventListener("load", ruhe);
+    new IntersectionObserver(e => { sichtbar = e[0].isIntersecting; ruhe(); }, { rootMargin: "10% 0px" }).observe(schau); }
   const chips = w => { const s = w.map(x => `<span>${esc(x)}</span>`).join(""); return s + s; };
   $("#w1").innerHTML = chips(["Erst nur der Zeitungsname und das Logo, groß", "Ein Parallax-Effekt: weit und nah", "Nicht zu episch – es ist eine Tageszeitung", "Das Logo kommt in Teilen: Dom, Sonne, Zeitung", "Zwölf Varianten, drei je Jahreszeit", "Das Ufer und alles dahinter etwas näher ran", "Die Kuppel feiner zeichnen", "Komplex, aber dezent"]);
   $("#w2").innerHTML = chips(["Regen, Blüten, Schnee und Laub auch unten – nur dezenter", "Ein Bilderset für die Motive in den Kacheln", "Jeden Werktag ein Fundstück – nur eins", "So smooth wie es geht", "Ressourcenschonend bitte", "Das Logo landet neben dem Titel", "Das soll ernst wirken, nicht verspielt", "Ein Kalender für das ganze Jahr"]);

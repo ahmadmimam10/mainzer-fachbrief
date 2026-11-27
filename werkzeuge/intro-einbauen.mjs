@@ -406,24 +406,26 @@ const css = `/* INTRO-START – „Morgen über Mainz“ (nur hell; bei jedem Au
 .i-unter span{display:inline-block;white-space:nowrap;letter-spacing:.02em;animation:i-unter 1s cubic-bezier(.16,1,.3,1) 2.4s both}
 .i-unter::before,.i-unter::after{content:"";width:clamp(0px,calc((100vw - 380px) * .3),34px);height:1px;background:#a8a093;animation:i-strich .8s cubic-bezier(.16,1,.3,1) 2.6s both}
 .i-unter::before{transform-origin:100% 50%}.i-unter::after{transform-origin:0 50%}
-/* Fachbereichswahl: drei Knöpfe am unteren Rand. Der gewählte fliegt bei der Fahrt nach unten mit und landet als aktiver Reiter. */
-.i-wahl{position:absolute;z-index:3;left:0;right:0;bottom:max(12px,env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;gap:6px;padding:0 12px;
-  opacity:calc(1 - var(--ip,0) * 6);pointer-events:none}
-.i-wahl>*{pointer-events:auto}
-.i-wahl-reihe{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.i-wahl-reihe button,.i-flug{display:inline-flex;align-items:center;gap:8px;padding:10px 17px 10px 11px;border:0;border-radius:999px;background:rgba(255,253,248,.9);color:#1f1c18;
-  font:600 15.5px/1 "Bricolage Grotesque",var(--sans);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 0 0 1px rgba(31,28,24,.07),0 10px 24px -16px rgba(40,30,20,.6)}
-.i-wahl-reihe button{cursor:pointer;animation:i-wahl .8s cubic-bezier(.2,1.25,.3,1) calc(2.75s + var(--nr) * .11s) both;transition:background .3s,color .3s,translate .35s cubic-bezier(.3,1.7,.5,1),opacity .5s}
-.i-wahl-reihe button i,.i-flug i{flex:none;width:24px;aspect-ratio:1;background:currentColor;-webkit-mask:var(--bild) center/contain no-repeat;mask:var(--bild) center/contain no-repeat}
-.i-wahl-reihe button:hover,.i-wahl-reihe button:focus-visible{background:#1f1c18;color:#f6f4ef;translate:0 -2px}
-.i-wahl.gewaehlt .i-wahl-reihe button{opacity:0;pointer-events:none}.i-wahl.gewaehlt .i-weiter{opacity:0}
-.i-flug{position:fixed;z-index:40;left:0;top:0;margin:0;pointer-events:none;transform-origin:0 0;will-change:transform;transition:background-color 1s ease .5s,color 1s ease .5s}
-.i-flug.faerbt{background:var(--zf,#1f1c18);color:var(--zt,#f6f4ef)}
-@keyframes i-wahl{from{opacity:0;transform:translateY(16px)}}
-@media (max-width:560px){.i-wahl-reihe{gap:7px}.i-wahl-reihe button,.i-flug{padding:9px 14px 9px 9px;font-size:14.5px}.i-wahl-reihe button i,.i-flug i{width:21px}}
-.i-weiter{display:inline-flex;flex-direction:column;align-items:center;gap:2px;
-  padding:6px 14px 2px;border:0;background:none;color:#5d584f;font:600 12.5px/1 var(--sans);letter-spacing:.04em;cursor:pointer;
-  transition:opacity .4s;animation:i-ein .6s ease 3.2s both}
+/* Fachbereichswahl: drei kleine farbige Knöpfe direkt unter dem Untertitel – jeder in der Farbe seines Bereichs (wie die Reiter der Ausgabe,
+   Farben je Jahreszeit aus blatt/bb.css). Ein Klick stellt die Ausgabe auf den Bereich ein und fährt ruhig hinunter; die anderen beiden treten zurück. */
+.intro{--b0:#a8472b;--s0:#fff4e6;--b1:#6a3e58;--s1:#fbecf2;--b2:#5f6f43;--s2:#f7f3e2}
+.intro[data-zeit="winter"]{--b0:#2e4a66;--s0:#eef4f8;--b1:#b9a0b4;--s1:#231a22;--b2:#4d6b5c;--s2:#eef5f0}
+.intro[data-zeit="fruehling"]{--b0:#4f8a5b;--s0:#f4faef;--b1:#f2dc86;--s1:#2a2410;--b2:#a9cfe8;--s2:#16242e}
+.intro[data-zeit="sommer"]{--b0:#2456c9;--s0:#eff4ff;--b1:#5cc2a0;--s1:#0e2a22;--b2:#f7c63f;--s2:#2a2008}
+.i-wahl{position:relative;z-index:3;display:flex;flex-wrap:wrap;justify-content:center;gap:7px;margin-top:clamp(2px,1vh,10px);padding:0 6px;
+  opacity:calc(1 - var(--ip,0) * 5);translate:0 calc(var(--ip,0) * -60px)}
+.i-wahl button{display:inline-flex;align-items:center;gap:7px;padding:8px 14px 8px 9px;border:0;border-radius:999px;background:var(--bf);color:var(--sf);
+  font:600 14px/1 "Bricolage Grotesque",var(--sans);white-space:nowrap;cursor:pointer;box-shadow:0 8px 16px -12px var(--bf);
+  animation:i-wahl .9s cubic-bezier(.16,1,.3,1) calc(2.7s + var(--nr) * .09s) both;transition:opacity .45s ease,filter .3s ease,box-shadow .3s ease}
+.i-wahl button:nth-child(1){--bf:var(--b0);--sf:var(--s0)}.i-wahl button:nth-child(2){--bf:var(--b1);--sf:var(--s1)}.i-wahl button:nth-child(3){--bf:var(--b2);--sf:var(--s2)}
+.i-wahl button i{flex:none;width:20px;aspect-ratio:1;background:currentColor;-webkit-mask:var(--bild) center/contain no-repeat;mask:var(--bild) center/contain no-repeat}
+.i-wahl button:hover,.i-wahl button:focus-visible{filter:brightness(1.08);box-shadow:0 10px 20px -10px var(--bf)}
+.i-wahl.gewaehlt button{pointer-events:none}.i-wahl.gewaehlt button:not(.wahl){opacity:.28}
+@keyframes i-wahl{from{opacity:0;transform:translateY(8px)}}
+@media (max-width:560px){.i-wahl{gap:6px}.i-wahl button{padding:7px 12px 7px 8px;font-size:13.5px}.i-wahl button i{width:18px}}
+.i-weiter{position:absolute;z-index:3;left:50%;bottom:max(18px,env(safe-area-inset-bottom));display:inline-flex;flex-direction:column;align-items:center;gap:4px;
+  padding:8px 14px;border:0;background:none;color:#5d584f;font:600 13px/1 var(--sans);letter-spacing:.04em;cursor:pointer;
+  transform:translateX(-50%);opacity:calc(1 - var(--ip,0) * 6);animation:i-ein .6s ease 3.1s both}
 .i-weiter i{font-style:normal;font-size:20px;animation:i-wippen 1.8s ease-in-out 3.5s infinite}
 .intro.fertig *,.intro.fertig *::before,.intro.fertig *::after{animation:none!important}
 @keyframes i-aus{from{opacity:1}}
@@ -491,11 +493,11 @@ const html = `<!-- INTRO-START -->
     </div>
     <div class="i-titelplatz"><h1 class="i-titel"><span class="i-w">${buchstaben("Mainzer", 0)}</span> <br><span class="i-w">${buchstaben("Boniblatt", 7)}</span><b>.</b></h1></div>
     <p class="i-unter"><span>Deine tagesaktuelle Fachzeitung aus Mainz</span></p>
+    <nav class="i-wahl" aria-label="Fachbereich wählen">${[["jugendhilfeplanung", "Jugendhilfeplanung", "stadtplan"], ["fruehe-hilfen", "Fachstelle", "haende"], ["quartiersmanagement", "Quartiermanagement", "parkbank"]].map(([id, name, bild], i) => `<button type="button" data-r="${id}" style="--nr:${i};--bild:url(bilder/motive/${bild}.webp)"><i aria-hidden="true"></i>${name}</button>`).join("")}</nav>
   </div>
   ${FEST_BUEHNE}
   <div class="i-nieder" aria-hidden="true"><div class="i-wieg"><div class="n n1"></div><div class="n n2"></div><div class="n n5"></div><div class="n n3"></div><div class="n n4"></div></div></div>
-  <nav class="i-wahl" aria-label="Fachbereich wählen"><div class="i-wahl-reihe">${[["jugendhilfeplanung", "Jugendhilfeplanung", "stadtplan"], ["fruehe-hilfen", "Fachstelle", "haende"], ["quartiersmanagement", "Quartiermanagement", "parkbank"]].map(([id, name, bild], i) => `<button type="button" data-r="${id}" style="--nr:${i};--bild:url(bilder/motive/${bild}.webp)"><i aria-hidden="true"></i>${name}</button>`).join("")}</div>
-    <button type="button" class="i-weiter" aria-label="Zur Ausgabe"><i aria-hidden="true">↓</i></button></nav>
+  <button type="button" class="i-weiter">Zur Ausgabe<i aria-hidden="true">↓</i></button>
  </div>
  <div class="i-traeger" aria-hidden="true"><div class="i-platz">
       <div class="i-l i-sonne i-vorn"><svg viewBox="0 0 128 128"><defs><clipPath id="i-horizont2"><rect width="128" height="77.5"/></clipPath></defs><g clip-path="url(#i-horizont2)"><path d="M9.6 77.5a54.4 54.4 0 0 1 108.8 0Z"/></g></svg></div>
@@ -558,6 +560,7 @@ const html = `<!-- INTRO-START -->
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
   const buehne = intro.querySelector(".intro-buehne"), logo = intro.querySelector(".i-logo"), platzEl = intro.querySelector(".i-platz"), traeger = intro.querySelector(".i-traeger"), titel = intro.querySelector(".i-titel"), sonneHinten = intro.querySelector(".i-welt .i-sonne");
   let bild, geo = null, fertig = false, ruhe = 0, offen = false, fahrt = 0;
+  const lagen = [...platzEl.querySelectorAll(".i-l"), sonneHinten].filter(Boolean);
   const grenze = x => Math.min(1, Math.max(0, x)), sanft = x => x * x * (3 - 2 * x);
   const strecke = () => intro.offsetHeight - buehne.offsetHeight;
   // Wer die Scroll-Werte braucht: alle Elemente, deren Regeln --ip oder --ie benutzen (auch Fundstücke und Festschmuck, die
@@ -598,8 +601,10 @@ const html = `<!-- INTRO-START -->
     const t = grenze(1 - (geo.zy - y - geo.ay) / Math.max(1, geo.zy - geo.ay));
     const ds = 1 + (geo.zh / geo.aw - 1) * sanft(t), g = geo.aw * ds, mx = geo.ax + (geo.zx - geo.ax) * sanft(grenze(t / .85));
     const dx = (mx - g / 2 - geo.al).toFixed(1) + "px", dy = ((geo.aw - g) / 2).toFixed(1) + "px", dss = ds.toFixed(4);
-    for (const x of [platzEl, sonneHinten]) if (x) { x.style.setProperty("--dx", dx); x.style.setProperty("--dy", dy); x.style.setProperty("--ds", dss); }
-    titel.style.setProperty("--ts", (1 - e * .14).toFixed(4)); titel.style.setProperty("--to", (1 - grenze((p - .02) / .2)).toFixed(3));
+    // Lage und Größe des Logos und des Titels stehen direkt an den wenigen Elementen, die sich bewegen (nicht als vererbte Variablen am
+    // Träger): Sonst rechnete der Browser bei jedem Scroll-Bild alle Pfade des Logos und alle Buchstaben des Titels neu.
+    const lage = "translate(" + dx + "," + dy + ") scale(" + dss + ")"; for (const x of lagen) x.style.transform = lage;
+    titel.style.transform = "scale(" + (1 - e * .14).toFixed(4) + ")"; titel.style.opacity = (1 - grenze((p - .02) / .2)).toFixed(3);
     bild.style.opacity = grenze((t - .3) / .45).toFixed(3);
     return p;
   };
@@ -619,7 +624,18 @@ const html = `<!-- INTRO-START -->
     intro.remove(); scrollTo(0, rest);
   };
   addEventListener("scrollend", einklappen);
+  // Solange gescrollt wird, ruhen die kleinen Dauerbewegungen in der Szene (blinkende Fenster und Lichter, Ringe im Wasser, Festschmuck):
+  // Jede davon muss der Browser sonst bei jedem Scroll-Bild neu berechnen – auf dem Handy war das die halbe Rechenzeit. Wolken, Vögel und
+  // fallendes Laub laufen weiter, damit das Bild nicht erstarrt. Eine Viertelsekunde nach dem letzten Scrollen geht alles weiter.
+  let ruhend = null, weiterZeit = 0;
+  const weiter = () => { if (ruhend) { for (const a of ruhend) { try { a.play(); } catch (e) {} } ruhend = null; } };
+  const ruhen = () => {
+    clearTimeout(weiterZeit); weiterZeit = setTimeout(weiter, 260);
+    if (ruhend || !intro.isConnected || !intro.getAnimations) return;
+    try { ruhend = intro.getAnimations({ subtree: true }).filter(a => a.playState === "running" && a.effect && a.effect.target && a.effect.target.closest && a.effect.target.closest(".i-band,.i-boden,.f,.i-traeger")); for (const a of ruhend) a.pause(); } catch (e) { ruhend = null; }
+  };
   addEventListener("scroll", () => {
+    ruhen();
     if (fertig) { clearTimeout(ruhe); ruhe = setTimeout(einklappen, 160); }
     if (!offen) { offen = true; requestAnimationFrame(rechne); }
   }, { passive: true });
@@ -646,30 +662,14 @@ const html = `<!-- INTRO-START -->
     fahrt = requestAnimationFrame(schritt); return true;
   };
   intro.querySelector(".i-weiter").addEventListener("click", () => fahre(1400));
-  // Fachbereich im Startbild wählen: Die Ausgabe stellt sich auf den Bereich ein (Ereignis „boni-bereich“, blatt/bb.js), dann
-  // fährt die Seite hinunter. Der gewählte Knopf fliegt als Kopie mit und landet genau auf seinem Reiter in der Ausgabe.
+  // Fachbereich im Startbild wählen: Die Ausgabe stellt sich auf den Bereich ein (Ereignis „boni-bereich“, blatt/bb.js), der gewählte Knopf
+  // bleibt stehen, die anderen treten zurück, und die Seite fährt wie bei „Zur Ausgabe“ ruhig hinunter – unten ist der Reiter schon gewählt.
   const wahl = intro.querySelector(".i-wahl");
   wahl.addEventListener("click", e => {
     const k = e.target.closest("button[data-r]"); if (!k || fahrt || fertig) return;
     window.BONI_START = k.dataset.r; document.dispatchEvent(new CustomEvent("boni-bereich", { detail: k.dataset.r }));
-    const a = k.getBoundingClientRect(), flug = document.createElement("div"); flug.className = "i-flug"; flug.innerHTML = k.innerHTML; flug.style.cssText = k.style.cssText;
-    // Zielfarbe = Farbe des Bereichs in der Ausgabe (Rollen wie in blatt/bb.css: Bereich 1 → Farbe 1, 2 → 4, 3 → 3). Fest eingetragen, weil die
-    // Rollenfarbe --ra beim Umschalten selbst gerade umläuft – ein Übergang dorthin käme nie in Gang.
-    const ziel = document.getElementById("e"), fnr = [1, 4, 3, 2, 5][[...wahl.querySelectorAll("button[data-r]")].indexOf(k) % 5];
-    if (ziel) { const cs = getComputedStyle(ziel), zf = cs.getPropertyValue("--p" + fnr).trim(), zt = cs.getPropertyValue("--t" + fnr).trim(); if (zf) flug.style.setProperty("--zf", zf); if (zt) flug.style.setProperty("--zt", zt); }
-    (ziel || document.body).appendChild(flug); wahl.classList.add("gewaehlt"); requestAnimationFrame(() => requestAnimationFrame(() => flug.classList.add("faerbt")));
-    const setze = (x, y, g, o) => { flug.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px) scale(" + g.toFixed(4) + ")"; flug.style.opacity = o; };
-    setze(a.left, a.top, 1, 1);
-    const weg = () => { flug.remove(); };
-    const los = fahre(1700, x => {
-      // Ziel: der Reiter des Bereichs, so wie er am Ende der Fahrt im Fenster steht (er wandert mit der Seite nach oben)
-      const z = document.querySelector('#e .bb-reiter button[data-r="' + k.dataset.r + '"]'); if (!z) { setze(a.left, a.top, 1, 1 - x); return; }
-      const r = z.getBoundingClientRect(), rest = strecke() - scrollY, zy = r.top - rest, g = r.height / a.height, w = kurve(grenze(x * 1.04));
-      // leichter Bogen: erst ein kleines Stück nach oben, dann hinunter zum Reiter
-      setze(a.left + (r.left - a.left) * w, a.top + (zy - a.top) * w - Math.sin(Math.PI * x) * 26, 1 + (g - 1) * w, x > .9 ? (1 - x) / .1 : 1);
-      if (x >= 1) weg();
-    });
-    if (!los) weg(); else { const ab = () => { if (!fahrt) { flug.style.transition = "opacity .3s"; flug.style.opacity = 0; setTimeout(weg, 320); } }; addEventListener("wheel", ab, { passive: true, once: true }); addEventListener("touchstart", ab, { passive: true, once: true }); }
+    k.classList.add("wahl"); wahl.classList.add("gewaehlt");
+    if (!fahre(1500)) { k.classList.remove("wahl"); wahl.classList.remove("gewaehlt"); }
   });
   messen(); addEventListener("DOMContentLoaded", messen); addEventListener("load", messen);
   // Lädt die Titelschrift nach, verschiebt sich die Logofläche auf der Bühne um ein paar Pixel – der Träger zieht sofort nach.
