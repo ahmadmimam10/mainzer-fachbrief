@@ -1,5 +1,5 @@
 {
- "stand": "2026-11-28T02:57:57.060Z",
+ "stand": "2026-11-28T14:33:19.753Z",
  "quellen": [
   {
    "id": "ratsinfo",
@@ -37,9 +37,9 @@
    "kurz": "Merkurist",
    "ebene": "mainz",
    "ok": true,
-   "treffer": 9,
+   "treffer": 5,
    "zustand": "ok",
-   "hinweis": "unauffällig – 9 Treffer"
+   "hinweis": "unauffällig – 5 Treffer"
   },
   {
    "id": "sensor",
@@ -77,9 +77,9 @@
    "kurz": "SWR Aktuell",
    "ebene": "land",
    "ok": true,
-   "treffer": 46,
+   "treffer": 49,
    "zustand": "ok",
-   "hinweis": "unauffällig – 41 Treffer"
+   "hinweis": "unauffällig – 42 Treffer, 2 neue Kandidaten verworfen (Link auf fremden Host (www.sportschau.de))"
   },
   {
    "id": "landtag",
@@ -288,8 +288,8 @@
    "ebene": "fach",
    "ok": false,
    "treffer": 0,
-   "zustand": "auffaellig",
-   "hinweis": "Abruffehler (2. Lauf in Folge): www.dji.de: HTTP 415"
+   "zustand": "gestoert",
+   "hinweis": "Abruf seit 3 Läufen fehlerhaft: www.dji.de: HTTP 415"
   },
   {
    "id": "difu",
@@ -426,10 +426,10 @@
    "name": "sozial.de",
    "kurz": "sozial.de",
    "ebene": "fach",
-   "ok": true,
-   "treffer": 20,
+   "ok": false,
+   "treffer": 0,
    "zustand": "ok",
-   "hinweis": "unauffällig – 20 Treffer"
+   "hinweis": "letzter Abruf nicht erreichbar (www.sozial.de: Zeitüberschreitung) – wird beim nächsten Lauf nachgeholt"
   },
   {
    "id": "jadigital",

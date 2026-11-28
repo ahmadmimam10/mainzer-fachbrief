@@ -411,5 +411,17 @@
    "✗ dji                      0 gefunden,   0 neu  ⚠ www.dji.de: HTTP 415",
    "3 neue Kandidaten (1 verworfen), 0 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-28T14:34:50.000Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "28 neue Kandidaten (3 verworfen), 0 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 55 ok, 0 auffällig, 1 gestört.",
+  "auffaellig": [
+   "✗ dji                      0 gefunden,   0 neu  ⚠ www.dji.de: HTTP 415",
+   "    → gestoert: Abruf seit 3 Läufen fehlerhaft: www.dji.de: HTTP 415",
+   "✗ sozial-de                0 gefunden,   0 neu  ⚠ www.sozial.de: Zeitüberschreitung",
+   "28 neue Kandidaten (3 verworfen), 0 Sitzungstermine, 2 Quellen mit Fehlern. Zustand: 55 ok, 0 auffällig, 1 gestört."
+  ]
  }
 ]
