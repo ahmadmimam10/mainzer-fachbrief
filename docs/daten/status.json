@@ -1,15 +1,15 @@
 {
- "stand": "2026-11-27T20:19:52.433Z",
+ "stand": "2026-11-28T02:57:57.060Z",
  "quellen": [
   {
    "id": "ratsinfo",
    "name": "Ratsinformationssystem Mainz",
    "kurz": "Ratsinfo Mainz",
    "ebene": "mainz",
-   "ok": false,
-   "treffer": 0,
+   "ok": true,
+   "treffer": 6,
    "zustand": "ok",
-   "hinweis": "letzter Abruf nicht erreichbar (bi.mainz.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt"
+   "hinweis": "unauffällig – 6 Treffer"
   },
   {
    "id": "stadt-mainz",
@@ -196,10 +196,10 @@
    "name": "BundesratKompakt",
    "kurz": "Bundesrat",
    "ebene": "bund",
-   "ok": false,
-   "treffer": 0,
+   "ok": true,
+   "treffer": 30,
    "zustand": "ok",
-   "hinweis": "letzter Abruf nicht erreichbar (www.bundesrat.de: fetch failed (UND_ERR_CONNECT_TIMEOUT)) – wird beim nächsten Lauf nachgeholt"
+   "hinweis": "unauffällig – 30 Treffer"
   },
   {
    "id": "spiegel",
@@ -289,7 +289,7 @@
    "ok": false,
    "treffer": 0,
    "zustand": "auffaellig",
-   "hinweis": "Abruffehler (1. Lauf in Folge): www.dji.de: HTTP 415"
+   "hinweis": "Abruffehler (2. Lauf in Folge): www.dji.de: HTTP 415"
   },
   {
    "id": "difu",

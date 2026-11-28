@@ -401,5 +401,15 @@
    "✗ dji                      0 gefunden,   0 neu  ⚠ www.dji.de: HTTP 415",
    "47 neue Kandidaten (1 verworfen), 0 Sitzungstermine, 3 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört."
   ]
+ },
+ {
+  "zeit": "2026-11-28T02:58:48.229Z",
+  "ergebnis": "ok",
+  "exitcode": 0,
+  "zusammenfassung": "3 neue Kandidaten (1 verworfen), 0 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört.",
+  "auffaellig": [
+   "✗ dji                      0 gefunden,   0 neu  ⚠ www.dji.de: HTTP 415",
+   "3 neue Kandidaten (1 verworfen), 0 Sitzungstermine, 1 Quellen mit Fehlern. Zustand: 55 ok, 1 auffällig, 0 gestört."
+  ]
  }
 ]
