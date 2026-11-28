@@ -1,18 +1,43 @@
 {
  "info": "Geschrieben von werkzeuge/notion-abgleich.mjs. Je Zeitfenster (24 Stunden bis zum nächtlichen Abruf von GitHub): Artikel, die Make.com in die Notion-Datenbank „AZ“ schrieb, und ob der Abruf sie auch hat. grund: offen / rubrik / alt / ausfall / quelle / unklar. vorlaeufig: wird am nächsten Morgen noch einmal geprüft.",
- "stand": "2026-11-27T13:42:58.280Z",
+ "stand": "2026-11-28T12:52:48.673Z",
  "zugang": "ok",
  "grenze": "nächtlicher Abruf",
  "letzterLauf": "2026-12-06",
  "gesamt": {
-  "tage": 4,
-  "notion": 332,
-  "erfasst": 326,
-  "fehlt": 6,
+  "tage": 5,
+  "notion": 497,
+  "erfasst": 488,
+  "fehlt": 9,
   "offen": 0,
-  "zusaetzlich": 28
+  "zusaetzlich": 47
  },
  "luecken": [
+  {
+   "quelle": "Allgemeine Zeitung",
+   "id": "az",
+   "grund": "unklar",
+   "anzahl": 2,
+   "tage": [
+    "2026-11-28"
+   ],
+   "beispiele": [
+    "Zwei Standort-Optionen für Mainzer Unimedizin gestrichen",
+    "Neustart: Krimifestival „Tatort Eifel“ stellt Programm vor"
+   ]
+  },
+  {
+   "quelle": "Jugendgerecht.de",
+   "id": "jugendgerecht",
+   "grund": "unklar",
+   "anzahl": 1,
+   "tage": [
+    "2026-11-28"
+   ],
+   "beispiele": [
+    "Bundesjugendkuratorium fordert Stärkung junger Menschen"
+   ]
+  },
   {
    "quelle": "Bildungsserver",
    "id": "bildungsserver",
@@ -41,6 +66,164 @@
   }
  ],
  "tage": [
+  {
+   "tag": "2026-11-28",
+   "von": "2026-11-26T03:10:34.258Z",
+   "bis": "2026-11-28T02:58:48.229Z",
+   "vorlaeufig": true,
+   "eintraege": 200,
+   "notion": 165,
+   "erfasst": 162,
+   "fehlt": 3,
+   "offen": 0,
+   "zusaetzlich": 19,
+   "vorsprungMinuten": 33,
+   "quellen": [
+    {
+     "name": "Allgemeine Zeitung",
+     "id": "az",
+     "notion": 81,
+     "erfasst": 79,
+     "fehlt": 2,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "SPIEGEL",
+     "id": "spiegel",
+     "notion": 42,
+     "erfasst": 42,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Jugendhilfeportal.de",
+     "id": "jugendhilfeportal",
+     "notion": 9,
+     "erfasst": 9,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 3
+    },
+    {
+     "name": "Bundestag",
+     "id": "bundestag",
+     "notion": 9,
+     "erfasst": 9,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Bildungsserver",
+     "id": "bildungsserver",
+     "notion": 8,
+     "erfasst": 8,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 4
+    },
+    {
+     "name": "Bundesministerium für Bildung, Familie, Senioren, Frauen und Jugend",
+     "id": "bmbfsfj",
+     "notion": 5,
+     "erfasst": 5,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 4
+    },
+    {
+     "name": "Landtag",
+     "id": "landtag",
+     "notion": 4,
+     "erfasst": 4,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 2
+    },
+    {
+     "name": "Mainz Pressemeldungen",
+     "id": "stadt-mainz",
+     "notion": 3,
+     "erfasst": 3,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Sozial.de",
+     "id": "sozial-de",
+     "notion": 1,
+     "erfasst": 1,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 4
+    },
+    {
+     "name": "Deutsches Jugendinstitut",
+     "id": "dji",
+     "notion": 1,
+     "erfasst": 1,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Jugendgerecht.de",
+     "id": "jugendgerecht",
+     "notion": 1,
+     "erfasst": 0,
+     "fehlt": 1,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Sensor",
+     "id": "sensor",
+     "notion": 1,
+     "erfasst": 1,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 0
+    },
+    {
+     "name": "Deutsches Institut für Urbanistik",
+     "id": "difu",
+     "notion": 0,
+     "erfasst": 0,
+     "fehlt": 0,
+     "offen": 0,
+     "zusaetzlich": 2
+    }
+   ],
+   "fehlend": [
+    {
+     "titel": "Zwei Standort-Optionen für Mainzer Unimedizin gestrichen",
+     "url": "https://www.allgemeine-zeitung.de/lokales/mainz/stadt-mainz/mainzer-unimedizin-zwei-standorte-gestrichen-beratung-standortsuche-7031308",
+     "quelle": "Allgemeine Zeitung",
+     "id": "az",
+     "zeit": "2026-11-26T09:39:00.000Z",
+     "grund": "unklar"
+    },
+    {
+     "titel": "Bundesjugendkuratorium fordert Stärkung junger Menschen",
+     "url": "https://www.jugendgerecht.de/eigenstaendige-jugendpolitik/aktuelles/bundesjugendkuratorium-fordert-staerkung-junger-menschen/",
+     "quelle": "Jugendgerecht.de",
+     "id": "jugendgerecht",
+     "zeit": "2026-11-26T21:20:00.000Z",
+     "grund": "unklar"
+    },
+    {
+     "titel": "Neustart: Krimifestival „Tatort Eifel“ stellt Programm vor",
+     "url": "https://www.allgemeine-zeitung.de/lokales/rheinland-pfalz/neustart-krimifestival-tatort-eifel-stellt-programm-vor-7062060",
+     "quelle": "Allgemeine Zeitung",
+     "id": "az",
+     "zeit": "2026-11-27T03:07:00.000Z",
+     "grund": "unklar"
+    }
+   ]
+  },
   {
    "tag": "2026-11-26",
    "von": "2026-11-24T03:40:17.777Z",
